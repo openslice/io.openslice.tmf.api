@@ -1,0 +1,42 @@
+server:
+  port: 13082
+  servlet:
+    context-path : /tmf-api/serviceCatalogManagement/v4/
+spring:
+  profiles: default
+  application:
+    name: openslice-service-catalog-management-api
+  datasource:
+    url: jdbc:mysql://localhost/osdb?createDatabaseIfNotExist=true
+    password: letmein0
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    generate-ddl: true
+    properties.hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext  
+  servlet:
+    multipart.max-file-size: 10MB
+    multipart.max-request-size: 10MB
+  jackson:
+    date-format: io.openslice.tmf.scm.RFC3339DateFormat
+    serialization.WRITE_DATES_AS_TIMESTAMPS: false
+
+logging:
+  level:
+    root: INFO
+    portal.api: INFO
+    org.springframework: INFO
+    org.apache.camel: INFO 
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d %p %c{1.} [%t] %m%n"
+    
+    
+swagger:
+  authserver: "http://localhost:13081/osapi-oauth-server"
+  clientid: "osapiWebClientId"
+  clientsecret: "secret"
+  

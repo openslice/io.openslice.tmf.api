@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = { "io.openslice.tmf.scm", "io.openslice.tmf.scm.configuration", "io.openslice.tmf.scm.model", "io.openslice.tmf.scm.sc.api"})
-public class OpanAPISpringBoot implements CommandLineRunner {
+public class OpenAPISpringBoot implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -21,7 +21,7 @@ public class OpanAPISpringBoot implements CommandLineRunner {
     }
 
     public static void main(String[] args) throws Exception {
-        new SpringApplication(OpanAPISpringBoot.class).run(args);
+        new SpringApplication(OpenAPISpringBoot.class).run(args);
     }
 
     class ExitException extends RuntimeException implements ExitCodeGenerator {

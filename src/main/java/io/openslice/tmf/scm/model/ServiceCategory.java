@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +54,7 @@ public class ServiceCategory {
 	private OffsetDateTime lastUpdate = null;
 
 	@JsonProperty("lifecycleStatus")
-	private String lifecycleStatus = null;
+	private String lifecycleStatus = ELifecycle.IN_STUDY.getValue();
 
 	@JsonProperty("name")
 	private String name = null;
@@ -198,7 +200,7 @@ public class ServiceCategory {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public ServiceCategory lifecycleStatus(String lifecycleStatus) {
+	public ServiceCategory lifecycleStatus( String lifecycleStatus) {
 		this.lifecycleStatus = lifecycleStatus;
 		return this;
 	}
@@ -214,8 +216,12 @@ public class ServiceCategory {
 		return lifecycleStatus;
 	}
 
-	public void setLifecycleStatus(String lifecycleStatus) {
+	public void setLifecycleStatus( String lifecycleStatus) {
 		this.lifecycleStatus = lifecycleStatus;
+	}
+	
+	public void setLifecycleStatusEnum( ELifecycle alifecycleStatus) {
+		this.lifecycleStatus = alifecycleStatus.getValue();
 	}
 
 	public ServiceCategory name(String name) {

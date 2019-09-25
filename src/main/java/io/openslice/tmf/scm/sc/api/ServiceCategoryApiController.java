@@ -47,10 +47,16 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 		this.request = request;
 	}
 
-	public ResponseEntity<ServiceCategory> createServiceCategory(
+	public ResponseEntity<?> createServiceCategory(
 			@ApiParam(value = "The ServiceCategory to be created", required = true) @Valid @RequestBody ServiceCategoryCreate serviceCategory) {
 
 		try {
+			
+			if ( serviceCategory.getCatalogId() == null ) {
+				Error e = new Error();
+				e.setMessage("catalogId not defined");
+				return (ResponseEntity<Error>) ResponseEntity.badRequest().body( e );
+			}
 
 			ServiceCategory c = categoryRepoService.addCategory(serviceCategory);
 

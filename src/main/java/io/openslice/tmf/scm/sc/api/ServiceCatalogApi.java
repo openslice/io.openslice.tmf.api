@@ -57,7 +57,6 @@ public interface ServiceCatalogApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceCatalog/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
     ResponseEntity<Void> deleteServiceCatalog(@ApiParam(value = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id);
 
@@ -74,7 +73,6 @@ public interface ServiceCatalogApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceCatalog",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<List<ServiceCatalog>> listServiceCatalog(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
 
@@ -108,7 +106,6 @@ public interface ServiceCatalogApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceCatalog/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<ServiceCatalog> retrieveServiceCatalog(@ApiParam(value = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
 

@@ -21,7 +21,6 @@ spring:
     multipart.max-file-size: 10MB
     multipart.max-request-size: 10MB
   jackson:
-    date-format: io.openslice.tmf.scm.RFC3339DateFormat
     serialization.WRITE_DATES_AS_TIMESTAMPS: false
 
 logging:

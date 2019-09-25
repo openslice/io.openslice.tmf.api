@@ -10,9 +10,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.openslice.tmf.scm.model.ELifecycle;
+import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.TimePeriod;
+import io.openslice.tmf.scm.sc.repo.CatalogRepository;
 import io.openslice.tmf.scm.sc.repo.CategoriesRepository;
 
 @Service
@@ -22,6 +25,11 @@ public class CategoryRepoService {
 	@Autowired
 	CategoriesRepository categsRepo;
 	
+
+
+	@Autowired
+	CatalogRepository catalogRepo;
+	
 	public ServiceCategory addCategory(ServiceCategory c) {
 
 		return this.categsRepo.save( c );
@@ -29,13 +37,19 @@ public class CategoryRepoService {
 
 	public ServiceCategory addCategory(@Valid ServiceCategoryCreate serviceCategory) {	
 		
+		ServiceCatalog scatalog = catalogRepo.findById( serviceCategory.getCatalogId()).get();
+		
 		ServiceCategory sc = new ServiceCategory() ;
 		sc.setName( serviceCategory.getName() );
 		sc.setDescription( serviceCategory.getDescription() );
 		sc.setIsRoot(serviceCategory.isIsRoot() );
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		sc.setParentId( serviceCategory.getParentId() );
-		sc.setLifecycleStatus( serviceCategory.getLifecycleStatus());
+		if ( serviceCategory.getLifecycleStatus() == null ) {
+			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
+		} else {
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCategory.getLifecycleStatus() ) );
+		}
 		sc.setVersion( serviceCategory.getVersion());
 		TimePeriod tp = new TimePeriod();
 		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
@@ -43,7 +57,12 @@ public class CategoryRepoService {
 		sc.setValidFor( tp );
 		
 		
-		return this.categsRepo.save( sc );
+		sc = this.categsRepo.save( sc );
+		
+		scatalog.getCategoryObj().add(sc);
+		catalogRepo.save( scatalog );
+		
+		return sc;
 	}
 
 	public List<ServiceCategory> findAll() {

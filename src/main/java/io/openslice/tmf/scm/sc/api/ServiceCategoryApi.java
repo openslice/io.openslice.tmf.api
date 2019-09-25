@@ -42,7 +42,7 @@ public interface ServiceCategoryApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<ServiceCategory> createServiceCategory(@ApiParam(value = "The ServiceCategory to be created" ,required=true )  @Valid @RequestBody ServiceCategoryCreate serviceCategory);
+    ResponseEntity<?> createServiceCategory(@ApiParam(value = "The ServiceCategory to be created" ,required=true )  @Valid @RequestBody ServiceCategoryCreate serviceCategory);
 
 
     @ApiOperation(value = "Deletes a ServiceCategory", nickname = "deleteServiceCategory", notes = "This operation deletes a ServiceCategory entity.", tags={ "serviceCategory", })

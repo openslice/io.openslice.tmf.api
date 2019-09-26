@@ -56,8 +56,7 @@ public interface ServiceCandidateApi {
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceCandidate/{id}",
-        produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
+        produces = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
     ResponseEntity<Void> deleteServiceCandidate(@ApiParam(value = "Identifier of the ServiceCandidate",required=true) @PathVariable("id") String id);
 
@@ -73,8 +72,7 @@ public interface ServiceCandidateApi {
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceCandidate",
-        produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
+        produces = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<List<ServiceCandidate>> listServiceCandidate(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
 
@@ -107,8 +105,7 @@ public interface ServiceCandidateApi {
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceCandidate/{id}",
-        produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
+        produces = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<ServiceCandidate> retrieveServiceCandidate(@ApiParam(value = "Identifier of the ServiceCandidate",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
 

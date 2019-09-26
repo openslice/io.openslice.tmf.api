@@ -7,7 +7,7 @@ spring:
   application:
     name: openslice-service-catalog-management-api
   datasource:
-    url: jdbc:mysql://localhost/osdb?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true
     password: letmein0
     username: root
   jpa:

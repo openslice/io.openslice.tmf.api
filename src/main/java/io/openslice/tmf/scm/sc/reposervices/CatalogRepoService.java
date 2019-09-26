@@ -15,6 +15,7 @@ import io.openslice.tmf.scm.model.ELifecycle;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm.model.ServiceCategory;
+import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.TimePeriod;
 import io.openslice.tmf.scm.sc.repo.CatalogRepository;
 import io.openslice.tmf.scm.sc.repo.CategoriesRepository;
@@ -26,8 +27,6 @@ public class CatalogRepoService {
 	@Autowired
 	CatalogRepository catalogRepo;	
 
-	@Autowired
-	CategoriesRepository categsRepo;
 	
 	public ServiceCatalog addCatalog(ServiceCatalog c) {
 
@@ -75,33 +74,23 @@ public class CatalogRepoService {
 	@PostConstruct
 	public void initRepo() {
 		if ( this.findAll().size() == 0 ) {
-			ServiceCatalog sc = new ServiceCatalog() ;
+			ServiceCatalogCreate sc = new ServiceCatalogCreate() ;
 			sc.setName( "Catalog" );
 			sc.setDescription( "Primary Catalog" );
-			sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );			
-			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
+			sc.setVersion( "1.0" );		
+			ServiceCatalog scatalog = this.addCatalog(sc);
 			
-			sc.setVersion( "1.0" );
-			TimePeriod tp = new TimePeriod();
-			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
-			sc.setValidFor( tp );			
-			
-			//sc = this.catalogRepo.save( sc );
-			
-			ServiceCategory scat = new ServiceCategory() ;
-			scat.setName( "Generic Service" );
-			scat.setDescription( "Generic services" );
-			scat.setIsRoot( true );
+			ServiceCategory scat = new ServiceCategory();
+			scat.setName("Generic Services");
+			scat.setDescription("Generic Services of this catalog");
+			scat.setVersion("1.0");
 			scat.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 			scat.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-			scat.setVersion( "1.0" );
-			sc.setValidFor( tp );
-						
-			//this.categsRepo.save( scat );
+			scat.setVersion( "1.0");
+			scat.setValidFor(sc.getValidFor());
+			scatalog.getCategoryObj().add( scat );
+			this.catalogRepo.save(scatalog);
 			
-			sc.getCategoryObj().add(scat);
-			sc = this.catalogRepo.save( sc );
 			
 		}
 	}

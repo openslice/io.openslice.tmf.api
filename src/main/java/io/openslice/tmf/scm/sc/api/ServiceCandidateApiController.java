@@ -6,9 +6,13 @@ import io.openslice.tmf.scm.model.Error;
 import io.openslice.tmf.scm.model.ServiceCandidate;
 import io.openslice.tmf.scm.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm.model.ServiceCandidateUpdate;
+import io.openslice.tmf.scm.model.ServiceCatalog;
+import io.openslice.tmf.scm.sc.reposervices.CandidateRepoService;
+import io.openslice.tmf.scm.sc.reposervices.CatalogRepoService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,75 +35,64 @@ public class ServiceCandidateApiController implements ServiceCandidateApi {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceCandidateApiController.class);
 
-    private final ObjectMapper objectMapper;
-
     private final HttpServletRequest request;
+    
+	@Autowired
+	CandidateRepoService candidateRepoService;
+
 
     @org.springframework.beans.factory.annotation.Autowired
     public ServiceCandidateApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
         this.request = request;
     }
 
     public ResponseEntity<ServiceCandidate> createServiceCandidate(@ApiParam(value = "The ServiceCandidate to be created" ,required=true )  @Valid @RequestBody ServiceCandidateCreate serviceCandidate) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<ServiceCandidate>(objectMapper.readValue("{  \"lifecycleStatus\" : \"lifecycleStatus\",  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"serviceSpecification\" : {    \"targetServiceSchema\" : {      \"@baseType\" : \"@baseType\",      \"@type\" : \"@type\",      \"@schemaLocation\" : \"@schemaLocation\"    },    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"version\" : \"version\"  },  \"description\" : \"description\",  \"version\" : \"version\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"@schemaLocation\" : \"http://example.com/aeiou\"}", ServiceCandidate.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ServiceCandidate>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+    	try {
 
-        return new ResponseEntity<ServiceCandidate>(HttpStatus.NOT_IMPLEMENTED);
+    		ServiceCandidate c = candidateRepoService.addCatalog( serviceCandidate );
+
+			return new ResponseEntity<ServiceCandidate>(c, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<ServiceCandidate>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
 
     public ResponseEntity<Void> deleteServiceCandidate(@ApiParam(value = "Identifier of the ServiceCandidate",required=true) @PathVariable("id") String id) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    	try {
+
+			return new ResponseEntity<Void>( candidateRepoService.deleteById( id ), HttpStatus.OK);
+		} catch ( Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
 
     public ResponseEntity<List<ServiceCandidate>> listServiceCandidate(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<ServiceCandidate>>(objectMapper.readValue("[ {  \"lifecycleStatus\" : \"lifecycleStatus\",  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"serviceSpecification\" : {    \"targetServiceSchema\" : {      \"@baseType\" : \"@baseType\",      \"@type\" : \"@type\",      \"@schemaLocation\" : \"@schemaLocation\"    },    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"version\" : \"version\"  },  \"description\" : \"description\",  \"version\" : \"version\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"@schemaLocation\" : \"http://example.com/aeiou\"}, {  \"lifecycleStatus\" : \"lifecycleStatus\",  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"serviceSpecification\" : {    \"targetServiceSchema\" : {      \"@baseType\" : \"@baseType\",      \"@type\" : \"@type\",      \"@schemaLocation\" : \"@schemaLocation\"    },    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"version\" : \"version\"  },  \"description\" : \"description\",  \"version\" : \"version\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"@schemaLocation\" : \"http://example.com/aeiou\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<ServiceCandidate>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<List<ServiceCandidate>>(HttpStatus.NOT_IMPLEMENTED);
+    	  String accept = request.getHeader("Accept");
+          try {
+  			return new ResponseEntity<List<ServiceCandidate>>( candidateRepoService.findAll() , HttpStatus.OK);
+  			
+  		} catch (Exception e) {
+  			log.error("Couldn't serialize response for content type application/json", e);
+  			return new ResponseEntity<List<ServiceCandidate>>(HttpStatus.INTERNAL_SERVER_ERROR);
+  		}
     }
 
     public ResponseEntity<ServiceCandidate> patchServiceCandidate(@ApiParam(value = "Identifier of the ServiceCandidate",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceCandidate to be updated" ,required=true )  @Valid @RequestBody ServiceCandidateUpdate serviceCandidate) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<ServiceCandidate>(objectMapper.readValue("{  \"lifecycleStatus\" : \"lifecycleStatus\",  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"serviceSpecification\" : {    \"targetServiceSchema\" : {      \"@baseType\" : \"@baseType\",      \"@type\" : \"@type\",      \"@schemaLocation\" : \"@schemaLocation\"    },    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"version\" : \"version\"  },  \"description\" : \"description\",  \"version\" : \"version\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"@schemaLocation\" : \"http://example.com/aeiou\"}", ServiceCandidate.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ServiceCandidate>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+        
 
         return new ResponseEntity<ServiceCandidate>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<ServiceCandidate> retrieveServiceCandidate(@ApiParam(value = "Identifier of the ServiceCandidate",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<ServiceCandidate>(objectMapper.readValue("{  \"lifecycleStatus\" : \"lifecycleStatus\",  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"serviceSpecification\" : {    \"targetServiceSchema\" : {      \"@baseType\" : \"@baseType\",      \"@type\" : \"@type\",      \"@schemaLocation\" : \"@schemaLocation\"    },    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"version\" : \"version\"  },  \"description\" : \"description\",  \"version\" : \"version\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"@schemaLocation\" : \"http://example.com/aeiou\"}", ServiceCandidate.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ServiceCandidate>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+    	try {
 
-        return new ResponseEntity<ServiceCandidate>(HttpStatus.NOT_IMPLEMENTED);
+			return new ResponseEntity<ServiceCandidate>( candidateRepoService.findById( id ), HttpStatus.OK);
+		} catch ( Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<ServiceCandidate>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
 
 }

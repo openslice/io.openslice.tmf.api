@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 
@@ -32,38 +33,16 @@ import io.swagger.annotations.ApiModelProperty;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceCategory")
-public class ServiceCategory {
+@Table( name = "ServiceCategory" )
+public class ServiceCategory extends BaseEntity {
 
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@JsonProperty("id")
-	private String id = null;
-
-	@Transient
-	@JsonProperty("href")
-	private String href = null;
-
-	@JsonProperty("description")
-	private String description = null;
 
 	@JsonProperty("isRoot")
 	private Boolean isRoot = null;
 
-	@JsonProperty("lastUpdate")
-	private OffsetDateTime lastUpdate = null;
-
-	@JsonProperty("lifecycleStatus")
-	private String lifecycleStatus = ELifecycle.IN_STUDY.getValue();
-
-	@JsonProperty("name")
-	private String name = null;
 
 	@JsonProperty("parentId")
 	private String parentId = null;
-
-	@JsonProperty("version")
-	private String version = null;
 
 
 	@Transient
@@ -77,87 +56,15 @@ public class ServiceCategory {
 	@Valid
 	private List<ServiceCandidateRef> serviceCandidate = null;
 
-	@JsonProperty("validFor")
-	@Embedded
-	private TimePeriod validFor = null;
 
-
-	@Transient
-	@JsonProperty("@baseType")
-	private String baseType = "Category";
-
-	@JsonProperty("@schemaLocation")
-	private String schemaLocation = null;
-
-
-	@Transient
-	@JsonProperty("@type")
-	private String type =  "ServiceCategory";
-
-	public ServiceCategory id(String id) {
-		this.id = id;
-		return this;
+	public ServiceCategory() {
+		super();
+		this.baseType = "BaseEntity";
+		this.type = "ServiceCategory";
 	}
 
-	/**
-	 * Unique identifier of the category
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "Unique identifier of the category")
+	
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public ServiceCategory href(String href) {
-		this.href = href;
-		return this;
-	}
-
-	/**
-	 * Reference of the category
-	 * 
-	 * @return href
-	 **/
-	@ApiModelProperty(value = "Reference of the category")
-
-	public String getHref() {
-		return href;
-	}
-
-	public void setHref(String href) {
-		this.href = href;
-	}
-
-	public ServiceCategory description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Description of the category
-	 * 
-	 * @return description
-	 **/
-	@ApiModelProperty(value = "Description of the category")
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ServiceCategory isRoot(Boolean isRoot) {
-		this.isRoot = isRoot;
-		return this;
-	}
 
 	/**
 	 * If true, this Boolean indicates that the category is a root of categories
@@ -178,76 +85,7 @@ public class ServiceCategory {
 		}
 	}
 
-	public ServiceCategory lastUpdate(OffsetDateTime lastUpdate) {
-		this.lastUpdate = lastUpdate;
-		return this;
-	}
 
-	/**
-	 * Date and time of the last update
-	 * 
-	 * @return lastUpdate
-	 **/
-	@ApiModelProperty(value = "Date and time of the last update")
-
-	@Valid
-
-	public OffsetDateTime getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(OffsetDateTime lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
-
-	public ServiceCategory lifecycleStatus( String lifecycleStatus) {
-		this.lifecycleStatus = lifecycleStatus;
-		return this;
-	}
-
-	/**
-	 * Used to indicate the current lifecycle status
-	 * 
-	 * @return lifecycleStatus
-	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status")
-
-	public String getLifecycleStatus() {
-		return lifecycleStatus;
-	}
-
-	public void setLifecycleStatus( String lifecycleStatus) {
-		this.lifecycleStatus = lifecycleStatus;
-	}
-	
-	public void setLifecycleStatusEnum( ELifecycle alifecycleStatus) {
-		this.lifecycleStatus = alifecycleStatus.getValue();
-	}
-
-	public ServiceCategory name(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * Name of the category
-	 * 
-	 * @return name
-	 **/
-	@ApiModelProperty(value = "Name of the category")
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public ServiceCategory parentId(String parentId) {
-		this.parentId = parentId;
-		return this;
-	}
 
 	/**
 	 * Unique identifier of the parent category
@@ -264,25 +102,7 @@ public class ServiceCategory {
 		this.parentId = parentId;
 	}
 
-	public ServiceCategory version(String version) {
-		this.version = version;
-		return this;
-	}
 
-	/**
-	 * ServiceCategory version
-	 * 
-	 * @return version
-	 **/
-	@ApiModelProperty(value = "ServiceCategory version")
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
 
 	public ServiceCategory category(List<ServiceCategoryRef> category) {
 		this.category = category;
@@ -344,88 +164,6 @@ public class ServiceCategory {
 		this.serviceCandidate = serviceCandidate;
 	}
 
-	public ServiceCategory validFor(TimePeriod validFor) {
-		this.validFor = validFor;
-		return this;
-	}
-
-	/**
-	 * The period for which the category is valid
-	 * 
-	 * @return validFor
-	 **/
-	@ApiModelProperty(value = "The period for which the category is valid")
-
-	@Valid
-
-	public TimePeriod getValidFor() {
-		return validFor;
-	}
-
-	public void setValidFor(TimePeriod validFor) {
-		this.validFor = validFor;
-	}
-
-//	public ServiceCategory baseType(String baseType) {
-//		this.baseType = baseType;
-//		return this;
-//	}
-
-	/**
-	 * When sub-classing, this defines the super-class
-	 * 
-	 * @return baseType
-	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-	public String getBaseType() {
-		return baseType;
-	}
-//
-//	public void setBaseType(String baseType) {
-//		this.baseType = baseType;
-//	}
-
-	public ServiceCategory schemaLocation(String schemaLocation) {
-		this.schemaLocation = schemaLocation;
-		return this;
-	}
-
-	/**
-	 * A URI to a JSON-Schema file that defines additional attributes and
-	 * relationships
-	 * 
-	 * @return schemaLocation
-	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-	public String getSchemaLocation() {
-		return schemaLocation;
-	}
-
-	public void setSchemaLocation(String schemaLocation) {
-		this.schemaLocation = schemaLocation;
-	}
-
-	public ServiceCategory type(String type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * When sub-classing, this defines the sub-class entity name
-	 * 
-	 * @return type
-	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {

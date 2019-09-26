@@ -1,6 +1,5 @@
 package io.openslice.tmf.scm.sc.api;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm.model.ServiceCatalogUpdate;
-import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.sc.reposervices.CatalogRepoService;
 import io.swagger.annotations.ApiParam;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
@@ -31,8 +29,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceCatalogApiController.class);
 
-    private final ObjectMapper objectMapper;
-
+   
     private final HttpServletRequest request;
     
 
@@ -41,7 +38,6 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 
     @org.springframework.beans.factory.annotation.Autowired
     public ServiceCatalogApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
         this.request = request;
     }
 

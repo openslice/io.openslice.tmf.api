@@ -19,16 +19,8 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
-public class ServiceSpecCharRelationship   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
+public class ServiceSpecCharRelationship extends BaseRootEntity  {
+ 
   @JsonProperty("relationshipType")
   private String relationshipType = null;
 
@@ -38,75 +30,13 @@ public class ServiceSpecCharRelationship   {
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
+ 
   public ServiceSpecCharRelationship id(String id) {
     this.id = id;
     return this;
   }
 
-  /**
-   * Unique identifier of the target specification
-   * @return id
-  **/
-  @ApiModelProperty(value = "Unique identifier of the target specification")
-
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ServiceSpecCharRelationship href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Hyperlink reference to the target specification
-   * @return href
-  **/
-  @ApiModelProperty(value = "Hyperlink reference to the target specification")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ServiceSpecCharRelationship name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the target  characteristic
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the target  characteristic")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
+ 
   public ServiceSpecCharRelationship relationshipType(String relationshipType) {
     this.relationshipType = relationshipType;
     return this;
@@ -168,66 +98,7 @@ public class ServiceSpecCharRelationship   {
     this.validFor = validFor;
   }
 
-  public ServiceSpecCharRelationship baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ServiceSpecCharRelationship schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ServiceSpecCharRelationship type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
+ 
 
   @Override
   public boolean equals(java.lang.Object o) {

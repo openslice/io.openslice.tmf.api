@@ -1,16 +1,15 @@
 package io.openslice.tmf.scm.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.scm.model.TargetServiceSchema;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.
@@ -18,96 +17,19 @@ import javax.validation.constraints.*;
 @ApiModel(description = "Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
-
-public class ServiceSpecificationRef   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
+public class ServiceSpecificationRef  extends BaseRootEntity {
+ 
   @JsonProperty("version")
   private String version = null;
 
   @JsonProperty("targetServiceSchema")
   private TargetServiceSchema targetServiceSchema = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
+ 
   @JsonProperty("@referredType")
   private String referredType = null;
 
-  public ServiceSpecificationRef id(String id) {
-    this.id = id;
-    return this;
-  }
 
-  /**
-   * Unique identifier of the service specification
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "Unique identifier of the service specification")
-  @NotNull
-
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ServiceSpecificationRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the serviceSpecification
-   * @return href
-  **/
-  @ApiModelProperty(required = true, value = "Reference of the serviceSpecification")
-  @NotNull
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ServiceSpecificationRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the requiredServiceSpecification
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the requiredServiceSpecification")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public ServiceSpecificationRef version(String version) {
     this.version = version;
@@ -150,65 +72,7 @@ public class ServiceSpecificationRef   {
     this.targetServiceSchema = targetServiceSchema;
   }
 
-  public ServiceSpecificationRef baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
 
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ServiceSpecificationRef schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ServiceSpecificationRef type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
   public ServiceSpecificationRef referredType(String referredType) {
     this.referredType = referredType;

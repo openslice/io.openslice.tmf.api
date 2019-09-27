@@ -16,28 +16,14 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
-public class AttachmentRef   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
+public class AttachmentRef  extends BaseRootEntity {
+  
   @JsonProperty("description")
   private String description = null;
 
   @JsonProperty("url")
   private String url = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
+  
   @JsonProperty("@referredType")
   private String referredType = null;
 
@@ -46,42 +32,6 @@ public class AttachmentRef   {
     return this;
   }
 
-  /**
-   * Unique-Identifier for this attachment
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "Unique-Identifier for this attachment")
-  @NotNull
-
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public AttachmentRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * URL serving as reference for the attachment resource
-   * @return href
-  **/
-  @ApiModelProperty(required = true, value = "URL serving as reference for the attachment resource")
-  @NotNull
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
 
   public AttachmentRef description(String description) {
     this.description = description;
@@ -123,65 +73,7 @@ public class AttachmentRef   {
     this.url = url;
   }
 
-  public AttachmentRef baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
 
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public AttachmentRef schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public AttachmentRef type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
   public AttachmentRef referredType(String referredType) {
     this.referredType = referredType;

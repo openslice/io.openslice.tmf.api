@@ -1,32 +1,25 @@
 package io.openslice.tmf.scm.model;
 
-import java.util.Objects;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.scm.model.ServiceCategoryRef;
-import io.openslice.tmf.scm.model.ServiceSpecificationRef;
-import io.openslice.tmf.scm.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.time.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ServiceCandidate is an entity that makes a service specification available to

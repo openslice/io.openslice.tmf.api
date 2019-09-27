@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -28,31 +30,13 @@ import javax.validation.constraints.*;
 @ApiModel(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@Entity(name = "ServiceSpecification")
+public class ServiceSpecification extends BaseEntity  {
 
-public class ServiceSpecification   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("description")
-  private String description = null;
 
   @JsonProperty("isBundle")
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
-  private OffsetDateTime lastUpdate = null;
-
-  @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("version")
-  private String version = null;
 
   @JsonProperty("attachment")
   @Valid
@@ -81,77 +65,8 @@ public class ServiceSpecification   {
   @JsonProperty("targetServiceSchema")
   private TargetServiceSchema targetServiceSchema = null;
 
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  public ServiceSpecification id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Unique identifier of the service specification
-   * @return id
-  **/
-  @ApiModelProperty(value = "Unique identifier of the service specification")
 
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ServiceSpecification href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the service specification
-   * @return href
-  **/
-  @ApiModelProperty(value = "Reference of the service specification")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ServiceSpecification description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * A narrative that explains in detail what the service specification is
-   * @return description
-  **/
-  @ApiModelProperty(value = "A narrative that explains in detail what the service specification is")
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
 
   public ServiceSpecification isBundle(Boolean isBundle) {
     this.isBundle = isBundle;
@@ -173,86 +88,6 @@ public class ServiceSpecification   {
     this.isBundle = isBundle;
   }
 
-  public ServiceSpecification lastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-    return this;
-  }
-
-  /**
-   * Date and time of the last update of the service specification
-   * @return lastUpdate
-  **/
-  @ApiModelProperty(value = "Date and time of the last update of the service specification")
-
-  @Valid
-
-  public OffsetDateTime getLastUpdate() {
-    return lastUpdate;
-  }
-
-  public void setLastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-  }
-
-  public ServiceSpecification lifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-    return this;
-  }
-
-  /**
-   * Used to indicate the current lifecycle status of the service specification
-   * @return lifecycleStatus
-  **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status of the service specification")
-
-
-  public String getLifecycleStatus() {
-    return lifecycleStatus;
-  }
-
-  public void setLifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-  }
-
-  public ServiceSpecification name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the service specification
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the service specification")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ServiceSpecification version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Service specification version
-   * @return version
-  **/
-  @ApiModelProperty(value = "Service specification version")
-
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
 
   public ServiceSpecification attachment(List<AttachmentRef> attachment) {
     this.attachment = attachment;
@@ -449,66 +284,6 @@ public class ServiceSpecification   {
     this.targetServiceSchema = targetServiceSchema;
   }
 
-  public ServiceSpecification validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
-
-  /**
-   * The period for which the service specification is valid
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period for which the service specification is valid")
-
-  @Valid
-
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
-
-  public ServiceSpecification baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ServiceSpecification schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
 
   public ServiceSpecification type(String type) {
     this.type = type;

@@ -23,7 +23,7 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
-public class ServiceSpecCharacteristic   {
+public class ServiceSpecCharacteristic extends BaseRootEntity  {
   @JsonProperty("configurable")
   private Boolean configurable = null;
 
@@ -42,9 +42,6 @@ public class ServiceSpecCharacteristic   {
   @JsonProperty("minCardinality")
   private Integer minCardinality = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
   @JsonProperty("regex")
   private String regex = null;
 
@@ -62,14 +59,6 @@ public class ServiceSpecCharacteristic   {
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   @JsonProperty("@valueSchemaLocation")
   private String valueSchemaLocation = null;
@@ -78,6 +67,13 @@ public class ServiceSpecCharacteristic   {
     this.configurable = configurable;
     return this;
   }
+  
+  
+  public ServiceSpecCharacteristic() {
+		super();
+		this.baseType = "BaseRootEntity";
+		this.type = this.getClass().getName();
+	}
 
   /**
    * If true, the Boolean indicates that the serviceSpecCharacteristic is configurable
@@ -194,25 +190,6 @@ public class ServiceSpecCharacteristic   {
     this.minCardinality = minCardinality;
   }
 
-  public ServiceSpecCharacteristic name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.
-   * @return name
-  **/
-  @ApiModelProperty(value = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public ServiceSpecCharacteristic regex(String regex) {
     this.regex = regex;
@@ -333,65 +310,6 @@ public class ServiceSpecCharacteristic   {
     this.validFor = validFor;
   }
 
-  public ServiceSpecCharacteristic baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ServiceSpecCharacteristic schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ServiceSpecCharacteristic type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
   public ServiceSpecCharacteristic valueSchemaLocation(String valueSchemaLocation) {
     this.valueSchemaLocation = valueSchemaLocation;

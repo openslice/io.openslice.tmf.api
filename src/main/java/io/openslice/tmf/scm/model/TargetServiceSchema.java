@@ -1,13 +1,10 @@
 package io.openslice.tmf.scm.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.annotations.ApiModel;
 
 /**
  * The reference object to the schema and type of target service which is described by service specification
@@ -16,77 +13,8 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
-public class TargetServiceSchema   {
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  public TargetServiceSchema baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public TargetServiceSchema schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * This field provides a link to the schema describing the target service
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target service")
-  @NotNull
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public TargetServiceSchema type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Class type of the target service
-   * @return type
-  **/
-  @ApiModelProperty(required = true, value = "Class type of the target service")
-  @NotNull
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
+public class TargetServiceSchema extends BaseRootEntity  {
+ 
 
 
   @Override

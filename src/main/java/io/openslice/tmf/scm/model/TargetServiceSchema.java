@@ -2,6 +2,9 @@ package io.openslice.tmf.scm.model;
 
 import java.util.Objects;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+
 import org.springframework.validation.annotation.Validated;
 
 import io.swagger.annotations.ApiModel;
@@ -13,6 +16,7 @@ import io.swagger.annotations.ApiModel;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
+@Embeddable
 public class TargetServiceSchema extends BaseRootEntity  {
  
 

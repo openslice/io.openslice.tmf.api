@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
@@ -47,6 +48,7 @@ public class ServiceCatalog extends BaseEntity{
 		
 	@OneToMany(cascade = {  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable()	
+	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
 	
 	
@@ -86,6 +88,7 @@ public class ServiceCatalog extends BaseEntity{
 			scr.setId( serviceCategory.getId());
 			scr.setName( serviceCategory.getName());
 			scr.setBaseType( ServiceCategoryRef.class.getName() );
+			category.add(scr);
 			
 		}
 		

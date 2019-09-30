@@ -87,7 +87,11 @@ public class CatalogRepoService {
 			scat.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 			scat.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
 			scat.setVersion( "1.0");
-			scat.setValidFor(sc.getValidFor());
+			TimePeriod tp = new TimePeriod();
+			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
+			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
+			scat.setValidFor( tp );
+			scat.setIsRoot( true );
 			scatalog.getCategoryObj().add( scat );
 			this.catalogRepo.save(scatalog);
 			

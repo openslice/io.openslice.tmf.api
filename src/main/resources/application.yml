@@ -22,6 +22,7 @@ spring:
     multipart.max-request-size: 10MB
   jackson:
     serialization.WRITE_DATES_AS_TIMESTAMPS: false
+    date-format: yyyy-MM-dd HH:mm:ss
 
 logging:
   level:

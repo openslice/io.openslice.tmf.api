@@ -17,6 +17,8 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 public class MvcConfig implements WebMvcConfigurer {
 	@Autowired
 	Environment env;
+	
+	
 
 	public MvcConfig() {
 		super();
@@ -48,6 +50,7 @@ public class MvcConfig implements WebMvcConfigurer {
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
 	}
+	
 	
 
 }

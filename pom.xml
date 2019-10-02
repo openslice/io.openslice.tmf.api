@@ -1,17 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  	<parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
 		<groupId>io.openslice</groupId>
 		<artifactId>io.openslice.main</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../../git/io.openslice.main</relativePath>
 	</parent>
-  
 
-  <artifactId>io.openslice.tmf.api</artifactId>
-  <name>io.openslice.tmf.api</name>
-  <url>http://maven.apache.org</url>
+
+	<artifactId>io.openslice.tmf.api</artifactId>
+	<name>io.openslice.tmf.api</name>
+	<url>http://maven.apache.org</url>
 
 
 	<properties>
@@ -47,14 +48,14 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>20.0</version>
-            </dependency>
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>20.0</version>
+			</dependency>
 		</dependencies>
-		
+
 	</dependencyManagement>
 
 
@@ -97,6 +98,10 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate5</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
 
 
 
@@ -113,7 +118,7 @@
 			<version>${swagger.version}</version>
 		</dependency>
 
-		
+
 
 		<!-- Testing -->
 

@@ -49,7 +49,7 @@ public class ServiceCandidateApiController implements ServiceCandidateApi {
     public ResponseEntity<ServiceCandidate> createServiceCandidate(@ApiParam(value = "The ServiceCandidate to be created" ,required=true )  @Valid @RequestBody ServiceCandidateCreate serviceCandidate) {
     	try {
 
-    		ServiceCandidate c = candidateRepoService.addCatalog( serviceCandidate );
+    		ServiceCandidate c = candidateRepoService.addServiceCandidate( serviceCandidate );
 
 			return new ResponseEntity<ServiceCandidate>(c, HttpStatus.OK);
 		} catch (Exception e) {

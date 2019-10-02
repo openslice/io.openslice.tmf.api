@@ -2,7 +2,6 @@ package io.openslice.tmf.scm.sc.api;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
@@ -29,17 +26,11 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceCatalogApiController.class);
 
-   
-    private final HttpServletRequest request;
     
 
 	@Autowired
 	CatalogRepoService catalogRepoService;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public ServiceCatalogApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.request = request;
-    }
 
     public ResponseEntity<ServiceCatalog> createServiceCatalog(
     		@ApiParam(value = "The ServiceCatalog to be created" ,required=true )  @Valid @RequestBody ServiceCatalogCreate serviceCatalog) {
@@ -65,7 +56,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
     }
 
     public ResponseEntity<List<ServiceCatalog>> listServiceCatalog(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
-        String accept = request.getHeader("Accept");
+       
         try {
 			return new ResponseEntity<List<ServiceCatalog>>( catalogRepoService.findAll() , HttpStatus.OK);
 			

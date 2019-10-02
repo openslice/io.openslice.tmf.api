@@ -37,7 +37,7 @@ public class CandidateRepoService {
 		return this.candidateRepo.save( c );
 	}
 
-	public ServiceCandidate addCatalog(@Valid ServiceCandidateCreate serviceCand) {	
+	public ServiceCandidate addServiceCandidate(@Valid ServiceCandidateCreate serviceCand) {	
 		
 		ServiceCandidate sc = new ServiceCandidate() ;
 		sc.setName( serviceCand.getName() );

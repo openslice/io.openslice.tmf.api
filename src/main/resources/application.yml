@@ -20,9 +20,9 @@ spring:
   servlet:
     multipart.max-file-size: 10MB
     multipart.max-request-size: 10MB
-  jackson:
-    serialization.WRITE_DATES_AS_TIMESTAMPS: false
-    date-format: yyyy-MM-dd HH:mm:ss
+//  jackson:
+//    serialization.WRITE_DATES_AS_TIMESTAMPS: false
+//    date-format: yyyy-MM-dd HH:mm:ss
 
 logging:
   level:

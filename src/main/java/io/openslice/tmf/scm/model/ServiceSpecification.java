@@ -77,6 +77,12 @@ public class ServiceSpecification extends BaseEntity {
 	@JsonProperty("targetServiceSchema")
 	private TargetServiceSchema targetServiceSchema = null;
 
+	public ServiceSpecification() {
+		super();
+		this.baseType = "BaseEntity";
+		this.type = "ServiceSpecification";
+	}
+	
 	public ServiceSpecification isBundle(Boolean isBundle) {
 		this.isBundle = isBundle;
 		return this;

@@ -3,9 +3,11 @@ package io.openslice.tmf.scm.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.validation.Valid;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,6 +27,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class BaseEntity extends BaseRootEntity{
 
 
+	@Lob
+	@Column(name = "LDESCRIPTION", columnDefinition = "LONGTEXT")
 	@JsonProperty("description")
 	protected String description = null;
 

@@ -5,6 +5,7 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,15 @@ public class ServiceSpecificationRepoService {
 		this.serviceSpecificationRepo.delete( optionalCat.get());
 		return null;
 		
+	}
+	
+	@PostConstruct
+	public void initRepo() {
+		if ( this.findAll().size() == 0 ) {
+			
+			
+			
+		}
 	}
 
 }

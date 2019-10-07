@@ -220,5 +220,14 @@ public class ServiceCatalog extends BaseEntity{
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
+	public boolean containsCategory(ServiceCategoryRef scref) {
+		for (ServiceCategoryRef serviceCategoryRef : category) {
+			if ( serviceCategoryRef.getId().equals(scref.getId()) ){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 }

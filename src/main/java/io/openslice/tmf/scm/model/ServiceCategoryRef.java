@@ -24,6 +24,9 @@ import io.swagger.annotations.ApiModelProperty;
 @Table( name = "ServiceCategoryRef" )
 public class ServiceCategoryRef extends BaseRootEntity {
 
+	id must be same as Category that references.....
+	
+	
 	@JsonProperty("@referredType")
 	private String referredType = null;
 

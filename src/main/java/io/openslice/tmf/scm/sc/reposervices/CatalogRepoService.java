@@ -120,6 +120,13 @@ public class CatalogRepoService {
 		tp.setStartDateTime( serviceCatalog.getValidFor().getStartDateTime() );
 		tp.setEndDateTime( serviceCatalog.getValidFor().getEndDateTime() );
 		sc.setValidFor( tp );
+				
+		for (ServiceCategoryRef scref : serviceCatalog.getCategory()) {
+			if (!sc.containsCategory( scref)){
+				sc.getCategory().add( scref );				
+			}
+		}
+		
 		return this.catalogRepo.save( sc );
 	}
 

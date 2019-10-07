@@ -25,36 +25,36 @@ import javax.validation.constraints.*;
 
 public class ServiceCatalogUpdate   {
   @JsonProperty("description")
-  private String description = null;
+protected String description = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("category")
   @Valid
-  private List<ServiceCategoryRef> category = null;
+  protected List<ServiceCategoryRef> category = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   public ServiceCatalogUpdate description(String description) {
     this.description = description;

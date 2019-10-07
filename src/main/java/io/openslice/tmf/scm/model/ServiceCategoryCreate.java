@@ -45,8 +45,6 @@ public class ServiceCategoryCreate {
 	@JsonProperty("parentId")
 	private String parentId = null;
 
-	@JsonProperty("catalogId")
-	private String catalogId = null;
 
 	@JsonProperty("version")
 	private String version = null;
@@ -357,19 +355,6 @@ public class ServiceCategoryCreate {
 		this.type = type;
 	}
 
-	/**
-	 * @return the catalogId
-	 */
-	public String getCatalogId() {
-		return catalogId;
-	}
-
-	/**
-	 * @param catalogId the catalogId to set
-	 */
-	public void setCatalogId(String catalogId) {
-		this.catalogId = catalogId;
-	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {

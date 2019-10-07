@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 import io.openslice.tmf.scm.model.ELifecycle;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
+import io.openslice.tmf.scm.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
+import io.openslice.tmf.scm.model.ServiceCategoryRef;
 import io.openslice.tmf.scm.model.TimePeriod;
 import io.openslice.tmf.scm.sc.repo.CatalogRepository;
 import io.openslice.tmf.scm.sc.repo.CategoriesRepository;
@@ -26,6 +28,10 @@ public class CatalogRepoService {
 
 	@Autowired
 	CatalogRepository catalogRepo;	
+	
+
+	@Autowired
+	CategoryRepoService categRepoService;	
 
 	
 	public ServiceCatalog addCatalog(ServiceCatalog c) {
@@ -80,23 +86,41 @@ public class CatalogRepoService {
 			sc.setVersion( "1.0" );		
 			ServiceCatalog scatalog = this.addCatalog(sc);
 			
-			ServiceCategory scat = new ServiceCategory();
-			scat.setName("Generic Services");
-			scat.setDescription("Generic Services of this catalog");
-			scat.setVersion("1.0");
-			scat.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
-			scat.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-			scat.setVersion( "1.0");
-			TimePeriod tp = new TimePeriod();
-			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
-			scat.setValidFor( tp );
-			scat.setIsRoot( true );
-			scatalog.getCategoryObj().add( scat );
+			ServiceCategoryCreate scatCreate = new ServiceCategoryCreate();
+			scatCreate.setName("Generic Services");
+			scatCreate.setDescription("Generic Services of this catalog");
+			scatCreate.setVersion("1.0");
+			scatCreate.setIsRoot( true );
+			ServiceCategory scategory = this.categRepoService.addCategory(scatCreate);
+			
+			
+			
+			ServiceCategoryRef scatRef = new ServiceCategoryRef();
+			scatRef.setId( scategory.getId() );
+			scatRef.setName( scategory.getName() );
+			scatalog.getCategory().add( scatRef  );
 			this.catalogRepo.save(scatalog);
 			
 			
 		}
+	}
+
+	public ServiceCatalog updateCatalog(String id,  ServiceCatalogUpdate serviceCatalog) {
+
+		Optional<ServiceCatalog> optSC = catalogRepo.findById( id );		
+		if ( optSC == null ) {
+			return null;
+		}
+		ServiceCatalog sc = optSC.get();
+		sc.setName( serviceCatalog.getName()  );
+		sc.setLifecycleStatus( serviceCatalog.getLifecycleStatus() );
+		sc.setVersion( serviceCatalog.getVersion() );
+		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
+		TimePeriod tp = new TimePeriod();
+		tp.setStartDateTime( serviceCatalog.getValidFor().getStartDateTime() );
+		tp.setEndDateTime( serviceCatalog.getValidFor().getEndDateTime() );
+		sc.setValidFor( tp );
+		return this.catalogRepo.save( sc );
 	}
 
 }

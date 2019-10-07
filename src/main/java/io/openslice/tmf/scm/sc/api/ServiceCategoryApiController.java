@@ -3,6 +3,7 @@ package io.openslice.tmf.scm.sc.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.scm.model.Error;
+import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.ServiceCategoryUpdate;
@@ -51,12 +52,6 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 			@ApiParam(value = "The ServiceCategory to be created", required = true) @Valid @RequestBody ServiceCategoryCreate serviceCategory) {
 
 		try {
-			
-			if ( serviceCategory.getCatalogId() == null ) {
-				Error e = new Error();
-				e.setMessage("catalogId not defined");
-				return (ResponseEntity<Error>) ResponseEntity.badRequest().body( e );
-			}
 
 			ServiceCategory c = categoryRepoService.addCategory(serviceCategory);
 
@@ -70,11 +65,11 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 
 	public ResponseEntity<Void> deleteServiceCategory(
 			@ApiParam(value = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id) {
-		
+
 		try {
 
-			return new ResponseEntity<Void>( categoryRepoService.deleteById( id ), HttpStatus.OK);
-		} catch ( Exception e) {
+			return new ResponseEntity<Void>(categoryRepoService.deleteById(id), HttpStatus.OK);
+		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -86,8 +81,8 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
 		try {
-			return new ResponseEntity<List<ServiceCategory>>( categoryRepoService.findAll() , HttpStatus.OK);
-			
+			return new ResponseEntity<List<ServiceCategory>>(categoryRepoService.findAll(), HttpStatus.OK);
+
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<List<ServiceCategory>>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -98,23 +93,23 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 	public ResponseEntity<ServiceCategory> patchServiceCategory(
 			@ApiParam(value = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "The ServiceCategory to be updated", required = true) @Valid @RequestBody ServiceCategoryUpdate serviceCategory) {
-		
 
-		return new ResponseEntity<ServiceCategory>(HttpStatus.NOT_IMPLEMENTED);
+		ServiceCategory c = categoryRepoService.updateCategory(id, serviceCategory);
+
+		return new ResponseEntity<ServiceCategory>(c, HttpStatus.OK);
 	}
 
 	public ResponseEntity<ServiceCategory> retrieveServiceCategory(
 			@ApiParam(value = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
+		try {
 
-			try {
-
-				return new ResponseEntity<ServiceCategory>( categoryRepoService.findById( id ), HttpStatus.OK);
-			} catch ( Exception e) {
-				log.error("Couldn't serialize response for content type application/json", e);
-				return new ResponseEntity<ServiceCategory>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
+			return new ResponseEntity<ServiceCategory>(categoryRepoService.findById(id), HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<ServiceCategory>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 	}
 

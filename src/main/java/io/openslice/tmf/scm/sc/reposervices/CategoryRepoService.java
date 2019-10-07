@@ -14,6 +14,7 @@ import io.openslice.tmf.scm.model.ELifecycle;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
+import io.openslice.tmf.scm.model.ServiceCategoryUpdate;
 import io.openslice.tmf.scm.model.TimePeriod;
 import io.openslice.tmf.scm.sc.repo.CatalogRepository;
 import io.openslice.tmf.scm.sc.repo.CategoriesRepository;
@@ -37,7 +38,6 @@ public class CategoryRepoService {
 
 	public ServiceCategory addCategory(@Valid ServiceCategoryCreate serviceCategory) {	
 		
-		ServiceCatalog scatalog = catalogRepo.findById( serviceCategory.getCatalogId()).get();
 		
 		ServiceCategory sc = new ServiceCategory() ;
 		sc.setName( serviceCategory.getName() );
@@ -59,8 +59,6 @@ public class CategoryRepoService {
 		
 		sc = this.categsRepo.save( sc );
 		
-		scatalog.getCategoryObj().add(sc);
-		catalogRepo.save( scatalog );
 		
 		return sc;
 	}
@@ -80,6 +78,24 @@ public class CategoryRepoService {
 		this.categsRepo.delete( optionalCat.get());
 		return null;
 		
+	}
+
+	public ServiceCategory updateCategory(String id, @Valid ServiceCategoryUpdate serviceCategory) {
+		Optional<ServiceCategory> optionalCat = this.categsRepo.findById( id );
+		if ( optionalCat == null ) {
+			return null;
+		}
+		
+		ServiceCategory sc = optionalCat.get();
+		sc.setName( serviceCategory.getName()  );
+		sc.setLifecycleStatus( serviceCategory.getLifecycleStatus() );
+		sc.setVersion( serviceCategory.getVersion() );
+		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
+		TimePeriod tp = new TimePeriod();
+		tp.setStartDateTime( serviceCategory.getValidFor().getStartDateTime() );
+		tp.setEndDateTime( serviceCategory.getValidFor().getEndDateTime() );
+		sc.setValidFor( tp );
+		return this.categsRepo.save( sc );
 	}
 
 }

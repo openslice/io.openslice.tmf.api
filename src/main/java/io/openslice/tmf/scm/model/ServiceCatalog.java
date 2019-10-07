@@ -48,8 +48,8 @@ public class ServiceCatalog extends BaseEntity{
 		
 	@OneToMany(cascade = {  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
 	@JoinTable()	
-	@JsonIgnore
-	private Set<ServiceCategory> categoryObj = new HashSet<>();
+	@JsonProperty("category")
+	private Set<ServiceCategoryRef> category = new HashSet<>();
 	
 	
 
@@ -79,22 +79,16 @@ public class ServiceCatalog extends BaseEntity{
 	@Transient
 	@JsonProperty("category")
 	@Valid
-	public List<ServiceCategoryRef> getCategory() {
-
-		List<ServiceCategoryRef> category = new ArrayList<>();
-		
-		for (ServiceCategory serviceCategory : categoryObj) {
-			ServiceCategoryRef scr = new ServiceCategoryRef();
-			scr.setId( serviceCategory.getId());
-			scr.setName( serviceCategory.getName());
-			scr.setBaseType( ServiceCategoryRef.class.getName() );
-			category.add(scr);
-			
-		}
-		
-		
+	public Set<ServiceCategoryRef> getCategory() {
 		
 		return category;
+	}
+	
+	/**
+	 * @param categoryObj the categoryObj to set
+	 */
+	public void setCategoryObj(Set<ServiceCategoryRef> c) {
+		this.category = c;
 	}
 
 //	public void setCategory(List<ServiceCategoryRef> category) {
@@ -227,17 +221,4 @@ public class ServiceCatalog extends BaseEntity{
 		return o.toString().replace("\n", "\n    ");
 	}
 	
-	/**
-	 * @return the categoryObj
-	 */
-	public Set<ServiceCategory> getCategoryObj() {
-		return categoryObj;
-	}
-
-	/**
-	 * @param categoryObj the categoryObj to set
-	 */
-	public void setCategoryObj(Set<ServiceCategory> categoryObj) {
-		this.categoryObj = categoryObj;
-	}
 }

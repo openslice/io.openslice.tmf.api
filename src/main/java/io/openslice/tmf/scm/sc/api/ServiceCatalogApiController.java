@@ -68,8 +68,9 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 
     public ResponseEntity<ServiceCatalog> patchServiceCatalog(@ApiParam(value = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceCatalog to be updated" ,required=true )  @Valid @RequestBody ServiceCatalogUpdate serviceCatalog) {
 
+		ServiceCatalog c = catalogRepoService.updateCatalog( id, serviceCatalog );
 
-        return new ResponseEntity<ServiceCatalog>(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity<ServiceCatalog>(c, HttpStatus.OK);
     }
 
     public ResponseEntity<ServiceCatalog> retrieveServiceCatalog(@ApiParam(value = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {

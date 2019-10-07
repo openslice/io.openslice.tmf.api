@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.openslice.tmf.scm.model.AttachmentRef;
 import io.openslice.tmf.scm.model.ELifecycle;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceSpecification;
@@ -37,6 +38,53 @@ public class ServiceSpecificationRepoService {
 
 	public ServiceSpecification addServiceSpecification(@Valid ServiceSpecificationCreate serviceServiceSpecification) {	
 		ServiceSpecification serviceSpec = new ServiceSpecification();
+		
+		serviceSpec.setName(serviceServiceSpecification.getName());
+
+		serviceSpec.setDescription( serviceServiceSpecification.getDescription() );
+		serviceSpec.isBundle( serviceServiceSpecification.isIsBundle() );		
+		
+		serviceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
+		
+		
+		if ( serviceServiceSpecification.getLifecycleStatus() == null ) {
+			serviceSpec.setLifecycleStatusEnum( ELifecycle.IN_STUDY );
+		} else {
+			serviceSpec.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceServiceSpecification.getLifecycleStatus() ) );
+		}
+		serviceSpec.setVersion( serviceServiceSpecification.getVersion());
+		
+
+		if (serviceServiceSpecification.getAttachment() != null ){
+			serviceSpec.getAttachment().addAll( serviceServiceSpecification.getAttachment() );			
+		}
+		if (serviceServiceSpecification.getRelatedParty() != null ){
+			serviceSpec.getRelatedParty().addAll( serviceServiceSpecification.getRelatedParty() );
+		}
+		if (serviceServiceSpecification.getResourceSpecification() != null ){
+			serviceSpec.getResourceSpecification().addAll( serviceServiceSpecification.getResourceSpecification() );
+		}
+		if (serviceServiceSpecification.getServiceLevelSpecification() != null ){
+			serviceSpec.getServiceLevelSpecification().addAll( serviceServiceSpecification.getServiceLevelSpecification() );
+		}
+		if (serviceServiceSpecification.getServiceSpecCharacteristic() != null ){
+			serviceSpec.getServiceSpecCharacteristic().addAll( serviceServiceSpecification.getServiceSpecCharacteristic() );
+		}
+		if (serviceServiceSpecification.getServiceSpecRelationship() != null ){
+			serviceSpec.getServiceSpecRelationship().addAll( serviceServiceSpecification.getServiceSpecRelationship() );
+		}
+		
+
+		TimePeriod tp = new TimePeriod();
+		if ( serviceServiceSpecification.getValidFor() == null ){
+			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
+			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );			
+		} else{
+
+			tp.setStartDateTime( serviceServiceSpecification.getValidFor().getStartDateTime() );
+			tp.setEndDateTime( serviceServiceSpecification.getValidFor().getEndDateTime() );
+		}
+		serviceSpec.setValidFor( tp );
 		
 		return this.serviceSpecificationRepo.save( serviceSpec );
 	}

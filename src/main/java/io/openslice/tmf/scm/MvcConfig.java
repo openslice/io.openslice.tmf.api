@@ -65,7 +65,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd
 		// HH:mm:ss");
-		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
 		LocalDateTimeSerializer localDateTimeSerializer = new LocalDateTimeSerializer(formatter);
 		LocalDateTimeDeserializer localDateTimeDeserializer = new LocalDateTimeDeserializer(formatter);
 
@@ -81,7 +81,7 @@ public class MvcConfig implements WebMvcConfigurer {
 			@Override
 			public void serialize(OffsetDateTime offsetDateTime, JsonGenerator jsonGenerator,
 					SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-				jsonGenerator.writeString(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(offsetDateTime));
+				jsonGenerator.writeString(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(offsetDateTime));
 
 			}
 		});

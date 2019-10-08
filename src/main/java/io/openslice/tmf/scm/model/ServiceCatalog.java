@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -46,10 +47,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class ServiceCatalog extends BaseEntity{
 
 		
-	@OneToMany(cascade = {  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH } )
+	@ManyToMany(cascade = {  CascadeType.ALL } )
 	@JoinTable()	
-	@JsonProperty("category")
-	private Set<ServiceCategoryRef> category = new HashSet<>();
+	@JsonIgnore
+	private Set<ServiceCategory> categoryObj = new HashSet<>();
 	
 	
 
@@ -58,10 +59,6 @@ public class ServiceCatalog extends BaseEntity{
 	@Valid
 	private List<RelatedParty> relatedParty = null;
 
-
-	
-	
-	
 
 	public ServiceCatalog() {
 		super();
@@ -75,21 +72,39 @@ public class ServiceCatalog extends BaseEntity{
 	 * @return category
 	 **/
 	@ApiModelProperty(value = "List of service categories associated with this catalog")
-
 	@Transient
 	@JsonProperty("category")
 	@Valid
-	public Set<ServiceCategoryRef> getCategory() {
+	public List<ServiceCategoryRef> getCategoryRefs() {
+
+		List<ServiceCategoryRef> category = new ArrayList<>();
+		
+		for (ServiceCategory serviceCategory : categoryObj) {
+			ServiceCategoryRef scr = new ServiceCategoryRef();
+			scr.setId( serviceCategory.getId());
+			scr.setName( serviceCategory.getName());
+			scr.setBaseType( ServiceCategoryRef.class.getName() );
+			category.add(scr);
+			
+		}
 		
 		return category;
 	}
 	
 	/**
+	 * @return the categoryObj
+	 */
+	public Set<ServiceCategory> getCategoryObj() {
+		return categoryObj;
+	}
+
+	/**
 	 * @param categoryObj the categoryObj to set
 	 */
-	public void setCategoryObj(Set<ServiceCategoryRef> c) {
-		this.category = c;
+	public void setCategoryObj(Set<ServiceCategory> categoryObj) {
+		this.categoryObj = categoryObj;
 	}
+	
 
 //	public void setCategory(List<ServiceCategoryRef> category) {
 //		this.category = category;
@@ -174,7 +189,7 @@ public class ServiceCatalog extends BaseEntity{
 				&& Objects.equals(this.lifecycleStatus, serviceCatalog.lifecycleStatus)
 				&& Objects.equals(this.name, serviceCatalog.name)
 				&& Objects.equals(this.version, serviceCatalog.version)
-				&& Objects.equals(this.getCategory(), serviceCatalog.getCategory())
+				&& Objects.equals(this.getCategoryRefs(), serviceCatalog.getCategoryRefs())
 				&& Objects.equals(this.relatedParty, serviceCatalog.relatedParty)
 				&& Objects.equals(this.validFor, serviceCatalog.validFor)
 				&& Objects.equals(this.baseType, serviceCatalog.baseType)
@@ -184,7 +199,7 @@ public class ServiceCatalog extends BaseEntity{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, version, this.getCategory(), relatedParty,
+		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, version, this.getCategoryRefs(), relatedParty,
 				validFor, baseType, schemaLocation, type);
 	}
 
@@ -200,7 +215,7 @@ public class ServiceCatalog extends BaseEntity{
 		sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    version: ").append(toIndentedString(version)).append("\n");
-		sb.append("    category: ").append(toIndentedString(this.getCategory())).append("\n");
+		sb.append("    category: ").append(toIndentedString(this.getCategoryRefs())).append("\n");
 		sb.append("    relatedParty: ").append(toIndentedString(relatedParty)).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
@@ -221,13 +236,13 @@ public class ServiceCatalog extends BaseEntity{
 		return o.toString().replace("\n", "\n    ");
 	}
 
-	public boolean containsCategory(ServiceCategoryRef scref) {
-		for (ServiceCategoryRef serviceCategoryRef : category) {
-			if ( serviceCategoryRef.getId().equals(scref.getId()) ){
-				return true;
-			}
+	
+
+	public void addCategory(ServiceCategory servcat) {
+		if (!categoryObj.contains(servcat) ) {
+			categoryObj.add(servcat);
 		}
-		return false;
+		
 	}
 	
 }

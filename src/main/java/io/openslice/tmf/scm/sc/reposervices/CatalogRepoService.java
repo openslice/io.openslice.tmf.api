@@ -42,21 +42,8 @@ public class CatalogRepoService {
 	public ServiceCatalog addCatalog(@Valid ServiceCatalogCreate serviceCat) {	
 		
 		ServiceCatalog sc = new ServiceCatalog() ;
-		sc.setName( serviceCat.getName() );
-		sc.setDescription( serviceCat.getDescription() );
-		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
-		if ( serviceCat.getLifecycleStatus() == null ) {
-			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-		} else {
-			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCat.getLifecycleStatus() ) );
-		}
-		sc.setVersion( serviceCat.getVersion());
-		TimePeriod tp = new TimePeriod();
-		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-		tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
-		sc.setValidFor( tp );
-		
-		
+
+		sc = updateCatalogDataFromAPICall( sc, serviceCat );
 		return this.catalogRepo.save( sc );
 	}
 
@@ -93,12 +80,7 @@ public class CatalogRepoService {
 			scatCreate.setIsRoot( true );
 			ServiceCategory scategory = this.categRepoService.addCategory(scatCreate);
 			
-			
-			
-			ServiceCategoryRef scatRef = new ServiceCategoryRef();
-			scatRef.setId( scategory.getId() );
-			scatRef.setName( scategory.getName() );
-			scatalog.getCategory().add( scatRef  );
+			scatalog.getCategoryObj().add( scategory  );
 			this.catalogRepo.save(scatalog);
 			
 			
@@ -112,22 +94,48 @@ public class CatalogRepoService {
 			return null;
 		}
 		ServiceCatalog sc = optSC.get();
+		sc = updateCatalogDataFromAPICall( sc, serviceCatalog );
+		return this.catalogRepo.save( sc );
+	}
+	
+	
+	public ServiceCatalog updateCatalogDataFromAPICall( ServiceCatalog sc, ServiceCatalogUpdate serviceCatalog)
+	{
 		sc.setName( serviceCatalog.getName()  );
-		sc.setLifecycleStatus( serviceCatalog.getLifecycleStatus() );
-		sc.setVersion( serviceCatalog.getVersion() );
+		sc.setDescription( serviceCatalog.getDescription());
+		if ( serviceCatalog.getLifecycleStatus() == null ) {
+			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
+		} else {
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCatalog.getLifecycleStatus() ) );
+		}
+		if ( serviceCatalog.getVersion() == null ) {
+			sc.setVersion( "1.0.0" );			
+		} else {
+			sc.setVersion( serviceCatalog.getVersion() );			
+		}
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		TimePeriod tp = new TimePeriod();
-		tp.setStartDateTime( serviceCatalog.getValidFor().getStartDateTime() );
-		tp.setEndDateTime( serviceCatalog.getValidFor().getEndDateTime() );
+		if ( serviceCatalog.getValidFor() != null ) {
+			tp.setStartDateTime( serviceCatalog.getValidFor().getStartDateTime() );
+			tp.setEndDateTime( serviceCatalog.getValidFor().getEndDateTime() );	
+		} else {
+			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
+			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );			
+		}
 		sc.setValidFor( tp );
-				
-		for (ServiceCategoryRef scref : serviceCatalog.getCategory()) {
-			if (!sc.containsCategory( scref)){
-				sc.getCategory().add( scref );				
-			}
+		
+		sc.getCategoryObj().clear();
+		
+		//add any new category
+		if ( serviceCatalog.getCategory() != null ) {
+			for (ServiceCategoryRef scref : serviceCatalog.getCategory()) {
+				ServiceCategory servcat = this.categRepoService.findById( scref.getId() );
+				sc.addCategory( servcat );
+			}			
 		}
 		
-		return this.catalogRepo.save( sc );
+		return sc;
+		
 	}
 
 }

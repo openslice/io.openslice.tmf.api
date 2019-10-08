@@ -94,8 +94,9 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			@ApiParam(value = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "The ServiceSpecification to be updated", required = true) @Valid @RequestBody ServiceSpecificationUpdate serviceSpecification) {
 
+		ServiceSpecification c = serviceSpecificationRepoService.updateServiceSpecification(id, serviceSpecification);
 
-		return new ResponseEntity<ServiceSpecification>(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
 	public ResponseEntity<ServiceSpecification> retrieveServiceSpecification(

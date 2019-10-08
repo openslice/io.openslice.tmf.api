@@ -207,6 +207,19 @@ public class BaseEntity extends BaseRootEntity{
 		sb.append("}");
 		return sb.toString();
 	}
+	
+
+	public void copyFromObj(BaseEntity be) {
+		super.copyFromObj(be);
+		this.description = be.description;
+		this.lastUpdate = be.lastUpdate;
+		this.lifecycleStatus = be.lifecycleStatus;
+		this.version = be.version;
+		if ( this.validFor != null) {
+			this.validFor.copyFromObj(be.validFor);			
+		}
+			
+	}
 
 	/**
 	 * Convert the given object to string with each line indented by 4 spaces

@@ -8,8 +8,11 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
@@ -35,19 +38,21 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ServiceCandidate extends BaseEntity {
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	@JoinTable()
+	@ManyToMany( mappedBy ="serviceCandidateObj" )
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
 
-	@Transient
-	@JsonProperty("serviceSpecification")
-	private ServiceSpecificationRef serviceSpecification = null;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "service_specid", referencedColumnName = "id")
+	private ServiceSpecification serviceSpecificationObj = null;
 
 	public ServiceCandidate() {
 		super();
 		this.type = "ServiceCandidate";
 		this.baseType = "BaseEntity";
 	}
+	
+	
+	
 	
 	/**
 	 * The service specification implied by this candidate
@@ -59,10 +64,36 @@ public class ServiceCandidate extends BaseEntity {
 	@Transient
 	@JsonProperty("serviceSpecification")
 	@Valid
-	public ServiceSpecificationRef getServiceSpecification() {
-		//TODO: implemt as caegoryObg
-		return new ServiceSpecificationRef();
+	public ServiceSpecificationRef getServiceSpecificationRef() {
+		ServiceSpecificationRef sref = new ServiceSpecificationRef();
+
+		sref.setId(  this.serviceSpecificationObj.getId());
+		sref.setName(  this.serviceSpecificationObj.getName() );
+		sref.setVersion( this.serviceSpecificationObj.getVersion());
+		sref.setBaseType(ServiceSpecificationRef.class.getName());
+		return sref;
 	}
+
+	
+	/**
+	 * @return the serviceSpecificationObj
+	 */
+	public ServiceSpecification getServiceSpecificationObj() {
+		return serviceSpecificationObj;
+	}
+
+
+
+
+	/**
+	 * @param serviceSpecificationObj the serviceSpecificationObj to set
+	 */
+	public void setServiceSpecificationObj(ServiceSpecification serviceSpecificationObj) {
+		this.serviceSpecificationObj = serviceSpecificationObj;
+	}
+
+
+
 
 	/**
 	 * The service specification implied by this candidate
@@ -89,10 +120,7 @@ public class ServiceCandidate extends BaseEntity {
 		return category;
 	}
 
-	public ServiceCandidate serviceSpecification(ServiceSpecificationRef serviceSpecification) {
-		this.serviceSpecification = serviceSpecification;
-		return this;
-	}
+
 
 	
 	@Override
@@ -111,7 +139,7 @@ public class ServiceCandidate extends BaseEntity {
 				&& Objects.equals(this.name, serviceCandidate.name)
 				&& Objects.equals(this.version, serviceCandidate.version)
 				&& Objects.equals(this.getCategory(), serviceCandidate.getCategory())
-				&& Objects.equals(this.serviceSpecification, serviceCandidate.serviceSpecification)
+				&& Objects.equals(this.getServiceSpecificationRef() , serviceCandidate.getServiceSpecificationRef() )
 				&& Objects.equals(this.validFor, serviceCandidate.validFor)
 				&& Objects.equals(this.baseType, serviceCandidate.baseType)
 				&& Objects.equals(this.schemaLocation, serviceCandidate.schemaLocation)
@@ -121,7 +149,7 @@ public class ServiceCandidate extends BaseEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, version, getCategory(),
-				serviceSpecification, validFor, baseType, schemaLocation, type);
+				getServiceSpecificationRef() , validFor, baseType, schemaLocation, type);
 	}
 
 	@Override
@@ -137,7 +165,7 @@ public class ServiceCandidate extends BaseEntity {
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    version: ").append(toIndentedString(version)).append("\n");
 		sb.append("    category: ").append(toIndentedString(getCategory())).append("\n");
-		sb.append("    serviceSpecification: ").append(toIndentedString(serviceSpecification)).append("\n");
+		sb.append("    serviceSpecification: ").append(toIndentedString(getServiceSpecificationRef() )).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
 		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");

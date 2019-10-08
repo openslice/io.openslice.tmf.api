@@ -185,6 +185,15 @@ public class BaseRootEntity {
 		return sb.toString();
 	}
 
+	public void copyFromObj(BaseRootEntity be) {
+		this.id = be.id;
+		this.name = be.name;
+		this.href = be.href;
+		this.baseType = be.baseType;
+		this.schemaLocation = be.schemaLocation;
+		this.type = be.type;
+		
+	}
 	/**
 	 * Convert the given object to string with each line indented by 4 spaces
 	 * (except the first line).

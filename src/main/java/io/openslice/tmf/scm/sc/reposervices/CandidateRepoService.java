@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import io.openslice.tmf.scm.model.ELifecycle;
 import io.openslice.tmf.scm.model.ServiceCandidate;
 import io.openslice.tmf.scm.model.ServiceCandidateCreate;
+import io.openslice.tmf.scm.model.ServiceCandidateUpdate;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm.model.ServiceCategory;
@@ -40,20 +41,7 @@ public class CandidateRepoService {
 	public ServiceCandidate addServiceCandidate(@Valid ServiceCandidateCreate serviceCand) {	
 		
 		ServiceCandidate sc = new ServiceCandidate() ;
-		sc.setName( serviceCand.getName() );
-		sc.setDescription( serviceCand.getDescription() );
-		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
-		if ( serviceCand.getLifecycleStatus() == null ) {
-			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-		} else {
-			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCand.getLifecycleStatus() ) );
-		}
-		sc.setVersion( serviceCand.getVersion());
-		TimePeriod tp = new TimePeriod();
-		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-		tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
-		sc.setValidFor( tp );
-		
+		sc = updateServiceCandidateDataFromAPI( sc, serviceCand);
 		
 		return this.candidateRepo.save( sc );
 	}
@@ -73,6 +61,37 @@ public class CandidateRepoService {
 		this.candidateRepo.delete( optionalCat.get());
 		return null;
 		
+	}
+
+	public ServiceCandidate updateCandidate(String id, @Valid ServiceCandidateUpdate serviceCandidate) {
+		Optional<ServiceCandidate> scopt = this.candidateRepo.findById(id);
+		if ( scopt == null ) {
+			return null;
+		}
+		ServiceCandidate sc = scopt.get();
+		
+		sc = updateServiceCandidateDataFromAPI( sc, serviceCandidate);
+		
+		return this.candidateRepo.save( sc );
+	}
+	
+	
+	public ServiceCandidate updateServiceCandidateDataFromAPI(ServiceCandidate sc, @Valid ServiceCandidateUpdate serviceCand) {	
+		
+		sc.setName( serviceCand.getName() );
+		sc.setDescription( serviceCand.getDescription() );
+		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
+		if ( serviceCand.getLifecycleStatus() == null ) {
+			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
+		} else {
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCand.getLifecycleStatus() ) );
+		}
+		sc.setVersion( serviceCand.getVersion());
+		TimePeriod tp = new TimePeriod();
+		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
+		tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
+		sc.setValidFor( tp );
+		return sc;
 	}
 	
 	

@@ -40,27 +40,9 @@ public class CategoryRepoService {
 		
 		
 		ServiceCategory sc = new ServiceCategory() ;
-		sc.setName( serviceCategory.getName() );
-		sc.setDescription( serviceCategory.getDescription() );
-		sc.setIsRoot(serviceCategory.isIsRoot() );
-		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
-		sc.setParentId( serviceCategory.getParentId() );
-		if ( serviceCategory.getLifecycleStatus() == null ) {
-			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-		} else {
-			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCategory.getLifecycleStatus() ) );
-		}
-		sc.setVersion( serviceCategory.getVersion());
-		TimePeriod tp = new TimePeriod();
-		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-		tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
-		sc.setValidFor( tp );
+		sc = updateCategoryDataFromAPICall(sc, serviceCategory);
+		return this.categsRepo.save( sc );
 		
-		
-		sc = this.categsRepo.save( sc );
-		
-		
-		return sc;
 	}
 
 	public List<ServiceCategory> findAll() {
@@ -87,15 +69,37 @@ public class CategoryRepoService {
 		}
 		
 		ServiceCategory sc = optionalCat.get();
+		sc = updateCategoryDataFromAPICall(sc, serviceCategory);
+		return this.categsRepo.save( sc );
+	}
+	
+	public ServiceCategory updateCategoryDataFromAPICall( ServiceCategory sc, ServiceCategoryUpdate serviceCategory )
+	{		
 		sc.setName( serviceCategory.getName()  );
-		sc.setLifecycleStatus( serviceCategory.getLifecycleStatus() );
-		sc.setVersion( serviceCategory.getVersion() );
+		sc.setDescription( serviceCategory.getDescription());
+		if ( serviceCategory.getLifecycleStatus() == null ) {
+			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
+		} else {
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCategory.getLifecycleStatus() ) );
+		}
+		
+
+		if ( serviceCategory.getVersion() == null ) {
+			sc.setVersion( "1.0.0" );			
+		} else {
+			sc.setVersion( serviceCategory.getVersion() );		
+		}
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		TimePeriod tp = new TimePeriod();
-		tp.setStartDateTime( serviceCategory.getValidFor().getStartDateTime() );
-		tp.setEndDateTime( serviceCategory.getValidFor().getEndDateTime() );
+		if ( serviceCategory.getValidFor() != null ) {
+			tp.setStartDateTime( serviceCategory.getValidFor().getStartDateTime() );
+			tp.setEndDateTime( serviceCategory.getValidFor().getEndDateTime() );
+		} else {
+			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
+			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );			
+		}
 		sc.setValidFor( tp );
-		return this.categsRepo.save( sc );
+		return sc;
 	}
 
 }

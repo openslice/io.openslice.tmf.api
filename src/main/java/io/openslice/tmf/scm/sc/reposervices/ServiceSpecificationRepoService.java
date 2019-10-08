@@ -16,6 +16,7 @@ import io.openslice.tmf.scm.model.ELifecycle;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
+import io.openslice.tmf.scm.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm.model.TimePeriod;
@@ -37,7 +38,56 @@ public class ServiceSpecificationRepoService {
 	}
 
 	public ServiceSpecification addServiceSpecification(@Valid ServiceSpecificationCreate serviceServiceSpecification) {	
-		ServiceSpecification serviceSpec = new ServiceSpecification();
+		
+		
+		ServiceSpecification serviceSpec = new ServiceSpecification();		
+		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
+		
+		return this.serviceSpecificationRepo.save( serviceSpec );
+	}
+
+	public List<ServiceSpecification> findAll() {
+		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findAll();
+	}
+
+	public ServiceSpecification findById(String id) {
+		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findById( id );
+		return optionalCat
+				.orElse(null);
+	}
+
+	public Void deleteById(String id) {
+		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findById( id );
+		this.serviceSpecificationRepo.delete( optionalCat.get());
+		return null;
+		
+	}
+	
+	@PostConstruct
+	public void initRepo() {
+		if ( this.findAll().size() == 0 ) {
+			
+			
+			
+		}
+	}
+
+	public ServiceSpecification updateServiceSpecification(String id,
+			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
+		
+		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findById(id);
+		if ( s == null ) {
+			return null;
+		}
+		ServiceSpecification serviceSpec = s.get();
+		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
+		
+		return this.serviceSpecificationRepo.save( serviceSpec );
+		
+	}
+	
+	public ServiceSpecification updateServiceSpecDataFromAPIcall( ServiceSpecification serviceSpec, ServiceSpecificationUpdate serviceServiceSpecification )
+	{
 		
 		serviceSpec.setName(serviceServiceSpecification.getName());
 
@@ -52,7 +102,12 @@ public class ServiceSpecificationRepoService {
 		} else {
 			serviceSpec.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceServiceSpecification.getLifecycleStatus() ) );
 		}
-		serviceSpec.setVersion( serviceServiceSpecification.getVersion());
+		if ( serviceServiceSpecification.getVersion() == null ) {
+			serviceSpec.setVersion( "1.0.0" );
+			
+		}else {
+			serviceSpec.setVersion( serviceServiceSpecification.getVersion());			
+		}
 		
 
 		if (serviceServiceSpecification.getAttachment() != null ){
@@ -86,33 +141,7 @@ public class ServiceSpecificationRepoService {
 		}
 		serviceSpec.setValidFor( tp );
 		
-		return this.serviceSpecificationRepo.save( serviceSpec );
-	}
-
-	public List<ServiceSpecification> findAll() {
-		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findAll();
-	}
-
-	public ServiceSpecification findById(String id) {
-		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findById( id );
-		return optionalCat
-				.orElse(null);
-	}
-
-	public Void deleteById(String id) {
-		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findById( id );
-		this.serviceSpecificationRepo.delete( optionalCat.get());
-		return null;
-		
-	}
-	
-	@PostConstruct
-	public void initRepo() {
-		if ( this.findAll().size() == 0 ) {
-			
-			
-			
-		}
+		return serviceSpec;
 	}
 
 }

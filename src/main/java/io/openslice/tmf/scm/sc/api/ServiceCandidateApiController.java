@@ -81,8 +81,9 @@ public class ServiceCandidateApiController implements ServiceCandidateApi {
 
     public ResponseEntity<ServiceCandidate> patchServiceCandidate(@ApiParam(value = "Identifier of the ServiceCandidate",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceCandidate to be updated" ,required=true )  @Valid @RequestBody ServiceCandidateUpdate serviceCandidate) {
         
+    	ServiceCandidate c = candidateRepoService.updateCandidate( id, serviceCandidate );
 
-        return new ResponseEntity<ServiceCandidate>(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity<ServiceCandidate>(c, HttpStatus.OK);
     }
 
     public ResponseEntity<ServiceCandidate> retrieveServiceCandidate(@ApiParam(value = "Identifier of the ServiceCandidate",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {

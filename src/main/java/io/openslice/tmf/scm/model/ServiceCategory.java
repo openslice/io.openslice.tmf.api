@@ -1,24 +1,22 @@
 package io.openslice.tmf.scm.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.Embedded;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
-import java.time.OffsetDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
@@ -45,16 +43,24 @@ public class ServiceCategory extends BaseEntity {
 	private String parentId = null;
 
 
-	@Transient
-	@JsonProperty("category")
-	@Valid
-	private List<ServiceCategoryRef> category = null;
+	@ManyToMany(cascade = {  CascadeType.ALL } )
+	@JoinTable()	
+	@JsonIgnore
+	private Set<ServiceCategory> categoryObj = new HashSet<>();
+	
+	
 
+	@ManyToMany(cascade = {  CascadeType.ALL } )
+	@JoinTable()	
+	@JsonIgnore
+	private Set<ServiceCandidate> serviceCandidateObj = new HashSet<>();
+	
+	
 
-	@Transient
-	@JsonProperty("serviceCandidate")
-	@Valid
-	private List<ServiceCandidateRef> serviceCandidate = null;
+//	@Transient
+//	@JsonProperty("serviceCandidate")
+//	@Valid
+//	private List<ServiceCandidateRef> serviceCandidate = null;
 
 
 	public ServiceCategory() {
@@ -104,18 +110,7 @@ public class ServiceCategory extends BaseEntity {
 
 
 
-	public ServiceCategory category(List<ServiceCategoryRef> category) {
-		this.category = category;
-		return this;
-	}
 
-	public ServiceCategory addCategoryItem(ServiceCategoryRef categoryItem) {
-		if (this.category == null) {
-			this.category = new ArrayList<ServiceCategoryRef>();
-		}
-		this.category.add(categoryItem);
-		return this;
-	}
 
 	/**
 	 * List of child categories in the tree for in this category
@@ -123,29 +118,42 @@ public class ServiceCategory extends BaseEntity {
 	 * @return category
 	 **/
 	@ApiModelProperty(value = "List of child categories in the tree for in this category")
-
+	@Transient
+	@JsonProperty("category")
 	@Valid
+	public List<ServiceCategoryRef> getCategoryRefs() {
 
-	public List<ServiceCategoryRef> getCategory() {
+		List<ServiceCategoryRef> category = new ArrayList<>();
+		
+		for (ServiceCategory serviceCategory : categoryObj) {
+			ServiceCategoryRef scr = new ServiceCategoryRef();
+			scr.setId( serviceCategory.getId());
+			scr.setName( serviceCategory.getName());
+			scr.setBaseType( ServiceCategoryRef.class.getName() );
+			category.add(scr);
+			
+		}
+		
 		return category;
 	}
+	
+	
 
-	public void setCategory(List<ServiceCategoryRef> category) {
-		this.category = category;
+	/**
+	 * @return the categoryObj
+	 */
+	public Set<ServiceCategory> getCategoryObj() {
+		return categoryObj;
 	}
 
-	public ServiceCategory serviceCandidate(List<ServiceCandidateRef> serviceCandidate) {
-		this.serviceCandidate = serviceCandidate;
-		return this;
+	/**
+	 * @param categoryObj the categoryObj to set
+	 */
+	public void setCategoryObj(Set<ServiceCategory> categoryObj) {
+		this.categoryObj = categoryObj;
 	}
 
-	public ServiceCategory addServiceCandidateItem(ServiceCandidateRef serviceCandidateItem) {
-		if (this.serviceCandidate == null) {
-			this.serviceCandidate = new ArrayList<ServiceCandidateRef>();
-		}
-		this.serviceCandidate.add(serviceCandidateItem);
-		return this;
-	}
+	
 
 	/**
 	 * List of service candidates associated with this category
@@ -155,14 +163,42 @@ public class ServiceCategory extends BaseEntity {
 	@ApiModelProperty(value = "List of service candidates associated with this category")
 
 	@Valid
-
-	public List<ServiceCandidateRef> getServiceCandidate() {
-		return serviceCandidate;
+	@JsonProperty("serviceCandidate")
+	public List<ServiceCandidateRef> getServiceCandidateRefs() {
+		
+		List<ServiceCandidateRef> scref = new ArrayList<>();
+		
+		for (ServiceCandidate sc : serviceCandidateObj) {
+			ServiceCandidateRef scr = new ServiceCandidateRef();
+			scr.setId( sc.getId());
+			scr.setName( sc.getName());
+			scr.setBaseType( ServiceCategoryRef.class.getName() );
+			scref.add(scr);
+		}
+		
+		return scref;
 	}
 
-	public void setServiceCandidate(List<ServiceCandidateRef> serviceCandidate) {
-		this.serviceCandidate = serviceCandidate;
+	
+
+	/**
+	 * @return the serviceCandidateObj
+	 */
+	public Set<ServiceCandidate> getServiceCandidateObj() {
+		return serviceCandidateObj;
 	}
+
+
+
+
+	/**
+	 * @param serviceCandidateObj the serviceCandidateObj to set
+	 */
+	public void setServiceCandidateObj(Set<ServiceCandidate> serviceCandidateObj) {
+		this.serviceCandidateObj = serviceCandidateObj;
+	}
+
+
 
 
 	@Override
@@ -182,8 +218,8 @@ public class ServiceCategory extends BaseEntity {
 				&& Objects.equals(this.name, serviceCategory.name)
 				&& Objects.equals(this.parentId, serviceCategory.parentId)
 				&& Objects.equals(this.version, serviceCategory.version)
-				&& Objects.equals(this.category, serviceCategory.category)
-				&& Objects.equals(this.serviceCandidate, serviceCategory.serviceCandidate)
+				&& Objects.equals(this.getCategoryRefs(), serviceCategory.getCategoryRefs())
+				&& Objects.equals(this.getServiceCandidateRefs(), serviceCategory.getServiceCandidateRefs())
 				&& Objects.equals(this.validFor, serviceCategory.validFor)
 				&& Objects.equals(this.baseType, serviceCategory.baseType)
 				&& Objects.equals(this.schemaLocation, serviceCategory.schemaLocation)
@@ -193,7 +229,7 @@ public class ServiceCategory extends BaseEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, href, description, isRoot, lastUpdate, lifecycleStatus, name, parentId, version,
-				category, serviceCandidate, validFor, baseType, schemaLocation, type);
+				getCategoryRefs(), getServiceCandidateRefs(), validFor, baseType, schemaLocation, type);
 	}
 
 	@Override
@@ -210,8 +246,8 @@ public class ServiceCategory extends BaseEntity {
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
 		sb.append("    version: ").append(toIndentedString(version)).append("\n");
-		sb.append("    category: ").append(toIndentedString(category)).append("\n");
-		sb.append("    serviceCandidate: ").append(toIndentedString(serviceCandidate)).append("\n");
+		sb.append("    category: ").append(toIndentedString(getCategoryRefs())).append("\n");
+		sb.append("    serviceCandidate: ").append(toIndentedString(getServiceCandidateRefs())).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
 		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");

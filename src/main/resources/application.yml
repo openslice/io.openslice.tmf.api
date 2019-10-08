@@ -7,16 +7,22 @@ spring:
   application:
     name: openslice-service-catalog-management-api
   datasource:
-    url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     password: letmein0
     username: root
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: io.openslice.tmf.scm.LocalMysqlDialect
     hibernate:
       ddl-auto: update
     show-sql: false
     generate-ddl: true
-    properties.hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext  
+    properties.hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext 
+    properties:
+      hibernate:
+        connection:
+          characterEncoding: utf-8
+          CharSet: utf-8
+          useUnicode: true 
   servlet:
     multipart.max-file-size: 10MB
     multipart.max-request-size: 10MB

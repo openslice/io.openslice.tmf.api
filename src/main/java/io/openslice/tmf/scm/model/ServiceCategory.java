@@ -229,7 +229,7 @@ public class ServiceCategory extends BaseEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, href, description, isRoot, lastUpdate, lifecycleStatus, name, parentId, version,
-				getCategoryRefs(), getServiceCandidateRefs(), validFor, baseType, schemaLocation, type);
+				getCategoryObj(), serviceCandidateObj, validFor, baseType, schemaLocation, type);
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import io.openslice.tmf.scm.model.ServiceCandidateUpdate;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm.model.ServiceCategory;
+import io.openslice.tmf.scm.model.ServiceCategoryRef;
+import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.TimePeriod;
 import io.openslice.tmf.scm.sc.repo.CandidateRepository;
 import io.openslice.tmf.scm.sc.repo.CatalogRepository;
@@ -32,6 +35,9 @@ public class CandidateRepoService {
 
 	@Autowired
 	CategoriesRepository categsRepo;
+
+	@Autowired
+	ServiceSpecificationRepoService specRepo;
 	
 	public ServiceCandidate addCatalog( ServiceCandidate c) {
 
@@ -91,6 +97,21 @@ public class CandidateRepoService {
 		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
 		tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
 		sc.setValidFor( tp );
+		
+		ServiceSpecification specObj = this.specRepo.findById( serviceCand.getServiceSpecification().getId() );
+		if ( specObj != null){
+			sc.setServiceSpecificationObj( specObj );			
+		}
+		
+		for (ServiceCategoryRef scd : serviceCand.getCategory()) {
+			
+			Optional<ServiceCategory> catObj = this.categsRepo.findById(scd.getId());
+			if ( catObj!=null){
+				sc.getCategoryObj().add(catObj.get());				
+			}
+		}
+		
+		
 		return sc;
 	}
 	

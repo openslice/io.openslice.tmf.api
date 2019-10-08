@@ -12,12 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.scm.model.ELifecycle;
+import io.openslice.tmf.scm.model.ServiceCandidate;
+import io.openslice.tmf.scm.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.ServiceCategoryRef;
+import io.openslice.tmf.scm.model.ServiceSpecification;
+import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
+import io.openslice.tmf.scm.model.ServiceSpecificationRef;
 import io.openslice.tmf.scm.model.TimePeriod;
 import io.openslice.tmf.scm.sc.repo.CatalogRepository;
 import io.openslice.tmf.scm.sc.repo.CategoriesRepository;
@@ -32,6 +37,12 @@ public class CatalogRepoService {
 
 	@Autowired
 	CategoryRepoService categRepoService;	
+
+	@Autowired
+	ServiceSpecificationRepoService specRepoService;
+
+	@Autowired
+	CandidateRepoService candidateRepoService;
 
 	
 	public ServiceCatalog addCatalog(ServiceCatalog c) {
@@ -64,29 +75,6 @@ public class CatalogRepoService {
 		
 	}
 	
-	@PostConstruct
-	public void initRepo() {
-		if ( this.findAll().size() == 0 ) {
-			ServiceCatalogCreate sc = new ServiceCatalogCreate() ;
-			sc.setName( "Catalog" );
-			sc.setDescription( "Primary Catalog" );
-			sc.setVersion( "1.0" );		
-			ServiceCatalog scatalog = this.addCatalog(sc);
-			
-			ServiceCategoryCreate scatCreate = new ServiceCategoryCreate();
-			scatCreate.setName("Generic Services");
-			scatCreate.setDescription("Generic Services of this catalog");
-			scatCreate.setVersion("1.0");
-			scatCreate.setIsRoot( true );
-			ServiceCategory scategory = this.categRepoService.addCategory(scatCreate);
-			
-			scatalog.getCategoryObj().add( scategory  );
-			this.catalogRepo.save(scatalog);
-			
-			
-		}
-	}
-
 	public ServiceCatalog updateCatalog(String id,  ServiceCatalogUpdate serviceCatalog) {
 
 		Optional<ServiceCatalog> optSC = catalogRepo.findById( id );		
@@ -136,6 +124,46 @@ public class CatalogRepoService {
 		
 		return sc;
 		
+	}
+	
+	@PostConstruct
+	public void initRepo() {
+		if ( this.findAll().size() == 0 ) {
+			ServiceCatalogCreate sc = new ServiceCatalogCreate() ;
+			sc.setName( "Catalog" );
+			sc.setDescription( "Primary Catalog" );
+			sc.setVersion( "1.0" );		
+			ServiceCatalog scatalog = this.addCatalog(sc);
+			
+			ServiceCategoryCreate scatCreate = new ServiceCategoryCreate();
+			scatCreate.setName("Generic Services");
+			scatCreate.setDescription("Generic Services of this catalog");
+			scatCreate.setVersion("1.0");
+			scatCreate.setIsRoot( true );
+			ServiceCategory scategory = this.categRepoService.addCategory(scatCreate);
+			
+			scatalog.getCategoryObj().add( scategory  );
+			this.catalogRepo.save(scatalog);
+			
+			
+			ServiceSpecificationCreate spec = new ServiceSpecificationCreate();
+			spec.setName("GST");
+			sc.setDescription( "GST example" );
+			ServiceSpecification serviceSpecificationObj = this.specRepoService.addServiceSpecification( spec );
+			
+			ServiceCandidateCreate scand = new ServiceCandidateCreate();
+			scand.setName( spec.getName() );
+			ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
+			serviceSpecificationRef.setId( serviceSpecificationObj.getId() );
+			serviceSpecificationRef.setName( serviceSpecificationObj.getName());
+			scand.serviceSpecification(serviceSpecificationRef );
+
+			ServiceCategoryRef categoryItem = new ServiceCategoryRef();
+			categoryItem.setId( scategory.getId() );
+			scand.addCategoryItem(categoryItem );
+			
+			this.candidateRepoService.addServiceCandidate( scand );
+		}
 	}
 
 }

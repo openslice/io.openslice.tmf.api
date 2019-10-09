@@ -2,6 +2,7 @@ package io.openslice.tmf.scm.sc.repo;
 
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +14,8 @@ public interface CandidateRepository extends PagingAndSortingRepository<ServiceC
 
 	
 	Optional<ServiceCandidate> findById(String id);
+
+	@Query("SELECT sc FROM ServiceCandidate sc JOIN FETCH sc.serviceSpecificationObj spec WHERE spec.id = ?1")
+	Optional<ServiceCandidate> findByServiceSpecId(String id);
 
 }

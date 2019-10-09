@@ -19,6 +19,7 @@ import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModel;
@@ -38,11 +39,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ServiceCandidate extends BaseEntity {
 
+	
 	@ManyToMany( mappedBy ="serviceCandidateObj" )
+	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
 
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "service_specid", referencedColumnName = "id")
+	@JsonIgnore
 	private ServiceSpecification serviceSpecificationObj = null;
 
 	public ServiceCandidate() {
@@ -65,13 +69,18 @@ public class ServiceCandidate extends BaseEntity {
 	@JsonProperty("serviceSpecification")
 	@Valid
 	public ServiceSpecificationRef getServiceSpecificationRef() {
-		ServiceSpecificationRef sref = new ServiceSpecificationRef();
-
-		sref.setId(  this.serviceSpecificationObj.getId());
-		sref.setName(  this.serviceSpecificationObj.getName() );
-		sref.setVersion( this.serviceSpecificationObj.getVersion());
-		sref.setBaseType(ServiceSpecificationRef.class.getName());
-		return sref;
+		if ( this.serviceSpecificationObj != null )
+		{
+			ServiceSpecificationRef sref = new ServiceSpecificationRef();
+			
+			sref.setId(  this.serviceSpecificationObj.getId());
+			sref.setName(  this.serviceSpecificationObj.getName() );
+			sref.setVersion( this.serviceSpecificationObj.getVersion());
+			sref.setBaseType(ServiceSpecificationRef.class.getName());
+			return sref;			
+		}
+		
+		return null;
 	}
 
 	
@@ -114,7 +123,7 @@ public class ServiceCandidate extends BaseEntity {
 			scr.setId(serviceCategory.getId());
 			scr.setName(serviceCategory.getName());
 			scr.setBaseType(ServiceCategoryRef.class.getName());
-
+			category.add(scr);
 		}
 
 		return category;

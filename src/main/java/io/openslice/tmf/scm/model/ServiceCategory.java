@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -43,7 +44,7 @@ public class ServiceCategory extends BaseEntity {
 	private String parentId = null;
 
 
-	@ManyToMany(cascade = {  CascadeType.ALL } )
+	@ManyToMany(  cascade = {  CascadeType.ALL } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
@@ -172,6 +173,7 @@ public class ServiceCategory extends BaseEntity {
 			ServiceCandidateRef scr = new ServiceCandidateRef();
 			scr.setId( sc.getId());
 			scr.setName( sc.getName());
+			scr.setVersion( sc.getVersion());
 			scr.setBaseType( ServiceCategoryRef.class.getName() );
 			scref.add(scr);
 		}
@@ -229,7 +231,8 @@ public class ServiceCategory extends BaseEntity {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, href, description, isRoot, lastUpdate, lifecycleStatus, name, parentId, version,
-				getCategoryObj(), serviceCandidateObj, validFor, baseType, schemaLocation, type);
+//				getCategoryObj(), getServiceCandidateObj(), 
+				validFor, baseType, schemaLocation, type);
 	}
 
 	@Override

@@ -18,7 +18,9 @@ import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -39,6 +41,8 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 	@JsonProperty("configurable")
 	private Boolean configurable = null;
 
+	@Lob
+	@Column(name = "LDESCRIPTION", columnDefinition = "LONGTEXT")
 	@JsonProperty("description")
 	private String description = null;
 

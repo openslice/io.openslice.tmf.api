@@ -1,5 +1,6 @@
 package io.openslice.tmf.scm.sc.reposervices;
 
+import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -9,11 +10,18 @@ import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.tmf.scm.model.Any;
 import io.openslice.tmf.scm.model.AttachmentRef;
 import io.openslice.tmf.scm.model.ELifecycle;
+import io.openslice.tmf.scm.model.EValueType;
 import io.openslice.tmf.scm.model.ServiceCatalog;
+import io.openslice.tmf.scm.model.ServiceSpecCharacteristic;
+import io.openslice.tmf.scm.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm.model.ServiceSpecificationUpdate;
@@ -27,6 +35,8 @@ import io.openslice.tmf.scm.sc.repo.ServiceSpecificationRepository;
 @Service
 public class ServiceSpecificationRepoService {
 
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@Autowired
 	ServiceSpecificationRepository serviceSpecificationRepo;
@@ -63,14 +73,6 @@ public class ServiceSpecificationRepoService {
 		
 	}
 	
-	@PostConstruct
-	public void initRepo() {
-		if ( this.findAll().size() == 0 ) {
-			
-			
-			
-		}
-	}
 
 	public ServiceSpecification updateServiceSpecification(String id,
 			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
@@ -142,6 +144,112 @@ public class ServiceSpecificationRepoService {
 		serviceSpec.setValidFor( tp );
 		
 		return serviceSpec;
+	}
+	
+
+	@PostConstruct
+	public ServiceSpecification initRepo() {
+//		ServiceSpecificationCreate spec = new ServiceSpecificationCreate();
+//		spec.setName("GST");
+//		spec.setDescription("GST example");
+//		ServiceSpecification serviceSpecificationObj = this.addServiceSpecification(spec);
+//
+//		serviceSpecificationObj = createGSTExample(serviceSpecificationObj);
+
+		ServiceSpecification serviceSpecificationObj = readFromLocalResource();
+				
+		
+		return serviceSpecificationObj;
+
+	}
+	
+	private ServiceSpecification readFromLocalResource() {
+		
+		ServiceSpecification sc;
+		try {
+			sc = objectMapper.readValue(
+					new ClassPathResource("gst.json").getInputStream(), 
+					ServiceSpecification.class);
+			sc = this.serviceSpecificationRepo.save(sc);
+			return sc;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+		
+	}
+
+	private ServiceSpecification createGSTExample(ServiceSpecification serviceSpecificationObj) {
+		/**
+		 * Create the sample spec
+		 */
+		/**
+		 * Coverage
+		 */
+		ServiceSpecCharacteristic specchar = new ServiceSpecCharacteristic();
+		specchar.setConfigurable(true);
+		specchar.setName("Coverage");
+		specchar.setDescription(
+				"This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice");
+		specchar.isUnique(true);
+		specchar.maxCardinality(1);
+		specchar.minCardinality(1);
+		specchar.valueType(EValueType.ENUM.getValue());
+
+		ServiceSpecCharacteristicValue speccharvalue = new ServiceSpecCharacteristicValue();
+		speccharvalue.isDefault(true);
+		speccharvalue.setValue(new Any("1"));
+		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
+		speccharvalue.unitOfMeasure("Global");
+		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
+		speccharvalue = new ServiceSpecCharacteristicValue();
+		speccharvalue.isDefault(true);
+		speccharvalue.setValue(new Any("2"));
+		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
+		speccharvalue.unitOfMeasure("National");
+		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
+		speccharvalue = new ServiceSpecCharacteristicValue();
+		speccharvalue.isDefault(true);
+		speccharvalue.setValue(new Any("3"));
+		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
+		speccharvalue.unitOfMeasure("Regional");
+		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
+		speccharvalue = new ServiceSpecCharacteristicValue();
+		speccharvalue.isDefault(true);
+		speccharvalue.setValue(new Any("4"));
+		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
+		speccharvalue.unitOfMeasure("Local (outdoor)");
+		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
+		speccharvalue = new ServiceSpecCharacteristicValue();
+		speccharvalue.isDefault(true);
+		speccharvalue.setValue(new Any("5"));
+		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
+		speccharvalue.unitOfMeasure("Local (indoor)");
+		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
+
+		serviceSpecificationObj.addServiceSpecCharacteristicItem(specchar);
+
+		/**
+		 * Delay tolerance
+		 */
+		specchar = new ServiceSpecCharacteristic();
+		specchar.setConfigurable(true);
+		specchar.setName("Delay tolerance");
+		specchar.setDescription(
+				"Provide the NSC with service delivery flexibility, especially for the vertical services that are " + 
+				"not chasing a high system performance. For instance, the service will be delivered once the " + 
+				"mobile system has sufficient resources or during the off-peak hours. For this type of traffic, it is not too critical how long it takes to deliver the amount of data, e.g. within hours, days, " + 
+				"weeks, etc.");
+		specchar.isUnique(true);
+		specchar.maxCardinality(1);
+		specchar.minCardinality(1);
+		specchar.valueType(EValueType.BINARY.getValue());
+
+		serviceSpecificationObj.addServiceSpecCharacteristicItem(specchar);
+
+		return serviceSpecificationObj;
 	}
 
 }

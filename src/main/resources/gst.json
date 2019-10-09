@@ -1,0 +1,134 @@
+{
+  "name": "GST External",
+  "description": "GST external example",
+  "version": "1.0.0",
+  "isBundle": false,
+  "attachment": [],
+  "relatedParty": [],
+  "resourceSpecification": [],
+  "serviceLevelSpecification": [],
+  "serviceSpecCharacteristic": [
+    {
+      "name": "Coverage",
+      "configurable": true,
+      "description": "This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice",
+      "extensible": null,
+      "isUnique": true,
+      "maxCardinality": 1,
+      "minCardinality": 1,
+      "regex": null,
+      "valueType": "ENUM",
+      "serviceSpecCharRelationship": [],
+      "serviceSpecCharacteristicValue": [
+        {
+          "isDefault": true,
+          "rangeInterval": null,
+          "regex": null,
+          "unitOfMeasure": "Regional",
+          "valueFrom": null,
+          "valueTo": null,
+          "valueType": "SMALLINT",
+          "validFor": null,
+          "value": {
+            "value": "3"
+          }
+        },
+        {
+          "isDefault": true,
+          "rangeInterval": null,
+          "regex": null,
+          "unitOfMeasure": "National",
+          "valueFrom": null,
+          "valueTo": null,
+          "valueType": "SMALLINT",
+          "validFor": null,
+          "value": {
+            "value": "2"
+          }
+        },
+        {
+          "isDefault": true,
+          "rangeInterval": null,
+          "regex": null,
+          "unitOfMeasure": "Global",
+          "valueFrom": null,
+          "valueTo": null,
+          "valueType": "SMALLINT",
+          "validFor": null,
+          "value": {
+            "value": "1"
+          }
+        },
+        {
+          "isDefault": true,
+          "rangeInterval": null,
+          "regex": null,
+          "unitOfMeasure": "Local (indoor)",
+          "valueFrom": null,
+          "valueTo": null,
+          "valueType": "SMALLINT",
+          "validFor": null,
+          "value": {
+            "value": "5"
+          }
+        },
+        {
+          "isDefault": true,
+          "rangeInterval": null,
+          "regex": null,
+          "unitOfMeasure": "Local (outdoor)",
+          "valueFrom": null,
+          "valueTo": null,
+          "valueType": "SMALLINT",
+          "validFor": null,
+          "value": {
+            "value": "4"
+          }
+        }
+      ],
+      "validFor": null
+    },
+    {
+      "name": "Delay tolerance",
+      "configurable": true,
+      "description": "Provide the NSC with service delivery flexibility, especially for the vertical services that are not chasing a high system performance. For instance, the service will be delivered once the mobile system has sufficient resources or during the off-peak hours. For this type of traffic, it is not too critical how long it takes to deliver the amount of data, e.g. within hours, days, weeks, etc.",
+      "extensible": null,
+      "isUnique": true,
+      "maxCardinality": 1,
+      "minCardinality": 1,
+      "regex": null,
+      "valueType": "BINARY",
+      "serviceSpecCharRelationship": [],
+      "serviceSpecCharacteristicValue": [
+        {
+          "isDefault": true,
+          "rangeInterval": null,
+          "regex": null,
+          "unitOfMeasure": "Not supported",
+          "valueFrom": null,
+          "valueTo": null,
+          "valueType": "BINARY",
+          "validFor": null,
+          "value": {
+            "value": "0"
+          }
+        },
+        {
+          "isDefault": true,
+          "rangeInterval": null,
+          "regex": null,
+          "unitOfMeasure": "Supported",
+          "valueFrom": null,
+          "valueTo": null,
+          "valueType": "BINARY",
+          "validFor": null,
+          "value": {
+            "value": "1"
+          }
+        }],
+      "validFor": null
+    }
+  ],
+  "serviceSpecRelationship": [],
+  "targetServiceSchema": null
+}

@@ -5,13 +5,17 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.scm.model.ELifecycle;
-import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.ServiceCategoryUpdate;
@@ -30,6 +34,22 @@ public class CategoryRepoService {
 
 	@Autowired
 	CatalogRepository catalogRepo;
+	
+
+	private SessionFactory  sessionFactory;
+	
+	/**
+	 * from https://stackoverflow.com/questions/25063995/spring-boot-handle-to-hibernate-sessionfactory
+	 * @param factory
+	 */
+	@Autowired
+	public CategoryRepoService(EntityManagerFactory factory) {
+	    if(factory.unwrap(SessionFactory.class) == null){
+	        throw new NullPointerException("factory is not a hibernate factory");
+	      }
+	      this.sessionFactory = factory.unwrap(SessionFactory.class);
+	    }
+
 	
 	public ServiceCategory addCategory(ServiceCategory c) {
 
@@ -54,6 +74,31 @@ public class CategoryRepoService {
 		return optionalCat
 				.orElse(null);
 	}
+	
+
+	public ServiceCategory findByIdEager(String id) {
+//		Optional<ServiceCategory> optionalCat = this.categsRepo.findByIdEager( id );
+//		return optionalCat
+//				.orElse(null);
+		
+		 Session session = sessionFactory.openSession();
+		    Transaction tx = session.beginTransaction();
+		    ServiceCategory dd = null;
+		    try {
+		        dd = (ServiceCategory) session.get(ServiceCategory.class, id);
+		        Hibernate.initialize( dd.getCategoryObj()  );
+		        Hibernate.initialize( dd.getServiceCandidateObj() );
+		        
+		        tx.commit();
+		    } finally {
+		        session.close();
+		    }
+		    return dd;
+	}
+	
+	
+	
+	
 
 	public Void deleteById(String id) {
 		Optional<ServiceCategory> optionalCat = this.categsRepo.findById( id );
@@ -101,5 +146,6 @@ public class CategoryRepoService {
 		sc.setValidFor( tp );
 		return sc;
 	}
+
 
 }

@@ -34,7 +34,7 @@ public class CandidateRepoService {
 	CandidateRepository candidateRepo;	
 
 	@Autowired
-	CategoriesRepository categsRepo;
+	CategoryRepoService categsRepoService;
 
 	@Autowired
 	ServiceSpecificationRepoService specRepo;
@@ -46,7 +46,15 @@ public class CandidateRepoService {
 
 	public ServiceCandidate addServiceCandidate(@Valid ServiceCandidateCreate serviceCand) {	
 		
+
 		ServiceCandidate sc = new ServiceCandidate() ;
+		if ( serviceCand.getServiceSpecification() != null) {
+			Optional<ServiceCandidate> optsc = this.candidateRepo.findByServiceSpecId(serviceCand.getServiceSpecification().getId());
+			if (optsc.isPresent() ) {
+					sc = optsc.get();//add to an existing candidate
+			}
+		}
+		
 		sc = updateServiceCandidateDataFromAPI( sc, serviceCand);
 		
 		return this.candidateRepo.save( sc );
@@ -82,37 +90,52 @@ public class CandidateRepoService {
 	}
 	
 	
-	public ServiceCandidate updateServiceCandidateDataFromAPI(ServiceCandidate sc, @Valid ServiceCandidateUpdate serviceCand) {	
+	public ServiceCandidate updateServiceCandidateDataFromAPI(ServiceCandidate sc, @Valid ServiceCandidateUpdate serviceCandidateUpd) {	
+
+		ServiceSpecification specObj = this.specRepo.findById( serviceCandidateUpd.getServiceSpecification().getId() );
 		
-		sc.setName( serviceCand.getName() );
-		sc.setDescription( serviceCand.getDescription() );
+		if ( specObj != null ) {
+			sc.setName( specObj.getName() );
+			sc.setDescription( specObj.getDescription() );
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( specObj.getLifecycleStatus() ) );
+			sc.setVersion( specObj.getVersion() );
+		} else {
+			sc.setName( serviceCandidateUpd.getName() );
+			sc.setDescription( serviceCandidateUpd.getDescription() );	
+			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
+			sc.setVersion( serviceCandidateUpd.getVersion());
+		}
+		
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
-		if ( serviceCand.getLifecycleStatus() == null ) {
+		if ( serviceCandidateUpd.getLifecycleStatus() == null ) {
 			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
 		} else {
-			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCand.getLifecycleStatus() ) );
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCandidateUpd.getLifecycleStatus() ) );
 		}
-		sc.setVersion( serviceCand.getVersion());
 		TimePeriod tp = new TimePeriod();
 		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
 		tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
 		sc.setValidFor( tp );
 		
-		ServiceSpecification specObj = this.specRepo.findById( serviceCand.getServiceSpecification().getId() );
+		//save first to continue
+		ServiceCandidate savedCand = this.candidateRepo.save( sc );
+		
 		if ( specObj != null){
-			sc.setServiceSpecificationObj( specObj );			
+			savedCand.setServiceSpecificationObj( specObj );			
 		}
 		
-		for (ServiceCategoryRef scd : serviceCand.getCategory()) {
-			
-			Optional<ServiceCategory> catObj = this.categsRepo.findById(scd.getId());
+		for (ServiceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
+			ServiceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());
+
 			if ( catObj!=null){
-				sc.getCategoryObj().add(catObj.get());				
+				catObj.getServiceCandidateObj().add(savedCand); //add candidate ref to category
+				catObj = this.categsRepoService.categsRepo.save(catObj); 
+				
 			}
 		}
 		
 		
-		return sc;
+		return savedCand;
 	}
 	
 	

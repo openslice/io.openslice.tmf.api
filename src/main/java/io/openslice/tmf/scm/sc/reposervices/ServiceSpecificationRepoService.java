@@ -147,7 +147,7 @@ public class ServiceSpecificationRepoService {
 	}
 	
 
-	@PostConstruct
+//	@PostConstruct
 	public ServiceSpecification initRepo() {
 //		ServiceSpecificationCreate spec = new ServiceSpecificationCreate();
 //		spec.setName("GST");
@@ -200,33 +200,28 @@ public class ServiceSpecificationRepoService {
 
 		ServiceSpecCharacteristicValue speccharvalue = new ServiceSpecCharacteristicValue();
 		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("1"));
+		speccharvalue.setValue(new Any("1", "Global"));
 		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		speccharvalue.unitOfMeasure("Global");
 		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
 		speccharvalue = new ServiceSpecCharacteristicValue();
 		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("2"));
+		speccharvalue.setValue(new Any("2", "National"));
 		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		speccharvalue.unitOfMeasure("National");
 		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
 		speccharvalue = new ServiceSpecCharacteristicValue();
 		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("3"));
+		speccharvalue.setValue(new Any("3", "Regional"));
 		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		speccharvalue.unitOfMeasure("Regional");
 		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
 		speccharvalue = new ServiceSpecCharacteristicValue();
 		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("4"));
+		speccharvalue.setValue(new Any("4", "Local (outdoor)"));
 		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		speccharvalue.unitOfMeasure("Local (outdoor)");
 		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
 		speccharvalue = new ServiceSpecCharacteristicValue();
 		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("5"));
+		speccharvalue.setValue(new Any("5", "Local (indoor)"));
 		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		speccharvalue.unitOfMeasure("Local (indoor)");
 		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
 
 		serviceSpecificationObj.addServiceSpecCharacteristicItem(specchar);

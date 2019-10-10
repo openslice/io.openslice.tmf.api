@@ -19,6 +19,11 @@ public class Any {
 
 	private String value;
 	
+	/**
+	 * provides a meaning to the value. useful in enumerations
+	 */
+	private String alias;
+	
 	public Any() {
 		super();
 	}
@@ -27,6 +32,12 @@ public class Any {
 	public Any(String value) {
 		super();
 		this.value = value;
+	}
+	
+	public Any(String value, String alias) {
+		super();
+		this.value = value;
+		this.alias = alias;
 	}
 
 	/**
@@ -77,5 +88,15 @@ public class Any {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+
+	public String getAlias() {
+		return alias;
+	}
+
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

@@ -830,7 +830,7 @@
 			"isUnique": true,
 			"maxCardinality": 1,
 			"minCardinality": 0,
-			"regex": "Conditional: This parameter specifies what capabilities are available to support mission-critical services. More than one capability may be supported at once. This parameter is optional when “Mission critical support” is set to 1 (meaning mission-critical slice).",
+			"regex": "Conditional: Conditional: Specifies capabilities  available to support mission-critical services. More than one capability may be supported at once. This parameter is optional when “Mission critical support” is set to 1 (mission-critical slice)",
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
 			],

@@ -1,609 +1,1262 @@
 {
-  "name": "GST External",
-  "description": "GST external example",
-  "version": "1.0.0",
-  "isBundle": false,
-  "attachment": [],
-  "relatedParty": [],
-  "resourceSpecification": [],
-  "serviceLevelSpecification": [],
-  "serviceSpecCharacteristic": [
-    {
-      "name": "Coverage",
-      "configurable": true,
-      "description": "This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 1,
-      "regex": null,
-      "valueType": "ENUM",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "SMALLINT",
-          "validFor": null,
-          "value": {
-            "value": "3",
-             "alias": "Regional"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "SMALLINT",
-          "validFor": null,
-          "value": {
-            "value": "2",
-             "alias": "National"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "SMALLINT",
-          "validFor": null,
-          "value": {
-            "value": "1",
-             "alias": "Global"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "SMALLINT",
-          "validFor": null,
-          "value": {
-            "value": "5",
-             "alias": "Local (indoor)"
-          }
-        },
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "SMALLINT",
-          "validFor": null,
-          "value": {
-            "value": "4",
-             "alias": "Local (outdoor)"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Delay tolerance",
-      "configurable": false,
-      "description": "Provide the NSC with service delivery flexibility, especially for the vertical services that are not chasing a high system performance. For instance, the service will be delivered once the mobile system has sufficient resources or during the off-peak hours. For this type of traffic, it is not too critical how long it takes to deliver the amount of data, e.g. within hours, days, weeks, etc.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 1,
-      "regex": null,
-      "valueType": "BINARY",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "BINARY",
-          "validFor": null,
-          "value": {
-            "value": "0",
-             "alias": "Not supported"
-          }
-        },
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "BINARY",
-          "validFor": null,
-          "value": {
-            "value": "1",
-             "alias": "Not supported"
-          }
-        }]
-    },
-    {
-      "name": "Deterministic communication: Availabilty",
-      "configurable": false,
-      "description": "This attribute defines if the network slice supports deterministic communication for.Availability describes if the network slice supports deterministic communication.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 1,
-      "regex": null,
-      "valueType": "BINARY",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "BINARY",
-          "validFor": null,
-          "value": {
-            "value": "0",
-             "alias": "Not supported"
-          }
-        },
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "BINARY",
-          "validFor": null,
-          "value": {
-            "value": "1",
-             "alias": "Not supported"
-          }
-        }]
-    },
-    {
-      "name": "Deterministic communication: Periodicity",
-      "configurable": false,
-      "description": "This attribute defines if the network slice supports deterministic communication for.Periodicity provides a list of periodicities supported by the network slice.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 0,
-      "regex": null,
-      "valueType": "ARRAY",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "Seconds",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "FLOAT",
-          "validFor": null,
-          "value": {
-            "value": "0"
-          }
-        }]
-    },
-    {
-      "name": "Downlink throughput per network slice: Guaranteed downlink throughput",
-      "configurable": false,
-      "description": "This attribute describes the guaranteed data rate supported by the network slice in downlink.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 1,
-      "regex": null,
-      "valueType": "FLOAT",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "kbps",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "FLOAT",
-          "validFor": null,
-          "value": {
-            "value": "0"
-          }
-        }]
-    },
-    {
-      "name": "Downlink throughput per network slice: Maximum downlink throughput",
-      "configurable": false,
-      "description": "This attribute defines the maximum data rate supported by the network slice in downlink.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 0,
-      "regex": "Conditional: Either maximum downlink throughput per network slice or Maximum downlink throughput per UE shall be present",
-      "valueType": "INTEGER",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "kbps",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "0"
-          }
-        }]
-    },
-    {
-      "name": "Downlink throughput per UE: Guaranteed downlink throughput",
-      "configurable": false,
-      "description": "This attribute describes the guaranteed data rate supported by the network slice per UE (User Equipment) in downlink, which is required to achieve a sufficient quality experience (dependent on the selected service type) and can be seen as a guaranteed throughput. If the value is 0, best effort traffic is expected where no minimum throughput is guaranteed.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 1,
-      "regex": null,
-      "valueType": "INTEGER",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "kbps",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "0"
-          }
-        }]
-    },
-    {
-      "name": "Downlink throughput per UE: Maximum downlink throughput",
-      "configurable": false,
-      "description": "This attribute describes the maximum data rate supported by the network slice per UE in downlink. These parameters could be used to offer different contract qualities like gold, silver and bronze.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 0,
-      "regex": "Conditional: Either maximum downlink throughput per network slice or Maximum downlink throughput per UE shall be present",
-      "valueType": "INTEGER",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "kbps",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "50.000"
-          }
-        }]
-    },
-    {
-      "name": "Energy efficiency: Network slice energy efficiency",
-      "configurable": false,
-      "description": "This attribute describes the energy efficiency of the network slice, i.e. the ratio between the performance indicator, in terms of data volume (DV), and the energy consumption (EC) when assessed during the same time frame. The energy efficiency is evaluated only when the network is running.",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 0,
-      "regex": null,
-      "valueType": "INTEGER",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "Bit / Joule",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "40",
-            "alias": "(Urban area)"
-          }
-        }]
-    },
-    {
-      "name": "Energy efficiency: Time frame of the measurement",
-      "configurable": false,
-      "description": "The time frame of the measurement shall be one of the alternatives: Weekly measurement: equals to 7 days. Monthly measurement: equals to 30 days. Yearly measurement: equals to 365 days. ",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 0,
-      "regex": "Conditional: This parameter shall be present if Network slice energy efficiency is used.",
-      "valueType": "INTEGER",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "day",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "1",
-            "alias": "Weekly measurement"
-          }
-        }]
-    },
-    {
-      "name": "Group communication support",
-      "configurable": false,
-      "description": "This parameter describes which type of group communication is provided by the network slice. ",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 1,
-      "regex": null,
-      "valueType": "ENUM",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "0",
-            "alias": "not available"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "1",
-            "alias": "Single Cell Point to Multipoint (SCPTM)"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "2",
-            "alias": "Broadcast/Multicast"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "3",
-            "alias": "Broadcast/Multicast + SC-PTM"
-          }
-        }]
-    },
-    {
-      "name": "Isolation level: Isolation",
-      "configurable": false,
-      "description": "Isolation is one of the key expectations of network slicing. A network slice instance may be fully or partly, logically and/or physically, isolated from another network slice instance. ",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 1,
-      "regex": null,
-      "valueType": "ENUM",
-      "serviceSpecCharRelationship": [{
-      	 "name": "Physical Isolation",
-      	 "role": "Isolation level: Physical Isolation",
-      	 "relationshipType": "exclusivity"
-      	},
-      	{
-      	 "name": "Logical Isolation",
-      	 "role": "Isolation level: Logical Isolation",
-      	 "relationshipType": "exclusivity"
-      	}
-      ],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "0",
-            "alias": "No Isolation"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "1",
-            "alias": "Physical Isolation"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "2",
-            "alias": "Logical Isolation"
-          }
-        }]
-    },
-    {
-      "name": "Isolation level: Physical Isolation",
-      "configurable": false,
-      "description": "Physical network slices are physically separated (e.g. different rack, different hardware, different location, etc.). Process and threads isolation,  Physical memory isolation, Physical network isolation",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 0,
-      "regex": "Conditional: ",
-      "valueType": "ENUM",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "0",
-            "alias": "Process and threads Isolation"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "1",
-            "alias": "Physical memory Isolation"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "2",
-            "alias": "Physical network isolation"
-          }
-        }]
-    },
-    {
-      "name": "Isolation level: Logical Isolation",
-      "configurable": false,
-      "description": "Logical network slices are logically separated. Virtual resources isolation a network slice has access to specific range of resources that do not overlap with other network slices (e.g. VM isolation). Network functions isolation   NF (Network Function) is dedicated to the NSC, but virtual resources are shared. Tenant/Service Isolation  NSC data are isolated from other NSCs, but virtual resources and NFs are shared",
-      "extensible": null,
-      "isUnique": true,
-      "maxCardinality": 1,
-      "minCardinality": 0,
-      "regex": "Conditional: ",
-      "valueType": "ENUM",
-      "serviceSpecCharRelationship": [],
-      "serviceSpecCharacteristicValue": [
-        {
-          "isDefault": true,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "1",
-            "alias": "Virtual resource isolation"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "2",
-            "alias": "Network Function isolation"
-          }
-        },
-        {
-          "isDefault": false,
-          "rangeInterval": null,
-          "regex": null,
-          "unitOfMeasure": "N/A",
-          "valueFrom": null,
-          "valueTo": null,
-          "valueType": "INTEGER",
-          "validFor": null,
-          "value": {
-            "value": "3",
-            "alias": "Tenant/Service isolation"
-          }
-        }]
-    }
-    
-  ],
-  "serviceSpecRelationship": [],
-  "targetServiceSchema": null
+	"name": "GST External",
+	"description": "GST external example",
+	"version": "1.0.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			"name": "Coverage",
+			"configurable": true,
+			"description": "This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Regional"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "National"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Global"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "5",
+						"alias": "Local (indoor)"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "Local (outdoor)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Delay tolerance",
+			"configurable": false,
+			"description": "Provide the NSC with service delivery flexibility, especially for the vertical services that are not chasing a high system performance. For instance, the service will be delivered once the mobile system has sufficient resources or during the off-peak hours. For this type of traffic, it is not too critical how long it takes to deliver the amount of data, e.g. within hours, days, weeks, etc.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Not supported"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Not supported"
+					}
+				}
+			]
+		},
+		{
+			"name": "Deterministic communication",
+			"description": "This attribute defines if the network slice supports deterministic communication for.",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Availabilty",
+					"role": "Deterministic communication: Availabilty",
+					"relationshipType": "dependency"
+				},
+				{
+					"name": "Periodicity",
+					"role": "Deterministic communication: Periodicity",
+					"relationshipType": "dependency"
+				}
+			]
+		},
+		{
+			"name": "Deterministic communication: Availabilty",
+			"configurable": false,
+			"description": "Availability describes if the network slice supports deterministic communication.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Not supported"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Not supported"
+					}
+				}
+			]
+		},
+		{
+			"name": "Deterministic communication: Periodicity",
+			"configurable": false,
+			"description": "Periodicity provides a list of periodicities supported by the network slice.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Seconds",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "0"
+					}
+				}
+			]
+		},
+		{
+			"name": "Downlink throughput per network slice",
+			"description": "Is the achievable data rate of the network slice in downlink that is available ubiquitously across the coverage area of the slice?",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Guaranteed downlink throughput",
+					"role": "Downlink throughput per network slice: Guaranteed downlink throughput",
+					"relationshipType": "dependency"
+				},
+				{
+					"name": "Maximum downlink throughput",
+					"role": "Downlink throughput per network slice: Maximum downlink throughput",
+					"relationshipType": "dependency"
+				}
+			]
+		},
+		{
+			"name": "Downlink throughput per network slice: Guaranteed downlink throughput",
+			"configurable": false,
+			"description": "This attribute describes the guaranteed data rate supported by the network slice in downlink.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "kbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "0"
+					}
+				}
+			]
+		},
+		{
+			"name": "Downlink throughput per network slice: Maximum downlink throughput",
+			"configurable": false,
+			"description": "This attribute defines the maximum data rate supported by the network slice in downlink.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: Either maximum downlink throughput per network slice or Maximum downlink throughput per UE shall be present",
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "kbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0"
+					}
+				}
+			]
+		},
+		{
+			"name": "Downlink throughput per UE",
+			"configurable": false,
+			"description": "",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Guaranteed downlink throughput",
+					"role": "Downlink throughput per UE: Guaranteed downlink throughput",
+					"relationshipType": "dependency"
+				},
+				{
+					"name": "Maximum downlink throughput",
+					"role": "Downlink throughput per UE: Maximum downlink throughput",
+					"relationshipType": "dependency"
+				}
+			]
+		},
+		{
+			"name": "Downlink throughput per UE: Guaranteed downlink throughput",
+			"configurable": false,
+			"description": "This attribute describes the guaranteed data rate supported by the network slice per UE (User Equipment) in downlink, which is required to achieve a sufficient quality experience (dependent on the selected service type) and can be seen as a guaranteed throughput. If the value is 0, best effort traffic is expected where no minimum throughput is guaranteed.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "kbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0"
+					}
+				}
+			]
+		},
+		{
+			"name": "Downlink throughput per UE: Maximum downlink throughput",
+			"configurable": false,
+			"description": "This attribute describes the maximum data rate supported by the network slice per UE in downlink. These parameters could be used to offer different contract qualities like gold, silver and bronze.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: Either maximum downlink throughput per network slice or Maximum downlink throughput per UE shall be present",
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "kbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "50.000"
+					}
+				}
+			]
+		},
+		{
+			"name": "Energy efficiency",
+			"description": "This attribute describes the energy efficiency of the network slice, i.e. the ratio between the performance indicator, in terms of data volume (DV), and the energy consumption (EC) when assessed during the same time frame. The energy efficiency is evaluated only when the network is running.",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network slice energy efficiency",
+					"role": "Energy efficiency: Network slice energy efficiency",
+					"relationshipType": "dependency"
+				},
+				{
+					"name": "Time frame of the measurement",
+					"role": "Energy efficiency: Time frame of the measurement",
+					"relationshipType": "dependency"
+				}
+			]
+		},
+		{
+			"name": "Energy efficiency: Network slice energy efficiency",
+			"configurable": false,
+			"description": "",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Bit / Joule",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "40",
+						"alias": "(Urban area)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Energy efficiency: Time frame of the measurement",
+			"configurable": false,
+			"description": "The time frame of the measurement shall be one of the alternatives: Weekly measurement: equals to 7 days. Monthly measurement: equals to 30 days. Yearly measurement: equals to 365 days. ",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: This parameter shall be present if Network slice energy efficiency is used.",
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "day",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Weekly measurement"
+					}
+				}
+			]
+		},
+		{
+			"name": "Group communication support",
+			"configurable": false,
+			"description": "This parameter describes which type of group communication is provided by the network slice. ",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "not available"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Single Cell Point to Multipoint (SCPTM)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Broadcast/Multicast"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Broadcast/Multicast + SC-PTM"
+					}
+				}
+			]
+		},
+		{
+			"name": "Isolation level: Isolation",
+			"configurable": false,
+			"description": "Isolation is one of the key expectations of network slicing. A network slice instance may be fully or partly, logically and/or physically, isolated from another network slice instance. ",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Physical Isolation",
+					"role": "Isolation level: Physical Isolation",
+					"relationshipType": "dependency"
+				},
+				{
+					"name": "Logical Isolation",
+					"role": "Isolation level: Logical Isolation",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No Isolation"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Physical Isolation"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Logical Isolation"
+					}
+				}
+			]
+		},
+		{
+			"name": "Isolation level: Physical Isolation",
+			"configurable": false,
+			"description": "Physical network slices are physically separated (e.g. different rack, different hardware, different location, etc.). Process and threads isolation,  Physical memory isolation, Physical network isolation",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: This parameter must be present when “Isolation” is set to 1.",
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Process and threads Isolation"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Physical memory Isolation"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Physical network isolation"
+					}
+				}
+			]
+		},
+		{
+			"name": "Isolation level: Logical Isolation",
+			"configurable": false,
+			"description": "Logical network slices are logically separated. Virtual resources isolation a network slice has access to specific range of resources that do not overlap with other network slices (e.g. VM isolation). Network functions isolation   NF (Network Function) is dedicated to the NSC, but virtual resources are shared. Tenant/Service Isolation  NSC data are isolated from other NSCs, but virtual resources and NFs are shared",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: ",
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Virtual resource isolation"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Network Function isolation"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Tenant/Service isolation"
+					}
+				}
+			]
+		},
+		{
+			"name": "Location based message delivery",
+			"configurable": false,
+			"description": "This attribute describes the delivery of information in a particular geographic region.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Not supported"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Not supported"
+					}
+				}
+			]
+		},
+		{
+			"name": "Maximum supported packet size",
+			"configurable": false,
+			"description": "This attribute describes the maximum packet size supported by the network slice and may be important for URLLC (Ultra-Reliable Low Latency Communication) and MIoT (Massive IoT), or to indicate a supported maximum transmission unit (MTU).",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Bytes",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0"
+					}
+				}
+			]
+		},
+		{
+			"name": "Mission critical support",
+			"configurable": false,
+			"description": "Mission-critical (MC) leads to a priority of the network slice relative to others, for C-plane (Control Plane) and U-plane (User Plane) decisions. This is relative to a customer provider relationship and to a PLMN (Public land Mobile Network)",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Mission-critical capability support",
+					"role": "Mission-critical capability support",
+					"relationshipType": "dependency"
+				},
+				{
+					"name": "Mission-critical service support",
+					"role": "Mission critical support: Mission-critical service support",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "non-mission-critical"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "mission-critical"
+					}
+				}
+			]
+		},
+		{
+			"name": "Mission critical support: Mission-critical capability support",
+			"configurable": false,
+			"description": "Mission-critical (MC) leads to a priority of the network slice relative to others, for C-plane (Control Plane) and U-plane (User Plane) decisions. This is relative to a customer provider relationship and to a PLMN (Public land Mobile Network)",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: This parameter specifies what capabilities are available to support mission-critical services. More than one capability may be supported at once. This parameter is optional when “Mission critical support” is set to 1 (meaning mission-critical slice).",
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Inter-user prioritization"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Pre-emption"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Local control"
+					}
+				}
+			]
+		},
+		{
+			"name": "Mission critical support: Mission-critical service support",
+			"configurable": false,
+			"description": "This attribute specifies whether or not the network slice supports mission-critical push-to-talk (MCPTT), mission-critical data (MCData)], mission-critical video (MCVideo), Isolated E-UTRAN Operation for Public Safety (IOPS), or mission-critical interworking",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: This attribute must be present when “Mission critical support” is set to 1.",
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "MCPTT"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "MCData"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "MCVideo"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "IOPS"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "MC interworking"
+					}
+				}
+			]
+		},
+		{
+			"name": "MMTel support",
+			"configurable": false,
+			"description": "This attribute describes whether the network slice supports IP Multimedia Subsystem (IMS) and Multimedia Telephony Service MMTel. This parameter describes whether the GSMA PRD IR.92 0 compliant MMTel deployment is supported in the network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Not supported"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Not supported"
+					}
+				}
+			]
+		},
+		{
+			"name": "Network Slice Customer network functions",
+			"configurable": false,
+			"description": "A NSC can own some Network Functions (e.g. User Plan Function (UPF), User Data Management, UDM). This attribute provides a list of network functions to be provided by the NSC. If the list is empty, the NSC is not expected to provide any network function relevant for the network slice instance",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "UPF",
+						"alias": "UPF"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "UDM/AUSF",
+						"alias": "UDM/AUSF"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "AF",
+						"alias": "AF"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "PCF",
+						"alias": "PCF"
+					}
+				}
+			]
+		},
+		{
+			"name": "Number of connections",
+			"configurable": false,
+			"description": "This attribute describes the maximum number of concurrent sessions supported by the network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: Either Number of connections or Number of terminals shall be present",
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10.000",
+						"alias": "sessions"
+					}
+				}
+			]
+		},
+		{
+			"name": "Number of terminals",
+			"configurable": false,
+			"description": "This attribute describes the maximum number of terminals supported by the network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Conditional: Either Number of connections or Number of terminals shall be present",
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10.000",
+						"alias": "terminals"
+					}
+				}
+			]
+		},
+		{
+			"name": "Performance monitoring:",
+			"configurable": false,
+			"description": "This attribute provides the capability for NSC and NOP to monitor Key Quality Indicators (KQIs) and Key Performance Indicators (KPIs). KQIs reflect the end-to-end service performance and quality while KPIs reflect the performance of the network",
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Availability",
+					"role": "Performance monitoring: Availability",
+					"relationshipType": "dependency"
+				},
+				{
+					"name": "Monitoring sample frequency",
+					"role": "Performance monitoring:  Monitoring sample frequency",
+					"relationshipType": "dependency"
+				}
+			]
+		},
+		{
+			"name": "Performance monitoring: Availability",
+			"configurable": false,
+			"description": "This parameter contains a list of KQIs and KPIs available for monitoring. If the list is empty this attribute is not available in the network slice and the other parameters might be ignored",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10.000",
+						"alias": "terminals"
+					}
+				}
+			]
+		},
+		{
+			"name": "Performance monitoring: Monitoring sample frequency",
+			"configurable": false,
+			"description": "This parameter describes how often the KQIs and KPIs are monitored.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "per second"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "per minute"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "per hour"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "conditional, e.g. in case a defined threshold is crossed"
+					}
+				}
+			]
+		}
+	],
+	"serviceSpecRelationship": [
+	],
+	"targetServiceSchema": null
 }

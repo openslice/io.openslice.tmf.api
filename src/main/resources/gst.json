@@ -748,14 +748,14 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
 			],
 			"serviceSpecCharacteristicValue": [
 				{
-					"isDefault": false,
+					"isDefault": true,
 					"rangeInterval": null,
 					"regex": null,
 					"unitOfMeasure": "Bytes",
@@ -764,7 +764,7 @@
 					"valueType": "INTEGER",
 					"validFor": null,
 					"value": {
-						"value": "0"
+						"value": "1500"
 					}
 				}
 			]

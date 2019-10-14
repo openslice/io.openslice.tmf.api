@@ -92,6 +92,18 @@ public class ServiceCatalog extends BaseEntity{
 	}
 	
 	/**
+	 * @param crefs
+	 */
+	public void  setCategoryRefs( List<ServiceCategoryRef> crefs){
+		for (ServiceCategoryRef serviceCategoryRef : crefs) {
+			ServiceCategory e = new ServiceCategory();
+			e.setId( serviceCategoryRef.getId() );
+			e.setName(serviceCategoryRef.getName());
+			categoryObj.add(e );
+		}
+	}
+	
+	/**
 	 * @return the categoryObj
 	 */
 	public Set<ServiceCategory> getCategoryObj() {

@@ -1,0 +1,51 @@
+{
+	"name": "Test Spec",
+	"description": "Test Spec example",
+	"version": "1.8.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			"name": "Coverage",
+			"configurable": true,
+			"description": "This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"tags": [
+				"Character Attribute",
+				"Operational",
+				"Scalability Attribute",
+				"KPI"
+			],
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "Local (outdoor)"
+					}
+				}
+			]
+		}
+	]
+}

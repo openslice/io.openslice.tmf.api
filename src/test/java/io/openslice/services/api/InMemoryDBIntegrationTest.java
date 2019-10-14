@@ -42,8 +42,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.tmf.scm.OpenAPISpringBoot;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
+import io.openslice.tmf.scm.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
+import io.openslice.tmf.scm.model.ServiceCategoryRef;
+import io.openslice.tmf.scm.model.ServiceSpecification;
+import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm.sc.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm.sc.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm.sc.reposervices.CategoryRepoService;
@@ -102,11 +106,6 @@ public class InMemoryDBIntegrationTest {
 		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
 		
-//		assertThat( propsService.getProperties().size() )
-//		.isEqualTo( 14 );
-//
-//		assertThat( usersService.findAll().size() )
-//		.isEqualTo( 1 );
 	}
 	
 	
@@ -133,6 +132,7 @@ public class InMemoryDBIntegrationTest {
 		ServiceCatalog responsesCatalog = toJsonObj(response,  ServiceCatalog.class);
 		assertThat( responsesCatalog.getName() ).isEqualTo( "Test Catalog" );
 		
+		assertThat( responsesCatalog.getCategoryObj().size()).isEqualTo(0);
 		
 		
 		/**
@@ -160,7 +160,62 @@ public class InMemoryDBIntegrationTest {
 		assertThat( responsesCateg.getName() ).isEqualTo( "Test Category 2" );
 		
 		
+		/**
+		 * update catalog with category
+		 */
+		ServiceCatalogUpdate scu = new ServiceCatalogUpdate();
+		scu.setName( responsesCatalog.getName() );
+		ServiceCategoryRef categoryItem = new ServiceCategoryRef();
+		categoryItem.setId( responsesCateg.getId() );
+		
+		scu.addCategoryItem(categoryItem);
+		 response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalog/" + responsesCatalog.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( scu ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Test Catalog")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		
+		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 2 );
+			
+		responsesCatalog = toJsonObj(response, ServiceCatalog.class);
+		assertThat(responsesCatalog.getName()).isEqualTo("Test Catalog");
+
+
+		assertThat( responsesCatalog.getCategoryObj().size()).isEqualTo(1);
+		assertThat( responsesCatalog.getCategoryRefs().get(0).getName() ).isEqualTo(  "Test Category 2" );
+		
+		/**
+		 * Service Spec
+		 */
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+		
+		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		
+		 response = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Test Spec")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		ServiceSpecification responsesSpec = toJsonObj(response,  ServiceSpecification.class);
+		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec" );
+		
+		assertThat( responsesSpec.getServiceSpecCharacteristic().size() ).isEqualTo(1);
+		
 	}
+	
+	
+	
 	
 	 static byte[] toJson(Object object) throws IOException {
 	        ObjectMapper mapper = new ObjectMapper();

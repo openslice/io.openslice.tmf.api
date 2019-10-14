@@ -1,0 +1,33 @@
+server:
+  port: 13082
+  servlet:
+    context-path : /tmf-api/serviceCatalogManagement/v4/
+spring:
+  datasource:
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    password: sa
+    username: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+      hbm2ddl.auto: create-drop
+    show-sql: false
+    generate-ddl: true
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 100
+
+logging:
+  level:
+    root: INFO
+    portal.api: INFO
+    org.springframework: INFO
+    org.apache.camel: INFO 
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d %p %c{1.} [%t] %m%n"

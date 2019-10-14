@@ -54,6 +54,13 @@ public class TimePeriod {
 		return this;
 	}
 
+
+	public void setEndDateTime(String endDateTime) {
+		this.endDateTime = OffsetDateTime.parse( endDateTime );
+	}
+
+
+	
 	/**
 	 * Start of the time period, using IETC-RFC-3339 format. If you define a start,
 	 * you must also define an end
@@ -71,6 +78,11 @@ public class TimePeriod {
 	public void setStartDateTime(OffsetDateTime startDateTime) {
 		this.startDateTime = startDateTime;
 	}
+	
+	public void setStartDateTime(String startDateTime) {
+		this.startDateTime = OffsetDateTime.parse( startDateTime );
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {

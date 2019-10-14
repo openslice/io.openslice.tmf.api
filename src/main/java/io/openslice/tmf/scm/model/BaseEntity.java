@@ -77,6 +77,7 @@ public class BaseEntity extends BaseRootEntity{
 		this.lastUpdate = lastUpdate;
 		return this;
 	}
+	
 
 	/**
 	 * Date and time of the last update
@@ -94,6 +95,12 @@ public class BaseEntity extends BaseRootEntity{
 	public void setLastUpdate(OffsetDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+	
+	public void setLastUpdate (String lastUpdate) {
+		
+		this.lastUpdate = OffsetDateTime.parse( lastUpdate );
+	}
+
 
 	public BaseEntity lifecycleStatus(String lifecycleStatus) {
 		this.lifecycleStatus = lifecycleStatus;

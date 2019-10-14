@@ -48,7 +48,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 		this.request = request;
 	}
 
-	public ResponseEntity<?> createServiceCategory(
+	public ResponseEntity<ServiceCategory> createServiceCategory(
 			@ApiParam(value = "The ServiceCategory to be created", required = true) @Valid @RequestBody ServiceCategoryCreate serviceCategory) {
 
 		try {

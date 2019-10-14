@@ -1,0 +1,5 @@
+{ 
+  "name": "Test Category 2",
+  "description": "A Test Category",
+  "version": "1.8"
+}

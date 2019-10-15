@@ -4,6 +4,7 @@ package io.openslice.services.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -40,18 +41,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.scm.OpenAPISpringBoot;
+import io.openslice.tmf.scm.model.AttachmentRef;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.ServiceCategoryRef;
+import io.openslice.tmf.scm.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
+import io.openslice.tmf.scm.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm.sc.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm.sc.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm.sc.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm.sc.reposervices.ServiceSpecificationRepoService;
+import net.minidev.json.JSONObject;
 
 
 @RunWith(SpringRunner.class)
@@ -209,8 +214,77 @@ public class InMemoryDBIntegrationTest {
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
 		ServiceSpecification responsesSpec = toJsonObj(response,  ServiceSpecification.class);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec" );
-		
+
 		assertThat( responsesSpec.getServiceSpecCharacteristic().size() ).isEqualTo(1);
+		assertThat( responsesSpec.getServiceSpecCharacteristic().toArray( new ServiceSpecCharacteristic[0] )[0].getServiceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		
+	}
+	
+	
+	@Test
+	public void testSpecAttachments() throws Exception {
+		logger.info("Test: testSpecAttachments");
+		/**
+		 * Service Spec
+		 */
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+		
+		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		
+		AttachmentRef attachmentItem = new AttachmentRef();
+		sspeccr.setName( "Test Spec a attr" );
+		attachmentItem.setName("an attachment");
+		attachmentItem.setUrl("a url");
+		sspeccr.addAttachmentItem(attachmentItem);
+		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Test Spec a attr")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec = toJsonObj(response,  ServiceSpecification.class);
+		logger.info("Test: testSpecAttachments response = " + response);
+		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec a attr" );
+		assertThat( responsesSpec.getAttachment().size() ).isEqualTo( 1 );
+		
+		JSONObject obj = toJsonObj(response, JSONObject.class);
+		obj.remove("id");
+		obj.remove("lastUpdate");
+		response = toJsonString(obj);
+				
+		ServiceSpecificationUpdate responsesSpecUpd = toJsonObj(response,  ServiceSpecificationUpdate.class);
+		logger.info("Test: testSpecAttachments response1 = " + response);
+		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( responsesSpecUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Test Spec a attr")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
+		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec a attr" );
+		
+	}
+	
+	@Test
+	public void testBundledSpec() throws Exception {
+		//fail("Not yet implemented");
+	}
+	
+	
+	@Test
+	public void testSpecRelatedParty() throws Exception {
+		//fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCloneSpec() throws Exception {
+		//fail("Not yet implemented");
 		
 	}
 	
@@ -223,6 +297,11 @@ public class InMemoryDBIntegrationTest {
 	        return mapper.writeValueAsBytes(object);
 	    }
 	 
+	 static String toJsonString(Object object) throws IOException {
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+	        return mapper.writeValueAsString(object);
+	    }
 	 
 	 
 	 static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {

@@ -21,14 +21,12 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "ENUM",
-			"tags": [
-				"Character Attribute",
-				"Operational",
-				"Scalability Attribute",
-				"KPI"
-			],
+			"valueType": "ENUM",			
 			"serviceSpecCharRelationship": [
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }			
 			],
 			"serviceSpecCharacteristicValue": [
 				{

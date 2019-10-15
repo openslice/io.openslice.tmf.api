@@ -40,7 +40,6 @@ public class TimePeriod {
 	@ApiModelProperty(value = "End of the time period, using IETC-RFC-3339 format")
 
 	@Valid
-
 	public OffsetDateTime getEndDateTime() {
 		return endDateTime;
 	}

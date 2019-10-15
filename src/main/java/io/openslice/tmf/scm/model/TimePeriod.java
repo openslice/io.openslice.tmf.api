@@ -21,10 +21,8 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Embeddable
 public class TimePeriod {
-	@JsonProperty("endDateTime")
 	private OffsetDateTime endDateTime = null;
 
-	@JsonProperty("startDateTime")
 	private OffsetDateTime startDateTime = null;
 
 	public TimePeriod endDateTime(OffsetDateTime endDateTime) {
@@ -38,8 +36,12 @@ public class TimePeriod {
 	 * @return endDateTime
 	 **/
 	@ApiModelProperty(value = "End of the time period, using IETC-RFC-3339 format")
-
 	@Valid
+	@JsonProperty("endDateTime")
+	public String getEndDateTimeString() {
+		return endDateTime.toString();
+	}
+	
 	public OffsetDateTime getEndDateTime() {
 		return endDateTime;
 	}
@@ -58,6 +60,8 @@ public class TimePeriod {
 		this.endDateTime = OffsetDateTime.parse( endDateTime );
 	}
 
+	
+
 
 	
 	/**
@@ -67,13 +71,17 @@ public class TimePeriod {
 	 * @return startDateTime
 	 **/
 	@ApiModelProperty(value = "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end")
-
 	@Valid
-
+	@JsonProperty("startDateTime")
+	public String getStartDateTimeString() {
+		return startDateTime.toString();
+	}
+	
 	public OffsetDateTime getStartDateTime() {
 		return startDateTime;
 	}
-
+	
+	
 	public void setStartDateTime(OffsetDateTime startDateTime) {
 		this.startDateTime = startDateTime;
 	}

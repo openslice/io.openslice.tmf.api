@@ -113,6 +113,8 @@ public class ServiceSpecificationRepoService {
 		
 
 		if (serviceServiceSpecification.getAttachment() != null ){
+			//reattach attachments fromDB
+			
 			serviceSpec.getAttachment().addAll( serviceServiceSpecification.getAttachment() );			
 		}
 		if (serviceServiceSpecification.getRelatedParty() != null ){

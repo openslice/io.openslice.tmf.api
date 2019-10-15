@@ -258,7 +258,7 @@ public class InMemoryDBIntegrationTest {
 				
 		ServiceSpecificationUpdate responsesSpecUpd = toJsonObj(response,  ServiceSpecificationUpdate.class);
 		logger.info("Test: testSpecAttachments response1 = " + response);
-		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification")
+		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())

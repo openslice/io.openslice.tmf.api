@@ -290,6 +290,9 @@ public class InMemoryDBIntegrationTest {
 		//test now update and delete things
 		responsesSpecUpd = toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
 		responsesSpecUpd.getServiceSpecCharacteristic().get(0).setName("CoverageNew");
+		ServiceSpecCharacteristicValue val = new ServiceSpecCharacteristicValue();
+		val.setName("a value");
+		responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharacteristicValue().add(val);
 		response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
@@ -301,8 +304,9 @@ public class InMemoryDBIntegrationTest {
 		responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec" );
 		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo(1);
-		assertThat( responsesSpec2.getServiceSpecCharacteristic().toArray( new ServiceSpecCharacteristic[0] )[0].getServiceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().toArray( new ServiceSpecCharacteristic[0] )[0].getServiceSpecCharacteristicValue().size()  ).isEqualTo(2);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageNew")   ).isNotNull();
+		assertThat(responsesSpec2.findSpecCharacteristicByName("CoverageNew").getServiceSpecCharacteristicValue().size()  ).isEqualTo(2);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNull();
 		
 	}

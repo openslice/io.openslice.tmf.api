@@ -446,4 +446,27 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
+	public void updateWith(ServiceSpecCharacteristic s) {
+		this.name = s.getName();
+		this.description = s.getDescription();
+		this.maxCardinality = s.getMaxCardinality();
+		this.minCardinality = s.getMinCardinality();
+		this.regex = s.getRegex();
+		this.isUnique =s.isUnique;
+		this.configurable =s.isConfigurable();
+		this.extensible =s.isExtensible();
+		
+		/**
+		 * TODO
+		 */
+		s.getServiceSpecCharacteristicValue();
+		
+
+		/**
+		 * TODO
+		 */
+		s.getServiceSpecCharRelationship();
+		
+	}
 }

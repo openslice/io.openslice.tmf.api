@@ -3,7 +3,10 @@ package io.openslice.tmf.scm.sc.reposervices;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
@@ -69,8 +72,7 @@ public class ServiceSpecificationRepoService {
 	public Void deleteById(String id) {
 		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findById( id );
 		this.serviceSpecificationRepo.delete( optionalCat.get());
-		return null;
-		
+		return null;		
 	}
 	
 
@@ -88,60 +90,109 @@ public class ServiceSpecificationRepoService {
 		
 	}
 	
-	public ServiceSpecification updateServiceSpecDataFromAPIcall( ServiceSpecification serviceSpec, ServiceSpecificationUpdate serviceServiceSpecification )
+	public ServiceSpecification updateServiceSpecDataFromAPIcall( ServiceSpecification serviceSpec, ServiceSpecificationUpdate serviceSpecUpd )
 	{
 		
-		serviceSpec.setName(serviceServiceSpecification.getName());
+		serviceSpec.setName(serviceSpecUpd.getName());
 
-		serviceSpec.setDescription( serviceServiceSpecification.getDescription() );
-		serviceSpec.isBundle( serviceServiceSpecification.isIsBundle() );		
+		serviceSpec.setDescription( serviceSpecUpd.getDescription() );
+		serviceSpec.isBundle( serviceSpecUpd.isIsBundle() );		
 		
 		serviceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		
 		
-		if ( serviceServiceSpecification.getLifecycleStatus() == null ) {
+		if ( serviceSpecUpd.getLifecycleStatus() == null ) {
 			serviceSpec.setLifecycleStatusEnum( ELifecycle.IN_STUDY );
 		} else {
-			serviceSpec.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceServiceSpecification.getLifecycleStatus() ) );
+			serviceSpec.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceSpecUpd.getLifecycleStatus() ) );
 		}
-		if ( serviceServiceSpecification.getVersion() == null ) {
+		if ( serviceSpecUpd.getVersion() == null ) {
 			serviceSpec.setVersion( "1.0.0" );
 			
 		}else {
-			serviceSpec.setVersion( serviceServiceSpecification.getVersion());			
+			serviceSpec.setVersion( serviceSpecUpd.getVersion());			
 		}
 		
 
-		if (serviceServiceSpecification.getAttachment() != null ){
+		if (serviceSpecUpd.getAttachment() != null ){
+			//reattach attachments fromDB
+						
+			for (AttachmentRef ar : serviceSpecUpd.getAttachment()) {
+				//find attachmet by id and reload it here.
+				//we need the attachment model from resource spec models
+				boolean idexists = false;
+				for (AttachmentRef orinalAtt : serviceSpec.getAttachment()) {
+					if ( orinalAtt.getId().equals(ar.getId())) {
+						idexists = true;
+						break;
+					}	
+				}
+				
+				if (!idexists) {
+					serviceSpec.getAttachment().add(ar);
+				}
+				
+			}
+					
+		}
+//		if (serviceSpecUpd.getRelatedParty() != null ){
+//			serviceSpec.getRelatedParty().addAll( serviceSpecUpd.getRelatedParty() );
+//		}
+//		if (serviceSpecUpd.getResourceSpecification() != null ){
+//			serviceSpec.getResourceSpecification().addAll( serviceSpecUpd.getResourceSpecification() );
+//		}
+//		if (serviceSpecUpd.getServiceLevelSpecification() != null ){
+//			serviceSpec.getServiceLevelSpecification().addAll( serviceSpecUpd.getServiceLevelSpecification() );
+//		}
+		if (serviceSpecUpd.getServiceSpecCharacteristic() != null ){
 			//reattach attachments fromDB
 			
-			serviceSpec.getAttachment().addAll( serviceServiceSpecification.getAttachment() );			
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (ServiceSpecCharacteristic charUpd : serviceSpecUpd.getServiceSpecCharacteristic()) {
+				
+				
+				boolean idexists = false;
+				for (ServiceSpecCharacteristic originalSpecChar : serviceSpec.getServiceSpecCharacteristic()) {
+					if ( originalSpecChar.getId().equals(charUpd.getId())) {
+						idexists = true;
+						idAddedUpdated.put( originalSpecChar.getId(), true);
+						originalSpecChar.updateWith( charUpd );
+						break;
+					}	
+				}
+				
+				if (!idexists) {
+					serviceSpec.getServiceSpecCharacteristic().add(charUpd);
+					idAddedUpdated.put( charUpd.getId(), true);
+				}
+				
+			}
+			
+			List<ServiceSpecCharacteristic> toRemove = new ArrayList<>();
+			for (ServiceSpecCharacteristic ss : serviceSpec.getServiceSpecCharacteristic()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (ServiceSpecCharacteristic serviceSpecCharacteristic : toRemove) {
+				serviceSpec.getServiceSpecCharacteristic().remove(serviceSpecCharacteristic);
+			}
 		}
-		if (serviceServiceSpecification.getRelatedParty() != null ){
-			serviceSpec.getRelatedParty().addAll( serviceServiceSpecification.getRelatedParty() );
-		}
-		if (serviceServiceSpecification.getResourceSpecification() != null ){
-			serviceSpec.getResourceSpecification().addAll( serviceServiceSpecification.getResourceSpecification() );
-		}
-		if (serviceServiceSpecification.getServiceLevelSpecification() != null ){
-			serviceSpec.getServiceLevelSpecification().addAll( serviceServiceSpecification.getServiceLevelSpecification() );
-		}
-		if (serviceServiceSpecification.getServiceSpecCharacteristic() != null ){
-			serviceSpec.getServiceSpecCharacteristic().addAll( serviceServiceSpecification.getServiceSpecCharacteristic() );
-		}
-		if (serviceServiceSpecification.getServiceSpecRelationship() != null ){
-			serviceSpec.getServiceSpecRelationship().addAll( serviceServiceSpecification.getServiceSpecRelationship() );
+		if (serviceSpecUpd.getServiceSpecRelationship() != null ){
+			serviceSpec.getServiceSpecRelationship().addAll( serviceSpecUpd.getServiceSpecRelationship() );
 		}
 		
 
 		TimePeriod tp = new TimePeriod();
-		if ( serviceServiceSpecification.getValidFor() == null ){
+		if ( serviceSpecUpd.getValidFor() == null ){
 			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
 			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );			
 		} else{
 
-			tp.setStartDateTime( serviceServiceSpecification.getValidFor().getStartDateTime() );
-			tp.setEndDateTime( serviceServiceSpecification.getValidFor().getEndDateTime() );
+			tp.setStartDateTime( serviceSpecUpd.getValidFor().getStartDateTime() );
+			tp.setEndDateTime( serviceSpecUpd.getValidFor().getEndDateTime() );
 		}
 		serviceSpec.setValidFor( tp );
 		
@@ -182,71 +233,7 @@ public class ServiceSpecificationRepoService {
 		return null;
 		
 	}
-
-	private ServiceSpecification createGSTExample(ServiceSpecification serviceSpecificationObj) {
-		/**
-		 * Create the sample spec
-		 */
-		/**
-		 * Coverage
-		 */
-		ServiceSpecCharacteristic specchar = new ServiceSpecCharacteristic();
-		specchar.setConfigurable(true);
-		specchar.setName("Coverage");
-		specchar.setDescription(
-				"This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice");
-		specchar.isUnique(true);
-		specchar.maxCardinality(1);
-		specchar.minCardinality(1);
-		specchar.valueType(EValueType.ENUM.getValue());
-
-		ServiceSpecCharacteristicValue speccharvalue = new ServiceSpecCharacteristicValue();
-		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("1", "Global"));
-		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
-		speccharvalue = new ServiceSpecCharacteristicValue();
-		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("2", "National"));
-		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
-		speccharvalue = new ServiceSpecCharacteristicValue();
-		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("3", "Regional"));
-		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
-		speccharvalue = new ServiceSpecCharacteristicValue();
-		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("4", "Local (outdoor)"));
-		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
-		speccharvalue = new ServiceSpecCharacteristicValue();
-		speccharvalue.isDefault(true);
-		speccharvalue.setValue(new Any("5", "Local (indoor)"));
-		speccharvalue.setValueType(EValueType.SMALLINT.getValue());
-		specchar.addServiceSpecCharacteristicValueItem(speccharvalue);
-
-		serviceSpecificationObj.addServiceSpecCharacteristicItem(specchar);
-
-		/**
-		 * Delay tolerance
-		 */
-		specchar = new ServiceSpecCharacteristic();
-		specchar.setConfigurable(true);
-		specchar.setName("Delay tolerance");
-		specchar.setDescription(
-				"Provide the NSC with service delivery flexibility, especially for the vertical services that are " + 
-				"not chasing a high system performance. For instance, the service will be delivered once the " + 
-				"mobile system has sufficient resources or during the off-peak hours. For this type of traffic, it is not too critical how long it takes to deliver the amount of data, e.g. within hours, days, " + 
-				"weeks, etc.");
-		specchar.isUnique(true);
-		specchar.maxCardinality(1);
-		specchar.minCardinality(1);
-		specchar.valueType(EValueType.BINARY.getValue());
-
-		serviceSpecificationObj.addServiceSpecCharacteristicItem(specchar);
-
-		return serviceSpecificationObj;
-	}
+	
+	
 
 }

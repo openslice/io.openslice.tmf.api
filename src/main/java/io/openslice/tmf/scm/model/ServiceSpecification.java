@@ -2,6 +2,7 @@ package io.openslice.tmf.scm.model;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.IntPredicate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -411,5 +412,14 @@ public class ServiceSpecification extends BaseEntity {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	public ServiceSpecCharacteristic findSpecCharacteristicByName(String name) {
+		for (ServiceSpecCharacteristic ssci :  this.getServiceSpecCharacteristic()) {
+			if ( ssci.getName().equals(name)) {
+				return ssci;				
+			}
+		}
+		return null;
 	}
 }

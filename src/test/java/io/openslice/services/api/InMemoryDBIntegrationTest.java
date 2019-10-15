@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,6 +50,7 @@ import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.ServiceCategoryRef;
 import io.openslice.tmf.scm.model.ServiceSpecCharacteristic;
+import io.openslice.tmf.scm.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm.model.ServiceSpecificationUpdate;
@@ -222,8 +224,8 @@ public class InMemoryDBIntegrationTest {
 	
 	
 	@Test
-	public void testSpecAttachments() throws Exception {
-		logger.info("Test: testSpecAttachments");
+	public void testSpecAttributesUpdate() throws Exception {
+		logger.info("Test: testSpecAttributesUpdate");
 		/**
 		 * Service Spec
 		 */
@@ -234,30 +236,38 @@ public class InMemoryDBIntegrationTest {
 		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		
 		AttachmentRef attachmentItem = new AttachmentRef();
-		sspeccr.setName( "Test Spec a attr" );
 		attachmentItem.setName("an attachment");
 		attachmentItem.setUrl("a url");
 		sspeccr.addAttachmentItem(attachmentItem);
-		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			    .andExpect(jsonPath("name", is("Test Spec a attr")))								 
+			    .andExpect(jsonPath("name", is("Test Spec")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec = toJsonObj(response,  ServiceSpecification.class);
-		logger.info("Test: testSpecAttachments response = " + response);
-		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec a attr" );
+		ServiceSpecification responsesSpec = toJsonObj(responseSpec,  ServiceSpecification.class);
+		logger.info("Test: testSpecAttachments response = " + responseSpec);
+		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec" );
 		assertThat( responsesSpec.getAttachment().size() ).isEqualTo( 1 );
 		
-		JSONObject obj = toJsonObj(response, JSONObject.class);
+		//make it now as a ServiceSpecificationUpdate, no id and lastUpdate
+		JSONObject obj = toJsonObj(responseSpec, JSONObject.class);
 		obj.remove("id");
 		obj.remove("lastUpdate");
-		response = toJsonString(obj);
+		responseSpec = toJsonString(obj);
 				
-		ServiceSpecificationUpdate responsesSpecUpd = toJsonObj(response,  ServiceSpecificationUpdate.class);
-		logger.info("Test: testSpecAttachments response1 = " + response);
+		ServiceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
+		responsesSpecUpd.setName( "Test Spec a attr" );
+		responsesSpecUpd.setVersion("2.x");
+		ServiceSpecCharacteristic spechar = new ServiceSpecCharacteristic();
+		spechar.setName("A new characteristic");
+		ServiceSpecCharacteristicValue sv = new ServiceSpecCharacteristicValue();
+		sv.setName("a value");
+		spechar.getServiceSpecCharacteristicValue().add( sv );
+		responsesSpecUpd.getServiceSpecCharacteristic().add(spechar );
+				
 		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
@@ -268,6 +278,32 @@ public class InMemoryDBIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		ServiceSpecification responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec a attr" );
+		assertThat( responsesSpec2.getVersion() ).isEqualTo( "2.x" );
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo(2);
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().toArray( new ServiceSpecCharacteristic[0] )[0].getServiceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage")   ).isNotNull();
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNotNull();
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		
+		
+		
+		//test now update and delete things
+		responsesSpecUpd = toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
+		responsesSpecUpd.getServiceSpecCharacteristic().get(0).setName("CoverageNew");
+		response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( responsesSpecUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Test Spec")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
+		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec" );
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo(1);
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().toArray( new ServiceSpecCharacteristic[0] )[0].getServiceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageNew")   ).isNotNull();
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNull();
 		
 	}
 	

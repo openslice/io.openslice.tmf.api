@@ -351,6 +351,21 @@ public class InMemoryDBIntegrationTest {
 		
 	}
 	
+	
+	private ServiceSpecification createServiceSpec(String sspectext, ServiceSpecificationCreate sspeccr1) throws Exception{
+		
+		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec,  ServiceSpecification.class);
+		logger.info("createServiceSpec = " + responseSpec);
+		return responsesSpec1;
+	}
+	
 	@Test
 	public void testBundledSpec() throws Exception {
 		logger.info("Test: testBundledSpec " );
@@ -366,45 +381,21 @@ public class InMemoryDBIntegrationTest {
 		
 		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
-			    .andExpect(status().isOk())
-			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	    	    .andExpect(status().isOk())
-	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec1,  ServiceSpecification.class);
+		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
 
-		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
 		
 		ServiceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
+		ServiceSpecification responsesSpec2 = createServiceSpec(sspectext, sspeccr2);
 
-		String responseSpec2 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr2 ) ))
-			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	    	    .andExpect(status().isOk())
-	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec2 = toJsonObj(responseSpec2,  ServiceSpecification.class);
-
-		logger.info("Test: testBundledSpec responseSpec2 = " + responseSpec2);
 
 		ServiceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr3.setName("Spec3");
 		sspeccr3.isBundle(true);
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec2 );
+		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
 		
-		String responseSpec3 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr3 ) ))
-			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	    	    .andExpect(status().isOk())
-	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec3 = toJsonObj(responseSpec3,  ServiceSpecification.class);
-
-		logger.info("Test: testBundledSpec responseSpec3 = " + responseSpec3);
 		
 		assertThat( responsesSpec3.getServiceSpecRelationship().size() ).isEqualTo(2);
 		boolean idspec1Exists = false;
@@ -428,16 +419,9 @@ public class InMemoryDBIntegrationTest {
 		//first add a new service spec and then reference it
 		ServiceSpecificationCreate sspeccr4 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr4.setName("Spec4");
-
-		String responseSpec4 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr4 ) ))
-			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	    	    .andExpect(status().isOk())
-	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec4 = toJsonObj(responseSpec4,  ServiceSpecification.class);
-		logger.info("Test: testBundledSpec responseSpec4= " + responseSpec4);
+		ServiceSpecification responsesSpec4 = createServiceSpec(sspectext, sspeccr3);
 		
+		String responseSpec3 = toJsonString( responsesSpec3 );
 		JSONObject obj = toJsonObj(responseSpec3, JSONObject.class);
 		obj.remove("uuid");
 		obj.remove("id");
@@ -493,18 +477,64 @@ public class InMemoryDBIntegrationTest {
 		
 	}
 	
+
+	@Test
+	public void testCloneSpec() throws Exception {
+
+		/**
+		 * first add 2 specs
+		 */
+
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName("Spec1");
+		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
+
+		
+		ServiceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr2.setName("Spec2");
+		ServiceSpecification responsesSpec2 = createServiceSpec(sspectext, sspeccr2);
+
+
+		ServiceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr3.setName("Spec3");
+		sspeccr3.isBundle(true);
+		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
+		sspeccr3.addServiceSpecRelationshipWith( responsesSpec2 );
+		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
+		
+		
+
+		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification/"+responsesSpec3.getId()+"/clone")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification clonedSpec = toJsonObj( responseSpecCloned,  ServiceSpecification.class);
+		logger.info("source = " + responsesSpec3.toString());
+		logger.info("clonedSpec = " + clonedSpec.toString());
+
+		assertThat( clonedSpec.getId() ).isNotEqualTo( responsesSpec3.getId() );
+		assertThat( clonedSpec.getUuid() ).isNotEqualTo( responsesSpec3.getUuid() );
+		assertThat( clonedSpec.getName() ).isEqualTo( responsesSpec3.getName() );
+		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage").getUuid() ).isNotNull();		
+		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage").getUuid()  ).isNotEqualTo( responsesSpec3.findSpecCharacteristicByName("Coverage").getUuid() );
+		
+	}
+	
+	
 	
 	@Test
 	public void testSpecRelatedParty() throws Exception {
 		//fail("Not yet implemented");
 	}
 
-	@Test
-	public void testCloneSpec() throws Exception {
-		//fail("Not yet implemented");
-		
-	}
-	
 	
 	@Test
 	public void testGST() throws Exception {

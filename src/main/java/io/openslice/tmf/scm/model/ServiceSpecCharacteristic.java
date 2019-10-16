@@ -414,6 +414,7 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ServiceSpecCharacteristic {\n");
 
+		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    configurable: ").append(toIndentedString(configurable)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    extensible: ").append(toIndentedString(extensible)).append("\n");

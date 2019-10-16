@@ -23,6 +23,7 @@ import io.openslice.tmf.scm.model.AttachmentRef;
 import io.openslice.tmf.scm.model.ELifecycle;
 import io.openslice.tmf.scm.model.EValueType;
 import io.openslice.tmf.scm.model.ServiceCatalog;
+import io.openslice.tmf.scm.model.ServiceSpecCharRelationship;
 import io.openslice.tmf.scm.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm.model.ServiceSpecification;
@@ -287,6 +288,27 @@ public class ServiceSpecificationRepoService {
 
 		return null;
 		
+	}
+
+	public ServiceSpecification cloneServiceSpecification(String id) {
+		ServiceSpecification src = this.findById(id);
+		
+		src.setUuid( null );
+		for (ServiceSpecCharacteristic schar : src.getServiceSpecCharacteristic()) {
+			schar.setUuid( null );
+			for (ServiceSpecCharacteristicValue val : schar.getServiceSpecCharacteristicValue()) {
+				val.setUuid( null );				
+			}
+			for (ServiceSpecCharRelationship val : schar.getServiceSpecCharRelationship() ) {
+				val.setUuid( null );				
+			}
+		}	
+		
+		src = this.serviceSpecificationRepo.save(src); //save to get uuids
+		src.fixSpecCharRelationhsipIDs(); //fix charRels
+		src = this.serviceSpecificationRepo.save(src);
+		
+		return src; 
 	}
 	
 	

@@ -391,6 +391,7 @@ public class ServiceSpecification extends BaseEntity {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ServiceSpecification {\n");
 
+		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");

@@ -109,4 +109,21 @@ public interface ServiceSpecificationApi {
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> retrieveServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
 
+    @ApiOperation(value = "Clones a ServiceSpecification", nickname = "patchServiceSpecification", notes = "This operation clones a ServiceSpecification entity. The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Cloned", response = ServiceSpecification.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/serviceSpecification/{id}/clone",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    ResponseEntity<ServiceSpecification> cloneServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification to clone",required=true) @PathVariable("id") String id );
+
+    
 }

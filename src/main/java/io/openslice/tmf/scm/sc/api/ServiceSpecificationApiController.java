@@ -111,5 +111,14 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		}
 
 	}
+	
+	public ResponseEntity<ServiceSpecification> cloneServiceSpecification(
+			@ApiParam(value = "Identifier of the ServiceSpecification to clone", required = true) @PathVariable("id") String id) {
+
+		ServiceSpecification c = serviceSpecificationRepoService.cloneServiceSpecification( id );
+
+		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
+	}
+
 
 }

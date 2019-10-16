@@ -23,10 +23,10 @@
 			"regex": null,
 			"valueType": "ENUM",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -113,9 +113,9 @@
 			"valueType": "BINARY",
 			
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -152,17 +152,17 @@
 			"name": "Deterministic communication",
 			"description": "This attribute defines if the network slice supports deterministic communication for.",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Performance", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" },
 				{
-					"name": "Availabilty",
-					"role": "Deterministic communication: Availabilty",
+					"role": "Availabilty",
+					"name": "Deterministic communication: Availabilty",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Periodicity",
-					"role": "Deterministic communication: Periodicity",
+					"role": "Periodicity",
+					"name": "Deterministic communication: Periodicity",
 					"relationshipType": "dependency"
 				}
 			]
@@ -178,9 +178,9 @@
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Performance", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -224,9 +224,9 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Performance", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -249,13 +249,13 @@
 			"description": "Is the achievable data rate of the network slice in downlink that is available ubiquitously across the coverage area of the slice?",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Guaranteed downlink throughput",
-					"role": "Downlink throughput per network slice: Guaranteed downlink throughput",
+					"role": "Guaranteed downlink throughput",
+					"name": "Downlink throughput per network slice: Guaranteed downlink throughput",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Maximum downlink throughput",
-					"role": "Downlink throughput per network slice: Maximum downlink throughput",
+					"role": "Maximum downlink throughput",
+					"name": "Downlink throughput per network slice: Maximum downlink throughput",
 					"relationshipType": "dependency"
 				}
 			]
@@ -271,8 +271,8 @@
 			"regex": null,
 			"valueType": "FLOAT",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -301,8 +301,8 @@
 			"regex": "Conditional: Either maximum downlink throughput per network slice or Maximum downlink throughput per UE shall be present",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -326,13 +326,13 @@
 			"description": "",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Guaranteed downlink throughput",
-					"role": "Downlink throughput per UE: Guaranteed downlink throughput",
+					"role": "Guaranteed downlink throughput",
+					"name": "Downlink throughput per UE: Guaranteed downlink throughput",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Maximum downlink throughput",
-					"role": "Downlink throughput per UE: Maximum downlink throughput",
+					"role": "Maximum downlink throughput",
+					"name": "Downlink throughput per UE: Maximum downlink throughput",
 					"relationshipType": "dependency"
 				}
 			]
@@ -348,9 +348,9 @@
 			"regex": null,
 			"valueType": "INTEGER",			
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Performance", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -379,9 +379,9 @@
 			"regex": "Conditional: Either maximum downlink throughput per network slice or Maximum downlink throughput per UE shall be present",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Performance", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -404,13 +404,13 @@
 			"description": "This attribute describes the energy efficiency of the network slice, i.e. the ratio between the performance indicator, in terms of data volume (DV), and the energy consumption (EC) when assessed during the same time frame. The energy efficiency is evaluated only when the network is running.",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Network slice energy efficiency",
-					"role": "Energy efficiency: Network slice energy efficiency",
+					"role": "Network slice energy efficiency",
+					"name": "Energy efficiency: Network slice energy efficiency",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Time frame of the measurement",
-					"role": "Energy efficiency: Time frame of the measurement",
+					"role": "Time frame of the measurement",
+					"name": "Energy efficiency: Time frame of the measurement",
 					"relationshipType": "dependency"
 				}
 			]
@@ -426,8 +426,8 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -457,8 +457,8 @@
 			"regex": "Conditional: This parameter shall be present if Network slice energy efficiency is used.",
 			"valueType": "INTEGER",			
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -489,8 +489,8 @@
 			"valueType": "ENUM",
 			
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -562,16 +562,16 @@
 			"regex": null,
 			"valueType": "ENUM",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
 				{
-					"name": "Physical Isolation",
-					"role": "Isolation level: Physical Isolation",
+					"role": "Physical Isolation",
+					"name": "Isolation level: Physical Isolation",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Logical Isolation",
-					"role": "Isolation level: Logical Isolation",
+					"role": "Logical Isolation",
+					"name": "Isolation level: Logical Isolation",
 					"relationshipType": "dependency"
 				}
 			],
@@ -631,8 +631,8 @@
 			"regex": "Conditional: This parameter must be present when “Isolation” is set to 1.",
 			"valueType": "ENUM",			
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			
 			],
 			"serviceSpecCharacteristicValue": [
@@ -691,8 +691,8 @@
 			"regex": "Conditional: ",
 			"valueType": "ENUM",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -750,9 +750,9 @@
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -796,9 +796,9 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Performance", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -827,16 +827,16 @@
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
 				{
-					"name": "Mission-critical capability support",
 					"role": "Mission-critical capability support",
+					"name": "Mission-critical capability support",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Mission-critical service support",
-					"role": "Mission critical support: Mission-critical service support",
+					"role": "Mission-critical service support",
+					"name": "Mission critical support: Mission-critical service support",
 					"relationshipType": "dependency"
 				}
 			],
@@ -883,8 +883,8 @@
 			"valueType": "ARRAY",
 
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -942,8 +942,8 @@
 			"regex": "Conditional: This attribute must be present when “Mission critical support” is set to 1.",
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1029,8 +1029,8 @@
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1074,9 +1074,9 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1148,7 +1148,7 @@
 			"regex": "Conditional: Either Number of connections or Number of terminals shall be present",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1178,7 +1178,7 @@
 			"regex": "Conditional: Either Number of connections or Number of terminals shall be present",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1205,13 +1205,13 @@
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Availability",
-					"role": "Performance monitoring: Availability",
+					"role": "Availability",
+					"name": "Performance monitoring: Availability",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Monitoring sample frequency",
-					"role": "Performance monitoring:  Monitoring sample frequency",
+					"role": "Monitoring sample frequency",
+					"name": "Performance monitoring:  Monitoring sample frequency",
 					"relationshipType": "dependency"
 				}
 			]
@@ -1227,9 +1227,9 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1259,10 +1259,10 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1331,13 +1331,13 @@
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Availability",
-					"role": "Performance prediction: Availability",
+					"role": "Availability",
+					"name": "Performance prediction: Availability",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Prediction frequency",
-					"role": "Performance prediction: Prediction frequency",
+					"role": "Prediction frequency",
+					"name": "Performance prediction: Prediction frequency",
 					"relationshipType": "dependency"
 				}
 			]
@@ -1353,10 +1353,10 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1414,10 +1414,10 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1472,18 +1472,18 @@
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Availability",
-					"role": "Positioning support: Availability",
+					"role": "Availability",
+					"name": "Positioning support: Availability",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Prediction frequency",
-					"role": "Positioning support: Prediction frequency",
+					"role": "Prediction frequency",
+					"name": "Positioning support: Prediction frequency",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Prediction frequency",
-					"role": "Positioning support: Accuracy",
+					"role": "Prediction frequency",
+					"name": "Positioning support: Accuracy",
 					"relationshipType": "dependency"
 				}
 			]
@@ -1499,9 +1499,9 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1615,9 +1615,9 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1689,9 +1689,9 @@
 			"regex": null,
 			"valueType": "FLOAT",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1722,7 +1722,7 @@
 			"valueType": "ARRAY",
 
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1794,10 +1794,10 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1855,9 +1855,9 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -1929,8 +1929,8 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2031,43 +2031,43 @@
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "3GPP 5QI",
-					"role": "Slice quality of service parameters: 3GPP 5QI",
+					"role": "3GPP 5QI",
+					"name": "Slice quality of service parameters: 3GPP 5QI",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Resource Type",
-					"role": "Slice quality of service parameters: Resource Type",
+					"role": "Resource Type",
+					"name": "Slice quality of service parameters: Resource Type",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Resource Type",
-					"role": "Slice quality of service parameters: Resource Type",
+					"role": "Resource Type",
+					"name": "Slice quality of service parameters: Resource Type",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Priority Level",
-					"role": "Slice quality of service parameters: Priority Level",
+					"role": "Priority Level",
+					"name": "Slice quality of service parameters: Priority Level",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Packet Delay Budget",
-					"role": "Slice quality of service parameters: Packet Delay Budget",
+					"role": "Packet Delay Budget",
+					"name": "Slice quality of service parameters: Packet Delay Budget",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Packet Error Rate",
-					"role": "Slice quality of service parameters: Packet Error Rate",
+					"role": "Packet Error Rate",
+					"name": "Slice quality of service parameters: Packet Error Rate",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Jitter",
-					"role": "Slice quality of service parameters: Jitter",
+					"role": "Jitter",
+					"name": "Slice quality of service parameters: Jitter",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Maximum Packet Loss Rate",
-					"role": "Slice quality of service parameters: Maximum Packet Loss Rate",
+					"role": "Maximum Packet Loss Rate",
+					"name": "Slice quality of service parameters: Maximum Packet Loss Rate",
 					"relationshipType": "dependency"
 				}
 			]
@@ -2083,10 +2083,10 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2182,10 +2182,10 @@
 			"regex": "Conditional:",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2225,10 +2225,10 @@
 			"regex": "Conditional:",
 			"valueType": "FLOAT",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2252,10 +2252,10 @@
 			"regex": "Conditional:",
 			"valueType": "FLOAT",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2279,10 +2279,10 @@
 			"regex": "Conditional:",
 			"valueType": "FLOAT",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2306,10 +2306,10 @@
 			"regex": null,
 			"valueType": "FLOAT",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2333,10 +2333,10 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2360,9 +2360,9 @@
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2393,10 +2393,10 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2485,9 +2485,9 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Performance", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2535,16 +2535,16 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
 				{
-					"name": "Availability",
-					"role": "Synchronicity: Availability",
+					"role": "Availability",
+					"name": "Synchronicity: Availability",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Accuracy",
-					"role": "Synchronicity: Accuracy",
+					"role": "Accuracy",
+					"name": "Synchronicity: Accuracy",
 					"relationshipType": "dependency"
 				}
 			]
@@ -2560,8 +2560,8 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 				
 			],
 			"serviceSpecCharacteristicValue": [
@@ -2602,8 +2602,8 @@
 			"regex": null,
 			"valueType": "FLOAT",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2627,8 +2627,8 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 				
 			],
 			"serviceSpecCharacteristicValue": [
@@ -2653,15 +2653,15 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
 				{
-					"name": "Guaranteed uplink throughput",
-					"role": "Uplink throughput per network slice: Guaranteed uplink throughput",
+					"role": "Guaranteed uplink throughput",
+					"name": "Uplink throughput per network slice: Guaranteed uplink throughput",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Maximum uplink throughput",
-					"role": "Uplink throughput per network slice: Maximum uplink throughput",
+					"role": "Maximum uplink throughput",
+					"name": "Uplink throughput per network slice: Maximum uplink throughput",
 					"relationshipType": "dependency"
 				}
 			]
@@ -2677,7 +2677,7 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2701,7 +2701,7 @@
 			"regex": "Conditional: Either Maximum uplink throughput per network slice or Maximum uplink throughput per slice shall be present. ",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2720,13 +2720,13 @@
 			"description": "",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Guaranteed uplink throughput",
-					"role": "Uplink throughput per UE: Guaranteed uplink throughput",
+					"role": "Guaranteed uplink throughput",
+					"name": "Uplink throughput per UE: Guaranteed uplink throughput",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Maximum uplink throughput",
-					"role": "Uplink throughput per UE: Maximum uplink throughput",
+					"role": "Maximum uplink throughput",
+					"name": "Uplink throughput per UE: Maximum uplink throughput",
 					"relationshipType": "dependency"
 				}
 			]
@@ -2742,9 +2742,9 @@
 			"regex": null,
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2774,9 +2774,9 @@
 			"regex": "Conditional: Either Maximum uplink throughput per network slice or Maximum uplink throughput per UE must be present",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2806,10 +2806,10 @@
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }	
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2847,13 +2847,13 @@
 			"description": "",
 			"serviceSpecCharRelationship": [
 				{
-					"name": "Data access",
-					"role": "User data access: Data access",
+					"role": "Data access",
+					"name": "User data access: Data access",
 					"relationshipType": "dependency"
 				},
 				{
-					"name": "Tunnelling mechanism",
-					"role": "User data access: Tunnelling mechanism",
+					"role": "Tunnelling mechanism",
+					"name": "User data access: Tunnelling mechanism",
 					"relationshipType": "dependency"
 				}
 			]
@@ -2869,8 +2869,8 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -2928,8 +2928,8 @@
 			"regex": null,
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{
@@ -3016,8 +3016,8 @@
 			"valueType": "INTEGER",
 			
 			"serviceSpecCharRelationship": [
-				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "dependency" }
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
 			],
 			"serviceSpecCharacteristicValue": [
 				{

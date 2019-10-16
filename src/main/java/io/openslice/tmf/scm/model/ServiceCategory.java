@@ -56,7 +56,16 @@ public class ServiceCategory extends BaseEntity {
 	@JsonIgnore
 	private Set<ServiceCandidate> serviceCandidateObj = new HashSet<>();
 	
+	@JsonProperty("id")
+	protected String id = null;
 	
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return uuid;
+	}
 
 //	@Transient
 //	@JsonProperty("serviceCandidate")

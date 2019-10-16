@@ -12,6 +12,6 @@ import io.openslice.tmf.scm.model.ServiceSpecification;
 public interface ServiceSpecificationRepository extends PagingAndSortingRepository<ServiceSpecification, Long> {
 
 	
-	Optional<ServiceSpecification> findById(String id);
+	Optional<ServiceSpecification> findByUuid(String id);
 
 }

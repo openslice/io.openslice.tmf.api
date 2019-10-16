@@ -78,6 +78,17 @@ public class ServiceSpecification extends BaseEntity {
 	@JsonProperty("targetServiceSchema")
 	private TargetServiceSchema targetServiceSchema = null;
 
+	@JsonProperty("id")
+	protected String id = null;
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return uuid;
+	}
+
+	
 	public ServiceSpecification() {
 		super();
 		this.baseType = "BaseEntity";
@@ -421,5 +432,32 @@ public class ServiceSpecification extends BaseEntity {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * we fix here the ids of the ServiceSpecCharRelationships.
+	 * remind also that we have a role="tag"
+	 */
+	public void fixSpecCharRelationhsipIDs() {
+		for (ServiceSpecCharacteristic schar : serviceSpecCharacteristic) {
+			for (ServiceSpecCharRelationship charRel : schar.getServiceSpecCharRelationship()) {
+				if ( charRel.getId() == null ) {
+					//search other specCharacteristics inside the serviceSpec to get the id (if they have same name). Then ID will be the same as the id of the serviceSpecCharacteristic
+					for (ServiceSpecCharacteristic searchChar : serviceSpecCharacteristic) {
+						if ( searchChar.getName().equals(charRel.getName() ) ) {
+							charRel.setId(searchChar.getUuid());
+							break;
+						}						
+					}
+					
+				}
+				//if still is null se this id:
+				if ( charRel.getId() == null ) {
+					charRel.setId( this.getName() + "-" + charRel.getName()  );
+				}
+			}
+			
+		}
+		
 	}
 }

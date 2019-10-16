@@ -8,9 +8,12 @@ import io.openslice.tmf.scm.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -23,7 +26,31 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceSpecRelationship")
-public class ServiceSpecRelationship extends BaseRootEntity {
+public class ServiceSpecRelationship {
+	
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	protected String uuid = null;
+	
+	
+	@JsonProperty("id")
+	protected String id = null;
+
+	@JsonProperty("name")
+	protected String name = null;
+
+	
+	@JsonProperty("@baseType")
+	protected String baseType = "BaseEntity";
+
+
+	@JsonProperty("@schemaLocation")
+	protected String schemaLocation = null;
+	
+
+	@JsonProperty("@type")
+	protected String type = null;
 
 	@JsonProperty("relationshipType")
 	private String relationshipType = null;
@@ -45,6 +72,7 @@ public class ServiceSpecRelationship extends BaseRootEntity {
 		return this;
 	}
 
+	
 	/**
 	 * Unique identifier of the target serviceSpecification
 	 * 
@@ -124,7 +152,6 @@ public class ServiceSpecRelationship extends BaseRootEntity {
 		}
 		ServiceSpecRelationship serviceSpecRelationship = (ServiceSpecRelationship) o;
 		return Objects.equals(this.id, serviceSpecRelationship.id)
-				&& Objects.equals(this.href, serviceSpecRelationship.href)
 				&& Objects.equals(this.name, serviceSpecRelationship.name)
 				&& Objects.equals(this.relationshipType, serviceSpecRelationship.relationshipType)
 				&& Objects.equals(this.role, serviceSpecRelationship.role)
@@ -136,7 +163,7 @@ public class ServiceSpecRelationship extends BaseRootEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, href, name, relationshipType, role, validFor, baseType, schemaLocation, type);
+		return Objects.hash(id,  name, relationshipType, role, validFor, baseType, schemaLocation, type);
 	}
 
 	@Override
@@ -145,7 +172,6 @@ public class ServiceSpecRelationship extends BaseRootEntity {
 		sb.append("class ServiceSpecRelationship {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    relationshipType: ").append(toIndentedString(relationshipType)).append("\n");
 		sb.append("    role: ").append(toIndentedString(role)).append("\n");
@@ -167,4 +193,90 @@ public class ServiceSpecRelationship extends BaseRootEntity {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
+	}
+
+	/**
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the baseType
+	 */
+	public String getBaseType() {
+		return baseType;
+	}
+
+	/**
+	 * @param baseType the baseType to set
+	 */
+	public void setBaseType(String baseType) {
+		this.baseType = baseType;
+	}
+
+	/**
+	 * @return the schemaLocation
+	 */
+	public String getSchemaLocation() {
+		return schemaLocation;
+	}
+
+	/**
+	 * @param schemaLocation the schemaLocation to set
+	 */
+	public void setSchemaLocation(String schemaLocation) {
+		this.schemaLocation = schemaLocation;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	
 }

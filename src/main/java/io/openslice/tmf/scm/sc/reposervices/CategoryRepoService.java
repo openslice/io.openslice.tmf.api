@@ -69,8 +69,8 @@ public class CategoryRepoService {
 		return (List<ServiceCategory>) this.categsRepo.findAll();
 	}
 
-	public ServiceCategory findById(String id) {
-		Optional<ServiceCategory> optionalCat = this.categsRepo.findById( id );
+	public ServiceCategory findByUuid(String id) {
+		Optional<ServiceCategory> optionalCat = this.categsRepo.findByUuid( id );
 		return optionalCat
 				.orElse(null);
 	}
@@ -101,14 +101,14 @@ public class CategoryRepoService {
 	
 
 	public Void deleteById(String id) {
-		Optional<ServiceCategory> optionalCat = this.categsRepo.findById( id );
+		Optional<ServiceCategory> optionalCat = this.categsRepo.findByUuid( id );
 		this.categsRepo.delete( optionalCat.get());
 		return null;
 		
 	}
 
 	public ServiceCategory updateCategory(String id, @Valid ServiceCategoryUpdate serviceCategory) {
-		Optional<ServiceCategory> optionalCat = this.categsRepo.findById( id );
+		Optional<ServiceCategory> optionalCat = this.categsRepo.findByUuid( id );
 		if ( optionalCat == null ) {
 			return null;
 		}

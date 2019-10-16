@@ -74,6 +74,8 @@ public class Any {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Any {\n");
+	    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+	    sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
 
 		sb.append("}");
 		return sb.toString();

@@ -105,7 +105,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 
 		try {
 
-			return new ResponseEntity<ServiceCategory>(categoryRepoService.findById(id), HttpStatus.OK);
+			return new ResponseEntity<ServiceCategory>(categoryRepoService.findByUuid(id), HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<ServiceCategory>(HttpStatus.INTERNAL_SERVER_ERROR);

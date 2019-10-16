@@ -28,8 +28,8 @@ public class BaseRootEntity {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@JsonProperty("id")
-	protected String id = null;
+	//@JsonProperty("id")
+	protected String uuid = null;
 
 	@JsonProperty("href")
 	protected String href = null;
@@ -47,24 +47,22 @@ public class BaseRootEntity {
 	@JsonProperty("@type")
 	protected String type = null;
 
-	public BaseRootEntity id(String id) {
-		this.id = id;
-		return this;
+
+
+	
+
+	/**
+	 * @return the uuid
+	 */
+	public String getUuid() {
+		return uuid;
 	}
 
 	/**
-	 * Unique identifier of the Entity
-	 * 
-	 * @return id
-	 **/
-	@ApiModelProperty(value = "Unique identifier of the Entity")
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	 * @param uuid the uuid to set
+	 */
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public BaseRootEntity href(String href) {
@@ -157,7 +155,7 @@ public class BaseRootEntity {
 			return false;
 		}
 		BaseRootEntity Entity = (BaseRootEntity) o;
-		return Objects.equals(this.id, Entity.id) && Objects.equals(this.href, Entity.href)
+		return Objects.equals(this.uuid, Entity.uuid) && Objects.equals(this.href, Entity.href)
 				&& Objects.equals(this.name, Entity.name)
 				&& Objects.equals(this.baseType, Entity.baseType)
 				&& Objects.equals(this.schemaLocation, Entity.schemaLocation);
@@ -165,7 +163,7 @@ public class BaseRootEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, href, name,
+		return Objects.hash(uuid, href, name,
 
 				baseType, schemaLocation);
 	}
@@ -175,7 +173,7 @@ public class BaseRootEntity {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Entity {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
@@ -186,7 +184,7 @@ public class BaseRootEntity {
 	}
 
 	public void copyFromObj(BaseRootEntity be) {
-		this.id = be.id;
+		this.uuid = be.uuid;
 		this.name = be.name;
 		this.href = be.href;
 		this.baseType = be.baseType;

@@ -13,9 +13,9 @@ import io.openslice.tmf.scm.model.ServiceCandidate;
 public interface CandidateRepository extends PagingAndSortingRepository<ServiceCandidate, Long> {
 
 	
-	Optional<ServiceCandidate> findById(String id);
+	Optional<ServiceCandidate> findByUuid(String id);
 
-	@Query("SELECT sc FROM ServiceCandidate sc JOIN FETCH sc.serviceSpecificationObj spec WHERE spec.id = ?1")
-	Optional<ServiceCandidate> findByServiceSpecId(String id);
+	@Query("SELECT sc FROM ServiceCandidate sc JOIN FETCH sc.serviceSpecificationObj spec WHERE spec.uuid = ?1")
+	Optional<ServiceCandidate> findByServiceSpecUuid(String id);
 
 }

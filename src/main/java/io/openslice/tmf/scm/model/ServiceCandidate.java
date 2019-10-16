@@ -49,6 +49,18 @@ public class ServiceCandidate extends BaseEntity {
 	@JsonIgnore
 	private ServiceSpecification serviceSpecificationObj = null;
 
+	@JsonProperty("id")
+	protected String id = null;
+	
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return uuid;
+	}
+	
+	
 	public ServiceCandidate() {
 		super();
 		this.type = "ServiceCandidate";
@@ -73,7 +85,7 @@ public class ServiceCandidate extends BaseEntity {
 		{
 			ServiceSpecificationRef sref = new ServiceSpecificationRef();
 			
-			sref.setId(  this.serviceSpecificationObj.getId());
+			sref.setId(  this.serviceSpecificationObj.getUuid());
 			sref.setName(  this.serviceSpecificationObj.getName() );
 			sref.setVersion( this.serviceSpecificationObj.getVersion());
 			sref.setBaseType(ServiceSpecificationRef.class.getName());

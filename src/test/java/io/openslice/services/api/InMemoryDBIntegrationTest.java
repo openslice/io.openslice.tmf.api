@@ -42,15 +42,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.scm.OpenAPISpringBoot;
+import io.openslice.tmf.scm.model.Any;
 import io.openslice.tmf.scm.model.AttachmentRef;
+import io.openslice.tmf.scm.model.EValueType;
 import io.openslice.tmf.scm.model.ServiceCatalog;
 import io.openslice.tmf.scm.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm.model.ServiceCategory;
 import io.openslice.tmf.scm.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm.model.ServiceCategoryRef;
+import io.openslice.tmf.scm.model.ServiceSpecCharRelationship;
 import io.openslice.tmf.scm.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm.model.ServiceSpecCharacteristicValue;
+import io.openslice.tmf.scm.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm.model.ServiceSpecificationUpdate;
@@ -236,7 +240,8 @@ public class InMemoryDBIntegrationTest {
 		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		
 		AttachmentRef attachmentItem = new AttachmentRef();
-		attachmentItem.setName("an attachment");
+		attachmentItem.setId( "a-ref-id" );
+		attachmentItem.setDescription("an attachment");
 		attachmentItem.setUrl("a url");
 		sspeccr.addAttachmentItem(attachmentItem);
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
@@ -252,8 +257,9 @@ public class InMemoryDBIntegrationTest {
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec" );
 		assertThat( responsesSpec.getAttachment().size() ).isEqualTo( 1 );
 		
-		//make it now as a ServiceSpecificationUpdate, no id and lastUpdate
+		//make it now as a ServiceSpecificationUpdate, no id, uuid and lastUpdate
 		JSONObject obj = toJsonObj(responseSpec, JSONObject.class);
+		obj.remove("uuid");
 		obj.remove("id");
 		obj.remove("lastUpdate");
 		responseSpec = toJsonString(obj);
@@ -264,7 +270,8 @@ public class InMemoryDBIntegrationTest {
 		ServiceSpecCharacteristic spechar = new ServiceSpecCharacteristic();
 		spechar.setName("A new characteristic");
 		ServiceSpecCharacteristicValue sv = new ServiceSpecCharacteristicValue();
-		sv.setName("a value");
+		sv.setValue( new Any("1" ,"a first value") );
+		sv.setValueType( EValueType.LONGTEXT.getValue());
 		spechar.getServiceSpecCharacteristicValue().add( sv );
 		responsesSpecUpd.getServiceSpecCharacteristic().add(spechar );
 				
@@ -284,15 +291,30 @@ public class InMemoryDBIntegrationTest {
 		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage")   ).isNotNull();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNotNull();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getServiceSpecCharacteristicValue().toArray( new ServiceSpecCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a first value");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getServiceSpecCharacteristicValue().toArray( new ServiceSpecCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("LONGTEXT");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharRelationship().size()  ).isEqualTo(4);
 		
-		
+
+		logger.info("Test: testSpecAttachments responsesSpec2 patch1= " + response2.toString());
 		
 		//test now update and delete things
 		responsesSpecUpd = toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
-		responsesSpecUpd.getServiceSpecCharacteristic().get(0).setName("CoverageNew");
 		ServiceSpecCharacteristicValue val = new ServiceSpecCharacteristicValue();
-		val.setName("a value");
+		val.setValueType( EValueType.ARRAY.toString());
+		val.setValue( new Any("1" ,"a second value") );
 		responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharacteristicValue().add(val);
+		ServiceSpecCharRelationship scrObj = responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().toArray( new ServiceSpecCharRelationship[0])[0];
+		ServiceSpecCharRelationship scrObj2 = responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().toArray( new ServiceSpecCharRelationship[0])[1];
+		ServiceSpecCharRelationship scrObj3 = responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().toArray( new ServiceSpecCharRelationship[0])[2];
+		scrObj3.setName("FORTESTING");
+		String preid = scrObj3.getId();
+		responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().remove(scrObj);
+		responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().remove(scrObj2);
+		ServiceSpecCharRelationship scrObj4 = new ServiceSpecCharRelationship();
+		scrObj4.setName("ANEWCharRel");
+		responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().add(scrObj4);
+		
 		response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
@@ -304,16 +326,171 @@ public class InMemoryDBIntegrationTest {
 		responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec" );
 		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo(1);
-		assertThat( responsesSpec2.getServiceSpecCharacteristic().toArray( new ServiceSpecCharacteristic[0] )[0].getServiceSpecCharacteristicValue().size()  ).isEqualTo(2);
-		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageNew")   ).isNotNull();
-		assertThat(responsesSpec2.findSpecCharacteristicByName("CoverageNew").getServiceSpecCharacteristicValue().size()  ).isEqualTo(2);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage")   ).isNotNull();
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().size()  ).isEqualTo(2);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().toArray( new ServiceSpecCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a second value");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().toArray( new ServiceSpecCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("ARRAY");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharRelationship().size()  ).isEqualTo(3);
+		boolean idfound = false;
+		boolean ANEWCharRelExists =false;
+		for (ServiceSpecCharRelationship tscr : responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharRelationship()) {
+			if ( tscr.getId().equals(preid)) {
+				idfound = true;
+				assertThat( tscr.getName().equals("FORTESTING"));
+			}
+			
+			if (tscr.getName().equals( "ANEWCharRel" )) {
+				ANEWCharRelExists = true;
+			}
+		}
+		assertThat( idfound).isTrue();
+		assertThat( ANEWCharRelExists).isTrue();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNull();
+
+		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2);
 		
 	}
 	
 	@Test
 	public void testBundledSpec() throws Exception {
-		//fail("Not yet implemented");
+		logger.info("Test: testBundledSpec " );
+
+		/**
+		 * first add 2 specs
+		 */
+
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName("Spec1");
+		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec1,  ServiceSpecification.class);
+
+		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
+		
+		ServiceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr2.setName("Spec2");
+
+		String responseSpec2 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr2 ) ))
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec2 = toJsonObj(responseSpec2,  ServiceSpecification.class);
+
+		logger.info("Test: testBundledSpec responseSpec2 = " + responseSpec2);
+
+		ServiceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr3.setName("Spec3");
+		sspeccr3.isBundle(true);
+		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
+		sspeccr3.addServiceSpecRelationshipWith( responsesSpec2 );
+		
+		String responseSpec3 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr3 ) ))
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec3 = toJsonObj(responseSpec3,  ServiceSpecification.class);
+
+		logger.info("Test: testBundledSpec responseSpec3 = " + responseSpec3);
+		
+		assertThat( responsesSpec3.getServiceSpecRelationship().size() ).isEqualTo(2);
+		boolean idspec1Exists = false;
+		boolean idspec2Exists = false;
+		String relationship2UUID = null;
+		for (ServiceSpecRelationship r : responsesSpec3.getServiceSpecRelationship()) {
+			if ( r.getId().equals( responsesSpec1.getId() ) ) {
+				idspec1Exists= true;
+			}
+			if ( r.getId().equals( responsesSpec2.getId() ) ) {
+				idspec2Exists= true;
+				relationship2UUID = r.getUuid();
+			}
+		}
+		assertThat( idspec1Exists ).isTrue();
+		assertThat( idspec2Exists ).isTrue();
+		
+		/**
+		 * try PATCH with service relationships
+		 */
+		//first add a new service spec and then reference it
+		ServiceSpecificationCreate sspeccr4 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr4.setName("Spec4");
+
+		String responseSpec4 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr4 ) ))
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec4 = toJsonObj(responseSpec4,  ServiceSpecification.class);
+		logger.info("Test: testBundledSpec responseSpec4= " + responseSpec4);
+		
+		JSONObject obj = toJsonObj(responseSpec3, JSONObject.class);
+		obj.remove("uuid");
+		obj.remove("id");
+		obj.remove("lastUpdate");
+		responseSpec3 = toJsonString(obj);
+				
+		ServiceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec3,  ServiceSpecificationUpdate.class);	
+		for (ServiceSpecRelationship r : responsesSpecUpd.getServiceSpecRelationship()) {
+			if ( r.getId().equals( responsesSpec1.getId() ) ) {
+				responsesSpecUpd.getServiceSpecRelationship().remove(r);
+				break;
+			}
+		}
+		responsesSpecUpd.addServiceSpecRelationshipWith(responsesSpec4);
+		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
+		
+		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec3.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( responsesSpecUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Spec3")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responseSpecPatch1 = toJsonObj( responsePatch1,  ServiceSpecification.class);
+
+		logger.info("Test: testBundledSpec responsePatch1= " + responsePatch1);
+
+		assertThat( responseSpecPatch1.getServiceSpecRelationship().size() ).isEqualTo(2);
+		
+		idspec1Exists = false;
+		idspec2Exists = false;
+		boolean idspec4Exists = false;
+		for (ServiceSpecRelationship r : responseSpecPatch1.getServiceSpecRelationship()) {
+			if ( r.getId().equals( responsesSpec1.getId() ) ) {
+				idspec1Exists= true;
+			}
+			if ( r.getId().equals( responsesSpec2.getId() ) ) {
+				idspec2Exists= true;
+				assertThat( r.getUuid() ).isEqualTo( relationship2UUID );
+				
+			}
+			if ( r.getId().equals( responsesSpec4.getId() ) ) {
+				idspec4Exists= true;
+			}
+		}
+		
+		assertThat( idspec1Exists ).isFalse();
+		assertThat( idspec2Exists ).isTrue();
+		assertThat( idspec4Exists ).isTrue();
+		
+		
+		
 	}
 	
 	
@@ -328,6 +505,35 @@ public class InMemoryDBIntegrationTest {
 		
 	}
 	
+	
+	@Test
+	public void testGST() throws Exception {
+		logger.info("Test: testBundledSpec " );
+
+		/**
+		 * first add 2 specs
+		 */
+
+		File sspec = new File( "src/main/resources/gst.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec1,  ServiceSpecification.class);
+
+		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
+
+		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo(67);
+		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
+		
+	}
 	
 	
 	

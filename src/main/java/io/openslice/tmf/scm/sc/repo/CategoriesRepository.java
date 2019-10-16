@@ -13,7 +13,7 @@ import io.openslice.tmf.scm.model.ServiceCategory;
 public interface CategoriesRepository extends PagingAndSortingRepository<ServiceCategory, Long> {
 
 	
-	Optional<ServiceCategory> findById(String id);
+	Optional<ServiceCategory> findByUuid(String id);
 
 
 

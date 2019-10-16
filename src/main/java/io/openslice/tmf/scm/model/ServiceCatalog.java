@@ -47,6 +47,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class ServiceCatalog extends BaseEntity{
 
 		
+	
+		
 	@ManyToMany(cascade = {  CascadeType.ALL } )
 	@JoinTable()	
 	@JsonIgnore
@@ -65,6 +67,24 @@ public class ServiceCatalog extends BaseEntity{
 		this.type = "ServiceCatalog";
 		this.baseType = "BaseEntity";
 	}
+
+	@JsonProperty("id")
+	protected String id = null;
+	
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return uuid;
+	}
+
+//	/**
+//	 * @param id the id to set
+//	 */
+//	public void setId(String id) {		
+//		this.id = id;
+//	}
 
 	/**
 	 * List of service categories associated with this catalog
@@ -97,7 +117,7 @@ public class ServiceCatalog extends BaseEntity{
 	public void  setCategoryRefs( List<ServiceCategoryRef> crefs){
 		for (ServiceCategoryRef serviceCategoryRef : crefs) {
 			ServiceCategory e = new ServiceCategory();
-			e.setId( serviceCategoryRef.getId() );
+			e.setUuid( serviceCategoryRef.getId() );
 			e.setName(serviceCategoryRef.getName());
 			categoryObj.add(e );
 		}

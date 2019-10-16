@@ -557,4 +557,15 @@ public class ServiceSpecificationUpdate {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+	
+
+	public void addServiceSpecRelationshipWith(ServiceSpecification responsesSpec1) {
+
+		ServiceSpecRelationship r1 = new ServiceSpecRelationship();
+		r1.setId(responsesSpec1.getId());
+		r1.setName(responsesSpec1.getName());
+		r1.setRole("serviceSpecRelationship");
+		r1.setRelationshipType("aggregation");
+		this.addServiceSpecRelationshipItem(r1);
+	}
 }

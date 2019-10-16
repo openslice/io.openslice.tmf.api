@@ -35,6 +35,26 @@ public class ServiceCategoryRef extends BaseRootEntity {
 		this.referredType = referredType;
 		return this;
 	}
+	
+	@JsonProperty("id")
+	protected String id = null;
+	
+	
+	
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	/**
 	 * The actual type of the target instance when needed for disambiguation.

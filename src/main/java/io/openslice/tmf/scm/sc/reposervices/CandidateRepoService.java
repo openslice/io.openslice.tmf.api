@@ -49,7 +49,7 @@ public class CandidateRepoService {
 
 		ServiceCandidate sc = new ServiceCandidate() ;
 		if ( serviceCand.getServiceSpecification() != null) {
-			Optional<ServiceCandidate> optsc = this.candidateRepo.findByServiceSpecId(serviceCand.getServiceSpecification().getId());
+			Optional<ServiceCandidate> optsc = this.candidateRepo.findByServiceSpecUuid(serviceCand.getServiceSpecification().getId());
 			if (optsc.isPresent() ) {
 					sc = optsc.get();//add to an existing candidate
 			}
@@ -65,20 +65,20 @@ public class CandidateRepoService {
 	}
 
 	public ServiceCandidate findById(String id) {
-		Optional<ServiceCandidate> optionalCat = this.candidateRepo.findById( id );
+		Optional<ServiceCandidate> optionalCat = this.candidateRepo.findByUuid( id );
 		return optionalCat
 				.orElse(null);
 	}
 
 	public Void deleteById(String id) {
-		Optional<ServiceCandidate> optionalCat = this.candidateRepo.findById( id );
+		Optional<ServiceCandidate> optionalCat = this.candidateRepo.findByUuid( id );
 		this.candidateRepo.delete( optionalCat.get());
 		return null;
 		
 	}
 
 	public ServiceCandidate updateCandidate(String id, @Valid ServiceCandidateUpdate serviceCandidate) {
-		Optional<ServiceCandidate> scopt = this.candidateRepo.findById(id);
+		Optional<ServiceCandidate> scopt = this.candidateRepo.findByUuid(id);
 		if ( scopt == null ) {
 			return null;
 		}

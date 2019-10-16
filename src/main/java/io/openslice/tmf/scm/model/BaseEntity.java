@@ -176,7 +176,7 @@ public class BaseEntity extends BaseRootEntity{
 			return false;
 		}
 		BaseEntity Entity = (BaseEntity) o;
-		return Objects.equals(this.id, Entity.id) && Objects.equals(this.href, Entity.href)
+		return Objects.equals(this.uuid, Entity.uuid) && Objects.equals(this.href, Entity.href)
 				&& Objects.equals(this.description, Entity.description)
 				&& Objects.equals(this.lastUpdate, Entity.lastUpdate)
 				&& Objects.equals(this.lifecycleStatus, Entity.lifecycleStatus)
@@ -190,7 +190,7 @@ public class BaseEntity extends BaseRootEntity{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, 
+		return Objects.hash(uuid, href, description, lastUpdate, lifecycleStatus, name, 
 				version, 
 				validFor, baseType, schemaLocation, type);
 	}
@@ -200,7 +200,7 @@ public class BaseEntity extends BaseRootEntity{
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Entity {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    lastUpdate: ").append(toIndentedString(lastUpdate)).append("\n");

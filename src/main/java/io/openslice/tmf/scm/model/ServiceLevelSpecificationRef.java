@@ -22,22 +22,38 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceLevelSpecificationRef")
-public class ServiceLevelSpecificationRef extends BaseRootEntity{
+public class ServiceLevelSpecificationRef extends BaseRootEntity {
 
 	@JsonProperty("@referredType")
 	private String referredType = null;
+
+	@JsonProperty("id")
+	protected String id = null;
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public ServiceLevelSpecificationRef id(String id) {
 		this.id = id;
 		return this;
 	}
-	
+
 	public ServiceLevelSpecificationRef() {
 		super();
 		this.baseType = "BaseRootEntity";
 		this.type = this.getClass().getName();
 	}
-
 
 	public ServiceLevelSpecificationRef referredType(String referredType) {
 		this.referredType = referredType;

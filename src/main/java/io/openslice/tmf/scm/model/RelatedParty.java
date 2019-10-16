@@ -27,6 +27,17 @@ public class RelatedParty extends BaseRootEntity{
 	@JsonProperty("@referredType")
 	private String referredType = null;
 
+	@JsonProperty("id")
+	protected String id = null;
+	
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return uuid;
+	}
+	
 	public RelatedParty() {
 		super();
 		this.baseType = "BaseRootEntity";

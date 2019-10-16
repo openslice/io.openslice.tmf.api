@@ -64,12 +64,12 @@ public class CatalogRepoService {
 	}
 
 	public ServiceCatalog findById(String id) {
-		Optional<ServiceCatalog> optionalCat = this.catalogRepo.findById(id);
+		Optional<ServiceCatalog> optionalCat = this.catalogRepo.findByUuid(id);
 		return optionalCat.orElse(null);
 	}
 
 	public Void deleteById(String id) {
-		Optional<ServiceCatalog> optionalCat = this.catalogRepo.findById(id);
+		Optional<ServiceCatalog> optionalCat = this.catalogRepo.findByUuid(id);
 		this.catalogRepo.delete(optionalCat.get());
 		return null;
 
@@ -77,7 +77,7 @@ public class CatalogRepoService {
 
 	public ServiceCatalog updateCatalog(String id, ServiceCatalogUpdate serviceCatalog) {
 
-		Optional<ServiceCatalog> optSC = catalogRepo.findById(id);
+		Optional<ServiceCatalog> optSC = catalogRepo.findByUuid(id);
 		if (optSC == null) {
 			return null;
 		}
@@ -115,7 +115,7 @@ public class CatalogRepoService {
 		// add any new category
 		if (serviceCatalog.getCategory() != null) {
 			for (ServiceCategoryRef scref : serviceCatalog.getCategory()) {
-				ServiceCategory servcat = this.categRepoService.findById(scref.getId());
+				ServiceCategory servcat = this.categRepoService.findByUuid(scref.getId());
 				sc.addCategory(servcat);
 			}
 		}

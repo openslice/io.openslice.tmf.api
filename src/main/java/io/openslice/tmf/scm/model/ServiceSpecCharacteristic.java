@@ -71,7 +71,7 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 
 	@JsonProperty("serviceSpecCharacteristicValue")
 	@Valid
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private Set<ServiceSpecCharacteristicValue> serviceSpecCharacteristicValue = new HashSet<>();
 
 	@JsonProperty("validFor")
@@ -460,13 +460,14 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 		/**
 		 * TODO
 		 */
-		s.getServiceSpecCharacteristicValue();
-		
+		this.getServiceSpecCharacteristicValue().clear();
+		this.getServiceSpecCharacteristicValue().addAll( s.getServiceSpecCharacteristicValue() );
 
 		/**
 		 * TODO
 		 */
-		s.getServiceSpecCharRelationship();
+		this.getServiceSpecCharRelationship().clear();
+		this.getServiceSpecCharRelationship().addAll( s.getServiceSpecCharRelationship() );
 		
 	}
 }

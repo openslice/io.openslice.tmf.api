@@ -55,7 +55,8 @@ public class ServiceSpecificationRepoService {
 		
 		ServiceSpecification serviceSpec = new ServiceSpecification();		
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
-		
+		serviceSpec = this.serviceSpecificationRepo.save( serviceSpec );
+		serviceSpec.fixSpecCharRelationhsipIDs();
 		return this.serviceSpecificationRepo.save( serviceSpec );
 	}
 
@@ -64,13 +65,13 @@ public class ServiceSpecificationRepoService {
 	}
 
 	public ServiceSpecification findById(String id) {
-		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findById( id );
+		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid( id );
 		return optionalCat
 				.orElse(null);
 	}
 
 	public Void deleteById(String id) {
-		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findById( id );
+		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid( id );
 		this.serviceSpecificationRepo.delete( optionalCat.get());
 		return null;		
 	}
@@ -79,18 +80,20 @@ public class ServiceSpecificationRepoService {
 	public ServiceSpecification updateServiceSpecification(String id,
 			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
 		
-		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findById(id);
+		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findByUuid(id);
 		if ( s == null ) {
 			return null;
 		}
 		ServiceSpecification serviceSpec = s.get();
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
-		
+
+		serviceSpec = this.serviceSpecificationRepo.save( serviceSpec );
+		serviceSpec.fixSpecCharRelationhsipIDs();
 		return this.serviceSpecificationRepo.save( serviceSpec );
 		
 	}
 	
-	public ServiceSpecification updateServiceSpecDataFromAPIcall( ServiceSpecification serviceSpec, ServiceSpecificationUpdate serviceSpecUpd )
+	private ServiceSpecification updateServiceSpecDataFromAPIcall( ServiceSpecification serviceSpec, ServiceSpecificationUpdate serviceSpecUpd )
 	{
 		
 		serviceSpec.setName(serviceSpecUpd.getName());
@@ -113,75 +116,127 @@ public class ServiceSpecificationRepoService {
 			serviceSpec.setVersion( serviceSpecUpd.getVersion());			
 		}
 		
-
+		/**
+		 * Update Attachment list
+		 */
 		if (serviceSpecUpd.getAttachment() != null ){
 			//reattach attachments fromDB
-						
-			for (AttachmentRef ar : serviceSpecUpd.getAttachment()) {
-				//find attachmet by id and reload it here.
-				//we need the attachment model from resource spec models
-				boolean idexists = false;
-				for (AttachmentRef orinalAtt : serviceSpec.getAttachment()) {
-					if ( orinalAtt.getId().equals(ar.getId())) {
-						idexists = true;
-						break;
-					}	
-				}
-				
-				if (!idexists) {
-					serviceSpec.getAttachment().add(ar);
-				}
-				
-			}
+
+//			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+//			
+//			for (AttachmentRef ar : serviceSpecUpd.getAttachment()) {
+//				//find attachmet by id and reload it here.
+//				//we need the attachment model from resource spec models
+//				boolean idexists = false;
+//				for (AttachmentRef orinalAtt : serviceSpec.getAttachment()) {
+//					if ( orinalAtt.getId().equals(ar.getId())) {
+//						idexists = true;
+//						idAddedUpdated.put( orinalAtt.getId(), true);
+//						break;
+//					}	
+//				}
+//				
+//				if (!idexists) {
+//					serviceSpec.getAttachment().add(ar);
+//					idAddedUpdated.put( ar.getId(), true);
+//				}				
+//			}
+//			
+//			List<AttachmentRef> toRemove = new ArrayList<>();
+//			for (AttachmentRef ss : serviceSpec.getAttachment()) {
+//				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+//					toRemove.add(ss);
+//				}
+//			}
+//			
+//			for (AttachmentRef ar : toRemove) {
+//				serviceSpec.getAttachment().remove(ar);
+//			}
+			
+
+			serviceSpec.getAttachment().clear();
+			serviceSpec.getAttachment().addAll( serviceSpecUpd.getAttachment() );
 					
 		}
-//		if (serviceSpecUpd.getRelatedParty() != null ){
-//			serviceSpec.getRelatedParty().addAll( serviceSpecUpd.getRelatedParty() );
-//		}
-//		if (serviceSpecUpd.getResourceSpecification() != null ){
-//			serviceSpec.getResourceSpecification().addAll( serviceSpecUpd.getResourceSpecification() );
-//		}
-//		if (serviceSpecUpd.getServiceLevelSpecification() != null ){
-//			serviceSpec.getServiceLevelSpecification().addAll( serviceSpecUpd.getServiceLevelSpecification() );
-//		}
+		
+		
+		
+		/**
+		 * Update ServiceSpecCharacteristic list
+		 * We need to compare by name, since IDs will not exist
+		 */
 		if (serviceSpecUpd.getServiceSpecCharacteristic() != null ){
 			//reattach attachments fromDB
 			
-			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+//			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+//			
+//			for (ServiceSpecCharacteristic charUpd : serviceSpecUpd.getServiceSpecCharacteristic()) {			
+//				
+//				boolean nameExists = false;
+//				for (ServiceSpecCharacteristic originalSpecChar : serviceSpec.getServiceSpecCharacteristic()) {
+//					if ( originalSpecChar.getName().equals(charUpd.getName())) {
+//						nameExists = true;
+//						idAddedUpdated.put( originalSpecChar.getName(), true);
+//						originalSpecChar.updateWith( charUpd );
+//						break;
+//					}	
+//				}
+//				
+//				if (!nameExists) {
+//					serviceSpec.getServiceSpecCharacteristic().add(charUpd);
+//					idAddedUpdated.put( charUpd.getName(), true);
+//				}
+//				
+//			}
+//			
+//			List<ServiceSpecCharacteristic> toRemove = new ArrayList<>();
+//			for (ServiceSpecCharacteristic ss : serviceSpec.getServiceSpecCharacteristic()) {
+//				if ( idAddedUpdated.get( ss.getName() ) == null ) {
+//					toRemove.add(ss);
+//				}
+//			}
+//			
+//			for (ServiceSpecCharacteristic serviceSpecCharacteristic : toRemove) {
+//				serviceSpec.getServiceSpecCharacteristic().remove(serviceSpecCharacteristic);
+//			}
+
+			serviceSpec.getServiceSpecCharacteristic().clear();
+			serviceSpec.getServiceSpecCharacteristic().addAll( serviceSpecUpd.getServiceSpecCharacteristic() );
 			
-			for (ServiceSpecCharacteristic charUpd : serviceSpecUpd.getServiceSpecCharacteristic()) {
-				
-				
-				boolean idexists = false;
-				for (ServiceSpecCharacteristic originalSpecChar : serviceSpec.getServiceSpecCharacteristic()) {
-					if ( originalSpecChar.getId().equals(charUpd.getId())) {
-						idexists = true;
-						idAddedUpdated.put( originalSpecChar.getId(), true);
-						originalSpecChar.updateWith( charUpd );
-						break;
-					}	
-				}
-				
-				if (!idexists) {
-					serviceSpec.getServiceSpecCharacteristic().add(charUpd);
-					idAddedUpdated.put( charUpd.getId(), true);
-				}
-				
-			}
-			
-			List<ServiceSpecCharacteristic> toRemove = new ArrayList<>();
-			for (ServiceSpecCharacteristic ss : serviceSpec.getServiceSpecCharacteristic()) {
-				if ( idAddedUpdated.get( ss.getId() ) == null ) {
-					toRemove.add(ss);
-				}
-			}
-			
-			for (ServiceSpecCharacteristic serviceSpecCharacteristic : toRemove) {
-				serviceSpec.getServiceSpecCharacteristic().remove(serviceSpecCharacteristic);
-			}
 		}
+				
+
+		/**
+		 * Update ServiceSpecRelationship list
+		 */
+		
 		if (serviceSpecUpd.getServiceSpecRelationship() != null ){
+			serviceSpec.getServiceSpecRelationship().clear();
 			serviceSpec.getServiceSpecRelationship().addAll( serviceSpecUpd.getServiceSpecRelationship() );
+		}
+		
+		/**
+		 * Update RelatedParty list
+		 */
+		if (serviceSpecUpd.getRelatedParty() != null ){
+			serviceSpec.getRelatedParty().clear();
+			serviceSpec.getRelatedParty().addAll( serviceSpecUpd.getRelatedParty() );
+		}
+		
+		/**
+		 * Update ResourceSpecification list
+		 */
+		if (serviceSpecUpd.getResourceSpecification() != null ){
+			serviceSpec.getResourceSpecification().clear();
+			serviceSpec.getResourceSpecification().addAll( serviceSpecUpd.getResourceSpecification() );
+		}
+		
+		/**
+		 * Update ServiceLevelSpecification list
+		 */
+		if (serviceSpecUpd.getServiceLevelSpecification() != null ){
+			serviceSpec.getServiceLevelSpecification().clear();
+			serviceSpec.getServiceLevelSpecification().addAll( serviceSpecUpd.getServiceLevelSpecification() );
 		}
 		
 

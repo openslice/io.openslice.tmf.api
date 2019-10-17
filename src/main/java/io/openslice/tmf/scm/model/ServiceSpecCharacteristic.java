@@ -2,6 +2,7 @@ package io.openslice.tmf.scm.model;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -74,7 +75,7 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 
 	@JsonProperty("serviceSpecCharacteristicValue")
 	@Valid
-	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private Set<ServiceSpecCharacteristicValue> serviceSpecCharacteristicValue = new HashSet<>();
 
 	@JsonProperty("validFor")
@@ -428,12 +429,12 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 				&& Objects.equals(this.valueSchemaLocation, serviceSpecCharacteristic.valueSchemaLocation);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(configurable, description, extensible, isUnique, maxCardinality, minCardinality, name,
-				regex, valueType, serviceSpecCharRelationship, serviceSpecCharacteristicValue, validFor, baseType,
-				schemaLocation, type, valueSchemaLocation);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, configurable, description, extensible, isUnique, maxCardinality, minCardinality, name,
+//				regex, valueType, serviceSpecCharRelationship, serviceSpecCharacteristicValue, validFor, baseType,
+//				schemaLocation, type, valueSchemaLocation);
+//	}
 
 	@Override
 	public String toString() {
@@ -485,7 +486,7 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 		this.extensible =src.isExtensible();
 
 		this.updateServiceSpecCharacteristicValues(src.getServiceSpecCharacteristicValue());
-		//this.updateServiceSpecCharRelationships(src.getServiceSpecCharRelationship());
+		this.updateServiceSpecCharRelationships(src.getServiceSpecCharRelationship());
 
 		
 	}
@@ -511,8 +512,9 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 			}
 			
 			if (!valueExists) {
-				this.addServiceSpecCharacteristicValueItem( new ServiceSpecCharacteristicValue( r ));
-				idAddedUpdated.put( r.hashCode(), true);
+				ServiceSpecCharacteristicValue nr = new ServiceSpecCharacteristicValue( r );
+				this.addServiceSpecCharacteristicValueItem( nr );
+				idAddedUpdated.put( nr.hashCode(), true);
 			}
 			
 		}

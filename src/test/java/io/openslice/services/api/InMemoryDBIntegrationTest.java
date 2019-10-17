@@ -32,6 +32,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -68,10 +69,11 @@ import net.minidev.json.JSONObject;
 @RunWith(SpringRunner.class)
 @Transactional
 @SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.MOCK , classes = OpenAPISpringBoot.class)
-@AutoConfigureTestDatabase
+//@AutoConfigureTestDatabase //this automatically uses h2
 @AutoConfigureMockMvc 
-@TestPropertySource(
-		  locations = "classpath:application-testing.yml")
+@ActiveProfiles("testing")
+//@TestPropertySource(
+//		  locations = "classpath:application-testing.yml")
 public class InMemoryDBIntegrationTest {
 
 
@@ -323,23 +325,42 @@ public class InMemoryDBIntegrationTest {
 			    .andExpect(jsonPath("name", is("Test Spec")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
+		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2.toString());
+
 		responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
+
+		
+		
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec" );
 		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo(1);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage")   ).isNotNull();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().size()  ).isEqualTo(2);
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().toArray( new ServiceSpecCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a second value");
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().toArray( new ServiceSpecCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("ARRAY");
+		boolean secvalExists = false;
+		boolean arrayValExists = false;
+		for (ServiceSpecCharacteristicValue respval : responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharacteristicValue().toArray( new ServiceSpecCharacteristicValue[0] )) {
+			if ( respval.getValue().getAlias().equals("a second value")){
+				secvalExists = true;
+			}
+			if ( respval.getValueType().equals("ARRAY")){
+				arrayValExists = true;
+			}
+		}
+		assertThat( secvalExists ).isTrue();
+		assertThat( arrayValExists).isTrue();
+		
+		
 		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharRelationship().size()  ).isEqualTo(3);
 		boolean idfound = false;
 		boolean ANEWCharRelExists =false;
 		for (ServiceSpecCharRelationship tscr : responsesSpec2.findSpecCharacteristicByName("Coverage").getServiceSpecCharRelationship()) {
-			if ( tscr.getId().equals(preid)) {
+			if ( (tscr.getId()!=null) && ( tscr.getId().equals(preid)) ) {
 				idfound = true;
 				assertThat( tscr.getName().equals("FORTESTING"));
 			}
 			
-			if (tscr.getName().equals( "ANEWCharRel" )) {
+			if ( (tscr!=null) && (tscr.getName().equals( "ANEWCharRel" )) ){
 				ANEWCharRelExists = true;
 			}
 		}

@@ -236,13 +236,13 @@ public class ServiceCategory extends BaseEntity {
 				&& Objects.equals(this.schemaLocation, serviceCategory.schemaLocation)
 				&& Objects.equals(this.type, serviceCategory.type);
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, description, isRoot, lastUpdate, lifecycleStatus, name, parentId, version,
-//				getCategoryObj(), getServiceCandidateObj(), 
-				validFor, baseType, schemaLocation, type);
-	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, description, isRoot, lastUpdate, lifecycleStatus, name, parentId, version,
+////				getCategoryObj(), getServiceCandidateObj(), 
+//				validFor, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

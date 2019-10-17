@@ -25,9 +25,9 @@ spring:
 logging:
   level:
     root: INFO
-    portal.api: INFO
     org.springframework: INFO
-    org.apache.camel: INFO 
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d %p %c{1.} [%t] %m%n"

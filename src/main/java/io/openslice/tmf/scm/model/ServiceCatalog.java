@@ -229,11 +229,11 @@ public class ServiceCatalog extends BaseEntity{
 				&& Objects.equals(this.type, serviceCatalog.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, version, this.getCategoryRefs(), relatedParty,
-				validFor, baseType, schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, version, this.getCategoryRefs(), relatedParty,
+//				validFor, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

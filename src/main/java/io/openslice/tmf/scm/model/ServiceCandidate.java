@@ -167,11 +167,11 @@ public class ServiceCandidate extends BaseEntity {
 				&& Objects.equals(this.type, serviceCandidate.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, version, getCategory(),
-				getServiceSpecificationRef() , validFor, baseType, schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, description, lastUpdate, lifecycleStatus, name, version, getCategory(),
+//				getServiceSpecificationRef() , validFor, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

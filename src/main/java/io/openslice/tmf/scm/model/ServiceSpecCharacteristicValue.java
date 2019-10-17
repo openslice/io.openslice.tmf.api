@@ -290,11 +290,11 @@ public class ServiceSpecCharacteristicValue extends BaseRootEntity {
 				&& Objects.equals(this.type, serviceSpecCharacteristicValue.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor,
-				value, baseType, schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor,
+//				value, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {
@@ -313,6 +313,7 @@ public class ServiceSpecCharacteristicValue extends BaseRootEntity {
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
 		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -237,10 +237,10 @@ public class ServiceSpecCharRelationship {
 				&& Objects.equals(this.type, serviceSpecCharRelationship.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, relationshipType, role, validFor, baseType, schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, name, relationshipType, role, validFor, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

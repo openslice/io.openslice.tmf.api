@@ -106,10 +106,10 @@ public class ServiceCandidateRef extends BaseRootEntity {
 				&& Objects.equals(this.referredType, serviceCandidateRef.referredType);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, name, version, baseType, schemaLocation, type, referredType);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, name, version, baseType, schemaLocation, type, referredType);
+//	}
 
 	@Override
 	public String toString() {

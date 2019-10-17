@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Embeddable;
@@ -24,6 +26,19 @@ public class TimePeriod {
 	private OffsetDateTime endDateTime = null;
 
 	private OffsetDateTime startDateTime = null;
+	
+	public TimePeriod() {
+		this.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
+		this.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(20) );	
+	}
+
+	public TimePeriod(TimePeriod src) {
+		this();
+		if ( src!= null) {
+			this.setStartDateTime(src.getStartDateTime());
+			this.setEndDateTime(  src.getEndDateTime() );			
+		}
+	}
 
 	public TimePeriod endDateTime(OffsetDateTime endDateTime) {
 		this.endDateTime = endDateTime;

@@ -92,7 +92,7 @@ public class CandidateRepoService {
 	
 	public ServiceCandidate updateServiceCandidateDataFromAPI(ServiceCandidate sc, @Valid ServiceCandidateUpdate serviceCandidateUpd) {	
 
-		ServiceSpecification specObj = this.specRepo.findById( serviceCandidateUpd.getServiceSpecification().getId() );
+		ServiceSpecification specObj = this.specRepo.findByUuid( serviceCandidateUpd.getServiceSpecification().getId() );
 		
 		if ( specObj != null ) {
 			sc.setName( specObj.getName() );
@@ -113,8 +113,11 @@ public class CandidateRepoService {
 			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCandidateUpd.getLifecycleStatus() ) );
 		}
 		TimePeriod tp = new TimePeriod();
-		tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-		tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );
+
+		if ( sc.getValidFor() != null ){
+			tp.setStartDateTime( sc.getValidFor().getStartDateTime() );
+			tp.setEndDateTime( sc.getValidFor().getEndDateTime() );
+		}
 		sc.setValidFor( tp );
 		
 		//save first to continue

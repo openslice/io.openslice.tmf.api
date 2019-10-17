@@ -104,9 +104,6 @@ public class CatalogRepoService {
 		if (serviceCatalog.getValidFor() != null) {
 			tp.setStartDateTime(serviceCatalog.getValidFor().getStartDateTime());
 			tp.setEndDateTime(serviceCatalog.getValidFor().getEndDateTime());
-		} else {
-			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC));
-			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10));
 		}
 		sc.setValidFor(tp);
 

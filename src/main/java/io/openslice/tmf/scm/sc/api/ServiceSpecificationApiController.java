@@ -67,7 +67,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			@ApiParam(value = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id) {
 		try {
 
-			return new ResponseEntity<Void>(serviceSpecificationRepoService.deleteById(id), HttpStatus.OK);
+			return new ResponseEntity<Void>(serviceSpecificationRepoService.deleteByUuid(id), HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,7 +104,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 		try {
 
-			return new ResponseEntity<ServiceSpecification>( serviceSpecificationRepoService.findById( id ), HttpStatus.OK);
+			return new ResponseEntity<ServiceSpecification>( serviceSpecificationRepoService.findByUuid( id ), HttpStatus.OK);
 		} catch ( Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<ServiceSpecification>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -49,6 +49,14 @@ public class ResourceSpecificationRef extends BaseRootEntity {
 		this.type = this.getClass().getName();
 	}
 
+	public ResourceSpecificationRef(ResourceSpecificationRef r) {
+		this();
+		name = r.name;
+		version = r.version;
+		id = r.id;
+		
+	}
+
 	public ResourceSpecificationRef id(String id) {
 		this.id = id;
 		return this;

@@ -139,10 +139,7 @@ public class CategoryRepoService {
 		if ( serviceCategory.getValidFor() != null ) {
 			tp.setStartDateTime( serviceCategory.getValidFor().getStartDateTime() );
 			tp.setEndDateTime( serviceCategory.getValidFor().getEndDateTime() );
-		} else {
-			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );			
-		}
+		} 
 		sc.setValidFor( tp );
 		return sc;
 	}

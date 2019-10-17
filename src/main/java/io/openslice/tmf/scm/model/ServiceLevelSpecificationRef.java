@@ -55,6 +55,12 @@ public class ServiceLevelSpecificationRef extends BaseRootEntity {
 		this.type = this.getClass().getName();
 	}
 
+	public ServiceLevelSpecificationRef(ServiceLevelSpecificationRef r) {
+		this();
+		name = r.name;
+		id = r.id;
+	}
+
 	public ServiceLevelSpecificationRef referredType(String referredType) {
 		this.referredType = referredType;
 		return this;

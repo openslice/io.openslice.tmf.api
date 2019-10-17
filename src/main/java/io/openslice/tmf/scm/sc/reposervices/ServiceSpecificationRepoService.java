@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +17,13 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.openslice.tmf.scm.model.Any;
 import io.openslice.tmf.scm.model.AttachmentRef;
 import io.openslice.tmf.scm.model.ELifecycle;
-import io.openslice.tmf.scm.model.EValueType;
-import io.openslice.tmf.scm.model.ServiceCatalog;
-import io.openslice.tmf.scm.model.ServiceSpecCharRelationship;
 import io.openslice.tmf.scm.model.ServiceSpecCharacteristic;
-import io.openslice.tmf.scm.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm.model.ServiceSpecification;
 import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm.model.ServiceSpecificationUpdate;
-import io.openslice.tmf.scm.model.ServiceSpecification;
-import io.openslice.tmf.scm.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm.model.TimePeriod;
-import io.openslice.tmf.scm.sc.repo.CatalogRepository;
-import io.openslice.tmf.scm.sc.repo.CategoriesRepository;
 import io.openslice.tmf.scm.sc.repo.ServiceSpecificationRepository;
 
 @Service
@@ -65,13 +55,13 @@ public class ServiceSpecificationRepoService {
 		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findAll();
 	}
 
-	public ServiceSpecification findById(String id) {
+	public ServiceSpecification findByUuid(String id) {
 		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid( id );
 		return optionalCat
 				.orElse(null);
 	}
 
-	public Void deleteById(String id) {
+	public Void deleteByUuid(String id) {
 		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid( id );
 		this.serviceSpecificationRepo.delete( optionalCat.get());
 		return null;		
@@ -123,40 +113,38 @@ public class ServiceSpecificationRepoService {
 		if (serviceSpecUpd.getAttachment() != null ){
 			//reattach attachments fromDB
 
-//			Map<String, Boolean> idAddedUpdated = new HashMap<>();
-//			
-//			for (AttachmentRef ar : serviceSpecUpd.getAttachment()) {
-//				//find attachmet by id and reload it here.
-//				//we need the attachment model from resource spec models
-//				boolean idexists = false;
-//				for (AttachmentRef orinalAtt : serviceSpec.getAttachment()) {
-//					if ( orinalAtt.getId().equals(ar.getId())) {
-//						idexists = true;
-//						idAddedUpdated.put( orinalAtt.getId(), true);
-//						break;
-//					}	
-//				}
-//				
-//				if (!idexists) {
-//					serviceSpec.getAttachment().add(ar);
-//					idAddedUpdated.put( ar.getId(), true);
-//				}				
-//			}
-//			
-//			List<AttachmentRef> toRemove = new ArrayList<>();
-//			for (AttachmentRef ss : serviceSpec.getAttachment()) {
-//				if ( idAddedUpdated.get( ss.getId() ) == null ) {
-//					toRemove.add(ss);
-//				}
-//			}
-//			
-//			for (AttachmentRef ar : toRemove) {
-//				serviceSpec.getAttachment().remove(ar);
-//			}
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (AttachmentRef ar : serviceSpecUpd.getAttachment()) {
+				//find attachmet by id and reload it here.
+				//we need the attachment model from resource spec models
+				boolean idexists = false;
+				for (AttachmentRef orinalAtt : serviceSpec.getAttachment()) {
+					if ( orinalAtt.getId().equals(ar.getId())) {
+						idexists = true;
+						idAddedUpdated.put( orinalAtt.getId(), true);
+						break;
+					}	
+				}
+				
+				if (!idexists) {
+					serviceSpec.getAttachment().add(ar);
+					idAddedUpdated.put( ar.getId(), true);
+				}				
+			}
+			
+			List<AttachmentRef> toRemove = new ArrayList<>();
+			for (AttachmentRef ss : serviceSpec.getAttachment()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (AttachmentRef ar : toRemove) {
+				serviceSpec.getAttachment().remove(ar);
+			}
 			
 
-			serviceSpec.getAttachment().clear();
-			serviceSpec.getAttachment().addAll( serviceSpecUpd.getAttachment() );
 					
 		}
 		
@@ -169,40 +157,38 @@ public class ServiceSpecificationRepoService {
 		if (serviceSpecUpd.getServiceSpecCharacteristic() != null ){
 			//reattach attachments fromDB
 			
-//			Map<String, Boolean> idAddedUpdated = new HashMap<>();
-//			
-//			for (ServiceSpecCharacteristic charUpd : serviceSpecUpd.getServiceSpecCharacteristic()) {			
-//				
-//				boolean nameExists = false;
-//				for (ServiceSpecCharacteristic originalSpecChar : serviceSpec.getServiceSpecCharacteristic()) {
-//					if ( originalSpecChar.getName().equals(charUpd.getName())) {
-//						nameExists = true;
-//						idAddedUpdated.put( originalSpecChar.getName(), true);
-//						originalSpecChar.updateWith( charUpd );
-//						break;
-//					}	
-//				}
-//				
-//				if (!nameExists) {
-//					serviceSpec.getServiceSpecCharacteristic().add(charUpd);
-//					idAddedUpdated.put( charUpd.getName(), true);
-//				}
-//				
-//			}
-//			
-//			List<ServiceSpecCharacteristic> toRemove = new ArrayList<>();
-//			for (ServiceSpecCharacteristic ss : serviceSpec.getServiceSpecCharacteristic()) {
-//				if ( idAddedUpdated.get( ss.getName() ) == null ) {
-//					toRemove.add(ss);
-//				}
-//			}
-//			
-//			for (ServiceSpecCharacteristic serviceSpecCharacteristic : toRemove) {
-//				serviceSpec.getServiceSpecCharacteristic().remove(serviceSpecCharacteristic);
-//			}
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (ServiceSpecCharacteristic charUpd : serviceSpecUpd.getServiceSpecCharacteristic()) {			
+				
+				boolean nameExists = false;
+				for (ServiceSpecCharacteristic originalSpecChar : serviceSpec.getServiceSpecCharacteristic()) {
+					if ( originalSpecChar.getName().equals(charUpd.getName())) {
+						nameExists = true;
+						idAddedUpdated.put( originalSpecChar.getName(), true);
+						originalSpecChar.updateWith( charUpd );
+						break;
+					}	
+				}
+				
+				if (!nameExists) {
+					serviceSpec.getServiceSpecCharacteristic().add( new ServiceSpecCharacteristic( charUpd ));
+					idAddedUpdated.put( charUpd.getName(), true);
+				}
+				
+			}
+			
+			List<ServiceSpecCharacteristic> toRemove = new ArrayList<>();
+			for (ServiceSpecCharacteristic ss : serviceSpec.getServiceSpecCharacteristic()) {
+				if ( idAddedUpdated.get( ss.getName() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (ServiceSpecCharacteristic serviceSpecCharacteristic : toRemove) {
+				serviceSpec.getServiceSpecCharacteristic().remove(serviceSpecCharacteristic);
+			}
 
-			serviceSpec.getServiceSpecCharacteristic().clear();
-			serviceSpec.getServiceSpecCharacteristic().addAll( serviceSpecUpd.getServiceSpecCharacteristic() );
 			
 		}
 				
@@ -242,11 +228,7 @@ public class ServiceSpecificationRepoService {
 		
 
 		TimePeriod tp = new TimePeriod();
-		if ( serviceSpecUpd.getValidFor() == null ){
-			tp.setStartDateTime(OffsetDateTime.now(ZoneOffset.UTC) );
-			tp.setEndDateTime(OffsetDateTime.now(ZoneOffset.UTC).plusYears(10) );			
-		} else{
-
+		if ( serviceSpecUpd.getValidFor() != null ){
 			tp.setStartDateTime( serviceSpecUpd.getValidFor().getStartDateTime() );
 			tp.setEndDateTime( serviceSpecUpd.getValidFor().getEndDateTime() );
 		}
@@ -290,25 +272,20 @@ public class ServiceSpecificationRepoService {
 		
 	}
 
-	public ServiceSpecification cloneServiceSpecification(String id) {
-		ServiceSpecification src = this.findById(id);
+	public ServiceSpecification cloneServiceSpecification(String uuid) {
+		ServiceSpecification source = this.findByUuid(uuid);
+		ServiceSpecification dest = new ServiceSpecification( source );
 		
-		src.setUuid( null );
-		for (ServiceSpecCharacteristic schar : src.getServiceSpecCharacteristic()) {
-			schar.setUuid( null );
-			for (ServiceSpecCharacteristicValue val : schar.getServiceSpecCharacteristicValue()) {
-				val.setUuid( null );				
-			}
-			for (ServiceSpecCharRelationship val : schar.getServiceSpecCharRelationship() ) {
-				val.setUuid( null );				
-			}
-		}	
+		dest.setName( "Copy of " + dest.getName() );
+		dest.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
+		dest.setLifecycleStatusEnum( ELifecycle.IN_STUDY );
+
 		
-		src = this.serviceSpecificationRepo.save(src); //save to get uuids
-		src.fixSpecCharRelationhsipIDs(); //fix charRels
-		src = this.serviceSpecificationRepo.save(src);
+		dest = this.serviceSpecificationRepo.save(dest); //save to get uuids
+		dest.fixSpecCharRelationhsipIDs(); //fix charRels. this is specific to our solution on cloning
+		dest = this.serviceSpecificationRepo.save(dest); //and resave
 		
-		return src; 
+		return dest; 
 	}
 	
 	

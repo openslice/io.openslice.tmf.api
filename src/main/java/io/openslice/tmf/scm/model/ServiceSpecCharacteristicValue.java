@@ -16,286 +16,315 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * A ServiceSpecCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ServiceSpecCharacteristic object. The values of the attributes in the ServiceSpecCharacteristicValue object describe the values of the attributes that a corresponding ServiceSpecCharacteristic object can take on.
+ * A ServiceSpecCharacteristicValue object is used to define a set of
+ * attributes, each of which can be assigned to a corresponding set of
+ * attributes in a ServiceSpecCharacteristic object. The values of the
+ * attributes in the ServiceSpecCharacteristicValue object describe the values
+ * of the attributes that a corresponding ServiceSpecCharacteristic object can
+ * take on.
  */
 @ApiModel(description = "A ServiceSpecCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ServiceSpecCharacteristic object. The values of the attributes in the ServiceSpecCharacteristicValue object describe the values of the attributes that a corresponding ServiceSpecCharacteristic object can take on.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceSpecCharacteristicValue")
-public class ServiceSpecCharacteristicValue extends BaseRootEntity{
-  @JsonProperty("isDefault")
-  private Boolean isDefault = null;
+public class ServiceSpecCharacteristicValue extends BaseRootEntity {
+	@JsonProperty("isDefault")
+	private Boolean isDefault = null;
 
-  @JsonProperty("rangeInterval")
-  private String rangeInterval = null;
+	@JsonProperty("rangeInterval")
+	private String rangeInterval = null;
 
-  @JsonProperty("regex")
-  private String regex = null;
+	@JsonProperty("regex")
+	private String regex = null;
 
-  @JsonProperty("unitOfMeasure")
-  private String unitOfMeasure = null;
+	@JsonProperty("unitOfMeasure")
+	private String unitOfMeasure = null;
 
-  @JsonProperty("valueFrom")
-  private Integer valueFrom = null;
+	@JsonProperty("valueFrom")
+	private Integer valueFrom = null;
 
-  @JsonProperty("valueTo")
-  private Integer valueTo = null;
+	@JsonProperty("valueTo")
+	private Integer valueTo = null;
 
-  @JsonProperty("valueType")
-  private String valueType = null;
+	@JsonProperty("valueType")
+	private String valueType = null;
 
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+	@JsonProperty("validFor")
+	private TimePeriod validFor = null;
 
-  @JsonProperty("value")
-  private Any value = null;
+	@JsonProperty("value")
+	private Any value = null;
 
- 
+	public ServiceSpecCharacteristicValue() {
+	}
+	
+	public ServiceSpecCharacteristicValue(ServiceSpecCharacteristicValue r) {
+		this();
+		isDefault = r.isDefault;
+		rangeInterval = r.rangeInterval;
+		regex = r.regex;
+		unitOfMeasure = r.unitOfMeasure;
+		valueFrom = r.valueFrom;
+		valueTo = r.valueTo;
+		valueType = r.valueType;
+		validFor = new TimePeriod( r.validFor );
+		value = new Any( r.value.getValue(), r.value.getAlias()) ;
+//		type = r.type;
+		baseType = r.baseType;
+		
+		
+	}
 
-  public ServiceSpecCharacteristicValue isDefault(Boolean isDefault) {
-    this.isDefault = isDefault;
-    return this;
-  }
+	public ServiceSpecCharacteristicValue isDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+		return this;
+	}
 
-  /**
-   * Indicates if the value is the default value for a characteristic
-   * @return isDefault
-  **/
-  @ApiModelProperty(value = "Indicates if the value is the default value for a characteristic")
+	/**
+	 * Indicates if the value is the default value for a characteristic
+	 * 
+	 * @return isDefault
+	 **/
+	@ApiModelProperty(value = "Indicates if the value is the default value for a characteristic")
 
+	public Boolean isIsDefault() {
+		return isDefault;
+	}
 
-  public Boolean isIsDefault() {
-    return isDefault;
-  }
+	public void setIsDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+	}
 
-  public void setIsDefault(Boolean isDefault) {
-    this.isDefault = isDefault;
-  }
+	public ServiceSpecCharacteristicValue rangeInterval(String rangeInterval) {
+		this.rangeInterval = rangeInterval;
+		return this;
+	}
 
-  public ServiceSpecCharacteristicValue rangeInterval(String rangeInterval) {
-    this.rangeInterval = rangeInterval;
-    return this;
-  }
+	/**
+	 * An indicator that specifies the inclusion or exclusion of the valueFrom and
+	 * valueTo attributes. If applicable, possible values are \"open\", \"closed\",
+	 * \"closedBottom\" and \"closedTop\".
+	 * 
+	 * @return rangeInterval
+	 **/
+	@ApiModelProperty(value = "An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
 
-  /**
-   * An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".
-   * @return rangeInterval
-  **/
-  @ApiModelProperty(value = "An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
+	public String getRangeInterval() {
+		return rangeInterval;
+	}
 
+	public void setRangeInterval(String rangeInterval) {
+		this.rangeInterval = rangeInterval;
+	}
 
-  public String getRangeInterval() {
-    return rangeInterval;
-  }
+	public ServiceSpecCharacteristicValue regex(String regex) {
+		this.regex = regex;
+		return this;
+	}
 
-  public void setRangeInterval(String rangeInterval) {
-    this.rangeInterval = rangeInterval;
-  }
+	/**
+	 * A regular expression constraint for given value
+	 * 
+	 * @return regex
+	 **/
+	@ApiModelProperty(value = "A regular expression constraint for given value")
 
-  public ServiceSpecCharacteristicValue regex(String regex) {
-    this.regex = regex;
-    return this;
-  }
+	public String getRegex() {
+		return regex;
+	}
 
-  /**
-   * A regular expression constraint for given value
-   * @return regex
-  **/
-  @ApiModelProperty(value = "A regular expression constraint for given value")
+	public void setRegex(String regex) {
+		this.regex = regex;
+	}
 
+	public ServiceSpecCharacteristicValue unitOfMeasure(String unitOfMeasure) {
+		this.unitOfMeasure = unitOfMeasure;
+		return this;
+	}
 
-  public String getRegex() {
-    return regex;
-  }
+	/**
+	 * A length, surface, volume, dry measure, liquid measure, money, weight, time,
+	 * and the like. In general, a determinate quantity or magnitude of the kind
+	 * designated, taken as a standard of comparison for others of the same kind, in
+	 * assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.
+	 * 
+	 * @return unitOfMeasure
+	 **/
+	@ApiModelProperty(value = "A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.")
 
-  public void setRegex(String regex) {
-    this.regex = regex;
-  }
+	public String getUnitOfMeasure() {
+		return unitOfMeasure;
+	}
 
-  public ServiceSpecCharacteristicValue unitOfMeasure(String unitOfMeasure) {
-    this.unitOfMeasure = unitOfMeasure;
-    return this;
-  }
+	public void setUnitOfMeasure(String unitOfMeasure) {
+		this.unitOfMeasure = unitOfMeasure;
+	}
 
-  /**
-   * A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.
-   * @return unitOfMeasure
-  **/
-  @ApiModelProperty(value = "A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.")
+	public ServiceSpecCharacteristicValue valueFrom(Integer valueFrom) {
+		this.valueFrom = valueFrom;
+		return this;
+	}
 
+	/**
+	 * The low range value that a characteristic can take on
+	 * 
+	 * @return valueFrom
+	 **/
+	@ApiModelProperty(value = "The low range value that a characteristic can take on")
 
-  public String getUnitOfMeasure() {
-    return unitOfMeasure;
-  }
+	public Integer getValueFrom() {
+		return valueFrom;
+	}
 
-  public void setUnitOfMeasure(String unitOfMeasure) {
-    this.unitOfMeasure = unitOfMeasure;
-  }
+	public void setValueFrom(Integer valueFrom) {
+		this.valueFrom = valueFrom;
+	}
 
-  public ServiceSpecCharacteristicValue valueFrom(Integer valueFrom) {
-    this.valueFrom = valueFrom;
-    return this;
-  }
+	public ServiceSpecCharacteristicValue valueTo(Integer valueTo) {
+		this.valueTo = valueTo;
+		return this;
+	}
 
-  /**
-   * The low range value that a characteristic can take on
-   * @return valueFrom
-  **/
-  @ApiModelProperty(value = "The low range value that a characteristic can take on")
+	/**
+	 * The upper range value that a characteristic can take on
+	 * 
+	 * @return valueTo
+	 **/
+	@ApiModelProperty(value = "The upper range value that a characteristic can take on")
 
+	public Integer getValueTo() {
+		return valueTo;
+	}
 
-  public Integer getValueFrom() {
-    return valueFrom;
-  }
+	public void setValueTo(Integer valueTo) {
+		this.valueTo = valueTo;
+	}
 
-  public void setValueFrom(Integer valueFrom) {
-    this.valueFrom = valueFrom;
-  }
+	public ServiceSpecCharacteristicValue valueType(String valueType) {
+		this.valueType = valueType;
+		return this;
+	}
 
-  public ServiceSpecCharacteristicValue valueTo(Integer valueTo) {
-    this.valueTo = valueTo;
-    return this;
-  }
+	/**
+	 * A kind of value that the characteristic can take on, such as numeric, text,
+	 * and so forth
+	 * 
+	 * @return valueType
+	 **/
+	@ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text, and so forth")
 
-  /**
-   * The upper range value that a characteristic can take on
-   * @return valueTo
-  **/
-  @ApiModelProperty(value = "The upper range value that a characteristic can take on")
+	public String getValueType() {
+		return valueType;
+	}
 
+	public void setValueType(String valueType) {
+		this.valueType = valueType;
+	}
 
-  public Integer getValueTo() {
-    return valueTo;
-  }
+	public ServiceSpecCharacteristicValue validFor(TimePeriod validFor) {
+		this.validFor = validFor;
+		return this;
+	}
 
-  public void setValueTo(Integer valueTo) {
-    this.valueTo = valueTo;
-  }
+	/**
+	 * The period of time for which a value is applicable
+	 * 
+	 * @return validFor
+	 **/
+	@ApiModelProperty(value = "The period of time for which a value is applicable")
 
-  public ServiceSpecCharacteristicValue valueType(String valueType) {
-    this.valueType = valueType;
-    return this;
-  }
+	@Valid
 
-  /**
-   * A kind of value that the characteristic can take on, such as numeric, text, and so forth
-   * @return valueType
-  **/
-  @ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text, and so forth")
+	public TimePeriod getValidFor() {
+		return validFor;
+	}
 
+	public void setValidFor(TimePeriod validFor) {
+		this.validFor = validFor;
+	}
 
-  public String getValueType() {
-    return valueType;
-  }
+	public ServiceSpecCharacteristicValue value(Any value) {
+		this.value = value;
+		return this;
+	}
 
-  public void setValueType(String valueType) {
-    this.valueType = valueType;
-  }
+	/**
+	 * A discrete value that the characteristic can take on, or the actual value of
+	 * the characteristic
+	 * 
+	 * @return value
+	 **/
+	@ApiModelProperty(value = "A discrete value that the characteristic can take on, or the actual value of the characteristic")
 
-  public ServiceSpecCharacteristicValue validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
+	@Valid
 
-  /**
-   * The period of time for which a value is applicable
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period of time for which a value is applicable")
+	public Any getValue() {
+		return value;
+	}
 
-  @Valid
+	public void setValue(Any value) {
+		this.value = value;
+	}
 
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ServiceSpecCharacteristicValue serviceSpecCharacteristicValue = (ServiceSpecCharacteristicValue) o;
+		return Objects.equals(this.isDefault, serviceSpecCharacteristicValue.isDefault)
+				&& Objects.equals(this.rangeInterval, serviceSpecCharacteristicValue.rangeInterval)
+				&& Objects.equals(this.regex, serviceSpecCharacteristicValue.regex)
+				&& Objects.equals(this.unitOfMeasure, serviceSpecCharacteristicValue.unitOfMeasure)
+				&& Objects.equals(this.valueFrom, serviceSpecCharacteristicValue.valueFrom)
+				&& Objects.equals(this.valueTo, serviceSpecCharacteristicValue.valueTo)
+				&& Objects.equals(this.valueType, serviceSpecCharacteristicValue.valueType)
+				&& Objects.equals(this.validFor, serviceSpecCharacteristicValue.validFor)
+				&& Objects.equals(this.value, serviceSpecCharacteristicValue.value)
+				&& Objects.equals(this.baseType, serviceSpecCharacteristicValue.baseType)
+				&& Objects.equals(this.schemaLocation, serviceSpecCharacteristicValue.schemaLocation)
+				&& Objects.equals(this.type, serviceSpecCharacteristicValue.type);
+	}
 
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor,
+				value, baseType, schemaLocation, type);
+	}
 
-  public ServiceSpecCharacteristicValue value(Any value) {
-    this.value = value;
-    return this;
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class ServiceSpecCharacteristicValue {\n");
 
-  /**
-   * A discrete value that the characteristic can take on, or the actual value of the characteristic
-   * @return value
-  **/
-  @ApiModelProperty(value = "A discrete value that the characteristic can take on, or the actual value of the characteristic")
+		sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
+		sb.append("    rangeInterval: ").append(toIndentedString(rangeInterval)).append("\n");
+		sb.append("    regex: ").append(toIndentedString(regex)).append("\n");
+		sb.append("    unitOfMeasure: ").append(toIndentedString(unitOfMeasure)).append("\n");
+		sb.append("    valueFrom: ").append(toIndentedString(valueFrom)).append("\n");
+		sb.append("    valueTo: ").append(toIndentedString(valueTo)).append("\n");
+		sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
+		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
+		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  @Valid
-
-  public Any getValue() {
-    return value;
-  }
-
-  public void setValue(Any value) {
-    this.value = value;
-  }
-
- 
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ServiceSpecCharacteristicValue serviceSpecCharacteristicValue = (ServiceSpecCharacteristicValue) o;
-    return Objects.equals(this.isDefault, serviceSpecCharacteristicValue.isDefault) &&
-        Objects.equals(this.rangeInterval, serviceSpecCharacteristicValue.rangeInterval) &&
-        Objects.equals(this.regex, serviceSpecCharacteristicValue.regex) &&
-        Objects.equals(this.unitOfMeasure, serviceSpecCharacteristicValue.unitOfMeasure) &&
-        Objects.equals(this.valueFrom, serviceSpecCharacteristicValue.valueFrom) &&
-        Objects.equals(this.valueTo, serviceSpecCharacteristicValue.valueTo) &&
-        Objects.equals(this.valueType, serviceSpecCharacteristicValue.valueType) &&
-        Objects.equals(this.validFor, serviceSpecCharacteristicValue.validFor) &&
-        Objects.equals(this.value, serviceSpecCharacteristicValue.value) &&
-        Objects.equals(this.baseType, serviceSpecCharacteristicValue.baseType) &&
-        Objects.equals(this.schemaLocation, serviceSpecCharacteristicValue.schemaLocation) &&
-        Objects.equals(this.type, serviceSpecCharacteristicValue.type);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor, value, baseType, schemaLocation, type);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ServiceSpecCharacteristicValue {\n");
-    
-    sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
-    sb.append("    rangeInterval: ").append(toIndentedString(rangeInterval)).append("\n");
-    sb.append("    regex: ").append(toIndentedString(regex)).append("\n");
-    sb.append("    unitOfMeasure: ").append(toIndentedString(unitOfMeasure)).append("\n");
-    sb.append("    valueFrom: ").append(toIndentedString(valueFrom)).append("\n");
-    sb.append("    valueTo: ").append(toIndentedString(valueTo)).append("\n");
-    sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
-    sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
-    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }
-

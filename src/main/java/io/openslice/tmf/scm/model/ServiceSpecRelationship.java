@@ -67,6 +67,15 @@ public class ServiceSpecRelationship {
 		this.type = this.getClass().getName();
 	}
 
+	public ServiceSpecRelationship(ServiceSpecRelationship src) {
+		this();
+		name = src.name;
+		relationshipType = src.relationshipType;
+		role = src.role;
+		validFor = new TimePeriod( src.validFor );
+		
+	}
+
 	public ServiceSpecRelationship id(String id) {
 		this.id = id;
 		return this;

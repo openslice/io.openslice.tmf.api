@@ -349,6 +349,10 @@ public class InMemoryDBIntegrationTest {
 
 		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2);
 		
+
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		
 	}
 	
 	
@@ -473,7 +477,9 @@ public class InMemoryDBIntegrationTest {
 		assertThat( idspec2Exists ).isTrue();
 		assertThat( idspec4Exists ).isTrue();
 		
-		
+
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 5 );
 		
 	}
 	
@@ -481,6 +487,9 @@ public class InMemoryDBIntegrationTest {
 	@Test
 	public void testCloneSpec() throws Exception {
 
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
+		
 		/**
 		 * first add 2 specs
 		 */
@@ -507,7 +516,8 @@ public class InMemoryDBIntegrationTest {
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec2 );
 		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
 		
-		
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 4 );
 
 		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification/"+responsesSpec3.getId()+"/clone")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -521,10 +531,15 @@ public class InMemoryDBIntegrationTest {
 		logger.info("clonedSpec = " + clonedSpec.toString());
 
 		assertThat( clonedSpec.getId() ).isNotEqualTo( responsesSpec3.getId() );
+		assertThat( clonedSpec.getUuid() ).isNotNull();		
 		assertThat( clonedSpec.getUuid() ).isNotEqualTo( responsesSpec3.getUuid() );
-		assertThat( clonedSpec.getName() ).isEqualTo( responsesSpec3.getName() );
+		assertThat( clonedSpec.getName() ).isEqualTo( "Copy of " + responsesSpec3.getName() );	
+		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage") ).isNotNull();
 		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage").getUuid() ).isNotNull();		
 		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage").getUuid()  ).isNotEqualTo( responsesSpec3.findSpecCharacteristicByName("Coverage").getUuid() );
+		
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 5 );
 		
 	}
 	

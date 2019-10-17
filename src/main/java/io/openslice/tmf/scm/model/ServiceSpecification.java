@@ -80,7 +80,7 @@ public class ServiceSpecification extends BaseEntity {
 
 	@JsonProperty("id")
 	protected String id = null;
-	
+
 	/**
 	 * @return the id
 	 */
@@ -88,13 +88,43 @@ public class ServiceSpecification extends BaseEntity {
 		return uuid;
 	}
 
-	
 	public ServiceSpecification() {
 		super();
 		this.baseType = "BaseEntity";
 		this.type = "ServiceSpecification";
 	}
-	
+
+	public ServiceSpecification(ServiceSpecification src) {
+		this();
+		name = src.name;
+		description = src.description;
+		isBundle = src.isBundle;
+		lastUpdate = src.lastUpdate;
+		lifecycleStatus = src.lifecycleStatus;
+		version = src.version;
+		validFor = new TimePeriod(src.validFor);
+
+		for (AttachmentRef attachmentRef : src.attachment) {
+			this.addAttachmentItem( new AttachmentRef( attachmentRef ));
+		}
+		for (RelatedParty r : src.relatedParty) {
+			this.addRelatedPartyItem(r);
+		}
+		for (ResourceSpecificationRef r : src.resourceSpecification) {
+			this.addResourceSpecificationItem( new ResourceSpecificationRef(r) );
+		}
+		for (ServiceLevelSpecificationRef r : src.serviceLevelSpecification) {
+			this.addServiceLevelSpecificationItem( new ServiceLevelSpecificationRef(r) );
+		}
+		for (ServiceSpecCharacteristic r : src.serviceSpecCharacteristic) {			
+			this.addServiceSpecCharacteristicItem( new ServiceSpecCharacteristic(r) );
+		}
+		for (ServiceSpecRelationship r : src.serviceSpecRelationship) {
+			this.addServiceSpecRelationshipItem( new ServiceSpecRelationship(r));
+		}
+
+	}
+
 	public ServiceSpecification isBundle(Boolean isBundle) {
 		this.isBundle = isBundle;
 		return this;
@@ -130,8 +160,8 @@ public class ServiceSpecification extends BaseEntity {
 	}
 
 	/**
-	 * A list of attachments (Attachment [*]). Complements the description of
-	 * the specification through video, pictures...
+	 * A list of attachments (Attachment [*]). Complements the description of the
+	 * specification through video, pictures...
 	 * 
 	 * @return attachment
 	 **/
@@ -192,9 +222,9 @@ public class ServiceSpecification extends BaseEntity {
 	}
 
 	/**
-	 * A list of resource specification references (ResourceSpecificationRef
-	 * [*]). The ResourceSpecification is required for a service specification
-	 * with type ResourceFacingServiceSpecification (RFSS).
+	 * A list of resource specification references (ResourceSpecificationRef [*]).
+	 * The ResourceSpecification is required for a service specification with type
+	 * ResourceFacingServiceSpecification (RFSS).
 	 * 
 	 * @return resourceSpecification
 	 **/
@@ -225,9 +255,9 @@ public class ServiceSpecification extends BaseEntity {
 	}
 
 	/**
-	 * A list of service level specifications related to this service
-	 * specification, and which will need to be satisifiable for corresponding
-	 * service instances; e.g. Gold, Platinum
+	 * A list of service level specifications related to this service specification,
+	 * and which will need to be satisifiable for corresponding service instances;
+	 * e.g. Gold, Platinum
 	 * 
 	 * @return serviceLevelSpecification
 	 **/
@@ -258,8 +288,8 @@ public class ServiceSpecification extends BaseEntity {
 	}
 
 	/**
-	 * A list of service spec characteristics (ServiceSpecCharacteristic [*]).
-	 * This class represents the key features of this service specification.
+	 * A list of service spec characteristics (ServiceSpecCharacteristic [*]). This
+	 * class represents the key features of this service specification.
 	 * 
 	 * @return serviceSpecCharacteristic
 	 **/
@@ -313,8 +343,8 @@ public class ServiceSpecification extends BaseEntity {
 
 	/**
 	 * A target service schema reference (TargetServiceSchemaRef). The reference
-	 * object to the schema and type of target service which is described by
-	 * service specification.
+	 * object to the schema and type of target service which is described by service
+	 * specification.
 	 * 
 	 * @return targetServiceSchema
 	 **/
@@ -359,7 +389,8 @@ public class ServiceSpecification extends BaseEntity {
 			return false;
 		}
 		ServiceSpecification serviceSpecification = (ServiceSpecification) o;
-		return Objects.equals(this.id, serviceSpecification.id) && Objects.equals(this.href, serviceSpecification.href)
+		return Objects.equals(this.id, serviceSpecification.id) && Objects.equals(this.uuid, serviceSpecification.uuid)
+				&& Objects.equals(this.href, serviceSpecification.href)
 				&& Objects.equals(this.description, serviceSpecification.description)
 				&& Objects.equals(this.isBundle, serviceSpecification.isBundle)
 				&& Objects.equals(this.lastUpdate, serviceSpecification.lastUpdate)
@@ -381,8 +412,8 @@ public class ServiceSpecification extends BaseEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, href, description, isBundle, lastUpdate, lifecycleStatus, name, version, attachment,
-				relatedParty, resourceSpecification, serviceLevelSpecification, serviceSpecCharacteristic,
+		return Objects.hash(uuid, id, href, description, isBundle, lastUpdate, lifecycleStatus, name, version,
+				attachment, relatedParty, resourceSpecification, serviceLevelSpecification, serviceSpecCharacteristic,
 				serviceSpecRelationship, targetServiceSchema, validFor, baseType, schemaLocation, type);
 	}
 
@@ -427,38 +458,40 @@ public class ServiceSpecification extends BaseEntity {
 	}
 
 	public ServiceSpecCharacteristic findSpecCharacteristicByName(String name) {
-		for (ServiceSpecCharacteristic ssci :  this.getServiceSpecCharacteristic()) {
-			if ( ssci.getName().equals(name)) {
-				return ssci;				
+		for (ServiceSpecCharacteristic ssci : this.getServiceSpecCharacteristic()) {
+			if (ssci.getName().equals(name)) {
+				return ssci;
 			}
 		}
 		return null;
 	}
 
 	/**
-	 * we fix here the ids of the ServiceSpecCharRelationships.
-	 * remind also that we have a role="tag"
+	 * we fix here the ids of the ServiceSpecCharRelationships. remind also that we
+	 * have a role="tag"
 	 */
 	public void fixSpecCharRelationhsipIDs() {
 		for (ServiceSpecCharacteristic schar : serviceSpecCharacteristic) {
 			for (ServiceSpecCharRelationship charRel : schar.getServiceSpecCharRelationship()) {
-				if ( charRel.getId() == null ) {
-					//search other specCharacteristics inside the serviceSpec to get the id (if they have same name). Then ID will be the same as the id of the serviceSpecCharacteristic
+				if (charRel.getId() == null) {
+					// search other specCharacteristics inside the serviceSpec to get the id (if
+					// they have same name). Then ID will be the same as the id of the
+					// serviceSpecCharacteristic
 					for (ServiceSpecCharacteristic searchChar : serviceSpecCharacteristic) {
-						if ( searchChar.getName().equals(charRel.getName() ) ) {
+						if (searchChar.getName().equals(charRel.getName())) {
 							charRel.setId(searchChar.getUuid());
 							break;
-						}						
+						}
 					}
-					
+
 				}
-				//if still is null se this id:
-				if ( charRel.getId() == null ) {
-					charRel.setId( this.getName() + "-" + charRel.getName()  );
+				// if still is null se this id:
+				if (charRel.getId() == null) {
+					charRel.setId(this.getName() + "-" + charRel.getName());
 				}
 			}
-			
+
 		}
-		
+
 	}
 }

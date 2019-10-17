@@ -57,6 +57,16 @@ public class AttachmentRef {
 	@JsonProperty("@type")
 	protected String type = null;
 
+	public AttachmentRef() {
+	}
+
+	
+	public AttachmentRef(AttachmentRef src) {
+		description = src.description;
+		url = src.url;
+		id = src.id;
+	}
+
 	public AttachmentRef description(String description) {
 		this.description = description;
 		return this;

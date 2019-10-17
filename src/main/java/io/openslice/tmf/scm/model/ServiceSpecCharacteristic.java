@@ -13,8 +13,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.CascadeType;
@@ -89,6 +92,29 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 		super();
 		this.baseType = "BaseRootEntity";
 		this.type = this.getClass().getName();
+	}
+
+	public ServiceSpecCharacteristic(ServiceSpecCharacteristic src) {
+		this();
+		configurable = src.configurable;
+		description = src.description;
+		extensible = src.extensible;
+		isUnique = src.isUnique;
+		maxCardinality = src.maxCardinality;
+		minCardinality = src.minCardinality;
+		name = src.name;
+		regex = src.regex;
+		valueType = src.valueType;
+		validFor = new TimePeriod( src.validFor ) ;
+		
+		for (ServiceSpecCharRelationship r : src.serviceSpecCharRelationship) {
+			this.addServiceSpecCharRelationshipItem( new ServiceSpecCharRelationship( r ));
+		}
+		
+		for (ServiceSpecCharacteristicValue r : src.serviceSpecCharacteristicValue) {
+			this.addServiceSpecCharacteristicValueItem( new ServiceSpecCharacteristicValue(r) );
+		}
+
 	}
 
 	/**
@@ -448,27 +474,108 @@ public class ServiceSpecCharacteristic extends BaseRootEntity {
 		return o.toString().replace("\n", "\n    ");
 	}
 
-	public void updateWith(ServiceSpecCharacteristic s) {
-		this.name = s.getName();
-		this.description = s.getDescription();
-		this.maxCardinality = s.getMaxCardinality();
-		this.minCardinality = s.getMinCardinality();
-		this.regex = s.getRegex();
-		this.isUnique =s.isUnique;
-		this.configurable =s.isConfigurable();
-		this.extensible =s.isExtensible();
+	public void updateWith(ServiceSpecCharacteristic src) {
+		this.name = src.getName();
+		this.description = src.getDescription();
+		this.maxCardinality = src.getMaxCardinality();
+		this.minCardinality = src.getMinCardinality();
+		this.regex = src.getRegex();
+		this.isUnique =src.isUnique;
+		this.configurable =src.isConfigurable();
+		this.extensible =src.isExtensible();
+
+		this.updateServiceSpecCharacteristicValues(src.getServiceSpecCharacteristicValue());
+		//this.updateServiceSpecCharRelationships(src.getServiceSpecCharRelationship());
+
+		
+	}
+
+
+
+	private void updateServiceSpecCharacteristicValues(
+			@Valid Set<ServiceSpecCharacteristicValue> srcSet) {
+
+		Map<Integer, Boolean> idAddedUpdated = new HashMap<>();
+		/**
+		 * update, add the incomings
+		 */
+		for (ServiceSpecCharacteristicValue r : srcSet) {
+
+			boolean valueExists = false;
+			for (ServiceSpecCharacteristicValue thisCharVal : this.serviceSpecCharacteristicValue) {
+				if ( thisCharVal.hashCode() == r.hashCode() ) {
+					valueExists = true;
+					idAddedUpdated.put(thisCharVal.hashCode(), true);
+					break;
+				}
+			}
+			
+			if (!valueExists) {
+				this.addServiceSpecCharacteristicValueItem( new ServiceSpecCharacteristicValue( r ));
+				idAddedUpdated.put( r.hashCode(), true);
+			}
+			
+		}
 		
 		/**
-		 * TODO
+		 * remove those that don't exist anymore
 		 */
-		this.getServiceSpecCharacteristicValue().clear();
-		this.getServiceSpecCharacteristicValue().addAll( s.getServiceSpecCharacteristicValue() );
-
+		
+		List<ServiceSpecCharacteristicValue> toRemove = new ArrayList<>();
+		for (ServiceSpecCharacteristicValue ss : this.serviceSpecCharacteristicValue) {
+			if ( idAddedUpdated.get( ss.hashCode() ) == null ) {
+				toRemove.add(ss);
+			}
+		}
+		
+		for (ServiceSpecCharacteristicValue r : toRemove) {
+			this.serviceSpecCharacteristicValue.remove(r);
+		}
+		
+		
+	}
+	
+	private void updateServiceSpecCharRelationships(
+			@Valid Set<ServiceSpecCharRelationship> srcSet) {
+		
+		
+		Map< String, Boolean> idAddedUpdated = new HashMap<>();
 		/**
-		 * TODO
+		 * update, add the incomings
 		 */
-		this.getServiceSpecCharRelationship().clear();
-		this.getServiceSpecCharRelationship().addAll( s.getServiceSpecCharRelationship() );
+		for (ServiceSpecCharRelationship r : srcSet) {
+
+			boolean valueExists = false;
+			for (ServiceSpecCharRelationship thisCharVal : this.serviceSpecCharRelationship) {
+				if ( (thisCharVal.getId()!=null) && (thisCharVal.getId().equals(r.getId() ) )) {
+					valueExists = true;
+					idAddedUpdated.put( thisCharVal.getId() , true);
+					break;
+				}
+			}
+			
+			if (!valueExists) {
+				this.serviceSpecCharRelationship.add( new ServiceSpecCharRelationship( r ));
+				idAddedUpdated.put( r.getId(), true);
+			}
+			
+		}
+		
+		/**
+		 * remove those that don't exist anymore
+		 */
+		
+		List<ServiceSpecCharRelationship> toRemove = new ArrayList<>();
+		for (ServiceSpecCharRelationship ss : this.serviceSpecCharRelationship) {
+			if ( idAddedUpdated.get( ss.getId() ) == null ) {
+				toRemove.add(ss);
+			}
+		}
+		
+		for (ServiceSpecCharRelationship r : toRemove) {
+			this.serviceSpecCharRelationship.remove(r);
+		}
+		
 		
 	}
 }

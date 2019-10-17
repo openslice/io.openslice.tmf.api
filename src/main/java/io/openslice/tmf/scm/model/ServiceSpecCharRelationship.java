@@ -60,6 +60,16 @@ public class ServiceSpecCharRelationship {
 	private TimePeriod validFor = null;
 
 	
+	public ServiceSpecCharRelationship() {
+	}
+
+	public ServiceSpecCharRelationship(ServiceSpecCharRelationship src ){
+		name = src.name;
+		relationshipType = src.relationshipType;
+		role = src.role;
+		validFor = new TimePeriod( src.validFor );
+		id = src.id;
+	}
 
 	/**
 	 * @return the id

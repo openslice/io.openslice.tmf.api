@@ -11,7 +11,7 @@ spring:
     password: letmein0
     username: root
   jpa:
-    database-platform: io.openslice.tmf.scm.LocalMysqlDialect
+    database-platform: io.openslice.tmf.LocalMysqlDialect
     hibernate:
       ddl-auto: update
     show-sql: false

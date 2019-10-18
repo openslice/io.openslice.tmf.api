@@ -1,0 +1,58 @@
+package io.openslice.tmf;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.ExitCodeGenerator;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+/**
+ * For implementing the callback and events, it might be useful to check the DDD pattern: https://www.baeldung.com/spring-data-ddd
+ * 
+ * 
+ * @author ctranoris
+ *
+ */
+@SpringBootApplication
+@EnableSwagger2
+@ComponentScan(basePackages = { 
+		"io.openslice.tmf",  
+		"io.openslice.tmf.configuration", 
+		"io.openslice.tmf.scm633", 
+		"io.openslice.tmf.scm633.api",
+		"io.openslice.tmf.scm633.repo", 
+		"io.openslice.tmf.scm633.reposervices" })
+public class OpenAPISpringBoot implements CommandLineRunner {
+
+    private static ApplicationContext applicationContext;
+    
+    @Override
+    public void run(String... arg0) throws Exception {
+        if (arg0.length > 0 && arg0[0].equals("exitcode")) {
+            throw new ExitException();
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+      
+        applicationContext =  new SpringApplication(OpenAPISpringBoot.class).run(args);
+        
+        for (String beanName : applicationContext.getBeanDefinitionNames()) {
+            System.out.println(beanName);
+        }
+    }
+
+    class ExitException extends RuntimeException implements ExitCodeGenerator {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public int getExitCode() {
+            return 10;
+        }
+
+    }
+   
+}

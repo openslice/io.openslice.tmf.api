@@ -1,7 +1,7 @@
 {
 	"name": "GST External",
 	"description": "GST external example",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"isBundle": false,
 	"attachment": [
 	],
@@ -628,7 +628,7 @@
 			"isUnique": true,
 			"maxCardinality": 1,
 			"minCardinality": 0,
-			"regex": "Conditional: This parameter must be present when “Isolation” is set to 1.",
+			"regex": "Conditional: This parameter must be present when Isolation is set to 1.",
 			"valueType": "ENUM",			
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
@@ -879,7 +879,7 @@
 			"isUnique": true,
 			"maxCardinality": 1,
 			"minCardinality": 0,
-			"regex": "Conditional: Conditional: Specifies capabilities  available to support mission-critical services. More than one capability may be supported at once. This parameter is optional when “Mission critical support” is set to 1 (mission-critical slice)",
+			"regex": "Conditional: Conditional: Specifies capabilities  available to support mission-critical services. More than one capability may be supported at once. This parameter is optional when Mission critical support is set to 1 (mission-critical slice)",
 			"valueType": "ARRAY",
 
 			"serviceSpecCharRelationship": [
@@ -939,7 +939,7 @@
 			"isUnique": true,
 			"maxCardinality": 1,
 			"minCardinality": 0,
-			"regex": "Conditional: This attribute must be present when “Mission critical support” is set to 1.",
+			"regex": "Conditional: This attribute must be present when Mission critical support is set to 1.",
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },

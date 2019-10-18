@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import io.openslice.tmf.scm633.model.ServiceCatalog;
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiParam;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Controller
+@RequestMapping("/serviceCatalogManagement/v4/")
 public class ServiceCatalogApiController implements ServiceCatalogApi {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceCatalogApiController.class);

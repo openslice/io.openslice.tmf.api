@@ -97,21 +97,6 @@ public class InMemoryDBIntegrationTest {
 	
 	
 	@Test
-	public void whenFindByName_thenReturnVxF() {
-//	    // given
-//
-//		VxFMetadata vxf = new VxFMetadata();
-//		vxf.setName("aTestVxF");
-//		vxfService.updateProductInfo(vxf);
-//	 
-//	    // when
-//	    VxFMetadata found = vxfService.getVxFByName(vxf.getName());
-//	 
-//	    // then
-//	    assertThat(found.getName()).isEqualTo( vxf.getName() );
-	}
-	
-	@Test
 	public void _countDefaultProperties() {
 
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );
@@ -130,7 +115,7 @@ public class InMemoryDBIntegrationTest {
 		
 		ServiceCatalogCreate scc = toJsonObj( resvxf,  ServiceCatalogCreate.class);
 		
-		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalog")
+		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCatalog")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scc ) ))
 			    .andExpect(status().isOk())
@@ -158,7 +143,7 @@ public class InMemoryDBIntegrationTest {
 		
 		ServiceCategoryCreate scategcreate = toJsonObj( sc,  ServiceCategoryCreate.class);
 		
-		response = mvc.perform(MockMvcRequestBuilders.post("/serviceCategory")
+		response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCategory")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scategcreate ) ))
 			    .andExpect(status().isOk())
@@ -182,7 +167,7 @@ public class InMemoryDBIntegrationTest {
 		categoryItem.setId( responsesCateg.getId() );
 		
 		scu.addCategoryItem(categoryItem);
-		 response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalog/" + responsesCatalog.getId() )
+		 response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceCatalog/" + responsesCatalog.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scu ) ))
 			    .andExpect(status().isOk())
@@ -209,7 +194,7 @@ public class InMemoryDBIntegrationTest {
 		
 		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		
-		 response = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+		 response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
@@ -246,7 +231,7 @@ public class InMemoryDBIntegrationTest {
 		attachmentItem.setDescription("an attachment");
 		attachmentItem.setUrl("a url");
 		sspeccr.addAttachmentItem(attachmentItem);
-		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
@@ -277,7 +262,7 @@ public class InMemoryDBIntegrationTest {
 		spechar.getServiceSpecCharacteristicValue().add( sv );
 		responsesSpecUpd.getServiceSpecCharacteristic().add(spechar );
 				
-		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec.getId() )
+		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -317,7 +302,7 @@ public class InMemoryDBIntegrationTest {
 		scrObj4.setName("ANEWCharRel");
 		responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().add(scrObj4);
 		
-		response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec.getId() )
+		response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -379,7 +364,7 @@ public class InMemoryDBIntegrationTest {
 	
 	private ServiceSpecification createServiceSpec(String sspectext, ServiceSpecificationCreate sspeccr1) throws Exception{
 		
-		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -463,7 +448,7 @@ public class InMemoryDBIntegrationTest {
 		responsesSpecUpd.addServiceSpecRelationshipWith(responsesSpec4);
 		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
 		
-		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/serviceSpecification/" + responsesSpec3.getId() )
+		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec3.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -540,7 +525,7 @@ public class InMemoryDBIntegrationTest {
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 4 );
 
-		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification/"+responsesSpec3.getId()+"/clone")
+		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/"+responsesSpec3.getId()+"/clone")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -585,7 +570,7 @@ public class InMemoryDBIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
 		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
-		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceSpecification")
+		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())

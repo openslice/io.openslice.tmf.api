@@ -4,9 +4,9 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
-import io.openslice.tmf.scm633.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

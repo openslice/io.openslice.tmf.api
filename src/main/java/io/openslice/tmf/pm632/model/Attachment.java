@@ -1,19 +1,18 @@
 package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.pm632.model.Quantity;
-import io.openslice.tmf.pm632.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Complements the description of an element (for instance a product) through video, pictures...

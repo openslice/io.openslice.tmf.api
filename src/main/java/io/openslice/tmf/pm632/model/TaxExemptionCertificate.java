@@ -1,18 +1,18 @@
 package io.openslice.tmf.pm632.model;
 
+import java.util.ArrayList;
+import io.openslice.tmf.common.model.TimePeriod;
+import java.util.List;
 import java.util.Objects;
+
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.pm632.model.AttachmentRefOrValue;
-import io.openslice.tmf.pm632.model.TaxDefinition;
-import io.openslice.tmf.pm632.model.TimePeriod;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * A tax exemption certificate represents a tax exemption granted to a party (individual or organization) by a tax jurisdiction which may be a city, state, country,... An exemption has a certificate identifier (received from the jurisdiction that levied the tax) and a validity period. An exemption is per tax types and determines for each type of tax what portion of the tax is exempted (partial by percentage or complete) via the tax definition.

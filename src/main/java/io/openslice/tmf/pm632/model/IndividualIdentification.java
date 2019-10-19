@@ -1,16 +1,17 @@
 package io.openslice.tmf.pm632.model;
 
+import java.time.OffsetDateTime;
+import io.openslice.tmf.common.model.TimePeriod;
 import java.util.Objects;
+
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.pm632.model.AttachmentRefOrValue;
-import io.openslice.tmf.pm632.model.TimePeriod;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Represents our registration of information used as proof of identity by an individual (passport, national identity card, drivers license, social security number, birth certificate)

@@ -4,6 +4,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.RelatedParty;
 import io.openslice.tmf.scm633.model.ResourceSpecificationRef;
@@ -11,7 +12,6 @@ import io.openslice.tmf.scm633.model.ServiceLevelSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.TargetServiceSchema;
-import io.openslice.tmf.scm633.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

@@ -16,10 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.ELifecycle;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryUpdate;
-import io.openslice.tmf.scm633.model.TimePeriod;
 import io.openslice.tmf.scm633.repo.CatalogRepository;
 import io.openslice.tmf.scm633.repo.CategoriesRepository;
 

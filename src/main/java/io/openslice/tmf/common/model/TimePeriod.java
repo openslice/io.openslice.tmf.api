@@ -1,4 +1,4 @@
-package io.openslice.tmf.scm633.model;
+package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;

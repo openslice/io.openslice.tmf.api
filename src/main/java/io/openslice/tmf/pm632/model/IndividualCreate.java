@@ -1,28 +1,19 @@
 package io.openslice.tmf.pm632.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.pm632.model.Characteristic;
-import io.openslice.tmf.pm632.model.ContactMedium;
-import io.openslice.tmf.pm632.model.Disability;
-import io.openslice.tmf.pm632.model.ExternalReference;
-import io.openslice.tmf.pm632.model.IndividualIdentification;
-import io.openslice.tmf.pm632.model.IndividualStateType;
-import io.openslice.tmf.pm632.model.LanguageAbility;
-import io.openslice.tmf.pm632.model.OtherNameIndividual;
-import io.openslice.tmf.pm632.model.PartyCreditProfile;
-import io.openslice.tmf.pm632.model.RelatedParty;
-import io.openslice.tmf.pm632.model.Skill;
-import io.openslice.tmf.pm632.model.TaxExemptionCertificate;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Individual represents a single human being (a man, woman or child). The individual can be a customer, an employee or any other person that the organization needs to store information about. Skipped properties: id,href

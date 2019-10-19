@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.ELifecycle;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
-import io.openslice.tmf.scm633.model.TimePeriod;
 import io.openslice.tmf.scm633.repo.ServiceSpecificationRepository;
 
 @Service

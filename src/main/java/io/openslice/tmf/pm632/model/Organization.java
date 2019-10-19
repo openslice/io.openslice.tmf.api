@@ -1,27 +1,19 @@
 package io.openslice.tmf.pm632.model;
 
+import java.util.ArrayList;
+import io.openslice.tmf.common.model.TimePeriod;
+import java.util.List;
 import java.util.Objects;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.pm632.model.Characteristic;
-import io.openslice.tmf.pm632.model.ContactMedium;
-import io.openslice.tmf.pm632.model.ExternalReference;
-import io.openslice.tmf.pm632.model.OrganizationChildRelationship;
-import io.openslice.tmf.pm632.model.OrganizationIdentification;
-import io.openslice.tmf.pm632.model.OrganizationParentRelationship;
-import io.openslice.tmf.pm632.model.OrganizationStateType;
-import io.openslice.tmf.pm632.model.OtherNameOrganization;
-import io.openslice.tmf.pm632.model.PartyCreditProfile;
-import io.openslice.tmf.pm632.model.RelatedParty;
-import io.openslice.tmf.pm632.model.TaxExemptionCertificate;
-import io.openslice.tmf.pm632.model.TimePeriod;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data.

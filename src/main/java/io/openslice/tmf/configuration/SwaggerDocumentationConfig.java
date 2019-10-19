@@ -100,6 +100,56 @@ public class SwaggerDocumentationConfig {
             .build();
     }
     
+    ApiInfo apiInfo669() {
+        return new ApiInfoBuilder()
+                .title("Party Role Management")
+                .description("This is Swagger UI environment generated for the TMF Party Role Management specification")
+                .license("")
+                .licenseUrl("http://unlicense.org")
+                .termsOfServiceUrl("")
+                .version("4.0")
+                .contact(new Contact("","", ""))
+                .build();
+    }
+    
+
+    ApiInfo apiInfo632() {
+        return new ApiInfoBuilder()
+            .title("API Party")
+            .description("## TMF API Reference : TMF 632 - Party   ### Release : 19.0   The party API provides standardized mechanism for party management such as creation, update, retrieval, deletion and notification of events. Party can be an individual or an organization that has any kind of relation with the enterprise. Party is created to record individual or organization information before the assignment of any role. For example, within the context of a split billing mechanism, Party API allows creation of the individual or organization that will play the role of 3 rd payer for a given offer and, then, allows consultation or update of his information.  ### Resources - Organization - Individual - Hub  Party API performs the following operations : - Retrieve an organization or an individual - Retrieve a collection of organizations or individuals according to given criteria - Create a new organization or a new individual - Update an existing organization or an existing individual - Delete an existing organization or an existing individual - Notify events on organizatin or individual")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("4.0.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
+    ApiInfo apiInfo651() {
+        return new ApiInfoBuilder()
+            .title("Agreement Management")
+            .description("This is Swagger UI environment generated for the TMF Agreement Management specification")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("2.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
+    ApiInfo apiInfo666() {
+        return new ApiInfoBuilder()
+            .title("Account Management")
+            .description("This is Swagger UI environment generated for the TMF Account Management specification")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("4.0.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
+    
     @Bean
     public Docket customscm633(){
         return new Docket(DocumentationType.SWAGGER_2)
@@ -118,7 +168,7 @@ public class SwaggerDocumentationConfig {
     }
     
     @Bean
-    public Docket swaggerscm620() {
+    public Docket swaggerpcm620() {
 
         return new Docket(DocumentationType.SWAGGER_2)
         		.groupName("tmf-api-620-Product Catalog Management-v4.0.0")
@@ -132,7 +182,7 @@ public class SwaggerDocumentationConfig {
     }
     
     @Bean
-    public Docket swaggerscm634() {
+    public Docket swaggerrcm634() {
 
         return new Docket(DocumentationType.SWAGGER_2)
         		.groupName("tmf-api-634-Resource Catalog Management-v2.0")
@@ -145,7 +195,7 @@ public class SwaggerDocumentationConfig {
 
     }
     @Bean
-    public Docket swaggerscm638() {
+    public Docket swaggersim638() {
 
         return new Docket(DocumentationType.SWAGGER_2)
         		.groupName("tmf-api-638-Service Inventory Management-v4.0.0")
@@ -158,7 +208,7 @@ public class SwaggerDocumentationConfig {
 
     }
     @Bean
-    public Docket swaggerscm641() {
+    public Docket swaggerso641() {
 
         return new Docket(DocumentationType.SWAGGER_2)
         		.groupName("tmf-api-641-API ServiceOrdering-v4.0.0")
@@ -171,7 +221,7 @@ public class SwaggerDocumentationConfig {
 
     }
     @Bean
-    public Docket swaggerscm657() {
+    public Docket swaggersqm657() {
 
         return new Docket(DocumentationType.SWAGGER_2)
         		.groupName("tmf-api-657-Service Quality Management-v2.0")
@@ -184,4 +234,58 @@ public class SwaggerDocumentationConfig {
 
     }
 
+
+    @Bean
+    public Docket swaggerprm669() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-669-Party Role Management-v4.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.prm669.api"))
+                    .build()
+                    .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo657());
+
+    }
+    @Bean
+    public Docket swaggerpm632() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-632-Party Management-v4.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.pm632.api"))
+                    .build()
+                    .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo657());
+
+    }
+
+    @Bean
+    public Docket swaggeram651() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-651-Agreement Management-v2.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.am651.api"))
+                    .build()
+                    .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo657());
+
+    }
+    
+
+    @Bean
+    public Docket swaggeram666(){
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-666-Account Management-v4.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.am666.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo666());
+    }
 }

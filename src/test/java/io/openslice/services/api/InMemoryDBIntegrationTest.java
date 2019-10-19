@@ -43,9 +43,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
-import io.openslice.tmf.scm633.model.Any;
+import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.scm633.model.AttachmentRef;
-import io.openslice.tmf.scm633.model.EValueType;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;

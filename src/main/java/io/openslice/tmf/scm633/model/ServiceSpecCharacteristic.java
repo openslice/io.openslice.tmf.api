@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.scm633.model.ServiceSpecCharRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.model.TimePeriod;

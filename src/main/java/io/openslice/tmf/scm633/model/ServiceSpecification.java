@@ -7,6 +7,7 @@ import java.util.function.IntPredicate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.RelatedParty;
 import io.openslice.tmf.scm633.model.ResourceSpecificationRef;

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 
 import org.springframework.validation.annotation.Validated;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 
 /**

@@ -124,6 +124,8 @@ public interface ServiceSpecificationApi {
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
     ResponseEntity<ServiceSpecification> cloneServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification to clone",required=true) @PathVariable("id") String id );
+    
+    
 
     
 }

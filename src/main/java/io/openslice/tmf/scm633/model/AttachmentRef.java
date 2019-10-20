@@ -33,26 +33,27 @@ public class AttachmentRef {
 
 	@JsonProperty("id")
 	protected String id = null;
-	
+
 	@JsonProperty("description")
 	private String description = null;
 
 	@JsonProperty("url")
 	private String url = null;
-	
+
+	@JsonProperty("name")
+	private String name = null;
 
 	@JsonProperty("href")
 	protected String href = null;
 
 	@JsonProperty("@referredType")
 	private String referredType = null;
-	
+
 	@JsonProperty("@baseType")
 	protected String baseType = "BaseEntity";
 
 	@JsonProperty("@schemaLocation")
 	protected String schemaLocation = null;
-	
 
 	@JsonProperty("@type")
 	protected String type = null;
@@ -60,7 +61,6 @@ public class AttachmentRef {
 	public AttachmentRef() {
 	}
 
-	
 	public AttachmentRef(AttachmentRef src) {
 		description = src.description;
 		url = src.url;
@@ -70,6 +70,22 @@ public class AttachmentRef {
 	public AttachmentRef description(String description) {
 		this.description = description;
 		return this;
+	}
+	
+	
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -126,9 +142,6 @@ public class AttachmentRef {
 	public void setReferredType(String referredType) {
 		this.referredType = referredType;
 	}
-	
-	
-	
 
 	/**
 	 * @return the uuid
@@ -138,7 +151,8 @@ public class AttachmentRef {
 	}
 
 	/**
-	 * @param uuid the uuid to set
+	 * @param uuid
+	 *            the uuid to set
 	 */
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
@@ -152,7 +166,8 @@ public class AttachmentRef {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -166,7 +181,8 @@ public class AttachmentRef {
 	}
 
 	/**
-	 * @param href the href to set
+	 * @param href
+	 *            the href to set
 	 */
 	public void setHref(String href) {
 		this.href = href;
@@ -180,7 +196,8 @@ public class AttachmentRef {
 	}
 
 	/**
-	 * @param baseType the baseType to set
+	 * @param baseType
+	 *            the baseType to set
 	 */
 	public void setBaseType(String baseType) {
 		this.baseType = baseType;
@@ -194,7 +211,8 @@ public class AttachmentRef {
 	}
 
 	/**
-	 * @param schemaLocation the schemaLocation to set
+	 * @param schemaLocation
+	 *            the schemaLocation to set
 	 */
 	public void setSchemaLocation(String schemaLocation) {
 		this.schemaLocation = schemaLocation;
@@ -208,13 +226,12 @@ public class AttachmentRef {
 	}
 
 	/**
-	 * @param type the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
 
 	@Override
 	public boolean equals(java.lang.Object o) {

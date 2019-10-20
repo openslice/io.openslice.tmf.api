@@ -2,6 +2,7 @@ package io.openslice.tmf.scm633.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -120,6 +122,29 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		ServiceSpecification c = serviceSpecificationRepoService.cloneServiceSpecification( id );
 
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<ServiceSpecification> addAttachmentToServiceSpecification(
+			String id,
+			@Valid  @ModelAttribute("attachment") String attachment, 
+			@RequestParam(name = "afile" ) @Valid MultipartFile file) {
+		try {
+
+			log.info("addAttachmentToServiceSpecification attachment=" + attachment);
+			log.info("addAttachmentToServiceSpecification file=" + file);
+			
+			Attachment att = objectMapper.readValue(attachment, Attachment.class);
+			log.info("addAttachmentToServiceSpecification att=" + att);
+			
+//			return new ResponseEntity<ServiceSpecification>( serviceSpecificationRepoService.findByUuid( id ), HttpStatus.OK);
+			ServiceSpecification c = serviceSpecificationRepoService.addAttachmentToService( id, att, file );
+
+			return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<ServiceSpecification>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 

@@ -1,30 +1,30 @@
 package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.pcm620.model.Quantity;
-import io.openslice.tmf.pcm620.model.TimePeriod;
+import javax.persistence.Entity;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Complements the description of an element (for instance a product) through video, pictures...
  */
 @ApiModel(description = "Complements the description of an element (for instance a product) through video, pictures...")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
-public class Attachment   {
+@Entity(name = "Attachment")
+public class Attachment extends BaseRootEntity  {
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
 
   @JsonProperty("attachmentType")
   private String attachmentType = null;
@@ -38,8 +38,6 @@ public class Attachment   {
   @JsonProperty("mimeType")
   private String mimeType = null;
 
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("url")
   private String url = null;
@@ -50,19 +48,6 @@ public class Attachment   {
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  public Attachment id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique identifier for this particular attachment
@@ -72,33 +57,12 @@ public class Attachment   {
 
 
   public String getId() {
-    return id;
+    return uuid;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Attachment href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * URI for this Attachment
-   * @return href
-  **/
-  @ApiModelProperty(value = "URI for this Attachment")
 
 
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
+  
   public Attachment attachmentType(String attachmentType) {
     this.attachmentType = attachmentType;
     return this;
@@ -179,26 +143,6 @@ public class Attachment   {
     this.mimeType = mimeType;
   }
 
-  public Attachment name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * The name of the attachment
-   * @return name
-  **/
-  @ApiModelProperty(value = "The name of the attachment")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public Attachment url(String url) {
     this.url = url;
     return this;
@@ -261,65 +205,8 @@ public class Attachment   {
     this.validFor = validFor;
   }
 
-  public Attachment baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
+  
 
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public Attachment schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public Attachment type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
 
   @Override
@@ -332,7 +219,8 @@ public class Attachment   {
     }
     Attachment attachment = (Attachment) o;
     return Objects.equals(this.id, attachment.id) &&
-        Objects.equals(this.href, attachment.href) &&
+            Objects.equals(this.uuid, attachment.uuid) &&
+            Objects.equals(this.href, attachment.href) &&
         Objects.equals(this.attachmentType, attachment.attachmentType) &&
         Objects.equals(this.content, attachment.content) &&
         Objects.equals(this.description, attachment.description) &&
@@ -348,14 +236,15 @@ public class Attachment   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, href, attachmentType, content, description, mimeType, name, url, size, validFor, baseType, schemaLocation, type);
+    return Objects.hash(uuid, id, href, attachmentType, content, description, mimeType, name, url, size, validFor, baseType, schemaLocation, type);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Attachment {\n");
-    
+
+    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    attachmentType: ").append(toIndentedString(attachmentType)).append("\n");

@@ -5,6 +5,7 @@
  */
 package io.openslice.tmf.scm633.api;
 
+import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
@@ -12,6 +13,7 @@ import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -126,6 +128,24 @@ public interface ServiceSpecificationApi {
     ResponseEntity<ServiceSpecification> cloneServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification to clone",required=true) @PathVariable("id") String id );
     
     
+    @ApiOperation(value = "Adds an attachment to a ServiceSpecification", nickname = "addAttachmentToServiceSpecification", notes = "This operation adds an attachment to a ServiceSpecification and updates partially a ServiceSpecification entity", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Success", response = ServiceSpecification.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/serviceSpecification/{id}/attachment",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "multipart/form-data" },
+        method = RequestMethod.POST)
+    ResponseEntity<ServiceSpecification> addAttachmentToServiceSpecification(
+    		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
+    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file);
 
     
 }

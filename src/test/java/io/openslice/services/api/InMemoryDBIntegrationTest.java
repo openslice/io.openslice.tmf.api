@@ -45,6 +45,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.EValueType;
+import io.openslice.tmf.pcm620.model.Attachment;
+import io.openslice.tmf.pcm620.model.Quantity;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
@@ -552,8 +554,43 @@ public class InMemoryDBIntegrationTest {
 	
 	
 	@Test
-	public void testSpecRelatedParty() throws Exception {
-		//fail("Not yet implemented");
+	public void testSpecAttachment() throws Exception {
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName("Spec1");
+		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		
+		Attachment att = new Attachment();
+		att.setDescription("a test atts");
+		att.setSize( new Quantity() );
+		
+		File gz = new File( "src/test/resources/cirros_vnf.tar.gz" );
+		InputStream ing = new FileInputStream( gz );
+		MockMultipartFile prodFile = new MockMultipartFile("afile", "cirros_vnf.tar.gz", "application/x-gzip", IOUtils.toByteArray(ing));
+		
+		
+		
+		String responsePatch1 = mvc.perform(MockMvcRequestBuilders
+				.multipart("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec1.getId() + "/attachment" )
+				.file(prodFile)
+				.param("attachment", toJsonString(att))
+				)
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Spec1")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  ServiceSpecification.class);
+
+		logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
+
+		assertThat( responseSpecPost1.getAttachment().size() ).isEqualTo( 1 );
 	}
 
 	

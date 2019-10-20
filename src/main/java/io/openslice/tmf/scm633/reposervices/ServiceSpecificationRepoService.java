@@ -1,6 +1,9 @@
 package io.openslice.tmf.scm633.reposervices;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -11,23 +14,32 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.pcm620.model.Attachment;
+import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.repo.ServiceSpecificationRepository;
+import io.openslice.tmf.util.AttachmentUtil;
 
 @Service
 public class ServiceSpecificationRepoService {
+	
+
+	private static final transient Log logger = LogFactory.getLog( ServiceSpecificationRepoService.class.getName());
 
 	@Autowired
 	ObjectMapper objectMapper;
@@ -35,6 +47,11 @@ public class ServiceSpecificationRepoService {
 	@Autowired
 	ServiceSpecificationRepository serviceSpecificationRepo;
 
+	@Autowired
+	AttachmentRepoService attachmentRepoService;
+	
+	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
+			+ File.separator + "metadata" + File.separator;
 	
 	public ServiceSpecification addCategory(ServiceSpecification c) {
 
@@ -72,7 +89,7 @@ public class ServiceSpecificationRepoService {
 			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
 		
 		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findByUuid(id);
-		if ( s == null ) {
+		if ( s.get() == null ) {
 			return null;
 		}
 		ServiceSpecification serviceSpec = s.get();
@@ -286,6 +303,54 @@ public class ServiceSpecificationRepoService {
 		dest = this.serviceSpecificationRepo.save(dest); //and resave
 		
 		return dest; 
+	}
+
+	public ServiceSpecification addAttachmentToService(String id, @Valid Attachment attachment,
+			@Valid MultipartFile afile) {
+		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findByUuid(id);
+		if ( s.get() == null ) {
+			return null;
+		}
+		
+				
+		
+		ServiceSpecification spec = s.get();
+		Attachment att = this.attachmentRepoService.addAttachment(attachment);
+		
+		String tempDir = METADATADIR + spec.getId() + "/attachments/" + att.getId() + File.separator;
+		
+		
+		try {
+			Files.createDirectories(Paths.get(tempDir));
+			String aFileNamePosted = afile.getOriginalFilename() ;// AttachmentUtil.getFileName(image.getHeaders());
+			logger.info("aFileNamePosted = " + aFileNamePosted);
+			// If there is an icon name
+			if (!aFileNamePosted.equals("")) {
+				// Save the icon File
+				String targetfile = AttachmentUtil.saveFile(afile, tempDir + aFileNamePosted);
+				logger.info("afile saved to = " + targetfile);
+				att.setContent(targetfile);
+				att.setMimeType( afile.getContentType() );
+				att.setName(aFileNamePosted);				
+				// Save the icon file destination
+				att.setUrl(  "/serviceSpecification/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);
+				att = this.attachmentRepoService.updateAttachment(attachment);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}	
+		
+		
+		AttachmentRef attref = new AttachmentRef();
+		attref.setId(att.getId());
+		attref.setDescription(att.getDescription());
+		attref.setUrl(att.getUrl());
+		attref.setName(att.getName());
+		
+		spec.addAttachmentItem(attref);
+		this.serviceSpecificationRepo.save(spec);
+		return spec;
 	}
 	
 	

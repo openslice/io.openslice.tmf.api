@@ -3,6 +3,8 @@ package io.openslice.tmf.rcm634.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -16,20 +18,15 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class CategoryRef   {
+public class ResourceCategoryRef   extends BaseRootEntity {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
 
   @JsonProperty("version")
   private String version = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
-  public CategoryRef id(String id) {
+  public ResourceCategoryRef id(String id) {
     this.id = id;
     return this;
   }
@@ -49,27 +46,9 @@ public class CategoryRef   {
     this.id = id;
   }
 
-  public CategoryRef href(String href) {
-    this.href = href;
-    return this;
-  }
+ 
 
-  /**
-   * Unique reference of the category
-   * @return href
-  **/
-  @ApiModelProperty(value = "Unique reference of the category")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public CategoryRef version(String version) {
+  public ResourceCategoryRef version(String version) {
     this.version = version;
     return this;
   }
@@ -89,26 +68,6 @@ public class CategoryRef   {
     this.version = version;
   }
 
-  public CategoryRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the category
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the category")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -118,7 +77,7 @@ public class CategoryRef   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CategoryRef categoryRef = (CategoryRef) o;
+    ResourceCategoryRef categoryRef = (ResourceCategoryRef) o;
     return Objects.equals(this.id, categoryRef.id) &&
         Objects.equals(this.href, categoryRef.href) &&
         Objects.equals(this.version, categoryRef.version) &&
@@ -127,7 +86,7 @@ public class CategoryRef   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, href, version, name);
+    return Objects.hash(uuid, id, href, version, name);
   }
 
   @Override

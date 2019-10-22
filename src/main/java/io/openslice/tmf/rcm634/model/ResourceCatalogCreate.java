@@ -1,20 +1,18 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.rcm634.model.CategoryRef;
-import io.openslice.tmf.rcm634.model.RelatedPartyRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * The root entity for resource catalog management. A resource catalog is a group of resource specifications made available through resource candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). Skipped properties: id,href
@@ -23,183 +21,17 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class ResourceCatalogCreate   {
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("description")
-  private String description = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("version")
-  private String version = null;
-
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+public class ResourceCatalogCreate extends ResourceCatalogUpdate   {
+  
 
   @JsonProperty("lastUpdate")
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
-
-  @JsonProperty("relatedParty")
-  @Valid
-  private List<RelatedPartyRef> relatedParty = null;
-
+  
   @JsonProperty("category")
   @Valid
-  private List<CategoryRef> category = null;
+  private List<ResourceCategoryRef> category = null;
 
-  public ResourceCatalogCreate name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the catalog
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "Name of the catalog")
-  @NotNull
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ResourceCatalogCreate description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Description of this catalog
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description of this catalog")
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public ResourceCatalogCreate type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Indicates the (class) type of catalog. For resource catalogs, this will be 'ResourceCatalog'.
-   * @return type
-  **/
-  @ApiModelProperty(value = "Indicates the (class) type of catalog. For resource catalogs, this will be 'ResourceCatalog'.")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public ResourceCatalogCreate schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * This field provides a link to the schema describing this REST resource
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ResourceCatalogCreate baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * Indicates<b> </b>the base (class) type of this REST resource
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "Indicates<b> </b>the base (class) type of this REST resource")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ResourceCatalogCreate version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Catalog version
-   * @return version
-  **/
-  @ApiModelProperty(value = "Catalog version")
-
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public ResourceCatalogCreate validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
-
-  /**
-   * The period for which the catalog is valid
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period for which the catalog is valid")
-
-  @Valid
-
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
 
   public ResourceCatalogCreate lastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
@@ -222,61 +54,13 @@ public class ResourceCatalogCreate   {
     this.lastUpdate = lastUpdate;
   }
 
-  public ResourceCatalogCreate lifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-    return this;
-  }
 
-  /**
-   * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
-  **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
-
-
-  public String getLifecycleStatus() {
-    return lifecycleStatus;
-  }
-
-  public void setLifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-  }
-
-  public ResourceCatalogCreate relatedParty(List<RelatedPartyRef> relatedParty) {
-    this.relatedParty = relatedParty;
-    return this;
-  }
-
-  public ResourceCatalogCreate addRelatedPartyItem(RelatedPartyRef relatedPartyItem) {
-    if (this.relatedParty == null) {
-      this.relatedParty = new ArrayList<>();
-    }
-    this.relatedParty.add(relatedPartyItem);
-    return this;
-  }
-
-  /**
-   * Get relatedParty
-   * @return relatedParty
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<RelatedPartyRef> getRelatedParty() {
-    return relatedParty;
-  }
-
-  public void setRelatedParty(List<RelatedPartyRef> relatedParty) {
-    this.relatedParty = relatedParty;
-  }
-
-  public ResourceCatalogCreate category(List<CategoryRef> category) {
+  public ResourceCatalogCreate category(List<ResourceCategoryRef> category) {
     this.category = category;
     return this;
   }
 
-  public ResourceCatalogCreate addCategoryItem(CategoryRef categoryItem) {
+  public ResourceCatalogCreate addCategoryItem(ResourceCategoryRef categoryItem) {
     if (this.category == null) {
       this.category = new ArrayList<>();
     }
@@ -292,11 +76,11 @@ public class ResourceCatalogCreate   {
 
   @Valid
 
-  public List<CategoryRef> getCategory() {
+  public List<ResourceCategoryRef> getCategory() {
     return category;
   }
 
-  public void setCategory(List<CategoryRef> category) {
+  public void setCategory(List<ResourceCategoryRef> category) {
     this.category = category;
   }
 

@@ -4,7 +4,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.rcm634.model.CategoryRef;
+import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
@@ -23,182 +23,19 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class ResourceCandidateCreate   {
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("description")
-  private String description = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("version")
-  private String version = null;
-
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
+public class ResourceCandidateCreate extends ResourceCandidateUpdate   {
+  
   @JsonProperty("lastUpdate")
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
-
-  @JsonProperty("category")
-  @Valid
-  private List<CategoryRef> category = null;
-
-  @JsonProperty("resourceSpecification")
-  private ResourceSpecificationRef resourceSpecification = null;
+  
 
   public ResourceCandidateCreate name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
-   * Name given to this REST resource
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "Name given to this REST resource")
-  @NotNull
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ResourceCandidateCreate description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Description of this REST resource
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description of this REST resource")
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public ResourceCandidateCreate type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Class type of this REST resource
-   * @return type
-  **/
-  @ApiModelProperty(value = "Class type of this REST resource")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public ResourceCandidateCreate schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * This field provides a link to the schema describing this REST resource
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ResourceCandidateCreate baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * The (immediate) base class type of this REST resource
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "The (immediate) base class type of this REST resource")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ResourceCandidateCreate version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * the version of resource candidate
-   * @return version
-  **/
-  @ApiModelProperty(value = "the version of resource candidate")
-
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public ResourceCandidateCreate validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
-
-  /**
-   * The period for which this REST resource is valid
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period for which this REST resource is valid")
-
-  @Valid
-
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
+ 
 
   public ResourceCandidateCreate lastUpdate(OffsetDateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
@@ -221,75 +58,6 @@ public class ResourceCandidateCreate   {
     this.lastUpdate = lastUpdate;
   }
 
-  public ResourceCandidateCreate lifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-    return this;
-  }
-
-  /**
-   * Used to indicate the current lifecycle status of the resource candidate.
-   * @return lifecycleStatus
-  **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status of the resource candidate.")
-
-
-  public String getLifecycleStatus() {
-    return lifecycleStatus;
-  }
-
-  public void setLifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-  }
-
-  public ResourceCandidateCreate category(List<CategoryRef> category) {
-    this.category = category;
-    return this;
-  }
-
-  public ResourceCandidateCreate addCategoryItem(CategoryRef categoryItem) {
-    if (this.category == null) {
-      this.category = new ArrayList<>();
-    }
-    this.category.add(categoryItem);
-    return this;
-  }
-
-  /**
-   * Get category
-   * @return category
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<CategoryRef> getCategory() {
-    return category;
-  }
-
-  public void setCategory(List<CategoryRef> category) {
-    this.category = category;
-  }
-
-  public ResourceCandidateCreate resourceSpecification(ResourceSpecificationRef resourceSpecification) {
-    this.resourceSpecification = resourceSpecification;
-    return this;
-  }
-
-  /**
-   * Get resourceSpecification
-   * @return resourceSpecification
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public ResourceSpecificationRef getResourceSpecification() {
-    return resourceSpecification;
-  }
-
-  public void setResourceSpecification(ResourceSpecificationRef resourceSpecification) {
-    this.resourceSpecification = resourceSpecification;
-  }
 
 
   @Override

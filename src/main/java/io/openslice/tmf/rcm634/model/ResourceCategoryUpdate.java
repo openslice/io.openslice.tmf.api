@@ -1,21 +1,18 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.rcm634.model.CategoryRef;
-import io.openslice.tmf.rcm634.model.RelatedPartyRef;
-import io.openslice.tmf.rcm634.model.ResourceCandidateRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,id,href
@@ -26,49 +23,49 @@ import javax.validation.constraints.*;
 
 public class ResourceCategoryUpdate   {
   @JsonProperty("name")
-  private String name = null;
+protected String name = null;
 
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   @JsonProperty("@schemalLocation")
-  private String schemalLocation = null;
+  protected String schemalLocation = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("lastUpdate")
-  private OffsetDateTime lastUpdate = null;
+  protected OffsetDateTime lastUpdate = null;
 
   @JsonProperty("parentId")
-  private String parentId = null;
+  protected String parentId = null;
 
   @JsonProperty("isRoot")
-  private Boolean isRoot = null;
+  protected Boolean isRoot = null;
 
   @JsonProperty("category")
   @Valid
-  private List<CategoryRef> category = null;
+  protected List<ResourceCategoryRef> category = null;
 
   @JsonProperty("resourceCandidate")
   @Valid
-  private List<ResourceCandidateRef> resourceCandidate = null;
+  protected List<ResourceCandidateRef> resourceCandidate = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedPartyRef> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   public ResourceCategoryUpdate name(String name) {
     this.name = name;
@@ -292,12 +289,12 @@ public class ResourceCategoryUpdate   {
     this.isRoot = isRoot;
   }
 
-  public ResourceCategoryUpdate category(List<CategoryRef> category) {
+  public ResourceCategoryUpdate category(List<ResourceCategoryRef> category) {
     this.category = category;
     return this;
   }
 
-  public ResourceCategoryUpdate addCategoryItem(CategoryRef categoryItem) {
+  public ResourceCategoryUpdate addCategoryItem(ResourceCategoryRef categoryItem) {
     if (this.category == null) {
       this.category = new ArrayList<>();
     }
@@ -313,11 +310,11 @@ public class ResourceCategoryUpdate   {
 
   @Valid
 
-  public List<CategoryRef> getCategory() {
+  public List<ResourceCategoryRef> getCategory() {
     return category;
   }
 
-  public void setCategory(List<CategoryRef> category) {
+  public void setCategory(List<ResourceCategoryRef> category) {
     this.category = category;
   }
 
@@ -350,12 +347,12 @@ public class ResourceCategoryUpdate   {
     this.resourceCandidate = resourceCandidate;
   }
 
-  public ResourceCategoryUpdate relatedParty(List<RelatedPartyRef> relatedParty) {
+  public ResourceCategoryUpdate relatedParty(List<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
     return this;
   }
 
-  public ResourceCategoryUpdate addRelatedPartyItem(RelatedPartyRef relatedPartyItem) {
+  public ResourceCategoryUpdate addRelatedPartyItem(RelatedParty relatedPartyItem) {
     if (this.relatedParty == null) {
       this.relatedParty = new ArrayList<>();
     }
@@ -371,11 +368,11 @@ public class ResourceCategoryUpdate   {
 
   @Valid
 
-  public List<RelatedPartyRef> getRelatedParty() {
+  public List<RelatedParty> getRelatedParty() {
     return relatedParty;
   }
 
-  public void setRelatedParty(List<RelatedPartyRef> relatedParty) {
+  public void setRelatedParty(List<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
   }
 

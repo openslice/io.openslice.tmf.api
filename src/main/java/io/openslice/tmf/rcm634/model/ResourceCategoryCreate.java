@@ -1,21 +1,19 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.rcm634.model.CategoryRef;
-import io.openslice.tmf.rcm634.model.RelatedPartyRef;
-import io.openslice.tmf.rcm634.model.ResourceCandidateRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href
@@ -24,51 +22,11 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class ResourceCategoryCreate   {
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("description")
-  private String description = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  @JsonProperty("@schemalLocation")
-  private String schemalLocation = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("version")
-  private String version = null;
-
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
-  @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
-
+public class ResourceCategoryCreate  extends ResourceCategoryUpdate {
+  
   @JsonProperty("lastUpdate")
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("parentId")
-  private String parentId = null;
-
-  @JsonProperty("isRoot")
-  private Boolean isRoot = null;
-
-  @JsonProperty("category")
-  @Valid
-  private List<CategoryRef> category = null;
-
-  @JsonProperty("resourceCandidate")
-  @Valid
-  private List<ResourceCandidateRef> resourceCandidate = null;
-
-  @JsonProperty("relatedParty")
-  @Valid
-  private List<RelatedPartyRef> relatedParty = null;
 
   public ResourceCategoryCreate name(String name) {
     this.name = name;
@@ -293,12 +251,12 @@ public class ResourceCategoryCreate   {
     this.isRoot = isRoot;
   }
 
-  public ResourceCategoryCreate category(List<CategoryRef> category) {
+  public ResourceCategoryCreate category(List<ResourceCategoryRef> category) {
     this.category = category;
     return this;
   }
 
-  public ResourceCategoryCreate addCategoryItem(CategoryRef categoryItem) {
+  public ResourceCategoryCreate addCategoryItem(ResourceCategoryRef categoryItem) {
     if (this.category == null) {
       this.category = new ArrayList<>();
     }
@@ -314,11 +272,11 @@ public class ResourceCategoryCreate   {
 
   @Valid
 
-  public List<CategoryRef> getCategory() {
+  public List<ResourceCategoryRef> getCategory() {
     return category;
   }
 
-  public void setCategory(List<CategoryRef> category) {
+  public void setCategory(List<ResourceCategoryRef> category) {
     this.category = category;
   }
 
@@ -351,34 +309,6 @@ public class ResourceCategoryCreate   {
     this.resourceCandidate = resourceCandidate;
   }
 
-  public ResourceCategoryCreate relatedParty(List<RelatedPartyRef> relatedParty) {
-    this.relatedParty = relatedParty;
-    return this;
-  }
-
-  public ResourceCategoryCreate addRelatedPartyItem(RelatedPartyRef relatedPartyItem) {
-    if (this.relatedParty == null) {
-      this.relatedParty = new ArrayList<>();
-    }
-    this.relatedParty.add(relatedPartyItem);
-    return this;
-  }
-
-  /**
-   * Get relatedParty
-   * @return relatedParty
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<RelatedPartyRef> getRelatedParty() {
-    return relatedParty;
-  }
-
-  public void setRelatedParty(List<RelatedPartyRef> relatedParty) {
-    this.relatedParty = relatedParty;
-  }
 
 
   @Override

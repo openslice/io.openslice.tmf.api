@@ -3,6 +3,8 @@ package io.openslice.tmf.rcm634.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -16,15 +18,10 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class ResourceSpecificationRef   {
+public class ResourceSpecificationRef  extends BaseRootEntity {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("version")
   private String version = null;
@@ -49,45 +46,6 @@ public class ResourceSpecificationRef   {
     this.id = id;
   }
 
-  public ResourceSpecificationRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the resource specification
-   * @return href
-  **/
-  @ApiModelProperty(value = "Reference of the resource specification")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ResourceSpecificationRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the requiredResourceSpecification
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the requiredResourceSpecification")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public ResourceSpecificationRef version(String version) {
     this.version = version;

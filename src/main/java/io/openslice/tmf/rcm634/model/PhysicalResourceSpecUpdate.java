@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.openslice.tmf.rcm634.model.Attachment;
 import io.openslice.tmf.rcm634.model.Feature;
 import io.openslice.tmf.rcm634.model.PlaceRef;
-import io.openslice.tmf.rcm634.model.RelatedPartyRef;
+import io.openslice.tmf.rcm634.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecRelationship;
 import io.openslice.tmf.rcm634.model.TargetResourceSchemaRef;
@@ -29,69 +29,69 @@ import javax.validation.constraints.*;
 
 public class PhysicalResourceSpecUpdate   {
   @JsonProperty("name")
-  private String name = null;
+protected String name = null;
 
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("isBundle")
-  private Boolean isBundle = null;
+  protected Boolean isBundle = null;
 
   @JsonProperty("category")
-  private String category = null;
+  protected String category = null;
 
   @JsonProperty("model")
-  private String model = null;
+  protected String model = null;
 
   @JsonProperty("part")
-  private String part = null;
+  protected String part = null;
 
   @JsonProperty("sku")
-  private String sku = null;
+  protected String sku = null;
 
   @JsonProperty("vendor")
-  private String vendor = null;
+  protected String vendor = null;
 
   @JsonProperty("place")
-  private PlaceRef place = null;
+  protected PlaceRef place = null;
 
   @JsonProperty("targetResourceSchema")
-  private TargetResourceSchemaRef targetResourceSchema = null;
+  protected TargetResourceSchemaRef targetResourceSchema = null;
 
   @JsonProperty("feature")
   @Valid
-  private List<Feature> feature = null;
+  protected List<Feature> feature = null;
 
   @JsonProperty("attachment")
   @Valid
-  private List<Attachment> attachment = null;
+  protected List<Attachment> attachment = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedPartyRef> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   @JsonProperty("resourceSpecCharacteristic")
   @Valid
-  private List<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
+  protected List<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
 
   @JsonProperty("resourceSpecRelationship")
   @Valid
-  private List<ResourceSpecRelationship> resourceSpecRelationship = null;
+  protected List<ResourceSpecRelationship> resourceSpecRelationship = null;
 
   public PhysicalResourceSpecUpdate name(String name) {
     this.name = name;
@@ -454,12 +454,12 @@ public class PhysicalResourceSpecUpdate   {
     this.attachment = attachment;
   }
 
-  public PhysicalResourceSpecUpdate relatedParty(List<RelatedPartyRef> relatedParty) {
+  public PhysicalResourceSpecUpdate relatedParty(List<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
     return this;
   }
 
-  public PhysicalResourceSpecUpdate addRelatedPartyItem(RelatedPartyRef relatedPartyItem) {
+  public PhysicalResourceSpecUpdate addRelatedPartyItem(RelatedParty relatedPartyItem) {
     if (this.relatedParty == null) {
       this.relatedParty = new ArrayList<>();
     }
@@ -475,11 +475,11 @@ public class PhysicalResourceSpecUpdate   {
 
   @Valid
 
-  public List<RelatedPartyRef> getRelatedParty() {
+  public List<RelatedParty> getRelatedParty() {
     return relatedParty;
   }
 
-  public void setRelatedParty(List<RelatedPartyRef> relatedParty) {
+  public void setRelatedParty(List<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
   }
 

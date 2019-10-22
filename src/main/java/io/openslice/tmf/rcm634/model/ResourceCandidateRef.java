@@ -3,6 +3,8 @@ package io.openslice.tmf.rcm634.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +18,7 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class ResourceCandidateRef   {
+public class ResourceCandidateRef  extends BaseRootEntity {
   @JsonProperty("id")
   private String id = null;
 
@@ -26,8 +28,6 @@ public class ResourceCandidateRef   {
   @JsonProperty("version")
   private String version = null;
 
-  @JsonProperty("name")
-  private String name = null;
 
   public ResourceCandidateRef id(String id) {
     this.id = id;
@@ -89,26 +89,6 @@ public class ResourceCandidateRef   {
     this.version = version;
   }
 
-  public ResourceCandidateRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the resource candidate
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the resource candidate")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -127,7 +107,7 @@ public class ResourceCandidateRef   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, href, version, name);
+    return Objects.hash(uuid, id, href, version, name);
   }
 
   @Override

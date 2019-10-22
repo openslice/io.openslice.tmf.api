@@ -11,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -46,8 +48,6 @@ protected String name = null;
   @JsonProperty("lifecycleStatus")
   protected String lifecycleStatus = null;
 
-  @JsonProperty("lastUpdate")
-  protected OffsetDateTime lastUpdate = null;
 
   @JsonProperty("parentId")
   protected String parentId = null;
@@ -228,26 +228,6 @@ protected String name = null;
     this.lifecycleStatus = lifecycleStatus;
   }
 
-  public ResourceCategoryUpdate lastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-    return this;
-  }
-
-  /**
-   * Date and time of the last update
-   * @return lastUpdate
-  **/
-  @ApiModelProperty(value = "Date and time of the last update")
-
-  @Valid
-
-  public OffsetDateTime getLastUpdate() {
-    return lastUpdate;
-  }
-
-  public void setLastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-  }
 
   public ResourceCategoryUpdate parentId(String parentId) {
     this.parentId = parentId;
@@ -394,7 +374,6 @@ protected String name = null;
         Objects.equals(this.version, resourceCategoryUpdate.version) &&
         Objects.equals(this.validFor, resourceCategoryUpdate.validFor) &&
         Objects.equals(this.lifecycleStatus, resourceCategoryUpdate.lifecycleStatus) &&
-        Objects.equals(this.lastUpdate, resourceCategoryUpdate.lastUpdate) &&
         Objects.equals(this.parentId, resourceCategoryUpdate.parentId) &&
         Objects.equals(this.isRoot, resourceCategoryUpdate.isRoot) &&
         Objects.equals(this.category, resourceCategoryUpdate.category) &&
@@ -402,10 +381,10 @@ protected String name = null;
         Objects.equals(this.relatedParty, resourceCategoryUpdate.relatedParty);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, description, type, schemalLocation, baseType, version, validFor, lifecycleStatus, lastUpdate, parentId, isRoot, category, resourceCandidate, relatedParty);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(name, description, type, schemalLocation, baseType, version, validFor, lifecycleStatus, lastUpdate, parentId, isRoot, category, resourceCandidate, relatedParty);
+//  }
 
   @Override
   public String toString() {
@@ -420,7 +399,6 @@ protected String name = null;
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
     sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
-    sb.append("    lastUpdate: ").append(toIndentedString(lastUpdate)).append("\n");
     sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
     sb.append("    isRoot: ").append(toIndentedString(isRoot)).append("\n");
     sb.append("    category: ").append(toIndentedString(category)).append("\n");

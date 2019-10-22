@@ -27,10 +27,6 @@ public class ResourceCatalogCreate extends ResourceCatalogUpdate   {
   @JsonProperty("lastUpdate")
   private OffsetDateTime lastUpdate = null;
 
-  
-  @JsonProperty("category")
-  @Valid
-  private List<ResourceCategoryRef> category = null;
 
 
   public ResourceCatalogCreate lastUpdate(OffsetDateTime lastUpdate) {
@@ -55,34 +51,6 @@ public class ResourceCatalogCreate extends ResourceCatalogUpdate   {
   }
 
 
-  public ResourceCatalogCreate category(List<ResourceCategoryRef> category) {
-    this.category = category;
-    return this;
-  }
-
-  public ResourceCatalogCreate addCategoryItem(ResourceCategoryRef categoryItem) {
-    if (this.category == null) {
-      this.category = new ArrayList<>();
-    }
-    this.category.add(categoryItem);
-    return this;
-  }
-
-  /**
-   * Get category
-   * @return category
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public List<ResourceCategoryRef> getCategory() {
-    return category;
-  }
-
-  public void setCategory(List<ResourceCategoryRef> category) {
-    this.category = category;
-  }
 
 
   @Override

@@ -1,20 +1,19 @@
 package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * A ServiceSpecCharacteristicValue object is used to define a set of

@@ -1,12 +1,10 @@
 package io.openslice.tmf.common.model;
 
 import java.util.Objects;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
 
 /**
  * Any

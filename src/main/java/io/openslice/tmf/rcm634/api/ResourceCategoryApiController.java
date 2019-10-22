@@ -1,35 +1,39 @@
 package io.openslice.tmf.rcm634.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import io.openslice.tmf.rcm634.model.ResourceCategory;
+import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
+import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
+import io.swagger.annotations.ApiParam;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 @Controller
 @RequestMapping("/resourceCatalogManagement/v2/")
 public class ResourceCategoryApiController implements ResourceCategoryApi {
 
-    private final ObjectMapper objectMapper;
+	@Autowired
+	ResourceCategoryRepoService categoryRepoService;
+	
+	public ResponseEntity<ResourceCategory> createResourceCategory(
+			@ApiParam(value = "The ServiceCategory to be created", required = true) @Valid @RequestBody ResourceCategoryCreate resCategory) {
 
-    private final HttpServletRequest request;
+		try {
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public ResourceCategoryApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
+			ResourceCategory c = categoryRepoService.addCategory(resCategory);
 
-    @Override
-    public Optional<ObjectMapper> getObjectMapper() {
-        return Optional.ofNullable(objectMapper);
-    }
+			return new ResponseEntity<ResourceCategory>(c, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<ResourceCategory>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-    @Override
-    public Optional<HttpServletRequest> getRequest() {
-        return Optional.ofNullable(request);
-    }
-
+	}
 }

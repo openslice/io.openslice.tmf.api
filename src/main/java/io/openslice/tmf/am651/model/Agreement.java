@@ -1,23 +1,20 @@
 package io.openslice.tmf.am651.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.am651.model.AgreementAuthorization;
-import io.openslice.tmf.am651.model.AgreementItem;
-import io.openslice.tmf.am651.model.AgreementRef;
-import io.openslice.tmf.am651.model.AgreementSpecificationRef;
-import io.openslice.tmf.am651.model.Characteristic;
-import io.openslice.tmf.am651.model.PartyRoleRef;
-import io.openslice.tmf.am651.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.

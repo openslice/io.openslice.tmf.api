@@ -1,24 +1,16 @@
 package io.openslice.tmf.rcm634.model;
 
+import java.time.OffsetDateTime;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.rcm634.model.Attachment;
-import io.openslice.tmf.rcm634.model.Feature;
-import io.openslice.tmf.rcm634.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
-import io.openslice.tmf.rcm634.model.ResourceSpecRelationship;
-import io.openslice.tmf.rcm634.model.TargetResourceSchemaRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * This is a base class that is used to define the invariant characteristics and

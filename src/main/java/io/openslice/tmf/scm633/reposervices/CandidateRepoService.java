@@ -5,10 +5,8 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +15,10 @@ import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
-import io.openslice.tmf.scm633.model.ServiceCatalog;
-import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.repo.CandidateRepository;
-import io.openslice.tmf.scm633.repo.CatalogRepository;
-import io.openslice.tmf.scm633.repo.CategoriesRepository;
 
 @Service
 public class CandidateRepoService {

@@ -2,7 +2,6 @@ package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -132,10 +131,10 @@ public class ServiceSpecificationRef extends BaseRootEntity {
 				&& Objects.equals(this.referredType, serviceSpecificationRef.referredType);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, name, version, targetServiceSchema, baseType, schemaLocation, type, referredType);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, name, version, targetServiceSchema, baseType, schemaLocation, type, referredType);
+//	}
 
 	@Override
 	public String toString() {

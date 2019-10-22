@@ -1,13 +1,7 @@
 package io.openslice.tmf.pcm620.model;
 
-import java.util.Objects;
-import io.swagger.annotations.ApiModel;
-import com.fasterxml.jackson.annotation.JsonValue;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Valid values for the state of a batch job (e.g. catalog import)

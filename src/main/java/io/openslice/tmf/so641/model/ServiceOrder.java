@@ -1,22 +1,20 @@
 package io.openslice.tmf.so641.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.so641.model.Note;
-import io.openslice.tmf.so641.model.RelatedParty;
-import io.openslice.tmf.so641.model.ServiceOrderItem;
-import io.openslice.tmf.so641.model.ServiceOrderRelationship;
-import io.openslice.tmf.so641.model.ServiceOrderStateType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ServiceOrder

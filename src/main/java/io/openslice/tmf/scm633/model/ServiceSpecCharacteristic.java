@@ -1,26 +1,12 @@
 package io.openslice.tmf.scm633.model;
 
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.scm633.model.ServiceSpecCharRelationship;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +14,15 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * This class represents the key features of this service specification. For

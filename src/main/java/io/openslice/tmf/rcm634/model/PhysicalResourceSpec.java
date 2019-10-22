@@ -1,24 +1,16 @@
 package io.openslice.tmf.rcm634.model;
 
+import java.time.OffsetDateTime;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.rcm634.model.Attachment;
-import io.openslice.tmf.rcm634.model.Feature;
-import io.openslice.tmf.rcm634.model.PlaceRef;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
-import io.openslice.tmf.rcm634.model.ResourceSpecRelationship;
-import io.openslice.tmf.rcm634.model.TargetResourceSchemaRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource.
@@ -384,11 +376,11 @@ public class PhysicalResourceSpec extends ResourceSpecification  {
         Objects.equals(this.resourceSpecCharacteristic, physicalResourceSpec.resourceSpecCharacteristic) &&
         Objects.equals(this.resourceSpecRelationship, physicalResourceSpec.resourceSpecRelationship);
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, description, type, schemaLocation, baseType, version, validFor, lastUpdate, lifecycleStatus, isBundle, category, model, part, sku, vendor, place, targetResourceSchema, feature, attachment, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship);
-  }
+//
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, description, type, schemaLocation, baseType, version, validFor, lastUpdate, lifecycleStatus, isBundle, category, model, part, sku, vendor, place, targetResourceSchema, feature, attachment, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship);
+//  }
 
   @Override
   public String toString() {

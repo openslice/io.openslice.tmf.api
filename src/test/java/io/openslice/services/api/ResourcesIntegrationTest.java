@@ -51,9 +51,9 @@ import io.openslice.tmf.rcm634.model.ResourceSpecRelationship;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
-import io.openslice.tmf.rcm634.reposervices.CandidateRepoService;
-import io.openslice.tmf.rcm634.reposervices.CatalogRepoService;
-import io.openslice.tmf.rcm634.reposervices.CategoryRepoService;
+import io.openslice.tmf.rcm634.reposervices.ResourceCandidateRepoService;
+import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
+import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import net.minidev.json.JSONObject;
 
@@ -75,17 +75,17 @@ public class ResourcesIntegrationTest {
     private MockMvc mvc;
 
 	@Autowired
-	CatalogRepoService catalogRepoService;
+	ResourceCatalogRepoService catalogRepoService;
 	
 
 	@Autowired
-	CategoryRepoService categRepoService;
+	ResourceCategoryRepoService categRepoService;
 
 	@Autowired
 	ResourceSpecificationRepoService specRepoService;
 
 	@Autowired
-	CandidateRepoService candidateRepoService;
+	ResourceCandidateRepoService candidateRepoService;
 	
 	
 	@Test
@@ -135,7 +135,7 @@ public class ResourcesIntegrationTest {
 		
 		ResourceCategoryCreate scategcreate = toJsonObj( sc,  ResourceCategoryCreate.class);
 		
-		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/serviceCategory")
+		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCategory")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scategcreate ) ))
 			    .andExpect(status().isOk())
@@ -482,64 +482,6 @@ public class ResourcesIntegrationTest {
 	}
 	
 
-	@Test
-	public void testCloneSpec() throws Exception {
-
-
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
-		
-		/**
-		 * first add 2 specs
-		 */
-
-		File sspec = new File( "src/test/resources/testResourceSpec.json" );
-		InputStream in = new FileInputStream( sspec );
-		String sspectext = IOUtils.toString(in, "UTF-8");
-
-		
-		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
-		sspeccr1.setName("Spec1");
-		ResourceSpecification responsesSpec1 = createResourceSpec(sspectext, sspeccr1);
-
-		
-		ResourceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
-		sspeccr2.setName("Spec2");
-		ResourceSpecification responsesSpec2 = createResourceSpec(sspectext, sspeccr2);
-
-
-		ResourceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
-		sspeccr3.setName("Spec3");
-		sspeccr3.isBundle(true);
-		sspeccr3.addResourceSpecRelationshipWith( responsesSpec1 );
-		sspeccr3.addResourceSpecRelationshipWith( responsesSpec2 );
-		ResourceSpecification responsesSpec3 = createResourceSpec(sspectext, sspeccr3);
-		
-
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 4 );
-
-		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceSpecification/"+responsesSpec3.getId()+"/clone")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
-			    .andExpect(status().isOk())
-			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	    	    .andExpect(status().isOk())
-	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification clonedSpec = toJsonObj( responseSpecCloned,  ResourceSpecification.class);
-		logger.info("source = " + responsesSpec3.toString());
-		logger.info("clonedSpec = " + clonedSpec.toString());
-
-		assertThat( clonedSpec.getId() ).isNotEqualTo( responsesSpec3.getId() );
-		assertThat( clonedSpec.getUuid() ).isNotNull();		
-		assertThat( clonedSpec.getUuid() ).isNotEqualTo( responsesSpec3.getUuid() );
-		assertThat( clonedSpec.getName() ).isEqualTo( "Copy of " + responsesSpec3.getName() );	
-		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage") ).isNotNull();
-		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage").getUuid() ).isNotNull();		
-		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage").getUuid()  ).isNotEqualTo( responsesSpec3.findSpecCharacteristicByName("Coverage").getUuid() );
-		
-
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 5 );
-		
-	}
 	
 	
 	
@@ -584,35 +526,6 @@ public class ResourcesIntegrationTest {
 	}
 
 	
-	@Test
-	public void testGST() throws Exception {
-		logger.info("Test: testBundledSpec " );
-
-		/**
-		 * first add 2 specs
-		 */
-
-		File sspec = new File( "src/main/resources/gst.json" );
-		InputStream in = new FileInputStream( sspec );
-		String sspectext = IOUtils.toString(in, "UTF-8");
-		
-		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
-		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceSpecification")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
-			    .andExpect(status().isOk())
-			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-	    	    .andExpect(status().isOk())
-	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification responsesSpec1 = toJsonObj(responseSpec1,  ResourceSpecification.class);
-
-		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
-
-		assertThat( responsesSpec1.getVersion()  ).isEqualTo("0.1.0");
-		assertThat( responsesSpec1.getResourceSpecCharacteristic().size() ).isEqualTo(67);
-		assertThat( responsesSpec1.getResourceSpecRelationship().size() ).isEqualTo(0);
-		
-	}
 	
 	
 	

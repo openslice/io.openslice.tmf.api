@@ -1,15 +1,14 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Category reference. The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
@@ -84,10 +83,10 @@ public class ResourceCategoryRef   extends BaseRootEntity {
         Objects.equals(this.name, categoryRef.name);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(uuid, id, href, version, name);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(uuid, id, href, version, name);
+//  }
 
   @Override
   public String toString() {

@@ -28,7 +28,6 @@ public class BaseRootEntity {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	//@JsonProperty("id")
 	protected String uuid = null;
 
 	@JsonProperty("href")

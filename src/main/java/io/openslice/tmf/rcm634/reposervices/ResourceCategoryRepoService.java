@@ -1,6 +1,7 @@
 package io.openslice.tmf.rcm634.reposervices;
 
 import java.time.OffsetDateTime;
+
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
@@ -20,19 +21,20 @@ import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryUpdate;
-import io.openslice.tmf.rcm634.repo.CatalogRepository;
-import io.openslice.tmf.rcm634.repo.CategoriesRepository;
+import io.openslice.tmf.rcm634.repo.ResourceCatalogRepository;
+import io.openslice.tmf.rcm634.repo.ResourceCategoriesRepository;
+
 @Service
-public class CategoryRepoService {
+public class ResourceCategoryRepoService {
 
 
 	@Autowired
-	CategoriesRepository categsRepo;
+	ResourceCategoriesRepository categsRepo;
 	
 
 
 	@Autowired
-	CatalogRepository catalogRepo;
+	ResourceCatalogRepository catalogRepo;
 	
 
 	private SessionFactory  sessionFactory;
@@ -42,7 +44,7 @@ public class CategoryRepoService {
 	 * @param factory
 	 */
 	@Autowired
-	public CategoryRepoService(EntityManagerFactory factory) {
+	public ResourceCategoryRepoService(EntityManagerFactory factory) {
 	    if(factory.unwrap(SessionFactory.class) == null){
 	        throw new NullPointerException("factory is not a hibernate factory");
 	      }

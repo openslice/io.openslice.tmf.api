@@ -1,27 +1,20 @@
 package io.openslice.tmf.sim638.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.sim638.model.Characteristic;
-import io.openslice.tmf.sim638.model.Note;
-import io.openslice.tmf.sim638.model.Place;
-import io.openslice.tmf.sim638.model.RelatedParty;
-import io.openslice.tmf.sim638.model.ResourceRef;
-import io.openslice.tmf.sim638.model.ServiceOrderRef;
-import io.openslice.tmf.sim638.model.ServiceRef;
-import io.openslice.tmf.sim638.model.ServiceRelationship;
-import io.openslice.tmf.sim638.model.ServiceSpecificationRef;
-import io.openslice.tmf.sim638.model.ServiceStateType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Service is a base class for defining the Service hierarchy. All Services are characterized as either being possibly visible and usable by a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService and ResourceFacingService. Skipped properties: id,href

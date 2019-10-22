@@ -1,24 +1,19 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.rcm634.model.Attachment;
-import io.openslice.tmf.rcm634.model.Feature;
-import io.openslice.tmf.rcm634.model.PlaceRef;
-import io.openslice.tmf.rcm634.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
-import io.openslice.tmf.rcm634.model.ResourceSpecRelationship;
-import io.openslice.tmf.rcm634.model.TargetResourceSchemaRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource. Skipped properties: id,href,id,href,lastUpdate,@type

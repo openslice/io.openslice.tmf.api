@@ -1,13 +1,16 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
+
+import javax.persistence.Embeddable;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * The reference object to the schema and type of target resource which is described by resource specification
@@ -16,52 +19,14 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class TargetResourceSchemaRef   {
-  @JsonProperty("@type")
-  private String type = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+@Embeddable
+public class TargetResourceSchemaRef   extends BaseRootEntity  {
 
   public TargetResourceSchemaRef type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
-   * Class type of the target resource
-   * @return type
-  **/
-  @ApiModelProperty(value = "Class type of the target resource")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public TargetResourceSchemaRef schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * This field provides a link to the schema describing the target resource
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing the target resource")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
 
 
   @Override

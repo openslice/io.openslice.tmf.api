@@ -1,15 +1,14 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.
@@ -83,10 +82,10 @@ public class ResourceSpecificationRef  extends BaseRootEntity {
         Objects.equals(this.version, resourceSpecificationRef.version);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, version);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, version);
+//  }
 
   @Override
   public String toString() {

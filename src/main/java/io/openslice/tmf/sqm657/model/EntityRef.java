@@ -1,13 +1,15 @@
 package io.openslice.tmf.sqm657.model;
 
 import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * The related entity source of a KQI or KPI. A KQI draws its data from a number of sources,  including Key Performance Indicators (KPIs).  A KPI provides a measurement of a specific aspect  of the performance of a Service (whether it is a network- or a non-network-based Service) or a  group of Services of the same type.

@@ -5,15 +5,15 @@ import java.util.Optional;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import io.openslice.tmf.rcm634.model.ResourceCatalog;
+import io.openslice.tmf.rcm634.model.ResourceCategory;
 
 
 @Repository
-public interface CatalogRepository extends PagingAndSortingRepository<ResourceCatalog, Long> {
+public interface ResourceCategoriesRepository extends PagingAndSortingRepository<ResourceCategory, Long> {
 
 	
-	Optional<ResourceCatalog> findByUuid(String id);
-	
+	Optional<ResourceCategory> findByUuid(String id);
+
 
 
 }

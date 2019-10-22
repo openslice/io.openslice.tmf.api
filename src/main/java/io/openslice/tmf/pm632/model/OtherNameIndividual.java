@@ -8,10 +8,9 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import io.openslice.tmf.common.model.TimePeriod;
 /**
  * Keeps track of other names, for example the old name of a woman before marriage or an artist name.
  */

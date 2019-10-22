@@ -1,15 +1,14 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * ResourceCandidate reference: A resource candidate is an entity that makes a ResourceSpecification available to a catalog.
@@ -104,11 +103,11 @@ public class ResourceCandidateRef  extends BaseRootEntity {
         Objects.equals(this.version, resourceCandidateRef.version) &&
         Objects.equals(this.name, resourceCandidateRef.name);
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(uuid, id, href, version, name);
-  }
+//
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(uuid, id, href, version, name);
+//  }
 
   @Override
   public String toString() {

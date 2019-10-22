@@ -1,28 +1,19 @@
 package io.openslice.tmf.pcm620.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.pcm620.model.BundledProductOfferingPriceRelationship;
-import io.openslice.tmf.pcm620.model.ConstraintRef;
-import io.openslice.tmf.pcm620.model.Money;
-import io.openslice.tmf.pcm620.model.PlaceRef;
-import io.openslice.tmf.pcm620.model.PricingLogicAlgorithm;
-import io.openslice.tmf.pcm620.model.ProductOfferingPriceRelationship;
-import io.openslice.tmf.pcm620.model.ProductOfferingTerm;
-import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristicValueUse;
-import io.openslice.tmf.pcm620.model.Quantity;
-import io.openslice.tmf.pcm620.model.TaxItem;
-import io.openslice.tmf.pcm620.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment.

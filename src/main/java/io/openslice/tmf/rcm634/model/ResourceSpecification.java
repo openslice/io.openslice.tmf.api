@@ -1,8 +1,6 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -53,7 +52,8 @@ public class ResourceSpecification extends BaseEntity {
 
 	@JsonProperty("feature")
 	@Valid
-	protected List<Feature> feature = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	protected Set<Feature> feature = null;
 
 	@JsonProperty("attachment")
 	@Valid
@@ -68,11 +68,13 @@ public class ResourceSpecification extends BaseEntity {
 
 	@JsonProperty("resourceSpecCharacteristic")
 	@Valid
-	protected List<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	protected Set<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
 
 	@JsonProperty("resourceSpecRelationship")
 	@Valid
-	protected List<ResourceSpecRelationship> resourceSpecRelationship = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	protected Set<ResourceSpecRelationship> resourceSpecRelationship = null;
 
 	public ResourceSpecification() {
 		super();
@@ -186,14 +188,14 @@ public class ResourceSpecification extends BaseEntity {
 		this.targetResourceSchema = targetResourceSchema;
 	}
 
-	public ResourceSpecification feature(List<Feature> feature) {
+	public ResourceSpecification feature(Set<Feature> feature) {
 		this.feature = feature;
 		return this;
 	}
 
 	public ResourceSpecification addFeatureItem(Feature featureItem) {
 		if (this.feature == null) {
-			this.feature = new ArrayList<>();
+			this.feature = new HashSet<>();
 		}
 		this.feature.add(featureItem);
 		return this;
@@ -208,11 +210,11 @@ public class ResourceSpecification extends BaseEntity {
 
 	@Valid
 
-	public List<Feature> getFeature() {
+	public Set<Feature> getFeature() {
 		return feature;
 	}
 
-	public void setFeature(List<Feature> feature) {
+	public void setFeature(Set<Feature> feature) {
 		this.feature = feature;
 	}
 
@@ -261,7 +263,7 @@ public class ResourceSpecification extends BaseEntity {
 
 
 	public ResourceSpecification resourceSpecCharacteristic(
-			List<ResourceSpecCharacteristic> resourceSpecCharacteristic) {
+			Set<ResourceSpecCharacteristic> resourceSpecCharacteristic) {
 		this.resourceSpecCharacteristic = resourceSpecCharacteristic;
 		return this;
 	}
@@ -269,7 +271,7 @@ public class ResourceSpecification extends BaseEntity {
 	public ResourceSpecification addResourceSpecCharacteristicItem(
 			ResourceSpecCharacteristic resourceSpecCharacteristicItem) {
 		if (this.resourceSpecCharacteristic == null) {
-			this.resourceSpecCharacteristic = new ArrayList<>();
+			this.resourceSpecCharacteristic = new HashSet<>();
 		}
 		this.resourceSpecCharacteristic.add(resourceSpecCharacteristicItem);
 		return this;
@@ -284,15 +286,15 @@ public class ResourceSpecification extends BaseEntity {
 
 	@Valid
 
-	public List<ResourceSpecCharacteristic> getResourceSpecCharacteristic() {
+	public Set<ResourceSpecCharacteristic> getResourceSpecCharacteristic() {
 		return resourceSpecCharacteristic;
 	}
 
-	public void setResourceSpecCharacteristic(List<ResourceSpecCharacteristic> resourceSpecCharacteristic) {
+	public void setResourceSpecCharacteristic(Set<ResourceSpecCharacteristic> resourceSpecCharacteristic) {
 		this.resourceSpecCharacteristic = resourceSpecCharacteristic;
 	}
 
-	public ResourceSpecification resourceSpecRelationship(List<ResourceSpecRelationship> resourceSpecRelationship) {
+	public ResourceSpecification resourceSpecRelationship(Set<ResourceSpecRelationship> resourceSpecRelationship) {
 		this.resourceSpecRelationship = resourceSpecRelationship;
 		return this;
 	}
@@ -300,7 +302,7 @@ public class ResourceSpecification extends BaseEntity {
 	public ResourceSpecification addResourceSpecRelationshipItem(
 			ResourceSpecRelationship resourceSpecRelationshipItem) {
 		if (this.resourceSpecRelationship == null) {
-			this.resourceSpecRelationship = new ArrayList<>();
+			this.resourceSpecRelationship = new HashSet<>();
 		}
 		this.resourceSpecRelationship.add(resourceSpecRelationshipItem);
 		return this;
@@ -315,11 +317,11 @@ public class ResourceSpecification extends BaseEntity {
 
 	@Valid
 
-	public List<ResourceSpecRelationship> getResourceSpecRelationship() {
+	public Set<ResourceSpecRelationship> getResourceSpecRelationship() {
 		return resourceSpecRelationship;
 	}
 
-	public void setResourceSpecRelationship(List<ResourceSpecRelationship> resourceSpecRelationship) {
+	public void setResourceSpecRelationship(Set<ResourceSpecRelationship> resourceSpecRelationship) {
 		this.resourceSpecRelationship = resourceSpecRelationship;
 	}
 
@@ -353,12 +355,12 @@ public class ResourceSpecification extends BaseEntity {
 				&& Objects.equals(this.resourceSpecRelationship, resourceSpecification.resourceSpecRelationship);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid, id, href, name, description, type, schemaLocation, baseType, version, validFor,
-				lastUpdate, lifecycleStatus, isBundle, category, targetResourceSchema, feature, attachment,
-				relatedParty, resourceSpecCharacteristic, resourceSpecRelationship);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, id, href, name, description, type, schemaLocation, baseType, version, validFor,
+//				lastUpdate, lifecycleStatus, isBundle, category, targetResourceSchema, feature, attachment,
+//				relatedParty, resourceSpecCharacteristic, resourceSpecRelationship);
+//	}
 
 	@Override
 	public String toString() {

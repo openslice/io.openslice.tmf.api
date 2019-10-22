@@ -1,24 +1,12 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.Objects;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharRelationship;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +14,15 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * This class defines the characteristic features of a resource specification.
@@ -485,12 +481,12 @@ public class ResourceSpecCharacteristic extends BaseRootEntity {
 						resourceSpecCharacteristic.resourceSpecCharacteristicValue);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid, name, description, valueType, configurable, validFor, type, schemaLocation,
-				valueSchemaLocation, minCardinality, maxCardinality, isUnique, regex, extensible,
-				resourceSpecCharRelationship, resourceSpecCharacteristicValue);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, name, description, valueType, configurable, validFor, type, schemaLocation,
+//				valueSchemaLocation, minCardinality, maxCardinality, isUnique, regex, extensible,
+//				resourceSpecCharRelationship, resourceSpecCharacteristicValue);
+//	}
 
 	@Override
 	public String toString() {

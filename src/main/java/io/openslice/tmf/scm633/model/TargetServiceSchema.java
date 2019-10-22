@@ -3,7 +3,6 @@ package io.openslice.tmf.scm633.model;
 import java.util.Objects;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 
 import org.springframework.validation.annotation.Validated;
 

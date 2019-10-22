@@ -1,26 +1,21 @@
 package io.openslice.tmf.am666.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.am666.model.AccountBalance;
-import io.openslice.tmf.am666.model.AccountRelationship;
-import io.openslice.tmf.am666.model.AccountTaxExemption;
-import io.openslice.tmf.am666.model.BillStructure;
-import io.openslice.tmf.am666.model.Contact;
-import io.openslice.tmf.am666.model.FinancialAccountRef;
-import io.openslice.tmf.am666.model.Money;
-import io.openslice.tmf.am666.model.PaymentMethodRef;
-import io.openslice.tmf.am666.model.PaymentPlan;
-import io.openslice.tmf.am666.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * A party account used for billing purposes. It includes a description of the bill structure (frequency, presentation media, format and so on). It is a specialization of entity PartyAccount. Skipped properties: id,href

@@ -1,25 +1,19 @@
 package io.openslice.tmf.scm633.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.scm633.model.AttachmentRef;
-import io.openslice.tmf.scm633.model.RelatedParty;
-import io.openslice.tmf.scm633.model.ResourceSpecificationRef;
-import io.openslice.tmf.scm633.model.ServiceLevelSpecificationRef;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
-import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
-import io.openslice.tmf.scm633.model.TargetServiceSchema;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ServiceSpecification is a class that offers characteristics to describe a

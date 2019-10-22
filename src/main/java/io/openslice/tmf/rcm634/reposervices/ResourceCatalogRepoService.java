@@ -22,22 +22,22 @@ import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.openslice.tmf.rcm634.repo.CatalogRepository;
+import io.openslice.tmf.rcm634.repo.ResourceCatalogRepository;
 
 @Service
-public class CatalogRepoService {
+public class ResourceCatalogRepoService {
 
 	@Autowired
-	CatalogRepository catalogRepo;
+	ResourceCatalogRepository catalogRepo;
 
 	@Autowired
-	CategoryRepoService categRepoService;
+	ResourceCategoryRepoService categRepoService;
 
 	@Autowired
 	ResourceSpecificationRepoService resourceSpecRepoService;
 
 	@Autowired
-	CandidateRepoService candidateRepoService;
+	ResourceCandidateRepoService candidateRepoService;
 
 	public ResourceCatalog addCatalog(ResourceCatalog c) {
 

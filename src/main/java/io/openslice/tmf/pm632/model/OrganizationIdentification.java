@@ -1,7 +1,6 @@
 package io.openslice.tmf.pm632.model;
 
 import java.time.OffsetDateTime;
-import io.openslice.tmf.common.model.TimePeriod;
 import java.util.Objects;
 
 import javax.validation.Valid;
@@ -10,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

@@ -1,18 +1,18 @@
 package io.openslice.tmf.common.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
 
 import javax.persistence.Embeddable;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * A period of time, either as a deadline (endDateTime only) a startDateTime

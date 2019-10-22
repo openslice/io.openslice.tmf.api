@@ -1,31 +1,18 @@
 package io.openslice.tmf.pcm620.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.pcm620.model.AgreementRef;
-import io.openslice.tmf.pcm620.model.AttachmentRefOrValue;
-import io.openslice.tmf.pcm620.model.BundledProductOffering;
-import io.openslice.tmf.pcm620.model.CategoryRef;
-import io.openslice.tmf.pcm620.model.ChannelRef;
-import io.openslice.tmf.pcm620.model.MarketSegmentRef;
-import io.openslice.tmf.pcm620.model.PlaceRef;
-import io.openslice.tmf.pcm620.model.ProductOfferingPriceRef;
-import io.openslice.tmf.pcm620.model.ProductOfferingTerm;
-import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristicValueUse;
-import io.openslice.tmf.pcm620.model.ProductSpecificationRef;
-import io.openslice.tmf.pcm620.model.ResourceCandidateRef;
-import io.openslice.tmf.pcm620.model.SLARef;
-import io.openslice.tmf.pcm620.model.ServiceCandidateRef;
-import io.openslice.tmf.pcm620.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Represents entities that are orderable from the provider of the catalog, this resource includes pricing information. Skipped properties: id,href,lastUpdate

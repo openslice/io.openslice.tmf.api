@@ -11,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,8 +45,6 @@ protected String name = null;
   @JsonProperty("validFor")
   protected TimePeriod validFor = null;
 
-  @JsonProperty("lastUpdate")
-  protected OffsetDateTime lastUpdate = null;
 
   @JsonProperty("lifecycleStatus")
   protected String lifecycleStatus = null;
@@ -198,31 +198,6 @@ protected String name = null;
     this.validFor = validFor;
   }
 
-  public ResourceCatalogUpdate lastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-    return this;
-  }
-
-  /**
-   * Date and time of the last update
-   * @return lastUpdate
-  **/
-  @ApiModelProperty(value = "Date and time of the last update")
-
-  @Valid
-
-  public OffsetDateTime getLastUpdate() {
-    return lastUpdate;
-  }
-
-  public void setLastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-  }
-
-  public ResourceCatalogUpdate lifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-    return this;
-  }
 
   /**
    * Used to indicate the current lifecycle status
@@ -314,16 +289,15 @@ protected String name = null;
         Objects.equals(this.baseType, resourceCatalogUpdate.baseType) &&
         Objects.equals(this.version, resourceCatalogUpdate.version) &&
         Objects.equals(this.validFor, resourceCatalogUpdate.validFor) &&
-        Objects.equals(this.lastUpdate, resourceCatalogUpdate.lastUpdate) &&
         Objects.equals(this.lifecycleStatus, resourceCatalogUpdate.lifecycleStatus) &&
         Objects.equals(this.relatedParty, resourceCatalogUpdate.relatedParty) &&
         Objects.equals(this.category, resourceCatalogUpdate.category);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, description, type, schemaLocation, baseType, version, validFor, lastUpdate, lifecycleStatus, relatedParty, category);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(name, description, type, schemaLocation, baseType, version, validFor,  lifecycleStatus, relatedParty, category);
+//  }
 
   @Override
   public String toString() {
@@ -337,7 +311,6 @@ protected String name = null;
     sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    lastUpdate: ").append(toIndentedString(lastUpdate)).append("\n");
     sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
     sb.append("    relatedParty: ").append(toIndentedString(relatedParty)).append("\n");
     sb.append("    category: ").append(toIndentedString(category)).append("\n");

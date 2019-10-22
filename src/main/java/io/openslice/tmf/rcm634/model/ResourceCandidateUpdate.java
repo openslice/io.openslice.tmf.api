@@ -1,20 +1,19 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
-import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ResourceCandidate is an entity that makes a resource specification available
@@ -252,7 +251,7 @@ public class ResourceCandidateUpdate {
 
 	public ResourceCandidateUpdate addCategoryItem(ResourceCategoryRef categoryItem) {
 		if (this.category == null) {
-			this.category = new ArrayList<>();
+			this.category = new ArrayList<ResourceCategoryRef>();
 		}
 		this.category.add(categoryItem);
 		return this;

@@ -2,9 +2,6 @@ package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -89,10 +86,10 @@ public class ServiceCategoryRef extends BaseRootEntity {
 				&& Objects.equals(this.referredType, serviceCategoryRef.referredType);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
+//	}
 
 	@Override
 	public String toString() {

@@ -10,7 +10,7 @@ import io.openslice.tmf.rcm634.model.ResourceCandidate;
 
 
 @Repository
-public interface CandidateRepository extends PagingAndSortingRepository<ResourceCandidate, Long> {
+public interface ResourceCandidateRepository extends PagingAndSortingRepository<ResourceCandidate, Long> {
 
 	
 	Optional<ResourceCandidate> findByUuid(String id);

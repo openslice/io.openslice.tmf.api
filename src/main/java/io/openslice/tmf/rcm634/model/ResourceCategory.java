@@ -230,11 +230,11 @@ public class ResourceCategory extends BaseEntity {
 				&& Objects.equals(this.getResourceCandidateRefs(), resourceCategory.getResourceCandidateRefs());
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid, id, href, name, description, type,  baseType, version, validFor,
-				lifecycleStatus, lastUpdate, parentId, isRoot, getCategoryRefs(), getResourceCandidateRefs());
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, id, href, name, description, type,  baseType, version, validFor,
+//				lifecycleStatus, lastUpdate, parentId, isRoot, getCategoryRefs(), getResourceCandidateRefs());
+//	}
 
 	@Override
 	public String toString() {

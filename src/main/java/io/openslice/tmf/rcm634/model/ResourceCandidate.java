@@ -1,23 +1,10 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.Objects;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
-import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,7 +13,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * ResourceCandidate is an entity that makes a resource specification available
@@ -165,11 +160,11 @@ public class ResourceCandidate extends BaseEntity {
 				&& Objects.equals(this.getResourceSpecificationRef(), resourceCandidate.getResourceSpecificationRef());
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid, id, href, name, description, type, schemaLocation, baseType, version, validFor, lastUpdate,
-				lifecycleStatus, getCategory(), getResourceSpecificationRef());
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, id, href, name, description, type, schemaLocation, baseType, version, validFor, lastUpdate,
+//				lifecycleStatus, getCategory(), getResourceSpecificationRef());
+//	}
 
 	@Override
 	public String toString() {

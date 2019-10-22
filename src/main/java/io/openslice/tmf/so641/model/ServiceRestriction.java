@@ -1,24 +1,18 @@
 package io.openslice.tmf.so641.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.so641.model.Characteristic;
-import io.openslice.tmf.so641.model.Place;
-import io.openslice.tmf.so641.model.RelatedParty;
-import io.openslice.tmf.so641.model.ResourceRef;
-import io.openslice.tmf.so641.model.ServiceRef;
-import io.openslice.tmf.so641.model.ServiceRelationship;
-import io.openslice.tmf.so641.model.ServiceSpecificationRef;
-import io.openslice.tmf.so641.model.ServiceStateType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * In the context of a service order, and depending of the action requested (add/modify/delete/noChange) this data structure captures the configuration to apply to an existing subscribed service or to a new one

@@ -1,15 +1,18 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.rcm634.model.TimePeriod;
+import javax.persistence.Entity;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * applicable feature(s) for this resource specification.
@@ -18,18 +21,14 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class Feature   {
+@Entity(name = "Feature")
+public class Feature extends BaseRootEntity  {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
 
   @JsonProperty("version")
   private String version = null;
-
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("@type")
   private String type = null;
@@ -56,11 +55,7 @@ public class Feature   {
 
 
   public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
+    return uuid;
   }
 
   public Feature href(String href) {
@@ -215,7 +210,8 @@ public class Feature   {
     }
     Feature feature = (Feature) o;
     return Objects.equals(this.id, feature.id) &&
-        Objects.equals(this.href, feature.href) &&
+            Objects.equals(this.href, feature.href) &&
+            Objects.equals(this.uuid, feature.uuid) &&
         Objects.equals(this.version, feature.version) &&
         Objects.equals(this.name, feature.name) &&
         Objects.equals(this.type, feature.type) &&
@@ -226,15 +222,16 @@ public class Feature   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, href, version, name, type, isBundle, validFor, isEnabled);
+    return Objects.hash(uuid, id, href, version, name, type, isBundle, validFor, isEnabled);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Feature {\n");
-    
+
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

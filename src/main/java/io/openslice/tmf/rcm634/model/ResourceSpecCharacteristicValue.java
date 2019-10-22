@@ -1,19 +1,19 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.Any;
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty; 
 
 /**
  * A number or text that can be assigned to a ResourceSpecCharacteristic.
@@ -327,11 +327,11 @@ public class ResourceSpecCharacteristicValue extends BaseRootEntity {
 				&& Objects.equals(this.schemaLocation, resourceSpecCharacteristicValue.schemaLocation);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid,valueType, isDefault, value, unitOfMeasure, validFor, valueFrom, valueTo, rangeInterval,
-				regex, type, schemaLocation);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid,valueType, isDefault, value, unitOfMeasure, validFor, valueFrom, valueTo, rangeInterval,
+//				regex, type, schemaLocation);
+//	}
 
 	@Override
 	public String toString() {

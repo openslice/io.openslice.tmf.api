@@ -1,26 +1,21 @@
 package io.openslice.tmf.pcm620.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.pcm620.model.AttachmentRefOrValue;
-import io.openslice.tmf.pcm620.model.BundledProductSpecification;
-import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristic;
-import io.openslice.tmf.pcm620.model.ProductSpecificationRelationship;
-import io.openslice.tmf.pcm620.model.RelatedParty;
-import io.openslice.tmf.pcm620.model.ResourceSpecificationRef;
-import io.openslice.tmf.pcm620.model.ServiceSpecificationRef;
-import io.openslice.tmf.pcm620.model.TargetProductSchema;
-import io.openslice.tmf.pcm620.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role. Skipped properties: id,href

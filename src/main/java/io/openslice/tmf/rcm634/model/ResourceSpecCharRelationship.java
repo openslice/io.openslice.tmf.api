@@ -1,21 +1,20 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.rcm634.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity
@@ -33,7 +32,7 @@ public class ResourceSpecCharRelationship {
 	protected String uuid = null;
 	
 	
-	@JsonProperty("type")
+	@JsonProperty("relationshipType")
 	private String reltype = null;
 
 	@JsonProperty("name")
@@ -213,10 +212,10 @@ public class ResourceSpecCharRelationship {
 				&& Objects.equals(this.validFor, resourceSpecCharRelationship.validFor);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(type, name, id, href, type, validFor);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(type, name, id, href, type, validFor);
+//	}
 
 	@Override
 	public String toString() {

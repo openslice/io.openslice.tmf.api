@@ -1,8 +1,20 @@
 package io.openslice.tmf.scm633.api;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.EventSubscription;
 import io.openslice.tmf.scm633.model.ServiceCandidateChangeNotification;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreateNotification;
@@ -17,25 +29,7 @@ import io.openslice.tmf.scm633.model.ServiceCategoryDeleteNotification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationChangeNotification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreateNotification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationDeleteNotification;
-import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.List;
+import io.swagger.annotations.ApiParam;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Controller("ListenerApiController633")

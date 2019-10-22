@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.scm633.model.RelatedParty;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -176,11 +176,11 @@ public class ResourceCatalog extends BaseEntity {
 				&& Objects.equals(this.getCategoryRefs(), resourceCatalog.getCategoryRefs());
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid, id, href, name, description, type, schemaLocation, baseType, version, validFor,
-				lastUpdate, lifecycleStatus, relatedParty, getCategoryRefs());
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, id, href, name, description, type, schemaLocation, baseType, version, validFor,
+//				lastUpdate, lifecycleStatus, relatedParty, getCategoryRefs());
+//	}
 
 	@Override
 	public String toString() {

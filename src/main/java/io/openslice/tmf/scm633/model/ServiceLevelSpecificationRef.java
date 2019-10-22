@@ -1,17 +1,16 @@
 package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * A Service Level Specification represents a pre-defined or negotiated set of

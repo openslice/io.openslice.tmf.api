@@ -1,18 +1,19 @@
 package io.openslice.tmf.sqm657.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.sqm657.model.EntityRef;
-import io.openslice.tmf.sqm657.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.TimePeriod;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Service Level Specification parameters can be one of two types. A Key Quality Indicator (KQI)  provides a measurement of a specific aspect of the performance of a Product (i.e., Product  Specification, Product Offering, or Product) or a Service (i.e., Service Specification or Service).

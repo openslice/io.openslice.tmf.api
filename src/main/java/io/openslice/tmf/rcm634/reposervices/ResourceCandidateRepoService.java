@@ -18,17 +18,17 @@ import io.openslice.tmf.rcm634.model.ResourceCandidateUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
-import io.openslice.tmf.rcm634.repo.CandidateRepository;
+import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
 
 @Service
-public class CandidateRepoService {
+public class ResourceCandidateRepoService {
 
 
 	@Autowired
-	CandidateRepository candidateRepo;	
+	ResourceCandidateRepository candidateRepo;	
 
 	@Autowired
-	CategoryRepoService categsRepoService;
+	ResourceCategoryRepoService categsRepoService;
 
 	@Autowired
 	ResourceSpecificationRepoService specRepo;
@@ -38,18 +38,18 @@ public class CandidateRepoService {
 		return this.candidateRepo.save( c );
 	}
 
-	public ResourceCandidate addResourceCandidate(@Valid ResourceCandidateCreate serviceCand) {	
+	public ResourceCandidate addResourceCandidate(@Valid ResourceCandidateCreate resCand) {	
 		
 
 		ResourceCandidate sc = new ResourceCandidate() ;
-		if ( serviceCand.getResourceSpecification() != null) {
-			Optional<ResourceCandidate> optsc = this.candidateRepo.findByResourceSpecUuid(serviceCand.getResourceSpecification().getId());
+		if ( resCand.getResourceSpecification() != null) {
+			Optional<ResourceCandidate> optsc = this.candidateRepo.findByResourceSpecUuid(resCand.getResourceSpecification().getId());
 			if (optsc.isPresent() ) {
 					sc = optsc.get();//add to an existing candidate
 			}
 		}
 		
-		sc = updateResourceCandidateDataFromAPI( sc, serviceCand);
+		sc = updateResourceCandidateDataFromAPI( sc, resCand);
 		
 		return this.candidateRepo.save( sc );
 	}

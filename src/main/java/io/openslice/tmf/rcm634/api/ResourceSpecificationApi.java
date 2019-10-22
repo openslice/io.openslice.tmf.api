@@ -5,7 +5,23 @@
  */
 package io.openslice.tmf.rcm634.api;
 
+import java.io.IOException;
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,27 +29,11 @@ import io.openslice.tmf.rcm634.model.Error;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
-import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 @Api(value = "resourceSpecification", description = "the resourceSpecification API")
@@ -63,18 +63,8 @@ public interface ResourceSpecificationApi {
         consumes = { "application/json" },
         method = RequestMethod.POST)
     default ResponseEntity<ResourceSpecification> createResourceSpecification(@ApiParam(value = "The Resource Specification to be created" ,required=true )  @Valid @RequestBody ResourceSpecificationCreate resourceSpecification) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"isBundle\" : true,  \"lifecycleStatus\" : \"lifecycleStatus\",  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"description\" : \"description\",  \"relatedParty\" : [ {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  }, {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  } ],  \"version\" : \"version\",  \"resourceSpecCharacteristic\" : [ {    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"@valueSchemaLocation\" : \"@valueSchemaLocation\",    \"isUnique\" : true,    \"description\" : \"description\",    \"maxCardinality\" : 6,    \"resourceSpecCharacteristicValue\" : [ {      \"rangeInterval\" : \"rangeInterval\",      \"isDefault\" : true,      \"valueTo\" : 5,      \"regex\" : \"regex\",      \"unitOfMeasure\" : \"unitOfMeasure\",      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"valueType\" : \"valueType\",      \"@schemaLocation\" : \"@schemaLocation\",      \"value\" : \"{}\",      \"valueFrom\" : 1    }, {      \"rangeInterval\" : \"rangeInterval\",      \"isDefault\" : true,      \"valueTo\" : 5,      \"regex\" : \"regex\",      \"unitOfMeasure\" : \"unitOfMeasure\",      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"valueType\" : \"valueType\",      \"@schemaLocation\" : \"@schemaLocation\",      \"value\" : \"{}\",      \"valueFrom\" : 1    } ],    \"minCardinality\" : 0,    \"regex\" : \"regex\",    \"resourceSpecCharRelationship\" : [ {      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"name\" : \"name\",      \"id\" : \"id\",      \"href\" : \"href\",      \"type\" : \"type\"    }, {      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"name\" : \"name\",      \"id\" : \"id\",      \"href\" : \"href\",      \"type\" : \"type\"    } ],    \"valueType\" : \"valueType\",    \"name\" : \"name\",    \"@schemaLocation\" : \"@schemaLocation\",    \"extensible\" : true,    \"configurable\" : true  }, {    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"@valueSchemaLocation\" : \"@valueSchemaLocation\",    \"isUnique\" : true,    \"description\" : \"description\",    \"maxCardinality\" : 6,    \"resourceSpecCharacteristicValue\" : [ {      \"rangeInterval\" : \"rangeInterval\",      \"isDefault\" : true,      \"valueTo\" : 5,      \"regex\" : \"regex\",      \"unitOfMeasure\" : \"unitOfMeasure\",      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"valueType\" : \"valueType\",      \"@schemaLocation\" : \"@schemaLocation\",      \"value\" : \"{}\",      \"valueFrom\" : 1    }, {      \"rangeInterval\" : \"rangeInterval\",      \"isDefault\" : true,      \"valueTo\" : 5,      \"regex\" : \"regex\",      \"unitOfMeasure\" : \"unitOfMeasure\",      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"valueType\" : \"valueType\",      \"@schemaLocation\" : \"@schemaLocation\",      \"value\" : \"{}\",      \"valueFrom\" : 1    } ],    \"minCardinality\" : 0,    \"regex\" : \"regex\",    \"resourceSpecCharRelationship\" : [ {      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"name\" : \"name\",      \"id\" : \"id\",      \"href\" : \"href\",      \"type\" : \"type\"    }, {      \"validFor\" : {        \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",        \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"      },      \"@type\" : \"@type\",      \"name\" : \"name\",      \"id\" : \"id\",      \"href\" : \"href\",      \"type\" : \"type\"    } ],    \"valueType\" : \"valueType\",    \"name\" : \"name\",    \"@schemaLocation\" : \"@schemaLocation\",    \"extensible\" : true,    \"configurable\" : true  } ],  \"resourceSpecRelationship\" : [ {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"type\" : \"type\"  }, {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"type\" : \"type\"  } ],  \"@baseType\" : \"@baseType\",  \"feature\" : [ {    \"isBundle\" : true,    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"isEnabled\" : true,    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"isBundle\" : true,    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"isEnabled\" : true,    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ],  \"attachment\" : [ {    \"description\" : \"description\",    \"href\" : \"href\",    \"id\" : \"id\",    \"type\" : \"type\",    \"url\" : \"url\"  }, {    \"description\" : \"description\",    \"href\" : \"href\",    \"id\" : \"id\",    \"type\" : \"type\",    \"url\" : \"url\"  } ],  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"targetResourceSchema\" : {    \"@type\" : \"@type\",    \"@schemaLocation\" : \"@schemaLocation\"  },  \"id\" : \"id\",  \"href\" : \"href\",  \"@schemaLocation\" : \"@schemaLocation\",  \"category\" : \"category\"}", ResourceSpecification.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ResourceSpecificationApi interface so no example is generated");
-        }
+    
+
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 

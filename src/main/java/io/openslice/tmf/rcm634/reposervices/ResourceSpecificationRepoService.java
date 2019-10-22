@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,6 +25,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
 
+@Service
 public class ResourceSpecificationRepoService {
 	private static final transient Log logger = LogFactory.getLog(ResourceSpecificationRepoService.class.getName());
 
@@ -180,7 +182,8 @@ public class ResourceSpecificationRepoService {
 		ResourceSpecification spec = new ResourceSpecification();
 		spec.setName("A Resource");
 		spec.setVersion("1.0.0");
-		return null;
+		spec = this.resourceSpecificationRepo.save(spec);
+		return spec;
 	}
 
 }

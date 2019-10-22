@@ -1,18 +1,17 @@
 package io.openslice.tmf.am666.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.am666.model.BillFormatRefOrValue;
-import io.openslice.tmf.am666.model.BillPresentationMediaRefOrValue;
-import io.openslice.tmf.am666.model.BillingCycleSpecificationRefOrValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * The structure of the bill for party accounts (billing or settlement).

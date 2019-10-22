@@ -19,6 +19,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecUpdate;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecCreate;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
@@ -38,6 +44,24 @@ public class ResourceSpecificationRepoService {
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
 		ResourceSpecification reSpec = new ResourceSpecification();
+		
+		return addResourceSpecificationGeneric(reSpec, resourceSpecification);
+	}
+	
+	public LogicalResourceSpec addLogicalResourceSpecification(@Valid LogicalResourceSpecCreate logicalResourceSpec) {
+		LogicalResourceSpec reSpec = new LogicalResourceSpec();
+
+		return (LogicalResourceSpec) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
+	}
+	
+	public PhysicalResourceSpec addPhysicalResourceSpecification(@Valid PhysicalResourceSpecCreate logicalResourceSpec) {
+		PhysicalResourceSpec reSpec = new PhysicalResourceSpec();
+
+		return (PhysicalResourceSpec) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
+	}
+	
+	private ResourceSpecification addResourceSpecificationGeneric(ResourceSpecification reSpec, @Valid ResourceSpecificationUpdate  resourceSpecification) {
+
 		reSpec = this.updateResourceSpecDataFromAPIcall(reSpec, resourceSpecification);
 		reSpec = this.resourceSpecificationRepo.save(reSpec);
 		reSpec.fixResourceCharRelationhsipIDs();
@@ -46,6 +70,14 @@ public class ResourceSpecificationRepoService {
 	
 	public List<ResourceSpecification> findAll() {
 		return (List<ResourceSpecification>) this.resourceSpecificationRepo.findAll();
+	}
+	
+	public List<LogicalResourceSpec> findAllLogical() {
+		return (List<LogicalResourceSpec>) this.resourceSpecificationRepo.findAllLogical();
+	}
+	
+	public List<PhysicalResourceSpec> findAllPhysical() {
+		return (List<PhysicalResourceSpec>) this.resourceSpecificationRepo.findAllPhysical();
 	}
 
 	public ResourceSpecification findByUuid(String id) {
@@ -77,8 +109,21 @@ public class ResourceSpecificationRepoService {
 		
 	}
 	
+	public LogicalResourceSpec updateLogicalResourceSpecSpecification(String id,
+			@Valid LogicalResourceSpecUpdate logicalResourceSpec) {
+		return (LogicalResourceSpec) this.updateResourceSpecification(id, logicalResourceSpec);
+	}
 	
-	private ResourceSpecification updateResourceSpecDataFromAPIcall( ResourceSpecification resourceSpec, ResourceSpecificationUpdate resSpecUpd )
+	public PhysicalResourceSpec updatePhysicalResourceSpecSpecification(String id,
+			@Valid PhysicalResourceSpecUpdate physicalResourceSpec) {
+		return (PhysicalResourceSpec) this.updateResourceSpecification(id, physicalResourceSpec);
+	}
+	
+	
+	
+	private ResourceSpecification updateResourceSpecDataFromAPIcall(
+			ResourceSpecification resourceSpec, 
+			ResourceSpecificationUpdate resSpecUpd )
 	{
 		
 		resourceSpec.setName(resSpecUpd.getName());
@@ -87,6 +132,14 @@ public class ResourceSpecificationRepoService {
 		resourceSpec.setIsBundle( resSpecUpd.isIsBundle() );		
 		
 		resourceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
+		
+		if (resourceSpec instanceof PhysicalResourceSpec){
+			((PhysicalResourceSpec) resourceSpec).setModel(( (PhysicalResourceSpecUpdate) resSpecUpd ).getModel() );
+			((PhysicalResourceSpec) resourceSpec).setPart(( (PhysicalResourceSpecUpdate) resSpecUpd ).getPart() );
+			((PhysicalResourceSpec) resourceSpec).setSku(( (PhysicalResourceSpecUpdate) resSpecUpd ).getSku() );
+			((PhysicalResourceSpec) resourceSpec).setVendor(( (PhysicalResourceSpecUpdate) resSpecUpd ).getVendor() );
+			((PhysicalResourceSpec) resourceSpec).setPlace(( (PhysicalResourceSpecUpdate) resSpecUpd ).getPlace() );
+		}
 		
 		
 		if ( resSpecUpd.getLifecycleStatus() == null ) {
@@ -186,4 +239,13 @@ public class ResourceSpecificationRepoService {
 		return spec;
 	}
 
+	
+
+	
+
+	
+
+	
+
+	
 }

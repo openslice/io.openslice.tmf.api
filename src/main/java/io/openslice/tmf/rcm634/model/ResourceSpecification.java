@@ -53,7 +53,7 @@ public class ResourceSpecification extends BaseEntity {
 	@JsonProperty("feature")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	protected Set<Feature> feature = null;
+	protected Set<Feature> feature = new HashSet<>();
 
 	@JsonProperty("attachment")
 	@Valid
@@ -69,12 +69,12 @@ public class ResourceSpecification extends BaseEntity {
 	@JsonProperty("resourceSpecCharacteristic")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	protected Set<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
+	protected Set<ResourceSpecCharacteristic> resourceSpecCharacteristic = new HashSet<>();;
 
 	@JsonProperty("resourceSpecRelationship")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	protected Set<ResourceSpecRelationship> resourceSpecRelationship = null;
+	protected Set<ResourceSpecRelationship> resourceSpecRelationship = new HashSet<>();
 
 	public ResourceSpecification() {
 		super();
@@ -122,12 +122,9 @@ public class ResourceSpecification extends BaseEntity {
 	@ApiModelProperty(value = "Unique identifier of this REST resource")
 
 	public String getId() {
-		return id;
+		return uuid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	/**
 	 * A flag indicates that if this resource specification is a bundled

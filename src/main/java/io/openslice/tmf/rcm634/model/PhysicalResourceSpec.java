@@ -3,6 +3,7 @@ package io.openslice.tmf.rcm634.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
-
+@Entity(name = "PhysicalResourceSpec")
 public class PhysicalResourceSpec extends ResourceSpecification  {
  
 
@@ -38,209 +39,6 @@ public class PhysicalResourceSpec extends ResourceSpecification  {
   private PlaceRef place = null;
 
   
-
-  public PhysicalResourceSpec id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Unique identifier of this REST resource
-   * @return id
-  **/
-  @ApiModelProperty(value = "Unique identifier of this REST resource")
-
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public PhysicalResourceSpec href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Hyperlink reference to this REST resource
-   * @return href
-  **/
-  @ApiModelProperty(value = "Hyperlink reference to this REST resource")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public PhysicalResourceSpec name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name given to this REST resource
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name given to this REST resource")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public PhysicalResourceSpec description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Description of this REST resource
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description of this REST resource")
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public PhysicalResourceSpec type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Class type of this REST resource
-   * @return type
-  **/
-  @ApiModelProperty(value = "Class type of this REST resource")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public PhysicalResourceSpec schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * This field provides a link to the schema describing this REST resource
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public PhysicalResourceSpec baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * The (immediate) base class type of this REST resource
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "The (immediate) base class type of this REST resource")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public PhysicalResourceSpec version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Resource Specification version
-   * @return version
-  **/
-  @ApiModelProperty(value = "Resource Specification version")
-
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  
-
-  public PhysicalResourceSpec lastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-    return this;
-  }
-
-  /**
-   * Date and time of the last update of this REST resource
-   * @return lastUpdate
-  **/
-  @ApiModelProperty(value = "Date and time of the last update of this REST resource")
-
-  @Valid
-
-  public OffsetDateTime getLastUpdate() {
-    return lastUpdate;
-  }
-
-  public void setLastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-  }
-
-  public PhysicalResourceSpec lifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-    return this;
-  }
-
-  /**
-   * Used to indicate the current lifecycle status of the resource specification
-   * @return lifecycleStatus
-  **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status of the resource specification")
-
-
-  public String getLifecycleStatus() {
-    return lifecycleStatus;
-  }
-
-  public void setLifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-  }
 
 
   /**

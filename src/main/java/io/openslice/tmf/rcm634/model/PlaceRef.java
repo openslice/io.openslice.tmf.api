@@ -2,6 +2,10 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,18 +19,22 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Place reference. Place defines the places where the products are sold or delivered.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
-
+@Embeddable
 public class PlaceRef   {
   @JsonProperty("id")
+  @Column(name = "PLACEREFID")
   private String id = null;
 
   @JsonProperty("href")
+  @Column(name = "PLACEREFHREF")
   private String href = null;
 
   @JsonProperty("name")
+  @Column(name = "PLACEREFNAME")
   private String name = null;
 
   @JsonProperty("role")
+  @Column(name = "PLACEREFROLE")
   private String role = null;
 
   public PlaceRef id(String id) {

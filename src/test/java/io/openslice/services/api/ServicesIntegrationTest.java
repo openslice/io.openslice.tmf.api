@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.HashSet;
 
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,13 @@ import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.model.Quantity;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
+import io.openslice.tmf.rcm634.model.ResourceSpecification;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.scm633.model.AttachmentRef;
+import io.openslice.tmf.scm633.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;
@@ -406,6 +413,12 @@ public class ServicesIntegrationTest {
 		sspeccr3.isBundle(true);
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec2 );
+		
+		ResourceSpecificationRef resourceSpecificationItem = new ResourceSpecificationRef();
+		resourceSpecificationItem.setId("resourceid");
+		resourceSpecificationItem.setName("resourceName");		
+		sspeccr3.addResourceSpecificationItem(resourceSpecificationItem);
+		
 		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
 		
 		
@@ -424,6 +437,9 @@ public class ServicesIntegrationTest {
 		}
 		assertThat( idspec1Exists ).isTrue();
 		assertThat( idspec2Exists ).isTrue();
+
+		assertThat( responsesSpec3.getResourceSpecification().size() ).isEqualTo(1);
+		
 		
 		/**
 		 * try PATCH with service relationships
@@ -448,6 +464,13 @@ public class ServicesIntegrationTest {
 			}
 		}
 		responsesSpecUpd.addServiceSpecRelationshipWith(responsesSpec4);
+		
+		ResourceSpecificationRef resourceSpecificationItemNew = new ResourceSpecificationRef();
+		resourceSpecificationItemNew.setId("resourceidNew");
+		resourceSpecificationItemNew.setName("resourceNameNew");		
+		responsesSpecUpd.addResourceSpecificationItem(resourceSpecificationItemNew);
+		
+		
 		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
 		
 		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec3.getId() )
@@ -462,6 +485,7 @@ public class ServicesIntegrationTest {
 
 		logger.info("Test: testBundledSpec responsePatch1= " + responsePatch1);
 
+		assertThat( responseSpecPatch1.getResourceSpecification().size() ).isEqualTo(2);
 		assertThat( responseSpecPatch1.getServiceSpecRelationship().size() ).isEqualTo(2);
 		
 		idspec1Exists = false;
@@ -622,6 +646,31 @@ public class ServicesIntegrationTest {
 		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo(67);
 		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
 		
+	}
+	
+	
+	private LogicalResourceSpec createLogicalResourceSpec() throws Exception{
+		File sspec = new File( "src/test/resources/testResourceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
+
+		URI url = new URI("/resourceCatalogManagement/v2/logicalResourceSpec");
+		
+		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		
+		LogicalResourceSpec responsesSpec1;
+		
+		responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpec.class);
+		
+		logger.info("createResourceSpec = " + responseSpec);
+		return responsesSpec1;
 	}
 	
 	

@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecUpdate;
@@ -27,6 +30,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.swagger.annotations.ApiParam;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
@@ -39,6 +43,17 @@ public class LogicalResourceSpecApiController implements LogicalResourceSpecApi 
 
 	@Autowired
 	ResourceSpecificationRepoService resourceSpecificationRepoService;
+	
+	private final ObjectMapper objectMapper;
+
+	private final HttpServletRequest request;
+
+	
+	@org.springframework.beans.factory.annotation.Autowired
+	public LogicalResourceSpecApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+		this.objectMapper = objectMapper;
+		this.request = request;
+	}
 
 	public ResponseEntity<LogicalResourceSpec> createLogicalResourceSpec(
 			@ApiParam(value = "The Logical Resource Spec to be created", required = true) @Valid @RequestBody LogicalResourceSpecCreate logicalResourceSpec) {
@@ -139,5 +154,28 @@ public class LogicalResourceSpecApiController implements LogicalResourceSpecApi 
 		}
 
 	}
+	
+	public ResponseEntity<LogicalResourceSpec>  addAttachmentToLogicalResourceSpec(
+    		@ApiParam(value = "Identifier of the LogicalResourceSpec",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
+    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile afile){
+
+		try {
+
+			log.info("addAttachmentToLogicalResourceSpec attachment=" + attachment);
+			log.info("addAttachmentToLogicalResourceSpec file=" + afile);
+			
+			Attachment att = objectMapper.readValue(attachment, Attachment.class);
+			log.info("addAttachmentToServiceSpecification att=" + att);
+			
+			LogicalResourceSpec c = (LogicalResourceSpec) resourceSpecificationRepoService.addAttachmentToResourceSpec( id, att, afile );
+
+			return new ResponseEntity<LogicalResourceSpec>(c, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<LogicalResourceSpec>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+    }
+
 
 }

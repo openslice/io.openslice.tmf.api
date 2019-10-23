@@ -446,9 +446,9 @@ public class ServiceSpecification extends BaseEntity {
 		return o.toString().replace("\n", "\n    ");
 	}
 
-	public ServiceSpecCharacteristic findSpecCharacteristicByName(String name) {
+	public ServiceSpecCharacteristic findSpecCharacteristicByName(String an) {
 		for (ServiceSpecCharacteristic ssci : this.getServiceSpecCharacteristic()) {
-			if (ssci.getName().equals(name)) {
+			if (ssci.getName().equals(an)) {
 				return ssci;
 			}
 		}

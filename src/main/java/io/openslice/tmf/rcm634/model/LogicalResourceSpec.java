@@ -15,5 +15,11 @@ import io.swagger.annotations.ApiModel;
 @Entity(name = "LogicalResourceSpec")
 public class LogicalResourceSpec extends ResourceSpecification  {
   
+	public LogicalResourceSpec() {
+		super();
+		this.baseType = "ResourceSpecification";
+		this.type = "LogicalResourceSpec";
+
+	}
 }
 

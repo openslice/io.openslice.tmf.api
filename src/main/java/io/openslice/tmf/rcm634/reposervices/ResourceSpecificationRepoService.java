@@ -1,5 +1,9 @@
 package io.openslice.tmf.rcm634.reposervices;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -14,11 +18,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.pcm620.model.Attachment;
+import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
+import io.openslice.tmf.rcm634.model.AttachmentRef;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecUpdate;
@@ -30,6 +38,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
+import io.openslice.tmf.util.AttachmentUtil;
 
 @Service
 public class ResourceSpecificationRepoService {
@@ -40,6 +49,12 @@ public class ResourceSpecificationRepoService {
 
 	@Autowired
 	ResourceSpecificationRepository resourceSpecificationRepo;
+	
+	@Autowired
+	AttachmentRepoService attachmentRepoService;
+	
+	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
+			+ File.separator + "metadata" + File.separator;
 
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
@@ -155,6 +170,46 @@ public class ResourceSpecificationRepoService {
 		}
 		
 		
+		/**
+		 * Update Attachment list
+		 */
+		if (resSpecUpd.getAttachment() != null ){
+			//reattach attachments fromDB
+
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (AttachmentRef ar : resSpecUpd.getAttachment()) {
+				//find attachmet by id and reload it here.
+				//we need the attachment model from resource spec models
+				boolean idexists = false;
+				for (AttachmentRef orinalAtt : resourceSpec.getAttachment()) {
+					if ( orinalAtt.getId().equals(ar.getId())) {
+						idexists = true;
+						idAddedUpdated.put( orinalAtt.getId(), true);
+						break;
+					}	
+				}
+				
+				if (!idexists) {
+					resourceSpec.getAttachment().add(ar);
+					idAddedUpdated.put( ar.getId(), true);
+				}				
+			}
+			
+			List<AttachmentRef> toRemove = new ArrayList<>();
+			for (AttachmentRef ss : resourceSpec.getAttachment()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (AttachmentRef ar : toRemove) {
+				resourceSpec.getAttachment().remove(ar);
+			}
+			
+
+					
+		}
 		
 		
 		
@@ -236,6 +291,69 @@ public class ResourceSpecificationRepoService {
 		spec.setName("A Resource");
 		spec.setVersion("1.0.0");
 		spec = this.resourceSpecificationRepo.save(spec);
+		return spec;
+	}
+
+	/**
+	 * @param id
+	 * @param attachment
+	 * @param afile
+	 * @return
+	 */
+	public ResourceSpecification addAttachmentToResourceSpec(String id, @Valid Attachment attachment,
+			@Valid MultipartFile afile) {
+		Optional<ResourceSpecification> s = this.resourceSpecificationRepo.findByUuid(id);
+		if ( s.get() == null ) {
+			return null;
+		}
+		
+				
+		
+		ResourceSpecification spec = s.get();
+		Attachment att = this.attachmentRepoService.addAttachment(attachment);
+		
+		String tempDir = METADATADIR + spec.getId() + "/attachments/" + att.getId() + File.separator;
+		
+		
+		try {
+			Files.createDirectories(Paths.get(tempDir));
+			String aFileNamePosted = afile.getOriginalFilename() ;// AttachmentUtil.getFileName(image.getHeaders());
+			logger.info("aFileNamePosted = " + aFileNamePosted);
+			// If there is an icon name
+			if (!aFileNamePosted.equals("")) {
+				// Save the icon File
+				String targetfile = AttachmentUtil.saveFile(afile, tempDir + aFileNamePosted);
+				logger.info("afile saved to = " + targetfile);
+				att.setContent(targetfile);
+				att.setMimeType( afile.getContentType() );
+				att.setName(aFileNamePosted);				
+				// Save the file destination
+				
+				if ( spec instanceof LogicalResourceSpec ) {
+					att.setUrl(  "/logicalResourceSpec/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
+				}if ( spec instanceof PhysicalResourceSpec ) {
+					att.setUrl(  "/physicalResourceSpec/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
+				}else {
+					 att.setUrl(  "/resourceSpecification/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
+				}
+				
+				
+				att = this.attachmentRepoService.updateAttachment(attachment);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}	
+		
+		
+		AttachmentRef attref = new AttachmentRef();
+		attref.setId(att.getId());
+		attref.setDescription(att.getDescription());
+		attref.setUrl(att.getUrl());
+		attref.setName(att.getName());
+		
+		spec.addAttachmentItem(attref);
+		this.resourceSpecificationRepo.save(spec);
 		return spec;
 	}
 

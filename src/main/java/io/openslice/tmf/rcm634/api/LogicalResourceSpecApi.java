@@ -17,11 +17,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -57,6 +59,11 @@ public interface LogicalResourceSpecApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Created", response = LogicalResourceSpec.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/logicalResourceSpec",
         produces = { "application/json" }, 
@@ -72,7 +79,11 @@ public interface LogicalResourceSpecApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted"),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
         @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/logicalResourceSpec/{id}",
         produces = { "application/json" }, 
@@ -87,6 +98,11 @@ public interface LogicalResourceSpecApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Ok", response = LogicalResourceSpec.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/logicalResourceSpec",
         produces = { "application/json" }, 
@@ -101,7 +117,11 @@ public interface LogicalResourceSpecApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Updated", response = LogicalResourceSpec.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
         @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/logicalResourceSpec/{id}",
         produces = { "application/json" }, 
@@ -117,7 +137,11 @@ public interface LogicalResourceSpecApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Ok", response = LogicalResourceSpec.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
         @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/logicalResourceSpec/{id}",
         produces = { "application/json" }, 
@@ -126,5 +150,31 @@ public interface LogicalResourceSpecApi {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
+    
+    @ApiOperation(value = "Adds an attachment to a 'LogicalResourceSpec'", nickname = "addAttachmentToLogicalResourceSpec", notes = "This operation adds an attachment to a LogicalResourceSpec", response = LogicalResourceSpec.class, tags={ "logicalResourceSpec", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Created", response = LogicalResourceSpec.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/logicalResourceSpec/{id}/attachment",
+        produces = { "application/json" }, 
+                consumes = { "multipart/form-data" },
+        method = RequestMethod.POST)
+    default ResponseEntity<LogicalResourceSpec>  addAttachmentToLogicalResourceSpec(
+    		@ApiParam(value = "Identifier of the LogicalResourceSpec",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
+    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file){
+
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    
+    
+    
 
 }

@@ -1,6 +1,5 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -40,6 +39,12 @@ public class PhysicalResourceSpec extends ResourceSpecification  {
 
   
 
+  public PhysicalResourceSpec() {
+		super();
+		this.baseType = "ResourceSpecification";
+		this.type = "PhysicalResourceSpec";
+
+	}
 
   /**
    * This is a string that represents a manufacturer-allocated number used to identify the general type and/or category of the hardware item. This, in combination with the Part and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is an optional attribute.

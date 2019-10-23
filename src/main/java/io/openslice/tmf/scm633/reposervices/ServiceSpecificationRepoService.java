@@ -332,7 +332,7 @@ public class ServiceSpecificationRepoService {
 				att.setContent(targetfile);
 				att.setMimeType( afile.getContentType() );
 				att.setName(aFileNamePosted);				
-				// Save the icon file destination
+				// Save the file destination
 				att.setUrl(  "/serviceSpecification/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);
 				att = this.attachmentRepoService.updateAttachment(attachment);
 			}

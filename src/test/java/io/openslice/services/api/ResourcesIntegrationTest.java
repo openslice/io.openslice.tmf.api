@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -42,6 +43,7 @@ import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecCreate;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCatalog;
 import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
 import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
@@ -266,6 +268,7 @@ public class ResourcesIntegrationTest {
 		obj.remove("uuid");
 		obj.remove("id");
 		obj.remove("lastUpdate");
+		obj.remove("@type");
 		responseSpec = toJsonString(obj);
 				
 		ResourceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec,  ResourceSpecificationUpdate.class);
@@ -292,12 +295,12 @@ public class ResourcesIntegrationTest {
 		assertThat( responsesSpec2.getVersion() ).isEqualTo( "2.x" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(2);
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().toArray( new ResourceSpecCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage")   ).isNotNull();
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec")   ).isNotNull();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNotNull();
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecCharacteristicValue().toArray( new ResourceSpecCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a first value");
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecCharacteristicValue().toArray( new ResourceSpecCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("LONGTEXT");
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getResourceSpecCharRelationship().size()  ).isEqualTo(4);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharRelationship().size()  ).isEqualTo(4);
 		
 
 		logger.info("Test: testSpecAttachments responsesSpec2 patch1= " + response2.toString());
@@ -324,7 +327,7 @@ public class ResourcesIntegrationTest {
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			    .andExpect(jsonPath("name", is("Test Spec")))								 
+			    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2.toString());
@@ -335,13 +338,13 @@ public class ResourcesIntegrationTest {
 		
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
 		
-		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec" );
+		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(1);
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage")   ).isNotNull();
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getResourceSpecCharacteristicValue().size()  ).isEqualTo(2);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec")   ).isNotNull();
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().size()  ).isEqualTo(2);
 		boolean secvalExists = false;
 		boolean arrayValExists = false;
-		for (ResourceSpecCharacteristicValue respval : responsesSpec2.findSpecCharacteristicByName("Coverage").getResourceSpecCharacteristicValue().toArray( new ResourceSpecCharacteristicValue[0] )) {
+		for (ResourceSpecCharacteristicValue respval : responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().toArray( new ResourceSpecCharacteristicValue[0] )) {
 			if ( respval.getValue().getAlias().equals("a second value")){
 				secvalExists = true;
 			}
@@ -353,10 +356,10 @@ public class ResourcesIntegrationTest {
 		assertThat( arrayValExists).isTrue();
 		
 		
-		assertThat( responsesSpec2.findSpecCharacteristicByName("Coverage").getResourceSpecCharRelationship().size()  ).isEqualTo(3);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharRelationship().size()  ).isEqualTo(3);
 		boolean idfound = false;
 		boolean ANEWCharRelExists =false;
-		for (ResourceSpecCharRelationship tscr : responsesSpec2.findSpecCharacteristicByName("Coverage").getResourceSpecCharRelationship()) {
+		for (ResourceSpecCharRelationship tscr : responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharRelationship()) {
 			if ( (tscr.getId()!=null) && ( tscr.getId().equals(preid)) ) {
 				idfound = true;
 				assertThat( tscr.getName().equals("FORTESTING"));
@@ -379,16 +382,27 @@ public class ResourcesIntegrationTest {
 	}
 	
 	
-	private LogicalResourceSpec createResourceSpec(String sspectext, ResourceSpecificationCreate sspeccr1) throws Exception{
+	private ResourceSpecification createResourceSpec(String sspectext, ResourceSpecificationUpdate sspeccr1) throws Exception{
 		
-		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/logicalResourceSpec")
+		URI url = new URI("/resourceCatalogManagement/v2/logicalResourceSpec");
+		if (sspeccr1 instanceof PhysicalResourceSpecUpdate ) {
+			url = new URI("/resourceCatalogManagement/v2/physicalResourceSpec");
+		}
+		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		LogicalResourceSpec responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpec.class);
+		
+		ResourceSpecification responsesSpec1;
+		if (sspeccr1 instanceof PhysicalResourceSpecUpdate ) {
+			responsesSpec1 = toJsonObj(responseSpec,  PhysicalResourceSpec.class);			
+		}else {
+			responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpec.class);			
+		}
+		
 		logger.info("createResourceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
@@ -408,12 +422,12 @@ public class ResourcesIntegrationTest {
 		
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpec responsesSpec1 = createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpec responsesSpec1 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr1);
 
 		
 		ResourceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
-		LogicalResourceSpec responsesSpec2 = createResourceSpec(sspectext, sspeccr2);
+		LogicalResourceSpec responsesSpec2 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr2);
 
 
 		ResourceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
@@ -421,7 +435,7 @@ public class ResourcesIntegrationTest {
 		sspeccr3.isBundle(true);
 		sspeccr3.addResourceSpecRelationshipWith( responsesSpec1 );
 		sspeccr3.addResourceSpecRelationshipWith( responsesSpec2 );
-		LogicalResourceSpec responsesSpec3 = createResourceSpec(sspectext, sspeccr3);
+		LogicalResourceSpec responsesSpec3 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr3);
 		
 		
 		assertThat( responsesSpec3.getResourceSpecRelationship().size() ).isEqualTo(2);
@@ -453,6 +467,7 @@ public class ResourcesIntegrationTest {
 		obj.remove("uuid");
 		obj.remove("id");
 		obj.remove("lastUpdate");
+		obj.remove("@type");
 		responseSpec3 = toJsonString(obj);
 				
 		ResourceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec3,  ResourceSpecificationUpdate.class);	
@@ -519,7 +534,7 @@ public class ResourcesIntegrationTest {
 		
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpec responsesSpec1 = createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpec responsesSpec1 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr1);
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
 		
@@ -551,7 +566,29 @@ public class ResourcesIntegrationTest {
 	}
 
 	
-	
+	@Test
+	public void testLogicalPhysicalResources() throws Exception {
+		File sspec = new File( "src/test/resources/testResourceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+
+
+		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
+		sspeccr1.setName("Spec1");
+		LogicalResourceSpec responsesSpec1 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr1);
+		
+
+		PhysicalResourceSpecCreate physspeccr1 = toJsonObj( sspectext,  PhysicalResourceSpecCreate.class);
+		physspeccr1.setName("SpecPhy1");
+		physspeccr1.setPart("APART");
+		physspeccr1.setModel("ACME");
+		PhysicalResourceSpec phyresponsesSpec1 = (PhysicalResourceSpec) createResourceSpec(sspectext, physspeccr1);
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( 1 );
+		assertThat( specRepoService.findAllPhysical().size() ).isEqualTo( 1 );
+		
+	}
 	
 	
 	 static byte[] toJson(Object object) throws IOException {

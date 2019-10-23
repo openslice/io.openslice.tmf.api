@@ -3,6 +3,7 @@ package io.openslice.tmf.rcm634.api;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -11,11 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.tmf.pcm620.model.Attachment;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
@@ -33,6 +40,16 @@ public class PhysicalResourceSpecApiController implements PhysicalResourceSpecAp
 	@Autowired
 	ResourceSpecificationRepoService resourceSpecificationRepoService;
 
+	private final ObjectMapper objectMapper;
+
+	private final HttpServletRequest request;
+
+	
+	@org.springframework.beans.factory.annotation.Autowired
+	public PhysicalResourceSpecApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+		this.objectMapper = objectMapper;
+		this.request = request;
+	}
 	public ResponseEntity<PhysicalResourceSpec> createPhysicalResourceSpec(
 			@ApiParam(value = "The Physical Resource Spec to be created", required = true) @Valid @RequestBody PhysicalResourceSpecCreate physicalResourceSpec) {
 
@@ -140,5 +157,27 @@ public class PhysicalResourceSpecApiController implements PhysicalResourceSpecAp
 			return new ResponseEntity<PhysicalResourceSpec>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+	
+	public ResponseEntity<PhysicalResourceSpec>  addAttachmentToPhysicalResourceSpecSpec(
+    		@ApiParam(value = "Identifier of the PhysicalResourceSpec",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
+    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile afile){
+
+		try {
+
+			log.info("addAttachmentToPhysicalResourceSpecSpec attachment=" + attachment);
+			log.info("addAttachmentToPhysicalResourceSpecSpec file=" + afile);
+			
+			Attachment att = objectMapper.readValue(attachment, Attachment.class);
+			log.info("addAttachmentToPhysicalResourceSpecSpec att=" + att);
+			
+			PhysicalResourceSpec c = (PhysicalResourceSpec) resourceSpecificationRepoService.addAttachmentToResourceSpec( id, att, afile );
+
+			return new ResponseEntity<PhysicalResourceSpec>(c, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<PhysicalResourceSpec>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

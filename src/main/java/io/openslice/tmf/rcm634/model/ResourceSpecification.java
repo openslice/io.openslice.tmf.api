@@ -437,9 +437,9 @@ public class ResourceSpecification extends BaseEntity {
 		this.relatedParty = relatedParty;
 	}
 
-	public ResourceSpecCharacteristic findSpecCharacteristicByName(String string) {
+	public ResourceSpecCharacteristic findSpecCharacteristicByName(String a) {
 		for (ResourceSpecCharacteristic ssci : this.getResourceSpecCharacteristic()) {
-			if (ssci.getName().equals(name)) {
+			if (ssci.getName().equals(a)) {
 				return ssci;
 			}
 		}

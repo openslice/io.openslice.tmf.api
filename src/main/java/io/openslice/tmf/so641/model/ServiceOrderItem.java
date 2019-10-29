@@ -68,8 +68,6 @@ public class ServiceOrderItem extends BaseRootEntity {
 	 * @return id
 	 **/
 	@ApiModelProperty(required = true, value = "Identifier of the individual line item")
-	@NotNull
-
 	public String getId() {
 		return uuid;
 	}

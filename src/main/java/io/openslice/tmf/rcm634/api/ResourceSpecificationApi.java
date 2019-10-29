@@ -57,6 +57,10 @@ public interface ResourceSpecificationApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Created", response = ResourceSpecification.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceSpecification",
         produces = { "application/json" }, 
@@ -73,7 +77,10 @@ public interface ResourceSpecificationApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted"),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceSpecification/{id}",
         produces = { "application/json" }, 
@@ -88,6 +95,10 @@ public interface ResourceSpecificationApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Ok", response = ResourceSpecification.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceSpecification",
         produces = { "application/json" }, 
@@ -102,7 +113,10 @@ public interface ResourceSpecificationApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Updated", response = ResourceSpecification.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceSpecification/{id}",
         produces = { "application/json" }, 
@@ -118,7 +132,10 @@ public interface ResourceSpecificationApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Ok", response = ResourceSpecification.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceSpecification/{id}",
         produces = { "application/json" }, 

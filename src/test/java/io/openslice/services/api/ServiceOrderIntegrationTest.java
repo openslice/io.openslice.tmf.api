@@ -68,6 +68,7 @@ import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
+import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
@@ -75,6 +76,8 @@ import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
+import io.openslice.tmf.so641.model.ServiceOrderItem;
+import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 import net.minidev.json.JSONObject;
 
@@ -121,19 +124,42 @@ public class ServiceOrderIntegrationTest {
 	@Test
 	public void testServiceOrderCreate() throws UnsupportedEncodingException, IOException, Exception {
 	
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName("Spec1");
+		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
+		
 		
 		
 		ServiceOrderCreate servOrder = new ServiceOrderCreate();
-		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceOrdering/v4/serviceOrder")
+		
+		ServiceOrderItem soi = new ServiceOrderItem();
+		servOrder.getOrderItem().add(soi);
+		
+		ServiceRestriction serviceRestriction = new ServiceRestriction();
+		ServiceSpecificationRef aServiceSpecificationRef = new ServiceSpecificationRef();
+		aServiceSpecificationRef.setId(responsesSpec1.getId() );
+		aServiceSpecificationRef.setName(responsesSpec1.getName());
+		
+		serviceRestriction.setServiceSpecification(aServiceSpecificationRef );
+		soi.setService(serviceRestriction );
+		
+		String responseSorder = mvc.perform(MockMvcRequestBuilders.post("/serviceOrdering/v4/serviceOrder")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( servOrder ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceOrder responsesSpec1 = toJsonObj(responseSpec,  ServiceOrder.class);
-		logger.info("testServiceOrderCreate = " + responseSpec);
+		ServiceOrder responseSO = toJsonObj(responseSorder,  ServiceOrder.class);
+		logger.info("testServiceOrderCreate = " + responseSorder);
 
+
+		assertThat( serviceOrderRepoService.findAll().size() ).isEqualTo( 1 );
 		
 	}
 		

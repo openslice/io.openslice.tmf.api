@@ -2,6 +2,7 @@ package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@Entity(name = "ServiceSpecificationRef")
 public class ServiceSpecificationRef extends BaseRootNamedEntity {
 
 	@JsonProperty("version")

@@ -1,8 +1,6 @@
 package io.openslice.tmf.so641.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,12 +13,10 @@ import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -46,9 +42,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	private String serviceType = null;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "service_specid", referencedColumnName = "id")
-	@JsonIgnore
-	private ServiceSpecification serviceSpecificationObj = null;
+	private ServiceSpecificationRef serviceSpecificationRef = null;
 	
 
 	@JsonProperty("place")
@@ -270,37 +264,19 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * @return serviceSpecification
 	 **/
 	@ApiModelProperty(value = "The specification from which this service was instantiated")
-
 	@Valid
-	@JsonProperty("serviceSpecification")
 	public ServiceSpecificationRef getServiceSpecification() {
-		if ( this.serviceSpecificationObj != null )
-		{
-			ServiceSpecificationRef sref = new ServiceSpecificationRef();
-			
-			sref.setId(  this.serviceSpecificationObj.getUuid());
-			sref.setName(  this.serviceSpecificationObj.getName() );
-			sref.setVersion( this.serviceSpecificationObj.getVersion());
-			sref.setBaseType(ServiceSpecificationRef.class.getName());
-			return sref;			
-		}
+
 		
-		return null;
+		return this.serviceSpecificationRef;
 	}
 
-	/**
-	 * @return the serviceSpecificationObj
-	 */
-	public ServiceSpecification getServiceSpecificationObj() {
-		return serviceSpecificationObj;
+	public void setServiceSpecification(ServiceSpecificationRef aServiceSpecificationRef) {
+		
+		this.serviceSpecificationRef = aServiceSpecificationRef;
 	}
+	
 
-	/**
-	 * @param serviceSpecificationObj the serviceSpecificationObj to set
-	 */
-	public void setServiceSpecificationObj(ServiceSpecification serviceSpecificationObj) {
-		this.serviceSpecificationObj = serviceSpecificationObj;
-	}
 
 
 	public ServiceRestriction state(ServiceStateType state) {

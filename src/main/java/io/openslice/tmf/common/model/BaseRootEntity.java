@@ -174,4 +174,18 @@ public class BaseRootEntity {
 		return o.toString().replace("\n", "\n    ");
 	}
 
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }

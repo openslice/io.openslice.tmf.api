@@ -251,6 +251,12 @@ public class ServiceSpecificationRepoService {
 		}
 		serviceSpec.setValidFor( tp );
 		
+		if (serviceSpec.getResourceSpecification().size()>0 ){
+			serviceSpec.setType("ResourceFacingServiceSpecification");
+		}else{
+			serviceSpec.setType("CustomerFacingServiceSpecification");
+		}
+		
 		return serviceSpec;
 	}
 	

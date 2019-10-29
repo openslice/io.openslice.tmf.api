@@ -80,7 +80,7 @@ public class ServiceSpecification extends BaseEntity {
 	public ServiceSpecification() {
 		super();
 		this.baseType = "BaseEntity";
-		this.type = "ServiceSpecification";
+		this.type = "CustomerFacingServiceSpecification";
 	}
 
 	public ServiceSpecification(ServiceSpecification src) {
@@ -349,25 +349,9 @@ public class ServiceSpecification extends BaseEntity {
 		this.targetServiceSchema = targetServiceSchema;
 	}
 
-	public ServiceSpecification type(String type) {
-		this.type = type;
-		return this;
-	}
+	
 
-	/**
-	 * When sub-classing, this defines the sub-class entity name
-	 * 
-	 * @return type
-	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {

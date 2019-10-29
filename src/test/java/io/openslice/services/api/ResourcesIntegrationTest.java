@@ -259,7 +259,7 @@ public class ResourcesIntegrationTest {
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		LogicalResourceSpec responsesSpec = toJsonObj(responseSpec,  LogicalResourceSpec.class);
-		logger.info("Test: testSpecAttachments response = " + responseSpec);
+		//logger.info("Test: testSpecAttachments response = " + responseSpec);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( responsesSpec.getAttachment().size() ).isEqualTo( 1 );
 		
@@ -303,7 +303,7 @@ public class ResourcesIntegrationTest {
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharRelationship().size()  ).isEqualTo(4);
 		
 
-		logger.info("Test: testSpecAttachments responsesSpec2 patch1= " + response2.toString());
+		//logger.info("Test: testSpecAttachments responsesSpec2 patch1= " + response2.toString());
 		
 		//test now update and delete things
 		responsesSpecUpd = toJsonObj(responseSpec,  ResourceSpecificationUpdate.class);
@@ -330,7 +330,7 @@ public class ResourcesIntegrationTest {
 			    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2.toString());
+//		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2.toString());
 
 		responsesSpec2 = toJsonObj(response2,  ResourceSpecification.class);
 
@@ -373,7 +373,7 @@ public class ResourcesIntegrationTest {
 		assertThat( ANEWCharRelExists).isTrue();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNull();
 
-		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2);
+//		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2);
 		
 
 
@@ -403,7 +403,7 @@ public class ResourcesIntegrationTest {
 			responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpec.class);			
 		}
 		
-		logger.info("createResourceSpec = " + responseSpec);
+//		logger.info("createResourceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
 	
@@ -478,7 +478,7 @@ public class ResourcesIntegrationTest {
 			}
 		}
 		responsesSpecUpd.addResourceSpecRelationshipWith(responsesSpec4);
-		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
+//		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
 		
 		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec3.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
@@ -490,7 +490,7 @@ public class ResourcesIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		ResourceSpecification responseSpecPatch1 = toJsonObj( responsePatch1,  ResourceSpecification.class);
 
-		logger.info("Test: testBundledSpec responsePatch1= " + responsePatch1);
+//		logger.info("Test: testBundledSpec responsePatch1= " + responsePatch1);
 
 		assertThat( responseSpecPatch1.getResourceSpecRelationship().size() ).isEqualTo(2);
 		
@@ -560,7 +560,7 @@ public class ResourcesIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		ResourceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  ResourceSpecification.class);
 
-		logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
+		//logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
 
 		assertThat( responseSpecPost1.getAttachment().size() ).isEqualTo( 1 );
 	}

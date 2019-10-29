@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -19,7 +20,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
-public class ServiceSpecificationRef extends BaseRootEntity {
+public class ServiceSpecificationRef extends BaseRootNamedEntity {
 
 	@JsonProperty("version")
 	private String version = null;

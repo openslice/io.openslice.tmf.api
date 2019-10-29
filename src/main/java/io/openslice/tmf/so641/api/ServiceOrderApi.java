@@ -94,7 +94,6 @@ public interface ServiceOrderApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteServiceOrder(@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -117,7 +116,6 @@ public interface ServiceOrderApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceOrder",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     default ResponseEntity<List<ServiceOrder>> listServiceOrder(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -179,7 +177,6 @@ public interface ServiceOrderApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     default ResponseEntity<ServiceOrder> retrieveServiceOrder(@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {

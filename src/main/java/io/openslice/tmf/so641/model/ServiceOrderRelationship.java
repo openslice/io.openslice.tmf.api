@@ -2,12 +2,14 @@ package io.openslice.tmf.so641.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -18,24 +20,15 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
-public class ServiceOrderRelationship   {
+@Entity(name = "ServiceOrderRelationship")
+public class ServiceOrderRelationship  extends BaseRootEntity  {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
 
   @JsonProperty("relationshipType")
   private String relationshipType = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   @JsonProperty("@referredType")
   private String referredType = null;
@@ -61,26 +54,6 @@ public class ServiceOrderRelationship   {
     this.id = id;
   }
 
-  public ServiceOrderRelationship href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * A hyperlink to the related order
-   * @return href
-  **/
-  @ApiModelProperty(value = "A hyperlink to the related order")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
   public ServiceOrderRelationship relationshipType(String relationshipType) {
     this.relationshipType = relationshipType;
     return this;
@@ -101,70 +74,6 @@ public class ServiceOrderRelationship   {
     this.relationshipType = relationshipType;
   }
 
-  public ServiceOrderRelationship baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ServiceOrderRelationship schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ServiceOrderRelationship type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public ServiceOrderRelationship referredType(String referredType) {
-    this.referredType = referredType;
-    return this;
-  }
 
   /**
    * The entity type of the related order

@@ -30,12 +30,6 @@ public class BaseRootEntity {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	protected String uuid = null;
 
-	@JsonProperty("href")
-	protected String href = null;
-
-	@JsonProperty("name")
-	protected String name = null;
-
 	@JsonProperty("@baseType")
 	protected String baseType = "BaseEntity";
 
@@ -46,6 +40,10 @@ public class BaseRootEntity {
 	@JsonProperty("@type")
 	protected String type = null;
 
+
+
+	@JsonProperty("href")
+	protected String href = null;
 
 
 	
@@ -64,45 +62,6 @@ public class BaseRootEntity {
 		this.uuid = uuid;
 	}
 
-	public BaseRootEntity href(String href) {
-		this.href = href;
-		return this;
-	}
-
-	/**
-	 * Unique reference of the entity
-	 * 
-	 * @return href
-	 **/
-	@ApiModelProperty(value = "Unique reference of the entity")
-
-	public String getHref() {
-		return href;
-	}
-
-	public void setHref(String href) {
-		this.href = href;
-	}
-
-	public BaseRootEntity name(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * Name of the entity
-	 * 
-	 * @return name
-	 **/
-	@ApiModelProperty(value = "Name of the entity")
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public BaseRootEntity baseType(String baseType) {
 		this.baseType = baseType;
@@ -122,6 +81,24 @@ public class BaseRootEntity {
 
 	public void setBaseType(String baseType) {
 		this.baseType = baseType;
+	}
+	
+	
+
+
+	/**
+	 * Unique reference of the entity
+	 * 
+	 * @return href
+	 **/
+	@ApiModelProperty(value = "Unique reference of the entity")
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
 	}
 
 	public BaseRootEntity schemaLocation(String schemaLocation) {
@@ -154,15 +131,14 @@ public class BaseRootEntity {
 			return false;
 		}
 		BaseRootEntity Entity = (BaseRootEntity) o;
-		return Objects.equals(this.uuid, Entity.uuid) && Objects.equals(this.href, Entity.href)
-				&& Objects.equals(this.name, Entity.name)
+		return Objects.equals(this.uuid, Entity.uuid) 
 				&& Objects.equals(this.baseType, Entity.baseType)
 				&& Objects.equals(this.schemaLocation, Entity.schemaLocation);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(uuid, href, name,
+		return Objects.hash(uuid, 
 
 				baseType, schemaLocation);
 	}
@@ -173,8 +149,6 @@ public class BaseRootEntity {
 		sb.append("class Entity {\n");
 
 		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-		sb.append("    href: ").append(toIndentedString(href)).append("\n");
-		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
 		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -184,8 +158,6 @@ public class BaseRootEntity {
 
 	public void copyFromObj(BaseRootEntity be) {
 		this.uuid = be.uuid;
-		this.name = be.name;
-		this.href = be.href;
 		this.baseType = be.baseType;
 		this.schemaLocation = be.schemaLocation;
 		this.type = be.type;

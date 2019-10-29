@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class ResourceSpecificationRef  extends BaseRootEntity {
+public class ResourceSpecificationRef  extends BaseRootNamedEntity {
   @JsonProperty("id")
   private String id = null;
 

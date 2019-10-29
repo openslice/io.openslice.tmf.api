@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Entity(name = "BaseEntity")
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
-public class BaseEntity extends BaseRootEntity{
+public class BaseEntity extends BaseRootNamedEntity{
 
 
 	@Lob

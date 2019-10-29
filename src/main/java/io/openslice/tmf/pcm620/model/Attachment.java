@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,7 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity(name = "Attachment")
-public class Attachment extends BaseRootEntity  {
+public class Attachment extends BaseRootNamedEntity  {
   @JsonProperty("id")
   private String id = null;
 

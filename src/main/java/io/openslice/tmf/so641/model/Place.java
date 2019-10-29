@@ -2,10 +2,13 @@ package io.openslice.tmf.so641.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,33 +18,16 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Place reference. Place defines the places where the products are sold or delivered.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
-
-public class Place   {
+@Entity(name = "Place")
+public class Place extends BaseRootNamedEntity  {
+	
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("role")
   private String role = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  public Place id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique identifier of the place
@@ -51,56 +37,7 @@ public class Place   {
 
 
   public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Place href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Unique reference of the place
-   * @return href
-  **/
-  @ApiModelProperty(value = "Unique reference of the place")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public Place name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
-   * @return name
-  **/
-  @ApiModelProperty(value = "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Place role(String role) {
-    this.role = role;
-    return this;
+    return uuid;
   }
 
   /**
@@ -116,66 +53,6 @@ public class Place   {
 
   public void setRole(String role) {
     this.role = role;
-  }
-
-  public Place baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public Place schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public Place type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
 

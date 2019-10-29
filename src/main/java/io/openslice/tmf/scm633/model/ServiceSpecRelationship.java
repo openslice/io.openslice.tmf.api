@@ -12,6 +12,9 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,31 +28,14 @@ import io.swagger.annotations.ApiModelProperty;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceSpecRelationship")
-public class ServiceSpecRelationship {
+public class ServiceSpecRelationship extends BaseRootNamedEntity {
 	
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	protected String uuid = null;
+
 	
 	
 	@JsonProperty("id")
 	protected String id = null;
 
-	@JsonProperty("name")
-	protected String name = null;
-
-	
-	@JsonProperty("@baseType")
-	protected String baseType = "BaseEntity";
-
-
-	@JsonProperty("@schemaLocation")
-	protected String schemaLocation = null;
-	
-
-	@JsonProperty("@type")
-	protected String type = null;
 
 	@JsonProperty("relationshipType")
 	private String relationshipType = null;
@@ -203,20 +189,6 @@ public class ServiceSpecRelationship {
 	}
 
 	/**
-	 * @return the uuid
-	 */
-	public String getUuid() {
-		return uuid;
-	}
-
-	/**
-	 * @param uuid the uuid to set
-	 */
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-
-	/**
 	 * @return the id
 	 */
 	public String getId() {
@@ -230,61 +202,6 @@ public class ServiceSpecRelationship {
 		this.id = id;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the baseType
-	 */
-	public String getBaseType() {
-		return baseType;
-	}
-
-	/**
-	 * @param baseType the baseType to set
-	 */
-	public void setBaseType(String baseType) {
-		this.baseType = baseType;
-	}
-
-	/**
-	 * @return the schemaLocation
-	 */
-	public String getSchemaLocation() {
-		return schemaLocation;
-	}
-
-	/**
-	 * @param schemaLocation the schemaLocation to set
-	 */
-	public void setSchemaLocation(String schemaLocation) {
-		this.schemaLocation = schemaLocation;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
 	
 	
 }

@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.HashSet;
 
 import javax.servlet.http.HttpSession;
@@ -74,6 +76,7 @@ import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import io.openslice.tmf.so641.model.Note;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderItem;
@@ -124,6 +127,10 @@ public class ServiceOrderIntegrationTest {
 	@Test
 	public void testServiceOrderCreate() throws UnsupportedEncodingException, IOException, Exception {
 	
+		/**
+		 * first add 2 specs
+		 */
+
 		File sspec = new File( "src/test/resources/testServiceSpec.json" );
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
@@ -132,18 +139,43 @@ public class ServiceOrderIntegrationTest {
 		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
-		
-		
+
+		//service 2 is an RFS
+		ServiceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr2.setName("Spec2");
+		ResourceSpecificationRef resourceSpecificationItem = new ResourceSpecificationRef();
+		resourceSpecificationItem.setId("resourceid");
+		resourceSpecificationItem.setName("resourceName");		
+		sspeccr2.addResourceSpecificationItem(resourceSpecificationItem);		
+		ServiceSpecification responsesSpec2 = createServiceSpec(sspectext, sspeccr2);
+		/**
+		 * add them as bundle
+		 */
+
+		ServiceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr3.setName("Spec3Bundled");
+		sspeccr3.isBundle(true);
+		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
+		sspeccr3.addServiceSpecRelationshipWith( responsesSpec2 );		
+		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
 		
 		ServiceOrderCreate servOrder = new ServiceOrderCreate();
+		servOrder.setCategory("Experimentation");
+		servOrder.setDescription("Experimentation Descr");
+		servOrder.setRequestedStartDate( OffsetDateTime.now(ZoneOffset.UTC ).toString() );
+		servOrder.setRequestedCompletionDate( OffsetDateTime.now(ZoneOffset.UTC ).toString() );
+		
+		Note noteItem = new Note();
+		noteItem.text("test note");
+		servOrder.addNoteItem(noteItem);
 		
 		ServiceOrderItem soi = new ServiceOrderItem();
 		servOrder.getOrderItem().add(soi);
 		
 		ServiceRestriction serviceRestriction = new ServiceRestriction();
 		ServiceSpecificationRef aServiceSpecificationRef = new ServiceSpecificationRef();
-		aServiceSpecificationRef.setId(responsesSpec1.getId() );
-		aServiceSpecificationRef.setName(responsesSpec1.getName());
+		aServiceSpecificationRef.setId(responsesSpec3.getId() );
+		aServiceSpecificationRef.setName(responsesSpec3.getName());
 		
 		serviceRestriction.setServiceSpecification(aServiceSpecificationRef );
 		soi.setService(serviceRestriction );
@@ -155,9 +187,26 @@ public class ServiceOrderIntegrationTest {
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceOrder responseSO = toJsonObj(responseSorder,  ServiceOrder.class);
 		logger.info("testServiceOrderCreate = " + responseSorder);
+		ServiceOrder responseSO = toJsonObj(responseSorder,  ServiceOrder.class);
 
+		assertThat( responseSO.getCategory()  ).isEqualTo( "Experimentation" );
+		assertThat( responseSO.getDescription()  ).isEqualTo( "Experimentation Descr" );
+		assertThat( responseSO.getRequestedStartDate() ).isNotNull();
+		assertThat( responseSO.getRequestedCompletionDate() ).isNotNull();
+		
+		assertThat( responseSO.getOrderItem().size()  ).isEqualTo( 1 );
+		responseSO.getOrderItem().stream().forEach( 
+				soiElement -> {
+					assertThat( soiElement.getService().getServiceSpecification() ).isNotNull();
+					assertThat( soiElement.getService().getServiceSpecification().getName() ).isEqualTo("Spec3Bundled");
+					assertThat( soiElement.getService().getSupportingResource().size() ).isEqualTo( 1 );
+					assertThat( soiElement.getService().getSupportingService().size() ).isEqualTo( 2 );
+					assertThat( soiElement.getService().getServiceRelationship().size() ).isEqualTo( 2 );					
+				}				
+		);
+		assertThat( responseSO.getNote().size()  ).isEqualTo( 1 );
+		
 
 		assertThat( serviceOrderRepoService.findAll().size() ).isEqualTo( 1 );
 		

@@ -153,6 +153,13 @@ public class ServiceOrder extends BaseRootEntity {
 		this.description = description;
 		return this;
 	}
+	
+	public void setCompletionDate(String completionDate) {
+		if (completionDate!=null) {
+			this.completionDate = OffsetDateTime.parse( completionDate );			
+		}
+	}
+
 
 	/**
 	 * A free-text description of the service order
@@ -190,11 +197,21 @@ public class ServiceOrder extends BaseRootEntity {
 	public void setExpectedCompletionDate(OffsetDateTime expectedCompletionDate) {
 		this.expectedCompletionDate = expectedCompletionDate;
 	}
+	
+	public void setExpectedCompletionDate(String expectedCompletionDate) {
+		if (expectedCompletionDate!=null) {
+			this.expectedCompletionDate = OffsetDateTime.parse( expectedCompletionDate );
+			
+		}
+	}
+	
 
 	public ServiceOrder externalId(String externalId) {
 		this.externalId = externalId;
 		return this;
 	}
+	
+	
 
 	/**
 	 * ID given by the consumer to facilitate searches
@@ -257,6 +274,14 @@ public class ServiceOrder extends BaseRootEntity {
 		this.priority = priority;
 		return this;
 	}
+	
+	public void setOrderDate(String orderDate) {
+
+		if (orderDate!=null) {
+			this.orderDate = OffsetDateTime.parse( orderDate );
+			
+		}
+	}
 
 	/**
 	 * Can be used by consumers to prioritize orders in a Service Order Management
@@ -300,6 +325,14 @@ public class ServiceOrder extends BaseRootEntity {
 		this.requestedStartDate = requestedStartDate;
 		return this;
 	}
+	
+	public void setRequestedCompletionDate(String requestedCompletionDate) {
+
+		if (requestedCompletionDate!=null) {
+			this.requestedCompletionDate = OffsetDateTime.parse( requestedCompletionDate );
+			
+		}
+	}
 
 	/**
 	 * Order start date wished by the requestor
@@ -321,6 +354,14 @@ public class ServiceOrder extends BaseRootEntity {
 	public ServiceOrder startDate(OffsetDateTime startDate) {
 		this.startDate = startDate;
 		return this;
+	}
+	
+	public void setRequestedStartDate(String requestedStartDate) {
+
+		if (requestedStartDate!=null) {
+			this.requestedStartDate = OffsetDateTime.parse( requestedStartDate );
+			
+		}
 	}
 
 	/**

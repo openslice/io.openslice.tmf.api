@@ -60,10 +60,20 @@ public class ServiceOrderRepoService {
 		so.priority(serviceOrder.getPriority());
 		so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
 		so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
-		so.getNote().addAll(serviceOrder.getNote());
-		so.getOrderItem().addAll( serviceOrder.getOrderItem());
-		so.getRelatedParty().addAll(serviceOrder.getRelatedParty());
-		so.getOrderRelationship().addAll( serviceOrder.getOrderRelationship());		
+		if ( serviceOrder.getNote()!=null ) {
+			so.getNote().addAll(serviceOrder.getNote());			
+		}
+		if ( serviceOrder.getOrderItem()!=null ) {
+			so.getOrderItem().addAll( serviceOrder.getOrderItem());
+		}
+
+		if ( serviceOrder.getRelatedParty()!=null ) {
+			so.getRelatedParty().addAll(serviceOrder.getRelatedParty());
+		}
+		if ( serviceOrder.getOrderRelationship()!=null ) {
+			so.getOrderRelationship().addAll( serviceOrder.getOrderRelationship());		
+			
+		}
 		so = this.serviceOrderRepo.save( so );
 		
 		so = this.fixServiceOrderItemsDependencies(so);
@@ -75,8 +85,6 @@ public class ServiceOrderRepoService {
 
 	private ServiceOrder fixServiceOrderItemsDependencies(ServiceOrder so) {
 		
-		
-		
 		//we need to resolve service relationships for this order item 
 		for (ServiceOrderItem soi : so.getOrderItem()) {
 
@@ -84,9 +92,6 @@ public class ServiceOrderRepoService {
 			ServiceSpecification spec = serviceSpecRepoService.findByUuid( soi.getService().getServiceSpecification().getId() );
 			soi = addResourceSpecificationRefs(soi, spec);
 			soi = addBundleSpecificationRefs(soi, spec);
-			
-			
-			
 			
 			
 			for (ServiceSpecCharacteristic specChar : spec.getServiceSpecCharacteristic()) {
@@ -105,7 +110,7 @@ public class ServiceOrderRepoService {
 			}
 			
 		}
-		return null;
+		return so;
 	}
 
 	private ServiceOrderItem addBundleSpecificationRefs(ServiceOrderItem soi, ServiceSpecification spec) {
@@ -122,8 +127,8 @@ public class ServiceOrderRepoService {
 				serviceRelationshipItem.setService(supportingServiceItem);
 				soi.getService().addServiceRelationshipItem(serviceRelationshipItem );
 				
-				soi = addResourceSpecificationRefs(soi, spec); //recursive
-				soi = addBundleSpecificationRefs(soi, spec); //recursive
+				soi = addResourceSpecificationRefs(soi, refServiceSpec); //recursive
+				soi = addBundleSpecificationRefs(soi, refServiceSpec); //recursive
 			}				
 		}
 		return soi;

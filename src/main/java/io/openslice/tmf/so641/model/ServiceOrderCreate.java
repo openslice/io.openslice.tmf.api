@@ -41,10 +41,8 @@ public class ServiceOrderCreate {
 	@JsonProperty("priority")
 	private String priority = null;
 
-	@JsonProperty("requestedCompletionDate")
 	private OffsetDateTime requestedCompletionDate = null;
 
-	@JsonProperty("requestedStartDate")
 	private OffsetDateTime requestedStartDate = null;
 
 	@JsonProperty("note")
@@ -187,11 +185,17 @@ public class ServiceOrderCreate {
 	@ApiModelProperty(value = "Requested delivery date from the requestors perspective")
 
 	@Valid
-
 	public OffsetDateTime getRequestedCompletionDate() {
 		return requestedCompletionDate;
 	}
 
+
+	@JsonProperty("requestedCompletionDate")
+	public String getRequestedCompletionDateStr() {
+		return requestedCompletionDate.toString();
+	}
+	
+	
 	public void setRequestedCompletionDate(OffsetDateTime requestedCompletionDate) {
 		this.requestedCompletionDate = requestedCompletionDate;
 	}
@@ -199,6 +203,14 @@ public class ServiceOrderCreate {
 	public ServiceOrderCreate requestedStartDate(OffsetDateTime requestedStartDate) {
 		this.requestedStartDate = requestedStartDate;
 		return this;
+	}
+	
+	public void setRequestedCompletionDate(String requestedCompletionDate) {
+
+		if (requestedCompletionDate!=null) {
+			this.requestedCompletionDate = OffsetDateTime.parse( requestedCompletionDate );
+			
+		}
 	}
 
 	/**
@@ -213,6 +225,13 @@ public class ServiceOrderCreate {
 	public OffsetDateTime getRequestedStartDate() {
 		return requestedStartDate;
 	}
+	
+
+	@JsonProperty("requestedStartDate")
+	public String getRequestedStartDateStr() {
+		return requestedStartDate.toString();
+	}
+	
 
 	public void setRequestedStartDate(OffsetDateTime requestedStartDate) {
 		this.requestedStartDate = requestedStartDate;
@@ -221,6 +240,15 @@ public class ServiceOrderCreate {
 	public ServiceOrderCreate note(List<Note> note) {
 		this.note = note;
 		return this;
+	}
+	
+
+	public void setRequestedStartDate(String requestedStartDate) {
+
+		if (requestedStartDate!=null) {
+			this.requestedStartDate = OffsetDateTime.parse( requestedStartDate );
+			
+		}
 	}
 
 	public ServiceOrderCreate addNoteItem(Note noteItem) {

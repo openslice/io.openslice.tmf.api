@@ -39,7 +39,7 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/resourceCatalogManagement/v2/")
 public class LogicalResourceSpecApiController implements LogicalResourceSpecApi {
 
-	private static final Logger log = LoggerFactory.getLogger(ResourceSpecificationApiController.class);
+	private static final Logger log = LoggerFactory.getLogger(LogicalResourceSpecApiController.class);
 
 	@Autowired
 	ResourceSpecificationRepoService resourceSpecificationRepoService;
@@ -166,7 +166,7 @@ public class LogicalResourceSpecApiController implements LogicalResourceSpecApi 
 			log.info("addAttachmentToLogicalResourceSpec file=" + afile);
 			
 			Attachment att = objectMapper.readValue(attachment, Attachment.class);
-			log.info("addAttachmentToServiceSpecification att=" + att);
+//			log.info("addAttachmentToServiceSpecification att=" + att);
 			
 			LogicalResourceSpec c = (LogicalResourceSpec) resourceSpecificationRepoService.addAttachmentToResourceSpec( id, att, afile );
 

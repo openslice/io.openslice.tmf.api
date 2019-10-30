@@ -35,7 +35,7 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/resourceCatalogManagement/v2/")
 public class PhysicalResourceSpecApiController implements PhysicalResourceSpecApi {
 
-	private static final Logger log = LoggerFactory.getLogger(ResourceSpecificationApiController.class);
+	private static final Logger log = LoggerFactory.getLogger(PhysicalResourceSpecApiController.class);
 
 	@Autowired
 	ResourceSpecificationRepoService resourceSpecificationRepoService;

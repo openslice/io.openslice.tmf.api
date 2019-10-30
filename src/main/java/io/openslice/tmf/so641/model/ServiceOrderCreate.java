@@ -200,10 +200,7 @@ public class ServiceOrderCreate {
 		this.requestedCompletionDate = requestedCompletionDate;
 	}
 
-	public ServiceOrderCreate requestedStartDate(OffsetDateTime requestedStartDate) {
-		this.requestedStartDate = requestedStartDate;
-		return this;
-	}
+
 	
 	public void setRequestedCompletionDate(String requestedCompletionDate) {
 
@@ -211,6 +208,11 @@ public class ServiceOrderCreate {
 			this.requestedCompletionDate = OffsetDateTime.parse( requestedCompletionDate );
 			
 		}
+	}
+	
+	public ServiceOrderCreate requestedStartDate(OffsetDateTime requestedStartDate) {
+		this.requestedStartDate = requestedStartDate;
+		return this;
 	}
 
 	/**

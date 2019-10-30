@@ -80,6 +80,7 @@ import io.openslice.tmf.so641.model.Note;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderItem;
+import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 import net.minidev.json.JSONObject;
@@ -125,7 +126,7 @@ public class ServiceOrderIntegrationTest {
 	}
 	
 	@Test
-	public void testServiceOrderCreate() throws UnsupportedEncodingException, IOException, Exception {
+	public void testServiceOrderCreateAndUpdate() throws UnsupportedEncodingException, IOException, Exception {
 	
 		/**
 		 * first add 2 specs
@@ -209,6 +210,29 @@ public class ServiceOrderIntegrationTest {
 		
 
 		assertThat( serviceOrderRepoService.findAll().size() ).isEqualTo( 1 );
+		
+		
+		ServiceOrderUpdate servOrderUpd = new ServiceOrderUpdate();
+		servOrderUpd.setExpectedCompletionDate( OffsetDateTime.now(ZoneOffset.UTC ).toString()  );
+		responseSO.getNote().stream().forEach(n -> servOrderUpd.addNoteItem(n));
+		Note en = new Note();
+		en.text("test note2");
+		servOrderUpd.addNoteItem(en);
+		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/serviceOrdering/v4/serviceOrder/" + responseSO.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( servOrderUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
+		ServiceOrder responseSOUpd = toJsonObj(responseSorderUpd,  ServiceOrder.class);
+		
+
+		assertThat( serviceOrderRepoService.findAll().size() ).isEqualTo( 1 );
+
+		assertThat( responseSOUpd.getExpectedCompletionDate() ).isNotNull();
+		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 2 );
 		
 	}
 		

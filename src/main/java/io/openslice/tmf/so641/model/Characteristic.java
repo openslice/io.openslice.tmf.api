@@ -93,10 +93,10 @@ public class Characteristic  extends BaseRootNamedEntity {
         Objects.equals(this.type, characteristic.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, valueType, value, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(name, valueType, value, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

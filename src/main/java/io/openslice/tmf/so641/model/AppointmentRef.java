@@ -103,10 +103,10 @@ public class AppointmentRef extends BaseRootEntity  {
         Objects.equals(this.referredType, appointmentRef.referredType);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, description, baseType, schemaLocation, type, referredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, description, baseType, schemaLocation, type, referredType);
+//  }
 
   @Override
   public String toString() {

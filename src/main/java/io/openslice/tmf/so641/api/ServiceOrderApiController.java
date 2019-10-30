@@ -1,5 +1,8 @@
 package io.openslice.tmf.so641.api;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -13,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import io.openslice.tmf.rcm634.model.ResourceSpecification;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
@@ -28,15 +33,25 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 
 	private static final Logger log = LoggerFactory.getLogger(ServiceOrderApiController.class);
 
+	private final ObjectMapper objectMapper;
+
+	private final HttpServletRequest request;
+
 	@Autowired
 	ServiceOrderRepoService serviceOrderRepoService;
+
+	@org.springframework.beans.factory.annotation.Autowired
+	public ServiceOrderApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+		this.objectMapper = objectMapper;
+		this.request = request;
+	}
 
 	public ResponseEntity<ServiceOrder> createServiceOrder(
 			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder) {
 
 		try {
 
-			ServiceOrder c = serviceOrderRepoService.addServiceOrder( serviceOrder );
+			ServiceOrder c = serviceOrderRepoService.addServiceOrder(serviceOrder);
 
 			return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);
 		} catch (Exception e) {
@@ -50,16 +65,39 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
+	public ResponseEntity<List<ServiceOrder>> listServiceOrder(
+			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+
+		try {
+			return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(),
+					HttpStatus.OK);
+
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<List<ServiceOrder>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	public ResponseEntity<ServiceOrder> patchServiceOrder(
 			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "The ServiceOrder to be updated", required = true) @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		ServiceOrder c = serviceOrderRepoService.updateServiceOrder(id, serviceOrder);
+
+		return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);
 	}
 
 	public ResponseEntity<ServiceOrder> retrieveServiceOrder(
 			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		try {
+
+			return new ResponseEntity<ServiceOrder>( serviceOrderRepoService.findByUuid( id ), HttpStatus.OK);
+		} catch ( Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<ServiceOrder>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

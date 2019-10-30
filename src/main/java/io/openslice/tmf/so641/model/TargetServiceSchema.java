@@ -105,10 +105,10 @@ public class TargetServiceSchema   {
         Objects.equals(this.type, targetServiceSchema.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

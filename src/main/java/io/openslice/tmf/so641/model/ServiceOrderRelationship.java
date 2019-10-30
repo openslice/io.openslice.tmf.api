@@ -109,10 +109,10 @@ public class ServiceOrderRelationship  extends BaseRootEntity  {
         Objects.equals(this.referredType, serviceOrderRelationship.referredType);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, relationshipType, baseType, schemaLocation, type, referredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, relationshipType, baseType, schemaLocation, type, referredType);
+//  }
 
   @Override
   public String toString() {

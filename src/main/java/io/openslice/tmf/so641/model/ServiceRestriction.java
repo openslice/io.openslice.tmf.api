@@ -390,12 +390,12 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 				&& Objects.equals(this.type, serviceRestriction.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, category, name, serviceType, place, relatedParty, serviceCharacteristic,
-				serviceRelationship, getServiceSpecification(), state, supportingResource, supportingService, baseType,
-				schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, category, name, serviceType, place, relatedParty, serviceCharacteristic,
+//				serviceRelationship, getServiceSpecification(), state, supportingResource, supportingService, baseType,
+//				schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

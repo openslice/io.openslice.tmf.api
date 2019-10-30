@@ -82,11 +82,11 @@ public class ResourceRef  extends BaseRootNamedEntity{
         Objects.equals(this.type, resourceRef.type) &&
         Objects.equals(this.referredType, resourceRef.referredType);
   }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
-  }
+//
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
+//  }
 
   @Override
   public String toString() {

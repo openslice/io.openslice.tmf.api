@@ -206,7 +206,7 @@ public class ServiceOrderItem extends BaseRootEntity {
 			return false;
 		}
 		ServiceOrderItem serviceOrderItem = (ServiceOrderItem) o;
-		return Objects.equals(this.id, serviceOrderItem.id) && Objects.equals(this.action, serviceOrderItem.action)
+		return Objects.equals(this.getId(), serviceOrderItem.getId()) && Objects.equals(this.action, serviceOrderItem.action)
 				&& Objects.equals(this.appointment, serviceOrderItem.appointment)
 				&& Objects.equals(this.orderItemRelationship, serviceOrderItem.orderItemRelationship)
 				&& Objects.equals(this.service, serviceOrderItem.service)
@@ -216,18 +216,19 @@ public class ServiceOrderItem extends BaseRootEntity {
 				&& Objects.equals(this.type, serviceOrderItem.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, action, appointment, orderItemRelationship, service, state, baseType, schemaLocation,
-				type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, getId(), action, appointment, orderItemRelationship, service, state, baseType, schemaLocation,
+//				type);
+//	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ServiceOrderItem {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    id: ").append(toIndentedString(getId())).append("\n");
+		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    action: ").append(toIndentedString(action)).append("\n");
 		sb.append("    appointment: ").append(toIndentedString(appointment)).append("\n");
 		sb.append("    orderItemRelationship: ").append(toIndentedString(orderItemRelationship)).append("\n");

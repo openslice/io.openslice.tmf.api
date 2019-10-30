@@ -2,9 +2,8 @@ package io.openslice.tmf.so641.reposervices;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -22,10 +21,12 @@ import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.so641.model.Characteristic;
+import io.openslice.tmf.so641.model.Note;
 import io.openslice.tmf.so641.model.ResourceRef;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderItem;
+import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.model.ServiceRef;
 import io.openslice.tmf.so641.model.ServiceRelationship;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
@@ -143,6 +144,50 @@ public class ServiceOrderRepoService {
 			soi.getService().addSupportingResourceItem(supportingResourceItem );
 		}
 		return soi;
+	}
+
+	public ServiceOrder findByUuid(String id) {
+		Optional<ServiceOrder> optionalCat = this.serviceOrderRepo.findByUuid( id );
+		return optionalCat
+				.orElse(null);
+	}
+
+	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrder) {
+		ServiceOrder so = this.findByUuid(id);
+		
+		so.getOrderItem().stream().forEach(soi -> System.out.println("soi = " + soi.toString()) );
+		
+		so.setCategory( serviceOrder.getCategory() );
+		so.setDescription( serviceOrder.getDescription() );
+		so.setNotificationContact(serviceOrder.getNotificationContact());
+
+		so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
+		so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
+		
+		so.setExpectedCompletionDate( serviceOrder.getExpectedCompletionDate() );
+		so.setStartDate( serviceOrder.getStartDate() );
+		
+		
+		if ( serviceOrder.getNote()!=null ) {
+			for (Note n : serviceOrder.getNote()) {
+				if (n.getUuid() == null) {
+					so.addNoteItem(n);
+				}
+			}
+						
+		}
+		
+		if ( serviceOrder.getRelatedParty()!=null ) {
+			so.getRelatedParty().addAll(serviceOrder.getRelatedParty());
+		}
+		if ( serviceOrder.getOrderRelationship()!=null ) {
+			so.getOrderRelationship().addAll( serviceOrder.getOrderRelationship());		
+			
+		}
+		
+		so = this.serviceOrderRepo.save( so );
+		
+		return so;
 	}
 
 }

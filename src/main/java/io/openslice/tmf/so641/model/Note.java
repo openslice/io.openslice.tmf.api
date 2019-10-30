@@ -135,10 +135,10 @@ public class Note  extends BaseRootEntity{
         Objects.equals(this.type, note.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(author, date, system, text, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(author, date, system, text, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

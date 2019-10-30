@@ -555,12 +555,12 @@ public class ServiceOrder extends BaseRootEntity {
 				&& Objects.equals(this.type, serviceOrder.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, category, completionDate, description, expectedCompletionDate, externalId,
-				notificationContact, orderDate, priority, requestedCompletionDate, requestedStartDate, startDate, note,
-				orderItem, orderRelationship, relatedParty, state, baseType, schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, category, completionDate, description, expectedCompletionDate, externalId,
+//				notificationContact, orderDate, priority, requestedCompletionDate, requestedStartDate, startDate, note,
+//				orderItem, orderRelationship, relatedParty, state, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

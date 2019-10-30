@@ -74,10 +74,10 @@ public class Place extends BaseRootNamedEntity  {
         Objects.equals(this.type, place.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, role, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, role, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

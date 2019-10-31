@@ -642,7 +642,7 @@ public class ServicesIntegrationTest {
 
 		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
 
-		assertThat( responsesSpec1.getVersion()  ).isEqualTo("0.1.0");
+		assertThat( responsesSpec1.getVersion()  ).isEqualTo("2.0.0");
 		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo(67);
 		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
 		

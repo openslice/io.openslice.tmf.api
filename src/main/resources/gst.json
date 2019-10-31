@@ -1,7 +1,7 @@
 {
 	"name": "GST External",
 	"description": "GST external example",
-	"version": "0.1.0",
+	"version": "2.0.0",
 	"isBundle": false,
 	"attachment": [
 	],
@@ -13,15 +13,54 @@
 	],
 	"serviceSpecCharacteristic": [
 		{
-			"name": "Coverage",
-			"configurable": true,
-			"description": "This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice",
+			"name": "Area of Service",
+			"configurable": false,
+			"description": "This attribute specifies the area where the terminals can access a particular network slice. Therefore, the attribute specifies the list of the countries where the service will be provided. The list is specific to NSPs and their roaming agreements",
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
-			"valueType": "ENUM",
+			"valueType": "SET",
+			"serviceSpecCharRelationship": [
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	,
+				{
+					"role": "Region specification",
+					"name": "Area of Service: Region specification",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "Country",
+						"alias": "Country Name"
+					}
+				}
+				
+			]
+		},
+		{
+			"name": "Area of Service: Region specification",
+			"configurable": false,
+			"description": "For every single country listed in the area of service attribute it needs to be indicated if the service will be provided in the whole country or just in part of the country. If the NSC requires a specific location, this attribute can be used to specify the regions of the country where the service will be provided. It needs to be completed for every country listed in the Area of service attribute. The list of regions is specific for each country and the way to define these regions is the decision of the NSC and NSP.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "SET",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
@@ -30,75 +69,48 @@
 			],
 			"serviceSpecCharacteristicValue": [
 				{
-					"isDefault": false,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
-					"valueType": "SMALLINT",
-					"validFor": null,
-					"value": {
-						"value": "3",
-						"alias": "Regional"
-					}
-				},
-				{
-					"isDefault": false,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
-					"valueType": "SMALLINT",
-					"validFor": null,
-					"value": {
-						"value": "2",
-						"alias": "National"
-					}
-				},
-				{
-					"isDefault": false,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
-					"valueType": "SMALLINT",
-					"validFor": null,
-					"value": {
-						"value": "1",
-						"alias": "Global"
-					}
-				},
-				{
-					"isDefault": false,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
-					"valueType": "SMALLINT",
-					"validFor": null,
-					"value": {
-						"value": "5",
-						"alias": "Local (indoor)"
-					}
-				},
-				{
 					"isDefault": true,
 					"rangeInterval": null,
 					"regex": null,
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "SMALLINT",
+					"valueType": "INTEGER",
 					"validFor": null,
 					"value": {
-						"value": "4",
-						"alias": "Local (outdoor)"
+						"value": "0",
+						"alias": "Full Country"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Local Region A"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Local Region B"
 					}
 				}
+				
 			]
 		},
 		{
@@ -108,7 +120,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "BINARY",
 			
@@ -143,7 +155,7 @@
 					"validFor": null,
 					"value": {
 						"value": "1",
-						"alias": "Not supported"
+						"alias": "Supported"
 					}
 				}
 			]
@@ -174,7 +186,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
@@ -208,7 +220,7 @@
 					"validFor": null,
 					"value": {
 						"value": "1",
-						"alias": "Not supported"
+						"alias": "Supported"
 					}
 				}
 			]
@@ -221,7 +233,7 @@
 			"isUnique": true,
 			"maxCardinality": 1,
 			"minCardinality": 0,
-			"regex": null,
+			"regex": "Conditional: This parameter is present when the “Availability” is set to 1.",
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
@@ -246,7 +258,7 @@
 		},
 		{
 			"name": "Downlink throughput per network slice",
-			"description": "Is the achievable data rate of the network slice in downlink that is available ubiquitously across the coverage area of the slice?",
+			"description": "The achievable data rate in downlink for the whole network slice (and not per user).",
 			"serviceSpecCharRelationship": [
 				{
 					"role": "Guaranteed downlink throughput",
@@ -344,8 +356,8 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
-			"regex": null,
+			"minCardinality": 0,
+			"regex": "Conditional: Attribute must be present if service is supported requiring guaranteed downlink throughput",
 			"valueType": "INTEGER",			
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
@@ -558,7 +570,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "ENUM",
 			"serviceSpecCharRelationship": [
@@ -746,7 +758,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
@@ -1025,7 +1037,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
@@ -1058,7 +1070,7 @@
 					"validFor": null,
 					"value": {
 						"value": "1",
-						"alias": "Not supported"
+						"alias": "Supported"
 					}
 				}
 			]
@@ -1066,13 +1078,13 @@
 		{
 			"name": "Network Slice Customer network functions",
 			"configurable": false,
-			"description": "A NSC can own some Network Functions (e.g. User Plan Function (UPF), User Data Management, UDM). This attribute provides a list of network functions to be provided by the NSC. If the list is empty, the NSC is not expected to provide any network function relevant for the network slice instance",
+			"description": "A NSC can own some Network Functions (e.g. User Plane Function (UPF), User Data Management, UDM). This attribute provides a list of network functions to be provided by the NSC. If the list is empty, the NSC is not expected to provide any network function relevant for the network slice instance",
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
 			"minCardinality": 0,
 			"regex": null,
-			"valueType": "ARRAY",
+			"valueType": "SET",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
@@ -1225,7 +1237,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 0,
 			"regex": null,
-			"valueType": "ARRAY",
+			"valueType": "SET",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
@@ -1242,8 +1254,8 @@
 					"valueType": "INTEGER",
 					"validFor": null,
 					"value": {
-						"value": "10.000",
-						"alias": "terminals"
+						"value": "0",
+						"alias": "None"
 					}
 				}
 			]
@@ -1469,7 +1481,7 @@
 			"configurable": false,
 			"description": "This attribute describes if the network slice provides geo-localization methods or supporting methods.",
 			"regex": null,
-			"valueType": "BINARY",
+			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
 				{
 					"role": "Availability",
@@ -2356,7 +2368,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
@@ -2382,98 +2394,7 @@
 				}
 			]
 		},
-		{
-			"name": "Supported access technologies",
-			"configurable": false,
-			"description": "This attribute defines which access technologies are supported by the network slice.",
-			"extensible": null,
-			"isUnique": true,
-			"maxCardinality": 1,
-			"minCardinality": 0,
-			"regex": null,
-			"valueType": "ARRAY",
-			"serviceSpecCharRelationship": [
-				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "tag" },
-				{ "name": "Operational", "role": "tag", "relationshipType": "tag" },
-				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
-				{ "name": "KPI", "role": "tag", "relationshipType": "tag" }	
-			],
-			"serviceSpecCharacteristicValue": [
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "1",
-						"alias": "GERAN"
-					}
-				},
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "2",
-						"alias": "UTRAN"
-					}
-				},
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "3",
-						"alias": "E-UTRA"
-					}
-				},
-				{
-					"isDefault": true,
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "4",
-						"alias": "NR"
-					}
-				},
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "5",
-						"alias": "LTE-M"
-					}
-				},
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "6",
-						"alias": "NB-IoT"
-					}
-				},
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "7",
-						"alias": "Wi-Fi"
-					}
-				},
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "8",
-						"alias": "Bluetooth"
-					}
-				},
-				{
-					"unitOfMeasure": "N/A",
-					"valueType": "INTEGER",
-					"value": {
-						"value": "9",
-						"alias": "Fixed access, e.g. DSL, Fibre"
-					}
-				}
-			]
-		},
+		
 		{
 			"name": "Supported device velocity",
 			"configurable": false,
@@ -2739,7 +2660,7 @@
 			"isUnique": true,
 			"maxCardinality": 1,
 			"minCardinality": 0,
-			"regex": null,
+			"regex": "Conditional:",
 			"valueType": "INTEGER",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
@@ -2802,7 +2723,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "BINARY",
 			"serviceSpecCharRelationship": [
@@ -2924,8 +2845,8 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
-			"regex": null,
+			"minCardinality": 0,
+			"regex": "Conditional:This parameter is present if User data Access is 1(Termination in the private network).",
 			"valueType": "ARRAY",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
@@ -3011,7 +2932,7 @@
 			"extensible": null,
 			"isUnique": true,
 			"maxCardinality": 1,
-			"minCardinality": 1,
+			"minCardinality": 0,
 			"regex": null,
 			"valueType": "INTEGER",
 			

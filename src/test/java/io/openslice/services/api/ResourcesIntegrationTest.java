@@ -4,6 +4,7 @@ package io.openslice.services.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,6 +18,7 @@ import java.net.URI;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -92,7 +97,18 @@ public class ResourcesIntegrationTest {
 
 	@Autowired
 	ResourceCandidateRepoService candidateRepoService;
-	
+
+	  @Autowired
+	    private WebApplicationContext context;
+	    
+		@Before
+	    public void setup() {
+	        mvc = MockMvcBuilders
+	          .webAppContextSetup(context)
+	          .apply(springSecurity())
+	          .build();
+	    }
+		
 	
 	@Test
 	public void _countDefaultProperties() {
@@ -104,7 +120,8 @@ public class ResourcesIntegrationTest {
 		
 	}
 	
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void addCatalogAddCategory() throws Exception {
 		File scatalog = new File( "src/test/resources/testResourceCatalog.txt" );
@@ -232,7 +249,8 @@ public class ResourcesIntegrationTest {
 		
 	}
 	
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testSpecAttributesUpdate() throws Exception {
 		logger.info("Test: testSpecAttributesUpdate");
@@ -406,7 +424,8 @@ public class ResourcesIntegrationTest {
 //		logger.info("createResourceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testBundledSpec() throws Exception {
 		logger.info("Test: testBundledSpec " );
@@ -524,7 +543,8 @@ public class ResourcesIntegrationTest {
 
 	
 	
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testSpecAttachment() throws Exception {
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );
@@ -565,7 +585,8 @@ public class ResourcesIntegrationTest {
 		assertThat( responseSpecPost1.getAttachment().size() ).isEqualTo( 1 );
 	}
 
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testLogicalPhysicalResources() throws Exception {
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -104,6 +109,16 @@ public class ServicesIntegrationTest {
 	@Autowired
 	CandidateRepoService candidateRepoService;
 	
+    @Autowired
+    private WebApplicationContext context;
+    
+	@Before
+    public void setup() {
+        mvc = MockMvcBuilders
+          .webAppContextSetup(context)
+          .apply(springSecurity())
+          .build();
+    }
 	
 	@Test
 	public void _countDefaultProperties() {
@@ -115,7 +130,14 @@ public class ServicesIntegrationTest {
 		
 	}
 	
+	@Test
+    public void givenRequestOnPrivateService_shouldFailWith401() throws Exception {
+        mvc.perform(post("/serviceCatalogManagement/v4/serviceCatalog")
+                        .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isUnauthorized());
+    }
 	
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
 	public void addCatalogAddCategory() throws Exception {
 		File scatalog = new File( "src/test/resources/testServiceCatalog.txt" );
@@ -222,7 +244,8 @@ public class ServicesIntegrationTest {
 		
 	}
 	
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testSpecAttributesUpdate() throws Exception {
 		logger.info("Test: testSpecAttributesUpdate");
@@ -384,7 +407,8 @@ public class ServicesIntegrationTest {
 		logger.info("createServiceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testBundledSpec() throws Exception {
 		logger.info("Test: testBundledSpec " );
@@ -516,6 +540,7 @@ public class ServicesIntegrationTest {
 	}
 	
 
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testCloneSpec() throws Exception {
 
@@ -576,7 +601,8 @@ public class ServicesIntegrationTest {
 	}
 	
 	
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testSpecAttachment() throws Exception {
 		File sspec = new File( "src/test/resources/testServiceSpec.json" );
@@ -617,7 +643,8 @@ public class ServicesIntegrationTest {
 		assertThat( responseSpecPost1.getAttachment().size() ).isEqualTo( 1 );
 	}
 
-	
+
+	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testGST() throws Exception {
 		logger.info("Test: testBundledSpec " );

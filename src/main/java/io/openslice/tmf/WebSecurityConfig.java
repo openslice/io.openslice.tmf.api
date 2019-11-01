@@ -49,6 +49,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET,  "/serviceCatalogManagement/**").permitAll()
 		.antMatchers( HttpMethod.GET, "/resourceCatalogManagement/**").permitAll()
+//		.antMatchers( "/swagger*", "/v2/**").permitAll()
+//		.antMatchers("/swagger/**").permitAll()
+//		.antMatchers("/swagger-resources/**").permitAll()
+//		.antMatchers("/webjars/**").permitAll()		
+//		.antMatchers("/v2/**").permitAll()
+		.antMatchers("/**").permitAll() //for now let it open
 		.anyRequest().authenticated()
 		//.and().formLogin().permitAll()
 		.and().csrf().disable()

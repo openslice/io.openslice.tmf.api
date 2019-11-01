@@ -27,6 +27,7 @@ import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
@@ -208,7 +209,43 @@ public class ServiceSpecificationRepoService {
 
 			
 		}
-				
+
+		/**
+		 * Update RelatedParty list
+		 */
+		if (serviceSpecUpd.getRelatedParty() != null ){
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (RelatedParty rp : serviceSpecUpd.getRelatedParty()) {
+				//find attachmet by id and reload it here.
+				//we need the attachment model from resource spec models
+				boolean idexists = false;
+				for (RelatedParty originalRP : serviceSpec.getRelatedParty()) {
+					if ( originalRP.getId().equals( rp.getId())) {
+						idexists = true;
+						idAddedUpdated.put( originalRP.getId(), true);
+						break;
+					}					
+				}
+				if (!idexists) {
+					serviceSpec.getRelatedParty().add(rp);
+					idAddedUpdated.put( rp.getId(), true);
+				}
+			}
+			List<RelatedParty> toRemove = new ArrayList<>();
+			for (RelatedParty ss : serviceSpec.getRelatedParty()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (RelatedParty ar : toRemove) {
+				serviceSpec.getRelatedParty().remove(ar);
+			}
+		}
+		
+		
 
 		/**
 		 * Update ServiceSpecRelationship list
@@ -217,15 +254,9 @@ public class ServiceSpecificationRepoService {
 		if (serviceSpecUpd.getServiceSpecRelationship() != null ){
 			serviceSpec.getServiceSpecRelationship().clear();
 			serviceSpec.getServiceSpecRelationship().addAll( serviceSpecUpd.getServiceSpecRelationship() );
+			
 		}
 		
-		/**
-		 * Update RelatedParty list
-		 */
-		if (serviceSpecUpd.getRelatedParty() != null ){
-			serviceSpec.getRelatedParty().clear();
-			serviceSpec.getRelatedParty().addAll( serviceSpecUpd.getRelatedParty() );
-		}
 		
 		/**
 		 * Update ResourceSpecification list

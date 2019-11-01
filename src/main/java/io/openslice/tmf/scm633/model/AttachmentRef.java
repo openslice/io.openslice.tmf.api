@@ -249,10 +249,10 @@ public class AttachmentRef {
 				&& Objects.equals(this.referredType, attachmentRef.referredType);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, description, url, baseType, schemaLocation, type, referredType);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, description, url, baseType, schemaLocation, type, referredType);
+//	}
 
 	@Override
 	public String toString() {

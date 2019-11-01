@@ -54,8 +54,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.EValueType;
+import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.model.Quantity;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
@@ -223,6 +225,14 @@ public class ServiceOrderIntegrationTest {
 		);
 		assertThat( responseSO.getNote().size()  ).isEqualTo( 1 );
 		
+		boolean userPartyRoleexists = false;
+		for (RelatedParty r : responseSO.getRelatedParty()) {
+			if ( r.getName().equals( "osadmin" ) && r.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
+				userPartyRoleexists = true;
+			}
+		}
+		
+		assertThat(userPartyRoleexists  ).isTrue() ;
 
 		assertThat( serviceOrderRepoService.findAll().size() ).isEqualTo( 1 );
 		

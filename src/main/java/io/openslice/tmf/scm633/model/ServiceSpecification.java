@@ -97,7 +97,7 @@ public class ServiceSpecification extends BaseEntity {
 			this.addAttachmentItem( new AttachmentRef( attachmentRef ));
 		}
 		for (RelatedParty r : src.relatedParty) {
-			this.addRelatedPartyItem(r);
+			this.addRelatedPartyItem( new RelatedParty( r) );
 		}
 		for (ResourceSpecificationRef r : src.resourceSpecification) {
 			this.addResourceSpecificationItem( new ResourceSpecificationRef(r) );

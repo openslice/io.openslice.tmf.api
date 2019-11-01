@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
+import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
 import io.swagger.annotations.ApiParam;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
@@ -51,6 +54,11 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 
 		try {
 
+			serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
+					SecurityContextHolder.getContext().getAuthentication().getName(), UserPartRoleType.REQUESTER,
+					serviceOrder.getRelatedParty()));
+
+			
 			ServiceOrder c = serviceOrderRepoService.addServiceOrder(serviceOrder);
 
 			return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);

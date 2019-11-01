@@ -77,10 +77,10 @@ import net.minidev.json.JSONObject;
 @ActiveProfiles("testing")
 //@TestPropertySource(
 //		  locations = "classpath:application-testing.yml")
-public class ResourcesIntegrationTest {
+public class ResourceCatalogIntegrationTest {
 
 
-	private static final transient Log logger = LogFactory.getLog( ResourcesIntegrationTest.class.getName());
+	private static final transient Log logger = LogFactory.getLog( ResourceCatalogIntegrationTest.class.getName());
 	
     @Autowired
     private MockMvc mvc;

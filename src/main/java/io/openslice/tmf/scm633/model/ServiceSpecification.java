@@ -74,6 +74,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * @return the id
 	 */
 	public String getId() {
+		id = uuid;
 		return uuid;
 	}
 

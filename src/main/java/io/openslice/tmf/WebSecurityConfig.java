@@ -47,13 +47,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
 		http.authorizeRequests()
-		.antMatchers(HttpMethod.GET,  "/serviceCatalogManagement/**").permitAll()
-		.antMatchers( HttpMethod.GET, "/resourceCatalogManagement/**").permitAll()
-//		.antMatchers( "/swagger*", "/v2/**").permitAll()
-//		.antMatchers("/swagger/**").permitAll()
-//		.antMatchers("/swagger-resources/**").permitAll()
-//		.antMatchers("/webjars/**").permitAll()		
-//		.antMatchers("/v2/**").permitAll()
+		.antMatchers( "/serviceCatalogManagement/**").permitAll()
+		.antMatchers( "/resourceCatalogManagement/**").permitAll()
+		.antMatchers( "/swagger*", "/v2/**").permitAll()
+		.antMatchers("/swagger/**").permitAll()
+		.antMatchers("/swagger-resources/**").permitAll()
+		.antMatchers("/webjars/**").permitAll()		
+		.antMatchers("/v2/**").permitAll()
 		.antMatchers("/**").permitAll() //for now let it open
 		.anyRequest().authenticated()
 		//.and().formLogin().permitAll()

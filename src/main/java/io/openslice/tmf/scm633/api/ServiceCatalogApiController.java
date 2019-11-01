@@ -35,7 +35,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 	CatalogRepoService catalogRepoService;
 
 
-	@Secured({ "ROLE_ADMIN" })
+	//@Secured({ "ROLE_ADMIN" })
     public ResponseEntity<ServiceCatalog> createServiceCatalog(
     		@ApiParam(value = "The ServiceCatalog to be created" ,required=true )  @Valid @RequestBody ServiceCatalogCreate serviceCatalog) {
     	try {

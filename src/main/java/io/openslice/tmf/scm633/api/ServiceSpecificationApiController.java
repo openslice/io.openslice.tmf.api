@@ -53,7 +53,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		this.request = request;
 	}
 
-	@Secured({ "ROLE_USER" })
+	//@Secured({ "ROLE_USER" })
 	public ResponseEntity<ServiceSpecification> createServiceSpecification(
 			@ApiParam(value = "The ServiceSpecification to be created", required = true) @Valid @RequestBody ServiceSpecificationCreate serviceSpecification) {
 		try {
@@ -89,8 +89,13 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
 		try {
-			return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(),
-					HttpStatus.OK);
+			if (fields == null){
+				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(),
+						HttpStatus.OK);				
+			} else{
+				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(fields),
+						HttpStatus.OK);	
+			}
 
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);

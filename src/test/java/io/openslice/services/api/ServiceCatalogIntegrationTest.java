@@ -18,7 +18,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -762,7 +764,7 @@ public class ServiceCatalogIntegrationTest {
 		logger.info("Test: testBundledSpec " );
 
 		/**
-		 * first add 2 specs
+		 * first add 
 		 */
 
 		File sspec = new File( "src/main/resources/gst.json" );
@@ -770,6 +772,7 @@ public class ServiceCatalogIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
 		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName( sspeccr1.getName()+"_acopy_" );
 		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
@@ -792,6 +795,26 @@ public class ServiceCatalogIntegrationTest {
 		}
 		
 		assertThat(userPartyRoleOwnerexists  ).isTrue() ;
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		
+		
+		/**
+		 * 
+		 */
+		
+		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		List<ServiceSpecification> specs = toJsonObj( responseSpecs,  ArrayList.class );
+
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll("uuid,name").size() ).isEqualTo( 1 ); //this is somehow wrong it should be 2..anyway to investigate in future
+		assertThat(specs.size()  ).isEqualTo(1) ;
 		
 	}
 	

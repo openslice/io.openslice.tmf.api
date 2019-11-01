@@ -76,13 +76,9 @@ public interface ResourceCategoryApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceCategory/{id}",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
         method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteResourceCategory(@ApiParam(value = "Identifier of the Resource Category",required=true) @PathVariable("id") String id) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ResourceCategoryApi interface so no example is generated");
-        }
+
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -94,21 +90,9 @@ public interface ResourceCategoryApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceCategory",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
         method = RequestMethod.GET)
     default ResponseEntity<List<ResourceCategory>> listResourceCategory(@ApiParam(value = "Comma separated properties to display in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "For filtering: Name of the category") @Valid @RequestParam(value = "name", required = false) String name,@ApiParam(value = "For filtering: The (class) type of this category") @Valid @RequestParam(value = "@type", required = false) String type,@ApiParam(value = "For filtering: This field provides a link to the schema describing this REST resource") @Valid @RequestParam(value = "@schemalLocation", required = false) String schemalLocation,@ApiParam(value = "For filtering: Immediate base class type of this category") @Valid @RequestParam(value = "@baseType", required = false) String baseType,@ApiParam(value = "For filtering: Category version") @Valid @RequestParam(value = "version", required = false) String version,@ApiParam(value = "For filtering: An instant of time, starting at the TimePeriod") @Valid @RequestParam(value = "validFor.startDateTime", required = false) OffsetDateTime validForStartDateTime,@ApiParam(value = "For filtering: An instant of time, ending at the TimePeriod.") @Valid @RequestParam(value = "validFor.endDateTime", required = false) OffsetDateTime validForEndDateTime,@ApiParam(value = "For filtering: Used to indicate the current lifecycle status") @Valid @RequestParam(value = "lifecycleStatus", required = false) String lifecycleStatus,@ApiParam(value = "For filtering: Date and time of the last update") @Valid @RequestParam(value = "lastUpdate", required = false) OffsetDateTime lastUpdate,@ApiParam(value = "For filtering: Unique identifier of the parent category") @Valid @RequestParam(value = "parentId", required = false) String parentId,@ApiParam(value = "For filtering: If true, this Boolean indicates that the category is a root of categories") @Valid @RequestParam(value = "isRoot", required = false) Boolean isRoot,@ApiParam(value = "For filtering: Category version") @Valid @RequestParam(value = "category.version", required = false) String categoryVersion,@ApiParam(value = "For filtering: Name of the category") @Valid @RequestParam(value = "category.name", required = false) String categoryName,@ApiParam(value = "For filtering: the class type of the category") @Valid @RequestParam(value = "category.@type", required = false) String categoryType,@ApiParam(value = "For filtering: ResourceCandidate version") @Valid @RequestParam(value = "resourceCandidate.version", required = false) String resourceCandidateVersion,@ApiParam(value = "For filtering: Name given to the ResourceCandidate") @Valid @RequestParam(value = "resourceCandidate.name", required = false) String resourceCandidateName,@ApiParam(value = "For filtering: The (class) type of the ResourceCandidate") @Valid @RequestParam(value = "resourceCandidate.@type", required = false) String resourceCandidateType,@ApiParam(value = "For filtering: Role of the related party.") @Valid @RequestParam(value = "relatedParty.role", required = false) String relatedPartyRole,@ApiParam(value = "For filtering: Name of the related party") @Valid @RequestParam(value = "relatedParty.name", required = false) String relatedPartyName) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"lifecycleStatus\" : \"lifecycleStatus\",  \"isRoot\" : true,  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"description\" : \"description\",  \"relatedParty\" : [ {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  }, {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  } ],  \"version\" : \"version\",  \"resourceCandidate\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ],  \"parentId\" : \"parentId\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"@schemalLocation\" : \"@schemalLocation\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ]}, {  \"lifecycleStatus\" : \"lifecycleStatus\",  \"isRoot\" : true,  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"description\" : \"description\",  \"relatedParty\" : [ {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  }, {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  } ],  \"version\" : \"version\",  \"resourceCandidate\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ],  \"parentId\" : \"parentId\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"@schemalLocation\" : \"@schemalLocation\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ]} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ResourceCategoryApi interface so no example is generated");
-        }
+
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -121,21 +105,9 @@ public interface ResourceCategoryApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/resourceCategory/{id}",
         produces = { "application/json" }, 
-        consumes = { "application/json" },
         method = RequestMethod.PATCH)
     default ResponseEntity<ResourceCategory> patchResourceCategory(@ApiParam(value = "Identifier of the Resource Category",required=true) @PathVariable("id") String id,@ApiParam(value = "The Resource Category to be updated" ,required=true )  @Valid @RequestBody ResourceCategoryUpdate resourceCategory) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"lifecycleStatus\" : \"lifecycleStatus\",  \"isRoot\" : true,  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"description\" : \"description\",  \"relatedParty\" : [ {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  }, {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  } ],  \"version\" : \"version\",  \"resourceCandidate\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ],  \"parentId\" : \"parentId\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"@schemalLocation\" : \"@schemalLocation\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ]}", ResourceCategory.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ResourceCategoryApi interface so no example is generated");
-        }
+
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -150,19 +122,8 @@ public interface ResourceCategoryApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.GET)
-    default ResponseEntity<List<ResourceCategory>> retrieveResourceCategory(@ApiParam(value = "Identifier of the Resource Category",required=true) @PathVariable("id") String id) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {  \"lifecycleStatus\" : \"lifecycleStatus\",  \"isRoot\" : true,  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"description\" : \"description\",  \"relatedParty\" : [ {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  }, {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  } ],  \"version\" : \"version\",  \"resourceCandidate\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ],  \"parentId\" : \"parentId\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"@schemalLocation\" : \"@schemalLocation\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ]}, {  \"lifecycleStatus\" : \"lifecycleStatus\",  \"isRoot\" : true,  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"description\" : \"description\",  \"relatedParty\" : [ {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  }, {    \"role\" : \"role\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\"  } ],  \"version\" : \"version\",  \"resourceCandidate\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ],  \"parentId\" : \"parentId\",  \"@baseType\" : \"@baseType\",  \"lastUpdate\" : \"2000-01-23T04:56:07.000+00:00\",  \"name\" : \"name\",  \"@schemalLocation\" : \"@schemalLocation\",  \"id\" : \"id\",  \"href\" : \"href\",  \"category\" : [ {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  }, {    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"version\" : \"version\"  } ]} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default ResourceCategoryApi interface so no example is generated");
-        }
+    default ResponseEntity<ResourceCategory> retrieveResourceCategory(@ApiParam(value = "Identifier of the Resource Category",required=true) @PathVariable("id") String id) {
+       
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 

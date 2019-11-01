@@ -2,7 +2,10 @@ package io.openslice.tmf.scm633.reposervices;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManagerFactory;
@@ -17,8 +20,10 @@ import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
+import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceCategoryUpdate;
 import io.openslice.tmf.scm633.repo.CatalogRepository;
 import io.openslice.tmf.scm633.repo.CategoriesRepository;
@@ -100,10 +105,28 @@ public class CategoryRepoService {
 	
 	
 
-	public Void deleteById(String id) {
+	public boolean deleteById(String id) {
 		Optional<ServiceCategory> optionalCat = this.categsRepo.findByUuid( id );
+		if ( optionalCat.get().getCategoryObj().size()>0 ) {
+			return false; //has children
+		}
+		
+		if ( optionalCat.get().getParentId() != null ) {
+			ServiceCategory parentCat = (this.categsRepo.findByUuid( optionalCat.get().getParentId() )).get();
+			
+			//remove from parent category
+			for (ServiceCategory ss : parentCat.getCategoryObj()) {
+				if  ( ss.getId()  == optionalCat.get().getId() ) {
+					 parentCat.getCategoryObj().remove(ss);
+					 break;
+				}
+			}			
+			parentCat = this.categsRepo.save(parentCat);
+		}
+		
+		
 		this.categsRepo.delete( optionalCat.get());
-		return null;
+		return true;
 		
 	}
 
@@ -118,29 +141,71 @@ public class CategoryRepoService {
 		return this.categsRepo.save( sc );
 	}
 	
-	public ServiceCategory updateCategoryDataFromAPICall( ServiceCategory sc, ServiceCategoryUpdate serviceCategory )
+	public ServiceCategory updateCategoryDataFromAPICall( ServiceCategory sc, ServiceCategoryUpdate serviceCatUpd )
 	{		
-		sc.setName( serviceCategory.getName()  );
-		sc.setDescription( serviceCategory.getDescription());
-		if ( serviceCategory.getLifecycleStatus() == null ) {
+		sc.setName( serviceCatUpd.getName()  );
+		sc.setDescription( serviceCatUpd.getDescription());
+		sc.setIsRoot( serviceCatUpd.isIsRoot());
+		if ( serviceCatUpd.getLifecycleStatus() == null ) {
 			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
 		} else {
-			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCategory.getLifecycleStatus() ) );
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCatUpd.getLifecycleStatus() ) );
 		}
 		
 
-		if ( serviceCategory.getVersion() == null ) {
+		if ( serviceCatUpd.getVersion() == null ) {
 			sc.setVersion( "1.0.0" );			
 		} else {
-			sc.setVersion( serviceCategory.getVersion() );		
+			sc.setVersion( serviceCatUpd.getVersion() );		
 		}
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		TimePeriod tp = new TimePeriod();
-		if ( serviceCategory.getValidFor() != null ) {
-			tp.setStartDateTime( serviceCategory.getValidFor().getStartDateTime() );
-			tp.setEndDateTime( serviceCategory.getValidFor().getEndDateTime() );
+		if ( serviceCatUpd.getValidFor() != null ) {
+			tp.setStartDateTime( serviceCatUpd.getValidFor().getStartDateTime() );
+			tp.setEndDateTime( serviceCatUpd.getValidFor().getEndDateTime() );
 		} 
 		sc.setValidFor( tp );
+		
+		if ( serviceCatUpd.getCategory() !=null ) {
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (ServiceCategoryRef ref : serviceCatUpd.getCategory() ) {
+				//find  by id and reload it here.
+				boolean idexists = false;
+				for (ServiceCategory originalSCat : sc.getCategoryObj()) {
+					if ( originalSCat.getId().equals( ref.getId())) {
+						idexists = true;
+						idAddedUpdated.put( originalSCat.getId(), true);
+						break;
+					}					
+				}
+				if (!idexists) {
+					Optional<ServiceCategory> catToAdd = this.categsRepo.findByUuid( ref.getId() );
+					if ( catToAdd.isPresent() ) {
+						ServiceCategory scatadd = catToAdd.get();
+						sc.getCategoryObj().add( scatadd );
+						idAddedUpdated.put( ref.getId(), true);		
+						
+						scatadd.setParentId( sc.getUuid());
+						scatadd = this.categsRepo.save( scatadd );
+					}
+				}
+			}
+			List<ServiceCategory> toRemove = new ArrayList<>();
+			for (ServiceCategory ss : sc.getCategoryObj()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (ServiceCategory ar : toRemove) {
+				sc.getCategoryObj().remove(ar);
+			}
+		}
+		
+		
+		
 		return sc;
 	}
 

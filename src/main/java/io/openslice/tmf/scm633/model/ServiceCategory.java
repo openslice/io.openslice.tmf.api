@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.Valid;
@@ -44,7 +45,7 @@ public class ServiceCategory extends BaseEntity {
 	private String parentId = null;
 
 
-	@ManyToMany(  cascade = {  CascadeType.ALL } )
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
@@ -64,6 +65,7 @@ public class ServiceCategory extends BaseEntity {
 	 * @return the id
 	 */
 	public String getId() {
+		id = uuid;
 		return uuid;
 	}
 
@@ -147,6 +149,21 @@ public class ServiceCategory extends BaseEntity {
 		return category;
 	}
 	
+	
+	/**
+	 * @param categoryObj the categoryObj to set
+	 */
+	@JsonProperty("category")
+	public void setCategoryObj(List<ServiceCategoryRef> alist) {
+		this.categoryObj.clear();
+		for (ServiceCategoryRef serviceCategoryRef : alist) {
+			ServiceCategory sc = new ServiceCategory();
+			sc.setUuid( serviceCategoryRef.getId());
+			sc.setName(serviceCategoryRef.getName());
+			sc.setBaseType(serviceCategoryRef.getBaseType());
+			this.categoryObj.add(sc);
+		}
+	}
 	
 
 	/**

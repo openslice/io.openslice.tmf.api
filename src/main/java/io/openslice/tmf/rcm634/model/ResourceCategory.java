@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 
@@ -19,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
+import io.openslice.tmf.scm633.model.ServiceCategory;
+import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,7 +46,7 @@ public class ResourceCategory extends BaseEntity {
 	@JsonProperty("isRoot")
 	private Boolean isRoot = null;
 
-	@ManyToMany(  cascade = {  CascadeType.ALL } )
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ResourceCategory> categoryObj = new HashSet<>();
@@ -66,6 +69,7 @@ public class ResourceCategory extends BaseEntity {
 	 * @return the id
 	 */
 	public String getId() {
+		id = uuid;
 		return uuid;
 	}
 
@@ -140,7 +144,22 @@ public class ResourceCategory extends BaseEntity {
 		return category;
 	}
 	
+	/**
+	 * @param categoryObj the categoryObj to set
+	 */
+	@JsonProperty("category")
+	public void setCategoryObj(List<ResourceCategoryRef> alist) {
+		this.categoryObj.clear();
+		for (ResourceCategoryRef resCategoryRef : alist) {
+			ResourceCategory sc = new ResourceCategory();
+			sc.setUuid( resCategoryRef.getId());
+			sc.setName(resCategoryRef.getName());
+			sc.setBaseType(resCategoryRef.getBaseType());
+			this.categoryObj.add(sc);
+		}
+	}
 	
+
 
 	/**
 	 * @return the categoryObj

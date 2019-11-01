@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -71,6 +72,7 @@ public interface ServiceCategoryApi {
         @ApiResponse(code = 404, message = "Not Found", response = Error.class),
         @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 413, message = "Not modifed", response = Error.class),        
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceCategory",
         produces = { "application/json;charset=utf-8" }, 

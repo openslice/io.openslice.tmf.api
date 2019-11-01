@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.HashSet;
 
@@ -68,6 +69,7 @@ import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
+import io.openslice.tmf.scm633.model.ServiceCategoryUpdate;
 import io.openslice.tmf.scm633.model.ServiceSpecCharRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
@@ -134,9 +136,9 @@ public class ServiceCatalogIntegrationTest {
 	
 	@Test
     public void givenRequestOnPrivateService_shouldFailWith401() throws Exception {
-        mvc.perform(post("/serviceCatalogManagement/v4/serviceCatalog")
-                        .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isUnauthorized());
+//        mvc.perform(post("/serviceCatalogManagement/v4/serviceCatalog")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                    .andExpect(status().isUnauthorized());
     }
 	
 	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
@@ -244,8 +246,116 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( responsesSpec.getServiceSpecCharacteristic().size() ).isEqualTo(1);
 		assertThat( responsesSpec.getServiceSpecCharacteristic().toArray( new ServiceSpecCharacteristic[0] )[0].getServiceSpecCharacteristicValue().size()  ).isEqualTo(1);
 		
+		
+		
+		
 	}
 	
+	
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
+	@Test
+	public void manageCategoriesSubCategories() throws Exception {
+		/**
+		 * add category
+		 */
+		
+		File scat = new File( "src/test/resources/testServiceCategory.txt" );
+		InputStream in = new FileInputStream( scat );
+		String sc = IOUtils.toString(in, "UTF-8");
+		
+		ServiceCategoryCreate scategcreate = toJsonObj( sc,  ServiceCategoryCreate.class);
+		scategcreate.setIsRoot(true);
+		ServiceCategory parentRootCategory = postCategory( scategcreate, scategcreate.getName() );
+
+		ServiceCategoryCreate scategcreate2 = toJsonObj( sc,  ServiceCategoryCreate.class);
+		scategcreate2.setName("Child Cat");
+		ServiceCategory child1Subcategory = postCategory( scategcreate2, scategcreate2.getName() );
+		
+		ServiceCategoryUpdate scUpd1 = toJsonObj( sc,  ServiceCategoryUpdate.class);
+		scUpd1.setIsRoot(true);
+		scUpd1.setName("Parent Cat");
+		ServiceCategoryRef scRef = new ServiceCategoryRef();
+		scRef.setId( child1Subcategory.getId() );
+		scRef.setName( child1Subcategory.getName() );
+		scUpd1.addCategoryItem(scRef);
+		
+
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+
+		String response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( scUpd1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is( "Parent Cat" )))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+				
+		parentRootCategory = toJsonObj(response,  ServiceCategory.class);
+		
+
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( parentRootCategory.getCategoryRefs().size() ).isEqualTo(1);
+		assertThat( parentRootCategory.getCategoryRefs().get(0).getId() ).isEqualTo( child1Subcategory.getId() );
+		
+		
+		//fetch the subcategory and check parent ID
+		
+		 response = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( scUpd1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))	
+	    	    .andReturn().getResponse().getContentAsString();
+		 
+		 child1Subcategory = toJsonObj(response,  ServiceCategory.class);
+		
+		 assertThat( child1Subcategory.getParentId()  ).isEqualTo( parentRootCategory.getId() );
+		 		 
+		 //delete category with childs not allows (not modified)
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
+					.contentType(MediaType.APPLICATION_JSON)
+					.content( toJson( scUpd1 ) ))
+				    .andExpect(status().isNotModified() )
+		    	    .andReturn().getResponse().getContentAsString();
+		 
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		
+		//delete subcategory
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+					.contentType(MediaType.APPLICATION_JSON)
+					.content( toJson( scUpd1 ) ))
+				    .andExpect(status().isOk() )
+		    	    .andReturn().getResponse().getContentAsString();
+		 
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
+		
+		 //delete rootcategory 
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
+					.contentType(MediaType.APPLICATION_JSON)
+					.content( toJson( scUpd1 ) ))
+				    .andExpect(status().isOk() )
+		    	    .andReturn().getResponse().getContentAsString();
+		 
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
+		
+	}
+
+	private ServiceCategory postCategory(ServiceCategoryCreate scategcreate, String name) throws UnsupportedEncodingException, IOException, Exception {
+				
+		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCategory")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( scategcreate ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is( name )))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+				
+		ServiceCategory responsesCateg = toJsonObj(response,  ServiceCategory.class);
+		
+		return responsesCateg;
+	}
 
 	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test

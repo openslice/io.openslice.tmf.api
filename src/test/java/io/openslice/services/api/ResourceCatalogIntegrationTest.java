@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 
 import org.apache.commons.io.IOUtils;
@@ -55,6 +56,7 @@ import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
+import io.openslice.tmf.rcm634.model.ResourceCategoryUpdate;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharRelationship;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
@@ -66,6 +68,8 @@ import io.openslice.tmf.rcm634.reposervices.ResourceCandidateRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
+import io.openslice.tmf.scm633.model.ServiceCategory;
+import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import net.minidev.json.JSONObject;
 
 
@@ -249,6 +253,114 @@ public class ResourceCatalogIntegrationTest {
 		
 	}
 	
+	
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
+	@Test
+	public void manageCategoriesSubCategories() throws Exception {
+		/**
+		 * add category
+		 */
+		
+		File scat = new File( "src/test/resources/testResourceCategory.txt" );
+		InputStream in = new FileInputStream( scat );
+		String sc = IOUtils.toString(in, "UTF-8");
+		
+		ResourceCategoryCreate scategcreate = toJsonObj( sc,  ResourceCategoryCreate.class);
+		scategcreate.setIsRoot(true);
+		ResourceCategory parentRootCategory = postCategory( scategcreate, scategcreate.getName() );
+
+		ResourceCategoryCreate scategcreate2 = toJsonObj( sc,  ResourceCategoryCreate.class);
+		scategcreate2.setName("Child Cat");
+		ResourceCategory child1Subcategory = postCategory( scategcreate2, scategcreate2.getName() );
+		
+		ResourceCategoryUpdate scUpd1 = toJsonObj( sc,  ResourceCategoryUpdate.class);
+		scUpd1.setIsRoot(true);
+		scUpd1.setName("Parent Cat");
+		ResourceCategoryRef scRef = new ResourceCategoryRef();
+		scRef.setId( child1Subcategory.getId() );
+		scRef.setName( child1Subcategory.getName() );
+		scUpd1.addCategoryItem(scRef);
+		
+
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+
+		String response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( scUpd1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is( "Parent Cat" )))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+				
+		parentRootCategory = toJsonObj(response,  ResourceCategory.class);
+		
+
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( parentRootCategory.getCategoryRefs().size() ).isEqualTo(1);
+		assertThat( parentRootCategory.getCategoryRefs().get(0).getId() ).isEqualTo( child1Subcategory.getId() );
+		
+		
+		//fetch the subcategory and check parent ID
+		
+		 response = mvc.perform(MockMvcRequestBuilders.get("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( scUpd1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))	
+	    	    .andReturn().getResponse().getContentAsString();
+		 
+		 child1Subcategory = toJsonObj(response,  ResourceCategory.class);
+		
+		 assertThat( child1Subcategory.getParentId()  ).isEqualTo( parentRootCategory.getId() );
+		 		 
+		 //delete category with childs not allows (not modified)
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+					.contentType(MediaType.APPLICATION_JSON)
+					.content( toJson( scUpd1 ) ))
+				    .andExpect(status().isNotModified() )
+		    	    .andReturn().getResponse().getContentAsString();
+		 
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		
+		//delete subcategory
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+					.contentType(MediaType.APPLICATION_JSON)
+					.content( toJson( scUpd1 ) ))
+				    .andExpect(status().isOk() )
+		    	    .andReturn().getResponse().getContentAsString();
+		 
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
+		
+		 //delete rootcategory 
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+					.contentType(MediaType.APPLICATION_JSON)
+					.content( toJson( scUpd1 ) ))
+				    .andExpect(status().isOk() )
+		    	    .andReturn().getResponse().getContentAsString();
+		 
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
+		
+	}
+
+	
+
+	private ResourceCategory postCategory(ResourceCategoryCreate scategcreate, String name) throws UnsupportedEncodingException, IOException, Exception {
+			
+			String response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCategory")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content( toJson( scategcreate ) ))
+				    .andExpect(status().isOk())
+				    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				    .andExpect(jsonPath("name", is( name )))								 
+		    	    .andExpect(status().isOk())
+		    	    .andReturn().getResponse().getContentAsString();
+					
+			ResourceCategory responsesCateg = toJsonObj(response,  ResourceCategory.class);
+			
+			return responsesCateg;
+		}
+
 
 	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test

@@ -64,8 +64,13 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 			@ApiParam(value = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id) {
 
 		try {
-
-			return new ResponseEntity<Void>(categoryRepoService.deleteById(id), HttpStatus.OK);
+			if ( categoryRepoService.deleteById(id) ) {
+				return new ResponseEntity<Void>(HttpStatus.OK);
+				
+			} else {
+				return new ResponseEntity<Void>(HttpStatus.NOT_MODIFIED );
+			}
+			
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

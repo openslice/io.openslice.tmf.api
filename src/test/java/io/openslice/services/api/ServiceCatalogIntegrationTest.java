@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -796,7 +797,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		assertThat(userPartyRoleOwnerexists  ).isTrue() ;
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
-		assertThat( specRepoService.findAll("uuid,name").size() ).isEqualTo( 1 ); //this is somehow wrong in Testing ONLY it should be 2..anyway to investigate in future..something is happening with Session factory
+		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 1 ); //this is somehow wrong in Testing ONLY it should be 2..anyway to investigate in future..something is happening with Session factory
 		
 		
 		/**
@@ -814,9 +815,26 @@ public class ServiceCatalogIntegrationTest {
 
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
-		assertThat( specRepoService.findAll("uuid,name").size() ).isEqualTo( 1 ); //this is somehow wrong it should be 2..anyway to investigate in future
+		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 1 ); //this is somehow wrong it should be 2..anyway to investigate in future
 		assertThat(specs.size()  ).isEqualTo(1) ;
 		
+		
+
+		/**
+		 * 
+		 */
+		
+		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=GST%20External")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		List<ServiceSpecification> specsFilter = toJsonObj( responseSpecsFilter,  ArrayList.class );
+
+
+		assertThat(specsFilter.size()  ).isEqualTo(1) ;
 	}
 	
 	

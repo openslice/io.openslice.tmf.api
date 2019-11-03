@@ -2,6 +2,10 @@ package io.openslice.tmf.scm633.reposervices;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.OffsetDateTime;
@@ -17,6 +21,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
@@ -94,13 +99,25 @@ public class ServiceSpecificationRepoService {
 		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findAll();
 	}
 
-	public List<ServiceSpecification> findAll(@Valid String fields) {
+	public List<ServiceSpecification> findAll(@Valid String fields, Map<String, String> allParams) throws UnsupportedEncodingException {
 
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		 List<ServiceSpecification> alist = null;
 		try {
-			Query q = session.createQuery("SELECT s.uuid,s.name,s.description,s.isBundle  FROM ServiceSpecification s ORDER BY s.uuid");
+			String sql = "SELECT s.uuid,s.name,s.description,s.isBundle ";
+			sql += " FROM ServiceSpecification s";
+			if (allParams.size()>0){
+				sql += " WHERE ";
+				for (String pname : allParams.keySet()) {
+					sql += " " + pname + " LIKE ";
+					 String pval =URLDecoder.decode(allParams.get(pname), StandardCharsets.UTF_8.toString());
+					sql += "'" + pval + "'";
+				}
+				
+			}
+			sql += " ORDER BY s.uuid";
+			Query q = session.createQuery( sql );
 			q.setFirstResult(0);
 			q.setMaxResults(1000);
 			alist = q.getResultList();

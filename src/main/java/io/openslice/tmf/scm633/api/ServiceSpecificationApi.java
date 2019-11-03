@@ -6,6 +6,7 @@
 package io.openslice.tmf.scm633.api;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -77,7 +78,10 @@ public interface ServiceSpecificationApi {
     @RequestMapping(value = "/serviceSpecification",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<ServiceSpecification>> listServiceSpecification(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
+    ResponseEntity<List<ServiceSpecification>> listServiceSpecification(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+    		@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+    		@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+    		@RequestParam Map<String,String> allParams);
 
 
     @ApiOperation(value = "Updates partially a ServiceSpecification", nickname = "patchServiceSpecification", notes = "This operation updates partially a ServiceSpecification entity.", response = ServiceSpecification.class, tags={ "serviceSpecification", })

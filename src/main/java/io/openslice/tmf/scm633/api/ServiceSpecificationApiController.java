@@ -1,6 +1,7 @@
 package io.openslice.tmf.scm633.api;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -86,14 +87,18 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 	public ResponseEntity<List<ServiceSpecification>> listServiceSpecification(
 			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
 			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+			@RequestParam Map<String,String> allParams) {
 
 		try {
-			if (fields == null){
+			allParams.remove("fields");
+			allParams.remove("offset");
+			allParams.remove("limit");
+			if ( ( fields == null) && (allParams.size()==0)){
 				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(),
 						HttpStatus.OK);				
 			} else{
-				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(fields),
+				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(fields, allParams),
 						HttpStatus.OK);	
 			}
 

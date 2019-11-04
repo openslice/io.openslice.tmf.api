@@ -46,7 +46,7 @@ public class ServiceCatalog extends BaseEntity{
 		
 	
 		
-	@ManyToMany(cascade = {  CascadeType.ALL } )
+	@ManyToMany(cascade = {  CascadeType.DETACH } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();

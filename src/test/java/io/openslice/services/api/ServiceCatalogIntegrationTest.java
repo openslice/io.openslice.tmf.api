@@ -66,6 +66,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ResourceSpecificationRef;
+import io.openslice.tmf.scm633.model.ServiceCandidateRef;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;
@@ -132,21 +133,33 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
-		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 1 );
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
 		
 		assertThat( catalogRepoService.findByName( "Catalog" )  ).isNotNull() ;
 		assertThat( categRepoService.findByName( "Generic Services" )  ).isNotNull() ;
 		
 		ServiceCategory categ = categRepoService.findByName( "Generic Services" );
-		assertThat( categ.getServiceCandidateRefs().size() ).isEqualTo( 1 );
-		assertThat( categ.getServiceCandidateRefs().get(0).getName() ).isEqualTo( "GST External" );
-		assertThat( categ.getServiceCandidateRefs().get(0).getId()).isNotNull();
-		
+		assertThat( categ.getServiceCandidateRefs().size() ).isEqualTo( 2 );
 		
 		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
-		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 1 );
-		assertThat( categ2.getServiceCandidateRefs().get(0).getName() ).isEqualTo( "GST External" );
+		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 2 );
+		
+		boolean vinnisbFound = false;
+		boolean gstFound = false;
+		for (ServiceCandidateRef scr : categ.getServiceCandidateRefs()) {
+			if (scr.getName().equals( "GST External" )) {
+				gstFound = true;
+			}
+			if (scr.getName().equals( "VINNI-SB Template" )) {
+				vinnisbFound = true;
+			}
+		}
+		
+		assertThat( gstFound ).isTrue();
+		assertThat( vinnisbFound ).isTrue(); 
+				
+		
 		
 	}
 	
@@ -255,7 +268,7 @@ public class ServiceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
 		ServiceSpecification responsesSpec = toJsonObj(response,  ServiceSpecification.class);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec" );
 
@@ -476,7 +489,7 @@ public class ServiceCatalogIntegrationTest {
 
 		
 		
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
 		
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec" );
 		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo(1);
@@ -517,7 +530,7 @@ public class ServiceCatalogIntegrationTest {
 		
 
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
 		
 	}
 	
@@ -663,7 +676,7 @@ public class ServiceCatalogIntegrationTest {
 		
 
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 5 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 6 );
 		
 	}
 	
@@ -673,7 +686,7 @@ public class ServiceCatalogIntegrationTest {
 	public void testCloneSpec() throws Exception {
 
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
 		
 		/**
 		 * first add 2 specs
@@ -702,7 +715,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
 		
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 4 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 5 );
 
 		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/"+responsesSpec3.getId()+"/clone")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -724,7 +737,7 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( clonedSpec.findSpecCharacteristicByName("Coverage").getUuid()  ).isNotEqualTo( responsesSpec3.findSpecCharacteristicByName("Coverage").getUuid() );
 		
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 5 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 6 );
 		
 	}
 	
@@ -742,7 +755,7 @@ public class ServiceCatalogIntegrationTest {
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
 		
 		Attachment att = new Attachment();
 		att.setDescription("a test atts");
@@ -809,8 +822,8 @@ public class ServiceCatalogIntegrationTest {
 		}
 		
 		assertThat(userPartyRoleOwnerexists  ).isTrue() ;
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
-		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 1 ); //this is somehow wrong in Testing ONLY it should be 2..anyway to investigate in future..something is happening with Session factory
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 2 ); //this is somehow wrong in Testing ONLY it should be 2..anyway to investigate in future..something is happening with Session factory
 		
 		
 		/**
@@ -827,9 +840,9 @@ public class ServiceCatalogIntegrationTest {
 		List<ServiceSpecification> specs = toJsonObj( responseSpecs,  ArrayList.class );
 
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
-		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 1 ); //this is somehow wrong it should be 2..anyway to investigate in future
-		assertThat(specs.size()  ).isEqualTo(1) ;
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 2 ); //this is somehow wrong it should be 2..anyway to investigate in future
+		assertThat(specs.size()  ).isEqualTo( 2 ) ;
 		
 		
 
@@ -857,8 +870,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		ServiceCategory categ = categRepoService.findByName( "Generic Services" );
 		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
-		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 1 );
-		assertThat( categ2.getServiceCandidateRefs().get(0).getName() ).isEqualTo( "GST External" );
+		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 2 );
 		
 		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("GST External", "0.4.0" );
 		assertThat( spec ).isNotNull();
@@ -866,11 +878,114 @@ public class ServiceCatalogIntegrationTest {
 		spec.setVersion("0.x.0");
 		this.specRepoService.updateServiceSpecification( spec);
 		
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
 		
 		this.catalogRepoService.initRepo();
 		
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
+		
+
+	}
+	
+	
+	@WithMockUser(username="osadmin", roles = {"USER"})
+	@Test
+	public void testVINNISBT() throws Exception {
+		logger.info("Test: testVINNISBT " );
+
+		/**
+		 * first add 
+		 */
+
+		File sspec = new File( "src/main/resources/vinnisb/vinnisb.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName( sspeccr1.getName()+"_acopy_" );
+		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec1,  ServiceSpecification.class);
+
+		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
+
+		assertThat( responsesSpec1.getVersion()  ).isEqualTo("0.1.0");
+		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo(1);
+		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
+		boolean userPartyRoleOwnerexists = false;
+		for (RelatedParty r : responsesSpec1.getRelatedParty()) {
+			if ( r.getName().equals( "osadmin" ) && r.getRole().equals( UserPartRoleType.OWNER.toString() )) {
+				userPartyRoleOwnerexists = true;
+			}
+		}
+		
+		assertThat(userPartyRoleOwnerexists  ).isTrue() ;
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 2 ); //this is somehow wrong in Testing ONLY it should be 2..anyway to investigate in future..something is happening with Session factory
+		
+		
+		/**
+		 * 
+		 */
+		
+		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		List<ServiceSpecification> specs = toJsonObj( responseSpecs,  ArrayList.class );
+
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( 2 ); //this is somehow wrong it should be 2..anyway to investigate in future
+		assertThat(specs.size()  ).isEqualTo( 2 ) ;
+		
+		
+
+		/**
+		 * 
+		 */
+		
+		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=VINNI-SB%20Template")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( sspeccr1 ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		List<ServiceSpecification> specsFilter = toJsonObj( responseSpecsFilter,  ArrayList.class );
+
+
+		assertThat(specsFilter.size()  ).isEqualTo(1) ;
+	}
+	
+	@WithMockUser(username="osadmin", roles = {"USER"})
+	@Test
+	public void testVINNISBTUpdate() throws Exception {
+		logger.info("Test: testVINNISBTUpdate " );
+		
+		ServiceCategory categ = categRepoService.findByName( "Generic Services" );
+		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
+		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 2 );
+		
+		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("VINNI-SB Template", "0.1.0" );
+		assertThat( spec ).isNotNull();
+		
+		spec.setVersion("0.x.0");
+		this.specRepoService.updateServiceSpecification( spec);
+		
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		
+		this.catalogRepoService.initRepo();
+		
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
 		
 
 	}

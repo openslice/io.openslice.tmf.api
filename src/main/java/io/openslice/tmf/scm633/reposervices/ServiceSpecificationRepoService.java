@@ -349,17 +349,17 @@ public class ServiceSpecificationRepoService {
 		//
 		// serviceSpecificationObj = createGSTExample(serviceSpecificationObj);
 
-		ServiceSpecification serviceSpecificationObj = readFromLocalResource();
+		ServiceSpecification serviceSpecificationObj = readFromLocalResource( "gst.json" );
 
 		return serviceSpecificationObj;
 
 	}
 
-	private ServiceSpecification readFromLocalResource() {
+	private ServiceSpecification readFromLocalResource( String rname) {
 
 		ServiceSpecification sc;
 		try {
-			sc = objectMapper.readValue(new ClassPathResource("gst.json").getInputStream(), ServiceSpecification.class);
+			sc = objectMapper.readValue(new ClassPathResource( rname ).getInputStream(), ServiceSpecification.class);
 			sc = this.serviceSpecificationRepo.save(sc);
 			return sc;
 		} catch (IOException e) {
@@ -370,6 +370,15 @@ public class ServiceSpecificationRepoService {
 		return null;
 
 	}
+	
+
+	public ServiceSpecification createFirstTimeVINNISBTRepo() {
+
+		ServiceSpecification serviceSpecificationObj = readFromLocalResource("vinnisb/vinnisb.json");
+
+		return serviceSpecificationObj;
+	}
+
 
 	public ServiceSpecification cloneServiceSpecification(String uuid) {
 		ServiceSpecification source = this.findByUuid(uuid);

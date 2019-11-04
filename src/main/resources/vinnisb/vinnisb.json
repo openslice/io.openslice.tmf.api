@@ -1,0 +1,95 @@
+{
+	"name": "VINNI-SB Template",
+	"description": "VINNI-SB template",
+	"version": "0.1.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			"name": "5G-VINNI Service Type",
+			"configurable": false,
+			"description": "The service type is a parameter that identifies the type of communication services the slice is designed to support",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "SET",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Service Type",
+					"role": "tag",
+					"relationshipType": "tag"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "eMBB"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "uRLLC"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "mIoT"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "Customised"
+					}
+				}
+			]
+		}
+	],
+	"serviceSpecRelationship": [
+	],
+	"targetServiceSchema": null
+}

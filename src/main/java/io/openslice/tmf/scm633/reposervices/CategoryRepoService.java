@@ -148,19 +148,22 @@ public class CategoryRepoService {
 	
 	public ServiceCategory updateCategoryDataFromAPICall( ServiceCategory sc, ServiceCategoryUpdate serviceCatUpd )
 	{		
-		sc.setName( serviceCatUpd.getName()  );
-		sc.setDescription( serviceCatUpd.getDescription());
-		sc.setIsRoot( serviceCatUpd.isIsRoot());
-		if ( serviceCatUpd.getLifecycleStatus() == null ) {
-			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-		} else {
+		if (serviceCatUpd.getName()!=null) {
+			sc.setName( serviceCatUpd.getName()  );			
+		}
+		if (serviceCatUpd.getDescription()!=null) {
+			sc.setDescription( serviceCatUpd.getDescription());			
+		}
+		if ( serviceCatUpd.isIsRoot() != null  ) {
+			sc.setIsRoot( serviceCatUpd.isIsRoot());			
+		}
+		
+		if ( serviceCatUpd.getLifecycleStatus() != null ) {
 			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCatUpd.getLifecycleStatus() ) );
 		}
 		
 
 		if ( serviceCatUpd.getVersion() == null ) {
-			sc.setVersion( "1.0.0" );			
-		} else {
 			sc.setVersion( serviceCatUpd.getVersion() );		
 		}
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
@@ -168,8 +171,8 @@ public class CategoryRepoService {
 		if ( serviceCatUpd.getValidFor() != null ) {
 			tp.setStartDateTime( serviceCatUpd.getValidFor().getStartDateTime() );
 			tp.setEndDateTime( serviceCatUpd.getValidFor().getEndDateTime() );
+			sc.setValidFor( tp );
 		} 
-		sc.setValidFor( tp );
 		
 		if ( serviceCatUpd.getCategory() !=null ) {
 			//reattach fromDB

@@ -105,7 +105,14 @@ public class ServiceSpecificationRepoService {
 		Transaction tx = session.beginTransaction();
 		 List<ServiceSpecification> alist = null;
 		try {
-			String sql = "SELECT s.uuid,s.name,s.description,s.isBundle ";
+			String sql = "SELECT ";
+			
+			if (fields==null) {
+				sql += " s";
+			}else {
+				 sql += " s.uuid,s.name,s.description,s.isBundle ";
+			}
+			
 			sql += " FROM ServiceSpecification s";
 			if (allParams.size()>0){
 				sql += " WHERE ";

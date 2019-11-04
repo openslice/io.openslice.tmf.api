@@ -163,7 +163,7 @@ public class CategoryRepoService {
 		}
 		
 
-		if ( serviceCatUpd.getVersion() == null ) {
+		if ( serviceCatUpd.getVersion() != null ) {
 			sc.setVersion( serviceCatUpd.getVersion() );		
 		}
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );

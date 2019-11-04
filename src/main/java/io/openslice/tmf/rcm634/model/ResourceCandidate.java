@@ -37,11 +37,11 @@ public class ResourceCandidate extends BaseEntity {
 	@JsonProperty("id")
 	private String id = null;
 
-	@ManyToMany(mappedBy = "resourceCandidateObj")
+	@ManyToMany(mappedBy = "resourceCandidateObj", cascade = {CascadeType.MERGE,  CascadeType.DETACH} )
 	@JsonIgnore
 	private Set<ResourceCategory> categoryObj = new HashSet<>();
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
 	@JoinColumn(name = "resource_specid", referencedColumnName = "id")
 	@JsonIgnore
 	private ResourceSpecification resourceSpecificationObj = null;
@@ -197,5 +197,19 @@ public class ResourceCandidate extends BaseEntity {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	/**
+	 * @return the categoryObj
+	 */
+	public Set<ResourceCategory> getCategoryObj() {
+		return categoryObj;
+	}
+
+	/**
+	 * @param categoryObj the categoryObj to set
+	 */
+	public void setCategoryObj(Set<ResourceCategory> categoryObj) {
+		this.categoryObj = categoryObj;
 	}
 }

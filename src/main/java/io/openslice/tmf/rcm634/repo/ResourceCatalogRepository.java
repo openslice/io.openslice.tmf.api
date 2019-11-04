@@ -13,6 +13,8 @@ public interface ResourceCatalogRepository extends PagingAndSortingRepository<Re
 
 	
 	Optional<ResourceCatalog> findByUuid(String id);
+
+	Optional<ResourceCatalog> findByName(String aName);
 	
 
 

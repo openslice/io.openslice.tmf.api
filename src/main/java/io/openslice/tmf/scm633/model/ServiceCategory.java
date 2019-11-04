@@ -45,14 +45,14 @@ public class ServiceCategory extends BaseEntity {
 	private String parentId = null;
 
 
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
 	
 	
 
-	@ManyToMany(cascade = {  CascadeType.MERGE } )
+	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ServiceCandidate> serviceCandidateObj = new HashSet<>();

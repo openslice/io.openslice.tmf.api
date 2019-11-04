@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.IntPredicate;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.repo.ResourceCatalogRepository;
+import io.openslice.tmf.scm633.model.ServiceCatalog;
 
 @Service
 public class ResourceCatalogRepoService {
@@ -80,16 +82,18 @@ public class ResourceCatalogRepoService {
 	}
 
 	public ResourceCatalog updateCatalogDataFromAPICall(ResourceCatalog rc, ResourceCatalogUpdate resCatalog) {
-		rc.setName(resCatalog.getName());
-		rc.setDescription(resCatalog.getDescription());
-		if (resCatalog.getLifecycleStatus() == null) {
-			rc.setLifecycleStatusEnum(ELifecycle.LAUNCHED);
-		} else {
+		
+		if (resCatalog.getName()!=null){
+			rc.setName(resCatalog.getName());
+		}
+			
+		if (resCatalog.getDescription()!=null){
+			rc.setDescription(resCatalog.getDescription());			
+		}
+		if (resCatalog.getLifecycleStatus() != null) {
 			rc.setLifecycleStatusEnum(ELifecycle.getEnum(resCatalog.getLifecycleStatus()));
 		}
-		if (resCatalog.getVersion() == null) {
-			rc.setVersion("1.0.0");
-		} else {
+		if (resCatalog.getVersion() != null) {
 			rc.setVersion(resCatalog.getVersion());
 		}
 		rc.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
@@ -97,13 +101,13 @@ public class ResourceCatalogRepoService {
 		if (resCatalog.getValidFor() != null) {
 			tp.setStartDateTime(resCatalog.getValidFor().getStartDateTime());
 			tp.setEndDateTime(resCatalog.getValidFor().getEndDateTime());
+			rc.setValidFor(tp);
 		}
-		rc.setValidFor(tp);
 
-		rc.getCategoryObj().clear();
 
 		// add any new category
 		if (resCatalog.getCategory() != null) {
+			rc.getCategoryObj().clear();
 			for (ResourceCategoryRef scref : resCatalog.getCategory()) {
 				ResourceCategory servcat = this.categRepoService.findByUuid(scref.getId());
 				rc.addCategory(servcat);
@@ -155,6 +159,11 @@ public class ResourceCatalogRepoService {
 
 			this.candidateRepoService.addResourceCandidate(scand);
 		}
+	}
+
+	public ResourceCatalog findByName(String aName) {
+		Optional<ResourceCatalog> optionalCat = this.catalogRepo.findByName( aName );
+		return optionalCat.orElse(null);
 	}
 
 	

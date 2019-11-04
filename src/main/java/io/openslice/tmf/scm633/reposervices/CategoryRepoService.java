@@ -116,6 +116,7 @@ public class CategoryRepoService {
 			return false; //has children
 		}
 		
+		
 		if ( optionalCat.get().getParentId() != null ) {
 			ServiceCategory parentCat = (this.categsRepo.findByUuid( optionalCat.get().getParentId() )).get();
 			

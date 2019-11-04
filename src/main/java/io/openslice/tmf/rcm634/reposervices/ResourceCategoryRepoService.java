@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.IntPredicate;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
@@ -21,12 +22,14 @@ import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.rcm634.model.ResourceCandidate;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceCategoryUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceCatalogRepository;
 import io.openslice.tmf.rcm634.repo.ResourceCategoriesRepository;
+import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 
@@ -95,6 +98,11 @@ public class ResourceCategoryRepoService {
 		        dd = (ResourceCategory) session.get(ResourceCategory.class, id);
 		        Hibernate.initialize( dd.getCategoryObj()  );
 		        Hibernate.initialize( dd.getResourceCandidateObj() );
+		        for (ResourceCandidate rc : dd.getResourceCandidateObj()) {
+			        Hibernate.initialize(rc );
+			        Hibernate.initialize(rc.getCategoryObj() );
+					
+				}
 		        
 		        tx.commit();
 		    } finally {
@@ -146,19 +154,22 @@ public class ResourceCategoryRepoService {
 	
 	public ResourceCategory updateCategoryDataFromAPICall( ResourceCategory sc, ResourceCategoryUpdate resCatUpd )
 	{		
-		sc.setName( resCatUpd.getName()  );
-		sc.setDescription( resCatUpd.getDescription());
-		sc.setIsRoot( resCatUpd.isIsRoot());
-		if ( resCatUpd.getLifecycleStatus() == null ) {
-			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-		} else {
+		if (resCatUpd.getName()!=null){
+			sc.setName( resCatUpd.getName()  );			
+		}
+		if ( resCatUpd.getDescription() != null){
+			sc.setDescription( resCatUpd.getDescription());			
+		}
+		
+		if ( resCatUpd.isIsRoot() != null ){
+			sc.setIsRoot( resCatUpd.isIsRoot());			
+		}
+		if ( resCatUpd.getLifecycleStatus() != null ) {
 			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( resCatUpd.getLifecycleStatus() ) );
 		}
 		
 
-		if ( resCatUpd.getVersion() == null ) {
-			sc.setVersion( "1.0.0" );			
-		} else {
+		if ( resCatUpd.getVersion() != null ) {
 			sc.setVersion( resCatUpd.getVersion() );		
 		}
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
@@ -166,8 +177,8 @@ public class ResourceCategoryRepoService {
 		if ( resCatUpd.getValidFor() != null ) {
 			tp.setStartDateTime( resCatUpd.getValidFor().getStartDateTime() );
 			tp.setEndDateTime( resCatUpd.getValidFor().getEndDateTime() );
+			sc.setValidFor( tp );
 		} 
-		sc.setValidFor( tp );
 		
 		if ( resCatUpd.getCategory() !=null ) {
 			//reattach fromDB
@@ -210,6 +221,13 @@ public class ResourceCategoryRepoService {
 		
 		
 		return sc;
+	}
+
+
+	public ResourceCategory findByName(String aName) {
+		Optional<ResourceCategory> optionalCat = this.categsRepo.findByName( aName );
+		return optionalCat
+				.orElse(null);
 	}
 
 

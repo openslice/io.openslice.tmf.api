@@ -91,16 +91,17 @@ public class CatalogRepoService {
 	}
 
 	public ServiceCatalog updateCatalogDataFromAPICall(ServiceCatalog sc, ServiceCatalogUpdate serviceCatalog) {
-		sc.setName(serviceCatalog.getName());
-		sc.setDescription(serviceCatalog.getDescription());
-		if (serviceCatalog.getLifecycleStatus() == null) {
-			sc.setLifecycleStatusEnum(ELifecycle.LAUNCHED);
-		} else {
+		
+		if (serviceCatalog.getName()!=null){
+			sc.setName(serviceCatalog.getName());			
+		}
+		if (serviceCatalog.getDescription()!=null){
+			sc.setDescription(serviceCatalog.getDescription());			
+		}
+		if (serviceCatalog.getLifecycleStatus() != null) {
 			sc.setLifecycleStatusEnum(ELifecycle.getEnum(serviceCatalog.getLifecycleStatus()));
 		}
-		if (serviceCatalog.getVersion() == null) {
-			sc.setVersion("1.0.0");
-		} else {
+		if (serviceCatalog.getVersion() != null) {
 			sc.setVersion(serviceCatalog.getVersion());
 		}
 		sc.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
@@ -108,13 +109,13 @@ public class CatalogRepoService {
 		if (serviceCatalog.getValidFor() != null) {
 			tp.setStartDateTime(serviceCatalog.getValidFor().getStartDateTime());
 			tp.setEndDateTime(serviceCatalog.getValidFor().getEndDateTime());
+			sc.setValidFor(tp);
 		}
-		sc.setValidFor(tp);
-
-		sc.getCategoryObj().clear();
 
 		// add any new category
 		if (serviceCatalog.getCategory() != null) {
+
+			sc.getCategoryObj().clear();
 			for (ServiceCategoryRef scref : serviceCatalog.getCategory()) {
 				ServiceCategory servcat = this.categRepoService.findByUuid(scref.getId());
 				sc.addCategory(servcat);

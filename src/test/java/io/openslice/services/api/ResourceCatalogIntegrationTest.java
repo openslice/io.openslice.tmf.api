@@ -68,8 +68,11 @@ import io.openslice.tmf.rcm634.reposervices.ResourceCandidateRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
+import io.openslice.tmf.scm633.model.ServiceCatalog;
+import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
+import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import net.minidev.json.JSONObject;
 
 
@@ -122,6 +125,12 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
 		
+
+		assertThat( catalogRepoService.findByName( "Catalog" )  ).isNotNull() ;
+		assertThat( categRepoService.findByName( "Generic Resources" )  ).isNotNull() ;
+
+		ResourceCategory categ = categRepoService.findByName( "Generic Resources" );
+		assertThat( categ.getResourceCandidateRefs().size() ).isEqualTo( 1 );
 	}
 	
 
@@ -300,7 +309,29 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( parentRootCategory.getCategoryRefs().size() ).isEqualTo(1);
 		assertThat( parentRootCategory.getCategoryRefs().get(0).getId() ).isEqualTo( child1Subcategory.getId() );
 		
-		
+		/**
+		 * add to a resource catalog and delete the service catalog, to chech that categories are still there
+		 * 
+		 */
+
+		ResourceCatalog catalog = catalogRepoService.findByName( "Catalog" ); 
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 1 );
+		ResourceCatalogUpdate scu = new ResourceCatalogUpdate();
+		scu.setName( catalog.getName() );
+		for (ResourceCategoryRef iref : catalog.getCategoryRefs()) {
+			scu.addCategoryItem( iref );
+		}
+		ResourceCategoryRef categoryItem = new ResourceCategoryRef();
+		categoryItem.setId( parentRootCategory.getId() );
+		scu.addCategoryItem( categoryItem );
+		catalog = catalogRepoService.updateCatalog( catalog.getId(), scu);
+
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 2 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );		
+		catalogRepoService.deleteById( catalog.getId() );//delete
+		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 0 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );//categories must remain
 		//fetch the subcategory and check parent ID
 		
 		 response = mvc.perform(MockMvcRequestBuilders.get("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )

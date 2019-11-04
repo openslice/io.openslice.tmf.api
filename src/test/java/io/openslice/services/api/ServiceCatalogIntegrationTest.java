@@ -328,6 +328,31 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( parentRootCategory.getCategoryRefs().get(0).getId() ).isEqualTo( child1Subcategory.getId() );
 		
 		
+		/**
+		 * add to a service catalog and delete the service catalog, to chech that categories are still there
+		 * 
+		 */
+
+		ServiceCatalog catalog = catalogRepoService.findByName( "Catalog" ); 
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 1 );
+		ServiceCatalogUpdate scu = new ServiceCatalogUpdate();
+		scu.setName( catalog.getName() );
+		for (ServiceCategoryRef iref : catalog.getCategoryRefs()) {
+			scu.addCategoryItem( iref );
+		}
+		ServiceCategoryRef categoryItem = new ServiceCategoryRef();
+		categoryItem.setId( parentRootCategory.getId() );
+		scu.addCategoryItem( categoryItem );
+		catalog = catalogRepoService.updateCatalog( catalog.getId(), scu);
+
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 2 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );		
+		catalogRepoService.deleteById( catalog.getId() );//delete
+		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 0 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );//categories must remain
+		
+		
 		//fetch the subcategory and check parent ID
 		
 		 response = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )

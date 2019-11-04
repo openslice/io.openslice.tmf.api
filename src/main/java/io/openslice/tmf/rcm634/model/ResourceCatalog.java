@@ -45,7 +45,7 @@ public class ResourceCatalog extends BaseEntity {
 	@Valid
 	private List<RelatedParty> relatedParty = null;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = { CascadeType.DETACH })
 	@JoinTable()
 	@JsonIgnore
 	private Set<ResourceCategory> categoryObj = new HashSet<>();

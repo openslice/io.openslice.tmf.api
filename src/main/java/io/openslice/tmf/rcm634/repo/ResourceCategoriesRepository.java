@@ -14,6 +14,8 @@ public interface ResourceCategoriesRepository extends PagingAndSortingRepository
 	
 	Optional<ResourceCategory> findByUuid(String id);
 
+	Optional<ResourceCategory> findByName(String aName);
+
 
 
 }

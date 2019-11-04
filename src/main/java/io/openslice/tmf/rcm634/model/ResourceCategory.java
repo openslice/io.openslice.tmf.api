@@ -46,14 +46,14 @@ public class ResourceCategory extends BaseEntity {
 	@JsonProperty("isRoot")
 	private Boolean isRoot = null;
 
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ResourceCategory> categoryObj = new HashSet<>();
 	
 	
 
-	@ManyToMany(cascade = {  CascadeType.ALL } )
+	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ResourceCandidate> resourceCandidateObj = new HashSet<>();

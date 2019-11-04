@@ -13,6 +13,8 @@ public interface CatalogRepository extends PagingAndSortingRepository<ServiceCat
 
 	
 	Optional<ServiceCatalog> findByUuid(String id);
+
+	Optional<ServiceCatalog> findByName(String aName);
 	
 
 

@@ -135,6 +135,19 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
 		
+		assertThat( catalogRepoService.findByName( "Catalog" )  ).isNotNull() ;
+		assertThat( categRepoService.findByName( "Generic Services" )  ).isNotNull() ;
+		
+		ServiceCategory categ = categRepoService.findByName( "Generic Services" );
+		assertThat( categ.getServiceCandidateRefs().size() ).isEqualTo( 1 );
+		assertThat( categ.getServiceCandidateRefs().get(0).getName() ).isEqualTo( "GST External" );
+		assertThat( categ.getServiceCandidateRefs().get(0).getId()).isNotNull();
+		
+		
+		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
+		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 1 );
+		assertThat( categ2.getServiceCandidateRefs().get(0).getName() ).isEqualTo( "GST External" );
+		
 	}
 	
 	@Test
@@ -762,7 +775,7 @@ public class ServiceCatalogIntegrationTest {
 	@WithMockUser(username="osadmin", roles = {"USER"})
 	@Test
 	public void testGST() throws Exception {
-		logger.info("Test: testBundledSpec " );
+		logger.info("Test: testGST " );
 
 		/**
 		 * first add 
@@ -785,7 +798,7 @@ public class ServiceCatalogIntegrationTest {
 
 		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
 
-		assertThat( responsesSpec1.getVersion()  ).isEqualTo("2.0.0");
+		assertThat( responsesSpec1.getVersion()  ).isEqualTo("0.4.0");
 		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo(67);
 		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
 		boolean userPartyRoleOwnerexists = false;
@@ -837,6 +850,30 @@ public class ServiceCatalogIntegrationTest {
 		assertThat(specsFilter.size()  ).isEqualTo(1) ;
 	}
 	
+	@WithMockUser(username="osadmin", roles = {"USER"})
+	@Test
+	public void testGSTUpdate() throws Exception {
+		logger.info("Test: testGSTUpdate " );
+		
+		ServiceCategory categ = categRepoService.findByName( "Generic Services" );
+		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
+		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 1 );
+		assertThat( categ2.getServiceCandidateRefs().get(0).getName() ).isEqualTo( "GST External" );
+		
+		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("GST External", "0.4.0" );
+		assertThat( spec ).isNotNull();
+		
+		spec.setVersion("0.x.0");
+		this.specRepoService.updateServiceSpecification( spec);
+		
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
+		
+		this.catalogRepoService.initRepo();
+		
+		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		
+
+	}
 	
 	private LogicalResourceSpec createLogicalResourceSpec() throws Exception{
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );

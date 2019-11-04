@@ -14,6 +14,7 @@ public interface CategoriesRepository extends PagingAndSortingRepository<Service
 	
 	Optional<ServiceCategory> findByUuid(String id);
 
+	Optional<ServiceCategory> findByName(String aName);
 
 
 }

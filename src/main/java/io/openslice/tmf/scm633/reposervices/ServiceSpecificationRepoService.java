@@ -340,7 +340,7 @@ public class ServiceSpecificationRepoService {
 	}
 
 	//@PostConstruct
-	public ServiceSpecification initRepo() {
+	public ServiceSpecification createFirstTimeGSTRepo() {
 		// ServiceSpecificationCreate spec = new ServiceSpecificationCreate();
 		// spec.setName("GST");
 		// spec.setDescription("GST example");
@@ -430,6 +430,17 @@ public class ServiceSpecificationRepoService {
 		spec.addAttachmentItem(attref);
 		this.serviceSpecificationRepo.save(spec);
 		return spec;
+	}
+
+	public ServiceSpecification findByNameAndVersion(String aname, String aversion) {
+
+		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByNameAndVersion( aname, aversion );
+		return optionalCat.orElse(null);
+	}
+
+	public ServiceSpecification updateServiceSpecification(ServiceSpecification spec) {
+		return this.serviceSpecificationRepo.save( spec );
+		
 	}
 
 }

@@ -39,11 +39,11 @@ import io.swagger.annotations.ApiModelProperty;
 public class ServiceCandidate extends BaseEntity {
 
 	
-	@ManyToMany( mappedBy ="serviceCandidateObj" )
+	@ManyToMany( mappedBy ="serviceCandidateObj", cascade = CascadeType.MERGE )
 	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "service_specid", referencedColumnName = "id")
 	@JsonIgnore
 	private ServiceSpecification serviceSpecificationObj = null;

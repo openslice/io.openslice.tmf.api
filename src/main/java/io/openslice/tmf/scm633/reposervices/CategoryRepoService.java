@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
@@ -93,6 +94,10 @@ public class CategoryRepoService {
 		        dd = (ServiceCategory) session.get(ServiceCategory.class, id);
 		        Hibernate.initialize( dd.getCategoryObj()  );
 		        Hibernate.initialize( dd.getServiceCandidateObj() );
+		        for (ServiceCandidate sc : dd.getServiceCandidateObj()) {
+			        Hibernate.initialize(sc );
+			        Hibernate.initialize(sc.getCategoryObj() );
+				}
 		        
 		        tx.commit();
 		    } finally {
@@ -207,6 +212,13 @@ public class CategoryRepoService {
 		
 		
 		return sc;
+	}
+
+
+	public ServiceCategory findByName(String aName) {
+		Optional<ServiceCategory> optionalCat = this.categsRepo.findByName( aName );
+		return optionalCat
+				.orElse(null);
 	}
 
 

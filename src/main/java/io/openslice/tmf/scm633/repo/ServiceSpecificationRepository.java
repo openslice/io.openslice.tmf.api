@@ -14,4 +14,6 @@ public interface ServiceSpecificationRepository extends PagingAndSortingReposito
 	
 	Optional<ServiceSpecification> findByUuid(String id);
 
+	Optional<ServiceSpecification> findByNameAndVersion(String aname, String aversion);
+
 }

@@ -114,12 +114,12 @@ public class CandidateRepoService {
 		}
 		sc.setValidFor( tp );
 		
+		if ( specObj != null){
+			sc.setServiceSpecificationObj( specObj );			
+		}
+		
 		//save first to continue
 		ServiceCandidate savedCand = this.candidateRepo.save( sc );
-		
-		if ( specObj != null){
-			savedCand.setServiceSpecificationObj( specObj );			
-		}
 		
 		for (ServiceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
 			ServiceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());

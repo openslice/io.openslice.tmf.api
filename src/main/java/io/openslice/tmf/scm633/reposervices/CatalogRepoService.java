@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.IntPredicate;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -58,6 +59,12 @@ public class CatalogRepoService {
 
 	public ServiceCatalog findById(String id) {
 		Optional<ServiceCatalog> optionalCat = this.catalogRepo.findByUuid(id);
+		return optionalCat.orElse(null);
+	}
+	
+
+	public ServiceCatalog findByName(String aName) {
+		Optional<ServiceCatalog> optionalCat = this.catalogRepo.findByName( aName );
 		return optionalCat.orElse(null);
 	}
 
@@ -133,14 +140,8 @@ public class CatalogRepoService {
 			scatalog.getCategoryObj().add(scategory);
 			this.catalogRepo.save(scatalog);
 
-			ServiceSpecification serviceSpecificationObj = this.specRepoService.initRepo();
-			
-//			ServiceSpecificationCreate spec = new ServiceSpecificationCreate();
-//			spec.setName("GST");
-//			spec.setDescription("GST example");
-//			ServiceSpecification serviceSpecificationObj = this.specRepoService.addServiceSpecification(spec);
-//			serviceSpecificationObj = createGSTExample(serviceSpecificationObj);
-//			serviceSpecificationObj = this.specRepoService.serviceSpecificationRepo.save(serviceSpecificationObj);
+			ServiceSpecification serviceSpecificationObj = this.specRepoService.createFirstTimeGSTRepo();
+	
 
 			ServiceCandidateCreate scand = new ServiceCandidateCreate();
 			scand.setName( serviceSpecificationObj.getName());
@@ -154,8 +155,30 @@ public class CatalogRepoService {
 			scand.addCategoryItem(categoryItem);
 
 			this.candidateRepoService.addServiceCandidate(scand);
+		} else { //check if we have the latest version of GST
+			ServiceCategory scategory = this.categRepoService.findByName("Generic Services");
+			ServiceSpecification serviceSpecificationObj = this.specRepoService.findByNameAndVersion("GST External", "0.4.0");
+			
+			if ( ( scategory != null ) &&  ( serviceSpecificationObj == null ))
+			{
+				serviceSpecificationObj = this.specRepoService.createFirstTimeGSTRepo();
+				ServiceCandidateCreate scand = new ServiceCandidateCreate();
+				scand.setName( serviceSpecificationObj.getName());
+				ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
+				serviceSpecificationRef.setId(serviceSpecificationObj.getId());
+				serviceSpecificationRef.setName(serviceSpecificationObj.getName());
+				scand.serviceSpecification(serviceSpecificationRef);
+
+				ServiceCategoryRef categoryItem = new ServiceCategoryRef();
+				categoryItem.setId(scategory.getId());
+				scand.addCategoryItem(categoryItem);
+				this.candidateRepoService.addServiceCandidate(scand);
+			}
+			
+			
 		}
 	}
+
 
 	
 

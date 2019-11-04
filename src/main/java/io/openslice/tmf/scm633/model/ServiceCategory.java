@@ -52,7 +52,7 @@ public class ServiceCategory extends BaseEntity {
 	
 	
 
-	@ManyToMany(cascade = {  CascadeType.ALL } )
+	@ManyToMany(cascade = {  CascadeType.MERGE } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ServiceCandidate> serviceCandidateObj = new HashSet<>();

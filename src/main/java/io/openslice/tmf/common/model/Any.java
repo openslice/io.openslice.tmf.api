@@ -6,6 +6,8 @@ import javax.persistence.Embeddable;
 
 import org.springframework.validation.annotation.Validated;
 
+import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
+
 /**
  * Any
  */
@@ -60,7 +62,11 @@ public class Any {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		return true;
+
+		Any a = (Any) o;
+		
+		return Objects.equals(this.value, a.value)
+				&& Objects.equals(this.alias, a.alias );
 	}
 
 	@Override

@@ -284,7 +284,8 @@ public class ServiceSpecCharacteristicValue extends BaseRootEntity {
 				&& Objects.equals(this.valueTo, serviceSpecCharacteristicValue.valueTo)
 				&& Objects.equals(this.valueType, serviceSpecCharacteristicValue.valueType)
 				&& Objects.equals(this.validFor, serviceSpecCharacteristicValue.validFor)
-				&& Objects.equals(this.value, serviceSpecCharacteristicValue.value)
+				&& Objects.equals(this.value.getValue(), serviceSpecCharacteristicValue.value.getValue())
+				&& Objects.equals(this.value.getAlias(), serviceSpecCharacteristicValue.value.getAlias())
 				&& Objects.equals(this.baseType, serviceSpecCharacteristicValue.baseType)
 				&& Objects.equals(this.schemaLocation, serviceSpecCharacteristicValue.schemaLocation)
 				&& Objects.equals(this.type, serviceSpecCharacteristicValue.type);

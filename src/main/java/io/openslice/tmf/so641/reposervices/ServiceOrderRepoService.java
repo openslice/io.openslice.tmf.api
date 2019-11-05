@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.openslice.tmf.scm633.model.ResourceSpecificationRef;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;

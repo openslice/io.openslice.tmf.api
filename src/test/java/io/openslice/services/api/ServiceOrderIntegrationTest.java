@@ -3,14 +3,8 @@ package io.openslice.services.api;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.fail;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.File;
@@ -21,9 +15,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.HashSet;
-
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -32,15 +23,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpSession;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -52,34 +39,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
-import io.openslice.tmf.common.model.Any;
-import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.UserPartRoleType;
-import io.openslice.tmf.pcm620.model.Attachment;
-import io.openslice.tmf.pcm620.model.Quantity;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
-import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
-import io.openslice.tmf.scm633.model.AttachmentRef;
-import io.openslice.tmf.scm633.model.ResourceSpecificationRef;
-import io.openslice.tmf.scm633.model.ServiceCatalog;
-import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
-import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;
-import io.openslice.tmf.scm633.model.ServiceCategory;
-import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
-import io.openslice.tmf.scm633.model.ServiceCategoryRef;
-import io.openslice.tmf.scm633.model.ServiceSpecCharRelationship;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
-import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
-import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
-import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
@@ -90,7 +57,6 @@ import io.openslice.tmf.so641.model.ServiceOrderItem;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
-import net.minidev.json.JSONObject;
 
 
 @RunWith(SpringRunner.class)

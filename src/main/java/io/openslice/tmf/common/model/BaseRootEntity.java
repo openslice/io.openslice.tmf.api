@@ -136,12 +136,12 @@ public class BaseRootEntity {
 				&& Objects.equals(this.schemaLocation, Entity.schemaLocation);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uuid, 
-
-				baseType, schemaLocation);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(uuid, 
+//
+//				baseType, schemaLocation);
+//	}
 
 	@Override
 	public String toString() {

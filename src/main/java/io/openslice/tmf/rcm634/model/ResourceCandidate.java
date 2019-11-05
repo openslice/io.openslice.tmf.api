@@ -42,7 +42,7 @@ public class ResourceCandidate extends BaseEntity {
 	private Set<ResourceCategory> categoryObj = new HashSet<>();
 
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-	@JoinColumn(name = "resource_specid", referencedColumnName = "id")
+	@JoinColumn(name = "resource_specid", referencedColumnName = "uuid")
 	@JsonIgnore
 	private ResourceSpecification resourceSpecificationObj = null;
 

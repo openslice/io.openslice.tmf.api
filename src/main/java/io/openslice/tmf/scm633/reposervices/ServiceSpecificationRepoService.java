@@ -420,11 +420,21 @@ public class ServiceSpecificationRepoService {
 	}
 
 	public ServiceSpecification addServiceSpecification(ServiceSpecification c) {
-
+		if (c.getResourceSpecification().size() > 0) {
+			c.setType("ResourceFacingServiceSpecification");
+		} else {
+			c.setType("CustomerFacingServiceSpecification");
+		}
+		
 		return this.serviceSpecificationRepo.save(c);
 	}
 	
 	public ServiceSpecification updateServiceSpecification(ServiceSpecification spec) {
+		if (spec.getResourceSpecification().size() > 0) {
+			spec.setType("ResourceFacingServiceSpecification");
+		} else {
+			spec.setType("CustomerFacingServiceSpecification");
+		}
 		return this.serviceSpecificationRepo.save( spec );
 		
 	}

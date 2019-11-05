@@ -44,7 +44,7 @@ public class ServiceCandidate extends BaseEntity {
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
 
 	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-    @JoinColumn(name = "service_specid", referencedColumnName = "id")
+    @JoinColumn(name = "service_specid", referencedColumnName = "uuid")
 	@JsonIgnore
 	private ServiceSpecification serviceSpecificationObj = null;
 

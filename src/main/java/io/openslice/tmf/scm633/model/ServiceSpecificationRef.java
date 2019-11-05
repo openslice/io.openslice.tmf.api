@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Entity(name = "ServiceSpecificationRef")
+@JsonIgnoreProperties( {"uuid"} )
 public class ServiceSpecificationRef extends BaseRootNamedEntity {
 
 	@JsonProperty("version")

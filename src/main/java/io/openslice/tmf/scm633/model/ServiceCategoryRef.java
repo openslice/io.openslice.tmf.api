@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
@@ -18,6 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@JsonIgnoreProperties( {"uuid"} )
 public class ServiceCategoryRef extends BaseRootNamedEntity {
 
 	

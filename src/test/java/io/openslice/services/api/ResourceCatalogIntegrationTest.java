@@ -88,6 +88,8 @@ public class ResourceCatalogIntegrationTest {
 
 
 	private static final transient Log logger = LogFactory.getLog( ResourceCatalogIntegrationTest.class.getName());
+
+	private static final int FIXED_BOOTSTRAPS_SPECS = 2;
 	
     @Autowired
     private MockMvc mvc;
@@ -123,7 +125,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 1 );
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		
 
 		assertThat( catalogRepoService.findByName( "Catalog" )  ).isNotNull() ;
@@ -232,7 +234,7 @@ public class ResourceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
 		LogicalResourceSpec responsesSpec = toJsonObj(response,  LogicalResourceSpec.class);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Resource Spec" );
 
@@ -252,7 +254,7 @@ public class ResourceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +2 );
 		PhysicalResourceSpec phyresponsesSpec = toJsonObj(response,  PhysicalResourceSpec.class);
 		assertThat( phyresponsesSpec.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( phyresponsesSpec.getModel() ).isEqualTo( "ACME" );
@@ -451,7 +453,7 @@ public class ResourceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("Test Spec a attr")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification responsesSpec2 = toJsonObj(response2,  ResourceSpecification.class);
+		ResourceSpecification responsesSpec2 = toJsonObj(response2,  LogicalResourceSpec.class);
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec a attr" );
 		assertThat( responsesSpec2.getVersion() ).isEqualTo( "2.x" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(2);
@@ -493,11 +495,11 @@ public class ResourceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 //		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2.toString());
 
-		responsesSpec2 = toJsonObj(response2,  ResourceSpecification.class);
+		responsesSpec2 = toJsonObj(response2,  LogicalResourceSpec.class);
 
 		
 		
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(1);
@@ -538,7 +540,7 @@ public class ResourceCatalogIntegrationTest {
 		
 
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1  );
 		
 	}
 	
@@ -650,7 +652,7 @@ public class ResourceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("Spec3")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification responseSpecPatch1 = toJsonObj( responsePatch1,  ResourceSpecification.class);
+		ResourceSpecification responseSpecPatch1 = toJsonObj( responsePatch1,  LogicalResourceSpec.class);
 
 //		logger.info("Test: testBundledSpec responsePatch1= " + responsePatch1);
 
@@ -679,7 +681,7 @@ public class ResourceCatalogIntegrationTest {
 		
 
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 5 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 4 );
 		
 	}
 	
@@ -699,7 +701,7 @@ public class ResourceCatalogIntegrationTest {
 		sspeccr1.setName("Spec1");
 		LogicalResourceSpec responsesSpec1 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr1);
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		
 		Attachment att = new Attachment();
 		att.setDescription("a test atts");
@@ -721,7 +723,7 @@ public class ResourceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("Spec1")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  ResourceSpecification.class);
+		ResourceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  LogicalResourceSpec.class);
 
 		//logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
 
@@ -748,8 +750,8 @@ public class ResourceCatalogIntegrationTest {
 		physspeccr1.setModel("ACME");
 		PhysicalResourceSpec phyresponsesSpec1 = (PhysicalResourceSpec) createResourceSpec(sspectext, physspeccr1);
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( 3 );
-		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( 1 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 2 );
+		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		assertThat( specRepoService.findAllPhysical().size() ).isEqualTo( 1 );
 		
 	}

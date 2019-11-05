@@ -54,6 +54,10 @@ import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.repo.ServiceSpecificationRepository;
 import io.openslice.tmf.util.AttachmentUtil;
 
+/**
+ * @author ctranoris
+ *
+ */
 @Service
 public class ServiceSpecificationRepoService {
 
@@ -73,10 +77,7 @@ public class ServiceSpecificationRepoService {
 	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
 			+ File.separator + "metadata" + File.separator;
 
-	public ServiceSpecification addCategory(ServiceSpecification c) {
-
-		return this.serviceSpecificationRepo.save(c);
-	}
+	
 
 	@Autowired
 	public ServiceSpecificationRepoService(EntityManagerFactory factory) {
@@ -346,45 +347,9 @@ public class ServiceSpecificationRepoService {
 		return serviceSpec;
 	}
 
-	//@PostConstruct
-	public ServiceSpecification createFirstTimeGSTRepo() {
-		// ServiceSpecificationCreate spec = new ServiceSpecificationCreate();
-		// spec.setName("GST");
-		// spec.setDescription("GST example");
-		// ServiceSpecification serviceSpecificationObj =
-		// this.addServiceSpecification(spec);
-		//
-		// serviceSpecificationObj = createGSTExample(serviceSpecificationObj);
-
-		ServiceSpecification serviceSpecificationObj = readFromLocalResource( "gst.json" );
-
-		return serviceSpecificationObj;
-
-	}
-
-	private ServiceSpecification readFromLocalResource( String rname) {
-
-		ServiceSpecification sc;
-		try {
-			sc = objectMapper.readValue(new ClassPathResource( rname ).getInputStream(), ServiceSpecification.class);
-			sc = this.serviceSpecificationRepo.save(sc);
-			return sc;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-
-	}
+	
 	
 
-	public ServiceSpecification createFirstTimeVINNISBTRepo() {
-
-		ServiceSpecification serviceSpecificationObj = readFromLocalResource("vinnisb/vinnisb.json");
-
-		return serviceSpecificationObj;
-	}
 
 
 	public ServiceSpecification cloneServiceSpecification(String uuid) {
@@ -454,6 +419,11 @@ public class ServiceSpecificationRepoService {
 		return optionalCat.orElse(null);
 	}
 
+	public ServiceSpecification addServiceSpecification(ServiceSpecification c) {
+
+		return this.serviceSpecificationRepo.save(c);
+	}
+	
 	public ServiceSpecification updateServiceSpecification(ServiceSpecification spec) {
 		return this.serviceSpecificationRepo.save( spec );
 		

@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 @Entity(name = "ResourceSpecification")
-public class ResourceSpecification extends BaseEntity {
+public abstract class ResourceSpecification extends BaseEntity {
 	@JsonProperty("id")
 	protected String id = null;
 

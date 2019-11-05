@@ -56,9 +56,19 @@ public class ResourceSpecificationRepoService {
 	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
 			+ File.separator + "metadata" + File.separator;
 
+	public ResourceSpecification addResourceSpec(ResourceSpecification reSpec) {
+		return this.resourceSpecificationRepo.save(reSpec);		
+	}
+	
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
-		ResourceSpecification reSpec = new ResourceSpecification();
+		ResourceSpecification reSpec ;
+		if ( resourceSpecification.getType().equals( "PhysicalResourceSpec" )  || 
+				 resourceSpecification.getType().equals( "PhysicalResourceSpecCreate" )  ) {
+			reSpec = new PhysicalResourceSpec(); 
+		}else {
+			reSpec = new LogicalResourceSpec();			
+		}
 		
 		return addResourceSpecificationGeneric(reSpec, resourceSpecification);
 	}
@@ -140,11 +150,16 @@ public class ResourceSpecificationRepoService {
 			ResourceSpecification resourceSpec, 
 			ResourceSpecificationUpdate resSpecUpd )
 	{
-		
-		resourceSpec.setName(resSpecUpd.getName());
+		if ( resSpecUpd.getName()!=null ) {
+			resourceSpec.setName(resSpecUpd.getName());
+		}
 
-		resourceSpec.setDescription( resSpecUpd.getDescription() );
-		resourceSpec.setIsBundle( resSpecUpd.isIsBundle() );		
+		if ( resSpecUpd.getDescription()!= null ) {
+			resourceSpec.setDescription( resSpecUpd.getDescription() );			
+		}
+		if ( resSpecUpd.isIsBundle() != null ) {
+			resourceSpec.setIsBundle( resSpecUpd.isIsBundle() );			
+		}		
 		
 		resourceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		
@@ -157,15 +172,10 @@ public class ResourceSpecificationRepoService {
 		}
 		
 		
-		if ( resSpecUpd.getLifecycleStatus() == null ) {
-			resourceSpec.setLifecycleStatusEnum( ELifecycle.IN_STUDY );
-		} else {
+		if ( resSpecUpd.getLifecycleStatus() != null ) {
 			resourceSpec.setLifecycleStatusEnum ( ELifecycle.getEnum( resSpecUpd.getLifecycleStatus() ) );
 		}
-		if ( resSpecUpd.getVersion() == null ) {
-			resourceSpec.setVersion( "1.0.0" );
-			
-		}else {
+		if ( resSpecUpd.getVersion() != null ) {
 			resourceSpec.setVersion( resSpecUpd.getVersion());			
 		}
 		
@@ -287,8 +297,8 @@ public class ResourceSpecificationRepoService {
 	}
 
 	public ResourceSpecification initRepo() {
-		ResourceSpecification spec = new ResourceSpecification();
-		spec.setName("A Resource");
+		ResourceSpecification spec = new LogicalResourceSpec();
+		spec.setName("A Logical Resource");
 		spec.setVersion("1.0.0");
 		spec = this.resourceSpecificationRepo.save(spec);
 		return spec;
@@ -356,6 +366,8 @@ public class ResourceSpecificationRepoService {
 		this.resourceSpecificationRepo.save(spec);
 		return spec;
 	}
+
+	
 
 	
 

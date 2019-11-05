@@ -2,7 +2,7 @@
 	"name": "VINNI-SB Template",
 	"description": "VINNI-SB template",
 	"version": "0.1.0",
-	"isBundle": false,
+	"isBundle": true,
 	"attachment": [
 	],
 	"relatedParty": [

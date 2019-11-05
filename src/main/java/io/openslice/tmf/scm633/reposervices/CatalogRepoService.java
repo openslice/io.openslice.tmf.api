@@ -28,9 +28,6 @@ import io.openslice.tmf.scm633.repo.CatalogRepository;
 @Service
 public class CatalogRepoService {
 
-	private static final boolean ADDGST = true;
-
-	private static final boolean ADDVINNISBT = true;
 
 	@Autowired
 	CatalogRepository catalogRepo;
@@ -126,110 +123,11 @@ public class CatalogRepoService {
 
 	}
 
-	@PostConstruct
-	public void initRepo() {
-		if (this.findAll().size() == 0) {
-			ServiceCatalogCreate sc = new ServiceCatalogCreate();
-			sc.setName("Catalog");
-			sc.setDescription("Primary Catalog");
-			sc.setVersion("1.0");
-			ServiceCatalog scatalog = this.addCatalog(sc);
-
-			ServiceCategoryCreate scatCreate = new ServiceCategoryCreate();
-			scatCreate.setName("Generic Services");
-			scatCreate.setDescription("Generic Services of this catalog");
-			scatCreate.setVersion("1.0");
-			scatCreate.setIsRoot(true);
-			ServiceCategory scategory = this.categRepoService.addCategory(scatCreate);
-
-			scatalog.getCategoryObj().add(scategory);
-			this.catalogRepo.save(scatalog);
-			/**
-			 * Add GST
-			 */
-			if (ADDGST) {
-				ServiceSpecification serviceSpecificationObj = this.specRepoService.createFirstTimeGSTRepo();
-				
-				ServiceCandidateCreate scand = new ServiceCandidateCreate();
-				scand.setName( serviceSpecificationObj.getName());
-				ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
-				serviceSpecificationRef.setId(serviceSpecificationObj.getId());
-				serviceSpecificationRef.setName(serviceSpecificationObj.getName());
-				scand.serviceSpecification(serviceSpecificationRef);
-
-				ServiceCategoryRef categoryItem = new ServiceCategoryRef();
-				categoryItem.setId(scategory.getId());
-				scand.addCategoryItem(categoryItem);
-
-				this.candidateRepoService.addServiceCandidate(scand);
-				
-			}
-			/**
-			 * Add VINNI-SB
-			 */
-			if (ADDVINNISBT) {
-				ServiceSpecification serviceSpecificationObj = this.specRepoService.createFirstTimeVINNISBTRepo();
-				
-				ServiceCandidateCreate scand = new ServiceCandidateCreate();
-				scand.setName( serviceSpecificationObj.getName());
-				ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
-				serviceSpecificationRef.setId(serviceSpecificationObj.getId());
-				serviceSpecificationRef.setName(serviceSpecificationObj.getName());
-				scand.serviceSpecification(serviceSpecificationRef);
-
-				ServiceCategoryRef categoryItem = new ServiceCategoryRef();
-				categoryItem.setId(scategory.getId());
-				scand.addCategoryItem(categoryItem);
-
-				this.candidateRepoService.addServiceCandidate(scand);				
-			}
-			
-			
-		} else { //check if we have the latest version of GST
-			if (ADDGST) {
-				ServiceCategory scategory = this.categRepoService.findByName("Generic Services");
-				ServiceSpecification serviceSpecificationObj = this.specRepoService.findByNameAndVersion("GST External", "0.4.0");
-				
-				if ( ( scategory != null ) &&  ( serviceSpecificationObj == null ))
-				{
-					serviceSpecificationObj = this.specRepoService.createFirstTimeGSTRepo();
-					ServiceCandidateCreate scand = new ServiceCandidateCreate();
-					scand.setName( serviceSpecificationObj.getName());
-					ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
-					serviceSpecificationRef.setId(serviceSpecificationObj.getId());
-					serviceSpecificationRef.setName(serviceSpecificationObj.getName());
-					scand.serviceSpecification(serviceSpecificationRef);
-
-					ServiceCategoryRef categoryItem = new ServiceCategoryRef();
-					categoryItem.setId(scategory.getId());
-					scand.addCategoryItem(categoryItem);
-					this.candidateRepoService.addServiceCandidate(scand);
-				}
-			}
-			if (ADDVINNISBT) {
-				ServiceCategory scategory = this.categRepoService.findByName("Generic Services");
-				ServiceSpecification serviceSpecificationObj = this.specRepoService.findByNameAndVersion("VINNI-SB Template", "0.1.0");
-				
-				if ( ( scategory != null ) &&  ( serviceSpecificationObj == null ))
-				{
-					serviceSpecificationObj = this.specRepoService.createFirstTimeVINNISBTRepo();
-					ServiceCandidateCreate scand = new ServiceCandidateCreate();
-					scand.setName( serviceSpecificationObj.getName());
-					ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
-					serviceSpecificationRef.setId(serviceSpecificationObj.getId());
-					serviceSpecificationRef.setName(serviceSpecificationObj.getName());
-					scand.serviceSpecification(serviceSpecificationRef);
-
-					ServiceCategoryRef categoryItem = new ServiceCategoryRef();
-					categoryItem.setId(scategory.getId());
-					scand.addCategoryItem(categoryItem);
-					this.candidateRepoService.addServiceCandidate(scand);
-				}
-			}
-			
-			
-		}
+	public ServiceCatalog updateCatalog(ServiceCatalog scatalog) {
+		return this.catalogRepo.save(scatalog);
 	}
+
+	
 
 
 	

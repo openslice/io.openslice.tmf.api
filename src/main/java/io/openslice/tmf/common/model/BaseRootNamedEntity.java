@@ -5,8 +5,10 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,8 +23,9 @@ import io.swagger.annotations.ApiModelProperty;
  * @author ctranoris
  *
  */
-@Entity(name = "BaseRootNamedEntity")
+@Entity( name = "BaseRootNamedEntity")
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
+@Table( indexes = {@Index(name = "IX_NAME", columnList = "name")} )
 public class BaseRootNamedEntity  extends BaseRootEntity{
 
 	

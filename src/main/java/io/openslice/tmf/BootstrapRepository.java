@@ -186,6 +186,56 @@ public class BootstrapRepository {
 		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
 		
 		/**
+		 * Create Service Requirements
+		 */
+		
+		ServiceSpecification serviceReq = readFromLocalResource("vinnisb/vinnisb-req.json");
+		serviceReq = this.specRepoService.addServiceSpecification(serviceReq);
+		ServiceSpecRelationship relServiceReq  =new ServiceSpecRelationship();
+		relServiceReq.setId( serviceReq.getId());
+		relServiceReq.setName( serviceReq.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceReq  );
+		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
+		
+		
+		/**
+		 * Create Service Exposure Level
+		 */
+		
+		ServiceSpecification serviceExpLevel = readFromLocalResource("vinnisb/vinnisb-exposure.json");
+		serviceExpLevel = this.specRepoService.addServiceSpecification( serviceExpLevel );
+		ServiceSpecRelationship relServiceExp  =new ServiceSpecRelationship();
+		relServiceExp.setId( serviceExpLevel.getId());
+		relServiceExp.setName( serviceExpLevel.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
+		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
+		
+
+		/**
+		 * Create Service Monitoring
+		 */
+		
+		ServiceSpecification serviceMon = readFromLocalResource("vinnisb/vinnisb-monitoring.json");
+		serviceMon = this.specRepoService.addServiceSpecification( serviceMon );
+		ServiceSpecRelationship relServiceMon  =new ServiceSpecRelationship();
+		relServiceMon.setId( serviceMon.getId());
+		relServiceMon.setName( serviceMon.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceMon  );
+		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
+		
+		/**
+		 * Create Service Testing
+		 */
+		
+		ServiceSpecification serviceTesting = readFromLocalResource("vinnisb/vinnisb-testing.json");
+		serviceTesting = this.specRepoService.addServiceSpecification( serviceTesting );
+		ServiceSpecRelationship relServiceTest  =new ServiceSpecRelationship();
+		relServiceTest.setId( serviceTesting.getId());
+		relServiceTest.setName( serviceTesting.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceTest  );
+		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
+		
+		/**
 		 * add VINNI-SB Service Spec to Catalog
 		 */
 		ServiceCandidateCreate scand = new ServiceCandidateCreate();

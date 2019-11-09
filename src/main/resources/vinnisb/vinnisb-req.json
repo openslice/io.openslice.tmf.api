@@ -1,0 +1,127 @@
+{
+	"name": "VINNI-SB Service Requirements Template",
+	"description": "VINNI-SB Service Requirements template",
+	"version": "0.1.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			"name": "Peak data rate",
+			"configurable": false,
+			"description": "It is defined as the highest theoretical data rate achievable for a single device located at the best location within a cell, assuming error-free transmission conditions (i.e. excluding overhead and retransmitted data packets) when all available radio resources for the corresponding link direction are utilized.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "DL peak data rate",
+					"name": "Peak data rate: DL peak data rate",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "UL peak data rate",
+					"name": "Peak data rate: UL peak data rate",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "UL peak data rate",
+			"configurable": false,
+			"description": "the maximum achievable upstream throughput one single device under ideal conditions.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_1A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Gbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "DL peak data rate",
+			"configurable": false,
+			"description": "the maximum achievable downstream throughput at IP layer of one single device under ideal conditions.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_1B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Gbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "1.0",
+						"alias": ""
+					}
+				}
+			]
+		}
+	],
+	"serviceSpecRelationship": [
+	],
+	"targetServiceSchema": null
+}

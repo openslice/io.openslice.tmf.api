@@ -89,7 +89,7 @@ public class ServiceCatalogIntegrationTest {
 
 	private static final transient Log logger = LogFactory.getLog( ServiceCatalogIntegrationTest.class.getName());
 
-	private static final int FIXED_BOOTSTRAPS_SPECS = 3;
+	private static final int FIXED_BOOTSTRAPS_SPECS = 7;
 	
     @Autowired
     private MockMvc mvc;
@@ -1003,7 +1003,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		this.bootstrapRepository.initRepo();
 		
-		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 2 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 6 );
 		
 
 	}

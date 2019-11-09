@@ -1,0 +1,74 @@
+{
+	"name": "VINNI-SB Service Monitoring Template",
+	"description": "VINNI-SB Service Monitoring template",
+	"version": "0.1.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			
+			"name": "On-demand monitoring support",
+			"configurable": false,
+			"description": "indicates if the CSC is allowed or not to request new monitoring information at run-time.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Monitoring",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.MON_1",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Yes"
+					}
+				}
+			]
+		}
+		
+	],
+	"serviceSpecRelationship": [
+	],
+	"targetServiceSchema": null
+}

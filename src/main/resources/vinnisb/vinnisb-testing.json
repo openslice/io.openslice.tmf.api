@@ -1,0 +1,112 @@
+{
+	"name": "VINNI-SB Service Testing Template",
+	"description": "VINNI-SB Service Tetsting template",
+	"version": "0.1.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			
+			"name": "On-demand TaaS support",
+			"configurable": false,
+			"description": "if yes, it means that the CSC can modify/update test campaigns at run-time.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Monitoring",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.TEST_1",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Raw"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Aggregated"
+					}
+				}
+			]
+		},
+		{
+			"name": "DL peak data rate",
+			"configurable": false,
+			"description": "the maximum achievable downstream throughput at IP layer of one single device under ideal conditions.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_1B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Gbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "1.0",
+						"alias": ""
+					}
+				}
+			]
+		}
+	],
+	"serviceSpecRelationship": [
+	],
+	"targetServiceSchema": null
+}

@@ -235,6 +235,30 @@ public class BootstrapRepository {
 		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceTest  );
 		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
 		
+		
+		/**
+		 * Create 3rd party VNF related to resourceSpec
+		 */
+		ServiceSpecification thirdVNF = new ServiceSpecification();
+		thirdVNF.setName( "3rd party VNF");
+		ResourceSpecificationRef resourceSpecificationthirdVNFRef = new ResourceSpecificationRef();
+		resourceSpecificationthirdVNFRef.setId( null );
+		resourceSpecificationthirdVNFRef.setName( "Example VNF" );
+		thirdVNF.addResourceSpecificationItem(resourceSpecificationthirdVNFRef);
+		thirdVNF = this.specRepoService.addServiceSpecification( thirdVNF );
+		
+		/**
+		 * Create 3rd party NSD related to resourceSpec
+		 */
+		ServiceSpecification thirdNSD = new ServiceSpecification();
+		thirdNSD.setName( "3rd party NSD");
+		ResourceSpecificationRef resourceSpecificationthirdNSDRef = new ResourceSpecificationRef();
+		resourceSpecificationthirdNSDRef.setId( null );
+		resourceSpecificationthirdNSDRef.setName( "Example NSD" );
+		thirdNSD.addResourceSpecificationItem(resourceSpecificationthirdNSDRef);
+		thirdNSD = this.specRepoService.addServiceSpecification( thirdNSD );
+		
+		
 		/**
 		 * add VINNI-SB Service Spec to Catalog
 		 */

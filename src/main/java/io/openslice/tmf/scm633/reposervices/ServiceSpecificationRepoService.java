@@ -420,7 +420,7 @@ public class ServiceSpecificationRepoService {
 	}
 
 	public ServiceSpecification addServiceSpecification(ServiceSpecification c) {
-		if (c.getResourceSpecification().size() > 0) {
+		if  (  (c.getResourceSpecification() != null ) && (c.getResourceSpecification().size() > 0) ) {
 			c.setType("ResourceFacingServiceSpecification");
 		} else {
 			c.setType("CustomerFacingServiceSpecification");

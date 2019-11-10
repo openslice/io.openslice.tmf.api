@@ -43,7 +43,7 @@
 			]
 		},
 		{
-			"name": "UL peak data rate",
+			"name": "Peak data rate: UL peak data rate",
 			"configurable": false,
 			"description": "the maximum achievable upstream throughput one single device under ideal conditions.",
 			"extensible": null,
@@ -82,7 +82,7 @@
 			]
 		},
 		{
-			"name": "DL peak data rate",
+			"name": "Peak data rate: DL peak data rate",
 			"configurable": false,
 			"description": "the maximum achievable downstream throughput at IP layer of one single device under ideal conditions.",
 			"extensible": null,
@@ -116,6 +116,1580 @@
 					"value": {
 						"value": "1.0",
 						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "User data rate",
+			"configurable": false,
+			"description": "the user experienced data rate required for the device to get a quality experience that is assumed to be enough for the considered use case.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "DL user data rate",
+					"name": "User data rate: DL user data rate",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "UL user data rate",
+					"name": "User data rate: UL user data rate",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "User data rate: DL user data rate",
+			"configurable": false,
+			"description": "describes the experienced downstream throughput at IP layer of one single device, generated at N6 interface and measured at the device side.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_2A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Mbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "100.0",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "User data rate: UL user data rate",
+			"configurable": false,
+			"description": "describes the experienced upstream throughput one single device transmitting the IP packets up to the N6 interface.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_2B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Mbps",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "100.0",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Area traffic density",
+			"configurable": false,
+			"description": "the total traffic throughput (i.e. number of correctly received bits of IP packets per time interval) per area unit.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "DL area traffic density",
+					"name": "Area traffic density: DL area traffic density",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "UL area traffic density",
+					"name": "Area traffic density: UL area traffic density",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "Area traffic density: DL area traffic density",
+			"configurable": false,
+			"description": "the total throughput per area unit in the downstream direction.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_3A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Gbps/km2",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "1.0",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Area traffic density: UL area traffic density",
+			"configurable": false,
+			"description": "the total throughput per area unit in the upstream direction.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_3B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Gbps/km2",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "1.0",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS)",
+			"configurable": false,
+			"description": "It represents a set of typical QoS parameters that are relevant for traffic handling in 3GPP networks, from Rel-15 onwards.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "One-way latency",
+					"name": "5G Quality of Service (QoS): One-way latency",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "E2E latency",
+					"name": "5G Quality of Service (QoS): E2E latency",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Jitter",
+					"name": "5G Quality of Service (QoS): Jitter",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "DL Packet loss rate",
+					"name": "5G Quality of Service (QoS): DL Packet loss rate",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "UL Packet loss rate",
+					"name": "5G Quality of Service (QoS): UL Packet loss rate",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "DL Packet size",
+					"name": "5G Quality of Service (QoS): DL Packet size",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "UL Packet size:",
+					"name": "5G Quality of Service (QoS): UL Packet size:",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS): One-way latency",
+			"configurable": false,
+			"description": "it is the time it takes for a IP packet to travel from a device to a destination node.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_4A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "ms",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS): E2E latency",
+			"configurable": false,
+			"description": "the time it takes for a IP packet to travel from a device to a destination node considering the Round Trip Time (RTT).",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_4B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "ms",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS): Jitter",
+			"configurable": false,
+			"description": "it is the highest deviation in the latency value that can be acceptable for the targeted use case.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_4C",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "ms",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS): DL Packet loss rate",
+			"configurable": false,
+			"description": "it is the percentage of lost packets to the total number of packets sent in the DL direction.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_4D",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "%",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "10",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS): UL Packet loss rate",
+			"configurable": false,
+			"description": "it is the percentage of lost packets to the total number of packets sent in the UL direction.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_4E",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "%",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "10",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS): DL Packet size",
+			"configurable": false,
+			"description": "specifies the maximum packet size to be supported by the considered use case in the DL direction.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_4F",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Bytes",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "8",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "5G Quality of Service (QoS): UL Packet size",
+			"configurable": false,
+			"description": "specifies the maximum packet size to be supported by the considered use case in the UL direction.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_4G",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "Bytes",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "8",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Availability",
+			"configurable": false,
+			"description": "It is an indicator that represents the risk of service outage in terms of the acceptable level of unplanned downtime.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_5",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "%",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "99.99",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Reliability",
+			"configurable": false,
+			"description": "It is an indicator that represents the risk of service misbehaviour within the time constraints required for the targeted use case.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "FLOAT",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_6",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "%",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "FLOAT",
+					"validFor": null,
+					"value": {
+						"value": "99.99",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Service deployment time",
+			"configurable": false,
+			"description": "It is the time it takes the CSP to set up the network slice service (instance), with the network level guarantees specified in P.PERF_1 and P.PERF_6. This parameter measures the time that passes from service ordering (i.e. a CSC issue a service order to the CSP) to service operational readiness (i.e. the network slice service is ready to be used by the CSC). During this time, NSI day-0 (i.e. instantiation)4 and day-1 (configuration) operations shall be performed, and testing framework shall be configured accordingly.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Performance",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.PERF_7",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "min",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Deployment option",
+			"configurable": false,
+			"description": "The specification of this parameter allows selecting how the 3GPP network architecture will be deployed as part of the network slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_1",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Legacy"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Rel-15 NSA (Option 3)"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Rel-15 SA (Option 2)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Other (to be defined)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Access technology",
+			"configurable": false,
+			"description": "The specification of this parameter allows selecting the technologies to be supported by the network slice service for the access part.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_2",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "LTE"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "NR"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Other (specific for 5G-VINNI facility site)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Predominant device type",
+			"configurable": false,
+			"description": "This parameter lists the type of devices that can be attached to the 5G-VINNI service the CSP will provide to a CSC.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "SET",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_3",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "UE"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "CPE"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Sensor"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Vehicle"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "Factory actuator"
+					}
+				}
+			]
+		},
+		{
+			"name": "Radio spectrum",
+			"configurable": false,
+			"description": "This parameter provides a list of the spectrum bands that can be supported by the offered service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "LTE operating bands",
+					"name": "Radio spectrum: LTE operating bands",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "NR operating bands",
+					"name": "Radio spectrum: NR operating bands",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Other bands",
+					"name": "Radio spectrum: Other bands",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "Radio spectrum: LTE operating bands",
+			"configurable": false,
+			"description": "assuming option 0 has been selected for P.FUNC_2, this parameter list the LTE-defined spectrum bands [22] that can be supported by the network slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.FUNC_2 -> if set to 1, P.FUNC_4A shall be omitted.",
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_4A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "n77",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Radio spectrum: NR operating bands",
+			"configurable": false,
+			"description": "assuming option 1 has been selected for P.FUNC_2, this parameter list the NR-defined spectrum bands [23] that can be supported by the network slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.FUNC_2 -> if set to , P.FUNC_4B shall be omitted.",
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_4B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "n77",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Radio spectrum: Other bands",
+			"configurable": false,
+			"description": "allows listing bands that do not match LTE or NR, either because they are based on other access technologies (e.g. NB-IoT, LTE-M, satellite access and FWA) or because they are part of vertical-owned spectrum.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.FUNC_2 -> only if set to 2 ",
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_4C",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "n77",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Isolation",
+			"configurable": false,
+			"description": "Isolation constitutes the cornerstone for service delivery in multi-tenant environments such as 5G-VINNI, where NSIs intended for multiple CSCs will be deployed and operated on top of a shared infrastructure.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "Isolation support",
+					"name": "Isolation: Isolation support",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Isolation support",
+					"name": "Isolation support: Isolation type",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "Isolation: Isolation support",
+			"configurable": false,
+			"description": "allows specifying if isolation is required/desired for the network slice service the CSP delivers to CSC.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_5A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Yes"
+					}
+				}
+			]
+		},
+		{
+			"name": "Isolation support: Isolation type",
+			"configurable": false,
+			"description": "allows specifying if isolation is required/desired for the network slice service the CSP delivers to CSC.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.FUNC_2 -> only if set to 2 ",
+			"valueType": "ARRAY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_5B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No isolation"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Logical isolation"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Physical isolation"
+					}
+				}
+			]
+		},
+		{
+			"name": "Value-added functionality",
+			"configurable": false,
+			"description": "This parameter includes the list of advanced features that the CSP can include as part of the network slice service offered to the CSC, providing it with an enriched functionality.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "3rd party VNF hosting",
+					"name": "Value-added functionality: 3rd party VNF hosting",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Positioning",
+					"name": "Value-added functionality: Positioning",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Distributed data fabric",
+					"name": "Value-added functionality: Distributed data fabric",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Security-as-a-Service (SECaaS)",
+					"name": "Value-added functionality: Security-as-a-Service (SECaaS)",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Monitoring-as-a-service (MaaS)",
+					"name": "Value-added functionality: Monitoring-as-a-service (MaaS)",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Testing-as-a-service (TaaS)",
+					"name": "Value-added functionality: Testing-as-a-service (TaaS)",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "Value-added functionality: 3rd party VNF hosting",
+			"configurable": false,
+			"description": "allows a CSC to bring his own VNFs and attach them to the default service topology , expanding/modifying it to get a value-added network slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_6A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Yes"
+					}
+				}
+			]
+		},
+		{
+			"name": "Value-added functionality: Positioning",
+			"configurable": false,
+			"description": "it is the ability to provide geo-localisation methods as part of the network slice.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_6B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Yes"
+					}
+				}
+			]
+		},
+		{
+			"name": "Value-added functionality: Distributed data fabric",
+			"configurable": false,
+			"description": "it is the ability to provide data fabric functionality as part of the provided network slice.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_6C",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Yes"
+					}
+				}
+			]
+		},
+		{
+			"name": "Value-added functionality: Security-as-a-Service (SECaaS)",
+			"configurable": false,
+			"description": "it is the ability to provide automated infrastructure security to CSC, as part of the offered slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_6D",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Yes"
+					}
+				}
+			]
+		},
+		{
+			"name": "Value-added functionality: Monitoring-as-a-service (MaaS)",
+			"configurable": false,
+			"description": "allows a CSC to consume 5G-VINNI telemetry services for performance/fault activities at run-time.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_6E",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Yes"
+					}
+				}
+			]
+		},
+		{
+			"name": "Value-added functionality: Testing-as-a-service (TaaS)",
+			"configurable": false,
+			"description": "allows a CSC to consume capabilities from the 5G-VINNI testing framework for trialling and KPI validation purposes.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_6F",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "No"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Yes"
 					}
 				}
 			]

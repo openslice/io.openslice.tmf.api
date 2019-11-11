@@ -19,6 +19,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
+import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
@@ -122,19 +123,18 @@ public class BootstrapRepository {
 
 		ServiceSpecification serviceSpecificationObj = readFromLocalResource( "gst.json" );
 		serviceSpecificationObj = this.specRepoService.addServiceSpecification(serviceSpecificationObj);
-		
-		ServiceCandidateCreate scand = new ServiceCandidateCreate();
-		scand.setName( serviceSpecificationObj.getName());
+		serviceSpecificationObj = this.specRepoService.findByUuid( serviceSpecificationObj.getId() );
+				
+		ServiceCandidateUpdate scand = new ServiceCandidateUpdate();
 		ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
 		serviceSpecificationRef.setId(serviceSpecificationObj.getId());
-		serviceSpecificationRef.setName(serviceSpecificationObj.getName());
-		scand.serviceSpecification(serviceSpecificationRef);
-
 		ServiceCategoryRef categoryItem = new ServiceCategoryRef();
 		categoryItem.setId(scategory.getId());
 		scand.addCategoryItem(categoryItem);
-
-		this.candidateRepoService.addServiceCandidate(scand);
+		
+		this.candidateRepoService.updateCandidate( 
+				serviceSpecificationObj.getServiceCandidateObj().getUuid(),
+				scand);
 		
 	}
 	
@@ -262,18 +262,18 @@ public class BootstrapRepository {
 		/**
 		 * add VINNI-SB Service Spec to Catalog
 		 */
-		ServiceCandidateCreate scand = new ServiceCandidateCreate();
-		scand.setName( serviceSpecVinniSB.getName());
+	
+		
+		ServiceCandidateUpdate scand = new ServiceCandidateUpdate();
 		ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
 		serviceSpecificationRef.setId(serviceSpecVinniSB.getId());
-		serviceSpecificationRef.setName(serviceSpecVinniSB.getName());
-		scand.serviceSpecification(serviceSpecificationRef);
-
 		ServiceCategoryRef categoryItem = new ServiceCategoryRef();
 		categoryItem.setId(scategory.getId());
 		scand.addCategoryItem(categoryItem);
-
-		this.candidateRepoService.addServiceCandidate(scand);				
+		
+		this.candidateRepoService.updateCandidate( 
+				serviceSpecVinniSB.getServiceCandidateObj().getUuid(),
+				scand);
 	}
 
 	private ServiceSpecification readFromLocalResource(String rname) {

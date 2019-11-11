@@ -29,6 +29,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -49,9 +50,11 @@ import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
+import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
+import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.repo.ServiceSpecificationRepository;
 import io.openslice.tmf.util.AttachmentUtil;
@@ -100,15 +103,17 @@ public class ServiceSpecificationRepoService {
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
 		serviceSpec.fixSpecCharRelationhsipIDs();
 		
-		@Valid
-		ServiceCandidate serviceCandidate = new ServiceCandidate();
-		serviceCandidate.setServiceSpecificationObj(serviceSpec);
 		/**
 		 * we automatically create s Service Candidate for this spec ready to be attached to categories
 		 */
-		serviceCandidate = candidateRepoService.addServiceCandidate(serviceCandidate);
+		@Valid
+		ServiceCandidateCreate serviceCandidate = new ServiceCandidateCreate();
+		ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
+		serviceCandidate.setServiceSpecification(serviceSpecificationRef );
+		serviceSpecificationRef.setId( serviceSpec.getId() );
+		ServiceCandidate serviceCandidateObj = candidateRepoService.addServiceCandidate(serviceCandidate);
 		
-		serviceSpec.setServiceCandidateObj(serviceCandidate);
+		serviceSpec.setServiceCandidateObj(serviceCandidateObj);
 		
 		return this.serviceSpecificationRepo.save(serviceSpec);
 	}
@@ -161,6 +166,26 @@ public class ServiceSpecificationRepoService {
 	public ServiceSpecification findByUuid(String id) {
 		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid(id);
 		return optionalCat.orElse(null);
+	}
+	
+	public ServiceSpecification findByUuidEager(String id) {
+		Session session = sessionFactory.openSession();
+	    Transaction tx = session.beginTransaction();
+	    ServiceSpecification dd = null;
+	    try {
+	        dd = (ServiceSpecification) session.get(ServiceSpecification.class, id);
+	        Hibernate.initialize( dd.getAttachment()   );
+	        Hibernate.initialize( dd.getRelatedParty() );
+	        Hibernate.initialize( dd.getServiceLevelSpecification());
+	        Hibernate.initialize( dd.getServiceSpecCharacteristic() );
+	        Hibernate.initialize( dd.getServiceSpecRelationship() ) ;
+	       
+	        
+	        tx.commit();
+	    } finally {
+	        session.close();
+	    }
+	    return dd;
 	}
 
 	public Void deleteByUuid(String id) {
@@ -443,7 +468,24 @@ public class ServiceSpecificationRepoService {
 			c.setType("CustomerFacingServiceSpecification");
 		}
 		
-		return this.serviceSpecificationRepo.save(c);
+
+		ServiceSpecification serviceSpec = this.serviceSpecificationRepo.save(c);
+		/**
+		 * we automatically create s Service Candidate for this spec ready to be attached to categories
+		 */
+
+		serviceSpec = this.findByUuidEager( serviceSpec.getId() );
+		ServiceCandidateCreate serviceCandidateCr = new ServiceCandidateCreate();
+		ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
+		serviceCandidateCr.setServiceSpecification(serviceSpecificationRef );
+		serviceSpecificationRef.setId( serviceSpec .getId() );
+		ServiceCandidate serviceCandidateObj = candidateRepoService.addServiceCandidate(serviceCandidateCr);
+
+		serviceSpec = this.findByUuidEager( serviceSpec.getUuid() );
+		serviceSpec.setServiceCandidateObj(serviceCandidateObj);
+		
+		serviceSpec = this.serviceSpecificationRepo.save( serviceSpec );
+		return serviceSpec ;
 	}
 	
 	public ServiceSpecification updateServiceSpecification(ServiceSpecification spec) {

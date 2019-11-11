@@ -126,7 +126,7 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
-		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 9 );
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		
 		assertThat( catalogRepoService.findByName( "Catalog" )  ).isNotNull() ;

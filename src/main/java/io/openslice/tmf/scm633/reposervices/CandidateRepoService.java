@@ -121,14 +121,16 @@ public class CandidateRepoService {
 		//save first to continue
 		ServiceCandidate savedCand = this.candidateRepo.save( sc );
 		
-		for (ServiceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
-			ServiceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());
+		if ( serviceCandidateUpd.getCategory() !=null ){
+			for (ServiceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
+				ServiceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());
 
-			if ( catObj!=null){
-				catObj.getServiceCandidateObj().add(savedCand); //add candidate ref to category
-				catObj = this.categsRepoService.categsRepo.save(catObj); 
-				
-			}
+				if ( catObj!=null){
+					catObj.getServiceCandidateObj().add(savedCand); //add candidate ref to category
+					catObj = this.categsRepoService.categsRepo.save(catObj); 
+					
+				}
+			}			
 		}
 		
 		

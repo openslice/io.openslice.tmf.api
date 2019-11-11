@@ -6,11 +6,14 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
@@ -70,6 +73,27 @@ public class ServiceSpecification extends BaseEntity {
 
 	@JsonProperty("id")
 	protected String id = null;
+	
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    @JoinColumn(name = "candidate_specid", referencedColumnName = "uuid")
+	@JsonIgnore
+	private ServiceCandidate serviceCandidateObj = null;
+	
+	
+
+	/**
+	 * @return the serviceCandidateObj
+	 */
+	public ServiceCandidate getServiceCandidateObj() {
+		return serviceCandidateObj;
+	}
+
+	/**
+	 * @param serviceCandidateObj the serviceCandidateObj to set
+	 */
+	public void setServiceCandidateObj(ServiceCandidate serviceCandidateObj) {
+		this.serviceCandidateObj = serviceCandidateObj;
+	}
 
 	/**
 	 * @return the id

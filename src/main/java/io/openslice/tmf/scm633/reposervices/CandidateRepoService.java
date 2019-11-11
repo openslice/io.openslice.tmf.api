@@ -33,7 +33,7 @@ public class CandidateRepoService {
 	@Autowired
 	ServiceSpecificationRepoService specRepo;
 	
-	public ServiceCandidate addCatalog( ServiceCandidate c) {
+	public ServiceCandidate addServiceCandidate( ServiceCandidate c) {
 
 		return this.candidateRepo.save( c );
 	}

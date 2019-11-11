@@ -79,7 +79,19 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 
 	@JsonProperty("@valueSchemaLocation")
 	private String valueSchemaLocation = null;
+	
 
+	@JsonProperty("id")
+	protected String id = null;
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		id = uuid;
+		return uuid;
+	}
+	
 	public ServiceSpecCharacteristic configurable(Boolean configurable) {
 		this.configurable = configurable;
 		return this;

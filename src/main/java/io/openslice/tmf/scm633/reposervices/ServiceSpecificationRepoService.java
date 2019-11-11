@@ -47,6 +47,8 @@ import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.AttachmentRef;
+import io.openslice.tmf.scm633.model.ServiceCandidate;
+import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
@@ -68,6 +70,10 @@ public class ServiceSpecificationRepoService {
 
 	@Autowired
 	ServiceSpecificationRepository serviceSpecificationRepo;
+	
+
+	@Autowired
+	CandidateRepoService candidateRepoService;
 
 	@Autowired
 	AttachmentRepoService attachmentRepoService;
@@ -93,6 +99,17 @@ public class ServiceSpecificationRepoService {
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
 		serviceSpec.fixSpecCharRelationhsipIDs();
+		
+		@Valid
+		ServiceCandidate serviceCandidate = new ServiceCandidate();
+		serviceCandidate.setServiceSpecificationObj(serviceSpec);
+		/**
+		 * we automatically create s Service Candidate for this spec ready to be attached to categories
+		 */
+		serviceCandidate = candidateRepoService.addServiceCandidate(serviceCandidate);
+		
+		serviceSpec.setServiceCandidateObj(serviceCandidate);
+		
 		return this.serviceSpecificationRepo.save(serviceSpec);
 	}
 

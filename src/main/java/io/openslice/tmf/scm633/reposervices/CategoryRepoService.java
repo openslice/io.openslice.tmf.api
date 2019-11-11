@@ -20,12 +20,13 @@ import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
+import io.openslice.tmf.scm633.model.ServiceCandidateRef;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceCategoryUpdate;
+import io.openslice.tmf.scm633.repo.CandidateRepository;
 import io.openslice.tmf.scm633.repo.CatalogRepository;
 import io.openslice.tmf.scm633.repo.CategoriesRepository;
 
@@ -36,6 +37,9 @@ public class CategoryRepoService {
 	@Autowired
 	CategoriesRepository categsRepo;
 	
+
+	@Autowired
+	CandidateRepository candidateRepo;
 
 
 	@Autowired
@@ -214,6 +218,41 @@ public class CategoryRepoService {
 		}
 		
 		
+		if ( serviceCatUpd.getServiceCandidate() !=null ) {
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (ServiceCandidateRef ref : serviceCatUpd.getServiceCandidate() ) {
+				//find  by id and reload it here.
+				boolean idexists = false;
+				for (ServiceCandidate originalSCat : sc.getServiceCandidateObj()) {
+					if ( originalSCat.getId().equals( ref.getId())) {
+						idexists = true;
+						idAddedUpdated.put( originalSCat.getId(), true);
+						break;
+					}					
+				}
+				if (!idexists) {
+					Optional<ServiceCandidate> catToAdd = this.candidateRepo.findByUuid( ref.getId() );
+					if ( catToAdd.isPresent() ) {
+						ServiceCandidate scatadd = catToAdd.get();
+						sc.getServiceCandidateObj().add( scatadd );
+						idAddedUpdated.put( ref.getId(), true);		
+												
+					}
+				}
+			}
+			List<ServiceCandidate> toRemove = new ArrayList<>();
+			for (ServiceCandidate ss : sc.getServiceCandidateObj()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (ServiceCandidate ar : toRemove) {
+				sc.getServiceCandidateObj().remove(ar);
+			}
+		}
 		
 		return sc;
 	}

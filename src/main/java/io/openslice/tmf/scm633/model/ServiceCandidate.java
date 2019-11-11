@@ -68,6 +68,24 @@ public class ServiceCandidate extends BaseEntity {
 	
 	
 	
+
+	public String getVersion() {
+		if ( this.serviceSpecificationObj != null )
+		{
+			return this.serviceSpecificationObj.getVersion();
+		}
+		
+		return null;
+	}
+
+	public String getName() {
+		if ( this.serviceSpecificationObj != null )
+		{
+			return this.serviceSpecificationObj.getName();
+		}
+		
+		return null;
+	}
 	
 	/**
 	 * The service specification implied by this candidate

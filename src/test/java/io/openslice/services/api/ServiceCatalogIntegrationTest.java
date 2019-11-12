@@ -126,7 +126,7 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
-		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 9 );
+		assertThat( candidateRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		
 		assertThat( catalogRepoService.findByName( "Catalog" )  ).isNotNull() ;
@@ -1002,8 +1002,10 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		
 		this.bootstrapRepository.initRepo();
-		
+
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 8 );
+		assertThat( candidateRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 8 );
+
 		
 
 	}

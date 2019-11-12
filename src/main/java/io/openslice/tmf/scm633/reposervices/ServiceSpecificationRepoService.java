@@ -68,6 +68,7 @@ import io.openslice.tmf.util.AttachmentUtil;
  *
  */
 @Service
+@Transactional
 public class ServiceSpecificationRepoService {
 
 	private static final transient Log logger = LogFactory.getLog(ServiceSpecificationRepoService.class.getName());
@@ -176,7 +177,7 @@ public class ServiceSpecificationRepoService {
 		try {
 			dd = (ServiceSpecification) session.get(ServiceSpecification.class, id);
 			if ( dd == null ) {
-				return null;
+				return this.findByUuid(id);//last resort
 			}
 			Hibernate.initialize(dd.getAttachment());
 			Hibernate.initialize(dd.getRelatedParty());
@@ -206,7 +207,7 @@ public class ServiceSpecificationRepoService {
 	public ServiceSpecification updateServiceSpecification(String id,
 			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
 
-		ServiceSpecification s = this.findByUuidEager(id);
+		ServiceSpecification s = this.findByUuid(id);
 		if (s  == null) {
 			return null;
 		}

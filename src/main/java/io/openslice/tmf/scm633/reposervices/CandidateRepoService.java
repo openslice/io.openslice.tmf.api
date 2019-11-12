@@ -9,6 +9,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
@@ -37,17 +39,18 @@ public class CandidateRepoService {
 
 		return this.candidateRepo.save( c );
 	}
-
+	
+	//@Transactional(propagation=Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
 	public ServiceCandidate addServiceCandidate(@Valid ServiceCandidateCreate serviceCand) {	
 		
 
 		ServiceCandidate sc = new ServiceCandidate() ;
-		if ( serviceCand.getServiceSpecification() != null) {
-			Optional<ServiceCandidate> optsc = this.candidateRepo.findByServiceSpecUuid(serviceCand.getServiceSpecification().getId());
-			if (optsc.isPresent() ) {
-					sc = optsc.get();//add to an existing candidate
-			}
-		}
+//		if ( serviceCand.getServiceSpecification() != null) {
+//			Optional<ServiceCandidate> optsc = this.candidateRepo.findByServiceSpecUuid(serviceCand.getServiceSpecification().getId());
+//			if (optsc.isPresent() ) {
+//					sc = optsc.get();//add to an existing candidate
+//			}
+//		}
 		
 		sc = updateServiceCandidateDataFromAPI( sc, serviceCand);
 		
@@ -58,6 +61,7 @@ public class CandidateRepoService {
 		return (List<ServiceCandidate>) this.candidateRepo.findAll();
 	}
 
+	//@Transactional(propagation=Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
 	public ServiceCandidate findById(String id) {
 		Optional<ServiceCandidate> optionalCat = this.candidateRepo.findByUuid( id );
 		return optionalCat

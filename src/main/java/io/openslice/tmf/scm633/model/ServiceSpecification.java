@@ -5,8 +5,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -74,26 +76,29 @@ public class ServiceSpecification extends BaseEntity {
 	@JsonProperty("id")
 	protected String id = null;
 	
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
-    @JoinColumn(name = "candidate_specid", referencedColumnName = "uuid")
+	
+	
 	@JsonIgnore
-	private ServiceCandidate serviceCandidateObj = null;
-	
-	
+	@Column( name = "candidate_specid" )
+	private String serviceCandidateObjId;
 
+	
 	/**
-	 * @return the serviceCandidateObj
+	 * @return the serviceCandidateObjId
 	 */
-	public ServiceCandidate getServiceCandidateObj() {
-		return serviceCandidateObj;
+	public String getServiceCandidateObjId() {
+		return serviceCandidateObjId;
 	}
 
 	/**
-	 * @param serviceCandidateObj the serviceCandidateObj to set
+	 * @param serviceCandidateObjId the serviceCandidateObjId to set
 	 */
-	public void setServiceCandidateObj(ServiceCandidate serviceCandidateObj) {
-		this.serviceCandidateObj = serviceCandidateObj;
+	public void setServiceCandidateObjId(String serviceCandidateObjId) {
+		this.serviceCandidateObjId = serviceCandidateObjId;
 	}
+
+	
+
 
 	/**
 	 * @return the id

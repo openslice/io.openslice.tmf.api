@@ -4,9 +4,13 @@ import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,6 +44,7 @@ import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 @Service
 public class BootstrapRepository {
 
+	private static final transient Log logger = LogFactory.getLog(BootstrapRepository.class.getName());
 
 	private static final boolean ADDGST = true;
 
@@ -119,10 +124,12 @@ public class BootstrapRepository {
 		}
 	}
 
+
 	private void createFirstTimeGSTRepo(ServiceCategory scategory) {
 
 		ServiceSpecification serviceSpecificationObj = readFromLocalResource( "gst.json" );
-		serviceSpecificationObj = this.specRepoService.addServiceSpecification(serviceSpecificationObj);
+		serviceSpecificationObj = this.specRepoService.addServiceSpecification(serviceSpecificationObj);;
+		serviceSpecificationObj = this.specRepoService.updateServiceSpecification( serviceSpecificationObj );
 		serviceSpecificationObj = this.specRepoService.findByUuid( serviceSpecificationObj.getId() );
 				
 		ServiceCandidateUpdate scand = new ServiceCandidateUpdate();
@@ -131,9 +138,10 @@ public class BootstrapRepository {
 		ServiceCategoryRef categoryItem = new ServiceCategoryRef();
 		categoryItem.setId(scategory.getId());
 		scand.addCategoryItem(categoryItem);
+		scand.setServiceSpecification(serviceSpecificationRef);
 		
 		this.candidateRepoService.updateCandidate( 
-				serviceSpecificationObj.getServiceCandidateObj().getUuid(),
+				serviceSpecificationObj.getServiceCandidateObjId() ,
 				scand);
 		
 	}
@@ -145,7 +153,17 @@ public class BootstrapRepository {
 		 * Create the VINNI-SB as Bundle from file
 		 */
 		ServiceSpecification serviceSpecVinniSB = readFromLocalResource("vinnisb/vinnisb.json");
+		logger.info( "specRepoService size = " + this.specRepoService.findAll().size() );
 		serviceSpecVinniSB = this.specRepoService.addServiceSpecification(serviceSpecVinniSB);
+		logger.info( "specRepoService size = " + this.specRepoService.findAll().size() );
+		
+		for (ServiceSpecification ss : this.specRepoService.findAll()) {
+			logger.info( "ss id = " + ss.getId() );			
+		}
+		logger.info( "serviceSpecVinniSB.getUuid() = " + serviceSpecVinniSB.getUuid() );			
+		
+		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
+		serviceSpecVinniSB = this.specRepoService.findByUuidEager( serviceSpecVinniSB.getUuid());
 		
 		/**
 		 * Create RFS 
@@ -182,7 +200,7 @@ public class BootstrapRepository {
 		ServiceSpecRelationship serviceSpecRelationshipItem  =new ServiceSpecRelationship();
 		serviceSpecRelationshipItem.setId( serviceTopology.getId());
 		serviceSpecRelationshipItem.setName( serviceTopology.getName() );
-		serviceSpecVinniSB.addServiceSpecRelationshipItem(serviceSpecRelationshipItem  );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( serviceSpecRelationshipItem  );
 		serviceSpecVinniSB = this.specRepoService.updateServiceSpecification(serviceSpecVinniSB);
 		
 		/**
@@ -270,9 +288,10 @@ public class BootstrapRepository {
 		ServiceCategoryRef categoryItem = new ServiceCategoryRef();
 		categoryItem.setId(scategory.getId());
 		scand.addCategoryItem(categoryItem);
+		scand.setServiceSpecification(serviceSpecificationRef);
 		
 		this.candidateRepoService.updateCandidate( 
-				serviceSpecVinniSB.getServiceCandidateObj().getUuid(),
+				serviceSpecVinniSB.getServiceCandidateObjId(),
 				scand);
 	}
 

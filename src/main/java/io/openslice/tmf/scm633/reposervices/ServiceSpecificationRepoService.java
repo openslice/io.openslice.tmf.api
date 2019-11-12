@@ -38,6 +38,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,11 +49,13 @@ import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
+import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
@@ -73,7 +77,6 @@ public class ServiceSpecificationRepoService {
 
 	@Autowired
 	ServiceSpecificationRepository serviceSpecificationRepo;
-	
 
 	@Autowired
 	CandidateRepoService candidateRepoService;
@@ -85,8 +88,6 @@ public class ServiceSpecificationRepoService {
 
 	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
 			+ File.separator + "metadata" + File.separator;
-
-	
 
 	@Autowired
 	public ServiceSpecificationRepoService(EntityManagerFactory factory) {
@@ -102,19 +103,20 @@ public class ServiceSpecificationRepoService {
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
 		serviceSpec.fixSpecCharRelationhsipIDs();
-		
+
 		/**
-		 * we automatically create s Service Candidate for this spec ready to be attached to categories
+		 * we automatically create s Service Candidate for this spec ready to be
+		 * attached to categories
 		 */
 		@Valid
 		ServiceCandidateCreate serviceCandidate = new ServiceCandidateCreate();
 		ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
-		serviceCandidate.setServiceSpecification(serviceSpecificationRef );
-		serviceSpecificationRef.setId( serviceSpec.getId() );
+		serviceCandidate.setServiceSpecification(serviceSpecificationRef);
+		serviceSpecificationRef.setId(serviceSpec.getId());
 		ServiceCandidate serviceCandidateObj = candidateRepoService.addServiceCandidate(serviceCandidate);
-		
-		serviceSpec.setServiceCandidateObj(serviceCandidateObj);
-		
+
+		serviceSpec.setServiceCandidateObjId(serviceCandidateObj.getUuid());
+
 		return this.serviceSpecificationRepo.save(serviceSpec);
 	}
 
@@ -122,70 +124,77 @@ public class ServiceSpecificationRepoService {
 		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findAll();
 	}
 
-	public List<ServiceSpecification> findAll(@Valid String fields, Map<String, String> allParams) throws UnsupportedEncodingException {
+	public List<ServiceSpecification> findAll(@Valid String fields, Map<String, String> allParams)
+			throws UnsupportedEncodingException {
 
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		 List<ServiceSpecification> alist = null;
+		List<ServiceSpecification> alist = null;
 		try {
 			String sql = "SELECT ";
-			
-			if (fields==null) {
+
+			if (fields == null) {
 				sql += " s";
-			}else {
-				 sql += " s.uuid,s.name,s.description,s.isBundle ";
+			} else {
+				sql += " s.uuid,s.name,s.description,s.isBundle ";
 			}
-			
+
 			sql += " FROM ServiceSpecification s";
-			if (allParams.size()>0){
+			if (allParams.size() > 0) {
 				sql += " WHERE ";
 				for (String pname : allParams.keySet()) {
 					sql += " " + pname + " LIKE ";
-					 String pval =URLDecoder.decode(allParams.get(pname), StandardCharsets.UTF_8.toString());
+					String pval = URLDecoder.decode(allParams.get(pname), StandardCharsets.UTF_8.toString());
 					sql += "'" + pval + "'";
 				}
-				
+
 			}
 			sql += " ORDER BY s.uuid";
-			Query q = session.createQuery( sql );
+			Query q = session.createQuery(sql);
 			q.setFirstResult(0);
 			q.setMaxResults(1000);
 			alist = q.getResultList();
 			return alist;
 		} finally {
-	        tx.commit();
-	        session.close();
-	    }
-		
-		
-		
-		
+			tx.commit();
+			session.close();
+		}
 
 	}
 
+//	 @Transactional(propagation=Propagation.REQUIRED , readOnly=true,
+//	 noRollbackFor=Exception.class)
 	public ServiceSpecification findByUuid(String id) {
 		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid(id);
 		return optionalCat.orElse(null);
 	}
-	
+
 	public ServiceSpecification findByUuidEager(String id) {
 		Session session = sessionFactory.openSession();
-	    Transaction tx = session.beginTransaction();
-	    ServiceSpecification dd = null;
-	    try {
-	        dd = (ServiceSpecification) session.get(ServiceSpecification.class, id);
-	        Hibernate.initialize( dd.getAttachment()   );
-	        Hibernate.initialize( dd.getRelatedParty() );
-	        Hibernate.initialize( dd.getServiceLevelSpecification());
-	        Hibernate.initialize( dd.getServiceSpecCharacteristic() );
-	        Hibernate.initialize( dd.getServiceSpecRelationship() ) ;
-	       
-	        
-	        tx.commit();
-	    } finally {
-	        session.close();
-	    }
-	    return dd;
+		Transaction tx = session.beginTransaction(); //instead of begin transaction, is it possible to continue?
+		ServiceSpecification dd = null;
+		try {
+			dd = (ServiceSpecification) session.get(ServiceSpecification.class, id);
+			if ( dd == null ) {
+				return null;
+			}
+			Hibernate.initialize(dd.getAttachment());
+			Hibernate.initialize(dd.getRelatedParty());
+			Hibernate.initialize(dd.getResourceSpecification() );
+			Hibernate.initialize(dd.getServiceLevelSpecification());
+			Hibernate.initialize(dd.getServiceSpecCharacteristic());
+			for (ServiceSpecCharacteristic schar : dd.getServiceSpecCharacteristic()) {
+				Hibernate.initialize( schar.getServiceSpecCharacteristicValue() );
+				Hibernate.initialize( schar.getServiceSpecCharRelationship() );
+				
+			}
+			Hibernate.initialize(dd.getServiceSpecRelationship());
+
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return dd;
 	}
 
 	public Void deleteByUuid(String id) {
@@ -197,11 +206,11 @@ public class ServiceSpecificationRepoService {
 	public ServiceSpecification updateServiceSpecification(String id,
 			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
 
-		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findByUuid(id);
-		if (s.get() == null) {
+		ServiceSpecification s = this.findByUuidEager(id);
+		if (s  == null) {
 			return null;
 		}
-		ServiceSpecification serviceSpec = s.get();
+		ServiceSpecification serviceSpec = s;
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
 
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
@@ -212,23 +221,28 @@ public class ServiceSpecificationRepoService {
 
 	private ServiceSpecification updateServiceSpecDataFromAPIcall(ServiceSpecification serviceSpec,
 			ServiceSpecificationUpdate serviceSpecUpd) {
+	
 
-		serviceSpec.setName(serviceSpecUpd.getName());
+		if (serviceSpecUpd.getName() != null) {
+			serviceSpec.setName(serviceSpecUpd.getName());
+		}
 
-		serviceSpec.setDescription(serviceSpecUpd.getDescription());
-		serviceSpec.isBundle(serviceSpecUpd.isIsBundle());
+		if (serviceSpecUpd.getDescription() != null) {
+			serviceSpec.setDescription(serviceSpecUpd.getDescription());
+
+		}
+
+		if (serviceSpecUpd.isIsBundle() != null) {
+			serviceSpec.isBundle(serviceSpecUpd.isIsBundle());
+
+		}
 
 		serviceSpec.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
 
-		if (serviceSpecUpd.getLifecycleStatus() == null) {
-			serviceSpec.setLifecycleStatusEnum(ELifecycle.IN_STUDY);
-		} else {
+		if (serviceSpecUpd.getLifecycleStatus() != null) {
 			serviceSpec.setLifecycleStatusEnum(ELifecycle.getEnum(serviceSpecUpd.getLifecycleStatus()));
 		}
-		if (serviceSpecUpd.getVersion() == null) {
-			serviceSpec.setVersion("1.0.0");
-
-		} else {
+		if (serviceSpecUpd.getVersion() != null) {
 			serviceSpec.setVersion(serviceSpecUpd.getVersion());
 		}
 
@@ -272,8 +286,8 @@ public class ServiceSpecificationRepoService {
 		}
 
 		/**
-		 * Update ServiceSpecCharacteristic list We need to compare by name,
-		 * since IDs will not exist
+		 * Update ServiceSpecCharacteristic list We need to compare by name, since IDs
+		 * will not exist
 		 */
 		if (serviceSpecUpd.getServiceSpecCharacteristic() != null) {
 			// reattach attachments fromDB
@@ -352,8 +366,38 @@ public class ServiceSpecificationRepoService {
 		 */
 
 		if (serviceSpecUpd.getServiceSpecRelationship() != null) {
-			serviceSpec.getServiceSpecRelationship().clear();
-			serviceSpec.getServiceSpecRelationship().addAll(serviceSpecUpd.getServiceSpecRelationship());
+			
+			// reattach attachments fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+
+			for (ServiceSpecRelationship ar : serviceSpecUpd.getServiceSpecRelationship()) {
+				// find attachmet by id and reload it here.
+				// we need the attachment model from resource spec models
+				boolean idexists = false;
+				for (ServiceSpecRelationship orinalAtt : serviceSpec.getServiceSpecRelationship()) {
+					if (orinalAtt.getId().equals(ar.getId())) {
+						idexists = true;
+						idAddedUpdated.put(orinalAtt.getId(), true);
+						break;
+					}
+				}
+
+				if (!idexists) {
+					serviceSpec.getServiceSpecRelationship().add(ar);
+					idAddedUpdated.put(ar.getId(), true);
+				}
+			}
+
+			List<ServiceSpecRelationship> toRemove = new ArrayList<>();
+			for (ServiceSpecRelationship ss : serviceSpec.getServiceSpecRelationship()) {
+				if (idAddedUpdated.get(ss.getId()) == null) {
+					toRemove.add(ss);
+				}
+			}
+
+			for (ServiceSpecRelationship ar : toRemove) {
+				serviceSpec.getServiceSpecRelationship().remove(ar);
+			}
 
 		}
 
@@ -361,8 +405,40 @@ public class ServiceSpecificationRepoService {
 		 * Update ResourceSpecification list
 		 */
 		if (serviceSpecUpd.getResourceSpecification() != null) {
-			serviceSpec.getResourceSpecification().clear();
-			serviceSpec.getResourceSpecification().addAll(serviceSpecUpd.getResourceSpecification());
+			
+			// reattach attachments fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+
+			for (ResourceSpecificationRef ar : serviceSpecUpd.getResourceSpecification()) {
+				// find attachmet by id and reload it here.
+				// we need the attachment model from resource spec models
+				boolean idexists = false;
+				for (ResourceSpecificationRef orinalAtt : serviceSpec.getResourceSpecification()) {
+					if (orinalAtt.getId().equals(ar.getId())) {
+						idexists = true;
+						idAddedUpdated.put(orinalAtt.getId(), true);
+						break;
+					}
+				}
+
+				if (!idexists) {
+					serviceSpec.getResourceSpecification().add(ar);
+					idAddedUpdated.put(ar.getId(), true);
+				}
+			}
+
+			List<ResourceSpecificationRef> toRemove = new ArrayList<>();
+			for (ResourceSpecificationRef ss : serviceSpec.getResourceSpecification()) {
+				if (idAddedUpdated.get(ss.getId()) == null) {
+					toRemove.add(ss);
+				}
+			}
+
+			for (ResourceSpecificationRef ar : toRemove) {
+				serviceSpec.getServiceSpecRelationship().remove(ar);
+			}
+			
+			
 		}
 
 		/**
@@ -388,11 +464,6 @@ public class ServiceSpecificationRepoService {
 
 		return serviceSpec;
 	}
-
-	
-	
-
-
 
 	public ServiceSpecification cloneServiceSpecification(String uuid) {
 		ServiceSpecification source = this.findByUuid(uuid);
@@ -457,45 +528,58 @@ public class ServiceSpecificationRepoService {
 
 	public ServiceSpecification findByNameAndVersion(String aname, String aversion) {
 
-		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByNameAndVersion( aname, aversion );
+		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByNameAndVersion(aname,
+				aversion);
 		return optionalCat.orElse(null);
 	}
 
+	// @Transactional(propagation=Propagation.REQUIRED , readOnly=true,
+	// noRollbackFor=Exception.class)
 	public ServiceSpecification addServiceSpecification(ServiceSpecification c) {
-		if  (  (c.getResourceSpecification() != null ) && (c.getResourceSpecification().size() > 0) ) {
-			c.setType("ResourceFacingServiceSpecification");
-		} else {
-			c.setType("CustomerFacingServiceSpecification");
-		}
-		
 
-		ServiceSpecification serviceSpec = this.serviceSpecificationRepo.save(c);
-		/**
-		 * we automatically create s Service Candidate for this spec ready to be attached to categories
-		 */
+		@Valid
+		ServiceSpecificationCreate serviceServiceSpecificationCr = new ServiceSpecificationCreate();
 
-		serviceSpec = this.findByUuidEager( serviceSpec.getId() );
-		ServiceCandidateCreate serviceCandidateCr = new ServiceCandidateCreate();
-		ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
-		serviceCandidateCr.setServiceSpecification(serviceSpecificationRef );
-		serviceSpecificationRef.setId( serviceSpec .getId() );
-		ServiceCandidate serviceCandidateObj = candidateRepoService.addServiceCandidate(serviceCandidateCr);
+		serviceServiceSpecificationCr.setName(c.getName());
+		serviceServiceSpecificationCr.setDescription(c.getDescription());
+		serviceServiceSpecificationCr.setAttachment(new ArrayList<>(c.getAttachment()));
+		serviceServiceSpecificationCr.setIsBundle(c.isIsBundle());
+		serviceServiceSpecificationCr.setRelatedParty(new ArrayList<>(c.getRelatedParty()));
+		serviceServiceSpecificationCr.setResourceSpecification(new ArrayList<>(c.getResourceSpecification()));
+		serviceServiceSpecificationCr.setServiceLevelSpecification(new ArrayList<>(c.getServiceLevelSpecification()));
+		serviceServiceSpecificationCr.setServiceSpecCharacteristic(new ArrayList<>(c.getServiceSpecCharacteristic()));
+		serviceServiceSpecificationCr.setServiceSpecRelationship(new ArrayList<>(c.getServiceSpecRelationship()));
+		serviceServiceSpecificationCr.setVersion(c.getVersion());
 
-		serviceSpec = this.findByUuidEager( serviceSpec.getUuid() );
-		serviceSpec.setServiceCandidateObj(serviceCandidateObj);
-		
-		serviceSpec = this.serviceSpecificationRepo.save( serviceSpec );
-		return serviceSpec ;
+		return this.addServiceSpecification(serviceServiceSpecificationCr);
+
 	}
-	
-	public ServiceSpecification updateServiceSpecification(ServiceSpecification spec) {
-		if (spec.getResourceSpecification().size() > 0) {
-			spec.setType("ResourceFacingServiceSpecification");
-		} else {
-			spec.setType("CustomerFacingServiceSpecification");
-		}
-		return this.serviceSpecificationRepo.save( spec );
-		
+
+	public ServiceSpecification updateServiceSpecification(ServiceSpecification c) {
+
+		@Valid
+		ServiceSpecificationUpdate serviceServiceSpecificationCr = new ServiceSpecificationUpdate();
+
+		serviceServiceSpecificationCr.setName(c.getName());
+		serviceServiceSpecificationCr.setDescription(c.getDescription());
+		serviceServiceSpecificationCr.setAttachment(new ArrayList<>(c.getAttachment()));
+		serviceServiceSpecificationCr.setIsBundle(c.isIsBundle());
+		serviceServiceSpecificationCr.setServiceSpecRelationship(new ArrayList<>(c.getServiceSpecRelationship()));
+		serviceServiceSpecificationCr.setRelatedParty(new ArrayList<>(c.getRelatedParty()));
+		serviceServiceSpecificationCr.setResourceSpecification(new ArrayList<>(c.getResourceSpecification()));
+		serviceServiceSpecificationCr.setServiceLevelSpecification(new ArrayList<>(c.getServiceLevelSpecification()));
+		serviceServiceSpecificationCr.setServiceSpecCharacteristic(new ArrayList<>(c.getServiceSpecCharacteristic()));
+		serviceServiceSpecificationCr.setVersion(c.getVersion());
+
+		return this.updateServiceSpecification(c.getId(), serviceServiceSpecificationCr);
+
+//		if (spec.getResourceSpecification().size() > 0) {
+//			spec.setType("ResourceFacingServiceSpecification");
+//		} else {
+//			spec.setType("CustomerFacingServiceSpecification");
+//		}
+//		return this.serviceSpecificationRepo.save( spec );
+//		
 	}
 
 }

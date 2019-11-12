@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -43,7 +44,7 @@ public class ServiceCandidate extends BaseEntity {
 	@JsonIgnore
 	private Set<ServiceCategory> categoryObj = new HashSet<>();
 
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+	@OneToOne( cascade = {CascadeType.MERGE, CascadeType.DETACH} )
     @JoinColumn(name = "service_specid", referencedColumnName = "uuid")
 	@JsonIgnore
 	private ServiceSpecification serviceSpecificationObj = null;

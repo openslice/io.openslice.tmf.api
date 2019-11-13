@@ -135,7 +135,7 @@ public interface ServiceSpecificationApi {
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> retrieveServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
 
-    @ApiOperation(value = "Clones a ServiceSpecification", nickname = "patchServiceSpecification", notes = "This operation clones a ServiceSpecification entity. The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @ApiOperation(value = "Clones a ServiceSpecification", nickname = "cloneServiceSpecification", notes = "This operation clones a ServiceSpecification entity. The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Cloned", response = ServiceSpecification.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),

@@ -219,7 +219,21 @@ public class ServiceSpecificationRepoService {
 
 	public Void deleteByUuid(String id) {
 		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid(id);
-		this.serviceSpecificationRepo.delete(optionalCat.get());
+		ServiceSpecification s = optionalCat.get();
+		if ( s == null) {
+			return null;
+		}
+		
+		//ServiceCandidate scopt = this.candidateRepoService.findById(s.getServiceCandidateObjId());
+		this.candidateRepoService.deleteById( s.getServiceCandidateObjId() );
+		
+		/**
+		 * prior deleting we need to delete other dependency objects
+		 */
+		
+		
+		
+		this.serviceSpecificationRepo.delete( s );
 		return null;
 	}
 

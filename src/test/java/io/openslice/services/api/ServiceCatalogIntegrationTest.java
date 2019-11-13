@@ -1029,6 +1029,36 @@ public class ServiceCatalogIntegrationTest {
 
 	}
 	
+	
+	@WithMockUser(username="osadmin", roles = {"USER"})
+	@Test
+	public void testSpecDelete() throws Exception {
+
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
+		
+		/**
+		 * first add 1 specs
+		 */
+
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName("Spec1");
+		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);		
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
+
+				
+		this.specRepoService.deleteByUuid( responsesSpec1.getId() );
+		
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS  );
+		
+	}
+	
 	private LogicalResourceSpec createLogicalResourceSpec() throws Exception{
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );
 		InputStream in = new FileInputStream( sspec );

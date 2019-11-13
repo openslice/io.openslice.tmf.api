@@ -23,6 +23,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -38,6 +39,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = { 
+
+		"io.openslice",
+		"io.openslice.sd",
+		"io.openslice.sd.model",
 		"io.openslice.tmf",  
 		"io.openslice.tmf.configuration", 
 		"io.openslice.tmf.scm633", 
@@ -45,7 +50,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		"io.openslice.tmf.scm633.repo", 
 		"io.openslice.tmf.scm633.reposervices",
 		"io.openslice.tmf.scm634", 
-		"io.openslice.tmf.scm634.api",})
+		"io.openslice.tmf.scm634.api"})
+@EntityScan( basePackages = { 
+		"io.openslice",
+		"io.openslice.sd",
+		"io.openslice.sd.model",
+		"io.openslice.tmf",  
+		"io.openslice.tmf.configuration", 
+		"io.openslice.tmf.scm633", 
+		"io.openslice.tmf.scm633.api",
+		"io.openslice.tmf.scm633.repo", 
+		"io.openslice.tmf.scm633.reposervices",
+		"io.openslice.tmf.scm634", 
+		"io.openslice.tmf.scm634.api"} )
+
 public class OpenAPISpringBoot implements CommandLineRunner {
 
     private static ApplicationContext applicationContext;

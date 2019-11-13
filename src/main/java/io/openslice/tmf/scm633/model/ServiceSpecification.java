@@ -37,6 +37,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.sd.model.ServiceDescriptor;
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
@@ -49,6 +50,10 @@ import io.swagger.annotations.ApiModelProperty;
  * type of service. Functionally, it acts as a template by which Services may be
  * instantiated. By sharing the same specification, these services would
  * therefore share the same set of characteristics.
+ */
+/**
+ * @author ctranoris
+ *
  */
 @ApiModel(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics.")
 @Validated
@@ -94,6 +99,11 @@ public class ServiceSpecification extends BaseEntity {
 
 	@JsonProperty("id")
 	protected String id = null;
+	
+	@OneToOne( cascade = {CascadeType.MERGE, CascadeType.DETACH} )
+    @JoinColumn(name = "service_descrid", referencedColumnName = "uuid")
+	@JsonIgnore
+	private ServiceDescriptor serviceDescriptor;
 	
 	
 	
@@ -143,23 +153,39 @@ public class ServiceSpecification extends BaseEntity {
 		version = src.version;
 		validFor = new TimePeriod(src.validFor);
 
-		for (AttachmentRef attachmentRef : src.attachment) {
-			this.addAttachmentItem( new AttachmentRef( attachmentRef ));
+		if ( src.attachment != null ) {
+			for (AttachmentRef attachmentRef : src.attachment) {
+				this.addAttachmentItem( new AttachmentRef( attachmentRef ));
+			}
+			
 		}
-		for (RelatedParty r : src.relatedParty) {
-			this.addRelatedPartyItem( new RelatedParty( r) );
+		if ( src.relatedParty != null ) {
+			for (RelatedParty r : src.relatedParty) {
+				this.addRelatedPartyItem( new RelatedParty( r) );
+			}			
 		}
-		for (ResourceSpecificationRef r : src.resourceSpecification) {
-			this.addResourceSpecificationItem( new ResourceSpecificationRef(r) );
+
+		if ( src.resourceSpecification != null ) {
+			for (ResourceSpecificationRef r : src.resourceSpecification) {
+				this.addResourceSpecificationItem( new ResourceSpecificationRef(r) );
+			}			
 		}
-		for (ServiceLevelSpecificationRef r : src.serviceLevelSpecification) {
-			this.addServiceLevelSpecificationItem( new ServiceLevelSpecificationRef(r) );
+		if ( src.serviceLevelSpecification != null ) {
+			for (ServiceLevelSpecificationRef r : src.serviceLevelSpecification) {
+				this.addServiceLevelSpecificationItem( new ServiceLevelSpecificationRef(r) );
+			}			
 		}
-		for (ServiceSpecCharacteristic r : src.serviceSpecCharacteristic) {			
-			this.addServiceSpecCharacteristicItem( new ServiceSpecCharacteristic(r) );
+
+		if ( src.serviceSpecCharacteristic != null ) {
+			for (ServiceSpecCharacteristic r : src.serviceSpecCharacteristic) {			
+				this.addServiceSpecCharacteristicItem( new ServiceSpecCharacteristic(r) );
+			}			
 		}
-		for (ServiceSpecRelationship r : src.serviceSpecRelationship) {
-			this.addServiceSpecRelationshipItem( new ServiceSpecRelationship(r));
+
+		if ( src.serviceSpecRelationship != null ) {
+			for (ServiceSpecRelationship r : src.serviceSpecRelationship) {
+				this.addServiceSpecRelationshipItem( new ServiceSpecRelationship(r));
+			}			
 		}
 
 	}

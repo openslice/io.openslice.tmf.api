@@ -50,7 +50,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
-@Api(value = "serviceSpecification", description = "the serviceSpecification API")
 public interface ServiceSpecificationApi {
 
     @ApiOperation(value = "Creates a ServiceSpecification", nickname = "createServiceSpecification", notes = "This operation creates a ServiceSpecification entity.", response = ServiceSpecification.class, tags={ "serviceSpecification", })
@@ -183,7 +182,7 @@ public interface ServiceSpecificationApi {
         @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
-    @RequestMapping(value = "/serviceSpecification/{id/sd}",
+    @RequestMapping(value = "/serviceSpecification/{id}/sd",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
     ResponseEntity<ServiceDescriptor> retrieveServiceSpecificationDescriptor(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);

@@ -51,12 +51,14 @@ import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Controller
 @RequestMapping("/serviceCatalogManagement/v4/")
+@Api(value = "serviceSpecification", description = "the serviceSpecification API")
 public class ServiceSpecificationApiController implements ServiceSpecificationApi {
 
 	private static final Logger log = LoggerFactory.getLogger(ServiceSpecificationApiController.class);

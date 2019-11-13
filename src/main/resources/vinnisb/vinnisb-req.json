@@ -1,6 +1,6 @@
 {
-	"name": "VINNI-SB Service Requirements Template",
-	"description": "VINNI-SB Service Requirements template",
+	"name": "VINNI-SB Service Requirements",
+	"description": "VINNI-SB Service Requirements",
 	"version": "0.1.0",
 	"isBundle": false,
 	"attachment": [

@@ -167,7 +167,7 @@ public interface ServiceSpecificationApi {
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
     ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(
-    		@ApiParam(value = "A name of the cloned GST",required=true) @PathVariable("serviceName") String serviceName);
+    		@ApiParam(value = "A name of the cloned GST") @RequestParam(value="serviceName", required=true) String serviceName);
     
     @ApiOperation(value = "Clones a VINNI ServiceSpecification", nickname = "cloneVINNIServiceSpecification", 
     		notes = "This operation clones a ServiceSpecification 5G-VINNI entity. The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
@@ -185,17 +185,17 @@ public interface ServiceSpecificationApi {
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
     ResponseEntity<ServiceSpecification> cloneVINNIServiceSpecification(
-    		@ApiParam(value = "A name of the cloned VINNI Template",required=true) @PathVariable("serviceName") String serviceName,
-    		@ApiParam(value = "If true adds a Service Topology Spec in the Bundle",required=false) @PathVariable("addServiceTopology") Boolean addServiceTopology,
-    		@ApiParam(value = "If true adds a Service Requirements Spec in the Bundle",required=false) @PathVariable("addServiceRequirements") Boolean addServiceRequirements,
-    		@ApiParam(value = "If true adds a Service Exposure Level1 Spec in the Bundle",required=false) @PathVariable("addServiceExposureLevel1") Boolean addServiceExposureLevel1,
-    		@ApiParam(value = "If true adds a Service Exposure Level2 Spec in the Bundle",required=false) @PathVariable("addServiceExposureLevel2") Boolean addServiceExposureLevel2,
-    		@ApiParam(value = "If true adds a Service Exposure Level3 Spec in the Bundle",required=false) @PathVariable("addServiceExposureLevel3") Boolean addServiceExposureLevel3,
-    		@ApiParam(value = "If true adds a Service Exposure Level4 Spec in the Bundle",required=false) @PathVariable("addServiceExposureLevel4") Boolean addServiceExposureLevel4,
-    		@ApiParam(value = "If true adds a Service Monitoring Spec in the Bundle",required=false) @PathVariable("addServiceMonitoring") Boolean addServiceMonitoring,
-    		@ApiParam(value = "If true adds a Service Testing Spec in the Bundle",required=false) @PathVariable("addServiceTesting") Boolean addServiceTesting,
-    		@ApiParam(value = "If true adds a Service 3rd party VNF Spec in the Bundle",required=false) @PathVariable("addServiceVNF") Boolean addServiceVNF,
-    		@ApiParam(value = "If true adds a Service 3rd party NSD Spec in the Bundle",required=false) @PathVariable("addServiceNSD") Boolean addServiceNSD);
+    		@ApiParam(value = "A name of the cloned VINNI Template") @RequestParam( value="serviceName",required=true) String serviceName,
+    		@ApiParam(value = "If true adds a Service Topology Spec in the Bundle") @RequestParam( value="addServiceTopology",required=true) Boolean addServiceTopology,
+    		@ApiParam(value = "If true adds a Service Requirements Spec in the Bundle") @RequestParam( value="addServiceRequirements",required=true) Boolean addServiceRequirements,
+    		@ApiParam(value = "If true adds a Service Exposure Level1 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel1",required=true) Boolean addServiceExposureLevel1,
+    		@ApiParam(value = "If true adds a Service Exposure Level2 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel2",required=true) Boolean addServiceExposureLevel2,
+    		@ApiParam(value = "If true adds a Service Exposure Level3 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel3",required=true) Boolean addServiceExposureLevel3,
+    		@ApiParam(value = "If true adds a Service Exposure Level4 Spec in the Bundle" ) @RequestParam( value="addServiceExposureLevel4",required=true) Boolean addServiceExposureLevel4,
+    		@ApiParam(value = "If true adds a Service Monitoring Spec in the Bundle" ) @RequestParam( value="addServiceMonitoring",required=true) Boolean addServiceMonitoring,
+    		@ApiParam(value = "If true adds a Service Testing Spec in the Bundle" ) @RequestParam( value="addServiceTesting",required=true) Boolean addServiceTesting,
+    		@ApiParam(value = "If true adds a Service 3rd party VNF Spec in the Bundle" ) @RequestParam( value="addServiceVNF",required=true) Boolean addServiceVNF,
+    		@ApiParam(value = "If true adds a Service 3rd party NSD Spec in the Bundle" ) @RequestParam( value="addServiceNSD",required=true) Boolean addServiceNSD);
     
     
     

@@ -1,6 +1,6 @@
 {
-	"name": "VINNI-SB Service Exposure Level Template",
-	"description": "VINNI-SB Service Exposure Level template",
+	"name": "VINNI-SB Service Exposure Level 2",
+	"description": "VINNI-SB Service Exposure Level 2",
 	"version": "0.1.0",
 	"isBundle": false,
 	"attachment": [
@@ -40,52 +40,10 @@
 					"valueType": "INTEGER",
 					"validFor": null,
 					"value": {
-						"value": "1",
-						"alias": "Level 1"
-					}
-				},
-				{
-					"isDefault": false,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
-					"valueType": "INTEGER",
-					"validFor": null,
-					"value": {
-						"value": "1",
+						"value": "2",
 						"alias": "Level 2"
 					}
-				},
-				{
-					"isDefault": false,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
-					"valueType": "INTEGER",
-					"validFor": null,
-					"value": {
-						"value": "1",
-						"alias": "Level 3"
-					}
-				},
-				{
-					"isDefault": false,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
-					"valueType": "INTEGER",
-					"validFor": null,
-					"value": {
-						"value": "1",
-						"alias": "Level 4"
-					}
-				}	
+				}
 			]
 		}	
 		

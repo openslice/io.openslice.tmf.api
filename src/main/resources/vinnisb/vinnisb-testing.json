@@ -1,6 +1,6 @@
 {
-	"name": "VINNI-SB Service Testing Template",
-	"description": "VINNI-SB Service Tetsting template",
+	"name": "VINNI-SB Service Testing",
+	"description": "VINNI-SB Service Tetsting",
 	"version": "0.1.0",
 	"isBundle": false,
 	"attachment": [

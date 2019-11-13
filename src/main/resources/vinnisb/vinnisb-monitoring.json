@@ -1,6 +1,6 @@
 {
-	"name": "VINNI-SB Service Monitoring Template",
-	"description": "VINNI-SB Service Monitoring template",
+	"name": "VINNI-SB Service Monitoring",
+	"description": "VINNI-SB Service Monitoring",
 	"version": "0.1.0",
 	"isBundle": false,
 	"attachment": [

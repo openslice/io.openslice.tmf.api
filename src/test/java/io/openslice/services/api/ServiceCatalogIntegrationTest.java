@@ -56,6 +56,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -92,6 +93,7 @@ import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import io.swagger.annotations.ApiParam;
 import net.minidev.json.JSONObject;
 
 
@@ -108,7 +110,7 @@ public class ServiceCatalogIntegrationTest {
 
 	private static final transient Log logger = LogFactory.getLog( ServiceCatalogIntegrationTest.class.getName());
 
-	private static final int FIXED_BOOTSTRAPS_SPECS = 9;
+	private static final int FIXED_BOOTSTRAPS_SPECS = 12;
 	
     @Autowired
     private MockMvc mvc;
@@ -776,6 +778,65 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 4 );
 		
+		
+		String responseSpecClonedGST = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/cloneGST?serviceName=aGST Service")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( "" ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		clonedSpec = toJsonObj( responseSpecClonedGST,  ServiceSpecification.class);
+		assertThat( clonedSpec.getName() ).isEqualTo( "aGST Service" );	
+		
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 5 );
+		
+		String responseSpecClonedVINNI = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
+				.contentType(MediaType.APPLICATION_JSON)
+				.param("addServiceTopology", "true")
+				.param("addServiceRequirements", "true")
+				.param("addServiceExposureLevel1", "true")
+				.param("addServiceExposureLevel2", "true")
+				.param("addServiceExposureLevel3", "true")
+				.param("addServiceExposureLevel4", "true")
+				.param("addServiceMonitoring", "true")
+				.param("addServiceTesting", "true")
+				.param("addServiceVNF", "true")
+				.param("addServiceNSD", "true")
+				.content( toJson( "" ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+
+		clonedSpec = toJsonObj( responseSpecClonedVINNI,  ServiceSpecification.class);
+		assertThat( clonedSpec.getName() ).isEqualTo( "aVINNIService" );	
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 16 );
+		
+		String responseSpecClonedVINNI2 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
+				.contentType(MediaType.APPLICATION_JSON)
+				.param("addServiceTopology", "true")
+				.param("addServiceRequirements", "true")
+				.param("addServiceExposureLevel1", "true")
+				.param("addServiceExposureLevel2", "false")
+				.param("addServiceExposureLevel3", "false")
+				.param("addServiceExposureLevel4", "false")
+				.param("addServiceMonitoring", "false")
+				.param("addServiceTesting", "false")
+				.param("addServiceVNF", "false")
+				.param("addServiceNSD", "false")
+				.content( toJson( "" ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+
+		clonedSpec = toJsonObj( responseSpecClonedVINNI2,  ServiceSpecification.class);
+		assertThat( clonedSpec.getName() ).isEqualTo( "aVINNIService" );	
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 20 );
 	}
 	
 	
@@ -1022,8 +1083,8 @@ public class ServiceCatalogIntegrationTest {
 		
 		this.bootstrapRepository.initRepo();
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 8 );
-		assertThat( candidateRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 8 );
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 11 );
+		assertThat( candidateRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 11 );
 
 		
 

@@ -1,0 +1,54 @@
+{
+	"name": "VINNI-SB Service Exposure Level 3",
+	"description": "VINNI-SB Service Exposure Level 3",
+	"version": "0.1.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			"name": "Exposure Level",
+			"configurable": false,
+			"description": "expose management capabilities of 5G-VINNI facility towards an authorised CSC.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "SET",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Exposure Level",
+					"role": "tag",
+					"relationshipType": "tag"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Level 3"
+					}
+				}
+			]
+		}	
+		
+	],
+	"serviceSpecRelationship": [
+	],
+	"targetServiceSchema": null
+}

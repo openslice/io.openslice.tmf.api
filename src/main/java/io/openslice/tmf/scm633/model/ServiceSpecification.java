@@ -113,6 +113,20 @@ public class ServiceSpecification extends BaseEntity {
 
 	
 	/**
+	 * @return the serviceDescriptor
+	 */
+	public ServiceDescriptor getServiceDescriptor() {
+		return serviceDescriptor;
+	}
+
+	/**
+	 * @param serviceDescriptor the serviceDescriptor to set
+	 */
+	public void setServiceDescriptor(ServiceDescriptor serviceDescriptor) {
+		this.serviceDescriptor = serviceDescriptor;
+	}
+
+	/**
 	 * @return the serviceCandidateObjId
 	 */
 	public String getServiceCandidateObjId() {

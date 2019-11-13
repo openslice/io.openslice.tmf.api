@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import io.openslice.sd.model.ServiceDescriptor;
 import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
@@ -172,4 +173,19 @@ public interface ServiceSpecificationApi {
     		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file);
 
     
+    @ApiOperation(value = "Retrieves a ServiceDescriptor by ServiceSpecification  ID", nickname = "retrieveServiceSpecificationDescriptor", notes = "This operation retrieves a Service Descriptor entity. Attribute selection is enabled for all first level attributes.", response = ServiceDescriptor.class, tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Success", response = ServiceSpecification.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/serviceSpecification/{id/sd}",
+        produces = { "application/json;charset=utf-8" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<ServiceDescriptor> retrieveServiceSpecificationDescriptor(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
+
 }

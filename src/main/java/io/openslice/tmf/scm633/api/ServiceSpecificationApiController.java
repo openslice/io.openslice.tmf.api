@@ -42,6 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.sd.model.ServiceDescriptor;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.prm669.model.RelatedParty;
@@ -178,6 +179,23 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<ServiceSpecification>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Override
+	public ResponseEntity<ServiceDescriptor> retrieveServiceSpecificationDescriptor(String id) {
+		try {
+			ServiceSpecification spec = serviceSpecificationRepoService.findByUuid(id);
+			if ( spec !=null ) {
+				return new ResponseEntity<ServiceDescriptor>( spec.getServiceDescriptor(),
+						HttpStatus.OK);				
+			} else {
+
+				return new ResponseEntity<ServiceDescriptor>(HttpStatus.NOT_FOUND );
+			}
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<ServiceDescriptor>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

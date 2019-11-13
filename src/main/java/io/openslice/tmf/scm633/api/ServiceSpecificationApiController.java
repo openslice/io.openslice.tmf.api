@@ -110,7 +110,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
 			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
 			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-			@RequestParam Map<String,String> allParams) {
+			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "allParams", required = false) Map<String,String> allParams) {
 
 		try {
 			allParams.remove("fields");

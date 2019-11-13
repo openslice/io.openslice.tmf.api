@@ -100,7 +100,7 @@ public interface ServiceSpecificationApi {
     ResponseEntity<List<ServiceSpecification>> listServiceSpecification(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
     		@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
     		@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-    		@RequestParam Map<String,String> allParams);
+    		@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "allParams", required = false)  Map<String,String> allParams);
 
 
     @ApiOperation(value = "Updates partially a ServiceSpecification", nickname = "patchServiceSpecification", notes = "This operation updates partially a ServiceSpecification entity.", response = ServiceSpecification.class, tags={ "serviceSpecification", })

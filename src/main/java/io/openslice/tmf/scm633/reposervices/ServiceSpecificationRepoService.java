@@ -63,12 +63,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.ELifecycle;
+import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
+import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
+import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
+import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
+import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
@@ -103,6 +110,10 @@ public class ServiceSpecificationRepoService {
 
 	@Autowired
 	AttachmentRepoService attachmentRepoService;
+	
+
+	@Autowired
+	ResourceSpecificationRepoService resourceSpecRepoService;
 
 	private SessionFactory sessionFactory;
 
@@ -191,22 +202,22 @@ public class ServiceSpecificationRepoService {
 
 	public ServiceSpecification findByUuidEager(String id) {
 		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction(); //instead of begin transaction, is it possible to continue?
+		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
 		ServiceSpecification dd = null;
 		try {
 			dd = (ServiceSpecification) session.get(ServiceSpecification.class, id);
-			if ( dd == null ) {
-				return this.findByUuid(id);//last resort
+			if (dd == null) {
+				return this.findByUuid(id);// last resort
 			}
 			Hibernate.initialize(dd.getAttachment());
 			Hibernate.initialize(dd.getRelatedParty());
-			Hibernate.initialize(dd.getResourceSpecification() );
+			Hibernate.initialize(dd.getResourceSpecification());
 			Hibernate.initialize(dd.getServiceLevelSpecification());
 			Hibernate.initialize(dd.getServiceSpecCharacteristic());
 			for (ServiceSpecCharacteristic schar : dd.getServiceSpecCharacteristic()) {
-				Hibernate.initialize( schar.getServiceSpecCharacteristicValue() );
-				Hibernate.initialize( schar.getServiceSpecCharRelationship() );
-				
+				Hibernate.initialize(schar.getServiceSpecCharacteristicValue());
+				Hibernate.initialize(schar.getServiceSpecCharRelationship());
+
 			}
 			Hibernate.initialize(dd.getServiceSpecRelationship());
 
@@ -220,20 +231,19 @@ public class ServiceSpecificationRepoService {
 	public Void deleteByUuid(String id) {
 		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid(id);
 		ServiceSpecification s = optionalCat.get();
-		if ( s == null) {
+		if (s == null) {
 			return null;
 		}
-		
-		//ServiceCandidate scopt = this.candidateRepoService.findById(s.getServiceCandidateObjId());
-		this.candidateRepoService.deleteById( s.getServiceCandidateObjId() );
-		
+
+		// ServiceCandidate scopt =
+		// this.candidateRepoService.findById(s.getServiceCandidateObjId());
+		this.candidateRepoService.deleteById(s.getServiceCandidateObjId());
+
 		/**
 		 * prior deleting we need to delete other dependency objects
 		 */
-		
-		
-		
-		this.serviceSpecificationRepo.delete( s );
+
+		this.serviceSpecificationRepo.delete(s);
 		return null;
 	}
 
@@ -241,7 +251,7 @@ public class ServiceSpecificationRepoService {
 			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
 
 		ServiceSpecification s = this.findByUuid(id);
-		if (s  == null) {
+		if (s == null) {
 			return null;
 		}
 		ServiceSpecification serviceSpec = s;
@@ -255,7 +265,6 @@ public class ServiceSpecificationRepoService {
 
 	private ServiceSpecification updateServiceSpecDataFromAPIcall(ServiceSpecification serviceSpec,
 			ServiceSpecificationUpdate serviceSpecUpd) {
-	
 
 		if (serviceSpecUpd.getName() != null) {
 			serviceSpec.setName(serviceSpecUpd.getName());
@@ -400,7 +409,7 @@ public class ServiceSpecificationRepoService {
 		 */
 
 		if (serviceSpecUpd.getServiceSpecRelationship() != null) {
-			
+
 			// reattach attachments fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
@@ -439,7 +448,7 @@ public class ServiceSpecificationRepoService {
 		 * Update ResourceSpecification list
 		 */
 		if (serviceSpecUpd.getResourceSpecification() != null) {
-			
+
 			// reattach attachments fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
@@ -471,8 +480,7 @@ public class ServiceSpecificationRepoService {
 			for (ResourceSpecificationRef ar : toRemove) {
 				serviceSpec.getServiceSpecRelationship().remove(ar);
 			}
-			
-			
+
 		}
 
 		/**
@@ -487,8 +495,8 @@ public class ServiceSpecificationRepoService {
 		if (serviceSpecUpd.getValidFor() != null) {
 			tp.setStartDateTime(serviceSpecUpd.getValidFor().getStartDateTime());
 			tp.setEndDateTime(serviceSpecUpd.getValidFor().getEndDateTime());
+			serviceSpec.setValidFor(tp);
 		}
-		serviceSpec.setValidFor(tp);
 
 		if (serviceSpec.getResourceSpecification().size() > 0) {
 			serviceSpec.setType("ResourceFacingServiceSpecification");
@@ -614,6 +622,180 @@ public class ServiceSpecificationRepoService {
 //		}
 //		return this.serviceSpecificationRepo.save( spec );
 //		
+	}
+
+	public ServiceSpecification cloneGSTServiceSpecification() {
+		return this.cloneGSTServiceSpecification(null);
+	}
+
+	public ServiceSpecification cloneGSTServiceSpecification(String specName) {
+
+		ServiceSpecification serviceSpecificationObj = readFromLocalResource( "gst.json" );
+		serviceSpecificationObj.setName(specName);
+		serviceSpecificationObj = this.addServiceSpecification(serviceSpecificationObj);
+		return serviceSpecificationObj;
+	}
+
+	public ServiceSpecification cloneVINNIServiceSpecification(Boolean addServiceTopology,
+			Boolean addServiceRequirements, Boolean addServiceExposureLevel1, Boolean addServiceExposureLevel2,
+			Boolean addServiceExposureLevel3, Boolean addServiceExposureLevel4, Boolean addServiceMonitoring,
+			Boolean addServiceTesting, Boolean addServiceVNF, Boolean addServiceNSD) {
+
+		return this.cloneVINNIServiceSpecification(null, addServiceTopology, addServiceRequirements,
+				addServiceExposureLevel1, addServiceExposureLevel2, addServiceExposureLevel3, addServiceExposureLevel4,
+				addServiceMonitoring, addServiceTesting, addServiceVNF, addServiceNSD);
+	}
+
+	public ServiceSpecification cloneVINNIServiceSpecification(String specName, Boolean addServiceTopology,
+			Boolean addServiceRequirements, Boolean addServiceExposureLevel1, Boolean addServiceExposureLevel2,
+			Boolean addServiceExposureLevel3, Boolean addServiceExposureLevel4, Boolean addServiceMonitoring,
+			Boolean addServiceTesting, Boolean addServiceVNF, Boolean addServiceNSD) {
+
+		/**
+		 * Create the VINNI-SB as Bundle from file
+		 */
+		
+		
+		ServiceSpecification serviceSpecVinniSB = readFromLocalResource("vinnisb/vinnisb.json");
+		serviceSpecVinniSB.setName(specName);
+		logger.info( "specRepoService size = " + this.findAll().size() );
+		serviceSpecVinniSB = this.addServiceSpecification(serviceSpecVinniSB);
+		logger.info( "specRepoService size = " + this.findAll().size() );
+		
+		for (ServiceSpecification ss : this.findAll()) {
+			logger.info( "ss id = " + ss.getId() );			
+		}
+		logger.info( "serviceSpecVinniSB.getUuid() = " + serviceSpecVinniSB.getUuid() );			
+		
+		serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
+		serviceSpecVinniSB = this.findByUuidEager( serviceSpecVinniSB.getUuid());
+		
+		/**
+		 * Create RFS 
+		 * 1: Create Resource Spec NS Topology
+		 * 
+		 */
+		ResourceSpecification resourceNSTopology = new LogicalResourceSpec();
+		resourceNSTopology.setName( specName + "-" + "NS Topology");
+		resourceNSTopology.setVersion( serviceSpecVinniSB.getVersion() );		
+		ResourceSpecCharacteristic resourceSpecCharacteristicItem = new ResourceSpecCharacteristic();
+		resourceSpecCharacteristicItem.setName("Slice name");
+		resourceSpecCharacteristicItem.setDescription("Slice Name on target NFVO");
+		resourceSpecCharacteristicItem.setValueType( EValueType.TEXT.getValue() );
+		ResourceSpecCharacteristicValue resourceSpecCharacteristicValueItem = new ResourceSpecCharacteristicValue();
+		resourceSpecCharacteristicValueItem.setValue( new Any("SLICENAME", "The slice name"));
+		resourceSpecCharacteristicItem.addResourceSpecCharacteristicValueItem(resourceSpecCharacteristicValueItem);
+		resourceNSTopology.addResourceSpecCharacteristicItem(resourceSpecCharacteristicItem);
+		
+		resourceNSTopology = resourceSpecRepoService.addResourceSpec( resourceNSTopology );
+		
+		/**
+		 * 2: Create Service Topology related to resourceSpec
+		 */
+		ServiceSpecification serviceTopology = new ServiceSpecification();
+		serviceTopology.setName( specName + "-" +"Service Topology");
+		ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();
+		resourceSpecificationItemRef.setId( resourceNSTopology.getId() );
+		resourceSpecificationItemRef.setName( resourceNSTopology.getName() );
+		resourceSpecificationItemRef.setVersion(resourceNSTopology.getVersion() );
+		serviceTopology.addResourceSpecificationItem(resourceSpecificationItemRef);
+		serviceTopology = this.addServiceSpecification( serviceTopology );
+		
+		
+		ServiceSpecRelationship serviceSpecRelationshipItem  =new ServiceSpecRelationship();
+		serviceSpecRelationshipItem.setId( serviceTopology.getId());
+		serviceSpecRelationshipItem.setName( serviceTopology.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( serviceSpecRelationshipItem  );
+		serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
+		
+		/**
+		 * Create Service Requirements
+		 */
+		
+		ServiceSpecification serviceReq = readFromLocalResource("vinnisb/vinnisb-req.json");
+		serviceReq = this.addServiceSpecification(serviceReq);
+		ServiceSpecRelationship relServiceReq  =new ServiceSpecRelationship();
+		relServiceReq.setId( serviceReq.getId());
+		relServiceReq.setName( specName + "-" +serviceReq.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceReq  );
+		serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
+		
+		
+		/**
+		 * Create Service Exposure Level
+		 */
+		
+		ServiceSpecification serviceExpLevel = readFromLocalResource("vinnisb/vinnisb-exposure.json");
+		serviceExpLevel = this.addServiceSpecification( serviceExpLevel );
+		ServiceSpecRelationship relServiceExp  =new ServiceSpecRelationship();
+		relServiceExp.setId( serviceExpLevel.getId());
+		relServiceExp.setName( specName + "-" +serviceExpLevel.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
+		serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
+		
+
+		/**
+		 * Create Service Monitoring
+		 */
+		
+		ServiceSpecification serviceMon = readFromLocalResource("vinnisb/vinnisb-monitoring.json");
+		serviceMon = this.addServiceSpecification( serviceMon );
+		ServiceSpecRelationship relServiceMon  =new ServiceSpecRelationship();
+		relServiceMon.setId( serviceMon.getId());
+		relServiceMon.setName( specName + "-" +serviceMon.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceMon  );
+		serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
+		
+		/**
+		 * Create Service Testing
+		 */
+		
+		ServiceSpecification serviceTesting = readFromLocalResource("vinnisb/vinnisb-testing.json");
+		serviceTesting = this.addServiceSpecification( serviceTesting );
+		ServiceSpecRelationship relServiceTest  =new ServiceSpecRelationship();
+		relServiceTest.setId( serviceTesting.getId());
+		relServiceTest.setName( specName + "-" +serviceTesting.getName() );
+		serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceTest  );
+		serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
+		
+		
+		/**
+		 * Create 3rd party VNF related to resourceSpec
+		 */
+		ServiceSpecification thirdVNF = new ServiceSpecification();
+		thirdVNF.setName( specName + "-" +"3rd party VNF");
+		ResourceSpecificationRef resourceSpecificationthirdVNFRef = new ResourceSpecificationRef();
+		resourceSpecificationthirdVNFRef.setId( null );
+		resourceSpecificationthirdVNFRef.setName(specName + "-" + "Example VNF" );
+		thirdVNF.addResourceSpecificationItem(resourceSpecificationthirdVNFRef);
+		thirdVNF = this.addServiceSpecification( thirdVNF );
+		
+		/**
+		 * Create 3rd party NSD related to resourceSpec
+		 */
+		ServiceSpecification thirdNSD = new ServiceSpecification();
+		thirdNSD.setName( specName + "-" +"3rd party NSD");
+		ResourceSpecificationRef resourceSpecificationthirdNSDRef = new ResourceSpecificationRef();
+		resourceSpecificationthirdNSDRef.setId( null );
+		resourceSpecificationthirdNSDRef.setName( specName + "-" +"Example NSD" );
+		thirdNSD.addResourceSpecificationItem(resourceSpecificationthirdNSDRef);
+		thirdNSD = this.addServiceSpecification( thirdNSD );
+		
+		return serviceSpecVinniSB;
+	}
+	
+
+	private ServiceSpecification readFromLocalResource(String rname) {
+		ServiceSpecification sc;
+		try {
+			sc = objectMapper.readValue(new ClassPathResource( rname ).getInputStream(), ServiceSpecification.class);
+			
+			return sc;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }

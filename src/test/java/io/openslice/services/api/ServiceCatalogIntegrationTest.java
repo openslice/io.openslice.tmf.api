@@ -160,10 +160,10 @@ public class ServiceCatalogIntegrationTest {
 		boolean vinnisbFound = false;
 		boolean gstFound = false;
 		for (ServiceCandidateRef scr : categ.getServiceCandidateRefs()) {
-			if (scr.getName().equals( "GST External" )) {
+			if (scr.getName().equals( "A GST(NEST) Service Example" )) {
 				gstFound = true;
 			}
-			if (scr.getName().equals( "VINNI-SB Template" )) {
+			if (scr.getName().equals( "A VINNI Service Example" )) {
 				vinnisbFound = true;
 			}
 		}
@@ -887,7 +887,7 @@ public class ServiceCatalogIntegrationTest {
 		 * 
 		 */
 		
-		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=GST%20External")
+		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=A%20GST(NEST)%20Service%20Example")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -909,7 +909,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
 		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 2 );
 		
-		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("GST External", "0.4.0" );
+		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("A GST(NEST) Service Example", "0.4.0" );
 		assertThat( spec ).isNotNull();
 		
 		spec.setVersion("0.x.0");
@@ -990,7 +990,7 @@ public class ServiceCatalogIntegrationTest {
 		 * 
 		 */
 		
-		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=VINNI-SB%20Template")
+		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=A%20VINNI%20Service%20Example")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -1012,7 +1012,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
 		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( 2 );
 		
-		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("VINNI-SB Template", "0.1.0" );
+		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("A VINNI Service Example", "0.1.0" );
 		assertThat( spec ).isNotNull();
 		
 		spec.setVersion("0.x.0");

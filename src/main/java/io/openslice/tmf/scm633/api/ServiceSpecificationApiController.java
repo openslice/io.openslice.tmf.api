@@ -77,7 +77,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		this.request = request;
 	}
 
-	//@Secured({ "ROLE_USER" })
+	// @Secured({ "ROLE_USER" })
 	public ResponseEntity<ServiceSpecification> createServiceSpecification(
 			@ApiParam(value = "The ServiceSpecification to be created", required = true) @Valid @RequestBody ServiceSpecificationCreate serviceSpecification) {
 		try {
@@ -111,22 +111,22 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
 			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
 			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-			@ApiParam( hidden = true) @Valid @RequestParam Map<String,String> allParams) {
+			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
 
 		try {
-			if ( allParams != null ) {
+			if (allParams != null) {
 				allParams.remove("fields");
 				allParams.remove("offset");
-				allParams.remove("limit");				
+				allParams.remove("limit");
 			} else {
 				allParams = new HashMap<>();
 			}
-			if ( ( fields == null) && (allParams.size()==0)){
+			if ((fields == null) && (allParams.size() == 0)) {
 				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(),
-						HttpStatus.OK);				
-			} else{
-				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(fields, allParams),
-						HttpStatus.OK);	
+						HttpStatus.OK);
+			} else {
+				return new ResponseEntity<List<ServiceSpecification>>(
+						serviceSpecificationRepoService.findAll(fields, allParams), HttpStatus.OK);
 			}
 
 		} catch (Exception e) {
@@ -193,17 +193,37 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 	public ResponseEntity<ServiceDescriptor> retrieveServiceSpecificationDescriptor(String id) {
 		try {
 			ServiceSpecification spec = serviceSpecificationRepoService.findByUuid(id);
-			if ( spec !=null ) {
-				return new ResponseEntity<ServiceDescriptor>( spec.getServiceDescriptor(),
-						HttpStatus.OK);				
+			if (spec != null) {
+				return new ResponseEntity<ServiceDescriptor>(spec.getServiceDescriptor(), HttpStatus.OK);
 			} else {
 
-				return new ResponseEntity<ServiceDescriptor>(HttpStatus.NOT_FOUND );
+				return new ResponseEntity<ServiceDescriptor>(HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<ServiceDescriptor>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@Override
+	public ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(String serviceName) {
+		ServiceSpecification c = serviceSpecificationRepoService.cloneGSTServiceSpecification( serviceName );
+
+		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<ServiceSpecification> cloneVINNIServiceSpecification(String serviceName, Boolean addServiceTopology,
+			Boolean addServiceRequirements, Boolean addServiceExposureLevel1, Boolean addServiceExposureLevel2,
+			Boolean addServiceExposureLevel3, Boolean addServiceExposureLevel4, Boolean addServiceMonitoring,
+			Boolean addServiceTesting, Boolean addServiceVNF, Boolean addServiceNSD) {
+
+		ServiceSpecification c = serviceSpecificationRepoService.cloneVINNIServiceSpecification(serviceName,
+				addServiceTopology,
+				addServiceRequirements, addServiceExposureLevel1, addServiceExposureLevel2, addServiceExposureLevel3,
+				addServiceExposureLevel4, addServiceMonitoring, addServiceTesting, addServiceVNF, addServiceNSD);
+
+		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
 }

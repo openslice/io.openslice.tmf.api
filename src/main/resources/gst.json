@@ -1076,6 +1076,51 @@
 			]
 		},
 		{
+			"name": "NB-IoT support",
+			"configurable": false,
+			"description": "This parameter describes whether NB-IoTis supported in the network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "BINARY",
+			"serviceSpecCharRelationship": [
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
+				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Not supported"
+					}
+				},
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BINARY",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Supported"
+					}
+				}
+			]
+		},
+		{
 			"name": "Network Slice Customer network functions",
 			"configurable": false,
 			"description": "A NSC can own some Network Functions (e.g. User Plane Function (UPF), User Data Management, UDM). This attribute provides a list of network functions to be provided by the NSC. If the list is empty, the NSC is not expected to provide any network function relevant for the network slice instance",

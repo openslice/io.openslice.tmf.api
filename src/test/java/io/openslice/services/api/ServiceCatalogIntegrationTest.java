@@ -910,7 +910,7 @@ public class ServiceCatalogIntegrationTest {
 		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
 
 		assertThat( responsesSpec1.getVersion()  ).isEqualTo("0.4.0");
-		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo(67);
+		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo(68);
 		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
 		boolean userPartyRoleOwnerexists = false;
 		for (RelatedParty r : responsesSpec1.getRelatedParty()) {

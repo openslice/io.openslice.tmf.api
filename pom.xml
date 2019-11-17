@@ -11,7 +11,6 @@
 
 	<artifactId>io.openslice.tmf.api</artifactId>
 	<name>io.openslice.tmf.api</name>
-	<url>http://maven.apache.org</url>
 
 
 	<properties>

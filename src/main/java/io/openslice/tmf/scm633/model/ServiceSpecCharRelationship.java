@@ -266,6 +266,7 @@ public class ServiceSpecCharRelationship {
 		sb.append("class ServiceSpecCharRelationship {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    relationshipType: ").append(toIndentedString(relationshipType)).append("\n");
 		sb.append("    role: ").append(toIndentedString(role)).append("\n");

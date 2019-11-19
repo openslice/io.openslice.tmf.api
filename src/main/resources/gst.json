@@ -843,7 +843,7 @@
 				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
 				{
 					"role": "Mission-critical capability support",
-					"name": "Mission-critical capability support",
+					"name": "Mission critical support: Mission-critical capability support",
 					"relationshipType": "dependency"
 				},
 				{
@@ -1255,7 +1255,7 @@
 			]
 		},
 		{
-			"name": "Performance monitoring:",
+			"name": "Performance monitoring",
 			"configurable": false,
 			"description": "This attribute provides the capability for NSC and NOP to monitor Key Quality Indicators (KQIs) and Key Performance Indicators (KPIs). KQIs reflect the end-to-end service performance and quality while KPIs reflect the performance of the network",
 			"regex": null,

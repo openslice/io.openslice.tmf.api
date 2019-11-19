@@ -156,7 +156,7 @@ public class ServiceOrderIntegrationTest {
 		 */
 
 		ServiceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
-		sspeccr3.setName("Spec3Bundled");
+		sspeccr3.setName("BundleExampleSpec");
 		sspeccr3.isBundle(true);
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec2 );		
@@ -192,6 +192,13 @@ public class ServiceOrderIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderCreate = " + responseSorder);
 		ServiceOrder responseSO = toJsonObj(responseSorder,  ServiceOrder.class);
+		
+		
+		logger.info("BundleExampleSpec  = " + toJsonString( responsesSpec3));
+		logger.info("responsesSpec1 = " + toJsonString( responsesSpec1 ));
+		logger.info("responsesSpec2 = " + toJsonString( responsesSpec2 ));
+		logger.info("testServiceOrderCreate = " + toJsonString( responseSO ));
+		
 
 		assertThat( responseSO.getCategory()  ).isEqualTo( "Experimentation" );
 		assertThat( responseSO.getDescription()  ).isEqualTo( "Experimentation Descr" );
@@ -202,7 +209,7 @@ public class ServiceOrderIntegrationTest {
 		responseSO.getOrderItem().stream().forEach( 
 				soiElement -> {
 					assertThat( soiElement.getService().getServiceSpecification() ).isNotNull();
-					assertThat( soiElement.getService().getServiceSpecification().getName() ).isEqualTo("Spec3Bundled");
+					assertThat( soiElement.getService().getServiceSpecification().getName() ).isEqualTo("BundleExampleSpec");
 					assertThat( soiElement.getService().getSupportingResource().size() ).isEqualTo( 1 );
 					assertThat( soiElement.getService().getSupportingService().size() ).isEqualTo( 2 );
 					assertThat( soiElement.getService().getServiceRelationship().size() ).isEqualTo( 2 );					

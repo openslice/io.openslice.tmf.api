@@ -51,7 +51,6 @@ public class BaseEntity extends BaseRootNamedEntity{
 	@JsonProperty("description")
 	protected String description = null;
 
-	@JsonProperty("lastUpdate")
 	protected OffsetDateTime lastUpdate = null;
 
 	@JsonProperty("lifecycleStatus")
@@ -106,6 +105,15 @@ public class BaseEntity extends BaseRootNamedEntity{
 	@ApiModelProperty(value = "Date and time of the last update")
 
 	@Valid
+
+	@JsonProperty("lastUpdate")
+	public String getLastUpdateString() {
+		if ( this.lastUpdate != null ) {
+			return this.lastUpdate.toString();			
+		} else {
+			return null;
+		}
+	}
 
 	public OffsetDateTime getLastUpdate() {
 		return lastUpdate;

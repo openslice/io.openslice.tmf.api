@@ -174,7 +174,7 @@ public class ServiceOrderRepoService {
 	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrder) {
 		ServiceOrder so = this.findByUuid(id);
 		
-		so.getOrderItem().stream().forEach(soi -> System.out.println("soi = " + soi.toString()) );
+		//so.getOrderItem().stream().forEach(soi -> System.out.println("soi = " + soi.toString()) );
 		
 		so.setCategory( serviceOrder.getCategory() );
 		so.setDescription( serviceOrder.getDescription() );

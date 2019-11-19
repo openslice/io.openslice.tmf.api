@@ -57,7 +57,6 @@ public class ServiceOrder extends BaseRootEntity {
 	@JsonProperty("category")
 	private String category = null;
 
-	@JsonProperty("completionDate")
 	private OffsetDateTime completionDate = null;
 
 	@Lob
@@ -65,7 +64,6 @@ public class ServiceOrder extends BaseRootEntity {
 	@JsonProperty("description")
 	private String description = null;
 
-	@JsonProperty("expectedCompletionDate")
 	private OffsetDateTime expectedCompletionDate = null;
 
 	@JsonProperty("externalId")
@@ -74,19 +72,15 @@ public class ServiceOrder extends BaseRootEntity {
 	@JsonProperty("notificationContact")
 	private String notificationContact = null;
 
-	@JsonProperty("orderDate")
 	private OffsetDateTime orderDate = null;
 
 	@JsonProperty("priority")
 	private String priority = null;
 
-	@JsonProperty("requestedCompletionDate")
 	private OffsetDateTime requestedCompletionDate = null;
 
-	@JsonProperty("requestedStartDate")
 	private OffsetDateTime requestedStartDate = null;
 
-	@JsonProperty("startDate")
 	private OffsetDateTime startDate = null;
 
 	@JsonProperty("note")
@@ -159,7 +153,14 @@ public class ServiceOrder extends BaseRootEntity {
 	@ApiModelProperty(value = "Effective delivery date amended by the provider")
 
 	@Valid
-
+	@JsonProperty("completionDate")
+	public String getCompletionDateString() {
+		if ( this.completionDate == null) {
+			return null;
+		}
+		return this.completionDate.toString();
+	}
+	
 	public OffsetDateTime getCompletionDate() {
 		return completionDate;
 	}
@@ -209,6 +210,15 @@ public class ServiceOrder extends BaseRootEntity {
 
 	@Valid
 
+	@JsonProperty("expectedCompletionDate")
+	public String getExpectedCompletionDateString() {
+
+		if ( this.expectedCompletionDate == null) {
+			return null;
+		}
+		return this.expectedCompletionDate.toString();
+	}
+	
 	public OffsetDateTime getExpectedCompletionDate() {
 		return expectedCompletionDate;
 	}
@@ -280,7 +290,14 @@ public class ServiceOrder extends BaseRootEntity {
 	@ApiModelProperty(value = "")
 
 	@Valid
-
+	@JsonProperty("orderDate")
+	public String getOrderDateString() {
+		if ( this.orderDate == null) {
+			return null;
+		}
+		return this.orderDate.toString();
+	}
+	
 	public OffsetDateTime getOrderDate() {
 		return orderDate;
 	}
@@ -332,6 +349,15 @@ public class ServiceOrder extends BaseRootEntity {
 
 	@Valid
 
+	@JsonProperty("requestedCompletionDate")
+	public String getRequestedCompletionDateString() {
+
+		if ( this.requestedCompletionDate == null) {
+			return null;
+		}
+		return this.requestedCompletionDate.toString();
+	}
+	
 	public OffsetDateTime getRequestedCompletionDate() {
 		return requestedCompletionDate;
 	}
@@ -361,7 +387,15 @@ public class ServiceOrder extends BaseRootEntity {
 	@ApiModelProperty(value = "Order start date wished by the requestor")
 
 	@Valid
+	@JsonProperty("requestedStartDate")
+	public String getRequestedStartDateString() {
 
+		if ( this.requestedStartDate == null) {
+			return null;
+		}
+		return this.requestedStartDate.toString();
+	}
+	
 	public OffsetDateTime getRequestedStartDate() {
 		return requestedStartDate;
 	}
@@ -391,7 +425,14 @@ public class ServiceOrder extends BaseRootEntity {
 	@ApiModelProperty(value = "Date when the order was started for processing")
 
 	@Valid
-
+	@JsonProperty("startDate")
+	public String getStartDateString() {
+		if ( this.startDate == null) {
+			return null;
+		}
+		return this.startDate.toString();
+	}
+	
 	public OffsetDateTime getStartDate() {
 		return startDate;
 	}

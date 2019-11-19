@@ -72,15 +72,20 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder) {
 
 		try {
+			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
+				serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
+						SecurityContextHolder.getContext().getAuthentication().getName(), UserPartRoleType.REQUESTER,
+						serviceOrder.getRelatedParty()));
 
-			serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-					SecurityContextHolder.getContext().getAuthentication().getName(), UserPartRoleType.REQUESTER,
-					serviceOrder.getRelatedParty()));
+				
+				ServiceOrder c = serviceOrderRepoService.addServiceOrder(serviceOrder);
 
-			
-			ServiceOrder c = serviceOrderRepoService.addServiceOrder(serviceOrder);
+				return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);				
+			} else {
 
-			return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);
+				return new ResponseEntity<ServiceOrder>(HttpStatus.FORBIDDEN);
+			}
+
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<ServiceOrder>(HttpStatus.INTERNAL_SERVER_ERROR);

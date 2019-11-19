@@ -148,7 +148,7 @@ public interface ServiceSpecificationApi {
     @RequestMapping(value = "/serviceSpecification/{id}/clone",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
-        method = RequestMethod.POST)
+        method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification to clone",required=true) @PathVariable("id") String id );
     
     @ApiOperation(value = "Clones a GST ServiceSpecification", nickname = "cloneGSTServiceSpecification", 
@@ -165,7 +165,7 @@ public interface ServiceSpecificationApi {
     @RequestMapping(value = "/serviceSpecification/cloneGST",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
-        method = RequestMethod.POST)
+        method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(
     		@ApiParam(value = "A name of the cloned GST") @RequestParam(value="serviceName", required=true) String serviceName);
     
@@ -183,7 +183,7 @@ public interface ServiceSpecificationApi {
     @RequestMapping(value = "/serviceSpecification/cloneVINNI",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
-        method = RequestMethod.POST)
+        method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneVINNIServiceSpecification(
     		@ApiParam(value = "A name of the cloned VINNI Template") @RequestParam( value="serviceName",required=true) String serviceName,
     		@ApiParam(value = "If true adds a Service Topology Spec in the Bundle") @RequestParam( value="addServiceTopology",required=true) Boolean addServiceTopology,

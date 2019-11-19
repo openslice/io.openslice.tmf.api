@@ -756,16 +756,16 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 3 );
 
-		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/"+responsesSpec3.getId()+"/clone")
+		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/"+responsesSpec3.getId()+"/clone")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( toJson( "" ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		ServiceSpecification clonedSpec = toJsonObj( responseSpecCloned,  ServiceSpecification.class);
-		logger.info("source = " + responsesSpec3.toString());
-		logger.info("clonedSpec = " + clonedSpec.toString());
+		//logger.info("source = " + responsesSpec3.toString());
+		//logger.info("clonedSpec = " + clonedSpec.toString());
 
 		assertThat( clonedSpec.getId() ).isNotEqualTo( responsesSpec3.getId() );
 		assertThat( clonedSpec.getUuid() ).isNotNull();		
@@ -779,9 +779,9 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 4 );
 		
 		
-		String responseSpecClonedGST = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/cloneGST?serviceName=aGST Service")
+		String responseSpecClonedGST = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/cloneGST?serviceName=aGST Service")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( "" ))
+				.content( toJson( "" ) ))				
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
@@ -792,7 +792,7 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 5 );
 		
-		String responseSpecClonedVINNI = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
+		String responseSpecClonedVINNI = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
 				.contentType(MediaType.APPLICATION_JSON)
 				.param("addServiceTopology", "true")
 				.param("addServiceRequirements", "true")
@@ -815,7 +815,7 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 16 );
 		
-		String responseSpecClonedVINNI2 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
+		String responseSpecClonedVINNI2 = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
 				.contentType(MediaType.APPLICATION_JSON)
 				.param("addServiceTopology", "true")
 				.param("addServiceRequirements", "true")
@@ -877,7 +877,7 @@ public class ServiceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		ServiceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  ServiceSpecification.class);
 
-		logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
+		//logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
 
 		assertThat( responseSpecPost1.getAttachment().size() ).isEqualTo( 1 );
 	}

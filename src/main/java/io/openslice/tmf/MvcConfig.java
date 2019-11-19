@@ -71,9 +71,9 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// registry.addResourceHandler("/testweb/**").addResourceLocations("file:///C:/Users/ctranoris/git/io.openslice.portal.web/src/").setCachePeriod(0);
-		String a = (new File("../io.openslice.portal.web/src/")).getAbsoluteFile().toURI().toString();
+		String a = (new File("../io.openslice.tmf.web/dist/io-openslice-portal-web/")).getAbsoluteFile().toURI().toString();
 		System.out.println("======================> " + a);
-		registry.addResourceHandler("/testweb/**").addResourceLocations(a) // "file:///./../io.openslice.portal.web/src/")
+		registry.addResourceHandler("/services/**").addResourceLocations(a) // "file:///./../io.openslice.portal.web/src/")
 				.setCachePeriod(0).resourceChain(true).addResolver(new EncodedResourceResolver())
 				.addResolver(new PathResourceResolver());
 

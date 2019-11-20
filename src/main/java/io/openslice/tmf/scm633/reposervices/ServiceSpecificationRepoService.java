@@ -592,6 +592,7 @@ public class ServiceSpecificationRepoService {
 		serviceServiceSpecificationCr.setServiceSpecCharacteristic(new ArrayList<>(c.getServiceSpecCharacteristic()));
 		serviceServiceSpecificationCr.setServiceSpecRelationship(new ArrayList<>(c.getServiceSpecRelationship()));
 		serviceServiceSpecificationCr.setVersion(c.getVersion());
+		serviceServiceSpecificationCr.setValidFor(new TimePeriod());
 
 		return this.addServiceSpecification(serviceServiceSpecificationCr);
 

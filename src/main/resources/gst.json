@@ -2449,7 +2449,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 0,
 			"regex": null,
-			"valueType": "INTEGER",
+			"valueType": "ENUM",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Performance", "role": "tag", "relationshipType": "tag" },

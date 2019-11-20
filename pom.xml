@@ -216,9 +216,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring-boot-version}</version>
-				<configuration>
-					<classifier>exec</classifier>
-				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -227,7 +224,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+		
 		</plugins>
 
 	</build>

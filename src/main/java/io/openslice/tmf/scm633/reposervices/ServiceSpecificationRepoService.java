@@ -719,10 +719,11 @@ public class ServiceSpecificationRepoService {
 		 */
 		if ( addServiceRequirements ){
 			ServiceSpecification serviceReq = readFromLocalResource("vinnisb/vinnisb-req.json");
+			serviceReq.setName( specName + "-" +serviceReq.getName() );
 			serviceReq = this.addServiceSpecification(serviceReq);
 			ServiceSpecRelationship relServiceReq  =new ServiceSpecRelationship();
 			relServiceReq.setId( serviceReq.getId());
-			relServiceReq.setName( specName + "-" +serviceReq.getName() );
+			relServiceReq.setName( serviceReq.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceReq  );
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
@@ -733,10 +734,11 @@ public class ServiceSpecificationRepoService {
 		 */
 		if ( addServiceExposureLevel1 ){
 			ServiceSpecification serviceExpLevel = readFromLocalResource("vinnisb/vinnisb-exposure-L1.json");
+			serviceExpLevel.setName( specName + "-" +serviceExpLevel.getName() );
 			serviceExpLevel = this.addServiceSpecification( serviceExpLevel );
 			ServiceSpecRelationship relServiceExp  =new ServiceSpecRelationship();
 			relServiceExp.setId( serviceExpLevel.getId());
-			relServiceExp.setName( specName + "-" +serviceExpLevel.getName() );
+			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
@@ -746,10 +748,11 @@ public class ServiceSpecificationRepoService {
 		 */
 		if ( addServiceExposureLevel2 ){
 			ServiceSpecification serviceExpLevel = readFromLocalResource("vinnisb/vinnisb-exposure-L2.json");
+			serviceExpLevel.setName( specName + "-" +serviceExpLevel.getName() );
 			serviceExpLevel = this.addServiceSpecification( serviceExpLevel );
 			ServiceSpecRelationship relServiceExp  =new ServiceSpecRelationship();
 			relServiceExp.setId( serviceExpLevel.getId());
-			relServiceExp.setName( specName + "-" +serviceExpLevel.getName() );
+			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
@@ -759,10 +762,11 @@ public class ServiceSpecificationRepoService {
 		 */
 		if ( addServiceExposureLevel3 ){
 			ServiceSpecification serviceExpLevel = readFromLocalResource("vinnisb/vinnisb-exposure-L3.json");
+			serviceExpLevel.setName( specName + "-" +serviceExpLevel.getName() );
 			serviceExpLevel = this.addServiceSpecification( serviceExpLevel );
 			ServiceSpecRelationship relServiceExp  =new ServiceSpecRelationship();
 			relServiceExp.setId( serviceExpLevel.getId());
-			relServiceExp.setName( specName + "-" +serviceExpLevel.getName() );
+			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
@@ -772,10 +776,11 @@ public class ServiceSpecificationRepoService {
 		 */
 		if ( addServiceExposureLevel4 ){
 			ServiceSpecification serviceExpLevel = readFromLocalResource("vinnisb/vinnisb-exposure-L4.json");
+			serviceExpLevel.setName( specName + "-" +serviceExpLevel.getName() );
 			serviceExpLevel = this.addServiceSpecification( serviceExpLevel );
 			ServiceSpecRelationship relServiceExp  =new ServiceSpecRelationship();
 			relServiceExp.setId( serviceExpLevel.getId());
-			relServiceExp.setName( specName + "-" +serviceExpLevel.getName() );
+			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
@@ -785,10 +790,11 @@ public class ServiceSpecificationRepoService {
 		 */
 		if ( addServiceMonitoring ){
 			ServiceSpecification serviceMon = readFromLocalResource("vinnisb/vinnisb-monitoring.json");
+			serviceMon.setName( specName + "-" + serviceMon.getName() );
 			serviceMon = this.addServiceSpecification( serviceMon );
 			ServiceSpecRelationship relServiceMon  =new ServiceSpecRelationship();
 			relServiceMon.setId( serviceMon.getId());
-			relServiceMon.setName( specName + "-" +serviceMon.getName() );
+			relServiceMon.setName( serviceMon.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceMon  );
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
 			
@@ -800,10 +806,11 @@ public class ServiceSpecificationRepoService {
 
 		if ( addServiceTesting ){
 			ServiceSpecification serviceTesting = readFromLocalResource("vinnisb/vinnisb-testing.json");
+			serviceTesting.setName( specName + "-" + serviceTesting.getName() );
 			serviceTesting = this.addServiceSpecification( serviceTesting );
 			ServiceSpecRelationship relServiceTest  =new ServiceSpecRelationship();
 			relServiceTest.setId( serviceTesting.getId());
-			relServiceTest.setName( specName + "-" +serviceTesting.getName() );
+			relServiceTest.setName(  serviceTesting.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceTest  );
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
 			
@@ -818,7 +825,7 @@ public class ServiceSpecificationRepoService {
 			thirdVNF.setName( specName + "-" +"3rd party VNF");
 			ResourceSpecificationRef resourceSpecificationthirdVNFRef = new ResourceSpecificationRef();
 			resourceSpecificationthirdVNFRef.setId( null );
-			resourceSpecificationthirdVNFRef.setName(specName + "-" + "Example VNF" );
+			resourceSpecificationthirdVNFRef.setName( thirdVNF.getName() );
 			thirdVNF.addResourceSpecificationItem(resourceSpecificationthirdVNFRef);
 			thirdVNF = this.addServiceSpecification( thirdVNF );
 			
@@ -832,7 +839,7 @@ public class ServiceSpecificationRepoService {
 			thirdNSD.setName( specName + "-" +"3rd party NSD");
 			ResourceSpecificationRef resourceSpecificationthirdNSDRef = new ResourceSpecificationRef();
 			resourceSpecificationthirdNSDRef.setId( null );
-			resourceSpecificationthirdNSDRef.setName( specName + "-" +"Example NSD" );
+			resourceSpecificationthirdNSDRef.setName(thirdNSD.getName() );
 			thirdNSD.addResourceSpecificationItem(resourceSpecificationthirdNSDRef);
 			thirdNSD = this.addServiceSpecification( thirdNSD );
 		}

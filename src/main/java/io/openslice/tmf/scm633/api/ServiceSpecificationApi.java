@@ -147,7 +147,6 @@ public interface ServiceSpecificationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceSpecification/{id}/clone",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification to clone",required=true) @PathVariable("id") String id );
     
@@ -164,7 +163,6 @@ public interface ServiceSpecificationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceSpecification/cloneGST",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(
     		@ApiParam(value = "A name of the cloned GST") @RequestParam(value="serviceName", required=true) String serviceName);
@@ -182,7 +180,6 @@ public interface ServiceSpecificationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceSpecification/cloneVINNI",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneVINNIServiceSpecification(
     		@ApiParam(value = "A name of the cloned VINNI Template") @RequestParam( value="serviceName",required=true) String serviceName,

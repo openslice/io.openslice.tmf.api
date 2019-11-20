@@ -1,11 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>io.openslice</groupId>
 		<artifactId>io.openslice.main</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../../git/io.openslice.main</relativePath>
+		<relativePath>../io.openslice.main</relativePath>
 	</parent>
 
 
@@ -177,15 +178,16 @@
 					</configuration>
 				</plugin>
 				<plugin>
-				<!-- run mvn license:update-file-header to manually update all headers everywhere -->
+					<!-- run mvn license:update-file-header to manually update all headers 
+						everywhere -->
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>license-maven-plugin</artifactId>
 					<version>${maven-license-plugin.version}</version>
 					<configuration>
 						<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
 						<processStartTag>========================LICENSE_START=================================</processStartTag>
-						<processEndTag>=========================LICENSE_END==================================</processEndTag>	
-						<excludes>*.json</excludes>					
+						<processEndTag>=========================LICENSE_END==================================</processEndTag>
+						<excludes>*.json</excludes>
 					</configuration>
 					<executions>
 						<execution>
@@ -196,7 +198,7 @@
 							<phase>process-sources</phase>
 							<configuration>
 								<licenseName>${license.licenseName}</licenseName>
-								
+
 							</configuration>
 						</execution>
 						<execution>
@@ -221,6 +223,29 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<!-- https://stackoverflow.com/questions/45479060/spring-boot-package-does-not-exist-error 
+					Like a war file, a Spring Boot application is not intended to be used as 
+					a dependency. If your application contains classes that you want to share 
+					with other projects, the recommended approach is to move that code into a 
+					separate module. The separate module can then be depended upon by your application 
+					and other projects. -->
+				<!-- If you cannot rearrange your code as recommended above, Spring Boot’s 
+					Maven and Gradle plugins must be configured to produce a separate artifact 
+					that is suitable for use as a dependency. The executable archive cannot be 
+					used as a dependency as the executable jar format packages application classes 
+					in BOOT-INF/classes. This means that they cannot be found when the executable 
+					jar is used as a dependency. To produce the two artifacts, one that can be 
+					used as a dependency and one that is executable, a classifier must be specified. 
+					This classifier is applied to the name of the executable archive, leaving 
+					the default archive for use as dependency. To configure a classifier of exec 
+					in Maven, the following configuration can be used: -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>exec</classifier>
+				</configuration>
 			</plugin>
 		</plugins>
 

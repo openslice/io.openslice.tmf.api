@@ -696,6 +696,7 @@ public class ServiceSpecificationRepoService {
 			 */
 			ServiceSpecification serviceTopology = new ServiceSpecification();
 			serviceTopology.setName( specName + "-" +"Service Topology");
+			serviceTopology.setDescription( "Service Topology related to a Resource Specification");
 			ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();
 			resourceSpecificationItemRef.setId( resourceNSTopology.getId() );
 			resourceSpecificationItemRef.setName( resourceNSTopology.getName() );

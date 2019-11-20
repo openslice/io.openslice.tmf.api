@@ -1693,6 +1693,800 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Positioning",
+			"configurable": false,
+			"description": "This parameter includes the list of advanced features that the CSP can include as part of the network slice service offered to the CSC, providing it with an enriched functionality.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "Positioning accuracy",
+					"name": "Positioning: Positioning accuracy",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Measurement frequency",
+					"name": "Positioning: Measurement frequency",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "Positioning: Positioning accuracy",
+			"configurable": false,
+			"description": "specifies the accuracy required for positioning in meters. This parameter specifies an upper bound in the error between estimated position and actual position. High-precision positioning might be very important for some verticals, not only working in in-door environments, but also in outdoor.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.FUNC_6B -> if set to “0”, P.F_9A shall be omitted",
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_8A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "cm",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "100",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Positioning: Measurement frequency",
+			"configurable": false,
+			"description": "specifies how often the location information is provided.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.FUNC_6B-> if set to “0”, P.F_9B shall be omitted.",
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Functionallity",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.FUNC_8B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "ms",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1000",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Number of devices",
+			"configurable": false,
+			"description": "It is defined as the maximum number of devices that can be subscribed to the network slice service",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_1",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "ms",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "10",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Device density",
+			"configurable": false,
+			"description": "It is defined as the number of devices per area unit that can maintain active connections with the network slice service. With active connection, we mean that devices are able to exchange data with the network.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "INTEGER",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_2",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "devices/km^2",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1000",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Coverage profile",
+			"configurable": false,
+			"description": "specifies the geographical areas where the devices can access the network slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "Facility sites",
+					"name": "Coverage profile: Facility sites",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Coverage area",
+					"name": "Coverage profile: Coverage area",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "Coverage profile: Facility sites",
+			"configurable": false,
+			"description": "define the list of  sites capable of supporting the deployment of the network slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "SET",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_3A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Oslo (Norway)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Martlesham (UK)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Madrid (Spain)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "Patras (Greece)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "Aveiro (Portugal)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "5",
+						"alias": "Berlin (Germany)"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "6",
+						"alias": "Munich (Germany)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Coverage profile: Coverage area",
+			"configurable": false,
+			"description": "defines the spatial boundaries where network slice service will provide coverage with a quality that is enough for the targeted use case. This quality is expressed through edge cell coverage probability, a safety factor used to determine the guaranteed level of probability (e.g. 90%, 95%, 99%) of a successful radio communication of any device placed within the specified coverage area.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "SET",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_3B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "GSP, km",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "{}",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Mobility",
+			"configurable": false,
+			"description": "Mobility refers to the ability of providing seamless service experiences to devices while moving. It can be defined as the maximum device speed at which a certain QoS (specified in P.PERF_4) can be achieved.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_4",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Stationary: 0 km/h"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Pedestrian: 0-10 km/h"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Vehicular: 10-120 km/h"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "3",
+						"alias": "High speed vehicular: 120-500 km/h"
+					}
+				}
+			]
+		},
+		{
+			"name": "Service lifetime",
+			"configurable": false,
+			"description": "It provides information on some aspects that deserve attention during the lifetime of a network slice service.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"role": "Service duration (start-end)",
+					"name": "Service lifetime: Service duration (start-end)",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Service deactivation-activation support",
+					"name": "Service lifetime: Service deactivation-activation support",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Periodicity type",
+					"name": "Service lifetime: Periodicity type",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Daily service deactivation-activation",
+					"name": "Service lifetime: Daily service deactivation-activation",
+					"relationshipType": "dependency"
+				},
+				{
+					"role": "Monthly service deactivation-activation",
+					"name": "Service lifetime: Monthly service deactivation-activation",
+					"relationshipType": "dependency"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				
+			]
+		},
+		{
+			"name": "Service lifetime: Service duration (start-end)",
+			"configurable": false,
+			"description": "allows CSC to specify when it wants the service running, and when it can be decommissioned. The duration for a network slice service can be highly variable, ranging from short-lived services (e.g. an uRLLC slice service provided to public safety for disaster management) to long-lasting services (e.g. an eMBB slice service provided to a MVNO.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "STRING",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_5A",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "[mm-dd-yyyy hh:mm, mm-dd-yyyy hh:mm]",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Service lifetime: Service deactivation-activation support",
+			"configurable": false,
+			"description": "indicates if service deactivation-activation operations (i.e. once deactivated, the service is activated again) is allowed throughout the service duration.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": null,
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_5B",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Not supported"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Supported without periodicity"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Supported with periodicity"
+					}
+				}
+			]
+		},
+		{
+			"name": "Service lifetime: Periodicity type",
+			"configurable": false,
+			"description": "assuming “supported with periodicity” is selected for P.NO_5B, this parameter allows specifying if the periodicity for deactivation-activation is programmed on a daily basis (e.g. service operative during the day, and deactivated at night), weekly basis (e.g. service operative from Monday to Friday, and deactivated for the weekend) or monthly basis",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.NO_5C-> if not set to “1”, P.NO_5E shall be omitted",
+			"valueType": "ENUM",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_5C",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "0",
+						"alias": "Daily basis"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "1",
+						"alias": "Weekly basis"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "INTEGER",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "Monthly basis"
+					}
+				}
+			]
+		},
+		{
+			"name": "Service lifetime: Daily service deactivation-activation",
+			"configurable": false,
+			"description": "allows programming the time interval the service shall remain deactivated (from hh:mm to hh:mm) every day.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.NO_5C-> if not set to “0”, P.NO_5D shall be omitted.",
+			"valueType": "STRING",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_5D",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "[hh:mm, hh:mm]",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Service lifetime: Weekly service deactivation-activation",
+			"configurable": false,
+			"description": "allows programming the time interval the service shall remain deactivated (from dd hh:mm to dd hh:mm) every week.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.NO_5C-> if not set to “1”, P.NO_5E shall be omitted.",
+			"valueType": "STRING",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_5E",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "[dd hh:mm, dd hh:mm]",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "",
+						"alias": ""
+					}
+				}
+			]
+		},
+		{
+			"name": "Service lifetime: Monthly service deactivation-activation",
+			"configurable": false,
+			"description": "allows programming the time interval the service shall remain deactivated (from mm-dd-yyyy hh:mm to mm-dd-yyyy hh:mm) every month.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 0,
+			"regex": "Yes: P.NO_5C-> if not set to “2”, P.NO_5F shall be omitted.",
+			"valueType": "STRING",
+			"serviceSpecCharRelationship": [
+				{
+					"name": "Network Optimisation",
+					"role": "tag",
+					"relationshipType": "tag"
+				},
+				{
+					"name": "P.NO_5F",
+					"role": "identifier",
+					"relationshipType": "identifier"
+				}
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "[mm-dd hh:mm, mm-dd hh:mm]",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "STRING",
+					"validFor": null,
+					"value": {
+						"value": "",
+						"alias": ""
+					}
+				}
+			]
 		}
 	],
 	"serviceSpecRelationship": [

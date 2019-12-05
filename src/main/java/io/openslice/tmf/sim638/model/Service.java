@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,12 +43,10 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
-public class Service   {
+@Entity
+public class Service  extends BaseRootNamedEntity{
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
 
   @JsonProperty("category")
   private String category = null;
@@ -66,8 +66,7 @@ public class Service   {
   @JsonProperty("isStateful")
   private Boolean isStateful = null;
 
-  @JsonProperty("name")
-  private String name = null;
+
 
   @JsonProperty("serviceDate")
   private String serviceDate = null;
@@ -119,14 +118,7 @@ public class Service   {
   @Valid
   private List<ServiceRef> supportingService = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
+  
 
   public Service id(String id) {
     this.id = id;
@@ -141,38 +133,11 @@ public class Service   {
 
 
   public String getId() {
-    return id;
+    return uuid;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
 
-  public Service href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the service
-   * @return href
-  **/
-  @ApiModelProperty(value = "Reference of the service")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public Service category(String category) {
-    this.category = category;
-    return this;
-  }
-
+  
   /**
    * Is it a customer facing or resource facing service
    * @return category
@@ -289,26 +254,7 @@ public class Service   {
     this.isStateful = isStateful;
   }
 
-  public Service name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the service
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the service")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
+ 
   public Service serviceDate(String serviceDate) {
     this.serviceDate = serviceDate;
     return this;
@@ -664,65 +610,6 @@ public class Service   {
     this.supportingService = supportingService;
   }
 
-  public Service baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public Service schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public Service type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
 
   @Override

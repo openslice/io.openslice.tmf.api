@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
@@ -41,7 +42,6 @@ import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
-import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
 import io.openslice.tmf.scm633.repo.CatalogRepository;
 
 @Service

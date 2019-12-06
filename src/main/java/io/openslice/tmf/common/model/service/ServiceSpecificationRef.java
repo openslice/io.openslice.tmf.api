@@ -17,7 +17,7 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-package io.openslice.tmf.scm633.model;
+package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.openslice.tmf.scm633.model.TargetServiceSchema;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

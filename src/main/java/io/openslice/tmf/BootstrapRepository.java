@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.EValueType;
+import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
@@ -50,7 +51,6 @@ import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
-import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
 import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;

@@ -17,71 +17,82 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-package io.openslice.tmf.so641.model;
+package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * ResourceRef
+ * Describes a given characteristic of an object or entity through a name/value pair.
  */
+@ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
-@Entity(name = "ServiceRestrictionResourceRef")
-public class ResourceRef  extends BaseRootNamedEntity{
-  @JsonProperty("id")
-  private String id = null;
+@Entity(name = "ServiceRestrictionCharacteristic")
+public class Characteristic  extends BaseRootNamedEntity {
+  @JsonProperty("valueType")
+  private String valueType = null;
 
+  @JsonProperty("value")
+  private Any value = null;
 
-  @JsonProperty("@referredType")
-  private String referredType = null;
+ 
 
-  public ResourceRef id(String id) {
-    this.id = id;
+  public Characteristic valueType(String valueType) {
+    this.valueType = valueType;
     return this;
   }
 
   /**
-   * Unique identifier of the supporting resource
-   * @return id
+   * Data type of the value of the characteristic
+   * @return valueType
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of the supporting resource")
-  @NotNull
+  @ApiModelProperty(value = "Data type of the value of the characteristic")
 
 
-  public String getId() {
-    return id;
+  public String getValueType() {
+    return valueType;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setValueType(String valueType) {
+    this.valueType = valueType;
   }
 
+  public Characteristic value(Any value) {
+    this.value = value;
+    return this;
+  }
 
   /**
-   * The actual type of the target instance when needed for disambiguation.
-   * @return referredType
+   * The value of the characteristic
+   * @return value
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @ApiModelProperty(required = true, value = "The value of the characteristic")
+  @NotNull
 
+  @Valid
 
-  public String getReferredType() {
-    return referredType;
+  public Any getValue() {
+    return value;
   }
 
-  public void setReferredType(String referredType) {
-    this.referredType = referredType;
+  public void setValue(Any value) {
+    this.value = value;
   }
+
 
 
   @Override
@@ -92,33 +103,31 @@ public class ResourceRef  extends BaseRootNamedEntity{
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResourceRef resourceRef = (ResourceRef) o;
-    return Objects.equals(this.id, resourceRef.id) &&
-        Objects.equals(this.href, resourceRef.href) &&
-        Objects.equals(this.name, resourceRef.name) &&
-        Objects.equals(this.baseType, resourceRef.baseType) &&
-        Objects.equals(this.schemaLocation, resourceRef.schemaLocation) &&
-        Objects.equals(this.type, resourceRef.type) &&
-        Objects.equals(this.referredType, resourceRef.referredType);
+    Characteristic characteristic = (Characteristic) o;
+    return Objects.equals(this.name, characteristic.name) &&
+        Objects.equals(this.valueType, characteristic.valueType) &&
+        Objects.equals(this.value, characteristic.value) &&
+        Objects.equals(this.baseType, characteristic.baseType) &&
+        Objects.equals(this.schemaLocation, characteristic.schemaLocation) &&
+        Objects.equals(this.type, characteristic.type);
   }
-//
+
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
+//    return Objects.hash(name, valueType, value, baseType, schemaLocation, type);
 //  }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ResourceRef {\n");
+    sb.append("class Characteristic {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
     sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    referredType: ").append(toIndentedString(referredType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

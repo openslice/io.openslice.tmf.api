@@ -17,7 +17,7 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-package io.openslice.tmf.sim638.model;
+package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
@@ -31,19 +31,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Service reference, for when Service is used by other entities
+ * The reference object to the schema and type of target service which is described by service specification
  */
-@ApiModel(description = "Service reference, for when Service is used by other entities")
+@ApiModel(description = "The reference object to the schema and type of target service which is described by service specification")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
-public class ServiceRef   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
+public class TargetServiceSchema   {
   @JsonProperty("@baseType")
   private String baseType = null;
 
@@ -53,52 +47,7 @@ public class ServiceRef   {
   @JsonProperty("@type")
   private String type = null;
 
-  @JsonProperty("@referredType")
-  private String referredType = null;
-
-  public ServiceRef id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Id of the service
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "Id of the service")
-  @NotNull
-
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ServiceRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * reference of the service
-   * @return href
-  **/
-  @ApiModelProperty(required = true, value = "reference of the service")
-  @NotNull
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ServiceRef baseType(String baseType) {
+  public TargetServiceSchema baseType(String baseType) {
     this.baseType = baseType;
     return this;
   }
@@ -118,16 +67,17 @@ public class ServiceRef   {
     this.baseType = baseType;
   }
 
-  public ServiceRef schemaLocation(String schemaLocation) {
+  public TargetServiceSchema schemaLocation(String schemaLocation) {
     this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
+   * This field provides a link to the schema describing the target service
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target service")
+  @NotNull
 
 
   public String getSchemaLocation() {
@@ -138,16 +88,17 @@ public class ServiceRef   {
     this.schemaLocation = schemaLocation;
   }
 
-  public ServiceRef type(String type) {
+  public TargetServiceSchema type(String type) {
     this.type = type;
     return this;
   }
 
   /**
-   * When sub-classing, this defines the sub-class entity name
+   * Class type of the target service
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @ApiModelProperty(required = true, value = "Class type of the target service")
+  @NotNull
 
 
   public String getType() {
@@ -156,26 +107,6 @@ public class ServiceRef   {
 
   public void setType(String type) {
     this.type = type;
-  }
-
-  public ServiceRef referredType(String referredType) {
-    this.referredType = referredType;
-    return this;
-  }
-
-  /**
-   * The actual type of the target instance when needed for disambiguation.
-   * @return referredType
-  **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
-
-
-  public String getReferredType() {
-    return referredType;
-  }
-
-  public void setReferredType(String referredType) {
-    this.referredType = referredType;
   }
 
 
@@ -187,31 +118,25 @@ public class ServiceRef   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ServiceRef serviceRef = (ServiceRef) o;
-    return Objects.equals(this.id, serviceRef.id) &&
-        Objects.equals(this.href, serviceRef.href) &&
-        Objects.equals(this.baseType, serviceRef.baseType) &&
-        Objects.equals(this.schemaLocation, serviceRef.schemaLocation) &&
-        Objects.equals(this.type, serviceRef.type) &&
-        Objects.equals(this.referredType, serviceRef.referredType);
+    TargetServiceSchema targetServiceSchema = (TargetServiceSchema) o;
+    return Objects.equals(this.baseType, targetServiceSchema.baseType) &&
+        Objects.equals(this.schemaLocation, targetServiceSchema.schemaLocation) &&
+        Objects.equals(this.type, targetServiceSchema.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, baseType, schemaLocation, type, referredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ServiceRef {\n");
+    sb.append("class TargetServiceSchema {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
     sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    referredType: ").append(toIndentedString(referredType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

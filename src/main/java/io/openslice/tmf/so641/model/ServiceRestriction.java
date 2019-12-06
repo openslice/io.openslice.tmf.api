@@ -35,8 +35,14 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.openslice.tmf.common.model.service.Characteristic;
+import io.openslice.tmf.common.model.service.Place;
+import io.openslice.tmf.common.model.service.ResourceRef;
+import io.openslice.tmf.common.model.service.ServiceRef;
+import io.openslice.tmf.common.model.service.ServiceRelationship;
+import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
+import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.scm633.model.ServiceSpecificationRef;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

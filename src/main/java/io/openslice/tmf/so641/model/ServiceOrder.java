@@ -41,6 +41,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModelProperty;
 

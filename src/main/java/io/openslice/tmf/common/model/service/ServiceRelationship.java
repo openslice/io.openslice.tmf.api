@@ -17,7 +17,7 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-package io.openslice.tmf.so641.model;
+package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
@@ -44,7 +44,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
-@Entity(name = "ServiceRestrictionServiceRelationshipEntity")
+@Entity(name = "ServiceRelationship")
 public class ServiceRelationship extends BaseRootEntity {
 
 	@JsonProperty("relationshipType")

@@ -33,21 +33,21 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.common.model.service.Characteristic;
+import io.openslice.tmf.common.model.service.Note;
+import io.openslice.tmf.common.model.service.ResourceRef;
+import io.openslice.tmf.common.model.service.ServiceRef;
+import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
-import io.openslice.tmf.so641.model.Characteristic;
-import io.openslice.tmf.so641.model.Note;
-import io.openslice.tmf.so641.model.ResourceRef;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderItem;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
-import io.openslice.tmf.so641.model.ServiceRef;
-import io.openslice.tmf.so641.model.ServiceRelationship;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
 
 @Service

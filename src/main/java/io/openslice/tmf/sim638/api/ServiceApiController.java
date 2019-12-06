@@ -19,38 +19,112 @@
  */
 package io.openslice.tmf.sim638.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.tmf.common.model.UserPartRoleType;
+import io.openslice.tmf.sim638.model.Service;
+import io.openslice.tmf.sim638.model.ServiceCreate;
+import io.openslice.tmf.sim638.model.ServiceUpdate;
+import io.openslice.tmf.sim638.service.ServiceRepoService;
+import io.openslice.tmf.so641.model.ServiceOrder;
+import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
+import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
 @Controller
 @RequestMapping("/serviceInventory/v4/")
 public class ServiceApiController implements ServiceApi {
 
-    private final ObjectMapper objectMapper;
+	private static final Logger log = LoggerFactory.getLogger(ServiceApiController.class);
 
-    private final HttpServletRequest request;
+	private final ObjectMapper objectMapper;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public ServiceApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
+	private final HttpServletRequest request;
 
-    @Override
-    public Optional<ObjectMapper> getObjectMapper() {
-        return Optional.ofNullable(objectMapper);
-    }
 
-    @Override
-    public Optional<HttpServletRequest> getRequest() {
-        return Optional.ofNullable(request);
-    }
+	@Autowired
+	ServiceRepoService serviceRepoService;
+	
+	@org.springframework.beans.factory.annotation.Autowired
+	public ServiceApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+		this.objectMapper = objectMapper;
+		this.request = request;
+	}
+
+	@Override
+	public ResponseEntity<Service> createService(@Valid ServiceCreate service) {
+		try {
+			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
+				service.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
+						SecurityContextHolder.getContext().getAuthentication().getName(), UserPartRoleType.REQUESTER,
+						service.getRelatedParty()));
+
+				
+				Service c = serviceRepoService.addService(service);
+
+				return new ResponseEntity<Service>(c, HttpStatus.OK);				
+			} else {
+
+				return new ResponseEntity<Service>(HttpStatus.FORBIDDEN);
+			}
+
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+	@Override
+	public ResponseEntity<Void> deleteService(String id) {
+		return ServiceApi.super.deleteService(id);
+	}
+	
+	@Override
+	public ResponseEntity<List<Service>> listService(@Valid String fields, @Valid Integer offset,
+			@Valid Integer limit) {
+		try {
+			return new ResponseEntity<List<Service>>(serviceRepoService.findAll(),
+					HttpStatus.OK);
+
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<List<Service>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@Override
+	public ResponseEntity<Service> patchService(String id, @Valid ServiceUpdate service) {
+		Service c = serviceRepoService.updateService(id, service);
+
+		return new ResponseEntity<Service>(c, HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<Service> retrieveService(String id, @Valid String fields) {
+		try {
+
+			return new ResponseEntity<Service>( serviceRepoService.findByUuid( id ), HttpStatus.OK);
+		} catch ( Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

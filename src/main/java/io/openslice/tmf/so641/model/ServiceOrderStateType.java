@@ -27,25 +27,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum ServiceOrderStateType {
 	
-	INITIAL("initial"),
+	INITIAL("INITIAL"),
 
-	ACKNOWLEDGED("acknowledged"),
+	ACKNOWLEDGED("ACKNOWLEDGED"),
 
-	REJECTED("rejected"),
+	REJECTED("REJECTED"),
 
-	PENDING("pending"),
+	PENDING("PENDING"),
 
-	HELD("held"),
+	HELD("HELD"),
 
-	INPROGRESS("inProgress"),
+	INPROGRESS("INPROGRESS"),
 
-	CANCELLED("cancelled"),
+	CANCELLED("CANCELLED"),
 
-	COMPLETED("completed"),
+	COMPLETED("COMPLETED"),
 
-	FAILED("failed"),
+	FAILED("FAILED"),
 
-	PARTIAL("partial");
+	PARTIAL("PARTIAL");
 
 	private String value;
 

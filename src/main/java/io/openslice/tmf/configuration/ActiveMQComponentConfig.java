@@ -1,6 +1,6 @@
 /*-
  * ========================LICENSE_START=================================
- * io.openslice.tmf.api
+ * io.openslice.bugzilla
  * %%
  * Copyright (C) 2019 openslice.io
  * %%
@@ -17,22 +17,25 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-package io.openslice.tmf.so641.repo;
+package io.openslice.tmf.configuration;
 
-import java.util.Optional;
+import javax.jms.ConnectionFactory;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
+import org.apache.camel.component.activemq.ActiveMQComponent;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import io.openslice.tmf.so641.model.ServiceOrder;
-import io.openslice.tmf.so641.model.ServiceOrderStateType;
+/**
+ * @author ctranoris
+ *
+ */
+@Configuration
+public class ActiveMQComponentConfig {
 
-
-@Repository
-public interface ServiceOrderRepository extends PagingAndSortingRepository<ServiceOrder, Long> {
-
-
-	Optional<ServiceOrder> findByUuid(String id);
-	Iterable<ServiceOrder> findByState( ServiceOrderStateType state);
-
+    @Bean(name = "activemq")
+    public ActiveMQComponent createComponent(ConnectionFactory factory) {
+        ActiveMQComponent activeMQComponent = new ActiveMQComponent();
+        activeMQComponent.setConnectionFactory(factory);
+        return activeMQComponent;
+    }
 }

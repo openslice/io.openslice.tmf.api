@@ -14,7 +14,7 @@ spring:
     database-platform: io.openslice.tmf.LocalMysqlDialect
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
     generate-ddl: true
     properties.hibernate.current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext 
     properties:
@@ -26,9 +26,13 @@ spring:
   servlet:
     multipart.max-file-size: 10MB
     multipart.max-request-size: 10MB
-//  jackson:
-//    serialization.WRITE_DATES_AS_TIMESTAMPS: false
-//    date-format: yyyy-MM-dd HH:mm:ss
+  activemq:
+    brokerUrl: tcp://localhost:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 100
 
 logging:
   level:
@@ -46,3 +50,8 @@ swagger:
   clientid: "osapiWebClientId"
   clientsecret: "secret"
   
+CATALOG_GET_SERVICEORDERS: "jms:queue:CATALOG.GET.SERVICEORDERS"
+CATALOG_GET_SERVICEORDER_BY_ID: "jms:queue:CATALOG.GET.SERVICEORDER_BY_ID"
+CATALOG_GET_SERVICESPEC_BY_ID: "jms:queue:CATALOG.GET.SERVICESPEC_BY_ID"
+CATALOG_GET_INITIAL_SERVICEORDERS: "jms:queue:CATALOG.GET.INITIAL_SERVICEORDERS"
+

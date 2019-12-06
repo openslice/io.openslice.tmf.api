@@ -4,6 +4,7 @@ import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_SERVICESPEC_BY_ID}")
 	private String CATALOG_GET_SERVICESPEC_BY_ID = "";
 
+	@Autowired
 	ServiceSpecificationRepoService serviceSpecificationRepoService;
 	
 	@Override

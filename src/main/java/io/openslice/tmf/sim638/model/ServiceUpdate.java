@@ -35,6 +35,7 @@ import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.Place;
 import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.common.model.service.ServiceRef;
+import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
@@ -58,7 +59,6 @@ public class ServiceUpdate {
 	@JsonProperty("description")
 	protected String description = null;
 
-	@JsonProperty("endDate")
 	protected OffsetDateTime endDate = null;
 
 	@JsonProperty("hasStarted")
@@ -79,7 +79,6 @@ public class ServiceUpdate {
 	@JsonProperty("serviceType")
 	protected String serviceType = null;
 
-	@JsonProperty("startDate")
 	protected OffsetDateTime startDate = null;
 
 	@JsonProperty("startMode")
@@ -118,6 +117,11 @@ public class ServiceUpdate {
 	@JsonProperty("supportingService")
 	@Valid
 	protected List<ServiceRef> supportingService = null;
+	
+
+	@JsonProperty("serviceRelationship")
+	@Valid
+	protected List<ServiceRelationship> serviceRelationship = null;
 
 	@JsonProperty("@baseType")
 	protected String baseType = null;
@@ -173,6 +177,15 @@ public class ServiceUpdate {
 		return this;
 	}
 
+	@JsonProperty("endDate")
+	public String getEndDateStr() {
+		if (this.endDate != null) {
+			return this.endDate.toString();
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * Date when the service ends
 	 * 
@@ -188,6 +201,14 @@ public class ServiceUpdate {
 
 	public void setEndDate(OffsetDateTime endDate) {
 		this.endDate = endDate;
+	}
+
+	public void setEndDate(String anendDate) {
+		if (anendDate != null) {
+			this.endDate = OffsetDateTime.parse(anendDate);
+
+		}
+
 	}
 
 	public ServiceUpdate hasStarted(Boolean hasStarted) {
@@ -328,8 +349,25 @@ public class ServiceUpdate {
 		return startDate;
 	}
 
+	@JsonProperty("startDate")
+	public String getStartDateStr() {
+		if (this.startDate != null) {
+			return this.startDate.toString();
+		} else {
+			return null;
+		}
+	}
+
 	public void setStartDate(OffsetDateTime startDate) {
 		this.startDate = startDate;
+	}
+
+	public void setStartDate(String astartDate) {
+		if (astartDate != null) {
+			this.startDate = OffsetDateTime.parse(astartDate);
+
+		}
+
 	}
 
 	public ServiceUpdate startMode(String startMode) {
@@ -674,6 +712,35 @@ public class ServiceUpdate {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+
+
+	public ServiceRelationship addServiceRelationshipItem(ServiceRelationship serviceRelationshipItem) {
+		if (this.serviceRelationship == null) {
+			this.serviceRelationship = new ArrayList<>();
+		}
+		this.serviceRelationship.add(serviceRelationshipItem);
+		return serviceRelationshipItem;
+	}
+
+	/**
+	 * A list of service relationships (ServiceRelationship [*]). Describes links
+	 * with other service(s) in the inventory (useful for describing relies-on,
+	 * relies-from between CFS for example).
+	 * 
+	 * @return serviceRelationship
+	 **/
+	@ApiModelProperty(value = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
+
+	@Valid
+
+	public List<ServiceRelationship> getServiceRelationship() {
+		return serviceRelationship;
+	}
+
+	public void setServiceRelationship(List<ServiceRelationship> serviceRelationship) {
+		this.serviceRelationship = serviceRelationship;
 	}
 
 	@Override

@@ -32,10 +32,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.common.model.service.Characteristic;
+import io.openslice.tmf.common.model.service.Note;
+import io.openslice.tmf.common.model.service.Place;
+import io.openslice.tmf.common.model.service.ResourceRef;
+import io.openslice.tmf.common.model.service.ServiceRef;
+import io.openslice.tmf.common.model.service.ServiceRelationship;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.sim638.repo.ServiceRepository;
 import io.openslice.tmf.sim638.model.Service;
 import io.openslice.tmf.sim638.model.ServiceCreate;
+import io.openslice.tmf.sim638.model.ServiceOrderRef;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
 
 
@@ -61,36 +69,52 @@ public class ServiceRepoService {
 	}
 
 	public Service addService(@Valid ServiceCreate service) {
-		Service so = new Service();
-//		so.setOrderDate( OffsetDateTime.now(ZoneOffset.UTC) );
-//		so.setCategory( serviceOrder.getCategory() );
-//		so.setDescription( serviceOrder.getDescription() );
-//		so.setExternalId( serviceOrder.getExternalId());
-//		so.setNotificationContact(serviceOrder.getNotificationContact());
-//		so.priority(serviceOrder.getPriority());
-//		so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
-//		so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
-//		if ( serviceOrder.getNote()!=null ) {
-//			so.getNote().addAll(serviceOrder.getNote());			
-//		}
-//		if ( serviceOrder.getOrderItem()!=null ) {
-//			so.getOrderItem().addAll( serviceOrder.getOrderItem());
-//		}
-//
-//		if ( serviceOrder.getRelatedParty()!=null ) {
-//			so.getRelatedParty().addAll(serviceOrder.getRelatedParty());
-//		}
-//		if ( serviceOrder.getOrderRelationship()!=null ) {
-//			so.getOrderRelationship().addAll( serviceOrder.getOrderRelationship());		
-//			
-//		}
-//		so = this.serviceOrderRepo.save( so );
-//		
-//		so = this.fixServiceOrderItemsDependencies(so);
-//		
-//		so = this.serviceOrderRepo.save( so );
+		Service s = new Service();
+		s.setName(service.getName());
+		s.setCategory( service.getCategory() );
+		s.setDescription( service.getDescription() );
+		s.setStartDate( service.getStartDate());
+		s.setEndDate( service.getEndDate() );
+		s.hasStarted( service.isHasStarted());
+		s.setIsServiceEnabled( service.isIsServiceEnabled());
+		s.setIsStateful(service.isIsStateful());
+		s.setServiceDate( service.getServiceDate());
+		s.setServiceType( service.getServiceType());
+		s.setStartMode( service.getStartMode());
+		s.setState(service.getState());
+		s.setServiceSpecification( service.getServiceSpecification() );
+		if ( service.getNote() != null) {
+			s.getNote().addAll( service.getNote() );
+		}
+		if ( service.getPlace() != null) {
+			s.getPlace().addAll( service.getPlace() );
+		}
 		
-		return so;
+		if ( service.getRelatedParty()!=null ) {
+			s.getRelatedParty().addAll( service.getRelatedParty());
+		}
+		
+		if ( service.getServiceCharacteristic () != null) {
+			s.getServiceCharacteristic().addAll( service.getServiceCharacteristic() );
+		}
+
+		if ( service.getServiceOrder() != null) {
+			s.getServiceOrder().addAll( service.getServiceOrder() );
+		}
+		if ( service.getServiceRelationship() != null) {
+			s.getServiceRelationship().addAll( service.getServiceRelationship() );
+		}
+		if ( service.getSupportingResource() != null) {
+			s.getSupportingResource().addAll( service.getSupportingResource() );
+		}
+		if ( service.getSupportingService() != null) {
+			s.getSupportingService().addAll( service.getSupportingService() );
+		}
+		
+		s = this.serviceRepo.save( s );
+
+		
+		return s;
 	}
 
 	
@@ -102,41 +126,126 @@ public class ServiceRepoService {
 	}
 
 	public Service updateService(String id, @Valid ServiceUpdate service ) {
-		Service so = this.findByUuid(id);
+		Service s = this.findByUuid(id);
 		
-//		//so.getOrderItem().stream().forEach(soi -> System.out.println("soi = " + soi.toString()) );
-//		
-//		so.setCategory( serviceOrder.getCategory() );
-//		so.setDescription( serviceOrder.getDescription() );
-//		so.setNotificationContact(serviceOrder.getNotificationContact());
-//
-//		so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
-//		so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
-//		
-//		so.setExpectedCompletionDate( serviceOrder.getExpectedCompletionDate() );
-//		so.setStartDate( serviceOrder.getStartDate() );
-//		
-//		
-//		if ( serviceOrder.getNote()!=null ) {
-//			for (Note n : serviceOrder.getNote()) {
-//				if (n.getUuid() == null) {
-//					so.addNoteItem(n);
-//				}
-//			}
-//						
-//		}
-//		
-//		if ( serviceOrder.getRelatedParty()!=null ) {
-//			so.getRelatedParty().addAll(serviceOrder.getRelatedParty());
-//		}
-//		if ( serviceOrder.getOrderRelationship()!=null ) {
-//			so.getOrderRelationship().addAll( serviceOrder.getOrderRelationship());		
-//			
-//		}
-//		
-//		so = this.serviceOrderRepo.save( so );
+		if (service.getName() != null ) {
+			s.setName(service.getName());			
+		}
+
+		if (service.getCategory() != null ) {
+			s.setCategory( service.getCategory() );			
+		}
+		if (service.getDescription() != null ) {
+			s.setDescription( service.getDescription() );			
+		}
+		if (service.getStartDate() != null ) {
+
+			s.setStartDate( service.getStartDate());
+		}
+		if (service.getEndDate() != null ) {
+			s.setEndDate( service.getEndDate() );			
+		}
+		if (service.isHasStarted() != null ) {
+			s.hasStarted( service.isHasStarted());
+		}
+		if (service.isIsServiceEnabled() != null ) {
+			s.setIsServiceEnabled( service.isIsServiceEnabled());			
+		}
+		if (service.isIsStateful() != null ) {
+			s.setIsStateful(service.isIsStateful());
+		}
+		if (service.getServiceDate() != null ) {
+			s.setServiceDate( service.getServiceDate());
+			
+		}
+		if (service.getServiceType() != null ) {
+			s.setServiceType( service.getServiceType());
+			
+		}
+		if (service.getStartMode() != null ) {
+			s.setStartMode( service.getStartMode());
+			
+		}
+		if (service.getState() != null ) {
+			s.setState(service.getState());
+			
+		}
+		if (service.getServiceSpecification() != null ) {
+
+			s.setServiceSpecification( service.getServiceSpecification() );
+		}
+
+		/**
+		 * the following need to be modified for deleting items from lists.
+		 */
 		
-		return so;
+		if ( service.getNote()!=null ) {
+			for (Note n : service.getNote()) {
+				if (n.getUuid() == null) {
+					s.addNoteItem(n);
+				}
+			}						
+		}
+		
+		if ( service.getPlace()!=null ) {
+			for (Place n : service.getPlace()) {
+				if (n.getUuid() == null) {
+					s.addPlaceItem(n);
+				}
+			}						
+		}
+
+		if ( service.getRelatedParty()!=null ) {
+			for (RelatedParty n : service.getRelatedParty()) {
+				if (n.getUuid() == null) {
+					s.addRelatedPartyItem(n);
+				}
+			}						
+		}
+		
+		if ( service.getServiceCharacteristic()!=null ) {
+			for (Characteristic n : service.getServiceCharacteristic()) {
+				if (n.getUuid() == null) {
+					s.addServiceCharacteristicItem(n);
+				}
+			}						
+		}
+		
+		if ( service.getServiceOrder()!=null ) {
+			for (ServiceOrderRef n : service.getServiceOrder()) {
+				if (n.getUuid() == null) {
+					s.addServiceOrderItem(n);
+				}
+			}						
+		}
+
+		if ( service.getServiceRelationship()!=null ) {
+			for (ServiceRelationship n : service.getServiceRelationship()) {
+				if (n.getUuid() == null) {
+					s.addServiceRelationshipItem(n);
+				}
+			}						
+		}
+		if ( service.getSupportingResource()!=null ) {
+			for (ResourceRef n : service.getSupportingResource()) {
+				if (n.getUuid() == null) {
+					s.addSupportingResourceItem(n);
+				}
+			}						
+		}
+		if ( service.getSupportingService()!=null ) {
+			for (ServiceRef n : service.getSupportingService()) {
+				if (n.getUuid() == null) {
+					s.addSupportingServiceItem(n);
+				}
+			}						
+		}
+		
+		
+		s = this.serviceRepo.save( s );
+
+		
+		return s;
 	}
 
 }

@@ -56,42 +56,6 @@ public class ServiceCreate extends ServiceUpdate  {
 
 
 
-  @JsonProperty("serviceRelationship")
-  @Valid
-  private List<ServiceRelationship> serviceRelationship = null;
-
-
-
-  public ServiceCreate serviceRelationship(List<ServiceRelationship> serviceRelationship) {
-    this.serviceRelationship = serviceRelationship;
-    return this;
-  }
-
-  public ServiceCreate addServiceRelationshipItem(ServiceRelationship serviceRelationshipItem) {
-    if (this.serviceRelationship == null) {
-      this.serviceRelationship = new ArrayList<>();
-    }
-    this.serviceRelationship.add(serviceRelationshipItem);
-    return this;
-  }
-
-  /**
-   * A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).
-   * @return serviceRelationship
-  **/
-  @ApiModelProperty(value = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
-
-  @Valid
-
-  public List<ServiceRelationship> getServiceRelationship() {
-    return serviceRelationship;
-  }
-
-  public void setServiceRelationship(List<ServiceRelationship> serviceRelationship) {
-    this.serviceRelationship = serviceRelationship;
-  }
-
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -176,5 +140,6 @@ public class ServiceCreate extends ServiceUpdate  {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
 

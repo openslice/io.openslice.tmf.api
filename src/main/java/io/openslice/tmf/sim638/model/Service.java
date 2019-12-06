@@ -70,7 +70,6 @@ public class Service extends BaseRootNamedEntity {
 	@JsonProperty("description")
 	private String description = null;
 
-	@JsonProperty("endDate")
 	private OffsetDateTime endDate = null;
 
 	@JsonProperty("hasStarted")
@@ -88,7 +87,6 @@ public class Service extends BaseRootNamedEntity {
 	@JsonProperty("serviceType")
 	private String serviceType = null;
 
-	@JsonProperty("startDate")
 	private OffsetDateTime startDate = null;
 
 	@JsonProperty("startMode")
@@ -121,7 +119,8 @@ public class Service extends BaseRootNamedEntity {
 
 	@JsonProperty("serviceRelationship")
 	@Valid
-	private List<ServiceRelationship> serviceRelationship = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<ServiceRelationship> serviceRelationship = new HashSet<>();
 
 	@JsonProperty("serviceSpecification")
 	@OneToOne(cascade = CascadeType.ALL)
@@ -150,11 +149,7 @@ public class Service extends BaseRootNamedEntity {
 		this.type = "CustomerFacingServiceSpecification"; // by default is a CFS... if we attach a resource then it is a RFS
 	}
 
-	public Service id(String id) {
-		this.id = id;
-		return this;
-	}
-
+	
 	/**
 	 * Unique identifier of the service
 	 * 
@@ -218,11 +213,25 @@ public class Service extends BaseRootNamedEntity {
 	public OffsetDateTime getEndDate() {
 		return endDate;
 	}
+	
+
+	@JsonProperty("endDate")
+	public String getEndDateStr() {
+		if ( this.endDate != null ) {
+			return this.endDate.toString();			
+		} else {
+			return null;
+		}
+	}
 
 	public void setEndDate(OffsetDateTime endDate) {
 		this.endDate = endDate;
 	}
 
+	public void setEndDate(String endDate) {
+		this.endDate = OffsetDateTime.parse( endDate );
+	}
+	
 	public Service hasStarted(Boolean hasStarted) {
 		this.hasStarted = hasStarted;
 		return this;
@@ -340,9 +349,23 @@ public class Service extends BaseRootNamedEntity {
 	public OffsetDateTime getStartDate() {
 		return startDate;
 	}
+	
+
+	@JsonProperty("startDate")
+	public String getStartDateStr() {
+		if ( this.startDate != null ) {
+			return this.startDate.toString();			
+		} else {
+			return null;
+		}
+	}
 
 	public void setStartDate(OffsetDateTime startDate) {
 		this.startDate = startDate;
+	}
+	
+	public void setStartDate(String startDate) {
+		this.startDate = OffsetDateTime.parse( startDate );
 	}
 
 	public Service startMode(String startMode) {
@@ -521,14 +544,14 @@ public class Service extends BaseRootNamedEntity {
 		this.serviceOrder = serviceOrder;
 	}
 
-	public Service serviceRelationship(List<ServiceRelationship> serviceRelationship) {
+	public Service serviceRelationship( Set<ServiceRelationship> serviceRelationship) {
 		this.serviceRelationship = serviceRelationship;
 		return this;
 	}
 
 	public Service addServiceRelationshipItem(ServiceRelationship serviceRelationshipItem) {
 		if (this.serviceRelationship == null) {
-			this.serviceRelationship = new ArrayList<>();
+			this.serviceRelationship = new HashSet<>();
 		}
 		this.serviceRelationship.add(serviceRelationshipItem);
 		return this;
@@ -545,11 +568,11 @@ public class Service extends BaseRootNamedEntity {
 
 	@Valid
 
-	public List<ServiceRelationship> getServiceRelationship() {
+	public Set<ServiceRelationship> getServiceRelationship() {
 		return serviceRelationship;
 	}
 
-	public void setServiceRelationship(List<ServiceRelationship> serviceRelationship) {
+	public void setServiceRelationship( Set<ServiceRelationship> serviceRelationship) {
 		this.serviceRelationship = serviceRelationship;
 	}
 

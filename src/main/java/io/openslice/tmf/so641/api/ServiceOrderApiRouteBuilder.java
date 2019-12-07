@@ -34,6 +34,10 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_INITIAL_SERVICEORDERS}")
 	private String CATALOG_GET_INITIAL_SERVICEORDERS = "";
 
+	@Value("${CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS}")
+	private String CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS = "";
+
+	
 	@Autowired
 	ServiceOrderRepoService serviceOrderRepoService;
 	
@@ -58,6 +62,16 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		.unmarshal().json( JsonLibrary.Jackson, Map.class, true)
 		.bean( serviceOrderRepoService, "findAllParams")
 		.convertBodyTo( String.class );
+		
+		from( CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.setBody( constant( "{\"state\":\"ACKNOWLEDGED\"}" ) )
+		.unmarshal().json( JsonLibrary.Jackson, Map.class, true)
+		.bean( serviceOrderRepoService, "findAllParams")
+		.convertBodyTo( String.class );
+		
+		
 		
 		from( CATALOG_GET_SERVICEORDER_BY_ID )
 		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICEORDER_BY_ID + " message received!")

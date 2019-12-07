@@ -212,7 +212,11 @@ public class ServiceOrderCreate {
 
 	@JsonProperty("requestedCompletionDate")
 	public String getRequestedCompletionDateStr() {
-		return requestedCompletionDate.toString();
+		if ( requestedCompletionDate != null) {
+			return requestedCompletionDate.toString();	
+		} else {
+			return null;
+		}
 	}
 	
 	
@@ -251,7 +255,12 @@ public class ServiceOrderCreate {
 
 	@JsonProperty("requestedStartDate")
 	public String getRequestedStartDateStr() {
-		return requestedStartDate.toString();
+
+		if ( requestedStartDate != null) {
+			return requestedStartDate.toString();	
+		}
+		
+		return null;
 	}
 	
 

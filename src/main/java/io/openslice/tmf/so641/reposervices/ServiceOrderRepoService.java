@@ -117,76 +117,76 @@ public class ServiceOrderRepoService {
 			so.getOrderRelationship().addAll(serviceOrder.getOrderRelationship());
 
 		}
-		so = this.serviceOrderRepo.save(so);
-
-		so = this.fixServiceOrderItemsDependencies(so);
+		
+//		so = this.serviceOrderRepo.save(so);
+//		so = this.fixServiceOrderItemsDependencies(so);
 
 		so = this.serviceOrderRepo.save(so);
 
 		return so;
 	}
 
-	private ServiceOrder fixServiceOrderItemsDependencies(ServiceOrder so) {
-
-		// we need to resolve service relationships for this order item
-		for (ServiceOrderItem soi : so.getOrderItem()) {
-
-			// find the proper service spec
-			ServiceSpecification spec = serviceSpecRepoService
-					.findByUuid(soi.getService().getServiceSpecification().getId());
-			soi = addResourceSpecificationRefs(soi, spec);
-			soi = addBundleSpecificationRefs(soi, spec);
-
-			for (ServiceSpecCharacteristic specChar : spec.getServiceSpecCharacteristic()) {
-				if (specChar.isConfigurable()) {
-					Characteristic serviceCharacteristicItem = new Characteristic();
-					serviceCharacteristicItem.setName(specChar.getName());
-					serviceCharacteristicItem.setValueType(specChar.getValueType());
-					for (ServiceSpecCharacteristicValue specval : specChar.getServiceSpecCharacteristicValue()) {
-						if (specval.isIsDefault()) {
-							serviceCharacteristicItem.setValue(specval.getValue());
-							break;
-						}
-					}
-					soi.getService().addServiceCharacteristicItem(serviceCharacteristicItem);
-				}
-			}
-
-		}
-		return so;
-	}
-
-	private ServiceOrderItem addBundleSpecificationRefs(ServiceOrderItem soi, ServiceSpecification spec) {
-		if (spec.isIsBundle()) {
-			for (ServiceSpecRelationship specRel : spec.getServiceSpecRelationship()) {
-				ServiceSpecification refServiceSpec = serviceSpecRepoService.findByUuid(specRel.getId());
-
-				ServiceRef supportingServiceItem = new ServiceRef();
-				supportingServiceItem.setId(refServiceSpec.getId());
-				supportingServiceItem.setName(refServiceSpec.getName());
-				soi.getService().addSupportingServiceItem(supportingServiceItem);
-				ServiceRelationship serviceRelationshipItem = new ServiceRelationship();
-				serviceRelationshipItem.setRelationshipType(specRel.getRelationshipType());
-				serviceRelationshipItem.setService(supportingServiceItem);
-				soi.getService().addServiceRelationshipItem(serviceRelationshipItem);
-
-				soi = addResourceSpecificationRefs(soi, refServiceSpec); // recursive
-				soi = addBundleSpecificationRefs(soi, refServiceSpec); // recursive
-			}
-		}
-		return soi;
-	}
-
-	private ServiceOrderItem addResourceSpecificationRefs(ServiceOrderItem soi, ServiceSpecification spec) {
-		for (ResourceSpecificationRef resSpecRef : spec.getResourceSpecification()) {
-			ResourceRef supportingResourceItem = new ResourceRef();
-			supportingResourceItem.setId(resSpecRef.getId());
-			supportingResourceItem.setName(resSpecRef.getName());
-
-			soi.getService().addSupportingResourceItem(supportingResourceItem);
-		}
-		return soi;
-	}
+//	private ServiceOrder fixServiceOrderItemsDependencies(ServiceOrder so) {
+//
+//		// we need to resolve service relationships for this order item
+//		for (ServiceOrderItem soi : so.getOrderItem()) {
+//
+//			// find the proper service spec
+//			ServiceSpecification spec = serviceSpecRepoService
+//					.findByUuid(soi.getService().getServiceSpecification().getId());
+//			soi = addResourceSpecificationRefs(soi, spec);
+//			soi = addBundleSpecificationRefs(soi, spec);
+//
+//			for (ServiceSpecCharacteristic specChar : spec.getServiceSpecCharacteristic()) {
+//				if (specChar.isConfigurable()) {
+//					Characteristic serviceCharacteristicItem = new Characteristic();
+//					serviceCharacteristicItem.setName(specChar.getName());
+//					serviceCharacteristicItem.setValueType(specChar.getValueType());
+//					for (ServiceSpecCharacteristicValue specval : specChar.getServiceSpecCharacteristicValue()) {
+//						if (specval.isIsDefault()) {
+//							serviceCharacteristicItem.setValue(specval.getValue());
+//							break;
+//						}
+//					}
+//					soi.getService().addServiceCharacteristicItem(serviceCharacteristicItem);
+//				}
+//			}
+//
+//		}
+//		return so;
+//	}
+//
+//	private ServiceOrderItem addBundleSpecificationRefs(ServiceOrderItem soi, ServiceSpecification spec) {
+//		if (spec.isIsBundle()) {
+//			for (ServiceSpecRelationship specRel : spec.getServiceSpecRelationship()) {
+//				ServiceSpecification refServiceSpec = serviceSpecRepoService.findByUuid(specRel.getId());
+//
+//				ServiceRef supportingServiceItem = new ServiceRef();
+//				supportingServiceItem.setId(refServiceSpec.getId());
+//				supportingServiceItem.setName(refServiceSpec.getName());
+//				soi.getService().addSupportingServiceItem(supportingServiceItem);
+//				ServiceRelationship serviceRelationshipItem = new ServiceRelationship();
+//				serviceRelationshipItem.setRelationshipType(specRel.getRelationshipType());
+//				serviceRelationshipItem.setService(supportingServiceItem);
+//				soi.getService().addServiceRelationshipItem(serviceRelationshipItem);
+//
+//				soi = addResourceSpecificationRefs(soi, refServiceSpec); // recursive
+//				soi = addBundleSpecificationRefs(soi, refServiceSpec); // recursive
+//			}
+//		}
+//		return soi;
+//	}
+//
+//	private ServiceOrderItem addResourceSpecificationRefs(ServiceOrderItem soi, ServiceSpecification spec) {
+//		for (ResourceSpecificationRef resSpecRef : spec.getResourceSpecification()) {
+//			ResourceRef supportingResourceItem = new ResourceRef();
+//			supportingResourceItem.setId(resSpecRef.getId());
+//			supportingResourceItem.setName(resSpecRef.getName());
+//
+//			soi.getService().addSupportingResourceItem(supportingResourceItem);
+//		}
+//		return soi;
+//	}
 
 	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrder) {
 		ServiceOrder so = this.findByUuid(id);

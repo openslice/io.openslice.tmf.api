@@ -210,9 +210,6 @@ public class ServiceOrderIntegrationTest {
 				soiElement -> {
 					assertThat( soiElement.getService().getServiceSpecification() ).isNotNull();
 					assertThat( soiElement.getService().getServiceSpecification().getName() ).isEqualTo("BundleExampleSpec");
-					assertThat( soiElement.getService().getSupportingResource().size() ).isEqualTo( 1 );
-					assertThat( soiElement.getService().getSupportingService().size() ).isEqualTo( 2 );
-					assertThat( soiElement.getService().getServiceRelationship().size() ).isEqualTo( 2 );					
 				}				
 		);
 		assertThat( responseSO.getNote().size()  ).isEqualTo( 1 );

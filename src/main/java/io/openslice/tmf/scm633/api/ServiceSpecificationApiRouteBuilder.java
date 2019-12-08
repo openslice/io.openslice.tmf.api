@@ -2,6 +2,7 @@ package io.openslice.tmf.scm633.api;
 
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 		from( CATALOG_GET_SERVICESPEC_BY_ID )
 		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICESPEC_BY_ID + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
-		.bean( serviceSpecificationRepoService, "findByUuid")
+		.bean( serviceSpecificationRepoService, "findByUuidEager")
+		.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
 		
 	}

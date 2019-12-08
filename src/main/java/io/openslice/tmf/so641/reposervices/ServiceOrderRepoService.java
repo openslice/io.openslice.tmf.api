@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -46,6 +47,7 @@ import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.common.model.service.ServiceRelationship;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
@@ -55,6 +57,7 @@ import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderItem;
+import io.openslice.tmf.so641.model.ServiceOrderRelationship;
 import io.openslice.tmf.so641.model.ServiceOrderStateType;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
@@ -76,6 +79,14 @@ public class ServiceOrderRepoService {
 
 	private SessionFactory  sessionFactory;
 
+	@Autowired
+	public ServiceOrderRepoService(EntityManagerFactory factory) {
+		if (factory.unwrap(SessionFactory.class) == null) {
+			throw new NullPointerException("factory is not a hibernate factory");
+		}
+		this.sessionFactory = factory.unwrap(SessionFactory.class);
+	}
+	
 	public List<ServiceOrder> findAll() {
 
 		return (List<ServiceOrder>) this.serviceOrderRepo.findAll();
@@ -83,14 +94,29 @@ public class ServiceOrderRepoService {
 	
 	public List<ServiceOrder> findAllParams(Map<String, String> allParams) {
 		logger.info("findAll with params:" + allParams.toString());		
-		if ( allParams.get("state") !=null ) {
+		if ( ( allParams !=null)  &&  allParams.get("state") !=null) {
 			ServiceOrderStateType state = ServiceOrderStateType.fromValue( allParams.get("state") );
 			logger.info("find by state:" + state );
 			return (List<ServiceOrder>) this.serviceOrderRepo.findByState(state);
 		}else {
-			new ArrayList<ServiceOrder>();
+			return findAll();
 		}
-		return null;
+
+	}
+	
+	public String findAllParamsJsonOrderIDs(Map<String, String> allParams) throws JsonProcessingException {
+		List<ServiceOrder> lso = findAllParams(allParams);
+		ArrayList<String> oids = new ArrayList<>();
+		for (ServiceOrder object : lso) {
+			oids.add(object.getId());
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		// Registering Hibernate4Module to support lazy objects
+		// this will fetch all lazy objects before marshaling
+		mapper.registerModule(new Hibernate5Module());
+		String res = mapper.writeValueAsString( oids );
+
+		return res;
 	}
 
 	public ServiceOrder addServiceOrder(@Valid ServiceOrderCreate serviceOrder) {
@@ -191,18 +217,44 @@ public class ServiceOrderRepoService {
 	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrder) {
 		ServiceOrder so = this.findByUuid(id);
 
-		// so.getOrderItem().stream().forEach(soi -> System.out.println("soi = " +
-		// soi.toString()) );
+		if ( serviceOrder.getState()!= null ) {
 
-		so.setCategory(serviceOrder.getCategory());
-		so.setDescription(serviceOrder.getDescription());
-		so.setNotificationContact(serviceOrder.getNotificationContact());
+			so.setState( serviceOrder.getState() );
+		}
+		if ( serviceOrder.getCategory()!= null ) {
+			so.setCategory(serviceOrder.getCategory());
 
-		so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
-		so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
+		}
 
-		so.setExpectedCompletionDate(serviceOrder.getExpectedCompletionDate());
-		so.setStartDate(serviceOrder.getStartDate());
+		if ( serviceOrder.getDescription()!= null ) {
+			so.setDescription(serviceOrder.getDescription());
+
+		}
+
+		if ( serviceOrder.getNotificationContact()!= null ) {
+			so.setNotificationContact(serviceOrder.getNotificationContact());
+
+		}
+
+		if ( serviceOrder.getRequestedCompletionDate()!= null ) {
+			so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
+
+		}
+
+		if ( serviceOrder.getRequestedCompletionDate()!= null ) {
+			so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
+
+		}
+
+		if ( serviceOrder.getExpectedCompletionDate()!= null ) {
+			so.setExpectedCompletionDate(serviceOrder.getExpectedCompletionDate());
+
+		}
+
+		if ( serviceOrder.getStartDate()!= null ) {
+			so.setStartDate(serviceOrder.getStartDate());
+
+		}
 
 		if (serviceOrder.getNote() != null) {
 			for (Note n : serviceOrder.getNote()) {
@@ -214,11 +266,18 @@ public class ServiceOrderRepoService {
 		}
 
 		if (serviceOrder.getRelatedParty() != null) {
-			so.getRelatedParty().addAll(serviceOrder.getRelatedParty());
+			for (RelatedParty n : serviceOrder.getRelatedParty()) {
+				if (n.getUuid() == null) {
+					so.addRelatedPartyItem(n);
+				}
+			}
 		}
 		if (serviceOrder.getOrderRelationship() != null) {
-			so.getOrderRelationship().addAll(serviceOrder.getOrderRelationship());
-
+			for (ServiceOrderRelationship n : serviceOrder.getOrderRelationship()) {
+				if (n.getUuid() == null) {
+					so.addOrderRelationshipItem(n);
+				}
+			}
 		}
 
 		so = this.serviceOrderRepo.save(so);
@@ -253,6 +312,8 @@ public class ServiceOrderRepoService {
 			}
 
 			Hibernate.initialize(s.getRelatedParty());
+			Hibernate.initialize(s.getOrderItem() );
+			Hibernate.initialize(s.getNote() );
 			
 			tx.commit();
 		} finally {

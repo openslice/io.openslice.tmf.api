@@ -48,7 +48,7 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		from( CATALOG_GET_SERVICEORDERS )
 		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICEORDERS + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
-		.bean( serviceOrderRepoService, "findAll")
+		.bean( serviceOrderRepoService, "findAllParamsJsonOrderIDs")
 		.convertBodyTo( String.class );
 
 //		final Map<String,String> propertiesMap = new HashMap<String,String>();
@@ -60,7 +60,7 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.setBody( constant( "{\"state\":\"INITIAL\"}" ) )
 		.unmarshal().json( JsonLibrary.Jackson, Map.class, true)
-		.bean( serviceOrderRepoService, "findAllParams")
+		.bean( serviceOrderRepoService, "findAllParamsJsonOrderIDs")
 		.convertBodyTo( String.class );
 		
 		from( CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS )
@@ -68,7 +68,7 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.setBody( constant( "{\"state\":\"ACKNOWLEDGED\"}" ) )
 		.unmarshal().json( JsonLibrary.Jackson, Map.class, true)
-		.bean( serviceOrderRepoService, "findAllParams")
+		.bean( serviceOrderRepoService, "findAllParamsJsonOrderIDs")
 		.convertBodyTo( String.class );
 		
 		
@@ -76,7 +76,7 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		from( CATALOG_GET_SERVICEORDER_BY_ID )
 		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICEORDER_BY_ID + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
-		.bean( serviceOrderRepoService, "findByUuid")
+		.bean( serviceOrderRepoService, "getServiceOrderEagerAsString")
 		.convertBodyTo( String.class );
 		
 	}

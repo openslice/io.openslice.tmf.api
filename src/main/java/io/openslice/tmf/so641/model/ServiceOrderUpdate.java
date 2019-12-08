@@ -73,6 +73,15 @@ public class ServiceOrderUpdate {
 	@Valid
 	private List<RelatedParty> relatedParty = null;
 
+	/**
+	 * standard says that this must not be available.
+	 * Still we will allow to update
+	 */
+	@JsonProperty("state")
+	private ServiceOrderStateType state = null;
+
+	
+
 	@JsonProperty("@baseType")
 	private String baseType = null;
 
@@ -130,7 +139,10 @@ public class ServiceOrderUpdate {
 
 	@JsonProperty("expectedCompletionDate")
 	public String getExpectedCompletionDateStr() {
-		return expectedCompletionDate.toString();
+		if ( expectedCompletionDate!=null ) {
+			return expectedCompletionDate.toString();
+		}
+		return baseType;
 	}
 
 	/**
@@ -449,6 +461,20 @@ public class ServiceOrderUpdate {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	/**
+	 * @return the state
+	 */
+	public ServiceOrderStateType getState() {
+		return state;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(ServiceOrderStateType state) {
+		this.state = state;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -474,11 +500,11 @@ public class ServiceOrderUpdate {
 				&& Objects.equals(this.type, serviceOrderUpdate.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(category, description, expectedCompletionDate, notificationContact, requestedCompletionDate,
-				requestedStartDate, startDate, note, orderRelationship, relatedParty, baseType, schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(category, description, expectedCompletionDate, notificationContact, requestedCompletionDate,
+//				requestedStartDate, startDate, note, orderRelationship, relatedParty, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

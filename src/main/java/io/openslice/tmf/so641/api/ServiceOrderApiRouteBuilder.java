@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import io.openslice.tmf.so641.model.ServiceOrder;
+import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 
 
@@ -31,12 +32,16 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_SERVICEORDERS}")
 	private String CATALOG_GET_SERVICEORDERS = "";
 
-	@Value("${CATALOG_GET_INITIAL_SERVICEORDERS}")
-	private String CATALOG_GET_INITIAL_SERVICEORDERS = "";
+	@Value("${CATALOG_GET_INITIAL_SERVICEORDERS_IDS}")
+	private String CATALOG_GET_INITIAL_SERVICEORDERS_IDS = "";
 
-	@Value("${CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS}")
-	private String CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS = "";
+	@Value("${CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS}")
+	private String CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS = "";
 
+	@Value("${CATALOG_UPD_SERVICEORDER_BY_ID}")
+	private String CATALOG_UPD_SERVICEORDER_BY_ID = "";
+
+	
 	
 	@Autowired
 	ServiceOrderRepoService serviceOrderRepoService;
@@ -55,16 +60,16 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 //        propertiesMap.put("state", "INITIAL"); 
 //        logger.info( "propertiesMap.toString() = " + propertiesMap.toString() );
         
-		from( CATALOG_GET_INITIAL_SERVICEORDERS )
-		.log(LoggingLevel.INFO, log, CATALOG_GET_INITIAL_SERVICEORDERS + " message received!")
+		from( CATALOG_GET_INITIAL_SERVICEORDERS_IDS )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_INITIAL_SERVICEORDERS_IDS + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.setBody( constant( "{\"state\":\"INITIAL\"}" ) )
 		.unmarshal().json( JsonLibrary.Jackson, Map.class, true)
 		.bean( serviceOrderRepoService, "findAllParamsJsonOrderIDs")
 		.convertBodyTo( String.class );
 		
-		from( CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS )
-		.log(LoggingLevel.INFO, log, CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS + " message received!")
+		from( CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.setBody( constant( "{\"state\":\"ACKNOWLEDGED\"}" ) )
 		.unmarshal().json( JsonLibrary.Jackson, Map.class, true)
@@ -78,6 +83,13 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( serviceOrderRepoService, "getServiceOrderEagerAsString")
 		.convertBodyTo( String.class );
+		
+		
+		from( CATALOG_UPD_SERVICEORDER_BY_ID )
+		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICEORDER_BY_ID + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceOrderUpdate.class, true)
+		.bean( serviceOrderRepoService, "updateServiceOrder(${header.orderid}, ${body})");
 		
 	}
 	

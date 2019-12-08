@@ -29,8 +29,6 @@ public enum ServiceOrderStateType {
 	
 	INITIAL("INITIAL"),
 
-	WAITING_ACCEPTANCE("WAITING_ACCEPTANCE"), //this does not exist in the TMF model..but we need to have it for the OSOM
-
 	ACKNOWLEDGED("ACKNOWLEDGED"),
 
 	REJECTED("REJECTED"),

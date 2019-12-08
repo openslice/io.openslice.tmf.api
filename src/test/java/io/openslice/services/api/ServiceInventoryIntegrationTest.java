@@ -175,7 +175,7 @@ public class ServiceInventoryIntegrationTest {
 		aServiceSpecificationRef.setId(responsesSpec3.getId() );
 		aServiceSpecificationRef.setName(responsesSpec3.getName());
 		
-		aService.setServiceSpecification(aServiceSpecificationRef );
+		aService.setServiceSpecificationRef(aServiceSpecificationRef );
 
 		logger.info("aService JSON = " + toJsonString( aService ));
 		

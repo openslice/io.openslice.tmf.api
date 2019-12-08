@@ -83,7 +83,7 @@ public class ServiceCreate extends ServiceUpdate  {
         Objects.equals(this.serviceCharacteristic, serviceCreate.serviceCharacteristic) &&
         Objects.equals(this.serviceOrder, serviceCreate.serviceOrder) &&
         Objects.equals(this.serviceRelationship, serviceCreate.serviceRelationship) &&
-        Objects.equals(this.serviceSpecification, serviceCreate.serviceSpecification) &&
+        Objects.equals(this.serviceSpecificationRef, serviceCreate.serviceSpecificationRef) &&
         Objects.equals(this.state, serviceCreate.state) &&
         Objects.equals(this.supportingResource, serviceCreate.supportingResource) &&
         Objects.equals(this.supportingService, serviceCreate.supportingService) &&
@@ -119,7 +119,7 @@ public class ServiceCreate extends ServiceUpdate  {
     sb.append("    serviceCharacteristic: ").append(toIndentedString(serviceCharacteristic)).append("\n");
     sb.append("    serviceOrder: ").append(toIndentedString(serviceOrder)).append("\n");
     sb.append("    serviceRelationship: ").append(toIndentedString(serviceRelationship)).append("\n");
-    sb.append("    serviceSpecification: ").append(toIndentedString(serviceSpecification)).append("\n");
+    sb.append("    serviceSpecificationRef: ").append(toIndentedString(serviceSpecificationRef)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    supportingResource: ").append(toIndentedString(supportingResource)).append("\n");
     sb.append("    supportingService: ").append(toIndentedString(supportingService)).append("\n");

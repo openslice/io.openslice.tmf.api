@@ -105,7 +105,7 @@ public class ServiceUpdate {
 	protected List<ServiceOrderRef> serviceOrder = null;
 
 	@JsonProperty("serviceSpecification")
-	protected ServiceSpecificationRef serviceSpecification = null;
+	protected ServiceSpecificationRef serviceSpecificationRef = null;
 
 	@JsonProperty("state")
 	protected ServiceStateType state = null;
@@ -546,8 +546,8 @@ public class ServiceUpdate {
 		this.serviceOrder = serviceOrder;
 	}
 
-	public ServiceUpdate serviceSpecification(ServiceSpecificationRef serviceSpecification) {
-		this.serviceSpecification = serviceSpecification;
+	public ServiceUpdate serviceSpecificationRef(ServiceSpecificationRef serviceSpecification) {
+		this.serviceSpecificationRef = serviceSpecification;
 		return this;
 	}
 
@@ -560,12 +560,12 @@ public class ServiceUpdate {
 
 	@Valid
 
-	public ServiceSpecificationRef getServiceSpecification() {
-		return serviceSpecification;
+	public ServiceSpecificationRef getServiceSpecificationRef() {
+		return serviceSpecificationRef;
 	}
 
-	public void setServiceSpecification(ServiceSpecificationRef serviceSpecification) {
-		this.serviceSpecification = serviceSpecification;
+	public void setServiceSpecificationRef(ServiceSpecificationRef serviceSpecification) {
+		this.serviceSpecificationRef = serviceSpecification;
 	}
 
 	public ServiceUpdate state(ServiceStateType state) {
@@ -767,7 +767,7 @@ public class ServiceUpdate {
 				&& Objects.equals(this.relatedParty, serviceUpdate.relatedParty)
 				&& Objects.equals(this.serviceCharacteristic, serviceUpdate.serviceCharacteristic)
 				&& Objects.equals(this.serviceOrder, serviceUpdate.serviceOrder)
-				&& Objects.equals(this.serviceSpecification, serviceUpdate.serviceSpecification)
+				&& Objects.equals(this.serviceSpecificationRef, serviceUpdate.serviceSpecificationRef)
 				&& Objects.equals(this.state, serviceUpdate.state)
 				&& Objects.equals(this.supportingResource, serviceUpdate.supportingResource)
 				&& Objects.equals(this.supportingService, serviceUpdate.supportingService)
@@ -802,7 +802,7 @@ public class ServiceUpdate {
 		sb.append("    relatedParty: ").append(toIndentedString(relatedParty)).append("\n");
 		sb.append("    serviceCharacteristic: ").append(toIndentedString(serviceCharacteristic)).append("\n");
 		sb.append("    serviceOrder: ").append(toIndentedString(serviceOrder)).append("\n");
-		sb.append("    serviceSpecification: ").append(toIndentedString(serviceSpecification)).append("\n");
+		sb.append("    serviceSpecification: ").append(toIndentedString(serviceSpecificationRef)).append("\n");
 		sb.append("    state: ").append(toIndentedString(state)).append("\n");
 		sb.append("    supportingResource: ").append(toIndentedString(supportingResource)).append("\n");
 		sb.append("    supportingService: ").append(toIndentedString(supportingService)).append("\n");

@@ -70,6 +70,9 @@ public class ServiceRepoService {
 
 	public Service addService(@Valid ServiceCreate service) {
 		Service s = new Service();
+		if (service.getType()!=null) {
+			s.setType(service.getType());			
+		}
 		s.setName(service.getName());
 		s.setCategory( service.getCategory() );
 		s.setDescription( service.getDescription() );
@@ -82,7 +85,7 @@ public class ServiceRepoService {
 		s.setServiceType( service.getServiceType());
 		s.setStartMode( service.getStartMode());
 		s.setState(service.getState());
-		s.setServiceSpecification( service.getServiceSpecification() );
+		s.setServiceSpecificationRef( service.getServiceSpecificationRef() );
 		if ( service.getNote() != null) {
 			s.getNote().addAll( service.getNote() );
 		}
@@ -127,6 +130,10 @@ public class ServiceRepoService {
 
 	public Service updateService(String id, @Valid ServiceUpdate service ) {
 		Service s = this.findByUuid(id);
+
+		if (service.getType()!=null) {
+			s.setType(service.getType());			
+		}
 		
 		if (service.getName() != null ) {
 			s.setName(service.getName());			
@@ -170,9 +177,9 @@ public class ServiceRepoService {
 			s.setState(service.getState());
 			
 		}
-		if (service.getServiceSpecification() != null ) {
+		if (service.getServiceSpecificationRef() != null ) {
 
-			s.setServiceSpecification( service.getServiceSpecification() );
+			s.setServiceSpecificationRef( service.getServiceSpecificationRef() );
 		}
 
 		/**

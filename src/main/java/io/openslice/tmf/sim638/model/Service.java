@@ -124,7 +124,7 @@ public class Service extends BaseRootNamedEntity {
 
 	@JsonProperty("serviceSpecification")
 	@OneToOne(cascade = CascadeType.ALL)
-	private ServiceSpecificationRef serviceSpecification = null;
+	private ServiceSpecificationRef serviceSpecificationRef = null;
 
 	@JsonProperty("state")
 	private ServiceStateType state = ServiceStateType.FEASIBILITYCHECKED;
@@ -576,8 +576,8 @@ public class Service extends BaseRootNamedEntity {
 		this.serviceRelationship = serviceRelationship;
 	}
 
-	public Service serviceSpecification(ServiceSpecificationRef serviceSpecification) {
-		this.serviceSpecification = serviceSpecification;
+	public Service serviceSpecificationRef(ServiceSpecificationRef serviceSpecification) {
+		this.serviceSpecificationRef = serviceSpecification;
 		return this;
 	}
 
@@ -590,12 +590,12 @@ public class Service extends BaseRootNamedEntity {
 
 	@Valid
 
-	public ServiceSpecificationRef getServiceSpecification() {
-		return serviceSpecification;
+	public ServiceSpecificationRef getServiceSpecificationRef() {
+		return serviceSpecificationRef;
 	}
 
-	public void setServiceSpecification(ServiceSpecificationRef serviceSpecification) {
-		this.serviceSpecification = serviceSpecification;
+	public void setServiceSpecificationRef(ServiceSpecificationRef serviceSpecification) {
+		this.serviceSpecificationRef = serviceSpecification;
 	}
 
 	public Service state(ServiceStateType state) {
@@ -706,7 +706,7 @@ public class Service extends BaseRootNamedEntity {
 				&& Objects.equals(this.serviceCharacteristic, service.serviceCharacteristic)
 				&& Objects.equals(this.serviceOrder, service.serviceOrder)
 				&& Objects.equals(this.serviceRelationship, service.serviceRelationship)
-				&& Objects.equals(this.serviceSpecification, service.serviceSpecification)
+				&& Objects.equals(this.serviceSpecificationRef, service.serviceSpecificationRef)
 				&& Objects.equals(this.state, service.state)
 				&& Objects.equals(this.supportingResource, service.supportingResource)
 				&& Objects.equals(this.supportingService, service.supportingService)
@@ -747,7 +747,7 @@ public class Service extends BaseRootNamedEntity {
 		sb.append("    serviceCharacteristic: ").append(toIndentedString(serviceCharacteristic)).append("\n");
 		sb.append("    serviceOrder: ").append(toIndentedString(serviceOrder)).append("\n");
 		sb.append("    serviceRelationship: ").append(toIndentedString(serviceRelationship)).append("\n");
-		sb.append("    serviceSpecification: ").append(toIndentedString(serviceSpecification)).append("\n");
+		sb.append("    serviceSpecificationRef: ").append(toIndentedString(serviceSpecificationRef)).append("\n");
 		sb.append("    state: ").append(toIndentedString(state)).append("\n");
 		sb.append("    supportingResource: ").append(toIndentedString(supportingResource)).append("\n");
 		sb.append("    supportingService: ").append(toIndentedString(supportingService)).append("\n");

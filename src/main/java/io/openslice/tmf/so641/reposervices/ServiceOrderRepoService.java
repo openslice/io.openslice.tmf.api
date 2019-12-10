@@ -37,6 +37,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -214,10 +215,15 @@ public class ServiceOrderRepoService {
 //		return soi;
 //	}
 
+	@Transactional
 	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrderUpd) {
 		
 		ServiceOrder so = this.findByUuid(id);
 
+		for (ServiceOrderItem oi : so.getOrderItem() ) {
+			logger.info( "(oi.getId() = "+oi.getId() );		
+			
+		}
 		if ( serviceOrderUpd.getState()!= null ) {
 
 			so.setState( serviceOrderUpd.getState() );

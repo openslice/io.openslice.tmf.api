@@ -34,6 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -60,6 +61,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
+import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
@@ -70,9 +72,14 @@ import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import io.openslice.tmf.sim638.model.Service;
+import io.openslice.tmf.sim638.model.ServiceCreate;
+import io.openslice.tmf.sim638.model.ServiceOrderRef;
+import io.openslice.tmf.sim638.service.ServiceRepoService;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderItem;
+import io.openslice.tmf.so641.model.ServiceOrderStateType;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
@@ -107,6 +114,9 @@ public class ServiceOrderIntegrationTest {
 
 	@Autowired
 	ServiceOrderRepoService serviceOrderRepoService;
+
+	@Autowired
+	ServiceRepoService serviceRepoService;
 
 	  @Autowired
 	    private WebApplicationContext context;
@@ -174,6 +184,7 @@ public class ServiceOrderIntegrationTest {
 		
 		ServiceOrderItem soi = new ServiceOrderItem();
 		servOrder.getOrderItem().add(soi);
+		soi.setState( ServiceOrderStateType.ACKNOWLEDGED );
 		
 		ServiceRestriction serviceRestriction = new ServiceRestriction();
 		ServiceSpecificationRef aServiceSpecificationRef = new ServiceSpecificationRef();
@@ -208,6 +219,7 @@ public class ServiceOrderIntegrationTest {
 		assertThat( responseSO.getOrderItem().size()  ).isEqualTo( 1 );
 		responseSO.getOrderItem().stream().forEach( 
 				soiElement -> {
+					assertThat( soiElement.getState()).isEqualTo( ServiceOrderStateType.ACKNOWLEDGED );
 					assertThat( soiElement.getService().getServiceSpecification() ).isNotNull();
 					assertThat( soiElement.getService().getServiceSpecification().getName() ).isEqualTo("BundleExampleSpec");
 				}				
@@ -226,12 +238,41 @@ public class ServiceOrderIntegrationTest {
 		assertThat( serviceOrderRepoService.findAll().size() ).isEqualTo( 1 );
 		
 		
+		ServiceCreate s = new ServiceCreate();
+		s.setDescription("A Service for ");
+		s.setServiceDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+		s.hasStarted(false);
+		s.setIsServiceEnabled(false);
+		s.setName("Servicename");
+		s.setStartMode( "0" );
+		
+		Note anoteItem = new Note();
+		anoteItem.setText("Service Created by OSOM:AutomationCheck");
+		s.addNoteItem(anoteItem);
+		
+		ServiceOrderRef serviceOrderref = new ServiceOrderRef();
+		serviceOrderref.setId( responseSO.getId() );
+		serviceOrderref.setServiceOrderItemId( (new ArrayList<>(responseSO.getOrderItem())).get(0) .getId() );
+		s.addServiceOrderItem(serviceOrderref );
+		
+		Service createdServ = serviceRepoService.addService(s);
+		
 		ServiceOrderUpdate servOrderUpd = new ServiceOrderUpdate();
 		servOrderUpd.setExpectedCompletionDate( OffsetDateTime.now(ZoneOffset.UTC ).toString()  );
 		responseSO.getNote().stream().forEach(n -> servOrderUpd.addNoteItem(n));
 		Note en = new Note();
 		en.text("test note2");
 		servOrderUpd.addNoteItem(en);
+		servOrderUpd.addOrderItemItem( (new ArrayList<>(responseSO.getOrderItem())).get(0)  );
+		servOrderUpd.getOrderItem().get(0).setState( ServiceOrderStateType.INPROGRESS );
+		ServiceRef supportingServiceItem = new ServiceRef();
+		supportingServiceItem.setId( createdServ.getId() );
+		supportingServiceItem.setReferredType( createdServ.getName() );
+		supportingServiceItem.setName(  createdServ.getName()  );
+		servOrderUpd.getOrderItem().get(0).getService().addSupportingServiceItem(supportingServiceItem);
+		
+		
+		
 		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/serviceOrdering/v4/serviceOrder/" + responseSO.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( servOrderUpd ) ))
@@ -245,6 +286,16 @@ public class ServiceOrderIntegrationTest {
 
 		assertThat( serviceOrderRepoService.findAll().size() ).isEqualTo( 1 );
 
+		assertThat( responseSOUpd.getOrderItem().size()  ).isEqualTo( 1 );
+		responseSOUpd.getOrderItem().stream().forEach( 
+				soiElement -> {
+					assertThat( soiElement.getState()).isEqualTo( ServiceOrderStateType.INPROGRESS );
+					assertThat( soiElement.getService().getServiceSpecification() ).isNotNull();
+					assertThat( soiElement.getService().getServiceSpecification().getName() ).isEqualTo("BundleExampleSpec");
+					assertThat( soiElement.getService().getSupportingService().size()  ).isEqualTo(1);
+				}				
+		);
+		
 		assertThat( responseSOUpd.getExpectedCompletionDate() ).isNotNull();
 		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 2 );
 		

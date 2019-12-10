@@ -24,13 +24,20 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
@@ -41,6 +48,7 @@ import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.sim638.repo.ServiceRepository;
+import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.sim638.model.Service;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceOrderRef;
@@ -63,6 +71,16 @@ public class ServiceRepoService {
 	@Autowired
 	ServiceSpecificationRepoService  serviceSpecRepoService;
 
+	private SessionFactory  sessionFactory;
+	
+	@Autowired
+	public ServiceRepoService(EntityManagerFactory factory) {
+		if (factory.unwrap(SessionFactory.class) == null) {
+			throw new NullPointerException("factory is not a hibernate factory");
+		}
+		this.sessionFactory = factory.unwrap(SessionFactory.class);
+	}
+	
 	public List<Service> findAll() {
 
 		return (List<Service>) this.serviceRepo.findAll();
@@ -255,4 +273,35 @@ public class ServiceRepoService {
 		return s;
 	}
 
+	public String getServiceEagerAsString(String id) throws JsonProcessingException {
+		Service s = this.getServiceEager(id);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new Hibernate5Module());
+		String res = mapper.writeValueAsString(s);
+
+		return res;
+	}
+	
+	public Service getServiceEager(String id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Service s = null;
+		try {
+			s = (Service) session.get(Service.class, id);
+			if (s == null) {
+				return this.findByUuid(id);// last resort
+			}
+
+			Hibernate.initialize(s.getRelatedParty());
+			Hibernate.initialize(s.getNote() );
+			
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		
+		return s;
+	}
+	
+	
 }

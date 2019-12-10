@@ -214,50 +214,64 @@ public class ServiceOrderRepoService {
 //		return soi;
 //	}
 
-	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrder) {
+	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrderUpd) {
+		
 		ServiceOrder so = this.findByUuid(id);
 
-		if ( serviceOrder.getState()!= null ) {
+		if ( serviceOrderUpd.getState()!= null ) {
 
-			so.setState( serviceOrder.getState() );
+			so.setState( serviceOrderUpd.getState() );
 		}
-		if ( serviceOrder.getCategory()!= null ) {
-			so.setCategory(serviceOrder.getCategory());
-
-		}
-
-		if ( serviceOrder.getDescription()!= null ) {
-			so.setDescription(serviceOrder.getDescription());
+		if ( serviceOrderUpd.getCategory()!= null ) {
+			so.setCategory(serviceOrderUpd.getCategory());
 
 		}
 
-		if ( serviceOrder.getNotificationContact()!= null ) {
-			so.setNotificationContact(serviceOrder.getNotificationContact());
+		if ( serviceOrderUpd.getDescription()!= null ) {
+			so.setDescription(serviceOrderUpd.getDescription());
 
 		}
 
-		if ( serviceOrder.getRequestedCompletionDate()!= null ) {
-			so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
+		if ( serviceOrderUpd.getNotificationContact()!= null ) {
+			so.setNotificationContact(serviceOrderUpd.getNotificationContact());
 
 		}
 
-		if ( serviceOrder.getRequestedCompletionDate()!= null ) {
-			so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
+		if ( serviceOrderUpd.getRequestedCompletionDate()!= null ) {
+			so.requestedCompletionDate(serviceOrderUpd.getRequestedCompletionDate());
 
 		}
 
-		if ( serviceOrder.getExpectedCompletionDate()!= null ) {
-			so.setExpectedCompletionDate(serviceOrder.getExpectedCompletionDate());
+		if ( serviceOrderUpd.getRequestedCompletionDate()!= null ) {
+			so.requestedStartDate(serviceOrderUpd.getRequestedCompletionDate());
 
 		}
 
-		if ( serviceOrder.getStartDate()!= null ) {
-			so.setStartDate(serviceOrder.getStartDate());
+		if ( serviceOrderUpd.getExpectedCompletionDate()!= null ) {
+			so.setExpectedCompletionDate(serviceOrderUpd.getExpectedCompletionDate());
 
 		}
 
-		if (serviceOrder.getNote() != null) {
-			for (Note n : serviceOrder.getNote()) {
+		if ( serviceOrderUpd.getStartDate()!= null ) {
+			so.setStartDate(serviceOrderUpd.getStartDate());
+
+		}
+		
+		
+		if ( serviceOrderUpd.getOrderItem() != null ) {
+			for (ServiceOrderItem soiUpd :  serviceOrderUpd.getOrderItem()) {
+				ServiceOrderItem soiOrigin = so.findOrderItemById( soiUpd.getId() );
+				if (soiOrigin!=null) {
+					updateOrderItem(soiOrigin, soiUpd);
+				}
+			}
+		}
+		
+		
+		
+
+		if (serviceOrderUpd.getNote() != null) {
+			for (Note n : serviceOrderUpd.getNote()) {
 				if (n.getUuid() == null) {
 					so.addNoteItem(n);
 				}
@@ -265,15 +279,15 @@ public class ServiceOrderRepoService {
 
 		}
 
-		if (serviceOrder.getRelatedParty() != null) {
-			for (RelatedParty n : serviceOrder.getRelatedParty()) {
+		if (serviceOrderUpd.getRelatedParty() != null) {
+			for (RelatedParty n : serviceOrderUpd.getRelatedParty()) {
 				if (n.getUuid() == null) {
 					so.addRelatedPartyItem(n);
 				}
 			}
 		}
-		if (serviceOrder.getOrderRelationship() != null) {
-			for (ServiceOrderRelationship n : serviceOrder.getOrderRelationship()) {
+		if (serviceOrderUpd.getOrderRelationship() != null) {
+			for (ServiceOrderRelationship n : serviceOrderUpd.getOrderRelationship()) {
 				if (n.getUuid() == null) {
 					so.addOrderRelationshipItem(n);
 				}
@@ -285,6 +299,39 @@ public class ServiceOrderRepoService {
 		return so;
 	}
 
+	private void updateOrderItem(ServiceOrderItem soiOrigin, ServiceOrderItem soiUpd) {
+		
+		if ( soiUpd.getAction()!=null) {
+			soiOrigin.setAction( soiUpd.getAction() );
+		}
+		
+		if ( soiUpd.getState()!=null) {
+			soiOrigin.setState( soiUpd.getState() );
+		}
+		
+		if ( soiUpd.getService() !=null) {
+			if ( soiOrigin.getService() == null) {
+				soiOrigin.setService(soiUpd.getService());
+			} else {
+				soiOrigin.getService().setState( soiUpd.getService().getState() );//this probably will change only
+				
+				//we need also to update supportingServices
+				for (ServiceRef serviceRef : soiUpd.getService().getSupportingService()) {
+					if ( soiOrigin.getService().getSupportingServiceById(serviceRef.getId() ) == null ) {
+						soiOrigin.getService().addSupportingServiceItem(serviceRef);
+					}
+				}
+				
+				for (ResourceRef resourceRef : soiUpd.getService().getSupportingResource()) {
+					if ( soiOrigin.getService().getSupportingResourceById(resourceRef.getId() ) == null ) {
+						soiOrigin.getService().addSupportingResourceItem(resourceRef) ;
+					}
+				}
+				
+			}
+		}
+	}
+
 	public ServiceOrder findByUuid(String id) {
 		Optional<ServiceOrder> optionalCat = this.serviceOrderRepo.findByUuid(id);
 		return optionalCat.orElse(null);
@@ -293,15 +340,13 @@ public class ServiceOrderRepoService {
 	public String getServiceOrderEagerAsString(String id) throws JsonProcessingException {
 		ServiceOrder s = this.getServiceORderEager(id);
 		ObjectMapper mapper = new ObjectMapper();
-		// Registering Hibernate4Module to support lazy objects
-		// this will fetch all lazy objects of VxF before marshaling
 		mapper.registerModule(new Hibernate5Module());
 		String res = mapper.writeValueAsString(s);
 
 		return res;
 	}
 
-	private ServiceOrder getServiceORderEager(String id) {
+	public ServiceOrder getServiceORderEager(String id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		ServiceOrder s = null;

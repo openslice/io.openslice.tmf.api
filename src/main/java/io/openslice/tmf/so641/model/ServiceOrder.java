@@ -663,4 +663,13 @@ public class ServiceOrder extends BaseRootEntity {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
+	public ServiceOrderItem findOrderItemById(String id) {
+		for (ServiceOrderItem oi : this.orderItem) {
+			if ( oi.getId().equals(id)) {
+				return oi;
+			}			
+		}
+		return null;
+	}
 }

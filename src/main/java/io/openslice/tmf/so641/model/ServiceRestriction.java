@@ -29,6 +29,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -456,5 +457,23 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	public Object getSupportingServiceById(@NotNull String id) {
+		for (ServiceRef sr : supportingService) {
+			if ( sr.getId().equals(id)) {
+				return sr;
+			}
+		}
+		return null;
+	}
+
+	public Object getSupportingResourceById(@NotNull String id) {
+		for (ResourceRef sr : supportingResource) {
+			if ( sr.getId().equals(id)) {
+				return sr;
+			}
+		}
+		return null;
 	}
 }

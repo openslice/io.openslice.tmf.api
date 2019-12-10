@@ -29,12 +29,9 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_UPD_SERVICE}")
 	private String CATALOG_UPD_SERVICE = "";
 
-	@Value("${CATALOG_GET_SERVICE}")
-	private String CATALOG_GET_SERVICE = "";
+	@Value("${CATALOG_GET_SERVICE_BY_ID}")
+	private String CATALOG_GET_SERVICE_BY_ID = "";
 
-	@Autowired
-	ServiceOrderRepoService serviceOrderRepoService;
-	
 
 	@Autowired
 	ServiceRepoService serviceRepoService;
@@ -46,7 +43,15 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.log(LoggingLevel.INFO, log, CATALOG_ADD_SERVICE + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ServiceCreate.class, true)
-		.bean( serviceRepoService, "addService(${body})");
+		.bean( serviceRepoService, "addService(${body})")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+		
+		from( CATALOG_GET_SERVICE_BY_ID )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICE_BY_ID + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( serviceRepoService, "getServiceEagerAsString")
+		.convertBodyTo( String.class );
 		
 	}
 }

@@ -80,6 +80,10 @@ public class ServiceOrderUpdate {
 	@JsonProperty("state")
 	private ServiceOrderStateType state = null;
 
+
+	@JsonProperty("orderItem")
+	@Valid
+	private List<ServiceOrderItem> orderItem = new ArrayList<>();
 	
 
 	@JsonProperty("@baseType")
@@ -468,6 +472,20 @@ public class ServiceOrderUpdate {
 	public ServiceOrderStateType getState() {
 		return state;
 	}
+	
+	public ServiceOrderUpdate addOrderItemItem(ServiceOrderItem orderItemItem) {
+		this.orderItem.add(orderItemItem);
+		return this;
+	}
+
+	public List<ServiceOrderItem> getOrderItem() {
+		return orderItem;
+	}
+	
+	public void setOrderItem(List<ServiceOrderItem> orderItem) {
+		this.orderItem = orderItem;
+	}
+
 
 	/**
 	 * @param state the state to set

@@ -229,7 +229,9 @@ public class Service extends BaseRootNamedEntity {
 	}
 
 	public void setEndDate(String endDate) {
-		this.endDate = OffsetDateTime.parse( endDate );
+		if ( endDate!=null ) {
+			this.endDate = OffsetDateTime.parse( endDate );			
+		}
 	}
 	
 	public Service hasStarted(Boolean hasStarted) {
@@ -365,7 +367,9 @@ public class Service extends BaseRootNamedEntity {
 	}
 	
 	public void setStartDate(String startDate) {
-		this.startDate = OffsetDateTime.parse( startDate );
+		if ( startDate!=null ) {
+			this.startDate = OffsetDateTime.parse( startDate );
+		}
 	}
 
 	public Service startMode(String startMode) {

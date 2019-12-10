@@ -35,8 +35,8 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_INITIAL_SERVICEORDERS_IDS}")
 	private String CATALOG_GET_INITIAL_SERVICEORDERS_IDS = "";
 
-	@Value("${CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS}")
-	private String CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS = "";
+	@Value("${CATALOG_GET_SERVICEORDER_IDS_BY_STATE}")
+	private String CATALOG_GET_SERVICEORDER_IDS_BY_STATE = "";
 
 	@Value("${CATALOG_UPD_SERVICEORDER_BY_ID}")
 	private String CATALOG_UPD_SERVICEORDER_BY_ID = "";
@@ -68,10 +68,10 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		.bean( serviceOrderRepoService, "findAllParamsJsonOrderIDs")
 		.convertBodyTo( String.class );
 		
-		from( CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS )
-		.log(LoggingLevel.INFO, log, CATALOG_GET_ACKNOWLEDGED_SERVICEORDERS_IDS + " message received!")
+		from( CATALOG_GET_SERVICEORDER_IDS_BY_STATE )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICEORDER_IDS_BY_STATE + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
-		.setBody( constant( "{\"state\":\"ACKNOWLEDGED\"}" ) )
+		.setBody( simple( "{\"state\":\"${header.orderstate}\"}" ) )
 		.unmarshal().json( JsonLibrary.Jackson, Map.class, true)
 		.bean( serviceOrderRepoService, "findAllParamsJsonOrderIDs")
 		.convertBodyTo( String.class );

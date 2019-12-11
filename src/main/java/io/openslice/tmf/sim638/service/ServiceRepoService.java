@@ -19,8 +19,6 @@
  */
 package io.openslice.tmf.sim638.service;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +32,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,12 +46,18 @@ import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
-import io.openslice.tmf.sim638.repo.ServiceRepository;
-import io.openslice.tmf.so641.model.ServiceOrder;
+import io.openslice.tmf.sim638.api.ServiceApiRouteBuilder;
 import io.openslice.tmf.sim638.model.Service;
+import io.openslice.tmf.sim638.model.ServiceAttributeValueChangeEvent;
+import io.openslice.tmf.sim638.model.ServiceAttributeValueChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceCreate;
+import io.openslice.tmf.sim638.model.ServiceCreateEvent;
+import io.openslice.tmf.sim638.model.ServiceCreateNotification;
 import io.openslice.tmf.sim638.model.ServiceOrderRef;
+import io.openslice.tmf.sim638.model.ServiceStateChangeEvent;
+import io.openslice.tmf.sim638.model.ServiceStateChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
+import io.openslice.tmf.sim638.repo.ServiceRepository;
 
 
 
@@ -72,6 +77,9 @@ public class ServiceRepoService {
 	ServiceSpecificationRepoService  serviceSpecRepoService;
 
 	private SessionFactory  sessionFactory;
+
+	@Autowired
+	ServiceApiRouteBuilder serviceApiRouteBuilder;
 	
 	@Autowired
 	public ServiceRepoService(EntityManagerFactory factory) {
@@ -134,7 +142,7 @@ public class ServiceRepoService {
 		
 		s = this.serviceRepo.save( s );
 
-		
+		raiseServiceCreateNotification(s);
 		return s;
 	}
 
@@ -191,7 +199,11 @@ public class ServiceRepoService {
 			s.setStartMode( service.getStartMode());
 			
 		}
+		
+
+		boolean stateChanged = false;
 		if (service.getState() != null ) {
+			stateChanged = s.getState() != service.getState();
 			s.setState(service.getState());
 			
 		}
@@ -268,7 +280,11 @@ public class ServiceRepoService {
 		
 		
 		s = this.serviceRepo.save( s );
-
+		if (stateChanged) {
+			raiseServiceStateChangedNotification( s );			
+		} else {
+			raiseServiceAttributeValueChangedNotification( s );
+		}
 		
 		return s;
 	}
@@ -303,5 +319,34 @@ public class ServiceRepoService {
 		return s;
 	}
 	
+
+	@Transactional
+	private void raiseServiceCreateNotification(Service so) {
+		ServiceCreateNotification n = new ServiceCreateNotification();
+		ServiceCreateEvent event = new ServiceCreateEvent();
+		event.service( so );
+		n.setEvent(event );
+		serviceApiRouteBuilder.publishEvent(n, so.getId());
+		
+	}
+
+	@Transactional
+	private void raiseServiceStateChangedNotification(Service so) {
+		ServiceStateChangeNotification n = new ServiceStateChangeNotification();
+		ServiceStateChangeEvent event = new ServiceStateChangeEvent();
+		event.service( so );
+		n.setEvent(event );
+		serviceApiRouteBuilder.publishEvent(n, so.getId());
+		
+	}
+
+	@Transactional
+	private void raiseServiceAttributeValueChangedNotification(Service so) {
+		ServiceAttributeValueChangeNotification n = new ServiceAttributeValueChangeNotification();
+		ServiceAttributeValueChangeEvent event = new ServiceAttributeValueChangeEvent();
+		event.service( so );
+		n.setEvent(event );
+		serviceApiRouteBuilder.publishEvent(n, so.getId());
 	
+	}
 }

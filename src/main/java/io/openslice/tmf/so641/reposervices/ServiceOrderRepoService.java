@@ -55,10 +55,17 @@ import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
 import io.openslice.tmf.so641.model.ServiceOrder;
+import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeEvent;
+import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
+import io.openslice.tmf.so641.model.ServiceOrderCreateEvent;
+import io.openslice.tmf.so641.model.ServiceOrderCreateNotification;
 import io.openslice.tmf.so641.model.ServiceOrderItem;
 import io.openslice.tmf.so641.model.ServiceOrderRelationship;
+import io.openslice.tmf.so641.model.ServiceOrderStateChangeEvent;
+import io.openslice.tmf.so641.model.ServiceOrderStateChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderStateType;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
@@ -77,8 +84,11 @@ public class ServiceOrderRepoService {
 	@Autowired
 	ServiceSpecificationRepoService serviceSpecRepoService;
 
+	@Autowired
+	ServiceOrderApiRouteBuilder serviceOrderApiRouteBuilder;
 
 	private SessionFactory  sessionFactory;
+
 
 	@Autowired
 	public ServiceOrderRepoService(EntityManagerFactory factory) {
@@ -149,6 +159,8 @@ public class ServiceOrderRepoService {
 //		so = this.fixServiceOrderItemsDependencies(so);
 
 		so = this.serviceOrderRepo.save(so);
+		
+		raiseSOCreateNotification(so);
 
 		return so;
 	}
@@ -215,18 +227,23 @@ public class ServiceOrderRepoService {
 //		return soi;
 //	}
 
+
+
 	@Transactional
 	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrderUpd) {
 		
 		ServiceOrder so = this.findByUuid(id);
+		boolean stateChanged = false;
 
 		for (ServiceOrderItem oi : so.getOrderItem() ) {
-			logger.info( "(oi.getId() = "+oi.getId() );		
+			logger.debug( "(oi.getId() = "+oi.getId() );		
 			
 		}
 		if ( serviceOrderUpd.getState()!= null ) {
 
+			stateChanged = so.getState() != serviceOrderUpd.getState();
 			so.setState( serviceOrderUpd.getState() );
+			
 		}
 		if ( serviceOrderUpd.getCategory()!= null ) {
 			so.setCategory(serviceOrderUpd.getCategory());
@@ -301,9 +318,17 @@ public class ServiceOrderRepoService {
 		}
 
 		so = this.serviceOrderRepo.save(so);
-
+		if (stateChanged) {
+			raiseSOStateChangedNotification(so);			
+		} else {
+			raiseSOAttributeValueChangedNotification(so);
+		}
+		
 		return so;
 	}
+
+
+
 
 	private void updateOrderItem(ServiceOrderItem soiOrigin, ServiceOrderItem soiUpd) {
 		
@@ -372,6 +397,36 @@ public class ServiceOrderRepoService {
 		}
 		
 		return s;
+	}
+
+	@Transactional
+	private void raiseSOCreateNotification(ServiceOrder so) {
+		ServiceOrderCreateNotification n = new ServiceOrderCreateNotification();
+		ServiceOrderCreateEvent event = new ServiceOrderCreateEvent();
+		event.serviceOrder( so );
+		n.setEvent(event );
+		serviceOrderApiRouteBuilder.publishEvent(n, so.getId());
+		
+	}
+
+	@Transactional
+	private void raiseSOStateChangedNotification(ServiceOrder so) {
+		ServiceOrderStateChangeNotification n = new ServiceOrderStateChangeNotification();
+		ServiceOrderStateChangeEvent event = new ServiceOrderStateChangeEvent();
+		event.serviceOrder( so );
+		n.setEvent(event );
+		serviceOrderApiRouteBuilder.publishEvent(n, so.getId());
+		
+	}
+
+	@Transactional
+	private void raiseSOAttributeValueChangedNotification(ServiceOrder so) {
+		ServiceOrderAttributeValueChangeNotification n = new ServiceOrderAttributeValueChangeNotification();
+		ServiceOrderAttributeValueChangeEvent event = new ServiceOrderAttributeValueChangeEvent();
+		event.serviceOrder( so );
+		n.setEvent(event );
+		serviceOrderApiRouteBuilder.publishEvent(n, so.getId());
+	
 	}
 
 }

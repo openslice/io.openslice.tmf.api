@@ -28,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.Notification;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -38,21 +39,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
-public class ServiceDeleteNotification   {
-  @JsonProperty("eventId")
-  private String eventId = null;
-
-  @JsonProperty("eventTime")
-  private OffsetDateTime eventTime = null;
-
-  @JsonProperty("eventType")
-  private String eventType = null;
-
-  @JsonProperty("fieldPath")
-  private String fieldPath = null;
-
-  @JsonProperty("resourcePath")
-  private String resourcePath = null;
+public class ServiceDeleteNotification extends Notification {
 
   @JsonProperty("event")
   private ServiceDeleteEvent event = null;
@@ -62,102 +49,7 @@ public class ServiceDeleteNotification   {
     return this;
   }
 
-  /**
-   * The identifier of the notification
-   * @return eventId
-  **/
-  @ApiModelProperty(value = "The identifier of the notification")
-
-
-  public String getEventId() {
-    return eventId;
-  }
-
-  public void setEventId(String eventId) {
-    this.eventId = eventId;
-  }
-
-  public ServiceDeleteNotification eventTime(OffsetDateTime eventTime) {
-    this.eventTime = eventTime;
-    return this;
-  }
-
-  /**
-   * Time of the event occurence
-   * @return eventTime
-  **/
-  @ApiModelProperty(value = "Time of the event occurence")
-
-  @Valid
-
-  public OffsetDateTime getEventTime() {
-    return eventTime;
-  }
-
-  public void setEventTime(OffsetDateTime eventTime) {
-    this.eventTime = eventTime;
-  }
-
-  public ServiceDeleteNotification eventType(String eventType) {
-    this.eventType = eventType;
-    return this;
-  }
-
-  /**
-   * The type of the notification
-   * @return eventType
-  **/
-  @ApiModelProperty(value = "The type of the notification")
-
-
-  public String getEventType() {
-    return eventType;
-  }
-
-  public void setEventType(String eventType) {
-    this.eventType = eventType;
-  }
-
-  public ServiceDeleteNotification fieldPath(String fieldPath) {
-    this.fieldPath = fieldPath;
-    return this;
-  }
-
-  /**
-   * The path identifying the object field concerned by this notification
-   * @return fieldPath
-  **/
-  @ApiModelProperty(value = "The path identifying the object field concerned by this notification")
-
-
-  public String getFieldPath() {
-    return fieldPath;
-  }
-
-  public void setFieldPath(String fieldPath) {
-    this.fieldPath = fieldPath;
-  }
-
-  public ServiceDeleteNotification resourcePath(String resourcePath) {
-    this.resourcePath = resourcePath;
-    return this;
-  }
-
-  /**
-   * The path identifying the resource object concerned by this notification
-   * @return resourcePath
-  **/
-  @ApiModelProperty(value = "The path identifying the resource object concerned by this notification")
-
-
-  public String getResourcePath() {
-    return resourcePath;
-  }
-
-  public void setResourcePath(String resourcePath) {
-    this.resourcePath = resourcePath;
-  }
-
+ 
   public ServiceDeleteNotification event(ServiceDeleteEvent event) {
     this.event = event;
     return this;

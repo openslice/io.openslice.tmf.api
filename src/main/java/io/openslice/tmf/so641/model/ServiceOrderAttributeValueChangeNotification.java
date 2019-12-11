@@ -28,6 +28,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.Notification;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -38,21 +39,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
-public class ServiceOrderAttributeValueChangeNotification   {
-  @JsonProperty("eventId")
-  private String eventId = null;
+public class ServiceOrderAttributeValueChangeNotification  extends Notification {
 
-  @JsonProperty("eventTime")
-  private OffsetDateTime eventTime = null;
-
-  @JsonProperty("eventType")
-  private String eventType = null;
-
-  @JsonProperty("fieldPath")
-  private String fieldPath = null;
-
-  @JsonProperty("resourcePath")
-  private String resourcePath = null;
 
   @JsonProperty("event")
   private ServiceOrderAttributeValueChangeEvent event = null;
@@ -62,101 +50,7 @@ public class ServiceOrderAttributeValueChangeNotification   {
     return this;
   }
 
-  /**
-   * The identifier of the notification
-   * @return eventId
-  **/
-  @ApiModelProperty(value = "The identifier of the notification")
-
-
-  public String getEventId() {
-    return eventId;
-  }
-
-  public void setEventId(String eventId) {
-    this.eventId = eventId;
-  }
-
-  public ServiceOrderAttributeValueChangeNotification eventTime(OffsetDateTime eventTime) {
-    this.eventTime = eventTime;
-    return this;
-  }
-
-  /**
-   * Time of the event occurrence
-   * @return eventTime
-  **/
-  @ApiModelProperty(value = "Time of the event occurrence")
-
-  @Valid
-
-  public OffsetDateTime getEventTime() {
-    return eventTime;
-  }
-
-  public void setEventTime(OffsetDateTime eventTime) {
-    this.eventTime = eventTime;
-  }
-
-  public ServiceOrderAttributeValueChangeNotification eventType(String eventType) {
-    this.eventType = eventType;
-    return this;
-  }
-
-  /**
-   * The type of the notification
-   * @return eventType
-  **/
-  @ApiModelProperty(value = "The type of the notification")
-
-
-  public String getEventType() {
-    return eventType;
-  }
-
-  public void setEventType(String eventType) {
-    this.eventType = eventType;
-  }
-
-  public ServiceOrderAttributeValueChangeNotification fieldPath(String fieldPath) {
-    this.fieldPath = fieldPath;
-    return this;
-  }
-
-  /**
-   * The path identifying the object field concerned by this notification
-   * @return fieldPath
-  **/
-  @ApiModelProperty(value = "The path identifying the object field concerned by this notification")
-
-
-  public String getFieldPath() {
-    return fieldPath;
-  }
-
-  public void setFieldPath(String fieldPath) {
-    this.fieldPath = fieldPath;
-  }
-
-  public ServiceOrderAttributeValueChangeNotification resourcePath(String resourcePath) {
-    this.resourcePath = resourcePath;
-    return this;
-  }
-
-  /**
-   * The path identifying the resource object concerned by this notification
-   * @return resourcePath
-  **/
-  @ApiModelProperty(value = "The path identifying the resource object concerned by this notification")
-
-
-  public String getResourcePath() {
-    return resourcePath;
-  }
-
-  public void setResourcePath(String resourcePath) {
-    this.resourcePath = resourcePath;
-  }
+ 
 
   public ServiceOrderAttributeValueChangeNotification event(ServiceOrderAttributeValueChangeEvent event) {
     this.event = event;

@@ -37,10 +37,12 @@ import javax.validation.constraints.Size;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModelProperty;
@@ -51,6 +53,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 @Entity(name = "ServiceOrder")
+@JsonIgnoreProperties("orderRequester")
 public class ServiceOrder extends BaseRootEntity {
 	@JsonProperty("id")
 	private String id = null;
@@ -669,6 +672,18 @@ public class ServiceOrder extends BaseRootEntity {
 			if ( oi.getId().equals(id)) {
 				return oi;
 			}			
+		}
+		return null;
+	}
+	
+	/**
+	 * @return the PartyRole that made the request
+	 */
+	public RelatedParty getOrderRequester() {
+		for (RelatedParty rp : relatedParty) {
+			if (rp.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
+				return rp;
+			}
 		}
 		return null;
 	}

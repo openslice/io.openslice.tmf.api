@@ -244,6 +244,11 @@ public class ServiceOrderRepoService {
 			stateChanged = so.getState() != serviceOrderUpd.getState();
 			so.setState( serviceOrderUpd.getState() );
 			
+			if ( so.getState().equals( ServiceOrderStateType.COMPLETED )) {
+				so.setCompletionDate( OffsetDateTime.now(ZoneOffset.UTC));
+			}
+			
+			
 		}
 		if ( serviceOrderUpd.getCategory()!= null ) {
 			so.setCategory(serviceOrderUpd.getCategory());
@@ -390,6 +395,10 @@ public class ServiceOrderRepoService {
 			Hibernate.initialize(s.getRelatedParty());
 			Hibernate.initialize(s.getOrderItem() );
 			Hibernate.initialize(s.getNote() );
+			for (ServiceOrderItem soi : s.getOrderItem()) {
+				Hibernate.initialize( soi.getService().getSupportingService() );
+				Hibernate.initialize( soi.getService().getSupportingResource());
+			}
 			
 			tx.commit();
 		} finally {

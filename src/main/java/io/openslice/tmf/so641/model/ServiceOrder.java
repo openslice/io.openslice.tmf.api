@@ -410,10 +410,6 @@ public class ServiceOrder extends BaseRootEntity {
 		this.requestedStartDate = requestedStartDate;
 	}
 
-	public ServiceOrder startDate(OffsetDateTime startDate) {
-		this.startDate = startDate;
-		return this;
-	}
 	
 	public void setRequestedStartDate(String requestedStartDate) {
 
@@ -423,6 +419,11 @@ public class ServiceOrder extends BaseRootEntity {
 		}
 	}
 
+
+	public ServiceOrder startDate(OffsetDateTime startDate) {
+		this.startDate = startDate;
+		return this;
+	}
 	/**
 	 * Date when the order was started for processing
 	 * 
@@ -447,9 +448,9 @@ public class ServiceOrder extends BaseRootEntity {
 		this.startDate = startDate;
 	}
 	
-	public void setStartDate(String d) {
-		if (startDate!=null) {
-			this.startDate = OffsetDateTime.parse( d );			
+	public void setStartDate(String requestedStartDate) {
+		if (requestedStartDate!=null) {
+			this.startDate = OffsetDateTime.parse( requestedStartDate );			
 		}
 	}
 

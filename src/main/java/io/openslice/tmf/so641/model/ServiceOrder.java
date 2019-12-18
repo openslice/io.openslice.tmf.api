@@ -61,14 +61,12 @@ public class ServiceOrder extends BaseRootEntity {
 	@JsonProperty("category")
 	private String category = null;
 
-	private OffsetDateTime completionDate = null;
 
 	@Lob
 	@Column(name = "LDESCRIPTION", columnDefinition = "LONGTEXT")
 	@JsonProperty("description")
 	private String description = null;
 
-	private OffsetDateTime expectedCompletionDate = null;
 
 	@JsonProperty("externalId")
 	private String externalId = null;
@@ -81,6 +79,10 @@ public class ServiceOrder extends BaseRootEntity {
 	@JsonProperty("priority")
 	private String priority = null;
 
+	private OffsetDateTime completionDate = null;
+	
+	private OffsetDateTime expectedCompletionDate = null;
+	
 	private OffsetDateTime requestedCompletionDate = null;
 
 	private OffsetDateTime requestedStartDate = null;
@@ -444,6 +446,13 @@ public class ServiceOrder extends BaseRootEntity {
 	public void setStartDate(OffsetDateTime startDate) {
 		this.startDate = startDate;
 	}
+	
+	public void setStartDate(String d) {
+		if (startDate!=null) {
+			this.startDate = OffsetDateTime.parse( d );			
+		}
+	}
+
 
 	public ServiceOrder note(Set<Note> note) {
 		this.note = note;

@@ -63,6 +63,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.EValueType;
@@ -77,6 +78,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
+import io.openslice.tmf.scm633.api.ServiceSpecificationApiRouteBuilder;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
@@ -114,6 +116,9 @@ public class ServiceSpecificationRepoService {
 
 	@Autowired
 	ResourceSpecificationRepoService resourceSpecRepoService;
+
+	@Autowired
+	ServiceSpecificationApiRouteBuilder serviceSpecificationApiRouteBuilder;
 
 	private SessionFactory sessionFactory;
 
@@ -683,11 +688,11 @@ public class ServiceSpecificationRepoService {
 			resourceNSTopology.setName( specName + "-" + "NS Topology");
 			resourceNSTopology.setVersion( serviceSpecVinniSB.getVersion() );		
 			ResourceSpecCharacteristic resourceSpecCharacteristicItem = new ResourceSpecCharacteristic();
-			resourceSpecCharacteristicItem.setName("Slice name");
-			resourceSpecCharacteristicItem.setDescription("Slice Name on target NFVO");
+			resourceSpecCharacteristicItem.setName("Network Slice name");
+			resourceSpecCharacteristicItem.setDescription("Network Slice Name on target NFVO");
 			resourceSpecCharacteristicItem.setValueType( EValueType.TEXT.getValue() );
 			ResourceSpecCharacteristicValue resourceSpecCharacteristicValueItem = new ResourceSpecCharacteristicValue();
-			resourceSpecCharacteristicValueItem.setValue( new Any("SLICENAME", "The slice name"));
+			resourceSpecCharacteristicValueItem.setValue( new Any("SLICENAME", "The Network slice name"));
 			resourceSpecCharacteristicItem.addResourceSpecCharacteristicValueItem(resourceSpecCharacteristicValueItem);
 			resourceNSTopology.addResourceSpecCharacteristicItem(resourceSpecCharacteristicItem);
 			
@@ -862,6 +867,46 @@ public class ServiceSpecificationRepoService {
 		}
 
 		return null;
+	}
+
+	/**
+	 * The NSD is retrieved from the catalog via ActiveMQ.
+	 * it will create a Resource Spec based on the NSD object
+	 * It will create a Service Spec (RFS) which references the above Resource Spec
+	 * 
+	 * @param id the NSD id
+	 * @return a ServiceSpecification
+	 */
+	public ServiceSpecification specFromNSDID(String id) {
+		
+		NetworkServiceDescriptor nsd = serviceSpecificationApiRouteBuilder.retrieveNSD(id);
+		if (nsd == null) {
+			return null;
+		}
+		
+		ResourceSpecification resourceNSD = new LogicalResourceSpec();
+		resourceNSD.setName( nsd.getName() );
+		resourceNSD.setVersion( nsd.getVersion() );
+		resourceNSD.setDescription(nsd.getShortDescription());
+		resourceNSD = resourceSpecRepoService.addResourceSpec( resourceNSD );
+		/**
+		 * add here characteristics
+		 */
+		
+		/**
+		 * 2: Create Service  related to resourceSpec
+		 */
+		ServiceSpecification serviceSpec = new ServiceSpecification();
+		serviceSpec.setName( nsd.getName()  );
+		serviceSpec.setDescription( nsd.getShortDescription() );
+		ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();
+		resourceSpecificationItemRef.setId( resourceNSD.getId() );
+		resourceSpecificationItemRef.setName( resourceNSD.getName() );
+		resourceSpecificationItemRef.setVersion(resourceNSD.getVersion() );
+		serviceSpec.addResourceSpecificationItem(resourceSpecificationItemRef);
+		serviceSpec = this.addServiceSpecification( serviceSpec );
+		
+		return serviceSpec;
 	}
 
 }

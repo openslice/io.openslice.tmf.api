@@ -195,7 +195,22 @@ public interface ServiceSpecificationApi {
     		@ApiParam(value = "If true adds a Service 3rd party NSD Spec in the Bundle" ) @RequestParam( value="addServiceNSD",required=true) Boolean addServiceNSD);
     
     
-    
+    @ApiOperation(value = "Creates a ServiceSpecification from an NSD id. It retreives the NSD from  the NSD/VNF catalog", nickname = "createServiceSpecificationFromNSDID", 
+    		notes = "This operation creates a ServiceSpecification from an NSD id. It retreives the NSD from  the NSD/VNF catalog. "
+    				+ "The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Created", response = ServiceSpecification.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/serviceSpecification/specFromNSDID/{id}",
+        produces = { "application/json;charset=utf-8" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<ServiceSpecification> specFromNSDID( @ApiParam(value = "Identifier of the NSD id from the NSD/VNF catalog",required=true) @PathVariable("id") String id );
     
     @ApiOperation(value = "Adds an attachment to a ServiceSpecification", nickname = "addAttachmentToServiceSpecification", notes = "This operation adds an attachment to a ServiceSpecification and updates partially a ServiceSpecification entity", response = ServiceSpecification.class, tags={ "serviceSpecification", })
     @ApiResponses(value = { 

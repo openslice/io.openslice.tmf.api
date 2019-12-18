@@ -226,4 +226,11 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<ServiceSpecification> specFromNSDID(String id) {
+		ServiceSpecification c = serviceSpecificationRepoService.specFromNSDID(id);
+
+		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
+	}
+
 }

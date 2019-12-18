@@ -188,6 +188,12 @@
 			<artifactId>camel-stream</artifactId>
 		</dependency>
 
+		
+		<dependency>
+			<groupId>io.openslice</groupId>
+			<artifactId>io.openslice.model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 
 		<!-- swagger -->
 		<dependency>

@@ -299,6 +299,15 @@ public class ServiceOrderIntegrationTest {
 		assertThat( responseSOUpd.getExpectedCompletionDate() ).isNotNull();
 		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 2 );
 		
+		
+		File sspecSO = new File( "src/test/resources/TestServiceOrderDates.json" );
+		InputStream inSO = new FileInputStream( sspecSO );
+		String sspectextSO = IOUtils.toString(inSO, "UTF-8");
+
+		
+		ServiceOrder sspeccr1SO = toJsonObj( sspectextSO,  ServiceOrder.class);
+
+		assertThat( sspeccr1SO ).isNotNull();
 	}
 		
 	

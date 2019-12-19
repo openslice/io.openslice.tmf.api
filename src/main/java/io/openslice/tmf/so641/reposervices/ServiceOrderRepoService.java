@@ -139,7 +139,7 @@ public class ServiceOrderRepoService {
 		so.setNotificationContact(serviceOrder.getNotificationContact());
 		so.priority(serviceOrder.getPriority());
 		so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
-		so.requestedStartDate(serviceOrder.getRequestedCompletionDate());
+		so.requestedStartDate(serviceOrder.getRequestedStartDate() );
 		if (serviceOrder.getNote() != null) {
 			so.getNote().addAll(serviceOrder.getNote());
 		}
@@ -270,8 +270,8 @@ public class ServiceOrderRepoService {
 
 		}
 
-		if ( serviceOrderUpd.getRequestedCompletionDate()!= null ) {
-			so.requestedStartDate(serviceOrderUpd.getRequestedCompletionDate());
+		if ( serviceOrderUpd.getRequestedStartDate()!= null ) {
+			so.requestedStartDate(serviceOrderUpd.getRequestedStartDate());
 
 		}
 

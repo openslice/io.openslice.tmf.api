@@ -21,12 +21,14 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -36,40 +38,15 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Agreement reference. An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
-
-public class AgreementRef   {
-  @JsonProperty("href")
-  private String href = null;
+@Entity(name = "AgreementRef")
+public class AgreementRef extends BaseRootNamedEntity{
 
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
   @JsonProperty("@referredType")
   private String referredType = null;
 
-  public AgreementRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the agreement
-   * @return href
-  **/
-  @ApiModelProperty(required = true, value = "Reference of the agreement")
-  @NotNull
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
 
   public AgreementRef id(String id) {
     this.id = id;
@@ -92,31 +69,7 @@ public class AgreementRef   {
     this.id = id;
   }
 
-  public AgreementRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the agreement
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the agreement")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public AgreementRef referredType(String referredType) {
-    this.referredType = referredType;
-    return this;
-  }
-
+  
   /**
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
@@ -146,11 +99,6 @@ public class AgreementRef   {
         Objects.equals(this.id, agreementRef.id) &&
         Objects.equals(this.name, agreementRef.name) &&
         Objects.equals(this.referredType, agreementRef.referredType);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(href, id, name, referredType);
   }
 
   @Override

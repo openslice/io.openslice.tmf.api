@@ -30,6 +30,9 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.am651.model.AgreementRef;
+import io.openslice.tmf.am666.model.AccountRef;
+import io.openslice.tmf.am666.model.PaymentMethodRef;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

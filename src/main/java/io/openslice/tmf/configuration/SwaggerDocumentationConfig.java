@@ -168,6 +168,30 @@ public class SwaggerDocumentationConfig {
             .build();
     }
     
+    ApiInfo apiInfo629() {
+        return new ApiInfoBuilder()
+            .title("Customer Management")
+            .description("This is Swagger UI environment generated for the TMF Customer Management specification")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("4.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
+    ApiInfo apiInfo691() {
+        return new ApiInfoBuilder()
+            .title("Federated ID")
+            .description("This is Swagger UI environment generated for the TMF FederatedID specification")
+            .license("Apache 2.0")
+            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+            .termsOfServiceUrl("")
+            .version("1.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
     
     @Bean
     public Docket customscm633(){
@@ -306,5 +330,27 @@ public class SwaggerDocumentationConfig {
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo666());
+    }
+    
+    @Bean
+    public Docket swaggercm629(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.cm629.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo629());
+    }
+    
+    @Bean
+    public Docket swaggercm691(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.fi691.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo691());
     }
 }

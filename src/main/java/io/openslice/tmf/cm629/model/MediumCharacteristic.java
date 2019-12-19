@@ -2,10 +2,13 @@ package io.openslice.tmf.cm629.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -16,7 +19,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
-public class MediumCharacteristic   {
+@Entity(name = "MediumCharacteristic")
+public class MediumCharacteristic  extends BaseRootEntity {
   @JsonProperty("city")
   private String city = null;
 
@@ -50,14 +54,6 @@ public class MediumCharacteristic   {
   @JsonProperty("street2")
   private String street2 = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public MediumCharacteristic city(String city) {
     this.city = city;
@@ -279,66 +275,7 @@ public class MediumCharacteristic   {
     this.street2 = street2;
   }
 
-  public MediumCharacteristic baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public MediumCharacteristic schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public MediumCharacteristic type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
+ 
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -365,10 +302,6 @@ public class MediumCharacteristic   {
         Objects.equals(this.type, mediumCharacteristic.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(city, contactType, country, emailAddress, faxNumber, phoneNumber, postCode, socialNetworkId, stateOrProvince, street1, street2, baseType, schemaLocation, type);
-  }
 
   @Override
   public String toString() {

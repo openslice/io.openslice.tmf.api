@@ -3,9 +3,13 @@ package io.openslice.tmf.fi691.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -15,7 +19,8 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
-public class EntitlementType   {
+@Entity(name = "EntitlementType")
+public class EntitlementType  extends BaseRootEntity {
   @JsonProperty("function")
   private String function = null;
 

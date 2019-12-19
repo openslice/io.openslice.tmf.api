@@ -8,7 +8,9 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -69,6 +71,8 @@ public class Customer extends BaseRootNamedEntity {
 	private Set<CreditProfile> creditProfile = new HashSet<>();
 
 	@JsonProperty("engagedParty")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn( referencedColumnName = "uuid")
 	private RelatedParty engagedParty = null;
 
 	@JsonProperty("paymentMethod")

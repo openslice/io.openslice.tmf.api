@@ -1,5 +1,5 @@
 /*-
- * ========================LICENSE_START=================================
+7 * ========================LICENSE_START=================================
  * io.openslice.tmf.api
  * %%
  * Copyright (C) 2019 openslice.io
@@ -335,6 +335,7 @@ public class SwaggerDocumentationConfig {
     @Bean
     public Docket swaggercm629(){
         return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-629-Customer Management-v4.0.0")
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.cm629.api"))
                     .build()
@@ -346,6 +347,7 @@ public class SwaggerDocumentationConfig {
     @Bean
     public Docket swaggercm691(){
         return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-691-Federated Identity-v1.0")
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.fi691.api"))
                     .build()

@@ -3,10 +3,14 @@ package io.openslice.tmf.fi691.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -17,9 +21,9 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
-public class IdentificationType   {
-  @JsonProperty("@type")
-  private String type = null;
+@Entity(name = "IdentificationType")
+public class IdentificationType  extends BaseRootEntity  {
+ 
 
   @JsonProperty("identificationId")
   private String identificationId = null;
@@ -33,29 +37,6 @@ public class IdentificationType   {
   @JsonProperty("issuingDate")
   private OffsetDateTime issuingDate = null;
 
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  public IdentificationType type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Type of document (e.g.: DNI, passport, RUT, driver's license, etc.)
-   * @return type
-  **/
-  @ApiModelProperty(required = true, value = "Type of document (e.g.: DNI, passport, RUT, driver's license, etc.)")
-  @NotNull
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
   public IdentificationType identificationId(String identificationId) {
     this.identificationId = identificationId;
@@ -140,25 +121,6 @@ public class IdentificationType   {
     this.issuingDate = issuingDate;
   }
 
-  public IdentificationType schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A Link to the schema describing this REST subResource to allow for extensions
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A Link to the schema describing this REST subResource to allow for extensions")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
 
 
   @Override
@@ -176,11 +138,6 @@ public class IdentificationType   {
         Objects.equals(this.issuingAuthority, identificationType.issuingAuthority) &&
         Objects.equals(this.issuingDate, identificationType.issuingDate) &&
         Objects.equals(this.schemaLocation, identificationType.schemaLocation);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, identificationId, country, issuingAuthority, issuingDate, schemaLocation);
   }
 
   @Override

@@ -49,6 +49,9 @@ swagger:
   authserver: "http://localhost:13081/osapi-oauth-server"
   clientid: "osapiWebClientId"
   clientsecret: "secret"
+  
+oauthsign:
+   key: "EK97Y7Y9WPGG1MEG"
 
 #QUEUE MESSAGES  
 CATALOG_GET_SERVICEORDERS: "jms:queue:CATALOG.GET.SERVICEORDERS"

@@ -29,6 +29,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.UserRoleType;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.so641.model.ServiceOrder;
@@ -103,8 +107,22 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
 		try {
-			return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(),
-					HttpStatus.OK);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			log.info("authentication=  " + authentication.toString());
+						
+			log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
+			log.info("principal ROLE_VXF_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_VXF_DEVELOPER.getValue() ) ));
+			log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
+			
+			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
+
+				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(), HttpStatus.OK);				
+			}else {
+				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(
+						SecurityContextHolder.getContext().getAuthentication().getName(),
+						UserPartRoleType.REQUESTER), HttpStatus.OK);				
+			}
+			
 
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);

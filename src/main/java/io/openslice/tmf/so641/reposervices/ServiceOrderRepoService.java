@@ -43,6 +43,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
+import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.ResourceRef;
@@ -436,6 +437,11 @@ public class ServiceOrderRepoService {
 		n.setEvent(event );
 		serviceOrderApiRouteBuilder.publishEvent(n, so.getId());
 	
+	}
+
+	public List<ServiceOrder> findAll(String rolename, UserPartRoleType requester) {
+//		return (List<ServiceOrder>) this.serviceOrderRepo.findByRolenameAndRoleType(rolename, requester);
+		return (List<ServiceOrder>) this.serviceOrderRepo.findByRolename(rolename);
 	}
 
 }

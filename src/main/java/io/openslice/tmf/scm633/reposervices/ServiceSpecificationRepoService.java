@@ -904,13 +904,13 @@ public class ServiceSpecificationRepoService {
 		ServiceSpecification serviceSpec = new ServiceSpecification();
 		serviceSpec.setName( nsd.getName()  );
 		serviceSpec.setDescription( nsd.getShortDescription() );		
-		addServiceSpecCharacteristic(serviceSpec, "PackagingFormat", "NSD PackagingFormat", new Any(nsd.getPackagingFormat().toString(), "PackagingFormat"));
-		addServiceSpecCharacteristic(serviceSpec, "PackageLocation", "NSD PackageLocation", new Any(nsd.getPackageLocation() , "PackageLocation"));
-		addServiceSpecCharacteristic(serviceSpec, "Vendor", "NSD Vendor", new Any(nsd.getVendor()  , "Vendor"));
-		addServiceSpecCharacteristic(serviceSpec, "NSDID", "NSD id", new Any(nsd.getId()+""  , "id"));
+		addServiceSpecCharacteristic(serviceSpec, "PackagingFormat", "NSD PackagingFormat", new Any(nsd.getPackagingFormat().toString(), "PackagingFormat"), EValueType.TEXT);
+		addServiceSpecCharacteristic(serviceSpec, "PackageLocation", "NSD PackageLocation", new Any(nsd.getPackageLocation() , "PackageLocation"), EValueType.TEXT);
+		addServiceSpecCharacteristic(serviceSpec, "Vendor", "NSD Vendor", new Any(nsd.getVendor()  , "Vendor"), EValueType.TEXT);
+		addServiceSpecCharacteristic(serviceSpec, "NSDID", "NSD id", new Any(nsd.getId()+""  , "id"), EValueType.TEXT);
 		for (ExperimentOnBoardDescriptor eobd : nsd.getExperimentOnBoardDescriptors()) {
-			addServiceSpecCharacteristic(serviceSpec, "ObMANOprovider_Name", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""));
-			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""));
+			addServiceSpecCharacteristic(serviceSpec, "ObMANOprovider_Name", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);
 		}
 		
 		
@@ -929,12 +929,18 @@ public class ServiceSpecificationRepoService {
 	 * @param serviceSpec
 	 * @param name
 	 */
-	private void addServiceSpecCharacteristic(ServiceSpecification serviceSpec, String aName, String description, Any any) {
+	private void addServiceSpecCharacteristic(ServiceSpecification serviceSpec, String aName, String description, Any any, EValueType eValueType) {
 		ServiceSpecCharacteristic serviceSpecCharacteristicItem = new ServiceSpecCharacteristic();
 		serviceSpecCharacteristicItem.setName( aName );
 		serviceSpecCharacteristicItem.setDescription(description);
+		serviceSpecCharacteristicItem.valueType( eValueType.getValue() );
+		serviceSpecCharacteristicItem.configurable(false);
+		serviceSpecCharacteristicItem.setMinCardinality(1);
+		serviceSpecCharacteristicItem.setMaxCardinality(1);
 		ServiceSpecCharacteristicValue serviceSpecCharacteristicValueItem = new ServiceSpecCharacteristicValue();
 		serviceSpecCharacteristicValueItem.setValue( new Any( any.getValue() , any.getAlias()));
+		serviceSpecCharacteristicValueItem.isDefault( true );
+		serviceSpecCharacteristicValueItem.setUnitOfMeasure("N/A");		
 		serviceSpecCharacteristicItem.addServiceSpecCharacteristicValueItem(serviceSpecCharacteristicValueItem );
 		serviceSpec.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );
 		

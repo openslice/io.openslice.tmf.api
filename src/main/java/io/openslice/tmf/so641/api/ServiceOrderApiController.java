@@ -77,8 +77,10 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 
 		try {
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
+				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+				log.info("authentication=  " + authentication.toString());
 				serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-						SecurityContextHolder.getContext().getAuthentication().getName(), UserPartRoleType.REQUESTER,
+						authentication.getName(), UserPartRoleType.REQUESTER,
 						serviceOrder.getRelatedParty()));
 
 				

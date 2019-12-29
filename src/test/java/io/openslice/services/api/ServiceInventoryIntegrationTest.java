@@ -203,7 +203,7 @@ public class ServiceInventoryIntegrationTest {
 		
 		boolean userPartyRoleexists = false;
 		for (RelatedParty r : responseSO.getRelatedParty()) {
-			if ( r.getName().equals( "osadmin" ) && r.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
+			if ( r.getName().equals( "anonymousUser" ) && r.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
 				userPartyRoleexists = true;
 			}
 		}

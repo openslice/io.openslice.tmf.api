@@ -108,7 +108,7 @@ public class ResourceCatalogIntegrationTest {
 
 	private static final transient Log logger = LogFactory.getLog( ResourceCatalogIntegrationTest.class.getName());
 
-	private static final int FIXED_BOOTSTRAPS_SPECS = 2;
+	private static final int FIXED_BOOTSTRAPS_SPECS = 1;
 	
     @Autowired
     private MockMvc mvc;

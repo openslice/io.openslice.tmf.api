@@ -63,6 +63,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.ExperimentOnBoardDescriptor;
 import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.ELifecycle;
@@ -84,6 +85,7 @@ import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
+import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
@@ -901,15 +903,41 @@ public class ServiceSpecificationRepoService {
 		 */
 		ServiceSpecification serviceSpec = new ServiceSpecification();
 		serviceSpec.setName( nsd.getName()  );
-		serviceSpec.setDescription( nsd.getShortDescription() );
+		serviceSpec.setDescription( nsd.getShortDescription() );		
+		addServiceSpecCharacteristic(serviceSpec, "PackagingFormat", "NSD PackagingFormat", new Any(nsd.getPackagingFormat().toString(), "PackagingFormat"));
+		addServiceSpecCharacteristic(serviceSpec, "PackageLocation", "NSD PackageLocation", new Any(nsd.getPackageLocation() , "PackageLocation"));
+		addServiceSpecCharacteristic(serviceSpec, "Vendor", "NSD Vendor", new Any(nsd.getVendor()  , "Vendor"));
+		addServiceSpecCharacteristic(serviceSpec, "NSDID", "NSD id", new Any(nsd.getId()+""  , "id"));
+		for (ExperimentOnBoardDescriptor eobd : nsd.getExperimentOnBoardDescriptors()) {
+			addServiceSpecCharacteristic(serviceSpec, "ObMANOprovider_Name", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""));
+			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""));
+		}
+		
+		
 		ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();
 		resourceSpecificationItemRef.setId( resourceNSD.getId() );
 		resourceSpecificationItemRef.setName( resourceNSD.getName() );
 		resourceSpecificationItemRef.setVersion(resourceNSD.getVersion() );
+		
 		serviceSpec.addResourceSpecificationItem(resourceSpecificationItemRef);
 		serviceSpec = this.addServiceSpecification( serviceSpec );
 		
 		return serviceSpec;
+	}
+
+	/**
+	 * @param serviceSpec
+	 * @param name
+	 */
+	private void addServiceSpecCharacteristic(ServiceSpecification serviceSpec, String aName, String description, Any any) {
+		ServiceSpecCharacteristic serviceSpecCharacteristicItem = new ServiceSpecCharacteristic();
+		serviceSpecCharacteristicItem.setName( aName );
+		serviceSpecCharacteristicItem.setDescription(description);
+		ServiceSpecCharacteristicValue serviceSpecCharacteristicValueItem = new ServiceSpecCharacteristicValue();
+		serviceSpecCharacteristicValueItem.setValue( new Any( any.getValue() , any.getAlias()));
+		serviceSpecCharacteristicItem.addServiceSpecCharacteristicValueItem(serviceSpecCharacteristicValueItem );
+		serviceSpec.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );
+		
 	}
 
 }

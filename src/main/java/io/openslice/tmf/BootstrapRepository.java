@@ -67,7 +67,7 @@ public class BootstrapRepository {
 
 	private static final boolean ADDGST = true;
 
-	private static final boolean ADDVINNISBT = true;
+	private static final boolean ADDVINNISBT = false;
 
 	private static final String GST_EXAMPLE_NAME = "A GST(NEST) Service Example";
 

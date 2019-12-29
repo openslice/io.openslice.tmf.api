@@ -21,7 +21,9 @@ package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Lob;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -36,6 +38,9 @@ import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 @Embeddable
 public class Any {
 
+
+	@Lob
+	@Column( columnDefinition = "LONGTEXT")
 	private String value;
 	
 	/**

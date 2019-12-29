@@ -8,7 +8,7 @@ spring:
     name: openslice-service-catalog-management-api
   datasource:
     url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    password: letmein0
+    password: letmein
     username: root
   jpa:
     database-platform: io.openslice.tmf.LocalMysqlDialect

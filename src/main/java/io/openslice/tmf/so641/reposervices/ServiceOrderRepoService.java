@@ -232,10 +232,13 @@ public class ServiceOrderRepoService {
 
 	@Transactional
 	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrderUpd) {
+
+		logger.info("Will updateServiceOrder:" + id);		
 		
 		ServiceOrder so = this.findByUuid(id);
 		boolean stateChanged = false;
 
+		logger.info("so:" + so.toString());		
 		for (ServiceOrderItem oi : so.getOrderItem() ) {
 			logger.debug( "(oi.getId() = "+oi.getId() );		
 			

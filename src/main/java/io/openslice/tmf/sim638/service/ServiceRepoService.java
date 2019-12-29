@@ -95,6 +95,7 @@ public class ServiceRepoService {
 	}
 
 	public Service addService(@Valid ServiceCreate service) {
+		logger.info("Will add service: " + service.getName() );
 		Service s = new Service();
 		if (service.getType()!=null) {
 			s.setType(service.getType());			
@@ -156,6 +157,8 @@ public class ServiceRepoService {
 
 	public Service updateService(String id, @Valid ServiceUpdate service ) {
 		Service s = this.findByUuid(id);
+		
+		logger.info("Will update service: " + s.getName() );
 
 		if (service.getType()!=null) {
 			s.setType(service.getType());			

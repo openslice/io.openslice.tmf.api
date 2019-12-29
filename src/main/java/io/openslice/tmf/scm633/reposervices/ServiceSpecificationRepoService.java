@@ -881,8 +881,11 @@ public class ServiceSpecificationRepoService {
 		
 		NetworkServiceDescriptor nsd = serviceSpecificationApiRouteBuilder.retrieveNSD(id);
 		if (nsd == null) {
+			logger.error("nsdid return null");
 			return null;
 		}
+
+		logger.error("nsdid returned: " + nsd.getName());
 		
 		ResourceSpecification resourceNSD = new LogicalResourceSpec();
 		resourceNSD.setName( nsd.getName() );

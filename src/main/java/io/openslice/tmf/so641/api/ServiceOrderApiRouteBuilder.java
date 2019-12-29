@@ -100,7 +100,7 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 				.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICEORDER_BY_ID + " message received!")
 				.to("log:DEBUG?showBody=true&showHeaders=true").unmarshal()
 				.json(JsonLibrary.Jackson, ServiceOrderUpdate.class, true)
-				.bean(serviceOrderRepoService, "updateServiceOrder(${header.orderid}, ${body})");
+				.bean(serviceOrderRepoService, "updateServiceOrder(${header.serviceid}, ${body})");
 
 	}
 

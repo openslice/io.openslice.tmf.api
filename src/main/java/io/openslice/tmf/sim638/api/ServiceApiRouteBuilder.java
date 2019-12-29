@@ -24,6 +24,7 @@ import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceCreateNotification;
 import io.openslice.tmf.sim638.model.ServiceDeleteNotification;
 import io.openslice.tmf.sim638.model.ServiceStateChangeNotification;
+import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
 import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderCreateNotification;
@@ -84,6 +85,14 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICE_BY_ID + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( serviceRepoService, "getServiceEagerAsString")
+		.convertBodyTo( String.class );
+		
+		from( CATALOG_UPD_SERVICE )
+		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICE + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceUpdate.class, true)
+		.bean( serviceRepoService, "updateService(${header.orderid}, ${body})")
+		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
 		
 	}

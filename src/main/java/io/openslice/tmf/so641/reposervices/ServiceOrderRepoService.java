@@ -238,7 +238,7 @@ public class ServiceOrderRepoService {
 		ServiceOrder so = this.findByUuid(id);
 		boolean stateChanged = false;
 
-		logger.info("so:" + so.toString());		
+		//logger.info("so:" + so.toString());		
 		for (ServiceOrderItem oi : so.getOrderItem() ) {
 			logger.debug( "(oi.getId() = "+oi.getId() );		
 			
@@ -426,7 +426,7 @@ public class ServiceOrderRepoService {
 	private void raiseSOStateChangedNotification(ServiceOrder so) {
 		ServiceOrderStateChangeNotification n = new ServiceOrderStateChangeNotification();
 		ServiceOrderStateChangeEvent event = new ServiceOrderStateChangeEvent();
-		event.serviceOrder( so );
+		event.serviceOrder( getServiceORderEager( so.getId()) );
 		n.setEvent(event );
 		serviceOrderApiRouteBuilder.publishEvent(n, so.getId());
 		

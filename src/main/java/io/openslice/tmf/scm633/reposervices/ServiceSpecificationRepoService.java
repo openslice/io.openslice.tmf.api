@@ -903,6 +903,7 @@ public class ServiceSpecificationRepoService {
 		 */
 		ServiceSpecification serviceSpec = new ServiceSpecification();
 		serviceSpec.setName( nsd.getName()  );
+		serviceSpec.setVersion( nsd.getVersion() );
 		serviceSpec.setDescription( nsd.getShortDescription() );		
 		addServiceSpecCharacteristic(serviceSpec, "PackagingFormat", "NSD PackagingFormat", new Any(nsd.getPackagingFormat().toString(), "PackagingFormat"), EValueType.TEXT);
 		addServiceSpecCharacteristic(serviceSpec, "PackageLocation", "NSD PackageLocation", new Any(nsd.getPackageLocation() , "PackageLocation"), EValueType.TEXT);

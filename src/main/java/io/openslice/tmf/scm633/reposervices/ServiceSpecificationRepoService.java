@@ -914,8 +914,13 @@ public class ServiceSpecificationRepoService {
 			addServiceSpecCharacteristic(serviceSpec, "ObMANOprovider_Name", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""), EValueType.TEXT);
 			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);
 		}
-		for (ConstituentVxF cv : nsd.getConstituentVxF()) {
-			addServiceSpecCharacteristic(serviceSpec, "MemberVNFIndex_"+cv.getMembervnfIndex(), "Member VNF Index", new Any( cv.getMembervnfIndex() +""  , cv.getVnfdidRef()), EValueType.TEXT);
+		if (  nsd.getConstituentVxF() != null  ) {
+			for (ConstituentVxF cv : nsd.getConstituentVxF()) {
+				addServiceSpecCharacteristic(serviceSpec, "MemberVNFIndex_"+cv.getMembervnfIndex(), "Member VNF Index", new Any( cv.getMembervnfIndex() +""  , cv.getVnfdidRef()), EValueType.TEXT);
+			}
+		} else {
+
+			logger.error("nsdid getConstituentVxF null returned: " + nsd.toString() );
 		}
 		
 		

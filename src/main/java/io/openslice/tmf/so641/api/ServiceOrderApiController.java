@@ -112,6 +112,9 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
 		try {
+			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+			SecurityContextHolder.setContext( (SecurityContext) attr );  
+			
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			log.info("authentication=  " + authentication.toString());
 						

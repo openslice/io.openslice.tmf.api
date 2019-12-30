@@ -91,7 +91,7 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICE + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ServiceUpdate.class, true)
-		.bean( serviceRepoService, "updateService(${header.orderid}, ${body})")
+		.bean( serviceRepoService, "updateService(${header.serviceid}, ${body})")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
 		

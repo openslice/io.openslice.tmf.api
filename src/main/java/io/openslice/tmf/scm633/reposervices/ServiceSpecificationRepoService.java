@@ -63,6 +63,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.ConstituentVxF;
 import io.openslice.model.ExperimentOnBoardDescriptor;
 import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.tmf.common.model.Any;
@@ -912,6 +913,9 @@ public class ServiceSpecificationRepoService {
 		for (ExperimentOnBoardDescriptor eobd : nsd.getExperimentOnBoardDescriptors()) {
 			addServiceSpecCharacteristic(serviceSpec, "ObMANOprovider_Name", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""), EValueType.TEXT);
 			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);
+		}
+		for (ConstituentVxF cv : nsd.getConstituentVxF()) {
+			addServiceSpecCharacteristic(serviceSpec, "MemberVNFIndex_"+cv.getMembervnfIndex(), "Member VNF Index", new Any( cv.getMembervnfIndex() +""  , cv.getVnfdidRef()), EValueType.TEXT);
 		}
 		
 		

@@ -155,10 +155,12 @@ public class ServiceRepoService {
 				.orElse(null);
 	}
 
+	@Transactional
 	public Service updateService(String id, @Valid ServiceUpdate service ) {
 		Service s = this.findByUuid(id);
-		
+
 		logger.info("Will update service: " + s.getName() );
+		//logger.info("Will update service details: " + s.toString() );
 
 		if (service.getType()!=null) {
 			s.setType(service.getType());			

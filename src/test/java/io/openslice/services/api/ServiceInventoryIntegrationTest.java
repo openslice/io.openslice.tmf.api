@@ -57,8 +57,11 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.DeploymentDescriptor;
 import io.openslice.tmf.OpenAPISpringBoot;
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
+import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
@@ -218,7 +221,16 @@ public class ServiceInventoryIntegrationTest {
 		responseSO.getNote().stream().forEach(n -> servUpd.addNoteItem(n));
 		Note en = new Note();
 		en.text("test note2");
-		servUpd.addNoteItem(en);
+		en.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+		servUpd.addNoteItem(en);		
+
+		Characteristic serviceCharacteristicItem = new Characteristic();
+		
+		serviceCharacteristicItem.setName( "DeploymentRequestID" );
+		serviceCharacteristicItem.setValue( new Any("007a008"));
+		servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
+		
+		
 		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/serviceInventory/v4/service/" + responseSO.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( servUpd ) ))
@@ -234,6 +246,7 @@ public class ServiceInventoryIntegrationTest {
 
 		assertThat( responseSOUpd.getEndDate() ).isNotNull();
 		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 2 );
+		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 1 );
 		
 	}
 		

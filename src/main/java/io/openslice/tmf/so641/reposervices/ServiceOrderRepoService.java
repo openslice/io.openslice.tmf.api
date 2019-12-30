@@ -426,7 +426,8 @@ public class ServiceOrderRepoService {
 	private void raiseSOStateChangedNotification(ServiceOrder so) {
 		ServiceOrderStateChangeNotification n = new ServiceOrderStateChangeNotification();
 		ServiceOrderStateChangeEvent event = new ServiceOrderStateChangeEvent();
-		event.serviceOrder( getServiceORderEager( so.getId()) );
+		//event.serviceOrder( getServiceORderEager( so.getId()) );
+		event.serviceOrder( so );
 		n.setEvent(event );
 		serviceOrderApiRouteBuilder.publishEvent(n, so.getId());
 		

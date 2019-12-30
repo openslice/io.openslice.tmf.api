@@ -129,7 +129,8 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 			template.sendBodyAndHeaders(msgtopic, toJsonString(n), map);
 
 		} catch (Exception e) {
-			logger.error("Cannot send Event . " + e.getStackTrace() );
+			e.printStackTrace();
+			logger.error("Cannot send Event . " + e.getMessage()  );
 		}
 	}
 

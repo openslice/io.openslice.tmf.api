@@ -76,6 +76,9 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder) {
 
 		try {
+			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+			SecurityContextHolder.setContext( (SecurityContext) attr );  
+			
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				log.info("authentication=  " + authentication.toString());

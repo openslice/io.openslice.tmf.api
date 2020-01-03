@@ -448,4 +448,16 @@ public class ServiceOrderRepoService {
 		return (List<ServiceOrder>) this.serviceOrderRepo.findByRolename(rolename);
 	}
 
+	public Void deleteByUuid(String id) {
+		
+		Optional<ServiceOrder> optso = this.serviceOrderRepo.findByUuid(id);
+		ServiceOrder so = optso.get();
+		if ( so == null ) {
+			return null;
+		}
+		
+		this.serviceOrderRepo.delete(so);
+		return null;
+	}
+
 }

@@ -103,7 +103,15 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 
 	public ResponseEntity<Void> deleteServiceOrder(
 			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id) {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		
+		
+		try {
+			return new ResponseEntity<Void>( serviceOrderRepoService.deleteByUuid(id), HttpStatus.OK);
+		}catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 
 	public ResponseEntity<List<ServiceOrder>> listServiceOrder(

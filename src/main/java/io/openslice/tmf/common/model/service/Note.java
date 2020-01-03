@@ -20,6 +20,7 @@
 package io.openslice.tmf.common.model.service;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -133,6 +134,7 @@ public class Note extends BaseRootEntity {
 
 	public Note text(String text) {
 		this.text = text;
+		this.setDate(  OffsetDateTime.now(ZoneOffset.UTC).toString() );
 		return this;
 	}
 

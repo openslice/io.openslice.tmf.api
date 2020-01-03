@@ -34,6 +34,21 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RelatedParty reference. A related party defines party or party role linked to
  * a specific entity.
+ * 
+ * From https://engage.tmforum.org/communities/community-home/digestviewer/viewthread?MessageKey=0f5269cd-fe03-4efe-a8e5-064a12bae529&CommunityKey=d543b8ba-9d3a-4121-85ce-5b68e6c31ce5&tab=digestviewer#bm0f5269cd-fe03-4efe-a8e5-064a12bae529
+ * 
+ * Related Party is intended to provide a reference to either a Party (RelatedParty.role will be blank) or a PartyRole (RelatedParty.role will have the name of the role). Related Party is not in itself a managed entity.
+ * If a Party plays multiple roles, there will be a PartyRole (or concrete subclass) for each such role. Suppose John Doe works for H.A.L computers as the communications expert, and H.A.L. uses NXT Communications for its business wireline services. John Doe also has personal cellphone service from NXT for himself and his daughter.
+ * So:
+
+    There will be an Individual (subclass of Party) with first name John, last name Doe
+    There will be an Organization (subclass of Party) with name H.A.L.
+    There will be a Customer (subclass of PartyRole) with name John Doe, and the engagedParty for this Customer will be the Individual John Doe
+    There will be a Customer (subclass of PartyRole) with name H.A.L., and the engagedParty for this Customer will be the Organization H.A.L.
+    There will be a PartyRole with name John Doe and role Contact, and the engagedParty for this PartyRole will be the Individual John Doe
+    The Customer H.A.L. will have a RelatedParty that points to the John Doe PartyRole
+    
+    
  */
 @ApiModel(description = "RelatedParty reference. A related party defines party or party role linked to a specific entity.")
 @Validated

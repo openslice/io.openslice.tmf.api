@@ -151,6 +151,7 @@ public class Note extends BaseRootEntity {
 
 	public void setText(String text) {
 		this.text = text;
+		this.setDate(  OffsetDateTime.now(ZoneOffset.UTC).toString() );
 	}
 
 	@Override

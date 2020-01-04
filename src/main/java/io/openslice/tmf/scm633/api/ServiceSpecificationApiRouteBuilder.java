@@ -31,8 +31,8 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_SERVICESPEC_BY_ID}")
 	private String CATALOG_GET_SERVICESPEC_BY_ID = "";
 	
-	@Value("${VNFNSD_CATALOG_GET_NSD_BY_ID}")
-	private String VNFNSD_CATALOG_GET_NSD_BY_ID = "";
+	@Value("${NFV_CATALOG_GET_NSD_BY_ID}")
+	private String NFV_CATALOG_GET_NSD_BY_ID = "";
 	
 	
 	@Autowired
@@ -64,7 +64,7 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 		logger.info("will retrieve NetworkServiceDescriptor from NSD/VNF catalog nsdID=" + nsdID   );
 		try {
 			Object response = template.
-					requestBody( VNFNSD_CATALOG_GET_NSD_BY_ID, nsdID);
+					requestBody( NFV_CATALOG_GET_NSD_BY_ID, nsdID);
 
 			if ( !(response instanceof String)) {
 				logger.error("NetworkServiceDescriptor object is wrong.");

@@ -557,4 +557,15 @@ public class ServiceSpecification extends BaseEntity {
 		}
 
 	}
+
+	public ServiceSpecCharacteristic getServiceSpecCharacteristicByName(String aName) {
+
+		for (ServiceSpecCharacteristic c : this.getServiceSpecCharacteristic() ) {
+			if ( c.getName().equals( aName )) {
+				return c;
+			}
+			
+		}
+		return null;
+	}
 }

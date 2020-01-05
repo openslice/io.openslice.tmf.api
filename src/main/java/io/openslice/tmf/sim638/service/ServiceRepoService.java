@@ -38,6 +38,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.Place;
@@ -156,142 +157,148 @@ public class ServiceRepoService {
 	}
 
 	@Transactional
-	public Service updateService(String id, @Valid ServiceUpdate service ) {
-		Service s = this.findByUuid(id);
+	public Service updateService(String id, @Valid ServiceUpdate servUpd ) {
+		Service service = this.findByUuid(id);
 
-		logger.info("Will update service: " + s.getName() );
+		logger.info("Will update service: " + service.getName() );
 		//logger.info("Will update service details: " + s.toString() );
 
-		if (service.getType()!=null) {
-			s.setType(service.getType());			
+		if (servUpd.getType()!=null) {
+			service.setType(servUpd.getType());			
 		}
 		
-		if (service.getName() != null ) {
-			s.setName(service.getName());			
+		if (servUpd.getName() != null ) {
+			service.setName(servUpd.getName());			
 		}
 
-		if (service.getCategory() != null ) {
-			s.setCategory( service.getCategory() );			
+		if (servUpd.getCategory() != null ) {
+			service.setCategory( servUpd.getCategory() );			
 		}
-		if (service.getDescription() != null ) {
-			s.setDescription( service.getDescription() );			
+		if (servUpd.getDescription() != null ) {
+			service.setDescription( servUpd.getDescription() );			
 		}
-		if (service.getStartDate() != null ) {
+		if (servUpd.getStartDate() != null ) {
 
-			s.setStartDate( service.getStartDate());
+			service.setStartDate( servUpd.getStartDate());
 		}
-		if (service.getEndDate() != null ) {
-			s.setEndDate( service.getEndDate() );			
+		if (servUpd.getEndDate() != null ) {
+			service.setEndDate( servUpd.getEndDate() );			
 		}
-		if (service.isHasStarted() != null ) {
-			s.hasStarted( service.isHasStarted());
+		if (servUpd.isHasStarted() != null ) {
+			service.hasStarted( servUpd.isHasStarted());
 		}
-		if (service.isIsServiceEnabled() != null ) {
-			s.setIsServiceEnabled( service.isIsServiceEnabled());			
+		if (servUpd.isIsServiceEnabled() != null ) {
+			service.setIsServiceEnabled( servUpd.isIsServiceEnabled());			
 		}
-		if (service.isIsStateful() != null ) {
-			s.setIsStateful(service.isIsStateful());
+		if (servUpd.isIsStateful() != null ) {
+			service.setIsStateful(servUpd.isIsStateful());
 		}
-		if (service.getServiceDate() != null ) {
-			s.setServiceDate( service.getServiceDate());
+		if (servUpd.getServiceDate() != null ) {
+			service.setServiceDate( servUpd.getServiceDate());
 			
 		}
-		if (service.getServiceType() != null ) {
-			s.setServiceType( service.getServiceType());
+		if (servUpd.getServiceType() != null ) {
+			service.setServiceType( servUpd.getServiceType());
 			
 		}
-		if (service.getStartMode() != null ) {
-			s.setStartMode( service.getStartMode());
+		if (servUpd.getStartMode() != null ) {
+			service.setStartMode( servUpd.getStartMode());
 			
 		}
 		
 
 		boolean stateChanged = false;
-		if (service.getState() != null ) {
-			stateChanged = s.getState() != service.getState();
-			s.setState(service.getState());
+		if (servUpd.getState() != null ) {
+			stateChanged = service.getState() != servUpd.getState();
+			service.setState(servUpd.getState());
 			
 		}
-		if (service.getServiceSpecificationRef() != null ) {
+		if (servUpd.getServiceSpecificationRef() != null ) {
 
-			s.setServiceSpecificationRef( service.getServiceSpecificationRef() );
+			service.setServiceSpecificationRef( servUpd.getServiceSpecificationRef() );
 		}
 
 		/**
 		 * the following need to be modified for deleting items from lists.
 		 */
 		
-		if ( service.getNote()!=null ) {
-			for (Note n : service.getNote()) {
+		if ( servUpd.getNote()!=null ) {
+			for (Note n : servUpd.getNote()) {
 				if (n.getUuid() == null) {
-					s.addNoteItem(n);
+					service.addNoteItem(n);
 				}
 			}						
 		}
 		
-		if ( service.getPlace()!=null ) {
-			for (Place n : service.getPlace()) {
+		if ( servUpd.getPlace()!=null ) {
+			for (Place n : servUpd.getPlace()) {
 				if (n.getUuid() == null) {
-					s.addPlaceItem(n);
+					service.addPlaceItem(n);
 				}
 			}						
 		}
 
-		if ( service.getRelatedParty()!=null ) {
-			for (RelatedParty n : service.getRelatedParty()) {
+		if ( servUpd.getRelatedParty()!=null ) {
+			for (RelatedParty n : servUpd.getRelatedParty()) {
 				if (n.getUuid() == null) {
-					s.addRelatedPartyItem(n);
+					service.addRelatedPartyItem(n);
 				}
 			}						
 		}
 		
-		if ( service.getServiceCharacteristic()!=null ) {
-			for (Characteristic n : service.getServiceCharacteristic()) {
+		if ( servUpd.getServiceCharacteristic()!=null ) {
+			for (Characteristic n : servUpd.getServiceCharacteristic()) {
 				if (n.getUuid() == null) {
-					s.addServiceCharacteristicItem(n);
+					service.addServiceCharacteristicItem(n);
+				} else {
+					if ( service.getServiceCharacteristicByName( n.getName() )!= null ) {
+						 service.getServiceCharacteristicByName( n.getName() ).setValue( 
+								 new Any( n.getValue().getValue(), n.getValue().getAlias()  )
+								 );
+					}
 				}
 			}						
 		}
 		
-		if ( service.getServiceOrder()!=null ) {
-			for (ServiceOrderRef n : service.getServiceOrder()) {
+		if ( servUpd.getServiceOrder()!=null ) {
+			for (ServiceOrderRef n : servUpd.getServiceOrder()) {
 				if (n.getUuid() == null) {
-					s.addServiceOrderItem(n);
+					service.addServiceOrderItem(n);
 				}
 			}						
 		}
 
-		if ( service.getServiceRelationship()!=null ) {
-			for (ServiceRelationship n : service.getServiceRelationship()) {
+		if ( servUpd.getServiceRelationship()!=null ) {
+			for (ServiceRelationship n : servUpd.getServiceRelationship()) {
 				if (n.getUuid() == null) {
-					s.addServiceRelationshipItem(n);
+					service.addServiceRelationshipItem(n);
 				}
 			}						
 		}
-		if ( service.getSupportingResource()!=null ) {
-			for (ResourceRef n : service.getSupportingResource()) {
+		if ( servUpd.getSupportingResource()!=null ) {
+			for (ResourceRef n : servUpd.getSupportingResource()) {
 				if (n.getUuid() == null) {
-					s.addSupportingResourceItem(n);
+					service.addSupportingResourceItem(n);
 				}
 			}						
 		}
-		if ( service.getSupportingService()!=null ) {
-			for (ServiceRef n : service.getSupportingService()) {
+		if ( servUpd.getSupportingService()!=null ) {
+			for (ServiceRef n : servUpd.getSupportingService()) {
 				if (n.getUuid() == null) {
-					s.addSupportingServiceItem(n);
+					service.addSupportingServiceItem(n);
 				}
 			}						
 		}
 		
 		
-		s = this.serviceRepo.save( s );
+		service = this.serviceRepo.save( service );
 		if (stateChanged) {
-			raiseServiceStateChangedNotification( s );			
+			raiseServiceStateChangedNotification( service );			
 		} else {
-			raiseServiceAttributeValueChangedNotification( s );
+			raiseServiceAttributeValueChangedNotification( service );
 		}
 		
-		return s;
+		return service;
 	}
 
 	public String getServiceEagerAsString(String id) throws JsonProcessingException {

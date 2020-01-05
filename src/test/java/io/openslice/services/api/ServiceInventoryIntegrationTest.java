@@ -173,6 +173,11 @@ public class ServiceInventoryIntegrationTest {
 		noteItem.text("test note");
 		aService.addNoteItem(noteItem);
 		
+		Characteristic serviceCharacteristicItem = new Characteristic();
+		
+		serviceCharacteristicItem.setName( "ConfigStatus" );
+		serviceCharacteristicItem.setValue( new Any("NONE"));
+		aService.addServiceCharacteristicItem(serviceCharacteristicItem);
 		
 		ServiceSpecificationRef aServiceSpecificationRef = new ServiceSpecificationRef();
 		aServiceSpecificationRef.setId(responsesSpec3.getId() );
@@ -190,22 +195,24 @@ public class ServiceInventoryIntegrationTest {
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderCreate = " + responseService);
-		Service responseSO = toJsonObj( responseService,  Service.class);
+		Service responseSrvc = toJsonObj( responseService,  Service.class);
 		
 		
-		logger.info("testService = " + toJsonString( responseSO ));
-		
-
-		assertThat( responseSO.getCategory()  ).isEqualTo( "Experimentation" );
-		assertThat( responseSO.getDescription()  ).isEqualTo( "Experimentation Descr" );
-		assertThat( responseSO.getStartDate() ).isNotNull();
-		assertThat( responseSO.getEndDate() ).isNotNull();
+		logger.info("testService = " + toJsonString( responseSrvc ));
 		
 
-		assertThat( responseSO.getNote().size()  ).isEqualTo( 1 );
+		assertThat( responseSrvc.getCategory()  ).isEqualTo( "Experimentation" );
+		assertThat( responseSrvc.getDescription()  ).isEqualTo( "Experimentation Descr" );
+		assertThat( responseSrvc.getStartDate() ).isNotNull();
+		assertThat( responseSrvc.getEndDate() ).isNotNull();
+		assertThat( responseSrvc.getServiceCharacteristic().size()  ).isEqualTo( 1 );
+		assertThat( responseSrvc.getServiceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "NONE" )  ;
+		
+
+		assertThat( responseSrvc.getNote().size()  ).isEqualTo( 1 );
 		
 		boolean userPartyRoleexists = false;
-		for (RelatedParty r : responseSO.getRelatedParty()) {
+		for (RelatedParty r : responseSrvc.getRelatedParty()) {
 			if ( r.getName().equals( "anonymousUser" ) && r.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
 				userPartyRoleexists = true;
 			}
@@ -218,20 +225,27 @@ public class ServiceInventoryIntegrationTest {
 		
 		ServiceUpdate servUpd = new ServiceUpdate();
 		servUpd.setEndDate( OffsetDateTime.now(ZoneOffset.UTC ).toString()  );
-		responseSO.getNote().stream().forEach(n -> servUpd.addNoteItem(n));
+		responseSrvc.getNote().stream().forEach(n -> servUpd.addNoteItem(n));
 		Note en = new Note();
 		en.text("test note2");
 		en.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
 		servUpd.addNoteItem(en);		
 
-		Characteristic serviceCharacteristicItem = new Characteristic();
+		for (Characteristic c : responseSrvc.getServiceCharacteristic()) {
+			if (c.getName().equals( "ConfigStatus" )) {
+				c.setValue( new Any("RUNNING"));
+			}
+			servUpd.addServiceCharacteristicItem(c);
+		}
 		
+		serviceCharacteristicItem = new Characteristic();		
 		serviceCharacteristicItem.setName( "DeploymentRequestID" );
 		serviceCharacteristicItem.setValue( new Any("007a008"));
 		servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
 		
 		
-		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/serviceInventory/v4/service/" + responseSO.getId() )
+		
+		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/serviceInventory/v4/service/" + responseSrvc.getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( servUpd ) ))
 			    .andExpect(status().isOk())
@@ -246,7 +260,11 @@ public class ServiceInventoryIntegrationTest {
 
 		assertThat( responseSOUpd.getEndDate() ).isNotNull();
 		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 2 );
-		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 1 );
+		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 2 );
+		assertThat( responseSOUpd.getServiceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
+		assertThat( responseSOUpd.getServiceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		
+		 
 		
 	}
 		

@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.IntPredicate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -771,5 +772,15 @@ public class Service extends BaseRootNamedEntity {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+
+	public Characteristic getServiceCharacteristicByName(String name) {
+		for (Characteristic c : this.serviceCharacteristic) {
+			if ( c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

@@ -301,8 +301,12 @@ public class ServiceRepoService {
 		return service;
 	}
 
+	
+
+	@Transactional
 	public String getServiceEagerAsString(String id) throws JsonProcessingException {
-		Service s = this.getServiceEager(id);
+		//Service s = this.getServiceEager(id);
+		Service s = this.findByUuid(id);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new Hibernate5Module());
 		String res = mapper.writeValueAsString(s);

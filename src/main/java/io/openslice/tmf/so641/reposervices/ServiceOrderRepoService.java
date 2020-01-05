@@ -354,6 +354,7 @@ public class ServiceOrderRepoService {
 				soiOrigin.setService(soiUpd.getService());
 			} else {
 				soiOrigin.getService().setState( soiUpd.getService().getState() );//this probably will change only
+				soiOrigin.getService().setName( soiUpd.getService().getName() );
 				
 				//we need also to update supportingServices
 				for (ServiceRef serviceRef : soiUpd.getService().getSupportingService()) {

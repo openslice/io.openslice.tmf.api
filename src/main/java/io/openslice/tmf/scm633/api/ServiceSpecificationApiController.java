@@ -83,7 +83,9 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		try {
 
 			serviceSpecification.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-					SecurityContextHolder.getContext().getAuthentication().getName(), UserPartRoleType.OWNER,
+					SecurityContextHolder.getContext().getAuthentication().getName(),
+					UserPartRoleType.OWNER,
+					"",
 					serviceSpecification.getRelatedParty()));
 
 			ServiceSpecification c = serviceSpecificationRepoService.addServiceSpecification(serviceSpecification);

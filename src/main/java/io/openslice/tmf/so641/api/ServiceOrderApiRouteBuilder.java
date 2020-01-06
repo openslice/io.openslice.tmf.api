@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.NetworkServiceDescriptor;
+import io.openslice.model.PortalUser;
 import io.openslice.tmf.common.model.Notification;
 import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderCreateNotification;
@@ -62,6 +64,10 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 	@Value("${EVENT_SERVICE_ORDER_ATTRIBUTE_VALUE_CHANGED}")
 	private String EVENT_SERVICE_ORDER_ATTRIBUTE_VALUE_CHANGED = "";
 
+	@Value("${GET_USER_BY_USERNAME}")
+	private String GET_USER_BY_USERNAME = "";
+	
+	
 	@Autowired
 	private ProducerTemplate template;
 
@@ -140,4 +146,38 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 		return mapper.writeValueAsString(object);
 	}
 
+	/**
+	 * get  service order by id from model via bus
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 */
+	public PortalUser retrievePortalUser( String userName ) {
+		logger.info("will retrieve PortalUser from userName =" + userName   );
+		try {
+			Object response = template.
+					requestBody( GET_USER_BY_USERNAME, userName);
+
+			if ( !(response instanceof String)) {
+				logger.error("PortalUser object is wrong.");
+				return null;
+			}
+			PortalUser sor = toJsonObj( (String)response, PortalUser.class); 
+			return sor;
+			
+		}catch (Exception e) {
+			logger.error("Cannot retrieve PortalUser details from catalog. " + e.toString());
+		}
+		return null;
+	}
+	
+
+	
+	static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        return mapper.readValue( content, valueType);
+    }
+	
+	
 }

@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.PortalUser;
 import io.openslice.model.UserRoleType;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
@@ -66,6 +67,9 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 	@Autowired
 	ServiceOrderRepoService serviceOrderRepoService;
 
+	@Autowired
+	ServiceOrderApiRouteBuilder serviceOrderApiRouteBuilder;
+
 	@org.springframework.beans.factory.annotation.Autowired
 	public ServiceOrderApiController(ObjectMapper objectMapper, HttpServletRequest request) {
 		this.objectMapper = objectMapper;
@@ -82,10 +86,23 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				log.info("authentication=  " + authentication.toString());
+				String extInfo;
+				try {
+					PortalUser user = serviceOrderApiRouteBuilder.retrievePortalUser( authentication.getName() );
+					extInfo = user.getEmail();
+				}finally {
+					
+				}
+				
 				serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-						authentication.getName(), UserPartRoleType.REQUESTER,
+						authentication.getName(), 
+						UserPartRoleType.REQUESTER,
+						extInfo,
 						serviceOrder.getRelatedParty()));
 
+				
+				
+				
 				
 				ServiceOrder c = serviceOrderRepoService.addServiceOrder(serviceOrder);
 

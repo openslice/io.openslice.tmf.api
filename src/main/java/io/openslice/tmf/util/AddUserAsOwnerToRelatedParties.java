@@ -36,7 +36,10 @@ import io.openslice.tmf.prm669.model.RelatedParty;
  */
 public class AddUserAsOwnerToRelatedParties {
 
-	public static List<RelatedParty> addUser(String username, UserPartRoleType prt,  @Valid List<RelatedParty> relatedParty) {
+	public static List<RelatedParty> addUser(String username, 
+			UserPartRoleType prt, 
+			String extendedInfo,
+			@Valid List<RelatedParty> relatedParty) {
 		List<RelatedParty> rpRes;
 		
 		if (relatedParty!=null) {
@@ -60,6 +63,7 @@ public class AddUserAsOwnerToRelatedParties {
 			rp.setName(username);
 			rp.setRole(prt.toString());
 			rp.setReferredType("SimpleUsername_Individual");
+			rp.setExtendedInfo(extendedInfo);
 			rpRes.add(rp);
 		}
 

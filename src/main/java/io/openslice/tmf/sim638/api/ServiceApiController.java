@@ -72,7 +72,9 @@ public class ServiceApiController implements ServiceApi {
 		try {
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				service.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-						SecurityContextHolder.getContext().getAuthentication().getName(), UserPartRoleType.REQUESTER,
+						SecurityContextHolder.getContext().getAuthentication().getName(), 
+						UserPartRoleType.REQUESTER,
+						"",
 						service.getRelatedParty()));
 
 				

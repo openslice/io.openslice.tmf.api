@@ -25,6 +25,7 @@ import javax.persistence.Entity;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
@@ -64,7 +65,8 @@ public class RelatedParty extends BaseRootNamedEntity{
 
 	@JsonProperty("id")
 	protected String id = null;
-	
+		
+	private String extendedInfo = null;
 	
 	/**
 	 * @return the id
@@ -130,6 +132,23 @@ public class RelatedParty extends BaseRootNamedEntity{
 
 	public void setReferredType(String referredType) {
 		this.referredType = referredType;
+	}
+	
+	
+
+	/**
+	 * @return the extendedInfo
+	 */
+	@JsonIgnore
+	public String getExtendedInfo() {
+		return extendedInfo;
+	}
+
+	/**
+	 * @param extendedInfo the extendedInfo to set
+	 */
+	public void setExtendedInfo(String extendedInfo) {
+		this.extendedInfo = extendedInfo;
 	}
 
 	@Override

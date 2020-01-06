@@ -86,10 +86,12 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				log.info("authentication=  " + authentication.toString());
-				String extInfo;
+				String extInfo = null;
 				try {
 					PortalUser user = serviceOrderApiRouteBuilder.retrievePortalUser( authentication.getName() );
-					extInfo = user.getEmail();
+					if ( user!= null) {
+						extInfo = user.getEmail();						
+					}
 				}finally {
 					
 				}

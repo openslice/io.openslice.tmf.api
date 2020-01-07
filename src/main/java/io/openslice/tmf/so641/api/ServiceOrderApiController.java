@@ -90,7 +90,8 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 				try {
 					PortalUser user = serviceOrderApiRouteBuilder.retrievePortalUser( authentication.getName() );
 					if ( user!= null) {
-						extInfo = user.getEmail();						
+						extInfo = user.getEmail();	
+						log.info("extInfo=  " + extInfo);					
 					}
 				}finally {
 					

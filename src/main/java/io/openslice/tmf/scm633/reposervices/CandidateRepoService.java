@@ -109,7 +109,11 @@ public class CandidateRepoService {
 	
 	public ServiceCandidate updateServiceCandidateDataFromAPI(ServiceCandidate sc, @Valid ServiceCandidateUpdate serviceCandidateUpd) {	
 
-		ServiceSpecification specObj = this.specRepo.findByUuid( serviceCandidateUpd.getServiceSpecification().getId() );
+		ServiceSpecification specObj =  null;
+		
+		if ( serviceCandidateUpd.getServiceSpecification()!=null) {
+			specObj = this.specRepo.findByUuid( serviceCandidateUpd.getServiceSpecification().getId() );			
+		}
 		
 		if ( specObj != null ) {
 			sc.setName( specObj.getName() );

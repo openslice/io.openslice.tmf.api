@@ -65,7 +65,8 @@ public class RelatedParty extends BaseRootNamedEntity{
 
 	@JsonProperty("id")
 	protected String id = null;
-		
+
+	@JsonProperty("extendedInfo")
 	private String extendedInfo = null;
 	
 	/**
@@ -181,6 +182,7 @@ public class RelatedParty extends BaseRootNamedEntity{
 		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    role: ").append(toIndentedString(role)).append("\n");
+		sb.append("    extendedInfo: ").append(toIndentedString(extendedInfo)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
 		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");

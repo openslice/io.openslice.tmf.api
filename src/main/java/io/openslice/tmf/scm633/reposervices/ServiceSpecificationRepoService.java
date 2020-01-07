@@ -84,6 +84,7 @@ import io.openslice.tmf.scm633.api.ServiceSpecificationApiRouteBuilder;
 import io.openslice.tmf.scm633.model.AttachmentRef;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
+import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
@@ -267,6 +268,18 @@ public class ServiceSpecificationRepoService {
 
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
 		serviceSpec.fixSpecCharRelationhsipIDs();
+		
+		//save the equivalent candidate
+		ServiceCandidate serviceCandidateObj = candidateRepoService.findById( serviceSpec.getServiceCandidateObjId() );
+		if ( serviceCandidateObj!=null) {
+			ServiceCandidateUpdate serviceCandidateUpd = new ServiceCandidateUpdate();
+			serviceCandidateUpd.setName( serviceSpec.getName() );		
+			serviceCandidateUpd.setDescription( serviceSpec.getDescription() );		
+			serviceCandidateUpd.setLifecycleStatus( serviceSpec.getLifecycleStatus() );	
+			serviceCandidateUpd.setVersion( serviceSpec.getVersion() );				
+			candidateRepoService.updateCandidate( serviceCandidateObj.getId(), serviceCandidateUpd);
+		}
+		
 		return this.serviceSpecificationRepo.save(serviceSpec);
 
 	}
@@ -274,6 +287,8 @@ public class ServiceSpecificationRepoService {
 	private ServiceSpecification updateServiceSpecDataFromAPIcall(ServiceSpecification serviceSpec,
 			ServiceSpecificationUpdate serviceSpecUpd) {
 
+
+		
 		if (serviceSpecUpd.getName() != null) {
 			serviceSpec.setName(serviceSpecUpd.getName());
 		}
@@ -289,10 +304,12 @@ public class ServiceSpecificationRepoService {
 		}
 
 		serviceSpec.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
+		
 
 		if (serviceSpecUpd.getLifecycleStatus() != null) {
 			serviceSpec.setLifecycleStatusEnum(ELifecycle.getEnum(serviceSpecUpd.getLifecycleStatus()));
 		}
+		
 		if (serviceSpecUpd.getVersion() != null) {
 			serviceSpec.setVersion(serviceSpecUpd.getVersion());
 		}

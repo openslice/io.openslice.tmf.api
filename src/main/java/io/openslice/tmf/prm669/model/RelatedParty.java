@@ -139,7 +139,6 @@ public class RelatedParty extends BaseRootNamedEntity{
 	/**
 	 * @return the extendedInfo
 	 */
-	@JsonIgnore
 	public String getExtendedInfo() {
 		return extendedInfo;
 	}

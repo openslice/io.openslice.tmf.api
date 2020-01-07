@@ -1248,7 +1248,7 @@
 					"valueType": "INTEGER",
 					"validFor": null,
 					"value": {
-						"value": "10.000",
+						"value": "10000",
 						"alias": "terminals"
 					}
 				}

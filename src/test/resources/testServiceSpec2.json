@@ -1,0 +1,78 @@
+{
+	"name": "Test Spec2",
+	"description": "Test Spec2 example",
+	"version": "1.8.0",
+	"isBundle": false,
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecification": [
+	],
+	"serviceLevelSpecification": [
+	],
+	"serviceSpecCharacteristic": [
+		{
+			"name": "Spec2Attribute1",
+			"configurable": true,
+			"description": "This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",			
+			"serviceSpecCharRelationship": [
+				{ "name": "Character Attribute", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Operational", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "Scalability Attribute", "role": "tag", "relationshipType": "dependency" },
+				{ "name": "KPI", "role": "tag", "relationshipType": "dependency" }			
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "Local (outdoor)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Spec2Attribute2",
+			"configurable": true,
+			"description": "This attribute specifies the xxx",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",			
+			"serviceSpecCharRelationship": [
+			],
+			"serviceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "2",
+						"alias": "xxx"
+					}
+				}
+			]
+		}
+	]
+}

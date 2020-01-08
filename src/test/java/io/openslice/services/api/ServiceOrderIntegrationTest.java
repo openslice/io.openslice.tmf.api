@@ -149,8 +149,11 @@ public class ServiceOrderIntegrationTest {
 
 		ServiceSpecificationCreate sspeccr1 = toJsonObj(sspectext, ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
+		ServiceSpecification responsesSpec1 = createServiceSpec( sspeccr1);
 
+		sspec = new File("src/test/resources/testServiceSpec2.json");
+		in = new FileInputStream(sspec);
+		sspectext = IOUtils.toString(in, "UTF-8");
 		// service 2 is an RFS
 		ServiceSpecificationCreate sspeccr2 = toJsonObj(sspectext, ServiceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
@@ -158,7 +161,7 @@ public class ServiceOrderIntegrationTest {
 		resourceSpecificationItem.setId("resourceid");
 		resourceSpecificationItem.setName("resourceName");
 		sspeccr2.addResourceSpecificationItem(resourceSpecificationItem);
-		ServiceSpecification responsesSpec2 = createServiceSpec(sspectext, sspeccr2);
+		ServiceSpecification responsesSpec2 = createServiceSpec( sspeccr2);
 		/**
 		 * add them as bundle
 		 */
@@ -168,7 +171,15 @@ public class ServiceOrderIntegrationTest {
 		sspeccr3.isBundle(true);
 		sspeccr3.addServiceSpecRelationshipWith(responsesSpec1);
 		sspeccr3.addServiceSpecRelationshipWith(responsesSpec2);
-		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
+		ServiceSpecification responsesSpec3 = createServiceSpec( sspeccr3);
+		
+
+		/**
+		 * the bundle service characteristics must be same with the total of characteristics of each service in the bundle
+		 * here 1+2 + the 2 characteristics of the service itself total 5
+		 */
+		
+		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 5 );
 
 		ServiceOrderCreate servOrder = new ServiceOrderCreate();
 		servOrder.setCategory("Experimentation");
@@ -211,10 +222,24 @@ public class ServiceOrderIntegrationTest {
 		assertThat(responseSO.getRequestedCompletionDate()).isNotNull();
 
 		assertThat(responseSO.getOrderItem().size()).isEqualTo(1);
+		
+
+		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo( 1 );
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo( 2 );
+		
+		
+		
 		responseSO.getOrderItem().stream().forEach(soiElement -> {
 			assertThat(soiElement.getState()).isEqualTo(ServiceOrderStateType.ACKNOWLEDGED);
 			assertThat(soiElement.getService().getServiceSpecification()).isNotNull();
-			assertThat(soiElement.getService().getServiceSpecification().getName()).isEqualTo("BundleExampleSpec");
+			assertThat(soiElement.getService().getServiceSpecification().getName()).isEqualTo( "BundleExampleSpec" );
+
+			/**
+			 * the ordered service characteristics must be same with the total of characteristics of each service in the bundle
+			 */
+			//assertThat( soiElement.getService().getServiceCharacteristic().size() ).isEqualTo( );
+			
+			
 		});
 		assertThat(responseSO.getNote().size()).isEqualTo(1);
 
@@ -292,7 +317,7 @@ public class ServiceOrderIntegrationTest {
 		assertThat(sspeccr1SO).isNotNull();
 	}
 
-	private ServiceSpecification createServiceSpec(String sspectext, ServiceSpecificationCreate sspeccr1)
+	private ServiceSpecification createServiceSpec( ServiceSpecificationCreate sspeccr1)
 			throws Exception {
 
 		String responseSpec = mvc

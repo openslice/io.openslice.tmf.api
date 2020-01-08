@@ -352,7 +352,11 @@ public class ServiceSpecificationRepoService {
 			}
 
 		}
-
+		
+		
+		
+		
+		
 		/**
 		 * Update ServiceSpecCharacteristic list We need to compare by name, since IDs
 		 * will not exist
@@ -439,8 +443,8 @@ public class ServiceSpecificationRepoService {
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
 			for (ServiceSpecRelationship ar : serviceSpecUpd.getServiceSpecRelationship()) {
-				// find attachmet by id and reload it here.
-				// we need the attachment model from resource spec models
+				// find ServiceSpecRelationship by id and reload it here.
+				// we need the ServiceSpecRelationship model from  spec models
 				boolean idexists = false;
 				for (ServiceSpecRelationship orinalAtt : serviceSpec.getServiceSpecRelationship()) {
 					if (orinalAtt.getId().equals(ar.getId())) {
@@ -453,6 +457,14 @@ public class ServiceSpecificationRepoService {
 				if (!idexists) {
 					serviceSpec.getServiceSpecRelationship().add(ar);
 					idAddedUpdated.put(ar.getId(), true);
+					
+					/**
+					 * Also,
+					 * we will add by default all the characteristics of this service to the related bundle parent service 
+					 */
+					
+					serviceSpec = copyCharacteristicsOfServiceId(  ar.getId(), serviceSpec);
+					
 				}
 			}
 
@@ -531,6 +543,26 @@ public class ServiceSpecificationRepoService {
 
 		return serviceSpec;
 	}
+
+	/**
+	 * @param sourceServiceSpecid
+	 * @param targetServiceSpec
+	 * @return the targetServiceSpec with the copied characteristics
+	 */
+	private ServiceSpecification copyCharacteristicsOfServiceId(String sourceServiceSpecid, ServiceSpecification targetServiceSpec) {
+		
+		ServiceSpecification sourceSpec = this.findByUuid(sourceServiceSpecid);
+		for (ServiceSpecCharacteristic ssc : sourceSpec.getServiceSpecCharacteristic()) {
+			ssc.setName( sourceSpec.getName() +"::"+ ssc.getName() ); //:: is used as delimiter
+			targetServiceSpec.getServiceSpecCharacteristic().add( new ServiceSpecCharacteristic(ssc) );
+			
+		}
+		
+		return targetServiceSpec;
+	}
+	
+	
+	
 
 	public ServiceSpecification cloneServiceSpecification(String uuid) {
 		ServiceSpecification source = this.findByUuid(uuid);

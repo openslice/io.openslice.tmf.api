@@ -226,8 +226,8 @@ public class ServiceOrderIntegrationTest {
 
 		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo( 1 );
 		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo( 2 );
-		
-		
+		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 5 );
+	
 		
 		responseSO.getOrderItem().stream().forEach(soiElement -> {
 			assertThat(soiElement.getState()).isEqualTo(ServiceOrderStateType.ACKNOWLEDGED);
@@ -235,9 +235,10 @@ public class ServiceOrderIntegrationTest {
 			assertThat(soiElement.getService().getServiceSpecification().getName()).isEqualTo( "BundleExampleSpec" );
 
 			/**
-			 * the ordered service characteristics must be same with the total of characteristics of each service in the bundle
+			 * the ordered service characteristics must be same with the total of characteristics of service with user values and default values
+			 * from non configurable attributes
 			 */
-			//assertThat( soiElement.getService().getServiceCharacteristic().size() ).isEqualTo( );
+			assertThat( soiElement.getService().getServiceCharacteristic().size() ).isEqualTo( 5 );
 			
 			
 		});

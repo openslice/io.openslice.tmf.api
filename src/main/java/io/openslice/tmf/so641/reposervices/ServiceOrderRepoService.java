@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
@@ -43,6 +44,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
+import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
@@ -132,28 +135,32 @@ public class ServiceOrderRepoService {
 		return res;
 	}
 
-	public ServiceOrder addServiceOrder(@Valid ServiceOrderCreate serviceOrder) {
+	public ServiceOrder addServiceOrder(@Valid ServiceOrderCreate serviceOrderCreate) {
 		ServiceOrder so = new ServiceOrder();
 		so.setOrderDate(OffsetDateTime.now(ZoneOffset.UTC));
-		so.setCategory(serviceOrder.getCategory());
-		so.setDescription(serviceOrder.getDescription());
-		so.setExternalId(serviceOrder.getExternalId());
-		so.setNotificationContact(serviceOrder.getNotificationContact());
-		so.priority(serviceOrder.getPriority());
-		so.requestedCompletionDate(serviceOrder.getRequestedCompletionDate());
-		so.requestedStartDate(serviceOrder.getRequestedStartDate() );
-		if (serviceOrder.getNote() != null) {
-			so.getNote().addAll(serviceOrder.getNote());
+		so.setCategory(serviceOrderCreate.getCategory());
+		so.setDescription(serviceOrderCreate.getDescription());
+		so.setExternalId(serviceOrderCreate.getExternalId());
+		so.setNotificationContact(serviceOrderCreate.getNotificationContact());
+		so.priority(serviceOrderCreate.getPriority());
+		so.requestedCompletionDate(serviceOrderCreate.getRequestedCompletionDate());
+		so.requestedStartDate(serviceOrderCreate.getRequestedStartDate() );
+		if (serviceOrderCreate.getNote() != null) {
+			so.getNote().addAll(serviceOrderCreate.getNote());
 		}
-		if (serviceOrder.getOrderItem() != null) {
-			so.getOrderItem().addAll(serviceOrder.getOrderItem());
+		if (serviceOrderCreate.getOrderItem() != null) {
+			so.getOrderItem().addAll(serviceOrderCreate.getOrderItem());
+			for (ServiceOrderItem soi : so.getOrderItem()) {				
+				copySpecCharacteristicsToServiceCharacteristic( soi.getService().getServiceSpecification().getId(), soi.getService().getServiceCharacteristic() );
+			}
+			
 		}
 
-		if (serviceOrder.getRelatedParty() != null) {
-			so.getRelatedParty().addAll(serviceOrder.getRelatedParty());
+		if (serviceOrderCreate.getRelatedParty() != null) {
+			so.getRelatedParty().addAll(serviceOrderCreate.getRelatedParty());
 		}
-		if (serviceOrder.getOrderRelationship() != null) {
-			so.getOrderRelationship().addAll(serviceOrder.getOrderRelationship());
+		if (serviceOrderCreate.getOrderRelationship() != null) {
+			so.getOrderRelationship().addAll(serviceOrderCreate.getOrderRelationship());
 
 		}
 		
@@ -230,6 +237,70 @@ public class ServiceOrderRepoService {
 //	}
 
 
+
+	/**
+	 * 
+	 * will copy any remaining service spec characteristics that where not included in the initial order
+	 * 
+	 * @param sourceSpecID
+	 * @param destServiceCharacteristic
+	 */
+	private void copySpecCharacteristicsToServiceCharacteristic(String sourceSpecID, @Valid Set<Characteristic> destServiceCharacteristic) {
+		ServiceSpecification sourceSpec = serviceSpecRepoService.findByUuid(sourceSpecID);
+		if ( sourceSpec == null ) {
+			return;
+		}
+		
+		for (ServiceSpecCharacteristic sourceCharacteristic : sourceSpec.getServiceSpecCharacteristic()) {
+			boolean charfound = false;
+			for (Characteristic destchar : destServiceCharacteristic) {
+				if ( destchar.getName().equals(sourceCharacteristic.getName())) {
+					charfound = true;
+					break;
+				}
+			}
+			
+			if (!charfound) {
+			
+				Characteristic newChar = new Characteristic();
+				newChar.setName( sourceCharacteristic.getName() );
+				newChar.setValueType( sourceCharacteristic.getValueType() );
+				
+				if ( sourceCharacteristic.getValueType().equals( EValueType.ARRAY.getValue() ) ||
+						sourceCharacteristic.getValueType().equals( EValueType.SET.getValue() ) ) {
+					String valString = "";
+					for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
+						if ( specchar.isIsDefault() ) {
+							valString = valString + "{\\\"value\\\":\\\"" + specchar.getValue().getValue() + "\\\",\\\"alias\\\":\\\"" + specchar.getValue().getAlias() + "\\\"},";
+						}
+						
+					}
+					
+					newChar.setValue( new Any( "[ " + valString + "]", "") );
+					
+					
+				} else {
+					for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
+						if ( specchar.isIsDefault() ) {
+							newChar.setValue( new Any(
+									specchar.getValue().getValue(), 
+									specchar.getValue().getAlias()) );
+							break;
+						}
+						
+					}					
+				}
+				
+				//sourceCharacteristic.getServiceSpecCharacteristicValue()
+				
+				
+				destServiceCharacteristic.add(newChar );
+			}
+			
+			
+		}
+		
+	}
 
 	@Transactional
 	public ServiceOrder updateServiceOrder(String id, @Valid ServiceOrderUpdate serviceOrderUpd) {

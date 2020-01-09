@@ -37,9 +37,11 @@ public interface ServiceOrderRepository extends PagingAndSortingRepository<Servi
 
 	Optional<ServiceOrder> findByUuid(String id);
 	Iterable<ServiceOrder> findByState( ServiceOrderStateType state);
-	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp WHERE rp.name = ?1 AND  rp.role = ?2")	
+	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp WHERE rp.name = ?1 AND  rp.role = ?2 ORDER BY OrderDate DESC")	
 	Iterable<ServiceOrder> findByRolenameAndRoleType(String rolename, UserPartRoleType requester);
 	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp WHERE rp.name = ?1")	
 	Iterable<ServiceOrder> findByRolename(String rolename);
+	
+	List<ServiceOrder> findAllOrderByOrderDateDesc();
 
 }

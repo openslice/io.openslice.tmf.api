@@ -95,7 +95,7 @@ public class CategoryRepoService {
 	}
 
 	public List<ServiceCategory> findAll() {
-		return (List<ServiceCategory>) this.categsRepo.findAll();
+		return (List<ServiceCategory>) this.categsRepo.findAllByName();
 	}
 
 	public ServiceCategory findByUuid(String id) {

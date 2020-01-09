@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.scm633.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -35,4 +36,6 @@ public interface ServiceSpecificationRepository extends PagingAndSortingReposito
 
 	Optional<ServiceSpecification> findByNameAndVersion(String aname, String aversion);
 
+	List<ServiceSpecification> findAllOrderByName();
+	
 }

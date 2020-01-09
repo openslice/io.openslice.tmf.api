@@ -74,7 +74,7 @@ public class CatalogRepoService {
 	}
 
 	public List<ServiceCatalog> findAll() {
-		return (List<ServiceCatalog>) this.catalogRepo.findAll();
+		return (List<ServiceCatalog>) this.catalogRepo.findAllOrderByName();
 	}
 
 	public ServiceCatalog findById(String id) {

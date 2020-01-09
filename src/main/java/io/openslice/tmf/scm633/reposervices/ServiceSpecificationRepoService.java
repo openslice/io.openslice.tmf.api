@@ -161,7 +161,7 @@ public class ServiceSpecificationRepoService {
 	}
 
 	public List<ServiceSpecification> findAll() {
-		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findAll();
+		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findAllOrderByName();
 	}
 
 	public List<ServiceSpecification> findAll(@Valid String fields, Map<String, String> allParams)

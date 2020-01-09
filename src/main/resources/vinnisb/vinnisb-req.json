@@ -1311,7 +1311,7 @@
 					}
 				},
 				{
-					"isDefault": true,
+					"isDefault": false,
 					"rangeInterval": null,
 					"regex": null,
 					"unitOfMeasure": "N/A",

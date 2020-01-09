@@ -102,7 +102,7 @@ public class ServiceOrderRepoService {
 	public List<ServiceOrder> findAll() {
 
 		//return (List<ServiceOrder>) this.serviceOrderRepo.findAll();
-		return (List<ServiceOrder>) this.serviceOrderRepo.findAllOrderByOrderDateDesc();
+		return (List<ServiceOrder>) this.serviceOrderRepo.findByOrderByOrderDateDesc();
 	}
 	
 	public List<ServiceOrder> findAllParams(Map<String, String> allParams) {

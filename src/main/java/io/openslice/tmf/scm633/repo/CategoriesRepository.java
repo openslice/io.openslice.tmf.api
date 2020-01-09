@@ -36,7 +36,7 @@ public interface CategoriesRepository extends PagingAndSortingRepository<Service
 
 	Optional<ServiceCategory> findByName(String aName);
 
-	List<ServiceCategory> findAllByName();
+	List<ServiceCategory> findByOrderByName();
 
 
 }

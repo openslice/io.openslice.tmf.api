@@ -36,6 +36,6 @@ public interface ServiceSpecificationRepository extends PagingAndSortingReposito
 
 	Optional<ServiceSpecification> findByNameAndVersion(String aname, String aversion);
 
-	List<ServiceSpecification> findAllOrderByName();
+	List<ServiceSpecification> findByOrderByName();
 	
 }

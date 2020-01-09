@@ -42,6 +42,6 @@ public interface ServiceOrderRepository extends PagingAndSortingRepository<Servi
 	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp WHERE rp.name = ?1")	
 	Iterable<ServiceOrder> findByRolename(String rolename);
 	
-	List<ServiceOrder> findAllOrderByOrderDateDesc();
+	List<ServiceOrder> findByOrderByOrderDateDesc();
 
 }

@@ -36,7 +36,7 @@ public interface CatalogRepository extends PagingAndSortingRepository<ServiceCat
 
 	Optional<ServiceCatalog> findByName(String aName);
 
-	List<ServiceCatalog> findAllOrderByName();
+	List<ServiceCatalog> findByOrderByName();
 	
 
 

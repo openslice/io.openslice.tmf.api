@@ -252,52 +252,57 @@ public class ServiceOrderRepoService {
 		}
 		
 		for (ServiceSpecCharacteristic sourceCharacteristic : sourceSpec.getServiceSpecCharacteristic()) {
-			boolean charfound = false;
-			for (Characteristic destchar : destServiceCharacteristic) {
-				if ( destchar.getName().equals(sourceCharacteristic.getName())) {
-					charfound = true;
-					break;
+			if ( sourceCharacteristic.getValueType()!=null) {
+				boolean charfound = false;
+				for (Characteristic destchar : destServiceCharacteristic) {
+					if ( destchar.getName().equals(sourceCharacteristic.getName())) {
+						charfound = true;
+						break;
+					}
 				}
-			}
-			
-			if (!charfound) {
-			
-				Characteristic newChar = new Characteristic();
-				newChar.setName( sourceCharacteristic.getName() );
-				newChar.setValueType( sourceCharacteristic.getValueType() );
 				
-				if ( sourceCharacteristic.getValueType().equals( EValueType.ARRAY.getValue() ) ||
-						sourceCharacteristic.getValueType().equals( EValueType.SET.getValue() ) ) {
-					String valString = "";
-					for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
-						if ( specchar.isIsDefault() ) {
-							valString = valString + "{\\\"value\\\":\\\"" + specchar.getValue().getValue() + "\\\",\\\"alias\\\":\\\"" + specchar.getValue().getAlias() + "\\\"},";
+				if (!charfound) {
+				
+					Characteristic newChar = new Characteristic();
+					newChar.setName( sourceCharacteristic.getName() );
+					newChar.setValueType( sourceCharacteristic.getValueType() );
+					
+					if ( sourceCharacteristic.getValueType().equals( EValueType.ARRAY.getValue() ) ||
+							sourceCharacteristic.getValueType().equals( EValueType.SET.getValue() ) ) {
+						String valString = "";
+						for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
+							if ( ( specchar.isIsDefault()!= null) && specchar.isIsDefault() ) {
+								valString = valString + "{\\\"value\\\":\\\"" + specchar.getValue().getValue() + "\\\",\\\"alias\\\":\\\"" + specchar.getValue().getAlias() + "\\\"},";
+							}
+							
 						}
 						
+						newChar.setValue( new Any( "[ " + valString + "]", "") );
+						
+						
+					} else {
+						for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
+							if ( ( specchar.isIsDefault()!= null) && specchar.isIsDefault() ) {
+								newChar.setValue( new Any(
+										specchar.getValue().getValue(), 
+										specchar.getValue().getAlias()) );
+								break;
+							}else {
+								if (specchar.isIsDefault()== null){
+									
+								logger.info("specchar is null value: " + sourceCharacteristic.getName() );
+								}
+							}
+							
+						}					
 					}
 					
-					newChar.setValue( new Any( "[ " + valString + "]", "") );
 					
-					
-				} else {
-					for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
-						if ( specchar.isIsDefault() ) {
-							newChar.setValue( new Any(
-									specchar.getValue().getValue(), 
-									specchar.getValue().getAlias()) );
-							break;
-						}
-						
-					}					
-				}
-				
-				//sourceCharacteristic.getServiceSpecCharacteristicValue()
-				
-				
-				destServiceCharacteristic.add(newChar );
+					if ( newChar.getValue() !=null) {
+						destServiceCharacteristic.add(newChar );						
+					}
+				}				
 			}
-			
-			
 		}
 		
 	}

@@ -272,7 +272,10 @@ public class ServiceOrderRepoService {
 						String valString = "";
 						for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
 							if ( ( specchar.isIsDefault()!= null) && specchar.isIsDefault() ) {
-								valString = valString + "{\\\"value\\\":\\\"" + specchar.getValue().getValue() + "\\\",\\\"alias\\\":\\\"" + specchar.getValue().getAlias() + "\\\"},";
+								if ( !valString.equals("")) {
+									valString = valString + ",";
+								}
+								valString = valString + "{\\\"value\\\":\\\"" + specchar.getValue().getValue() + "\\\",\\\"alias\\\":\\\"" + specchar.getValue().getAlias() + "\\\"}";
 							}
 							
 						}

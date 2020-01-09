@@ -315,8 +315,38 @@ public class ServiceOrderIntegrationTest {
 		ServiceOrder sspeccr1SO = toJsonObj(sspectextSO, ServiceOrder.class);
 
 		assertThat(sspeccr1SO).isNotNull();
+		
+		
+		
 	}
 
+	@WithMockUser(username="osadmin", roles = {"USER"})
+	@Test
+	public void testVINNISpecServiceOrderCreateAndUpdate() throws UnsupportedEncodingException, IOException, Exception {
+		String responseSpecClonedVINNI = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
+				.contentType(MediaType.APPLICATION_JSON)
+				.param("addServiceTopology", "true")
+				.param("addServiceRequirements", "true")
+				.param("addServiceExposureLevel1", "true")
+				.param("addServiceExposureLevel2", "true")
+				.param("addServiceExposureLevel3", "true")
+				.param("addServiceExposureLevel4", "true")
+				.param("addServiceMonitoring", "true")
+				.param("addServiceTesting", "true")
+				.param("addServiceVNF", "true")
+				.param("addServiceNSD", "true")
+				.content( toJson( "" ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+
+		ServiceSpecification clonedSpec = toJsonObj( responseSpecClonedVINNI,  ServiceSpecification.class);
+		assertThat( clonedSpec.getName() ).isEqualTo( "aVINNIService" );	
+		
+	}
+	
+	
 	private ServiceSpecification createServiceSpec( ServiceSpecificationCreate sspeccr1)
 			throws Exception {
 

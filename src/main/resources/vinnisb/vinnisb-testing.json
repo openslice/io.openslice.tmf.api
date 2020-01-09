@@ -51,7 +51,7 @@
 					}
 				},
 				{
-					"isDefault": true,
+					"isDefault": false,
 					"rangeInterval": null,
 					"regex": null,
 					"unitOfMeasure": "N/A",
@@ -60,7 +60,7 @@
 					"valueType": "BINARY",
 					"validFor": null,
 					"value": {
-						"value": "0",
+						"value": "1",
 						"alias": "Aggregated"
 					}
 				}

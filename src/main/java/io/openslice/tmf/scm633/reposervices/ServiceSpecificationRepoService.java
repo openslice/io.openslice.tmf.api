@@ -256,6 +256,8 @@ public class ServiceSpecificationRepoService {
 		return null;
 	}
 
+
+	@Transactional
 	public ServiceSpecification updateServiceSpecification(String id,
 			@Valid ServiceSpecificationUpdate serviceServiceSpecification) {
 
@@ -284,6 +286,7 @@ public class ServiceSpecificationRepoService {
 
 	}
 
+	@Transactional
 	private ServiceSpecification updateServiceSpecDataFromAPIcall(ServiceSpecification serviceSpec,
 			ServiceSpecificationUpdate serviceSpecUpd) {
 
@@ -552,10 +555,12 @@ public class ServiceSpecificationRepoService {
 	private ServiceSpecification copyCharacteristicsOfServiceId(String sourceServiceSpecid, ServiceSpecification targetServiceSpec) {
 		
 		ServiceSpecification sourceSpec = this.findByUuid(sourceServiceSpecid);
-		for (ServiceSpecCharacteristic ssc : sourceSpec.getServiceSpecCharacteristic()) {
-			ssc.setName( sourceSpec.getName() +"::"+ ssc.getName() ); //:: is used as delimiter
-			targetServiceSpec.getServiceSpecCharacteristic().add( new ServiceSpecCharacteristic(ssc) );
-			
+		if ( sourceSpec != null ) {
+			for (ServiceSpecCharacteristic ssc : sourceSpec.getServiceSpecCharacteristic()) {
+				ssc.setName( sourceSpec.getName() +"::"+ ssc.getName() ); //:: is used as delimiter
+				targetServiceSpec.getServiceSpecCharacteristic().add( new ServiceSpecCharacteristic(ssc) );
+				
+			}			
 		}
 		
 		return targetServiceSpec;
@@ -768,6 +773,7 @@ public class ServiceSpecificationRepoService {
 			serviceSpecRelationshipItem.setId( serviceTopology.getId());
 			serviceSpecRelationshipItem.setName( serviceTopology.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( serviceSpecRelationshipItem  );
+			this.copyCharacteristicsOfServiceId( serviceSpecRelationshipItem.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
 		}
 		
@@ -784,6 +790,7 @@ public class ServiceSpecificationRepoService {
 			relServiceReq.setId( serviceReq.getId());
 			relServiceReq.setName( serviceReq.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceReq  );
+			this.copyCharacteristicsOfServiceId( relServiceReq.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
 		
@@ -799,6 +806,7 @@ public class ServiceSpecificationRepoService {
 			relServiceExp.setId( serviceExpLevel.getId());
 			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
+			this.copyCharacteristicsOfServiceId( relServiceExp.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
 		
@@ -813,6 +821,7 @@ public class ServiceSpecificationRepoService {
 			relServiceExp.setId( serviceExpLevel.getId());
 			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
+			this.copyCharacteristicsOfServiceId( relServiceExp.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
 
@@ -827,6 +836,7 @@ public class ServiceSpecificationRepoService {
 			relServiceExp.setId( serviceExpLevel.getId());
 			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
+			this.copyCharacteristicsOfServiceId( relServiceExp.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
 		
@@ -841,6 +851,7 @@ public class ServiceSpecificationRepoService {
 			relServiceExp.setId( serviceExpLevel.getId());
 			relServiceExp.setName( serviceExpLevel.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceExp  );
+			this.copyCharacteristicsOfServiceId( relServiceExp.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);			
 		}
 		
@@ -855,6 +866,7 @@ public class ServiceSpecificationRepoService {
 			relServiceMon.setId( serviceMon.getId());
 			relServiceMon.setName( serviceMon.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceMon  );
+			this.copyCharacteristicsOfServiceId( relServiceMon.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
 			
 		}
@@ -871,6 +883,7 @@ public class ServiceSpecificationRepoService {
 			relServiceTest.setId( serviceTesting.getId());
 			relServiceTest.setName(  serviceTesting.getName() );
 			serviceSpecVinniSB.addServiceSpecRelationshipItem( relServiceTest  );
+			this.copyCharacteristicsOfServiceId( relServiceTest.getId() , serviceSpecVinniSB);
 			serviceSpecVinniSB = this.updateServiceSpecification(serviceSpecVinniSB);
 			
 		}
@@ -886,6 +899,7 @@ public class ServiceSpecificationRepoService {
 			resourceSpecificationthirdVNFRef.setId( null );
 			resourceSpecificationthirdVNFRef.setName( thirdVNF.getName() );
 			thirdVNF.addResourceSpecificationItem(resourceSpecificationthirdVNFRef);
+			this.copyCharacteristicsOfServiceId( resourceSpecificationthirdVNFRef.getId() , serviceSpecVinniSB);
 			thirdVNF = this.addServiceSpecification( thirdVNF );
 			
 			
@@ -900,6 +914,7 @@ public class ServiceSpecificationRepoService {
 			resourceSpecificationthirdNSDRef.setId( null );
 			resourceSpecificationthirdNSDRef.setName(thirdNSD.getName() );
 			thirdNSD.addResourceSpecificationItem(resourceSpecificationthirdNSDRef);
+			this.copyCharacteristicsOfServiceId( resourceSpecificationthirdNSDRef.getId() , serviceSpecVinniSB);
 			thirdNSD = this.addServiceSpecification( thirdNSD );
 		}
 		

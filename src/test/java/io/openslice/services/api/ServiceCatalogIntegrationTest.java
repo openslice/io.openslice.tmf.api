@@ -815,6 +815,15 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 16 );
 		
+
+		/**
+		 * the bundle service characteristics must be same with the total of characteristics of each service in the bundle
+		 * 
+		 */
+		
+		assertThat( clonedSpec.getServiceSpecCharacteristic().size() ).isEqualTo( 61 );
+		
+		
 		String responseSpecClonedVINNI2 = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/cloneVINNI?serviceName=aVINNIService")
 				.contentType(MediaType.APPLICATION_JSON)
 				.param("addServiceTopology", "true")

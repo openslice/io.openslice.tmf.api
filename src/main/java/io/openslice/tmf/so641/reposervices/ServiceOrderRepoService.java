@@ -270,8 +270,11 @@ public class ServiceOrderRepoService {
 						sourceCharacteristic.getValueType().equals( EValueType.SET.getValue() ) ) {
 					String valString = "";
 					for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
-						if ( specchar.isIsDefault() ) {
-							valString = valString + "{\"value\":\"" + specchar.getValue().getValue() + "\",\"alias\":\"" + specchar.getValue().getAlias() + "\"},";
+						if ( ( specchar.isIsDefault()!= null) && specchar.isIsDefault() ) {
+							if ( !valString.equals("")) {
+								valString = valString + ",";
+							}
+							valString = valString + "{\"value\":\"" + specchar.getValue().getValue() + "\",\"alias\":\"" + specchar.getValue().getAlias() + "\"}";
 						}
 						
 					}
@@ -281,20 +284,27 @@ public class ServiceOrderRepoService {
 					
 				} else {
 					for (ServiceSpecCharacteristicValue specchar : sourceCharacteristic.getServiceSpecCharacteristicValue()) {
-						if ( specchar.isIsDefault() ) {
+						if ( ( specchar.isIsDefault()!= null) && specchar.isIsDefault() ) {
 							newChar.setValue( new Any(
 									specchar.getValue().getValue(), 
 									specchar.getValue().getAlias()) );
 							break;
+						}else {
+							if (specchar.isIsDefault()== null){
+
+							logger.info("specchar is null value: " + sourceCharacteristic.getName() );
+							}
 						}
-						
-					}					
+
+					}						
 				}
 				
 				//sourceCharacteristic.getServiceSpecCharacteristicValue()
 				
+				if ( newChar.getValue() !=null) {
+					destServiceCharacteristic.add(newChar );
+				}
 				
-				destServiceCharacteristic.add(newChar );
 			}
 			
 			

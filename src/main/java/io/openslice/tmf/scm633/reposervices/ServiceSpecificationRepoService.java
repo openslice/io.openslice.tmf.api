@@ -557,8 +557,9 @@ public class ServiceSpecificationRepoService {
 		ServiceSpecification sourceSpec = this.findByUuid(sourceServiceSpecid);
 		if ( sourceSpec != null ) {
 			for (ServiceSpecCharacteristic ssc : sourceSpec.getServiceSpecCharacteristic()) {
-				ssc.setName( sourceSpec.getName() +"::"+ ssc.getName() ); //:: is used as delimiter
-				targetServiceSpec.getServiceSpecCharacteristic().add( new ServiceSpecCharacteristic(ssc) );
+				ServiceSpecCharacteristic cnew = new ServiceSpecCharacteristic(ssc);
+				cnew.setName( sourceSpec.getName() +"::"+ cnew.getName() ); //:: is used as delimiter
+				targetServiceSpec.getServiceSpecCharacteristic().add( cnew );
 				
 			}			
 		}

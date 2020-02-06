@@ -50,7 +50,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 		"io.openslice.tmf.scm633.repo", 
 		"io.openslice.tmf.scm633.reposervices",
 		"io.openslice.tmf.scm634", 
-		"io.openslice.tmf.scm634.api"})
+		"io.openslice.tmf.scm634.api",
+		"io.openslice.centrallog.client"})
 @EntityScan( basePackages = { 
 		"io.openslice",
 		"io.openslice.sd",

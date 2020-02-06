@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.centrallog.client.CLevel;
+import io.openslice.centrallog.client.CentralLogger;
 import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.model.PortalUser;
 import io.openslice.tmf.common.model.Notification;
@@ -132,7 +134,11 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 			map.put("eventid", n.getEventId() );
 			map.put("objId", objId );
 			
-			template.sendBodyAndHeaders(msgtopic, toJsonString(n), map);
+			String apayload = toJsonString(n);
+			template.sendBodyAndHeaders(msgtopic, apayload , map);
+			
+
+			CentralLogger.log( CLevel.INFO, apayload );	
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -88,7 +88,7 @@ public class ServiceSpecCharacteristicValue extends BaseRootEntity {
 		valueTo = r.valueTo;
 		valueType = r.valueType;
 		validFor = new TimePeriod( r.validFor );
-		value = new Any( r.value.getValue(), r.value.getAlias()) ;
+		value = new Any( r.value ) ;
 //		type = r.type;
 		baseType = r.baseType;
 		

@@ -194,6 +194,11 @@
 			<artifactId>io.openslice.model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>io.openslice</groupId>			
+			<artifactId>io.openslice.centrallog.client</artifactId>
+			<version>${project.version}</version>
+		</dependency>		
 
 		<!-- swagger -->
 		<dependency>

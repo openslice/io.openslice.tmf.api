@@ -64,6 +64,16 @@ public class Any {
 		this.alias = alias;
 	}
 
+	public Any(Any anyval) {
+
+		if (anyval != null) {
+			this.value = anyval.value;
+			this.alias = anyval.alias;
+			
+		}
+	}
+
+
 	/**
 	 * @return the value
 	 */

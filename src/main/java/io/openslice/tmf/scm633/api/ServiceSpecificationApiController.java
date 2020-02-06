@@ -32,6 +32,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,6 +45,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.centrallog.client.CLevel;
+import io.openslice.centrallog.client.CentralLogger;
 import io.openslice.sd.model.ServiceDescriptor;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.pcm620.model.Attachment;
@@ -152,6 +156,16 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 		try {
 
+			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+			SecurityContextHolder.setContext( (SecurityContext) attr );  
+
+			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
+				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+				CentralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id );
+			} else {
+				CentralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id );				
+			}	
+			
 			return new ResponseEntity<ServiceSpecification>(serviceSpecificationRepoService.findByUuid(id),
 					HttpStatus.OK);
 		} catch (Exception e) {

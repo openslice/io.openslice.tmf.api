@@ -170,7 +170,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 //				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //				CentralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id );
 //			} else {
-				CentralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
+//				CentralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
 //			}	
 			
 			return new ResponseEntity<ServiceSpecification>(serviceSpecificationRepoService.findByUuid(id),

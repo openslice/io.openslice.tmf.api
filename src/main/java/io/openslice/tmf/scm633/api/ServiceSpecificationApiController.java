@@ -157,8 +157,10 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		try {
 
 			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-			SecurityContextHolder.setContext( (SecurityContext) attr );  
 
+			if ( attr!=null) {
+				SecurityContextHolder.setContext( (SecurityContext) attr );  
+			}
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				CentralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id );

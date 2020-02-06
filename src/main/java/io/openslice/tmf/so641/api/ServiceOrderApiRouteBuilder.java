@@ -69,6 +69,9 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 	@Value("${GET_USER_BY_USERNAME}")
 	private String GET_USER_BY_USERNAME = "";
 	
+
+	@Value("${spring.application.name}")
+	private String compname;
 	
 	@Autowired
 	private ProducerTemplate template;
@@ -138,7 +141,7 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 			template.sendBodyAndHeaders(msgtopic, apayload , map);
 			
 
-			CentralLogger.log( CLevel.INFO, apayload );	
+			CentralLogger.log( CLevel.INFO, apayload, compname );	
 
 		} catch (Exception e) {
 			e.printStackTrace();

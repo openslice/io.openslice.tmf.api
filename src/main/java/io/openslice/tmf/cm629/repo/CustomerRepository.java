@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.cm629.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -32,6 +33,9 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 
 
 	Optional<Customer> findByUuid(String id);
+	
 	Iterable<Customer> findByName( String name);
+	
+	List<Customer> findByOrderByName();
 
 }

@@ -19,33 +19,41 @@
  */
 package io.openslice.tmf.cm629.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import io.openslice.tmf.cm629.model.Customer;
+import io.openslice.tmf.cm629.model.CustomerCreate;
+import io.openslice.tmf.cm629.service.CustomerRepoService;
+import io.swagger.annotations.ApiParam;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 @Controller
+@RequestMapping("/customerManagement/v4/")
 public class CustomerApiController implements CustomerApi {
 
-    private final ObjectMapper objectMapper;
+	@Autowired
+	CustomerRepoService customerRepoService;
 
-    private final HttpServletRequest request;
+	public ResponseEntity<Customer> createCustomer(
+			@ApiParam(value = "The Customer to be created", required = true) @Valid @RequestBody CustomerCreate customer) {
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public CustomerApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
+		try {
+			Customer c = customerRepoService.addCustomer(customer);
 
-    @Override
-    public Optional<ObjectMapper> getObjectMapper() {
-        return Optional.ofNullable(objectMapper);
-    }
+			return new ResponseEntity<Customer>(c, HttpStatus.OK);
 
-    @Override
-    public Optional<HttpServletRequest> getRequest() {
-        return Optional.ofNullable(request);
-    }
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
+	}
 }

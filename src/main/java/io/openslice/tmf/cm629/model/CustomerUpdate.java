@@ -47,56 +47,56 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class CustomerUpdate   {
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("status")
-  private String status = null;
+  protected String status = null;
 
   @JsonProperty("statusReason")
-  private String statusReason = null;
+  protected String statusReason = null;
 
   @JsonProperty("account")
   @Valid
-  private List<AccountRef> account = null;
+  protected List<AccountRef> account = null;
 
   @JsonProperty("agreement")
   @Valid
-  private List<AgreementRef> agreement = null;
+  protected List<AgreementRef> agreement = null;
 
   @JsonProperty("characteristic")
   @Valid
-  private List<Characteristic> characteristic = null;
+  protected List<Characteristic> characteristic = null;
 
   @JsonProperty("contactMedium")
   @Valid
-  private List<ContactMedium> contactMedium = null;
+  protected List<ContactMedium> contactMedium = null;
 
   @JsonProperty("creditProfile")
   @Valid
-  private List<CreditProfile> creditProfile = null;
+  protected List<CreditProfile> creditProfile = null;
 
   @JsonProperty("engagedParty")
-  private RelatedParty engagedParty = null;
+  protected RelatedParty engagedParty = null;
 
   @JsonProperty("paymentMethod")
   @Valid
-  private List<PaymentMethodRef> paymentMethod = null;
+  protected List<PaymentMethodRef> paymentMethod = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   public CustomerUpdate name(String name) {
     this.name = name;

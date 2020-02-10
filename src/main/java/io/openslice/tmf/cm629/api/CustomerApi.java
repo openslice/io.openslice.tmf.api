@@ -28,10 +28,14 @@ import io.openslice.tmf.cm629.model.Customer;
 import io.openslice.tmf.cm629.model.CustomerCreate;
 import io.openslice.tmf.cm629.model.CustomerUpdate;
 import io.openslice.tmf.cm629.model.Error;
+import io.openslice.tmf.cm629.service.CustomerRepoService;
+import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -52,11 +56,14 @@ import java.util.List;
 import java.util.Optional;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
+
 @Api(value = "customer", description = "the customer API")
 public interface CustomerApi {
 
     Logger log = LoggerFactory.getLogger(CustomerApi.class);
 
+
+	
     default Optional<ObjectMapper> getObjectMapper() {
         return Optional.empty();
     }
@@ -83,19 +90,8 @@ public interface CustomerApi {
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
     default ResponseEntity<Customer> createCustomer(@ApiParam(value = "The Customer to be created" ,required=true )  @Valid @RequestBody CustomerCreate customer) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"contactMedium\" : [ {    \"@baseType\" : \"@baseType\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"mediumType\" : \"mediumType\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"preferred\" : true,    \"characteristic\" : {      \"country\" : \"country\",      \"city\" : \"city\",      \"@type\" : \"@type\",      \"contactType\" : \"contactType\",      \"socialNetworkId\" : \"socialNetworkId\",      \"emailAddress\" : \"emailAddress\",      \"phoneNumber\" : \"phoneNumber\",      \"stateOrProvince\" : \"stateOrProvince\",      \"@baseType\" : \"@baseType\",      \"faxNumber\" : \"faxNumber\",      \"postCode\" : \"postCode\",      \"street1\" : \"street1\",      \"street2\" : \"street2\",      \"@schemaLocation\" : \"http://example.com/aeiou\"    }  }, {    \"@baseType\" : \"@baseType\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"mediumType\" : \"mediumType\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"preferred\" : true,    \"characteristic\" : {      \"country\" : \"country\",      \"city\" : \"city\",      \"@type\" : \"@type\",      \"contactType\" : \"contactType\",      \"socialNetworkId\" : \"socialNetworkId\",      \"emailAddress\" : \"emailAddress\",      \"phoneNumber\" : \"phoneNumber\",      \"stateOrProvince\" : \"stateOrProvince\",      \"@baseType\" : \"@baseType\",      \"faxNumber\" : \"faxNumber\",      \"postCode\" : \"postCode\",      \"street1\" : \"street1\",      \"street2\" : \"street2\",      \"@schemaLocation\" : \"http://example.com/aeiou\"    }  } ],  \"creditProfile\" : [ {    \"creditProfileDate\" : \"2000-01-23T04:56:07.000+00:00\",    \"creditScore\" : 6,    \"@baseType\" : \"@baseType\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"creditRiskRating\" : 0,    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"creditProfileDate\" : \"2000-01-23T04:56:07.000+00:00\",    \"creditScore\" : 6,    \"@baseType\" : \"@baseType\",    \"validFor\" : {      \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",      \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"@type\" : \"@type\",    \"creditRiskRating\" : 0,    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"agreement\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"validFor\" : {    \"startDateTime\" : \"2000-01-23T04:56:07.000+00:00\",    \"endDateTime\" : \"2000-01-23T04:56:07.000+00:00\"  },  \"@type\" : \"@type\",  \"relatedParty\" : [ {    \"@referredType\" : \"@referredType\",    \"role\" : \"role\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"role\" : \"role\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"characteristic\" : [ {    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"valueType\" : \"valueType\",    \"name\" : \"name\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"value\" : { }  }, {    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"valueType\" : \"valueType\",    \"name\" : \"name\",    \"@schemaLocation\" : \"http://example.com/aeiou\",    \"value\" : { }  } ],  \"statusReason\" : \"statusReason\",  \"@baseType\" : \"@baseType\",  \"name\" : \"name\",  \"paymentMethod\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"id\" : \"id\",  \"href\" : \"href\",  \"@schemaLocation\" : \"http://example.com/aeiou\",  \"account\" : [ {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"description\" : \"description\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  }, {    \"@referredType\" : \"@referredType\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"description\" : \"description\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  } ],  \"engagedParty\" : {    \"@referredType\" : \"@referredType\",    \"role\" : \"role\",    \"@baseType\" : \"@baseType\",    \"@type\" : \"@type\",    \"name\" : \"name\",    \"id\" : \"id\",    \"href\" : \"href\",    \"@schemaLocation\" : \"http://example.com/aeiou\"  },  \"status\" : \"status\"}", Customer.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default CustomerApi interface so no example is generated");
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    	
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.logging.Log;
@@ -28,7 +30,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
+import io.openslice.tmf.cm629.model.ContactMedium;
+import io.openslice.tmf.cm629.model.Customer;
 import io.openslice.tmf.cm629.model.CustomerCreate;
+import io.openslice.tmf.cm629.model.CustomerUpdate;
+import io.openslice.tmf.cm629.model.MediumCharacteristic;
 import io.openslice.tmf.cm629.service.CustomerRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
 
@@ -62,6 +68,18 @@ public class CustomerIntegrationTest {
 		engagedParty.setUuid(UUID.randomUUID().toString());
 		cc.setEngagedParty(engagedParty );
 		
+		List<ContactMedium> contactMediums = new ArrayList<>();
+		ContactMedium cm = new ContactMedium();
+		contactMediums.add(cm);
+		cm.setMediumType("email");
+		cm.setPreferred(true);
+		MediumCharacteristic medChar = new MediumCharacteristic();
+		medChar.setEmailAddress( "test@openslice.io" );
+		cm.setCharacteristic(medChar);
+		cc.setContactMedium(contactMediums );
+		
+		
+				
 		String response = mvc.perform(MockMvcRequestBuilders.post("/customerManagement/v4/customer")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( cc ) ))
@@ -73,6 +91,46 @@ public class CustomerIntegrationTest {
 		
 
 		assertThat( customerRepoService.findAll().size() ).isEqualTo( 1 );
+		
+		Customer respc = toJsonObj( response, Customer.class);
+		assertThat( respc.getContactMedium().stream().findFirst().get().getMediumType() ).isEqualTo("email");
+		assertThat( respc.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()  ).isEqualTo("test@openslice.io");
+		
+		
+		CustomerUpdate cu = new CustomerUpdate();
+		cu.setEngagedParty( respc.getEngagedParty() );
+		cm = new ContactMedium();
+		cm.setMediumType("phone");
+		medChar = new MediumCharacteristic();
+		medChar.setPhoneNumber("555000");
+		cm.setCharacteristic(medChar);
+		contactMediums = new ArrayList<>();
+		for (ContactMedium contactMedium : respc.getContactMedium()) {
+			contactMediums.add(contactMedium);			
+		}
+		contactMediums.add(cm);
+		cu.setContactMedium(contactMediums);
+		
+		String responseUpd = mvc.perform(MockMvcRequestBuilders.patch("/customerManagement/v4/customer/" + respc.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( cu ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("A Customer")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		
+
+		assertThat( customerRepoService.findAll().size() ).isEqualTo( 1 );
+		
+		respc = toJsonObj( responseUpd, Customer.class);
+
+		assertThat( respc.getContactMedium().size()  ).isEqualTo(2);
+		assertThat( respc.getContactMedium().stream().findFirst().get().getMediumType() ).isEqualTo("email");
+		assertThat( respc.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()  ).isEqualTo("test@openslice.io");
+		assertThat( respc.getContactMedium().stream().toArray(ContactMedium[]::new)[1].getMediumType()  ).isEqualTo("phone");
+		assertThat( respc.getContactMedium().stream().toArray(ContactMedium[]::new)[1].getCharacteristic().getPhoneNumber()  ).isEqualTo("555000");
+		
 	}
 	
 	 static byte[] toJson(Object object) throws IOException {

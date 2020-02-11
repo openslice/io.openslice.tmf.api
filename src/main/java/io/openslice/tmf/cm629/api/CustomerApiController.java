@@ -19,17 +19,21 @@
  */
 package io.openslice.tmf.cm629.api;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.openslice.tmf.cm629.model.Customer;
 import io.openslice.tmf.cm629.model.CustomerCreate;
+import io.openslice.tmf.cm629.model.CustomerUpdate;
 import io.openslice.tmf.cm629.service.CustomerRepoService;
 import io.swagger.annotations.ApiParam;
 
@@ -56,4 +60,17 @@ public class CustomerApiController implements CustomerApi {
 		}
 
 	}
+	
+	public ResponseEntity<Customer> patchCustomer(@ApiParam(value = "Identifier of the Customer",required=true) @PathVariable("id") String id,@ApiParam(value = "The Customer to be updated" ,required=true )  @Valid @RequestBody CustomerUpdate customer) {
+
+		try {
+			Customer c = customerRepoService.updateCustomer(id, customer);
+
+			return new ResponseEntity<Customer>(c, HttpStatus.OK);
+
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+    }
 }

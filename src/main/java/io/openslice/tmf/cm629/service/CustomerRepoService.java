@@ -19,7 +19,10 @@
  */
 package io.openslice.tmf.cm629.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -27,11 +30,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.openslice.tmf.cm629.model.ContactMedium;
 import io.openslice.tmf.cm629.model.Customer;
 import io.openslice.tmf.cm629.model.CustomerCreate;
 import io.openslice.tmf.cm629.model.CustomerUpdate;
 import io.openslice.tmf.cm629.repo.CustomerRepository;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 @Service
@@ -50,6 +55,21 @@ public class CustomerRepoService {
 		c = updateCustomerData(c, customer);
 		return customerRepository.save(c);
 	}
+	
+	public Customer updateCustomer(String id, @Valid CustomerUpdate customer) {
+		Customer c = this.findByUuid(id);
+		if ( c == null) {
+			return null;
+		}
+		c = this.updateCustomerData(c, customer);
+
+		return this.customerRepository.save(c);
+	}
+
+	private Customer findByUuid(String id) {
+		Optional<Customer> optionalCat = this.customerRepository.findByUuid(id);
+		return optionalCat.orElse(null);
+	}
 
 	private Customer updateCustomerData(Customer c, @Valid CustomerUpdate custUpd) {
 		
@@ -64,8 +84,31 @@ public class CustomerRepoService {
 			}
 		}
 		
+		if ( custUpd.getContactMedium() !=null) {
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (ContactMedium cmUpd : custUpd.getContactMedium()) {
+				//find  by id and reload it here.
+				boolean idexists = false;
+				for (ContactMedium originalCm : c.getContactMedium()) {
+					if ( ( originalCm.getUuid()!=null ) && originalCm.getUuid().equals(cmUpd.getUuid() ) ) {
+						idexists = true;
+						idAddedUpdated.put( originalCm.getUuid(), true);
+						originalCm.updateWith( cmUpd );
+						break;
+					}
+				}
+				if (!idexists) {
+					c.addContactMediumItem( cmUpd );
+				}
+				
+			}
+		}
 		
 		return c;
 	}
+
+	
 
 }

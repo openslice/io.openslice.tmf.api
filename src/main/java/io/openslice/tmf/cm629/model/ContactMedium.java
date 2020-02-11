@@ -190,4 +190,14 @@ public class ContactMedium extends BaseRootEntity {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+
+	public void updateWith(ContactMedium cmUpd) {
+		this.mediumType  = cmUpd.getMediumType();
+		this.preferred =  cmUpd.isPreferred();
+		this.validFor = cmUpd.getValidFor();
+		if ( cmUpd.getCharacteristic() !=null) {
+			this.characteristic = new MediumCharacteristic( cmUpd.getCharacteristic()  );			
+		}
+		
+	}
 }

@@ -109,6 +109,17 @@ public class CustomerRepoService {
 		return c;
 	}
 
+	public Customer findById(String id) {
+		Optional<Customer> c = this.customerRepository.findByUuid(id);
+		return c.orElse(null);
+	}
+
+	public Void deleteById(String id) {
+		Optional<Customer> c = this.customerRepository.findByUuid(id);
+		this.customerRepository.delete( c.get());
+		return null;
+	}
+
 	
 
 }

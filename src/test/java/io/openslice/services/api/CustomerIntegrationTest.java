@@ -126,10 +126,41 @@ public class CustomerIntegrationTest {
 		respc = toJsonObj( responseUpd, Customer.class);
 
 		assertThat( respc.getContactMedium().size()  ).isEqualTo(2);
-		assertThat( respc.getContactMedium().stream().findFirst().get().getMediumType() ).isEqualTo("email");
-		assertThat( respc.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()  ).isEqualTo("test@openslice.io");
-		assertThat( respc.getContactMedium().stream().toArray(ContactMedium[]::new)[1].getMediumType()  ).isEqualTo("phone");
-		assertThat( respc.getContactMedium().stream().toArray(ContactMedium[]::new)[1].getCharacteristic().getPhoneNumber()  ).isEqualTo("555000");
+
+		String responseGet = mvc.perform(MockMvcRequestBuilders.get("/customerManagement/v4/customer")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( cc ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andReturn().getResponse().getContentAsString();
+		
+
+		List<Customer> respcs = toJsonObj( responseGet, ArrayList.class);
+
+		assertThat( respcs.size()  ).isEqualTo( 1 );
+		
+		
+		responseGet = mvc.perform(MockMvcRequestBuilders.get("/customerManagement/v4/customer/" + respc.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( cc ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("A Customer")))								 
+	    	    .andReturn().getResponse().getContentAsString();
+
+
+		respc = toJsonObj( responseGet, Customer.class);
+		
+		
+
+		String responseDel = mvc.perform(MockMvcRequestBuilders.delete("/customerManagement/v4/customer/" + respc.getId() )
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( cu ) ))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		
+
+		assertThat( customerRepoService.findAll().size() ).isEqualTo( 0 );
 		
 	}
 	

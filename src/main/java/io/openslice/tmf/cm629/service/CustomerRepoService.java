@@ -30,9 +30,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.openslice.tmf.cm629.api.CustomerApiRouteBuilder;
 import io.openslice.tmf.cm629.model.ContactMedium;
 import io.openslice.tmf.cm629.model.Customer;
+import io.openslice.tmf.cm629.model.CustomerAttributeValueChangeEvent;
+import io.openslice.tmf.cm629.model.CustomerAttributeValueChangeEventPayload;
 import io.openslice.tmf.cm629.model.CustomerCreate;
+import io.openslice.tmf.cm629.model.CustomerCreateEvent;
+import io.openslice.tmf.cm629.model.CustomerCreateEventPayload;
 import io.openslice.tmf.cm629.model.CustomerUpdate;
 import io.openslice.tmf.cm629.repo.CustomerRepository;
 import io.openslice.tmf.prm669.model.RelatedParty;
@@ -46,6 +51,9 @@ public class CustomerRepoService {
 	@Autowired
 	CustomerRepository customerRepository;
 	
+	@Autowired
+	CustomerApiRouteBuilder customerApiRouteBuilder;
+	
 	public List<Customer> findAll() {
 		return (List<Customer>) this.customerRepository.findByOrderByName();
 	}
@@ -53,7 +61,9 @@ public class CustomerRepoService {
 	public Customer addCustomer(@Valid CustomerCreate customer) {
 		Customer c = new Customer();
 		c = updateCustomerData(c, customer);
-		return customerRepository.save(c);
+		c = customerRepository.save(c);
+		raiseCustomerCreate( c );
+		return c;
 	}
 	
 	public Customer updateCustomer(String id, @Valid CustomerUpdate customer) {
@@ -62,8 +72,9 @@ public class CustomerRepoService {
 			return null;
 		}
 		c = this.updateCustomerData(c, customer);
-
-		return this.customerRepository.save(c);
+		c = this.customerRepository.save(c);
+		raiseCustomerChanged(c);
+		return c;
 	}
 
 	private Customer findByUuid(String id) {
@@ -121,5 +132,25 @@ public class CustomerRepoService {
 	}
 
 	
+	private void raiseCustomerCreate(Customer c) {
+		
+		CustomerCreateEvent ce = new CustomerCreateEvent();
+		CustomerCreateEventPayload event = new CustomerCreateEventPayload();
+		event.setCustomer(c);
+		ce.setEvent(event);
+		customerApiRouteBuilder.publishEvent( ce, c.getId() );
+		
+	}
+	
+	
+	private void raiseCustomerChanged(Customer c) {
+		
+		CustomerAttributeValueChangeEvent ce = new CustomerAttributeValueChangeEvent();
+		CustomerAttributeValueChangeEventPayload event = new CustomerAttributeValueChangeEventPayload();
+		event.setCustomer(c);
+		ce.setEvent(event);
+		customerApiRouteBuilder.publishEvent( ce, c.getId() );
+		
+	}
 
 }

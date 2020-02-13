@@ -20,6 +20,7 @@
 package io.openslice.tmf.cm629.model;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Objects;
 
 import javax.validation.Valid;
@@ -48,8 +49,7 @@ public class CustomerCreateEvent   {
   @JsonProperty("eventId")
   private String eventId = null;
 
-  @JsonProperty("eventTime")
-  private OffsetDateTime eventTime = null;
+  protected OffsetDateTime eventTime =  OffsetDateTime.now(ZoneOffset.UTC);
 
   @JsonProperty("eventType")
   private String eventType = null;
@@ -147,6 +147,12 @@ public class CustomerCreateEvent   {
   @ApiModelProperty(value = "Time of the event occurrence.")
 
   @Valid
+  
+  @JsonProperty("eventTime")
+	public String getEventTimeString() {
+		return eventTime.toString();
+	}
+	
 
   public OffsetDateTime getEventTime() {
     return eventTime;
@@ -155,6 +161,8 @@ public class CustomerCreateEvent   {
   public void setEventTime(OffsetDateTime eventTime) {
     this.eventTime = eventTime;
   }
+  
+  
 
   public CustomerCreateEvent eventType(String eventType) {
     this.eventType = eventType;

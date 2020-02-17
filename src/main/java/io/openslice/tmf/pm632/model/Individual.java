@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -31,6 +34,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,8 +45,9 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Individual represents a single human being (a man, woman or child). The individual can be a customer, an employee or any other person that the organization needs to store information about.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
-
-public class Individual   {
+@Entity
+@Table( indexes = {@Index(name = "IX_FAMILYNAME", columnList = "familyName")} )
+public class Individual extends BaseRootEntity  {
   @JsonProperty("id")
   private String id = null;
 

@@ -23,12 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -39,13 +41,9 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Generic Party structure used to define commonalities between sub concepts of Individual and Organization.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
-
-public class Party   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
+@Entity
+public class Party extends BaseRootEntity   {
+  
 
   @JsonProperty("contactMedium")
   @Valid
@@ -71,19 +69,6 @@ public class Party   {
   @Valid
   private List<TaxExemptionCertificate> taxExemptionCertificate = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  public Party id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique identifier of the organization
@@ -91,34 +76,11 @@ public class Party   {
   **/
   @ApiModelProperty(value = "Unique identifier of the organization")
 
-
+  @JsonProperty("id")
   public String getId() {
-    return id;
+    return this.uuid;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Party href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Hyperlink to access the organization
-   * @return href
-  **/
-  @ApiModelProperty(value = "Hyperlink to access the organization")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
 
   public Party contactMedium(List<ContactMedium> contactMedium) {
     this.contactMedium = contactMedium;
@@ -294,65 +256,7 @@ public class Party   {
     this.taxExemptionCertificate = taxExemptionCertificate;
   }
 
-  public Party baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
 
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public Party schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public Party type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
 
   @Override
@@ -364,7 +268,7 @@ public class Party   {
       return false;
     }
     Party party = (Party) o;
-    return Objects.equals(this.id, party.id) &&
+    return Objects.equals(this.uuid, party.uuid) &&
         Objects.equals(this.href, party.href) &&
         Objects.equals(this.contactMedium, party.contactMedium) &&
         Objects.equals(this.creditRating, party.creditRating) &&
@@ -377,17 +281,17 @@ public class Party   {
         Objects.equals(this.type, party.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, contactMedium, creditRating, externalReference, partyCharacteristic, relatedParty, taxExemptionCertificate, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, contactMedium, creditRating, externalReference, partyCharacteristic, relatedParty, taxExemptionCertificate, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Party {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    id: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    contactMedium: ").append(toIndentedString(contactMedium)).append("\n");
     sb.append("    creditRating: ").append(toIndentedString(creditRating)).append("\n");

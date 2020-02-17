@@ -43,76 +43,76 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class OrganizationUpdate   {
   @JsonProperty("isHeadOffice")
-  private Boolean isHeadOffice = null;
+  protected Boolean isHeadOffice = null;
 
   @JsonProperty("isLegalEntity")
-  private Boolean isLegalEntity = null;
+  protected Boolean isLegalEntity = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("nameType")
-  private String nameType = null;
+  protected String nameType = null;
 
   @JsonProperty("organizationType")
-  private String organizationType = null;
+  protected String organizationType = null;
 
   @JsonProperty("tradingName")
-  private String tradingName = null;
+  protected String tradingName = null;
 
   @JsonProperty("contactMedium")
   @Valid
-  private List<ContactMedium> contactMedium = null;
+  protected List<ContactMedium> contactMedium = null;
 
   @JsonProperty("creditRating")
   @Valid
-  private List<PartyCreditProfile> creditRating = null;
+  protected List<PartyCreditProfile> creditRating = null;
 
   @JsonProperty("existsDuring")
-  private TimePeriod existsDuring = null;
+  protected TimePeriod existsDuring = null;
 
   @JsonProperty("externalReference")
   @Valid
-  private List<ExternalReference> externalReference = null;
+  protected List<ExternalReference> externalReference = null;
 
   @JsonProperty("organizationChildRelationship")
   @Valid
-  private List<OrganizationChildRelationship> organizationChildRelationship = null;
+  protected List<OrganizationChildRelationship> organizationChildRelationship = null;
 
   @JsonProperty("organizationIdentification")
   @Valid
-  private List<OrganizationIdentification> organizationIdentification = null;
+  protected List<OrganizationIdentification> organizationIdentification = null;
 
   @JsonProperty("organizationParentRelationship")
-  private OrganizationParentRelationship organizationParentRelationship = null;
+  protected OrganizationParentRelationship organizationParentRelationship = null;
 
   @JsonProperty("otherName")
   @Valid
-  private List<OtherNameOrganization> otherName = null;
+  protected List<OtherNameOrganization> otherName = null;
 
   @JsonProperty("partyCharacteristic")
   @Valid
-  private List<Characteristic> partyCharacteristic = null;
+  protected List<Characteristic> partyCharacteristic = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   @JsonProperty("status")
-  private OrganizationStateType status = null;
+  protected OrganizationStateType status = null;
 
   @JsonProperty("taxExemptionCertificate")
   @Valid
-  private List<TaxExemptionCertificate> taxExemptionCertificate = null;
+  protected List<TaxExemptionCertificate> taxExemptionCertificate = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   public OrganizationUpdate isHeadOffice(Boolean isHeadOffice) {
     this.isHeadOffice = isHeadOffice;

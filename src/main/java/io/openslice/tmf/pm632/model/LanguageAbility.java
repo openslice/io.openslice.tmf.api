@@ -21,12 +21,14 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,8 +39,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Ability of an individual to understand or converse in a language.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
-
-public class LanguageAbility   {
+@Entity
+public class LanguageAbility  extends BaseRootEntity {
   @JsonProperty("isFavouriteLanguage")
   private Boolean isFavouriteLanguage = null;
 
@@ -63,14 +65,6 @@ public class LanguageAbility   {
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public LanguageAbility isFavouriteLanguage(Boolean isFavouriteLanguage) {
     this.isFavouriteLanguage = isFavouriteLanguage;
@@ -233,65 +227,7 @@ public class LanguageAbility   {
     this.validFor = validFor;
   }
 
-  public LanguageAbility baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public LanguageAbility schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public LanguageAbility type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
+ 
 
 
   @Override
@@ -316,10 +252,10 @@ public class LanguageAbility   {
         Objects.equals(this.type, languageAbility.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(isFavouriteLanguage, languageCode, languageName, listeningProficiency, readingProficiency, speakingProficiency, writingProficiency, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(isFavouriteLanguage, languageCode, languageName, listeningProficiency, readingProficiency, speakingProficiency, writingProficiency, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

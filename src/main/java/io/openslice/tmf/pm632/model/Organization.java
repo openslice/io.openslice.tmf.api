@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -30,6 +31,8 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
@@ -41,8 +44,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
-
-public class Organization   {
+@Entity
+public class Organization extends BaseRootNamedEntity   {
   @JsonProperty("id")
   private String id = null;
 
@@ -55,8 +58,6 @@ public class Organization   {
   @JsonProperty("isLegalEntity")
   private Boolean isLegalEntity = null;
 
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("nameType")
   private String nameType = null;
@@ -112,14 +113,6 @@ public class Organization   {
   @Valid
   private List<TaxExemptionCertificate> taxExemptionCertificate = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public Organization id(String id) {
     this.id = id;
@@ -202,25 +195,6 @@ public class Organization   {
     this.isLegalEntity = isLegalEntity;
   }
 
-  public Organization name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Organization name (department name for example)
-   * @return name
-  **/
-  @ApiModelProperty(value = "Organization name (department name for example)")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public Organization nameType(String nameType) {
     this.nameType = nameType;
@@ -604,66 +578,6 @@ public class Organization   {
 
   public void setTaxExemptionCertificate(List<TaxExemptionCertificate> taxExemptionCertificate) {
     this.taxExemptionCertificate = taxExemptionCertificate;
-  }
-
-  public Organization baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public Organization schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public Organization type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
 

@@ -19,9 +19,7 @@
  */
 package io.openslice.tmf.cm629.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -40,9 +38,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.openslice.tmf.am651.model.AgreementRef;
 import io.openslice.tmf.am666.model.AccountRef;
 import io.openslice.tmf.am666.model.PaymentMethodRef;
-import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.pm632.model.Characteristic;
+import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModelProperty;
 

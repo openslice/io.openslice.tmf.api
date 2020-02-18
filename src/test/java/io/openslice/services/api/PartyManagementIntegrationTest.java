@@ -59,7 +59,7 @@ public class PartyManagementIntegrationTest {
 	public void addIndividual() throws Exception {
 		
 		IndividualCreate ic = new IndividualCreate();		
-		ic.setFullName("A Customer");
+		ic.setFamilyName("A Customer");
 	
 		List<ContactMedium> contactMediums = new ArrayList<>();
 		ContactMedium cm = new ContactMedium();
@@ -78,7 +78,7 @@ public class PartyManagementIntegrationTest {
 				.content( toJson( ic ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			    .andExpect(jsonPath("name", is("A Customer")))								 
+			    .andExpect(jsonPath("familyName", is("A Customer")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		

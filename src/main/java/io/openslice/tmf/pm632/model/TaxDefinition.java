@@ -21,10 +21,14 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -35,32 +39,17 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
-public class TaxDefinition   {
-  @JsonProperty("id")
-  private String id = null;
+@Entity
+public class TaxDefinition  extends BaseRootNamedEntity { 
 
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("taxType")
   private String taxType = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   @JsonProperty("@referredType")
   private String referredType = null;
 
-  public TaxDefinition id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique identifier of the tax.
@@ -69,33 +58,12 @@ public class TaxDefinition   {
   @ApiModelProperty(value = "Unique identifier of the tax.")
 
 
+  @JsonProperty("id")
   public String getId() {
-    return id;
+    return uuid;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
 
-  public TaxDefinition name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Tax name.
-   * @return name
-  **/
-  @ApiModelProperty(value = "Tax name.")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public TaxDefinition taxType(String taxType) {
     this.taxType = taxType;
@@ -117,65 +85,6 @@ public class TaxDefinition   {
     this.taxType = taxType;
   }
 
-  public TaxDefinition baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public TaxDefinition schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public TaxDefinition type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
   public TaxDefinition referredType(String referredType) {
     this.referredType = referredType;
@@ -207,7 +116,7 @@ public class TaxDefinition   {
       return false;
     }
     TaxDefinition taxDefinition = (TaxDefinition) o;
-    return Objects.equals(this.id, taxDefinition.id) &&
+    return Objects.equals(this.uuid, taxDefinition.uuid) &&
         Objects.equals(this.name, taxDefinition.name) &&
         Objects.equals(this.taxType, taxDefinition.taxType) &&
         Objects.equals(this.baseType, taxDefinition.baseType) &&
@@ -216,17 +125,17 @@ public class TaxDefinition   {
         Objects.equals(this.referredType, taxDefinition.referredType);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, taxType, baseType, schemaLocation, type, referredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, name, taxType, baseType, schemaLocation, type, referredType);
+//  }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TaxDefinition {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    id: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    taxType: ").append(toIndentedString(taxType)).append("\n");
     sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");

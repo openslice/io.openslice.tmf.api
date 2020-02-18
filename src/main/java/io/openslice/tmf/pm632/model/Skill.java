@@ -21,12 +21,14 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,7 +40,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
-public class Skill   {
+@Entity
+public class Skill extends BaseRootEntity  {
   @JsonProperty("comment")
   private String comment = null;
 
@@ -54,14 +57,6 @@ public class Skill   {
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public Skill comment(String comment) {
     this.comment = comment;
@@ -164,66 +159,6 @@ public class Skill   {
     this.validFor = validFor;
   }
 
-  public Skill baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public Skill schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public Skill type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -244,10 +179,10 @@ public class Skill   {
         Objects.equals(this.type, skill.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(comment, evaluatedLevel, skillCode, skillName, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(comment, evaluatedLevel, skillCode, skillName, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

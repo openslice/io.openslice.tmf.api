@@ -23,6 +23,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -191,7 +192,10 @@ public class IndividualUpdate {
 
 	@JsonProperty("birthDate")
 	public String getBirthDateString() {
-		return birthDate.toString();
+		if ( birthDate == null ) {
+			return null;
+		}
+		return  birthDate.toString();
 	}
 
 	public OffsetDateTime getBirthDate() {
@@ -238,6 +242,9 @@ public class IndividualUpdate {
 
 	@JsonProperty("deathDate")
 	public String getDeathDateString() {
+		if ( deathDate == null ) {
+			return null;
+		}
 		return deathDate.toString();
 	}
 

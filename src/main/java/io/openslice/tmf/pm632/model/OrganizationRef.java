@@ -21,12 +21,14 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -35,32 +37,13 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
-public class OrganizationRef   {
-  @JsonProperty("id")
-  private String id = null;
+@Entity
+public class OrganizationRef  extends BaseRootNamedEntity {
 
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   @JsonProperty("@referredType")
   private String referredType = null;
 
-  public OrganizationRef id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique identifier of a related entity.
@@ -70,112 +53,9 @@ public class OrganizationRef   {
   @NotNull
 
 
+  @JsonProperty("id")
   public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public OrganizationRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the related entity.
-   * @return href
-  **/
-  @ApiModelProperty(value = "Reference of the related entity.")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public OrganizationRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the related entity.
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the related entity.")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public OrganizationRef baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public OrganizationRef schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public OrganizationRef type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
+    return uuid;
   }
 
   public OrganizationRef referredType(String referredType) {
@@ -208,7 +88,7 @@ public class OrganizationRef   {
       return false;
     }
     OrganizationRef organizationRef = (OrganizationRef) o;
-    return Objects.equals(this.id, organizationRef.id) &&
+    return Objects.equals(this.uuid, organizationRef.uuid) &&
         Objects.equals(this.href, organizationRef.href) &&
         Objects.equals(this.name, organizationRef.name) &&
         Objects.equals(this.baseType, organizationRef.baseType) &&
@@ -219,7 +99,7 @@ public class OrganizationRef   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
+    return Objects.hash( uuid, href, name, baseType, schemaLocation, type, referredType);
   }
 
   @Override
@@ -227,7 +107,7 @@ public class OrganizationRef   {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationRef {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    id: ").append(toIndentedString(uuid)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");

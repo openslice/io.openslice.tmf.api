@@ -30,12 +30,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
-import io.openslice.tmf.cm629.model.ContactMedium;
 import io.openslice.tmf.cm629.model.Customer;
 import io.openslice.tmf.cm629.model.CustomerCreate;
 import io.openslice.tmf.cm629.model.CustomerUpdate;
-import io.openslice.tmf.cm629.model.MediumCharacteristic;
 import io.openslice.tmf.cm629.service.CustomerRepoService;
+import io.openslice.tmf.pm632.model.ContactMedium;
+import io.openslice.tmf.pm632.model.MediumCharacteristic;
 import io.openslice.tmf.prm669.model.RelatedParty;
 
 @RunWith(SpringRunner.class)

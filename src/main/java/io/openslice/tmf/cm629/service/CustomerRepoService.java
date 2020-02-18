@@ -31,7 +31,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.cm629.api.CustomerApiRouteBuilder;
-import io.openslice.tmf.cm629.model.ContactMedium;
 import io.openslice.tmf.cm629.model.Customer;
 import io.openslice.tmf.cm629.model.CustomerAttributeValueChangeEvent;
 import io.openslice.tmf.cm629.model.CustomerAttributeValueChangeEventPayload;
@@ -40,8 +39,8 @@ import io.openslice.tmf.cm629.model.CustomerCreateEvent;
 import io.openslice.tmf.cm629.model.CustomerCreateEventPayload;
 import io.openslice.tmf.cm629.model.CustomerUpdate;
 import io.openslice.tmf.cm629.repo.CustomerRepository;
+import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 @Service

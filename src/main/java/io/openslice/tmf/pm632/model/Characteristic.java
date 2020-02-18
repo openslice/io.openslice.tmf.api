@@ -2,7 +2,7 @@
  * ========================LICENSE_START=================================
  * io.openslice.tmf.api
  * %%
- * Copyright (C) 2019 openslice.io
+ * Copyright (C) 2019 - 2020 openslice.io
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +30,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -37,11 +39,9 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
-
-public class Characteristic   {
-  @JsonProperty("name")
-  private String name = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@Entity(name = "PM632_Characteristic")
+public class Characteristic extends BaseRootNamedEntity{
 
   @JsonProperty("valueType")
   private String valueType = null;
@@ -49,35 +49,13 @@ public class Characteristic   {
   @JsonProperty("value")
   private Any value = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public Characteristic name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
-   * Name of the characteristic
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "Name of the characteristic")
-  @NotNull
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+  
 
   public Characteristic valueType(String valueType) {
     this.valueType = valueType;
@@ -121,65 +99,7 @@ public class Characteristic   {
     this.value = value;
   }
 
-  public Characteristic baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public Characteristic schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public Characteristic type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
+  
 
 
   @Override
@@ -199,10 +119,6 @@ public class Characteristic   {
         Objects.equals(this.type, characteristic.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, valueType, value, baseType, schemaLocation, type);
-  }
 
   @Override
   public String toString() {

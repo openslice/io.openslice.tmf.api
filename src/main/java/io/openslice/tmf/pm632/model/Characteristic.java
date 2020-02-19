@@ -35,115 +35,116 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Describes a given characteristic of an object or entity through a name/value pair.
+ * Describes a given characteristic of an object or entity through a name/value
+ * pair.
  */
 @ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 @Entity(name = "PM632_Characteristic")
-public class Characteristic extends BaseRootNamedEntity{
+public class Characteristic extends BaseRootNamedEntity {
 
-  @JsonProperty("valueType")
-  private String valueType = null;
+	@JsonProperty("valueType")
+	private String valueType = null;
 
-  @JsonProperty("value")
-  private Any value = null;
+	@JsonProperty("value")
+	private Any value = null;
 
+	public Characteristic name(String name) {
+		this.name = name;
+		return this;
+	}
 
-  public Characteristic name(String name) {
-    this.name = name;
-    return this;
-  }
+	public Characteristic valueType(String valueType) {
+		this.valueType = valueType;
+		return this;
+	}
 
-  
+	/**
+	 * Data type of the value of the characteristic
+	 * 
+	 * @return valueType
+	 **/
+	@ApiModelProperty(value = "Data type of the value of the characteristic")
 
-  public Characteristic valueType(String valueType) {
-    this.valueType = valueType;
-    return this;
-  }
+	public String getValueType() {
+		return valueType;
+	}
 
-  /**
-   * Data type of the value of the characteristic
-   * @return valueType
-  **/
-  @ApiModelProperty(value = "Data type of the value of the characteristic")
+	public void setValueType(String valueType) {
+		this.valueType = valueType;
+	}
 
+	public Characteristic value(Any value) {
+		this.value = value;
+		return this;
+	}
 
-  public String getValueType() {
-    return valueType;
-  }
+	/**
+	 * The value of the characteristic
+	 * 
+	 * @return value
+	 **/
+	@ApiModelProperty(required = true, value = "The value of the characteristic")
+	@NotNull
 
-  public void setValueType(String valueType) {
-    this.valueType = valueType;
-  }
+	@Valid
 
-  public Characteristic value(Any value) {
-    this.value = value;
-    return this;
-  }
+	public Any getValue() {
+		return value;
+	}
 
-  /**
-   * The value of the characteristic
-   * @return value
-  **/
-  @ApiModelProperty(required = true, value = "The value of the characteristic")
-  @NotNull
+	public void setValue(Any value) {
+		this.value = value;
+	}
 
-  @Valid
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Characteristic characteristic = (Characteristic) o;
+		return Objects.equals(this.name, characteristic.name)
+				&& Objects.equals(this.valueType, characteristic.valueType)
+				&& Objects.equals(this.value, characteristic.value)
+				&& Objects.equals(this.baseType, characteristic.baseType)
+				&& Objects.equals(this.schemaLocation, characteristic.schemaLocation)
+				&& Objects.equals(this.type, characteristic.type);
+	}
 
-  public Any getValue() {
-    return value;
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class Characteristic {\n");
 
-  public void setValue(Any value) {
-    this.value = value;
-  }
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
+		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Characteristic characteristic = (Characteristic) o;
-    return Objects.equals(this.name, characteristic.name) &&
-        Objects.equals(this.valueType, characteristic.valueType) &&
-        Objects.equals(this.value, characteristic.value) &&
-        Objects.equals(this.baseType, characteristic.baseType) &&
-        Objects.equals(this.schemaLocation, characteristic.schemaLocation) &&
-        Objects.equals(this.type, characteristic.type);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Characteristic {\n");
-    
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
-    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void updateWith(Characteristic cmUpd) {
+			this.setName( cmUpd.getName());
+			this.setValue(new Any( cmUpd.getValue().getValue(), cmUpd.getValue().getAlias()));
+			this.setValueType(cmUpd.getValueType());
+			
+	}
 }
-

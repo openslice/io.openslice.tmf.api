@@ -29,7 +29,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -53,7 +52,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 public class Organization extends BaseRootNamedEntity {
 
-
+	@JsonProperty("id")
+	private String id = null;
 
 	@JsonProperty("isHeadOffice")
 	private Boolean isHeadOffice = null;
@@ -100,7 +100,7 @@ public class Organization extends BaseRootNamedEntity {
 
 	@JsonProperty("organizationParentRelationship")
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "organization_parentrel_refid", referencedColumnName = "uuid")
+	@JoinColumn(name = "organization_parentrel_refid", referencedColumnName = "uuid")
 	private OrganizationParentRelationship organizationParentRelationship = null;
 
 	@JsonProperty("otherName")
@@ -126,20 +126,16 @@ public class Organization extends BaseRootNamedEntity {
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private Set<TaxExemptionCertificate> taxExemptionCertificate = new HashSet<>();
 
-
 	/**
 	 * Unique identifier of the organization
 	 * 
 	 * @return id
 	 **/
 	@ApiModelProperty(required = true, value = "Unique identifier of the organization")
-	@NotNull
-
-	@JsonProperty("id")
+	
 	public String getId() {
 		return uuid;
 	}
-
 
 	public Organization isHeadOffice(Boolean isHeadOffice) {
 		this.isHeadOffice = isHeadOffice;

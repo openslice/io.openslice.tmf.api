@@ -56,7 +56,9 @@ import io.swagger.annotations.ApiModelProperty;
 public class Individual extends BaseRootEntity {
 
 
-
+	@JsonProperty("id")
+	private String id = null;
+	
 	@JsonProperty("aristocraticTitle")
 	private String aristocraticTitle = null;
 
@@ -186,9 +188,7 @@ public class Individual extends BaseRootEntity {
 	 * @return id
 	 **/
 	@ApiModelProperty(required = true, value = "Unique identifier of the organization")
-	@NotNull
-
-	@JsonProperty("id")
+	
 	public String getId() {
 		return uuid;
 	}

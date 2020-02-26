@@ -60,10 +60,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.model.Quantity;
-import io.openslice.tmf.rcm634.model.AttachmentRef;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
@@ -87,11 +87,6 @@ import io.openslice.tmf.rcm634.reposervices.ResourceCandidateRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
-import io.openslice.tmf.scm633.model.ServiceCatalog;
-import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;
-import io.openslice.tmf.scm633.model.ServiceCategory;
-import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
-import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import net.minidev.json.JSONObject;
 
 

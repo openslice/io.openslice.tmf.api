@@ -17,7 +17,7 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-package io.openslice.tmf.rcm634.model;
+package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
@@ -268,10 +268,10 @@ public class AttachmentRef {
 				&& Objects.equals(this.referredType, attachmentRef.referredType);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, href, description, url, baseType, schemaLocation, type, referredType);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, description, url, baseType, schemaLocation, type, referredType);
+//	}
 
 	@Override
 	public String toString() {

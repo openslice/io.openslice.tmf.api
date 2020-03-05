@@ -22,6 +22,7 @@ package io.openslice.tmf.pm632.repo;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -38,5 +39,8 @@ public interface OrganizationRepository extends PagingAndSortingRepository<Organ
 	Iterable<Organization> findByName( String name);
 	
 	List<Organization> findByOrderByName();
+
+	@Query("SELECT o FROM Organization o JOIN FETCH o.partyCharacteristic char WHERE char.name LIKE 'EXTERNAL_TMFAPI'")
+	List<Organization> findPartnersOfferingEXTERNAL_TMFAPI();
 
 }

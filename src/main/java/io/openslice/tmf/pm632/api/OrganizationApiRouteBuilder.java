@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
 import io.openslice.tmf.pm632.model.OrganizationAttributeValueChangeEvent;
 import io.openslice.tmf.pm632.model.OrganizationCreateEvent;
+import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
 
 @Configuration
 @Component
@@ -33,9 +36,14 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 	@Value("${EVENT_ORGANIZATION_CHANGED}")
 	private String EVENT_ORGANIZATION_CHANGED = "";
 
+	@Value("${CATALOG_GET_EXTERNAL_SERVICE_PARTNERS}")
+	private String CATALOG_GET_EXTERNAL_SERVICE_PARTNERS = "";
+	
 	@Autowired
 	private ProducerTemplate template;
 
+    @Autowired
+	OrganizationRepoService organizationRepoService;
 
 	@Value("${spring.application.name}")
 	private String compname;
@@ -43,6 +51,12 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 
+		from( CATALOG_GET_EXTERNAL_SERVICE_PARTNERS )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_EXTERNAL_SERVICE_PARTNERS + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( organizationRepoService, "getPartnerOrganizationsWithAPI")
+		.marshal().json( JsonLibrary.Jackson, String.class)
+		.convertBodyTo( String.class );
 	}
 
 	/**

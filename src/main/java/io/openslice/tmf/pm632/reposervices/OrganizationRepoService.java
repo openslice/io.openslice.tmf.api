@@ -173,5 +173,9 @@ public class OrganizationRepoService {
 		organizationApiRouteBuilder.publishEvent( ce, c.getId() );
 		
 	}
+	
+	public List<Organization> getPartnerOrganizationsWithAPI() {
+		return organizationRepository.findPartnersOfferingEXTERNAL_TMFAPI();
+	}
 
 }

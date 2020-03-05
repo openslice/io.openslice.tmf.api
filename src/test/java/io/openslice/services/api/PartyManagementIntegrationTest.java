@@ -8,7 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -113,8 +115,32 @@ public class PartyManagementIntegrationTest {
 		cm.setCharacteristic(medChar);
 		oc.setContactMedium(contactMediums );
 		Characteristic partyCharacteristicItem = new Characteristic();
-		partyCharacteristicItem.setName("API");
-		partyCharacteristicItem.setValue( new Any("apiendpoint"));
+		
+		
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI");
+		Any value = new Any();
+		
+		Map<String, Object> apiparams = new HashMap<>();
+		String[] scopes = {"admin" , "read"};
+		
+
+		apiparams.put( "CLIENTREGISTRATIONID", "authOpensliceProvider");
+		apiparams.put( "OAUTH2CLIENTID", "osapiWebClientId");
+		apiparams.put( "OAUTH2CLIENTSECRET", "secret");
+		apiparams.put( "OAUTH2SCOPES", scopes);
+		apiparams.put( "OAUTH2TOKENURI", "http://portal.openslice.io/osapi-oauth-server/oauth/token");
+		apiparams.put( "USERNAME", "admin");
+		apiparams.put( "PASSWORD", "openslice");
+		apiparams.put( "BASEURL", "http://portal.openslice.io");
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		String strinparams = mapper.writeValueAsString( apiparams );
+		value.setValue( strinparams );
+		
+		partyCharacteristicItem.setValue( value );
+		
+		
 		oc.addPartyCharacteristicItem(partyCharacteristicItem );
 		partyCharacteristicItem = new Characteristic();
 		partyCharacteristicItem.setName("API2");
@@ -137,6 +163,11 @@ public class PartyManagementIntegrationTest {
 		Organization responseOrg = toJsonObj(response,  Organization.class);
 		assertThat( responseOrg.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()).isEqualTo("test@openslice.io"); 
 		assertThat( responseOrg.getPartyCharacteristic().size()).isEqualTo(2);
+		
+		
+
+		assertThat( organizationRepoService.getPartnerOrganizationsWithAPI().size() ).isEqualTo( 1 );
+		assertThat( organizationRepoService.getPartnerOrganizationsWithAPI().get(0).getPartyCharacteristic().size() ).isEqualTo( 2 );
 	}
 	
 	 static byte[] toJson(Object object) throws IOException {

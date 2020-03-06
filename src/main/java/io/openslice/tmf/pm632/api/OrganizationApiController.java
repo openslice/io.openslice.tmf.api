@@ -80,23 +80,23 @@ public class OrganizationApiController implements OrganizationApi {
 		
 
 		try {
-			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-			SecurityContextHolder.setContext( (SecurityContext) attr );  
-			
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			log.info("authentication=  " + authentication.toString());
-						
-			log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
-			log.info("principal ROLE_VXF_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_VXF_DEVELOPER.getValue() ) ));
-			log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
-			
-			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
-
-				return new ResponseEntity<List<Organization>>(organizationRepoService.findAll(), HttpStatus.OK);				
-			}else {
-				return new ResponseEntity<List<Organization>>(HttpStatus.FORBIDDEN );
-			}
-			
+//			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+//			SecurityContextHolder.setContext( (SecurityContext) attr );  
+//			
+//			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//			log.info("authentication=  " + authentication.toString());
+//						
+//			log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
+//			log.info("principal ROLE_VXF_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_VXF_DEVELOPER.getValue() ) ));
+//			log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
+//			
+//			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
+//
+//				return new ResponseEntity<List<Organization>>(organizationRepoService.findAll(), HttpStatus.OK);				
+//			}else {
+//				return new ResponseEntity<List<Organization>>(HttpStatus.FORBIDDEN );
+//			}
+			return new ResponseEntity<List<Organization>>(organizationRepoService.findAll(), HttpStatus.OK);		
 
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
@@ -109,23 +109,25 @@ public class OrganizationApiController implements OrganizationApi {
 
 
 			try {
-				Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-				SecurityContextHolder.setContext( (SecurityContext) attr );  
-				
-				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				log.info("authentication=  " + authentication.toString());
-							
-				log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
-				log.info("principal ROLE_VXF_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_VXF_DEVELOPER.getValue() ) ));
-				log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
-				
-				if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
+//				Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+//				SecurityContextHolder.setContext( (SecurityContext) attr );  
+//				
+//				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//				log.info("authentication=  " + authentication.toString());
+//							
+//				log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
+//				log.info("principal ROLE_VXF_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_VXF_DEVELOPER.getValue() ) ));
+//				log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
+//				
+//				if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
+//
+//					return new ResponseEntity< Organization >(organizationRepoService.findById(id) , HttpStatus.OK);				
+//				}else {
+//					return new ResponseEntity< Organization >(HttpStatus.FORBIDDEN );
+//				}
+//				
 
-					return new ResponseEntity< Organization >(organizationRepoService.findById(id) , HttpStatus.OK);				
-				}else {
-					return new ResponseEntity< Organization >(HttpStatus.FORBIDDEN );
-				}
-				
+				return new ResponseEntity< Organization >(organizationRepoService.findById(id) , HttpStatus.OK);		
 
 			} catch (Exception e) {
 				log.error("Couldn't serialize response for content type application/json", e);

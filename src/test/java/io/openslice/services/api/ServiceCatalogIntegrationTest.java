@@ -37,6 +37,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+
+import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -69,6 +72,9 @@ import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.model.Quantity;
+import io.openslice.tmf.pm632.model.Organization;
+import io.openslice.tmf.pm632.model.OrganizationCreate;
+import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
@@ -132,6 +138,10 @@ public class ServiceCatalogIntegrationTest {
     @Autowired
     private BootstrapRepository bootstrapRepository;
     
+
+	@Autowired
+	OrganizationRepoService organizationRepoService;
+	
 	@Before
     public void setup() {
         mvc = MockMvcBuilders
@@ -1124,6 +1134,61 @@ public class ServiceCatalogIntegrationTest {
 		this.specRepoService.deleteByUuid( responsesSpec1.getId() );
 		
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS  );
+		
+	}
+	
+	@Test
+	public void testExternhalSpecUpdate() throws Exception {
+		
+		/**
+		 * first add 1 specs
+		 */
+
+		File sspec = new File( "src/test/resources/testServiceSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+
+		
+		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		sspeccr1.setName("Spec1");
+		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);		
+
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
+		assertThat( responsesSpec1.getServiceSpecCharacteristic()).hasSize(1) ;
+		
+		/**
+		 * we use responsesSpec1 as base to add another ServiceSpecification example from an external partner 
+		 */
+		String externaluuid = UUID.randomUUID().toString();
+		responsesSpec1.setUuid( externaluuid ); //change this as external
+		responsesSpec1.getRelatedParty().clear();//clear all related parties if any
+		
+		/**
+		 * add to the spec, an organization as related party
+		 */
+		
+
+		@Valid
+		OrganizationCreate organizationCreate = new OrganizationCreate();
+		organizationCreate.setName("ANORGZ");
+		Organization o = organizationRepoService.addOrganization(organizationCreate);
+
+		ServiceSpecification specupd = specRepoService.updateExternalServiceSpec(externaluuid, o.getId(), responsesSpec1);
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 2 );
+		assertThat( specupd.getRelatedParty()).hasSize(1);
+		assertThat( specupd.getServiceSpecCharacteristic()).hasSize(1) ;
+		
+		responsesSpec1.setName( responsesSpec1.getName() + "_NEWNAME");
+		
+		ServiceSpecCharacteristic serviceSpecCharacteristicItem =  new ServiceSpecCharacteristic();
+		serviceSpecCharacteristicItem.setName("A Second Attribute");
+		responsesSpec1.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );
+		specupd = specRepoService.updateExternalServiceSpec(externaluuid, o.getId(), responsesSpec1);
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 2 );
+		assertThat( specupd.getRelatedParty()).hasSize(1);
+		assertThat( specupd.getServiceSpecCharacteristic()).hasSize( 2 ) ;
+		assertThat( specupd.getName() ).isEqualTo( responsesSpec1.getName()  ) ;
+		
 		
 	}
 	

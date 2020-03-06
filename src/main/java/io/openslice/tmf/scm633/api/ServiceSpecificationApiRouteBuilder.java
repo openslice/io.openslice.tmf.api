@@ -36,9 +36,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.model.NetworkServiceDescriptor;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
 import io.openslice.tmf.so641.model.ServiceOrder;
+import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 
 @Configuration
 //@RefreshScope
@@ -53,6 +55,10 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 	@Value("${NFV_CATALOG_GET_NSD_BY_ID}")
 	private String NFV_CATALOG_GET_NSD_BY_ID = "";
 	
+	
+
+	@Value("${CATALOG_UPD_EXTERNAL_SERVICESPEC}")
+	private String CATALOG_UPD_EXTERNAL_SERVICESPEC = "";
 	
 	@Autowired
 	ServiceSpecificationRepoService serviceSpecificationRepoService;
@@ -69,6 +75,19 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 		.bean( serviceSpecificationRepoService, "findByUuidEager")
 		.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
+		
+		
+		
+		from( CATALOG_UPD_EXTERNAL_SERVICESPEC )
+		.log(LoggingLevel.INFO, log, CATALOG_UPD_EXTERNAL_SERVICESPEC + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal()
+		.json(JsonLibrary.Jackson, ServiceSpecification.class, true)		
+		.bean( serviceSpecificationRepoService, "updateExternalServiceSpec(${header.servicespecid}, ${header.orgid}, ${body})")
+		.marshal().json( JsonLibrary.Jackson, String.class)
+		.convertBodyTo( String.class );
+		
+		
 		
 	}
 

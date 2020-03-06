@@ -22,6 +22,7 @@ package io.openslice.tmf.scm633.repo;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,9 @@ public interface ServiceSpecificationRepository extends PagingAndSortingReposito
 	Optional<ServiceSpecification> findByNameAndVersion(String aname, String aversion);
 
 	List<ServiceSpecification> findByOrderByName();
+
+
+	@Query("SELECT spec FROM ServiceSpecification spec JOIN FETCH spec.relatedParty party WHERE party.extendedInfo=?1")
+	Optional<ServiceSpecification>  findExternalSpecByExternalId(String servicespecid);
 	
 }

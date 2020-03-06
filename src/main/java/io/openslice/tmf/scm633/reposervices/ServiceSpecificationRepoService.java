@@ -60,9 +60,12 @@ import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
+import io.openslice.tmf.pm632.model.Organization;
+import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
@@ -112,6 +115,11 @@ public class ServiceSpecificationRepoService {
 	@Autowired
 	ServiceSpecificationApiRouteBuilder serviceSpecificationApiRouteBuilder;
 
+
+	@Autowired
+	OrganizationRepoService organizationRepoService;
+	
+	
 	private SessionFactory sessionFactory;
 
 	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
@@ -1007,6 +1015,53 @@ public class ServiceSpecificationRepoService {
 		serviceSpecCharacteristicItem.addServiceSpecCharacteristicValueItem(serviceSpecCharacteristicValueItem );
 		serviceSpec.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );
 		
+	}
+	
+	
+	/**
+	 * @param servicespecid of ID of external service spec
+	 * @param orgid
+	 * @param spec
+	 * @return 
+	 */
+	public ServiceSpecification updateExternalServiceSpec(String servicespecid, 
+			String orgid, 
+			@Valid ServiceSpecification spec) {
+		 Optional<ServiceSpecification> resultq = this.serviceSpecificationRepo.findExternalSpecByExternalId( servicespecid );
+		 ServiceSpecification specToUpdate =  resultq.orElse(null);
+		 
+		 /**
+		  * we need to do a massage here before properly importing it
+		  */
+
+		 spec.getRelatedParty().clear();//clear all related parties if any
+		 spec.getAttachment().clear();
+		 spec.getResourceSpecification().clear();
+		 spec.getServiceLevelSpecification().clear();
+		 spec.getServiceSpecRelationship().clear();
+		 for (ServiceSpecCharacteristic schar : spec.getServiceSpecCharacteristic()) {
+			 schar.setUuid( null );//in case it exists
+		 }
+		 
+		 RelatedParty relatedPartyItem = new RelatedParty();		 
+		 Organization o =organizationRepoService.findById( orgid );		 
+		 relatedPartyItem.name( o.getName() );
+		 relatedPartyItem.setRole(UserPartRoleType.ORGANIZATION.getValue());
+		 /**
+		 * Note: the following Extended Info will be used to identify the Service Spec
+		 * in our local catalog
+		 */
+		 relatedPartyItem.setExtendedInfo( servicespecid );
+		 spec.addRelatedPartyItem(relatedPartyItem );
+		 
+		 if ( specToUpdate == null ) {
+			 return this.addServiceSpecification( spec );
+		 } else {
+			 spec.setUuid( specToUpdate.getId() );
+			 return this.updateServiceSpecification( spec );
+		 }
+		 
+		 
 	}
 
 }

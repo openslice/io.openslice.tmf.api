@@ -71,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers( "/serviceCatalogManagement/**").permitAll()
 		.antMatchers( "/resourceCatalogManagement/**").permitAll()
+		.antMatchers( "/party/**").permitAll()
 		.antMatchers( "/swagger*", "/v2/**").permitAll()
 		.antMatchers("/swagger/**").permitAll()
 		.antMatchers("/swagger-resources/**").permitAll()

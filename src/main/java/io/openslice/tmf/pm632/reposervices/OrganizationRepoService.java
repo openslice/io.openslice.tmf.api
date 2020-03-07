@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.pm632.reposervices;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.pm632.api.OrganizationApiRouteBuilder;
 import io.openslice.tmf.pm632.model.Characteristic;
@@ -173,9 +178,21 @@ public class OrganizationRepoService {
 		organizationApiRouteBuilder.publishEvent( ce, c.getId() );
 		
 	}
+
+	@Transactional
+	public String getPartnerOrganizationsWithAPI() {
+		List<Organization> orgz =organizationRepository.findPartnersOfferingEXTERNAL_TMFAPI();
 	
-	public List<Organization> getPartnerOrganizationsWithAPI() {
-		return organizationRepository.findPartnersOfferingEXTERNAL_TMFAPI();
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		try {
+			return mapper.writeValueAsString( orgz );
+		} catch (JsonProcessingException e) {			
+			e.printStackTrace();
+			
+		}
+		
+		return "[]";
 	}
 
 }

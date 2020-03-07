@@ -55,7 +55,7 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 		.log(LoggingLevel.INFO, log, CATALOG_GET_EXTERNAL_SERVICE_PARTNERS + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( organizationRepoService, "getPartnerOrganizationsWithAPI")
-		.marshal().json( JsonLibrary.Jackson, String.class)
+		//.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
 	}
 

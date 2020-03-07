@@ -136,6 +136,8 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(),
 						HttpStatus.OK);
 			} else {
+
+				
 				return new ResponseEntity<List<ServiceSpecification>>(
 						serviceSpecificationRepoService.findAll(fields, allParams), HttpStatus.OK);
 			}

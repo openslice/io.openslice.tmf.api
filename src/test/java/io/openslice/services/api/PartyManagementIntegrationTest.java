@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
@@ -165,10 +166,27 @@ public class PartyManagementIntegrationTest {
 		assertThat( responseOrg.getPartyCharacteristic().size()).isEqualTo(2);
 		
 		
+		String resp = organizationRepoService.getPartnerOrganizationsWithAPI();
 
-		assertThat( organizationRepoService.getPartnerOrganizationsWithAPI().size() ).isEqualTo( 1 );
-		assertThat( organizationRepoService.getPartnerOrganizationsWithAPI().get(0).getPartyCharacteristic().size() ).isEqualTo( 2 );
+		Class<List<Organization>> clazz = (Class) List.class;
+		List<Organization> orgz = mapJsonToObjectList( new Organization(), (String)response, Organization.class  ); 
+		
+		assertThat( orgz.size() ).isEqualTo( 1 );
+		assertThat( orgz.get(0).getPartyCharacteristic().size() ).isEqualTo( 2 );
 	}
+	
+	 protected static <T> List<T> mapJsonToObjectList(T typeDef,String json,Class clazz) throws Exception
+	   {
+	      List<T> list;
+	      ObjectMapper mapper = new ObjectMapper();
+	      System.out.println(json);
+	      TypeFactory t = TypeFactory.defaultInstance();
+	      list = mapper.readValue(json, t.constructCollectionType(ArrayList.class,clazz));
+
+//	      System.out.println(list);
+//	      System.out.println(list.get(0).getClass());
+	      return list;
+	   }
 	
 	 static byte[] toJson(Object object) throws IOException {
 	        ObjectMapper mapper = new ObjectMapper();

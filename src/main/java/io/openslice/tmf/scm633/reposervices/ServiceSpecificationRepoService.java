@@ -190,6 +190,8 @@ public class ServiceSpecificationRepoService {
 			q.setFirstResult(0);
 			q.setMaxResults(1000);
 			alist = q.getResultList();
+			
+			
 			return alist;
 		} finally {
 			tx.commit();
@@ -629,9 +631,13 @@ public class ServiceSpecificationRepoService {
 
 	public ServiceSpecification findByNameAndVersion(String aname, String aversion) {
 
-		Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByNameAndVersion(aname,
+		List<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByNameAndVersion(aname,
 				aversion);
-		return optionalCat.orElse(null);
+		if ( optionalCat !=null) {
+			return optionalCat.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	// @Transactional(propagation=Propagation.REQUIRED , readOnly=true,
@@ -1043,21 +1049,23 @@ public class ServiceSpecificationRepoService {
 			 schar.setUuid( null );//in case it exists
 		 }
 		 
-		 RelatedParty relatedPartyItem = new RelatedParty();		 
-		 Organization o =organizationRepoService.findById( orgid );		 
-		 relatedPartyItem.name( o.getName() );
-		 relatedPartyItem.setRole(UserPartRoleType.ORGANIZATION.getValue());
-		 /**
-		 * Note: the following Extended Info will be used to identify the Service Spec
-		 * in our local catalog
-		 */
-		 relatedPartyItem.setExtendedInfo( servicespecid );
-		 spec.addRelatedPartyItem(relatedPartyItem );
+		 
 		 
 		 if ( specToUpdate == null ) {
+			 RelatedParty relatedPartyItem = new RelatedParty();		 
+			 Organization o =organizationRepoService.findById( orgid );		 
+			 relatedPartyItem.name( o.getName() );
+			 relatedPartyItem.setRole(UserPartRoleType.ORGANIZATION.getValue());
+			 /**
+			 * Note: the following Extended Info will be used to identify the Service Spec
+			 * in our local catalog
+			 */
+			 relatedPartyItem.setExtendedInfo( servicespecid );
+			 spec.addRelatedPartyItem(relatedPartyItem );
 			 return this.addServiceSpecification( spec );
 		 } else {
 			 spec.setUuid( specToUpdate.getId() );
+			 spec.setRelatedParty( specToUpdate.getRelatedParty() );//remove it so not to update the related parties
 			 return this.updateServiceSpecification( spec );
 		 }
 		 

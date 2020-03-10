@@ -39,6 +39,12 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_EXTERNAL_SERVICE_PARTNERS}")
 	private String CATALOG_GET_EXTERNAL_SERVICE_PARTNERS = "";
 	
+
+	@Value("${CATALOG_GET_PARTNER_ORGANIZATON_BY_ID}")
+	private String CATALOG_GET_PARTNER_ORGANIZATON_BY_ID = "";
+	
+	
+	
 	@Autowired
 	private ProducerTemplate template;
 
@@ -56,6 +62,13 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( organizationRepoService, "getPartnerOrganizationsWithAPI")
 		//.marshal().json( JsonLibrary.Jackson, String.class)
+		.convertBodyTo( String.class );
+		
+		from( CATALOG_GET_PARTNER_ORGANIZATON_BY_ID )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_PARTNER_ORGANIZATON_BY_ID + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( organizationRepoService, "findByUuidEager")
+		.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
 	}
 

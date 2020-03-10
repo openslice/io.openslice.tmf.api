@@ -194,5 +194,21 @@ public class OrganizationRepoService {
 		
 		return "[]";
 	}
+	
+
+	@Transactional
+	private String findByUuidJson(String id) {
+		Organization o = this.findByUuid(id);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+		try {
+			return mapper.writeValueAsString( o );
+		} catch (JsonProcessingException e) {			
+			e.printStackTrace();
+			
+		}
+		
+		return "{}";
+	}
 
 }

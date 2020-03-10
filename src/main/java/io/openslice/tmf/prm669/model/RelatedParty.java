@@ -69,12 +69,7 @@ public class RelatedParty extends BaseRootNamedEntity{
 	@JsonProperty("extendedInfo")
 	private String extendedInfo = null;
 	
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return uuid;
-	}
+	
 	
 	public RelatedParty() {
 		super();
@@ -91,6 +86,20 @@ public class RelatedParty extends BaseRootNamedEntity{
 	public RelatedParty id(String id) {
 		this.id = id;
 		return this;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

@@ -67,7 +67,7 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 		from( CATALOG_GET_PARTNER_ORGANIZATON_BY_ID )
 		.log(LoggingLevel.INFO, log, CATALOG_GET_PARTNER_ORGANIZATON_BY_ID + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
-		.bean( organizationRepoService, "findByUuidEager")
+		.bean( organizationRepoService, "findByUuidJson")
 		.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
 	}

@@ -91,17 +91,20 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 					PortalUser user = serviceOrderApiRouteBuilder.retrievePortalUser( authentication.getName() );
 					if ( user!= null) {
 						extInfo = user.getEmail();	
-						log.info("extInfo=  " + extInfo);					
+						log.info("extInfo=  " + extInfo);	
+
+						serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
+								authentication.getName(), 
+								user.getId()+"", 
+								UserPartRoleType.REQUESTER,
+								extInfo,
+								serviceOrder.getRelatedParty()));
 					}
+					
 				}finally {
 					
 				}
 				
-				serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-						authentication.getName(), 
-						UserPartRoleType.REQUESTER,
-						extInfo,
-						serviceOrder.getRelatedParty()));
 
 				
 				

@@ -407,8 +407,7 @@ public class ServiceSpecificationRepoService {
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
 			for (RelatedParty rp : serviceSpecUpd.getRelatedParty()) {
-				// find attachmet by id and reload it here.
-				// we need the attachment model from resource spec models
+
 				boolean idexists = false;
 				for (RelatedParty originalRP : serviceSpec.getRelatedParty()) {
 					if (originalRP.getId().equals(rp.getId())) {
@@ -1053,7 +1052,8 @@ public class ServiceSpecificationRepoService {
 		 
 		 if ( specToUpdate == null ) {
 			 RelatedParty relatedPartyItem = new RelatedParty();		 
-			 Organization o =organizationRepoService.findById( orgid );		 
+			 Organization o =organizationRepoService.findById( orgid );		
+			 relatedPartyItem.setId( o.getId() ); 
 			 relatedPartyItem.name( o.getName() );
 			 relatedPartyItem.setRole(UserPartRoleType.ORGANIZATION.getValue());
 			 /**

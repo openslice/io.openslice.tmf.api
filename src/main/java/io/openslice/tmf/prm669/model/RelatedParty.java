@@ -81,6 +81,7 @@ public class RelatedParty extends BaseRootNamedEntity{
 		this.name = rp.getName();
 		this.role = rp.getRole();
 		this.referredType = rp.getReferredType();
+		this.id = rp.getId();
 	}
 	
 	public RelatedParty id(String id) {

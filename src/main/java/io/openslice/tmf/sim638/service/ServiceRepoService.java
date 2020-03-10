@@ -121,6 +121,7 @@ public class ServiceRepoService {
 			s.getPlace().addAll( service.getPlace() );
 		}
 		
+		Detached entity passed to persist: io.openslice.tmf.prm669.model.RelatedParty; nest		
 		if ( service.getRelatedParty()!=null ) {
 			s.getRelatedParty().addAll( service.getRelatedParty());
 		}

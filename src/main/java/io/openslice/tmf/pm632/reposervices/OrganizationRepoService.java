@@ -197,7 +197,7 @@ public class OrganizationRepoService {
 	
 
 	@Transactional
-	private String findByUuidJson(String id) {
+	public String findByUuidJson(String id) {
 		Organization o = this.findByUuid(id);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

@@ -488,6 +488,8 @@ public class ServiceOrderRepoService {
 			for (ServiceOrderItem soi : s.getOrderItem()) {
 				Hibernate.initialize( soi.getService().getSupportingService() );
 				Hibernate.initialize( soi.getService().getSupportingResource());
+				Hibernate.initialize( soi.getService().getServiceCharacteristic() );
+				Hibernate.initialize( soi.getService().getRelatedParty() );
 			}
 			
 			tx.commit();

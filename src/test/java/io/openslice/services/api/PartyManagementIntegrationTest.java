@@ -169,7 +169,7 @@ public class PartyManagementIntegrationTest {
 		String resp = organizationRepoService.getPartnerOrganizationsWithAPI();
 
 		Class<List<Organization>> clazz = (Class) List.class;
-		List<Organization> orgz = mapJsonToObjectList( new Organization(), (String)response, Organization.class  ); 
+		List<Organization> orgz = mapJsonToObjectList( new Organization(), (String)resp, Organization.class  ); 
 		
 		assertThat( orgz.size() ).isEqualTo( 1 );
 		assertThat( orgz.get(0).getPartyCharacteristic().size() ).isEqualTo( 2 );

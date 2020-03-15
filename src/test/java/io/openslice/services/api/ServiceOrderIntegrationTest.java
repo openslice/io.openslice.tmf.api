@@ -36,11 +36,16 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -59,6 +64,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.PortalUser;
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
@@ -87,7 +93,10 @@ import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 
 @RunWith(SpringRunner.class)
 @Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = OpenAPISpringBoot.class)
+@SpringBootTest(
+		webEnvironment = SpringBootTest.WebEnvironment.MOCK, 
+		classes = OpenAPISpringBoot.class
+		)
 //@AutoConfigureTestDatabase //this automatically uses h2
 @AutoConfigureMockMvc
 @ActiveProfiles("testing")
@@ -121,11 +130,24 @@ public class ServiceOrderIntegrationTest {
 
     @Autowired
     private FilterChainProxy springSecurityFilterChain;
+    
+    private class UserMocked {
+    	public String getUserByUsername( String username) {
+    		
+    		return "{\"id\":\"001\"}";
+    	}
+    }
+    
+    UserMocked userMocked = new UserMocked();
+    
+	@Autowired
+	private CamelContext camelContext;
 
 	@Before
-	public void setup() {
+	public void setup() throws Exception {
 		mvc = MockMvcBuilders.webAppContextSetup(context).
 				apply(springSecurity(springSecurityFilterChain)).build();
+		
 	}
 
 	@Test
@@ -139,6 +161,15 @@ public class ServiceOrderIntegrationTest {
 	@Test
 	public void testServiceOrderCreateAndUpdate() throws UnsupportedEncodingException, IOException, Exception {
 
+		RoutesBuilder builder = new RouteBuilder() {
+			@Override
+			public void configure() {
+				from("direct:get_user_byusername").bean( userMocked, "getUserByUsername");
+				
+			};
+		};
+
+		camelContext.addRoutes(builder);
 		/**
 		 * first add 2 specs
 		 */

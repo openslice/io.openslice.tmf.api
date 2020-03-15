@@ -632,7 +632,7 @@ public class ServiceSpecificationRepoService {
 
 		List<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByNameAndVersion(aname,
 				aversion);
-		if ( optionalCat !=null) {
+		if ( ( optionalCat !=null) && ( optionalCat.size()>0) ) {
 			return optionalCat.get(0);
 		} else {
 			return null;

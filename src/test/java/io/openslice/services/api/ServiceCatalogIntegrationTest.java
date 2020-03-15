@@ -351,7 +351,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		
 		/**
-		 * add to a service catalog and delete the service catalog, to chech that categories are still there
+		 * add to a service catalog and delete the service catalog, to check that categories are still there
 		 * 
 		 */
 

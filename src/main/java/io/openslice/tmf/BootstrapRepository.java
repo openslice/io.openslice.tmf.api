@@ -148,6 +148,7 @@ public class BootstrapRepository {
 	}
 
 
+	@Transactional
 	private void createFirstTimeGSTRepo(ServiceCategory scategory) {
 
 		ServiceSpecification serviceSpecificationObj = this.specRepoService.cloneGSTServiceSpecification( GST_EXAMPLE_NAME);
@@ -169,6 +170,7 @@ public class BootstrapRepository {
 	}
 	
 
+	@Transactional
 	public void createFirstTimeVINNISBTRepo( ServiceCategory scategory ) {
 
 		ServiceSpecification serviceSpecVinniSB = this.specRepoService.cloneVINNIServiceSpecification( VINNI_EXAMPLE_NAME, true, true, true, true, true, true, true, true, true, true);

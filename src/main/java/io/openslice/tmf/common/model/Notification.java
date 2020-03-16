@@ -115,6 +115,12 @@ public class Notification {
 	public void setEventTime(OffsetDateTime eventTime) {
 		this.eventTime = eventTime;
 	}
+	
+	public void setEventTime(String eventTime) {
+		if ( eventTime!= null ) {
+			this.eventTime = OffsetDateTime.parse( eventTime );			
+		}
+	}
 
 	public Notification eventType(String eventType) {
 		this.eventType = eventType;

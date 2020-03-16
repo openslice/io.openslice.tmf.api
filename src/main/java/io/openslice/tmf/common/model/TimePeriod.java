@@ -121,7 +121,9 @@ public class TimePeriod {
 	}
 	
 	public void setStartDateTime(String startDateTime) {
-		this.startDateTime = OffsetDateTime.parse( startDateTime );
+		if ( startDateTime!= null ) {
+			this.startDateTime = OffsetDateTime.parse( startDateTime );
+		}
 	}
 
 

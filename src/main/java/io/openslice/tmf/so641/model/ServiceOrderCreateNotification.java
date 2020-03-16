@@ -19,7 +19,6 @@
  */
 package io.openslice.tmf.so641.model;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
 
 import javax.validation.Valid;

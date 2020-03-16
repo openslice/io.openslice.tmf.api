@@ -179,6 +179,7 @@ public class ServiceOrderRepoService {
 		
 		if (allAcknowledged) { //in the case were order items are automatically acknowledged
 			so.setState( ServiceOrderStateType.ACKNOWLEDGED );
+			so.setStartDate(  OffsetDateTime.now(ZoneOffset.UTC) );
 			so = this.serviceOrderRepo.save(so);
 		}
 		

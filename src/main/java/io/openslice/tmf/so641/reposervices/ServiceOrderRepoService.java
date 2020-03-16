@@ -148,11 +148,19 @@ public class ServiceOrderRepoService {
 		if (serviceOrderCreate.getNote() != null) {
 			so.getNote().addAll(serviceOrderCreate.getNote());
 		}
+		
+
+		boolean allAcknowledged = true;
 		if (serviceOrderCreate.getOrderItem() != null) {
 			so.getOrderItem().addAll(serviceOrderCreate.getOrderItem());
 			for (ServiceOrderItem soi : so.getOrderItem()) {				
 				copySpecCharacteristicsToServiceCharacteristic( soi.getService().getServiceSpecification().getId(), soi.getService().getServiceCharacteristic() );
+				if ( ! soi.getState().equals( ServiceOrderStateType.ACKNOWLEDGED )) {
+					allAcknowledged = false;
+				}
 			}
+			
+			
 			
 		}
 
@@ -168,6 +176,11 @@ public class ServiceOrderRepoService {
 //		so = this.fixServiceOrderItemsDependencies(so);
 
 		so = this.serviceOrderRepo.save(so);
+		
+		if (allAcknowledged) { //in the case were order items are automatically acknowledged
+			so.setState( ServiceOrderStateType.ACKNOWLEDGED );
+			so = this.serviceOrderRepo.save(so);
+		}
 		
 		raiseSOCreateNotification(so);
 

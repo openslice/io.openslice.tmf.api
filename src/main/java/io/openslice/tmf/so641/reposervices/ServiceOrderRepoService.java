@@ -145,6 +145,7 @@ public class ServiceOrderRepoService {
 		so.priority(serviceOrderCreate.getPriority());
 		so.requestedCompletionDate(serviceOrderCreate.getRequestedCompletionDate());
 		so.requestedStartDate(serviceOrderCreate.getRequestedStartDate() );
+		so.setExpectedCompletionDate( serviceOrderCreate.getRequestedCompletionDate() );  //this is by default
 		if (serviceOrderCreate.getNote() != null) {
 			so.getNote().addAll(serviceOrderCreate.getNote());
 		}

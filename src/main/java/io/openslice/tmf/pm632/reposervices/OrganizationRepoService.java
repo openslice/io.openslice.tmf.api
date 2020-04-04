@@ -20,6 +20,7 @@
 package io.openslice.tmf.pm632.reposervices;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -183,10 +184,15 @@ public class OrganizationRepoService {
 	public String getPartnerOrganizationsWithAPI() {
 		List<Organization> orgz =organizationRepository.findPartnersOfferingEXTERNAL_TMFAPI();
 	
+		List<Organization> orgzsend = new ArrayList<>();
+		for (Organization o : orgz) {
+			orgzsend.add( this.findById( o.getUuid()) );
+		}
+		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		try {
-			return mapper.writeValueAsString( orgz );
+			return mapper.writeValueAsString( orgzsend );
 		} catch (JsonProcessingException e) {			
 			e.printStackTrace();
 			

@@ -208,7 +208,6 @@ public class OrganizationRepoService {
 			Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());			
 			orgzsend.add( anorg );
 		}
-
 		tx.commit();
 		session.close();
 		

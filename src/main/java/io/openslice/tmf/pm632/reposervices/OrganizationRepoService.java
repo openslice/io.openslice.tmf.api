@@ -26,10 +26,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -59,6 +64,16 @@ public class OrganizationRepoService {
 
 	@Autowired
 	OrganizationApiRouteBuilder organizationApiRouteBuilder;
+
+	private SessionFactory  sessionFactory;
+	
+	@Autowired
+	public OrganizationRepoService(EntityManagerFactory factory) {
+		if (factory.unwrap(SessionFactory.class) == null) {
+			throw new NullPointerException("factory is not a hibernate factory");
+		}
+		this.sessionFactory = factory.unwrap(SessionFactory.class);
+	}
 	
 	public List<Organization> findAll() {
 		return (List<Organization>) this.organizationRepository.findByOrderByName();
@@ -179,15 +194,30 @@ public class OrganizationRepoService {
 		organizationApiRouteBuilder.publishEvent( ce, c.getId() );
 		
 	}
-
+	
 	@Transactional
 	public String getPartnerOrganizationsWithAPI() {
+
 		List<Organization> orgz =organizationRepository.findPartnersOfferingEXTERNAL_TMFAPI();
-	
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
 		List<Organization> orgzsend = new ArrayList<>();
 		for (Organization o : orgz) {
-			orgzsend.add( this.findById( o.getUuid()) );
+			Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());
+			
+			System.out.println( anorg.toString());
+			for (Characteristic ch : anorg.getPartyCharacteristic()) {
+
+				System.out.println( ch.toString());
+			}
+			
+			orgzsend.add( anorg );
 		}
+
+		tx.commit();
+		session.close();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

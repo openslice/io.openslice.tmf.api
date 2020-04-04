@@ -660,4 +660,15 @@ public class Organization extends BaseRootNamedEntity {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
+	
+	public Characteristic findPartyCharacteristic( String name) { 
+		for (Characteristic c : partyCharacteristic) {
+			if ( c.getName().equals(name) ) {
+				return c;
+			}
+		}
+		
+		return null;
+		
+	}
 }

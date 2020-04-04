@@ -40,7 +40,7 @@ public interface OrganizationRepository extends PagingAndSortingRepository<Organ
 	
 	List<Organization> findByOrderByName();
 
-	@Query("SELECT o FROM Organization o JOIN FETCH o.partyCharacteristic char WHERE char.name LIKE 'EXTERNAL_TMFAPI'")
+	@Query("SELECT o FROM Organization o JOIN FETCH o.partyCharacteristic char WHERE char.name LIKE 'EXTERNAL_TMFAPI_BASEURL'")
 	List<Organization> findPartnersOfferingEXTERNAL_TMFAPI();
 
 }

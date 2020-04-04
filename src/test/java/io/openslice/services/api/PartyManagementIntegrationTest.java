@@ -115,34 +115,58 @@ public class PartyManagementIntegrationTest {
 		medChar.setEmailAddress( "test@openslice.io" );
 		cm.setCharacteristic(medChar);
 		oc.setContactMedium(contactMediums );
+		
+				 
 		Characteristic partyCharacteristicItem = new Characteristic();
-		
-		
-		partyCharacteristicItem.setName("EXTERNAL_TMFAPI");
-		Any value = new Any();
-		
-		Map<String, Object> apiparams = new HashMap<>();
-		String[] scopes = {"admin" , "read"};
-		
-
-		apiparams.put( "CLIENTREGISTRATIONID", "authOpensliceProvider");
-		apiparams.put( "OAUTH2CLIENTID", "osapiWebClientId");
-		apiparams.put( "OAUTH2CLIENTSECRET", "secret");
-		apiparams.put( "OAUTH2SCOPES", scopes);
-		apiparams.put( "OAUTH2TOKENURI", "http://portal.openslice.io/osapi-oauth-server/oauth/token");
-		apiparams.put( "USERNAME", "admin");
-		apiparams.put( "PASSWORD", "openslice");
-		apiparams.put( "BASEURL", "http://portal.openslice.io");
-
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		String strinparams = mapper.writeValueAsString( apiparams );
-		value.setValue( strinparams );
-		
-		partyCharacteristicItem.setValue( value );
-		
-		
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_BASEURL");
+		partyCharacteristicItem.value( new Any(  "http://portal.openslice.io" ));
 		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+		
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_CLIENTREGISTRATIONID");
+		partyCharacteristicItem.value( new Any(  "authOpensliceProvider" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+				
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_OAUTH2CLIENTID");
+		partyCharacteristicItem.value( new Any(  "osapiWebClientId" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+				
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_OAUTH2CLIENTSECRET");
+		partyCharacteristicItem.value( new Any(  "secret" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_OAUTH2SCOPES");
+		partyCharacteristicItem.value( new Any(  "admin;read" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+		
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_OAUTH2TOKENURI");
+		partyCharacteristicItem.value( new Any(  "http://portal.openslice.io/osapi-oauth-server/oauth/token" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_USERNAME");
+		partyCharacteristicItem.value( new Any(  "admin" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_PASSWORD");
+		partyCharacteristicItem.value( new Any(  "openslice" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS");
+		partyCharacteristicItem.value( new Any(  "" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_SERVICE_ORDER_URLS");
+		partyCharacteristicItem.value( new Any(  "" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+		
+		
 		partyCharacteristicItem = new Characteristic();
 		partyCharacteristicItem.setName("API2");
 		partyCharacteristicItem.setValue( new Any("apiendpoint2"));
@@ -163,7 +187,7 @@ public class PartyManagementIntegrationTest {
 
 		Organization responseOrg = toJsonObj(response,  Organization.class);
 		assertThat( responseOrg.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()).isEqualTo("test@openslice.io"); 
-		assertThat( responseOrg.getPartyCharacteristic().size()).isEqualTo(2);
+		assertThat( responseOrg.getPartyCharacteristic().size()).isEqualTo(11);
 		
 		
 		String resp = organizationRepoService.getPartnerOrganizationsWithAPI();
@@ -172,7 +196,7 @@ public class PartyManagementIntegrationTest {
 		List<Organization> orgz = mapJsonToObjectList( new Organization(), (String)resp, Organization.class  ); 
 		
 		assertThat( orgz.size() ).isEqualTo( 1 );
-		assertThat( orgz.get(0).getPartyCharacteristic().size() ).isEqualTo( 2 );
+		assertThat( orgz.get(0).getPartyCharacteristic().size() ).isEqualTo( 11 );
 	}
 	
 	 protected static <T> List<T> mapJsonToObjectList(T typeDef,String json,Class clazz) throws Exception

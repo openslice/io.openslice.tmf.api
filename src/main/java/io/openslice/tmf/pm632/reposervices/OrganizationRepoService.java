@@ -205,14 +205,7 @@ public class OrganizationRepoService {
 		
 		List<Organization> orgzsend = new ArrayList<>();
 		for (Organization o : orgz) {
-			Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());
-			
-			System.out.println( anorg.toString());
-			for (Characteristic ch : anorg.getPartyCharacteristic()) {
-
-				System.out.println( ch.toString());
-			}
-			
+			Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());			
 			orgzsend.add( anorg );
 		}
 

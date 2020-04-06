@@ -29,6 +29,8 @@ import java.util.Optional;
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -66,6 +68,9 @@ public class OrganizationRepoService {
 	OrganizationApiRouteBuilder organizationApiRouteBuilder;
 
 	private SessionFactory  sessionFactory;
+	
+
+	private static final transient Log logger = LogFactory.getLog( OrganizationRepoService.class.getName());
 	
 	@Autowired
 	public OrganizationRepoService(EntityManagerFactory factory) {
@@ -203,22 +208,24 @@ public class OrganizationRepoService {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
-		List<Organization> orgzsend = new ArrayList<>();
-		for (Organization o : orgz) {
-			Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());			
-			orgzsend.add( anorg );
-		}
-		tx.commit();
-		session.close();
-		
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		try {
-			return mapper.writeValueAsString( orgzsend );
-		} catch (JsonProcessingException e) {			
-			e.printStackTrace();
+			List<Organization> orgzsend = new ArrayList<>();
+			for (Organization o : orgz) {
+				Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());			
+				orgzsend.add( anorg );
+			}
 			
-		}
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+			return mapper.writeValueAsString( orgzsend );
+		
+		} catch (JsonProcessingException e) {
+			logger.error( "Failed to writeValueAsString getPartnerOrganizationsWithAPI." );
+			e.printStackTrace();
+		} finally {
+			tx.commit();
+			session.close();
+	    }
 		
 		return "[]";
 	}

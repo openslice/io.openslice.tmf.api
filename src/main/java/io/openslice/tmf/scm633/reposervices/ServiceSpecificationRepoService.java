@@ -1058,7 +1058,7 @@ public class ServiceSpecificationRepoService {
 			 relatedPartyItem.setRole(UserPartRoleType.ORGANIZATION.getValue());
 			 /**
 			 * Note: the following Extended Info will be used to identify the Service Spec
-			 * in our local catalog
+			 * in remote catalog
 			 */
 			 relatedPartyItem.setExtendedInfo( servicespecid );
 			 spec.addRelatedPartyItem(relatedPartyItem );

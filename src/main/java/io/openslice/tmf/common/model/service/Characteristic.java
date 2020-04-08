@@ -46,7 +46,6 @@ public class Characteristic  extends BaseRootNamedEntity {
   @JsonProperty("valueType")
   private String valueType = null;
 
-  @JsonProperty("value")
   private Any value = null;
 
  
@@ -85,6 +84,18 @@ public class Characteristic  extends BaseRootNamedEntity {
 
   @Valid
 
+
+  @JsonProperty("value")
+  public Object getValueAsString() {
+	 
+	if ( ( this.value != null) && ( this.valueType != null) && (this.valueType.equalsIgnoreCase("string") )) {
+		if ( ( this.value.getAlias() == null) || this.value.getAlias().equals("") ) {
+			return this.value.getValue();			
+		}
+	}
+    return value;
+  }
+  
   public Any getValue() {
     return value;
   }

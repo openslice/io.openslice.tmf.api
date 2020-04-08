@@ -63,7 +63,25 @@ public class Any {
 		this.value = value;
 		this.alias = alias;
 	}
+	
+	public Any(long value, String alias) {
+		super();
+		this.value = value+"";
+		this.alias = alias;
+	}
 
+	public Any(int value, String alias) {
+		super();
+		this.value = value+"";
+		this.alias = alias;
+	}
+	
+	public Any(int value) {
+		super();
+		this.value = value+"";
+		this.alias = "";
+	}
+	
 	public Any(Any anyval) {
 
 		if (anyval != null) {

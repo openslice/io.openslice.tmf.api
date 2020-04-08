@@ -126,6 +126,9 @@ public class ServiceOrder extends BaseRootEntity {
 	@ApiModelProperty(value = "ID created on repository side")
 
 	public String getId() {
+		if ( ( id != null) && (uuid == null) ) { //this check is good for external partners when no uuid exists
+			return id;
+		}
 		return uuid;
 	}
 

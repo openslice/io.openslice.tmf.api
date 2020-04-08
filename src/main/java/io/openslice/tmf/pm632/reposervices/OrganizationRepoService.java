@@ -211,8 +211,15 @@ public class OrganizationRepoService {
 		try {
 			List<Organization> orgzsend = new ArrayList<>();
 			for (Organization o : orgz) {
-				Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());			
-				orgzsend.add( anorg );
+				logger.info( "o.getUuid()"  + o.getUuid());
+				logger.info( "o.getUuid()"  + o.toString() );
+				Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());		
+				if (anorg!=null) {
+					orgzsend.add( anorg );					
+				} else {
+
+					orgzsend.add( o );
+				}
 			}
 			
 			ObjectMapper mapper = new ObjectMapper();

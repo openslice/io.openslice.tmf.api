@@ -511,6 +511,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 		this.isUnique =src.isUnique;
 		this.configurable =src.isConfigurable();
 		this.extensible =src.isExtensible();
+		this.valueType =src.valueType;
 
 		this.updateServiceSpecCharacteristicValues(src.getServiceSpecCharacteristicValue());
 		this.updateServiceSpecCharRelationships(src.getServiceSpecCharRelationship());

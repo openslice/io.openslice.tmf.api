@@ -978,7 +978,7 @@ public class ServiceSpecificationRepoService {
 		addServiceSpecCharacteristic(serviceSpec, "NSDID", "NSD id", new Any(nsd.getId()+""  , "id"), EValueType.TEXT);
 		for (ExperimentOnBoardDescriptor eobd : nsd.getExperimentOnBoardDescriptors()) {
 			addServiceSpecCharacteristic(serviceSpec, "ObMANOprovider_Name", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""), EValueType.TEXT);
-			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);			
 		}
 		if (  nsd.getConstituentVxF() != null  ) {
 			for (ConstituentVxF cv : nsd.getConstituentVxF()) {
@@ -988,6 +988,8 @@ public class ServiceSpecificationRepoService {
 
 			logger.error("nsdid getConstituentVxF null returned: " + nsd.toString() );
 		}
+		addServiceSpecCharacteristic(serviceSpec, "SSHKEY", "SSH public key", new Any(""  , ""), EValueType.TEXT);
+		addServiceSpecCharacteristic(serviceSpec, "CONFIG", "Initial config to OSM", new Any(""  , ""), EValueType.TEXT);
 		
 		
 		ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();

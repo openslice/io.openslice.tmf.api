@@ -19,6 +19,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring.boot-version>${spring-boot-version}</spring.boot-version>
 		<spring.cloud-consul-version>${spring-cloud-consul-version}</spring.cloud-consul-version>
+		<keycloak.version>9.0.2</keycloak.version>
 	</properties>
 
 
@@ -52,6 +53,13 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>20.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.keycloak.bom</groupId>
+				<artifactId>keycloak-adapter-bom</artifactId>
+				<version>${keycloak.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 
@@ -96,6 +104,21 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-security-adapter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-admin-client</artifactId>
+			<version>${keycloak.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 		</dependency>
@@ -117,7 +140,7 @@
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
-				<!-- activeMQ -->
+		<!-- activeMQ -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-activemq</artifactId>
@@ -175,17 +198,17 @@
 			<artifactId>camel-stream</artifactId>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>io.openslice</groupId>
 			<artifactId>io.openslice.model</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.openslice</groupId>			
+			<groupId>io.openslice</groupId>
 			<artifactId>io.openslice.centrallog.client</artifactId>
 			<version>${project.version}</version>
-		</dependency>		
+		</dependency>
 
 		<!-- swagger -->
 		<dependency>
@@ -280,12 +303,11 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<!-- https://www.baeldung.com/spring-boot-dependency
-					Like a war file, a Spring Boot application is not intended to be used as 
-					a dependency. If your application contains classes that you want to share 
-					with other projects, the recommended approach is to move that code into a 
-					separate module. The separate module can then be depended upon by your application 
-					and other projects. -->
+				<!-- https://www.baeldung.com/spring-boot-dependency Like a war file, 
+					a Spring Boot application is not intended to be used as a dependency. If 
+					your application contains classes that you want to share with other projects, 
+					the recommended approach is to move that code into a separate module. The 
+					separate module can then be depended upon by your application and other projects. -->
 				<!-- If you cannot rearrange your code as recommended above, Spring Boot’s 
 					Maven and Gradle plugins must be configured to produce a separate artifact 
 					that is suitable for use as a dependency. The executable archive cannot be 

@@ -19,15 +19,30 @@
  */
 package io.openslice.tmf.configuration;
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.AuthorizationCodeGrantBuilder;
+import springfox.documentation.builders.OAuthBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.GrantType;
+import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.service.TokenEndpoint;
+import springfox.documentation.service.TokenRequestEndpoint;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 
 /**
  * For implementing the callback and events, it might be useful to check the DDD pattern: https://www.baeldung.com/spring-data-ddd
@@ -41,6 +56,57 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerDocumentationConfig {
 
+
+	@Value("${swagger.authserver}")
+	private String AUTH_SERVER;
+	@Value("${swagger.clientid}")
+	private String CLIENT_ID;
+	@Value("${swagger.clientsecret}")
+	private String CLIENT_SECRET;
+
+    @Bean
+    public SecurityConfiguration security() {
+        return SecurityConfigurationBuilder.builder()
+        		
+        				    .realm("openslice")
+        				    .clientId(CLIENT_ID)
+        				    .clientSecret(CLIENT_SECRET)
+        				    .appName("oauthtoken")
+        				    .scopeSeparator(" ")
+        		.build();
+    }
+
+    private SecurityScheme securityScheme() {
+        GrantType grantType = new AuthorizationCodeGrantBuilder()
+        		.tokenEndpoint(new TokenEndpoint(AUTH_SERVER + "/protocol/openid-connect/token", "oauthtoken"))
+        		.tokenRequestEndpoint(
+        		  new TokenRequestEndpoint(AUTH_SERVER + "/protocol/openid-connect/auth", CLIENT_ID, CLIENT_SECRET))
+        		.build();
+
+        SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
+        		.grantTypes(Arrays.asList(grantType))
+        		.scopes(Arrays.asList(scopes()))
+        		.build();
+        return oauth;
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+        		.securityReferences(
+        		  Arrays.asList(new SecurityReference("spring_oauth", scopes())))
+        		.forPaths(PathSelectors.regex("/admin.*"))
+        		.build();
+    }
+
+    private AuthorizationScope[] scopes() {
+        AuthorizationScope[] scopes = { 
+          new AuthorizationScope("read", "for read operations"), 
+          new AuthorizationScope("write", "for write operations"), 
+          new AuthorizationScope("admin", "Access admin API"), 
+          new AuthorizationScope("openapi", "Access openapi API") };
+        return scopes;
+    }
+	
     ApiInfo apiInfo633() {
         return new ApiInfoBuilder()
         		
@@ -207,7 +273,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo633());
+                .apiInfo(apiInfo633())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
     }
     
     @Bean
@@ -220,7 +288,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo620());
+                .apiInfo(apiInfo620())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
     
@@ -234,7 +304,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo634());
+                .apiInfo(apiInfo634())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
     @Bean
@@ -247,7 +319,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo638());
+                .apiInfo(apiInfo638())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
     @Bean
@@ -260,7 +334,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo641());
+                .apiInfo(apiInfo641())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
     @Bean
@@ -273,7 +349,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo657());
+                .apiInfo(apiInfo657())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
 
@@ -288,7 +366,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo657());
+                .apiInfo(apiInfo657())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
     @Bean
@@ -301,7 +381,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo657());
+                .apiInfo(apiInfo657())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
 
@@ -315,7 +397,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo657());
+                .apiInfo(apiInfo657())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
 
     }
     
@@ -329,7 +413,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo666());
+                .apiInfo(apiInfo666())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
     }
     
     @Bean
@@ -341,7 +427,9 @@ public class SwaggerDocumentationConfig {
                     .build()
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo629());
+                .apiInfo(apiInfo629())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
     }
     
     @Bean
@@ -353,6 +441,8 @@ public class SwaggerDocumentationConfig {
                     .build()
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo691());
+                .apiInfo(apiInfo691())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
     }
 }

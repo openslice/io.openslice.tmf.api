@@ -55,7 +55,7 @@ keycloak:
   bearer-only: true
   principal-attribute: preferred_username
 
-
+keycloak-internal-auth-server-url: http://localhost:8080/auth
 keycloak-admin-password: Pa55w0rd
     
     

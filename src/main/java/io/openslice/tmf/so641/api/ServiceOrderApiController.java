@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.so641.api;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -76,25 +78,27 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		this.request = request;
 	}
 
+
+	@Secured({ "ROLE_USER" })
 	public ResponseEntity<ServiceOrder> createServiceOrder(
-			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder) {
+			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder, 
+			Principal principal) {
 
 		try {
-			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-			SecurityContextHolder.setContext( (SecurityContext) attr );  
+			//Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+			//SecurityContextHolder.setContext( (SecurityContext) attr );  
 			
-			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
-				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				log.info("authentication=  " + authentication.toString());
+			
+				log.info("authentication=  " + principal.toString());
 				String extInfo = null;
 				try {
-					PortalUser user = serviceOrderApiRouteBuilder.retrievePortalUser( authentication.getName() );
+					PortalUser user = serviceOrderApiRouteBuilder.retrievePortalUser( principal.getName() );
 					if ( user!= null) {
 						extInfo = user.getEmail();	
 						log.info("extInfo=  " + extInfo);	
 
 						serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-								authentication.getName(), 
+								principal.getName(), 
 								user.getId()+"", 
 								UserPartRoleType.REQUESTER,
 								extInfo,
@@ -113,10 +117,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 				ServiceOrder c = serviceOrderRepoService.addServiceOrder(serviceOrder);
 
 				return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);				
-			} else {
-
-				return new ResponseEntity<ServiceOrder>(HttpStatus.FORBIDDEN);
-			}
+			
 
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
@@ -137,17 +138,19 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		
 	}
 
+	@Secured({ "ROLE_USER" })
 	public ResponseEntity<List<ServiceOrder>> listServiceOrder(
 			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
 			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+			Principal principal) {
 
 		try {
-			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-			SecurityContextHolder.setContext( (SecurityContext) attr );  
+//			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+//			SecurityContextHolder.setContext( (SecurityContext) attr );  
 			
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			log.info("authentication=  " + authentication.toString());
+			log.info("principal=  " + principal.toString());
 						
 			log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
 			log.info("principal ROLE_NFV_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_NFV_DEVELOPER.getValue() ) ));
@@ -158,7 +161,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(), HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(
-						SecurityContextHolder.getContext().getAuthentication().getName(),
+						principal.getName(),
 						UserPartRoleType.REQUESTER), HttpStatus.OK);				
 			}
 			

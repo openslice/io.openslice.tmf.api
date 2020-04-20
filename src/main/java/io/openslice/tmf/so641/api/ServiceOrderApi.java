@@ -25,6 +25,7 @@
 package io.openslice.tmf.so641.api;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,7 +85,9 @@ public interface ServiceOrderApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<ServiceOrder> createServiceOrder(@ApiParam(value = "The ServiceOrder to be created" ,required=true )  @Valid @RequestBody ServiceOrderCreate serviceOrder) {
+    default ResponseEntity<ServiceOrder> createServiceOrder(
+			Principal principal,
+			@ApiParam(value = "The ServiceOrder to be created" ,required=true )  @Valid @RequestBody ServiceOrderCreate serviceOrder) {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -103,7 +106,9 @@ public interface ServiceOrderApi {
     @RequestMapping(value = "/serviceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteServiceOrder(@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id) {
+    default ResponseEntity<Void> deleteServiceOrder(
+			Principal principal,
+			@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -121,7 +126,12 @@ public interface ServiceOrderApi {
     @RequestMapping(value = "/serviceOrder",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<ServiceOrder>> listServiceOrder(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    default ResponseEntity<List<ServiceOrder>> listServiceOrder(
+			Principal principal,			
+    		@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+    		@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+    		@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+			) {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -141,7 +151,9 @@ public interface ServiceOrderApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<ServiceOrder> patchServiceOrder(@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceOrder to be updated" ,required=true )  @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
+    default ResponseEntity<ServiceOrder> patchServiceOrder(
+			Principal principal,
+			@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceOrder to be updated" ,required=true )  @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
     	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -159,7 +171,10 @@ public interface ServiceOrderApi {
     @RequestMapping(value = "/serviceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<ServiceOrder> retrieveServiceOrder(@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<ServiceOrder> retrieveServiceOrder(
+			Principal principal,			
+    		@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,
+    		@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
       
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }

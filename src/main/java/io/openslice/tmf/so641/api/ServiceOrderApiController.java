@@ -79,10 +79,13 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 	}
 
 
+	
 	@Secured({ "ROLE_USER" })
+	@Override
 	public ResponseEntity<ServiceOrder> createServiceOrder(
-			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder, 
-			Principal principal) {
+			Principal principal,			
+			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder 
+			) {
 
 		try {
 			//Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
@@ -125,7 +128,10 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		}
 	}
 
+	@Secured({ "ROLE_USER" })
+	@Override
 	public ResponseEntity<Void> deleteServiceOrder(
+			Principal principal,			
 			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id) {
 		
 		
@@ -139,11 +145,12 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 	}
 
 	@Secured({ "ROLE_USER" })
+	@Override
 	public ResponseEntity<List<ServiceOrder>> listServiceOrder(
+			Principal principal,			
 			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
 			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-			Principal principal) {
+			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
 		try {
 //			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
@@ -172,7 +179,10 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		}
 	}
 
+	@Secured({ "ROLE_USER" })
+	@Override
 	public ResponseEntity<ServiceOrder> patchServiceOrder(
+			Principal principal,			
 			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "The ServiceOrder to be updated", required = true) @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
 		ServiceOrder c = serviceOrderRepoService.updateServiceOrder(id, serviceOrder);
@@ -180,7 +190,10 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);
 	}
 
+	@Secured({ "ROLE_USER" })
+	@Override
 	public ResponseEntity<ServiceOrder> retrieveServiceOrder(
+			Principal principal,			
 			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 

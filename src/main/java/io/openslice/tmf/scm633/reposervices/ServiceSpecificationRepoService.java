@@ -278,6 +278,13 @@ public class ServiceSpecificationRepoService {
 			serviceCandidateUpd.setLifecycleStatus( serviceSpec.getLifecycleStatus() );	
 			serviceCandidateUpd.setVersion( serviceSpec.getVersion() );				
 			candidateRepoService.updateCandidate( serviceCandidateObj.getId(), serviceCandidateUpd);
+		} else {
+			ServiceCandidateCreate serviceCandidate = new ServiceCandidateCreate();
+			ServiceSpecificationRef serviceSpecificationRef = new ServiceSpecificationRef();
+			serviceCandidate.setServiceSpecification(serviceSpecificationRef);
+			serviceSpecificationRef.setId(serviceSpec.getId());
+			serviceCandidateObj = candidateRepoService.addServiceCandidate(serviceCandidate);
+			serviceSpec.setServiceCandidateObjId(serviceCandidateObj.getUuid());
 		}
 		
 		return this.serviceSpecificationRepo.save(serviceSpec);

@@ -218,6 +218,9 @@ public class ServiceSpecification extends BaseEntity {
 	@ApiModelProperty(value = "isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).")
 
 	public Boolean isIsBundle() {
+		if ( isBundle == null) {
+			isBundle = false;
+		}
 		return isBundle;
 	}
 

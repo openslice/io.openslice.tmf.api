@@ -119,6 +119,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		}
 	}
 
+	
 	public ResponseEntity<List<ServiceSpecification>> listServiceSpecification(
 			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
 			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,

@@ -212,7 +212,7 @@ public class OrganizationRepoService {
 			List<Organization> orgzsend = new ArrayList<>();
 			for (Organization o : orgz) {
 				logger.info( "o.getUuid()"  + o.getUuid());
-				logger.info( "o.getUuid()"  + o.toString() );
+				logger.debug( "o.getUuid()"  + o.toString() );
 				Organization anorg = session.get(Organization.class, o.getUuid()) ;//this.findByUuid( o.getUuid());		
 				if (anorg!=null) {
 					orgzsend.add( anorg );					

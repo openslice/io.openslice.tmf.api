@@ -160,6 +160,7 @@ public class ServiceSpecificationRepoService {
 		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findByOrderByName();
 	}
 
+	@Transactional
 	public List<ServiceSpecification> findAll(@Valid String fields, Map<String, String> allParams)
 			throws UnsupportedEncodingException {
 
@@ -167,6 +168,7 @@ public class ServiceSpecificationRepoService {
 		Transaction tx = session.beginTransaction();
 		List<ServiceSpecification> alist = null;
 		try {
+//			String sql="";
 			String sql = "SELECT ";
 
 			if (fields == null) {
@@ -174,7 +176,7 @@ public class ServiceSpecificationRepoService {
 			} else {
 				sql += " s.uuid,s.name,s.description,s.isBundle ";
 			}
-
+			
 			sql += " FROM ServiceSpecification s";
 			if (allParams.size() > 0) {
 				sql += " WHERE ";
@@ -185,11 +187,21 @@ public class ServiceSpecificationRepoService {
 				}
 
 			}
-			sql += " ORDER BY s.uuid";
+//			sql += " ORDER BY s.uuid";
 			Query q = session.createQuery(sql);
 			q.setFirstResult(0);
 			q.setMaxResults(1000);
 			alist = q.getResultList();
+			
+			//this will fetch the whole object fields
+			if ( (fields == null)  && ( allParams!= null) ) {
+				List<ServiceSpecification> resultlist = new ArrayList<>();
+				for (ServiceSpecification s : alist) {
+					resultlist.add(  findByUuid( s.getUuid() ));
+				}
+				return resultlist;
+			}
+			
 			
 			
 			return alist;
@@ -544,7 +556,10 @@ public class ServiceSpecificationRepoService {
 
 		if (serviceSpec.getResourceSpecification().size() > 0) {
 			serviceSpec.setType("ResourceFacingServiceSpecification");
-		} else {
+		} else if ( serviceSpecUpd.getType() != null) {
+			serviceSpec.setType( serviceSpecUpd.getType() );
+		} else
+		{			
 			serviceSpec.setType("CustomerFacingServiceSpecification");
 		}
 
@@ -664,6 +679,10 @@ public class ServiceSpecificationRepoService {
 		serviceServiceSpecificationCr.setServiceSpecRelationship(new ArrayList<>(c.getServiceSpecRelationship()));
 		serviceServiceSpecificationCr.setVersion(c.getVersion());
 		serviceServiceSpecificationCr.setValidFor(new TimePeriod());
+		
+		if (c.getType() != null) {
+			serviceServiceSpecificationCr.setType( c.getType() );
+		}
 
 		return this.addServiceSpecification(serviceServiceSpecificationCr);
 
@@ -684,6 +703,10 @@ public class ServiceSpecificationRepoService {
 		serviceServiceSpecificationCr.setServiceLevelSpecification(new ArrayList<>(c.getServiceLevelSpecification()));
 		serviceServiceSpecificationCr.setServiceSpecCharacteristic(new ArrayList<>(c.getServiceSpecCharacteristic()));
 		serviceServiceSpecificationCr.setVersion(c.getVersion());
+		
+		if (c.getType() != null) {
+			serviceServiceSpecificationCr.setType( c.getType() );
+		}
 
 		return this.updateServiceSpecification(c.getId(), serviceServiceSpecificationCr);
 

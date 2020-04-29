@@ -94,7 +94,7 @@ public class SwaggerDocumentationConfig {
         return SecurityContext.builder()
         		.securityReferences(
         		  Arrays.asList(new SecurityReference("spring_oauth", scopes())))
-        		.forPaths(PathSelectors.regex("/admin.*"))
+        		.forPaths(PathSelectors.regex("/*"))
         		.build();
     }
 
@@ -257,6 +257,20 @@ public class SwaggerDocumentationConfig {
             .contact(new Contact("","", ""))
             .build();
     }
+    
+    ApiInfo apiInfo640() {
+        return new ApiInfoBuilder()
+            .title("API Service Activation and Configuration")
+            .description("## TMF API Reference: TMF640 - Service Activation and Configuration  ### Release : 18.5 - December 2018  Service Activation and Configuration API goal is to provide the ability to activate and configure Services.  ### Operations Service Activation and Configuration API performs the following operations on the resources : - Retrieve an entity or a collection of entities depending on filter criteria - Partial update of an entity (including updating rules) - Create an entity (including default values and creation rules) - Delete an entity (for administration purposes) - Manage notification of events")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("3.0.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }   
+    
+    
     
     
     @Bean
@@ -442,6 +456,20 @@ public class SwaggerDocumentationConfig {
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo691())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+    }
+    
+    @Bean
+    public Docket swaggersac640(){
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-640-Service Activation and Configuration-v3.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.sac640.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo640())
         		.securitySchemes(Arrays.asList(securityScheme()))
         		.securityContexts(Arrays.asList(securityContext()));
     }

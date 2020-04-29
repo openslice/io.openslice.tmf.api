@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
-@Controller
+@Controller("HubApiController629")
 public class HubApiController implements HubApi {
 
     private final ObjectMapper objectMapper;

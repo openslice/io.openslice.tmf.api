@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
-@Controller
+@Controller("ListenerApiController629")
 public class ListenerApiController implements ListenerApi {
 
     private final ObjectMapper objectMapper;

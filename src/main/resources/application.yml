@@ -46,7 +46,7 @@ logging:
     
 keycloak:
   realm: openslice
-  auth-server-url: http://192.168.2.48/auth
+  auth-server-url: http://localhost/auth
   ssl-required: none
   resource: admin-cli
   credentials:

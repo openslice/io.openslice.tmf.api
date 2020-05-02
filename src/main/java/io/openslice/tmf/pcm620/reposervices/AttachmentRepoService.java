@@ -19,12 +19,14 @@
  */
 package io.openslice.tmf.pcm620.reposervices;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import io.openslice.tmf.pcm620.model.Attachment;
+import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.pcm620.repo.AttachmentRepository;
 
 
@@ -42,5 +44,11 @@ public class AttachmentRepoService {
 
 	public Attachment updateAttachment(@Valid Attachment attachment) {
 		return this.attachmentRepo.save( attachment );
+	}
+
+	public Attachment findByUuid(String attid) {
+		Optional<Attachment> ret = this.attachmentRepo.findByUuid(attid);
+		return ret.orElse(null);
+		
 	}
 }

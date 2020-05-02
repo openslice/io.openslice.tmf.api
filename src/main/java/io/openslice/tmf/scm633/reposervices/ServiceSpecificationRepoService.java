@@ -56,13 +56,13 @@ import io.openslice.model.ConstituentVxF;
 import io.openslice.model.ExperimentOnBoardDescriptor;
 import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
@@ -605,7 +605,8 @@ public class ServiceSpecificationRepoService {
 		return dest;
 	}
 
-	public ServiceSpecification addAttachmentToService(String id, @Valid Attachment attachment,
+	public Attachment addAttachmentToService(String id, 
+			//@Valid Attachment attachment,
 			@Valid MultipartFile afile) {
 		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findByUuid(id);
 		if (s.get() == null) {
@@ -613,8 +614,11 @@ public class ServiceSpecificationRepoService {
 		}
 
 		ServiceSpecification spec = s.get();
-		Attachment att = this.attachmentRepoService.addAttachment(attachment);
+		Attachment att = new Attachment();
+		att = this.attachmentRepoService.addAttachment(att);
+		att.setMimeType(afile.getContentType());
 
+		
 		String tempDir = METADATADIR + spec.getId() + "/attachments/" + att.getId() + File.separator;
 
 		try {
@@ -624,15 +628,14 @@ public class ServiceSpecificationRepoService {
 			// If there is an icon name
 			if (!aFileNamePosted.equals("")) {
 				// Save the icon File
-				String targetfile = AttachmentUtil.saveFile(afile, tempDir + aFileNamePosted);
+				String targetfile = AttachmentUtil.saveFile(afile, tempDir);
 				logger.info("afile saved to = " + targetfile);
 				att.setContent(targetfile);
-				att.setMimeType(afile.getContentType());
 				att.setName(aFileNamePosted);
 				// Save the file destination
 				att.setUrl("/serviceSpecification/" + spec.getId() + "/attachments/" + att.getId() + "/"
 						+ aFileNamePosted);
-				att = this.attachmentRepoService.updateAttachment(attachment);
+				att = this.attachmentRepoService.updateAttachment( att );
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -647,8 +650,18 @@ public class ServiceSpecificationRepoService {
 
 		spec.addAttachmentItem(attref);
 		this.serviceSpecificationRepo.save(spec);
-		return spec;
+		
+		
+		return att;
 	}
+	
+
+	public Attachment getAttachment(String attid) {
+		
+		return this.attachmentRepoService.findByUuid( attid );
+		
+	}
+	
 
 	public ServiceSpecification findByNameAndVersion(String aname, String aversion) {
 
@@ -1103,5 +1116,6 @@ public class ServiceSpecificationRepoService {
 		 
 		 
 	}
+
 
 }

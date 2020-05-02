@@ -42,13 +42,9 @@ import io.swagger.annotations.ApiModelProperty;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "AttachmentRef")
-public class AttachmentRef {
+public class AttachmentRef   extends BaseRootNamedEntity {
 
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	protected String uuid = null;
-
+	
 	@JsonProperty("id")
 	protected String id = null;
 
@@ -58,23 +54,11 @@ public class AttachmentRef {
 	@JsonProperty("url")
 	private String url = null;
 
-	@JsonProperty("name")
-	private String name = null;
-
-	@JsonProperty("href")
-	protected String href = null;
+	
 
 	@JsonProperty("@referredType")
 	private String referredType = null;
 
-	@JsonProperty("@baseType")
-	protected String baseType = "BaseEntity";
-
-	@JsonProperty("@schemaLocation")
-	protected String schemaLocation = null;
-
-	@JsonProperty("@type")
-	protected String type = null;
 
 	public AttachmentRef() {
 	}
@@ -91,20 +75,6 @@ public class AttachmentRef {
 	}
 	
 	
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * A narrative text describing the content of the attachment
@@ -194,62 +164,7 @@ public class AttachmentRef {
 	/**
 	 * @return the href
 	 */
-	public String getHref() {
-		return href;
-	}
-
-	/**
-	 * @param href
-	 *            the href to set
-	 */
-	public void setHref(String href) {
-		this.href = href;
-	}
-
-	/**
-	 * @return the baseType
-	 */
-	public String getBaseType() {
-		return baseType;
-	}
-
-	/**
-	 * @param baseType
-	 *            the baseType to set
-	 */
-	public void setBaseType(String baseType) {
-		this.baseType = baseType;
-	}
-
-	/**
-	 * @return the schemaLocation
-	 */
-	public String getSchemaLocation() {
-		return schemaLocation;
-	}
-
-	/**
-	 * @param schemaLocation
-	 *            the schemaLocation to set
-	 */
-	public void setSchemaLocation(String schemaLocation) {
-		this.schemaLocation = schemaLocation;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
+	
 
 	@Override
 	public boolean equals(java.lang.Object o) {

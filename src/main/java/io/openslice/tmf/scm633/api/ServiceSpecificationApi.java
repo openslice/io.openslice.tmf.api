@@ -29,6 +29,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.openslice.sd.model.ServiceDescriptor;
+import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
@@ -212,9 +215,10 @@ public interface ServiceSpecificationApi {
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> specFromNSDID( @ApiParam(value = "Identifier of the NSD id from the NSD/VNF catalog",required=true) @PathVariable("id") String id );
     
-    @ApiOperation(value = "Adds an attachment to a ServiceSpecification", nickname = "addAttachmentToServiceSpecification", notes = "This operation adds an attachment to a ServiceSpecification and updates partially a ServiceSpecification entity", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @ApiOperation(value = "Adds an attachment to a ServiceSpecification", nickname = "addAttachmentToServiceSpecification", 
+    		notes = "This operation adds an attachment to a ServiceSpecification and updates partially a ServiceSpecification entity", response = Attachment.class, tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ServiceSpecification.class),
+        @ApiResponse(code = 200, message = "Success", response = Attachment.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
@@ -226,11 +230,30 @@ public interface ServiceSpecificationApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "multipart/form-data" },
         method = RequestMethod.POST)
-    ResponseEntity<ServiceSpecification> addAttachmentToServiceSpecification(
+    ResponseEntity<Attachment> addAttachmentToServiceSpecification(
     		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
-    		@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
+    		//@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") Attachment attachment, 
     		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file);
 
+    @ApiOperation(value = "Get an attachment", nickname = "getAttachment", 
+    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/serviceSpecification/{id}/attachment/{attid}",        
+    	produces = MediaType.ALL_VALUE,
+        method = RequestMethod.GET)
+    ResponseEntity<byte[]> getAttachment(
+    		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
+
+    
     
     @ApiOperation(value = "Retrieves a ServiceDescriptor by ServiceSpecification  ID", nickname = "retrieveServiceSpecificationDescriptor", notes = "This operation retrieves a Service Descriptor entity. Attribute selection is enabled for all first level attributes.", response = ServiceDescriptor.class, tags={ "serviceSpecification", })
     @ApiResponses(value = { 

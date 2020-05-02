@@ -36,6 +36,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.resource.EncodedResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
@@ -54,7 +55,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Configuration
 @EnableWebMvc
-public class MvcConfig implements WebMvcConfigurer {
+public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Autowired
 	Environment env;
 
@@ -84,7 +85,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd
 		// HH:mm:ss");
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
@@ -117,5 +118,13 @@ public class MvcConfig implements WebMvcConfigurer {
 		// if there are same type mappers in converters, setting in first mapper
 		// is used.
 		converters.add(0, new MappingJackson2HttpMessageConverter(mapper));
+		for (HttpMessageConverter<?> httpMessageConverter : converters) {
+			System.out.println("======================> " + httpMessageConverter.toString());
+		}
+		
+		System.out.println("======================> "  );
+		
 	}
+	
+	
 }

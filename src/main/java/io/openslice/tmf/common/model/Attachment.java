@@ -17,7 +17,7 @@
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-package io.openslice.tmf.pcm620.model;
+package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
@@ -28,8 +28,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.pcm620.model.Quantity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

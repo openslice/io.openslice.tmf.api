@@ -60,9 +60,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.EValueType;
-import io.openslice.tmf.pcm620.model.Attachment;
 import io.openslice.tmf.pcm620.model.Quantity;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;

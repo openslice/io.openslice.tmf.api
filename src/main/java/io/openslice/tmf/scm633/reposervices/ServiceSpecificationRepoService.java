@@ -36,6 +36,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -168,16 +169,15 @@ public class ServiceSpecificationRepoService {
 		Transaction tx = session.beginTransaction();
 		List<ServiceSpecification> alist = null;
 		try {
-//			String sql="";
-			String sql = "SELECT ";
-
-			if (fields == null) {
-				sql += " s";
-			} else {
-				sql += " s.uuid,s.name,s.description,s.isBundle ";
-			}
-			
-			sql += " FROM ServiceSpecification s";
+			String sql = "SELECT s FROM ServiceSpecification s";
+//			String sql = "SELECT ";
+//
+//			if (fields == null) {
+//				sql += " s";
+//			} else {
+//				sql += " s.uuid,s.name,s.description,s.isBundle," + fields;
+//			}			
+//			sql += " FROM ServiceSpecification s";
 			if (allParams.size() > 0) {
 				sql += " WHERE ";
 				for (String pname : allParams.keySet()) {
@@ -188,13 +188,13 @@ public class ServiceSpecificationRepoService {
 
 			}
 //			sql += " ORDER BY s.uuid";
-			Query q = session.createQuery(sql);
+			TypedQuery<ServiceSpecification> q = session.createQuery(sql, ServiceSpecification.class);
 			q.setFirstResult(0);
 			q.setMaxResults(1000);
 			alist = q.getResultList();
 			
 			//this will fetch the whole object fields
-			if ( (fields == null)  && ( allParams!= null) ) {
+			if ( (( allParams!= null) && ( allParams.size()>0)) ) {
 				List<ServiceSpecification> resultlist = new ArrayList<>();
 				for (ServiceSpecification s : alist) {
 					resultlist.add(  findByUuid( s.getUuid() ));

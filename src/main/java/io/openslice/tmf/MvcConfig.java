@@ -118,11 +118,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		// if there are same type mappers in converters, setting in first mapper
 		// is used.
 		converters.add(0, new MappingJackson2HttpMessageConverter(mapper));
-		for (HttpMessageConverter<?> httpMessageConverter : converters) {
-			System.out.println("======================> " + httpMessageConverter.toString());
-		}
 		
-		System.out.println("======================> "  );
+		
 		
 	}
 	

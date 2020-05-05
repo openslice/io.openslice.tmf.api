@@ -113,7 +113,6 @@ public interface OrganizationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/organization/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -197,7 +196,6 @@ public interface OrganizationApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/organization/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     default ResponseEntity<Organization> retrieveOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {

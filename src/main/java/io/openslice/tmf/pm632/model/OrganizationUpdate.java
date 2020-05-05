@@ -696,5 +696,17 @@ public class OrganizationUpdate   {
     }
     return o.toString().replace("\n", "\n    ");
   }
+  
+  public Characteristic findCharacteristic(String aName) {
+	  	if ( partyCharacteristic!= null ) {
+			for ( Characteristic c : partyCharacteristic) {
+				if ( c.getName().equals(aName) ) {
+					return c;
+				}
+			}	  		
+	  	}
+	  
+		return null;
+	}
 }
 

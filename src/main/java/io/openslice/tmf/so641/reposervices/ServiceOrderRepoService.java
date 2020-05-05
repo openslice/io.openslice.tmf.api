@@ -19,9 +19,13 @@
  */
 package io.openslice.tmf.so641.reposervices;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,6 +40,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,6 +77,7 @@ import io.openslice.tmf.so641.model.ServiceOrderStateChangeEvent;
 import io.openslice.tmf.so641.model.ServiceOrderStateChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderStateType;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
+import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
 
 @Service
@@ -102,10 +108,160 @@ public class ServiceOrderRepoService {
 		this.sessionFactory = factory.unwrap(SessionFactory.class);
 	}
 	
+	/**
+	 * 
+	 * This findAll is optimized on fields. 
+	 * @param fields
+	 * @param allParams
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	@Transactional
+	public List findAll(@Valid String fields, Map<String, String> allParams)
+			throws UnsupportedEncodingException {
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		List<ServiceOrder> alist = null;
+		try {
+//			String sql = "SELECT s FROM ServiceSpecification s";
+			String sql = "SELECT "
+					+ "sor.uuid as uuid,"
+					+ "sor.orderDate as orderDate,"
+					+ "sor.requestedStartDate as requestedStartDate,"
+					+ "sor.requestedCompletionDate as requestedCompletionDate,"
+					+ "sor.state as state,"
+					+ "sor.type as type,"
+					+ "rp.uuid as relatedParty_uuid,"
+					+ "rp.name as relatedParty_name";
+			
+			if (fields != null) {
+				String[] field = fields.split(",");
+				for (String f : field) {
+					sql += ", sor." + f + " as " + f ;
+				}
+				
+			}			
+			sql += "  FROM ServiceOrder sor "
+					+ "JOIN sor.relatedParty rp ";
+			if (allParams.size() > 0) {
+				sql += " WHERE rp.role = 'REQUESTER' AND ";
+				for (String pname : allParams.keySet()) {
+					sql += " " + pname + " LIKE ";
+					String pval = URLDecoder.decode(allParams.get(pname), StandardCharsets.UTF_8.toString());
+					sql += "'" + pval + "'";
+				}
+			} else {
+				sql += " WHERE rp.role = 'REQUESTER' ";				
+			}
+			sql += "  ORDER BY sor.orderDate DESC";
+			
+			List<Object> mapaEntity = session
+				    .createQuery(sql )
+				    .setResultTransformer( new ResultTransformer() {
+						
+						@Override
+						public Object transformTuple(Object[] tuple, String[] aliases) {
+							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
+							        for (int i = 0; i < tuple.length; i++) {
+							            String alias = aliases[i];
+							            if (alias.equals("uuid")) {
+							            	result.put("id", tuple[i]);
+							            }
+							            if (alias.equals("type")) {
+							            	alias = "@type";
+							            }
+							            if (alias.equals("relatedParty_name")) {
+							            	if ( result.get( "relatedParty" ) == null ) {
+								                result.put("relatedParty", new ArrayList<Object>() ) ;							            		
+							            	}
+							            	ArrayList< Object> rpList =  (ArrayList< Object>) result.get( "relatedParty" );
+							            	LinkedHashMap<String, Object> rp = new LinkedHashMap<String, Object>();
+							            	rp.put("name", tuple[i]);
+							            	rp.put("role", "REQUESTER" );
+							            	rpList.add(rp);
+							            }
+							            if (alias != null) {
+							                result.put(alias, tuple[i]);
+							            }
+							        }
+
+							        return result;
+						}
+						
+						@Override
+						public List transformList(List collection) {
+							return collection;
+						}
+					} )
+				    .list();
+			
+	
+			
+//			List<ServiceOrder> mapaEntity = session
+//				    .createQuery(sql )
+//				    .setResultTransformer( new ResultTransformer() {
+//						
+//						@Override
+//						public ServiceOrder transformTuple(Object[] tuple, String[] aliases) {
+//									//Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
+//									ServiceOrder so = new ServiceOrder();
+//									so.setUuid( (String) tuple[0] );
+//									so.setOrderDate(  (OffsetDateTime) tuple[1] );
+//									ServiceOrderItem soi = new ServiceOrderItem();
+//									so.addOrderItemItem( soi );
+//									ServiceRestriction service = new ServiceRestriction();
+//									service.setName( (String) tuple[9]  );
+//									soi.setService(service );
+//									
+////							        for (int i = 0; i < tuple.length; i++) {
+////							            String alias = aliases[i];
+////							            if (alias.equals("type")) {
+////							            	alias = "@type";
+////							            }
+////							            if (alias != null) {
+////							                result.put(alias, tuple[i]);
+////							            }
+////							        }
+//
+//							        return so;
+//						}
+//						
+//						@Override
+//						public List transformList(List collection) {
+//							return collection;
+//						}
+//					} )
+//				    .list();
+			
+//			//this will fetch the whole object fields
+//			if ( (( allParams!= null) && ( allParams.size()>0)) ) {
+//				List<ServiceSpecification> resultlist = new ArrayList<>();
+//				for (ServiceSpecification s : alist) {
+//					resultlist.add(  findByUuid( s.getUuid() ));
+//				}
+//				return resultlist;
+//			}
+			
+			
+			
+			return mapaEntity;
+		
+			
+			
+			
+		} finally {
+			tx.commit();
+			session.close();
+		}
+
+	}
+	
 	public List<ServiceOrder> findAll() {
 
 		//return (List<ServiceOrder>) this.serviceOrderRepo.findAll();
-		return (List<ServiceOrder>) this.serviceOrderRepo.findByOrderByOrderDateDesc();
+		//return (List<ServiceOrder>) this.serviceOrderRepo.findByOrderByOrderDateDesc();
+		return (List<ServiceOrder>) this.serviceOrderRepo.findAllOptimized();
 	}
 	
 	public List<ServiceOrder> findAllParams(Map<String, String> allParams) {

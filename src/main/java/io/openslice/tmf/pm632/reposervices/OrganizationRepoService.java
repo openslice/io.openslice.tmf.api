@@ -43,6 +43,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.pm632.api.OrganizationApiRouteBuilder;
 import io.openslice.tmf.pm632.model.Characteristic;
 import io.openslice.tmf.pm632.model.ContactMedium;
@@ -55,6 +56,7 @@ import io.openslice.tmf.pm632.model.OrganizationCreateEventPayload;
 import io.openslice.tmf.pm632.model.OrganizationUpdate;
 import io.openslice.tmf.pm632.repo.OrganizationRepository;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 
 
 @Service
@@ -86,6 +88,100 @@ public class OrganizationRepoService {
 
 	public Organization addOrganization(@Valid OrganizationCreate organization) {
 		Organization c = new Organization();
+		
+//		/**
+//		 * add here default characteristics for organization
+//		 */
+//		
+		Characteristic partyCharacteristicItem = new Characteristic();
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_BASEURL" ) == null ) {
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_BASEURL" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);			
+		}
+
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_CLIENTREGISTRATIONID" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_CLIENTREGISTRATIONID" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_OAUTH2CLIENTID" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_OAUTH2CLIENTID" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_OAUTH2CLIENTSECRET" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_OAUTH2CLIENTSECRET" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_OAUTH2SCOPES" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_OAUTH2SCOPES" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_OAUTH2TOKENURI" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_OAUTH2TOKENURI" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_USERNAME" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_USERNAME" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_PASSWORD" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_PASSWORD" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));			
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));		
+			c.addPartyCharacteristicItem(partyCharacteristicItem);	
+		}
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_SERVICE_SPEC" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_SERVICE_SPEC" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+		}
+
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_SERVICE_ORDER_URLS" ) == null ) {
+
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_SERVICE_ORDER_URLS" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
+		
+		
 		c = updateOrganizationData(c, organization);
 		c = organizationRepository.save(c);
 		raiseOrganizationCreate( c );
@@ -118,7 +214,13 @@ public class OrganizationRepoService {
 			c.setTradingName( orgUpd.getTradingName() );
 		}
 		
+		if ( orgUpd.isIsLegalEntity()  !=null) {
+			c.setIsLegalEntity(  orgUpd.isIsLegalEntity() ); 
+		}
 		
+		if ( orgUpd.getStatus()   !=null) {
+			c.setStatus(  orgUpd.getStatus() ); 
+		}
 		
 		if ( orgUpd.getContactMedium() !=null) {
 			//reattach fromDB
@@ -150,18 +252,31 @@ public class OrganizationRepoService {
 				//find  by id and reload it here.
 				boolean idexists = false;
 				for (Characteristic originalCm : c.getPartyCharacteristic()) {
-					if ( ( originalCm.getUuid()!=null ) && originalCm.getUuid().equals(cmUpd.getUuid() ) ) {
+					if (  originalCm.getName().equals(cmUpd.getName() ) )  {
 						idexists = true;
-						idAddedUpdated.put( originalCm.getUuid(), true);
+						idAddedUpdated.put( originalCm.getName() , true);
 						originalCm.updateWith( cmUpd );
 						break;
 					}
 				}
 				if (!idexists) {
-					c.addPartyCharacteristicItem( cmUpd );
+					c.addPartyCharacteristicItem(  new Characteristic(cmUpd) );
+					idAddedUpdated.put( cmUpd.getName(), true);
 				}
 				
 			}
+			
+			List<Characteristic> toRemove = new ArrayList<>();
+			for (Characteristic ss : c.getPartyCharacteristic()) {
+				if (idAddedUpdated.get(ss.getName()) == null) {
+					toRemove.add(ss);
+				}
+			}
+
+			for (Characteristic schar : toRemove) {
+				c.getPartyCharacteristic().remove( schar );
+			}
+			
 		}
 		
 		return c;

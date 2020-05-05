@@ -147,8 +147,14 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 				allParams = new HashMap<>();
 			}
 			if ((fields == null) && (allParams.size() == 0)) {
-				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(),
-						HttpStatus.OK);
+
+				String myfields = "lastUpdate,lifecycleStatus";
+				return new ResponseEntity<List<ServiceSpecification>>(						
+						serviceSpecificationRepoService.findAll( myfields, allParams), HttpStatus.OK);
+//				return new ResponseEntity<List<ServiceSpecification>>(serviceSpecificationRepoService.findAll(),
+//						HttpStatus.OK);
+				
+				
 			} else {
 
 				

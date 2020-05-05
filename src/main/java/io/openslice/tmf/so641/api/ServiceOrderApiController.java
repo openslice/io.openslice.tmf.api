@@ -20,6 +20,7 @@
 package io.openslice.tmf.so641.api;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -157,15 +158,15 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 //			SecurityContextHolder.setContext( (SecurityContext) attr );  
 			
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			log.info("principal=  " + principal.toString());
+			log.debug("principal=  " + principal.toString());
 						
-			log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
-			log.info("principal ROLE_NFV_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_NFV_DEVELOPER.getValue() ) ));
-			log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
+			log.debug("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
+			log.debug("principal ROLE_NFV_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_NFV_DEVELOPER.getValue() ) ));
+			log.debug("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
 			
 			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
 
-				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(), HttpStatus.OK);				
+				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(null, new HashMap<>()), HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(
 						principal.getName(),

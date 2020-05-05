@@ -50,6 +50,21 @@ public class Characteristic extends BaseRootNamedEntity {
 	@JsonProperty("value")
 	private Any value = null;
 
+	
+	public Characteristic() {
+		super();
+		this.baseType = "BaseRootEntity";
+		this.type = this.getClass().getName();		
+	}
+	
+	public Characteristic(Characteristic src) {
+		this();
+		name = src.name;
+		valueType = src.valueType;
+		value = new Any( src.value ) ;
+		
+	}
+
 	public Characteristic name(String name) {
 		this.name = name;
 		return this;

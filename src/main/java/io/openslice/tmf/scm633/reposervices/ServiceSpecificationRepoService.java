@@ -30,9 +30,11 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -45,6 +47,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -161,23 +165,40 @@ public class ServiceSpecificationRepoService {
 		return (List<ServiceSpecification>) this.serviceSpecificationRepo.findByOrderByName();
 	}
 
+	/**
+	 * 
+	 * This findAll is optimized on fields. 
+	 * @param fields
+	 * @param allParams
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	@Transactional
-	public List<ServiceSpecification> findAll(@Valid String fields, Map<String, String> allParams)
+	public List findAll(@Valid String fields, Map<String, String> allParams)
 			throws UnsupportedEncodingException {
 
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		List<ServiceSpecification> alist = null;
 		try {
-			String sql = "SELECT s FROM ServiceSpecification s";
-//			String sql = "SELECT ";
-//
-//			if (fields == null) {
-//				sql += " s";
-//			} else {
-//				sql += " s.uuid,s.name,s.description,s.isBundle," + fields;
-//			}			
-//			sql += " FROM ServiceSpecification s";
+//			String sql = "SELECT s FROM ServiceSpecification s";
+			String sql = "SELECT "
+					+ "s.uuid as uuid,"
+					+ "s.id as id,"
+					+ "s.name as name,"
+					+ "s.description as description,"
+					+ "s.isBundle as isBundle,"
+					+ "s.version as version,"
+					+ "s.type as type";
+			
+			if (fields != null) {
+				String[] field = fields.split(",");
+				for (String f : field) {
+					sql += ", s." + f + " as " + f ;
+				}
+				
+			}			
+			sql += " FROM ServiceSpecification s";
 			if (allParams.size() > 0) {
 				sql += " WHERE ";
 				for (String pname : allParams.keySet()) {
@@ -187,24 +208,53 @@ public class ServiceSpecificationRepoService {
 				}
 
 			}
-//			sql += " ORDER BY s.uuid";
-			TypedQuery<ServiceSpecification> q = session.createQuery(sql, ServiceSpecification.class);
-			q.setFirstResult(0);
-			q.setMaxResults(1000);
-			alist = q.getResultList();
+			sql += " ORDER BY s.name";
 			
-			//this will fetch the whole object fields
-			if ( (( allParams!= null) && ( allParams.size()>0)) ) {
-				List<ServiceSpecification> resultlist = new ArrayList<>();
-				for (ServiceSpecification s : alist) {
-					resultlist.add(  findByUuid( s.getUuid() ));
-				}
-				return resultlist;
-			}
+	
+			
+			List<Object> mapaEntity = session
+				    .createQuery(sql )
+				    .setResultTransformer( new ResultTransformer() {
+						
+						@Override
+						public Object transformTuple(Object[] tuple, String[] aliases) {
+							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
+							        for (int i = 0; i < tuple.length; i++) {
+							            String alias = aliases[i];
+							            if (alias.equals("type")) {
+							            	alias = "@type";
+							            }
+							            if (alias != null) {
+							                result.put(alias, tuple[i]);
+							            }
+							        }
+
+							        return result;
+						}
+						
+						@Override
+						public List transformList(List collection) {
+							return collection;
+						}
+					} )
+				    .list();
+			
+//			//this will fetch the whole object fields
+//			if ( (( allParams!= null) && ( allParams.size()>0)) ) {
+//				List<ServiceSpecification> resultlist = new ArrayList<>();
+//				for (ServiceSpecification s : alist) {
+//					resultlist.add(  findByUuid( s.getUuid() ));
+//				}
+//				return resultlist;
+//			}
 			
 			
 			
-			return alist;
+			return mapaEntity;
+		
+			
+			
+			
 		} finally {
 			tx.commit();
 			session.close();
@@ -224,7 +274,7 @@ public class ServiceSpecificationRepoService {
 		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
 		ServiceSpecification dd = null;
 		try {
-			dd = (ServiceSpecification) session.get(ServiceSpecification.class, id);
+			dd = session.get(ServiceSpecification.class, id);
 			if (dd == null) {
 				return this.findByUuid(id);// last resort
 			}

@@ -19,14 +19,19 @@
  */
 package io.openslice.tmf.pm632.api;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -40,9 +45,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.model.UserRoleType;
+import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.pm632.model.Individual;
 import io.openslice.tmf.pm632.model.IndividualCreate;
 import io.openslice.tmf.pm632.model.IndividualUpdate;
+import io.openslice.tmf.pm632.model.MediumCharacteristic;
 import io.openslice.tmf.pm632.reposervices.IndividualRepoService;
 import io.swagger.annotations.ApiParam;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
@@ -64,28 +71,18 @@ public class IndividualApiController implements IndividualApi {
 	@Autowired
 	IndividualRepoService individualRepoService;
 
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<List<Individual>> listIndividual(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 	
 		
 		
 
 		try {
-			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-			SecurityContextHolder.setContext( (SecurityContext) attr );  
-			
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			log.info("authentication=  " + authentication.toString());
-						
-			log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
-			log.info("principal ROLE_NFV_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_NFV_DEVELOPER.getValue() ) ));
-			log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
-			
-			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
+
+
 
 				return new ResponseEntity<List<Individual>>(individualRepoService.findAll(), HttpStatus.OK);				
-			}else {
-				return new ResponseEntity<List<Individual>>(HttpStatus.FORBIDDEN );
-			}
 			
 
 		} catch (Exception e) {
@@ -94,22 +91,58 @@ public class IndividualApiController implements IndividualApi {
 		}
     }
 	
-	
-	  public ResponseEntity<Individual> retrieveIndividual(@ApiParam(value = "Identifier of the Individual",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+
+	@Secured({ "ROLE_USER" })
+	  public ResponseEntity<Individual> retrieveIndividual(
+				Principal principal,			
+				@ApiParam(value = "Identifier of the Individual",required=true) @PathVariable("id") String id,
+				@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
 
+		
 			try {
-				Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-				SecurityContextHolder.setContext( (SecurityContext) attr );  
-				
+
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				log.info("authentication=  " + authentication.toString());
-							
-				log.info("principal ROLE_ADMIN =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ));
-				log.info("principal ROLE_NFV_DEVELOPER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_NFV_DEVELOPER.getValue() ) ));
-				log.info("principal ROLE_EXPERIMENTER =  " + authentication.getAuthorities().contains( new SimpleGrantedAuthority(  UserRoleType.ROLE_EXPERIMENTER.getValue() ) ));
 				
-				if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
+				if ( id.equals( "myuser" ) ) {
+					
+					log.debug("principal=  " + principal.toString());
+					
+					Individual ind = individualRepoService.findByUsername(  principal.getName() );
+					
+					
+					if ( ind != null ) {
+						return new ResponseEntity< Individual >( ind , HttpStatus.OK);		
+					} else 
+					{
+						@Valid
+						IndividualCreate individualnew  = new IndividualCreate();
+						individualnew.setPreferredGivenName(  principal.getName() );
+						if ( principal instanceof KeycloakAuthenticationToken) {
+							KeycloakAuthenticationToken pr = ( KeycloakAuthenticationToken ) principal;
+							
+							
+							KeycloakPrincipal lp = (KeycloakPrincipal) pr.getPrincipal();
+							
+							individualnew.setPreferredGivenName(  lp.getKeycloakSecurityContext().getToken().getPreferredUsername() );
+							
+							individualnew.setFamilyName( lp.getKeycloakSecurityContext().getToken().getGivenName() );
+							individualnew.setGivenName( lp.getKeycloakSecurityContext().getToken().getName()  );
+							ContactMedium contactMediumItem = new ContactMedium();
+							contactMediumItem.setPreferred(true);
+							contactMediumItem.setMediumType("main");
+							MediumCharacteristic mc = new MediumCharacteristic();
+							mc.setEmailAddress( lp.getKeycloakSecurityContext().getToken().getEmail() );							
+							contactMediumItem.setCharacteristic(mc );
+							individualnew.addContactMediumItem(contactMediumItem );
+							
+						}
+						return new ResponseEntity< Individual > ( individualRepoService.addIndividual(individualnew)   , HttpStatus.OK);
+					}
+									
+					
+					
+				} else if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
 
 					return new ResponseEntity< Individual >(individualRepoService.findById(id) , HttpStatus.OK);				
 				}else {

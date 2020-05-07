@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.pm632.reposervices;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.pm632.api.IndividualApiRouteBuilder;
+import io.openslice.tmf.pm632.model.Characteristic;
 import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.pm632.model.Individual;
 import io.openslice.tmf.pm632.model.IndividualAttributeValueChangeEvent;
@@ -94,6 +96,13 @@ public class IndividualRepoService {
 		if ( indvUpd.getGivenName() !=null) {
 			c.setGivenName( indvUpd.getGivenName() );
 		}
+
+		
+		if ( indvUpd.getPreferredGivenName() !=null) {
+			c.setPreferredGivenName( indvUpd.getPreferredGivenName() );
+		}
+		
+		
 		
 		if ( indvUpd.getContactMedium() !=null) {
 			//reattach fromDB
@@ -112,9 +121,54 @@ public class IndividualRepoService {
 				}
 				if (!idexists) {
 					c.addContactMediumItem( cmUpd );
+					idAddedUpdated.put( cmUpd.getUuid(),  true);
+				}
+			}
+			List<ContactMedium> toRemove = new ArrayList<>();
+			for (ContactMedium ss : c.getContactMedium() ) {
+				if (idAddedUpdated.get(ss.getUuid()) == null) {
+					toRemove.add(ss);
+				}
+			}
+
+			for (ContactMedium schar : toRemove) {
+				c.getContactMedium().remove( schar );
+			}
+		}
+		
+		if ( indvUpd.getPartyCharacteristic() !=null) {
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (Characteristic cmUpd : indvUpd.getPartyCharacteristic()) {
+				//find  by id and reload it here.
+				boolean idexists = false;
+				for (Characteristic originalCm : c.getPartyCharacteristic()) {
+					if (  originalCm.getName().equals(cmUpd.getName() ) )  {
+						idexists = true;
+						idAddedUpdated.put( originalCm.getName() , true);
+						originalCm.updateWith( cmUpd );
+						break;
+					}
+				}
+				if (!idexists) {
+					c.addPartyCharacteristicItem(  new Characteristic(cmUpd) );
+					idAddedUpdated.put( cmUpd.getName(), true);
 				}
 				
 			}
+			
+			List<Characteristic> toRemove = new ArrayList<>();
+			for (Characteristic ss : c.getPartyCharacteristic()) {
+				if (idAddedUpdated.get(ss.getName()) == null) {
+					toRemove.add(ss);
+				}
+			}
+
+			for (Characteristic schar : toRemove) {
+				c.getPartyCharacteristic().remove( schar );
+			}
+			
 		}
 		
 		return c;
@@ -138,8 +192,7 @@ public class IndividualRepoService {
 		IndividualCreateEventPayload event = new IndividualCreateEventPayload();
 		event.setIndividual(c);
 		ce.setEvent(event);
-		individualApiRouteBuilder.publishEvent( ce, c.getId() );
-		
+		individualApiRouteBuilder.publishEvent( ce, c.getId() );		
 	}
 	
 	
@@ -151,6 +204,20 @@ public class IndividualRepoService {
 		ce.setEvent(event);
 		individualApiRouteBuilder.publishEvent( ce, c.getId() );
 		
+	}
+
+	/**
+	 * @param username
+	 * @return
+	 */
+	public Individual findByUsername(String username) {
+		Optional<Individual> c = this.individualRepository.findByPreferredGivenName( username );
+		return c.orElse( null );
+		
+		
+//		Individual ind = new Individual();
+//		ind.getPreferredGivenName()
+//		return null;
 	}
 
 }

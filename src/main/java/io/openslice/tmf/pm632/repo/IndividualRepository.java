@@ -39,4 +39,6 @@ public interface IndividualRepository extends PagingAndSortingRepository<Individ
 	
 	List<Individual> findByOrderByFamilyName();
 
+	Optional<Individual> findByPreferredGivenName(String username);
+
 }

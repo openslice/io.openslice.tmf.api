@@ -28,6 +28,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -74,6 +75,7 @@ public class OrganizationApiController implements OrganizationApi {
     @Autowired
 	OrganizationRepoService organizationRepoService;
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<List<Organization>> listOrganization(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 	
 		
@@ -104,7 +106,8 @@ public class OrganizationApiController implements OrganizationApi {
 		}
     }
 	
-	
+
+	@Secured({ "ROLE_ADMIN" })
 	  public ResponseEntity<Organization> retrieveOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
 
@@ -135,6 +138,8 @@ public class OrganizationApiController implements OrganizationApi {
 			}
 	    }
     
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Organization> createOrganization(
 			@ApiParam(value = "The Organization to be created", required = true) @Valid @RequestBody OrganizationCreate organization) {
 
@@ -150,6 +155,8 @@ public class OrganizationApiController implements OrganizationApi {
 
 	}
 	
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Organization> patchOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id,@ApiParam(value = "The Organization to be updated" ,required=true )  @Valid @RequestBody OrganizationUpdate organization) {
 
 		try {
@@ -163,6 +170,8 @@ public class OrganizationApiController implements OrganizationApi {
 		}
     }
 	
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Void> deleteOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id) {
 		try {
 

@@ -25,6 +25,7 @@
 package io.openslice.tmf.pm632.api;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -113,7 +114,6 @@ public interface IndividualApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/individual/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteIndividual(@ApiParam(value = "Identifier of the Individual",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -136,7 +136,6 @@ public interface IndividualApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/individual",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     default ResponseEntity<List<Individual>> listIndividual(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -198,9 +197,10 @@ public interface IndividualApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/individual/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    default ResponseEntity<Individual> retrieveIndividual(@ApiParam(value = "Identifier of the Individual",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<Individual> retrieveIndividual(
+			Principal principal,
+			@ApiParam(value = "Identifier of the Individual",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

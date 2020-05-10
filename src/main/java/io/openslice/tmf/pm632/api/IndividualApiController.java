@@ -172,7 +172,8 @@ public class IndividualApiController implements IndividualApi {
 		}
 
 	}
-	
+
+	@Secured({ "ROLE_ADMIN" , "ROLE_USER" })
 	public ResponseEntity<Individual> patchIndividual(@ApiParam(value = "Identifier of the Individual",required=true) @PathVariable("id") String id,@ApiParam(value = "The Individual to be updated" ,required=true )  @Valid @RequestBody IndividualUpdate individual) {
 
 		try {

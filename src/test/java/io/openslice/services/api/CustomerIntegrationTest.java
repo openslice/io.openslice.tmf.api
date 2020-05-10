@@ -32,6 +32,7 @@ import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,6 +80,19 @@ public class CustomerIntegrationTest {
 	@Autowired
 	CustomerRepoService customerRepoService;
 	
+
+//    @Autowired
+//    private WebApplicationContext context;
+//    
+// 
+//    @Before
+//    public void setup() {
+//        mvc = MockMvcBuilders
+//          .webAppContextSetup(context).dispatchOptions(true)
+//          .apply( SecurityMockMvcConfigurers.springSecurity())
+//          .build();
+//    }
+    
     
 	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
@@ -100,6 +118,7 @@ public class CustomerIntegrationTest {
 		
 				
 		String response = mvc.perform(MockMvcRequestBuilders.post("/customerManagement/v4/customer")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( cc ) ))
 			    .andExpect(status().isOk())
@@ -131,7 +150,8 @@ public class CustomerIntegrationTest {
 		cu.setContactMedium(contactMediums);
 		
 		String responseUpd = mvc.perform(MockMvcRequestBuilders.patch("/customerManagement/v4/customer/" + respc.getId() )
-				.contentType(MediaType.APPLICATION_JSON)
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+	            .contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( cu ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -160,6 +180,7 @@ public class CustomerIntegrationTest {
 		
 		
 		responseGet = mvc.perform(MockMvcRequestBuilders.get("/customerManagement/v4/customer/" + respc.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( cc ) ))
 			    .andExpect(status().isOk())
@@ -172,7 +193,9 @@ public class CustomerIntegrationTest {
 		
 		
 
-		String responseDel = mvc.perform(MockMvcRequestBuilders.delete("/customerManagement/v4/customer/" + respc.getId() )
+		String responseDel = mvc.perform(MockMvcRequestBuilders
+				.delete("/customerManagement/v4/customer/" + respc.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( cu ) ))
 	    	    .andExpect(status().isOk())

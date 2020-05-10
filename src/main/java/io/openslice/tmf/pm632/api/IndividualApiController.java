@@ -156,6 +156,8 @@ public class IndividualApiController implements IndividualApi {
 			}
 	    }
     
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Individual> createIndividual(
 			@ApiParam(value = "The Individual to be created", required = true) @Valid @RequestBody IndividualCreate individual) {
 

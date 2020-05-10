@@ -60,6 +60,11 @@ logging:
     file: "%d %p %c{1.} [%t] %m%n"
 
 
+swagger:
+  authserver: http://localhost/auth/realms/openslice
+  clientid: "osapiWebClientId"
+  clientsecret: "secret"
+
 oauthsign:
    key: "XXX"
 

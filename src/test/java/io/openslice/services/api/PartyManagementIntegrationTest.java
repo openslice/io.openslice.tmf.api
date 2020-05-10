@@ -33,18 +33,26 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,6 +60,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.pm632.api.OrganizationApiController;
 import io.openslice.tmf.pm632.model.Characteristic;
 import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.pm632.model.Individual;
@@ -81,7 +90,30 @@ public class PartyManagementIntegrationTest {
 
     @Autowired
     OrganizationRepoService organizationRepoService;
+//
+//    @Autowired
+//    private FilterChainProxy filterChainProxy;
+//    
+//    @Autowired
+//    private WebApplicationContext wac;
+//
+//     @Before
+//     public void setUp() {
+//         MockitoAnnotations.initMocks(this);
+//         this.mvc = MockMvcBuilders.webAppContextSetup(wac).dispatchOptions(true).addFilters(filterChainProxy).build();
+//     }
 
+    @Autowired
+    private WebApplicationContext context;
+    
+ 
+    @Before
+    public void setup() {
+        mvc = MockMvcBuilders
+          .webAppContextSetup(context).dispatchOptions(true)
+          .apply( SecurityMockMvcConfigurers.springSecurity())
+          .build();
+    }
     
 	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
@@ -101,8 +133,9 @@ public class PartyManagementIntegrationTest {
 		ic.setContactMedium(contactMediums );
 				
 		String response = mvc.perform(MockMvcRequestBuilders.post("/party/v4/individual")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( ic ) ))
+				.content( toJson( ic ) ))				
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("familyName", is("A Customer")))								 
@@ -192,6 +225,7 @@ public class PartyManagementIntegrationTest {
 		oc.addPartyCharacteristicItem(partyCharacteristicItem );
 		
 		String response = mvc.perform(MockMvcRequestBuilders.post("/party/v4/organization")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( oc ) ))
 			    .andExpect(status().isOk())

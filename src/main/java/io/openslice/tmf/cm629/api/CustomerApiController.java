@@ -27,6 +27,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -69,6 +70,7 @@ public class CustomerApiController implements CustomerApi {
 	@Autowired
 	CustomerRepoService customerRepoService;
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<List<Customer>> listCustomer(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 	
 		
@@ -99,7 +101,8 @@ public class CustomerApiController implements CustomerApi {
 		}
     }
 	
-	
+
+	@Secured({ "ROLE_ADMIN" })
 	  public ResponseEntity<Customer> retrieveCustomer(@ApiParam(value = "Identifier of the Customer",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
 
@@ -127,7 +130,8 @@ public class CustomerApiController implements CustomerApi {
 				return new ResponseEntity< Customer >(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 	    }
-    
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Customer> createCustomer(
 			@ApiParam(value = "The Customer to be created", required = true) @Valid @RequestBody CustomerCreate customer) {
 
@@ -142,7 +146,8 @@ public class CustomerApiController implements CustomerApi {
 		}
 
 	}
-	
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Customer> patchCustomer(@ApiParam(value = "Identifier of the Customer",required=true) @PathVariable("id") String id,@ApiParam(value = "The Customer to be updated" ,required=true )  @Valid @RequestBody CustomerUpdate customer) {
 
 		try {
@@ -155,7 +160,8 @@ public class CustomerApiController implements CustomerApi {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
-	
+
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Void> deleteCustomer(@ApiParam(value = "Identifier of the Customer",required=true) @PathVariable("id") String id) {
 		try {
 

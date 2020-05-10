@@ -52,6 +52,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -236,6 +237,7 @@ public class ServiceOrderIntegrationTest {
 
 		String responseSorder = mvc
 				.perform(MockMvcRequestBuilders.post("/serviceOrdering/v4/serviceOrder")
+			            .with( SecurityMockMvcRequestPostProcessors.csrf())
 						.contentType(MediaType.APPLICATION_JSON).content(toJson(servOrder)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -321,6 +323,7 @@ public class ServiceOrderIntegrationTest {
 
 		String responseSorderUpd = mvc
 				.perform(MockMvcRequestBuilders.patch("/serviceOrdering/v4/serviceOrder/" + responseSO.getId())
+			            .with( SecurityMockMvcRequestPostProcessors.csrf())
 						.contentType(MediaType.APPLICATION_JSON).content(toJson(servOrderUpd)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -384,6 +387,7 @@ public class ServiceOrderIntegrationTest {
 
 		String responseSpec = mvc
 				.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+			            .with( SecurityMockMvcRequestPostProcessors.csrf())
 						.contentType(MediaType.APPLICATION_JSON).content(toJson(sspeccr1)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();

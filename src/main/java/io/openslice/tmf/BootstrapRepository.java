@@ -129,7 +129,7 @@ public class BootstrapRepository {
 				ServiceCategory scategory = this.categRepoService.findByName("Generic Services");
 				ServiceSpecification serviceSpecificationObj = this.specRepoService.findByNameAndVersion( GST_EXAMPLE_NAME , "0.4.0");
 				
-				if ( ( scategory != null ) &&  ( serviceSpecificationObj == null ) && (this.specRepoService.findAll().size() == 0 ))
+				if ( ( scategory != null ) &&  ( serviceSpecificationObj == null ))
 				{
 					this.createFirstTimeGSTRepo( scategory );
 				}
@@ -137,7 +137,7 @@ public class BootstrapRepository {
 			if (ADDVINNISBT) {
 				ServiceCategory scategory = this.categRepoService.findByName("Generic Services");
 				ServiceSpecification serviceSpecificationObj = this.specRepoService.findByNameAndVersion(VINNI_EXAMPLE_NAME, "0.1.0");				
-				if ( ( scategory != null ) &&  ( serviceSpecificationObj == null )  && (this.specRepoService.findAll().size() == 0 ) )
+				if ( ( scategory != null ) &&  ( serviceSpecificationObj == null )  )
 				{
 					this.createFirstTimeVINNISBTRepo( scategory );
 				}

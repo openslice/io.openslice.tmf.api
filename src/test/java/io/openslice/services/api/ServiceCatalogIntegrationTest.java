@@ -53,6 +53,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -202,6 +203,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceCatalogCreate scc = toJsonObj( resvxf,  ServiceCatalogCreate.class);
 		
 		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCatalog")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scc ) ))
 			    .andExpect(status().isOk())
@@ -230,6 +232,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceCategoryCreate scategcreate = toJsonObj( sc,  ServiceCategoryCreate.class);
 		
 		response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCategory")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scategcreate ) ))
 			    .andExpect(status().isOk())
@@ -254,6 +257,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		scu.addCategoryItem(categoryItem);
 		 response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceCatalog/" + responsesCatalog.getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scu ) ))
 			    .andExpect(status().isOk())
@@ -281,6 +285,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		
 		 response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
@@ -334,6 +339,7 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
 
 		String response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scUpd1 ) ))
 			    .andExpect(status().isOk())
@@ -390,6 +396,7 @@ public class ServiceCatalogIntegrationTest {
 		 		 
 		 //delete category with childs not allows (not modified)
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
 				    .andExpect(status().isNotModified() )
@@ -399,6 +406,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		//delete subcategory
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
 				    .andExpect(status().isOk() )
@@ -408,6 +416,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		 //delete rootcategory 
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
 				    .andExpect(status().isOk() )
@@ -420,6 +429,7 @@ public class ServiceCatalogIntegrationTest {
 	private ServiceCategory postCategory(ServiceCategoryCreate scategcreate, String name) throws UnsupportedEncodingException, IOException, Exception {
 				
 		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCategory")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scategcreate ) ))
 			    .andExpect(status().isOk())
@@ -452,6 +462,7 @@ public class ServiceCatalogIntegrationTest {
 		attachmentItem.setUrl("a url");
 		sspeccr.addAttachmentItem(attachmentItem);
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
@@ -483,6 +494,7 @@ public class ServiceCatalogIntegrationTest {
 		responsesSpecUpd.getServiceSpecCharacteristic().add(spechar );
 				
 		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -523,6 +535,7 @@ public class ServiceCatalogIntegrationTest {
 		responsesSpecUpd.getServiceSpecCharacteristic().get(0).getServiceSpecCharRelationship().add(scrObj4);
 		
 		response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -585,6 +598,7 @@ public class ServiceCatalogIntegrationTest {
 	private ServiceSpecification createServiceSpec(String sspectext, ServiceSpecificationCreate sspeccr1) throws Exception{
 		
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -686,6 +700,7 @@ public class ServiceCatalogIntegrationTest {
 		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
 		
 		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec3.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -886,17 +901,18 @@ public class ServiceCatalogIntegrationTest {
 				.multipart("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec1.getId() + "/attachment" )
 				.file(prodFile)
 				.param("attachment", toJsonString(att))
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				)
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-			    .andExpect(jsonPath("name", is("Spec1")))								 
+			    .andExpect(jsonPath("name", is("cirros_vnf.tar.gz")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  ServiceSpecification.class);
+		Attachment responseSpecPost1 = toJsonObj( responsePatch1,  Attachment.class);
 
 		//logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
 
-		assertThat( responseSpecPost1.getAttachment().size() ).isEqualTo( 1 );
+		assertThat( responseSpecPost1.getName() ).isEqualTo( "cirros_vnf.tar.gz" );
 	}
 
 
@@ -916,6 +932,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName( sspeccr1.getName()+"_acopy_" );
 		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -931,7 +948,7 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
 		boolean userPartyRoleOwnerexists = false;
 		for (RelatedParty r : responsesSpec1.getRelatedParty()) {
-			if ( r.getName().equals( "anonymousUser" ) && r.getRole().equals( UserPartRoleType.OWNER.toString() )) {
+			if ( r.getName().equals( "osadmin" ) && r.getRole().equals( UserPartRoleType.OWNER.toString() )) {
 				userPartyRoleOwnerexists = true;
 			}
 		}
@@ -1019,6 +1036,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName( sspeccr1.getName()+"_acopy_" );
 		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -1034,7 +1052,7 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( responsesSpec1.getServiceSpecRelationship().size() ).isEqualTo(0);
 		boolean userPartyRoleOwnerexists = false;
 		for (RelatedParty r : responsesSpec1.getRelatedParty()) {
-			if ( r.getName().equals( "anonymousUser" ) && r.getRole().equals( UserPartRoleType.OWNER.toString() )) {
+			if ( r.getName().equals( "osadmin" ) && r.getRole().equals( UserPartRoleType.OWNER.toString() )) {
 				userPartyRoleOwnerexists = true;
 			}
 		}
@@ -1107,8 +1125,8 @@ public class ServiceCatalogIntegrationTest {
 
 	}
 	
-	
-	@WithMockUser(username="osadmin", roles = {"USER"})
+
+	@WithMockUser(username="osadmin", roles = {"ADMIN", "USER"})
 	@Test
 	public void testSpecDelete() throws Exception {
 
@@ -1137,6 +1155,8 @@ public class ServiceCatalogIntegrationTest {
 		
 	}
 	
+
+	@WithMockUser(username="osadmin", roles = {"ADMIN", "USER"})
 	@Test
 	public void testExternhalSpecUpdate() throws Exception {
 		

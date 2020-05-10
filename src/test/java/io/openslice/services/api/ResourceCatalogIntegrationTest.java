@@ -47,6 +47,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -150,7 +151,7 @@ public class ResourceCatalogIntegrationTest {
 	}
 	
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN", "USER"})
 	@Test
 	public void addCatalogAddCategory() throws Exception {
 		File scatalog = new File( "src/test/resources/testResourceCatalog.txt" );
@@ -160,6 +161,7 @@ public class ResourceCatalogIntegrationTest {
 		ResourceCatalogCreate scc = toJsonObj( resvxf,  ResourceCatalogCreate.class);
 		
 		String response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCatalog")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scc ) ))
 			    .andExpect(status().isOk())
@@ -188,6 +190,7 @@ public class ResourceCatalogIntegrationTest {
 		ResourceCategoryCreate scategcreate = toJsonObj( sc,  ResourceCategoryCreate.class);
 		
 		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCategory")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scategcreate ) ))
 			    .andExpect(status().isOk())
@@ -212,6 +215,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		scu.addCategoryItem(categoryItem);
 		 response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/resourceCatalog/" + responsesCatalog.getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scu ) ))
 			    .andExpect(status().isOk())
@@ -239,6 +243,7 @@ public class ResourceCatalogIntegrationTest {
 		LogicalResourceSpecCreate sspeccr = toJsonObj( sspectext,  LogicalResourceSpecCreate.class);
 		
 		 response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/logicalResourceSpec")
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
@@ -259,6 +264,7 @@ public class ResourceCatalogIntegrationTest {
 		PhysicalResourceSpecCreate physpeccr = toJsonObj( sspectext,  PhysicalResourceSpecCreate.class);
 		physpeccr.setModel("ACME");
 		 response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/physicalResourceSpec")
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( physpeccr ) ))
 			    .andExpect(status().isOk())
@@ -310,6 +316,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
 
 		String response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scUpd1 ) ))
 			    .andExpect(status().isOk())
@@ -363,6 +370,7 @@ public class ResourceCatalogIntegrationTest {
 		 		 
 		 //delete category with childs not allows (not modified)
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
 				    .andExpect(status().isNotModified() )
@@ -372,6 +380,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		//delete subcategory
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
 				    .andExpect(status().isOk() )
@@ -381,6 +390,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		 //delete rootcategory 
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
 				    .andExpect(status().isOk() )
@@ -395,6 +405,7 @@ public class ResourceCatalogIntegrationTest {
 	private ResourceCategory postCategory(ResourceCategoryCreate scategcreate, String name) throws UnsupportedEncodingException, IOException, Exception {
 			
 			String response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCategory")
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scategcreate ) ))
 				    .andExpect(status().isOk())
@@ -428,6 +439,7 @@ public class ResourceCatalogIntegrationTest {
 		attachmentItem.setUrl("a url");
 		sspeccr.addAttachmentItem(attachmentItem);
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/logicalResourceSpec")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
@@ -460,6 +472,7 @@ public class ResourceCatalogIntegrationTest {
 		responsesSpecUpd.getResourceSpecCharacteristic().add(spechar );
 				
 		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -500,6 +513,7 @@ public class ResourceCatalogIntegrationTest {
 		responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharRelationship().add(scrObj4);
 		
 		response2 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -566,6 +580,7 @@ public class ResourceCatalogIntegrationTest {
 			url = new URI("/resourceCatalogManagement/v2/physicalResourceSpec");
 		}
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -659,6 +674,7 @@ public class ResourceCatalogIntegrationTest {
 //		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
 		
 		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec3.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
@@ -731,6 +747,7 @@ public class ResourceCatalogIntegrationTest {
 				.multipart("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec1.getId() + "/attachment" )
 				.file(prodFile)
 				.param("attachment", toJsonString(att))
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				)
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

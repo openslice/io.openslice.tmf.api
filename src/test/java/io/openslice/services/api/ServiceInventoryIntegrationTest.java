@@ -46,6 +46,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -188,6 +189,7 @@ public class ServiceInventoryIntegrationTest {
 		logger.info("aService JSON = " + toJsonString( aService ));
 		
 		String responseService = mvc.perform(MockMvcRequestBuilders.post("/serviceInventory/v4/service")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( aService ) ))
 			    .andExpect(status().isOk())
@@ -213,7 +215,7 @@ public class ServiceInventoryIntegrationTest {
 		
 		boolean userPartyRoleexists = false;
 		for (RelatedParty r : responseSrvc.getRelatedParty()) {
-			if ( r.getName().equals( "anonymousUser" ) && r.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
+			if ( r.getName().equals( "osadmin" ) && r.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
 				userPartyRoleexists = true;
 			}
 		}
@@ -246,6 +248,7 @@ public class ServiceInventoryIntegrationTest {
 		
 		
 		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/serviceInventory/v4/service/" + responseSrvc.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( servUpd ) ))
 			    .andExpect(status().isOk())
@@ -272,6 +275,7 @@ public class ServiceInventoryIntegrationTest {
 	private ServiceSpecification createServiceSpec(String sspectext, ServiceSpecificationCreate sspeccr1) throws Exception{
 		
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())

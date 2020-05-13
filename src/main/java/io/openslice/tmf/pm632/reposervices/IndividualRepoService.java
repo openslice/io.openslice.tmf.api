@@ -102,7 +102,9 @@ public class IndividualRepoService {
 			c.setPreferredGivenName( indvUpd.getPreferredGivenName() );
 		}
 		
-		
+		if ( indvUpd.getLocation() !=null) {
+			c.setLocation( indvUpd.getLocation() );
+		}
 		
 		if ( indvUpd.getContactMedium() !=null) {
 			//reattach fromDB

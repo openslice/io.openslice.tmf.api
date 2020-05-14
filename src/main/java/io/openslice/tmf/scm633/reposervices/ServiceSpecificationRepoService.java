@@ -714,6 +714,18 @@ public class ServiceSpecificationRepoService {
 		
 	}
 	
+	public Attachment getAttachmentLogo(String attid) {
+		
+		List<Attachment> result = this.attachmentRepoService.findByLogoName( attid );
+		
+		if ( result.size()>0) {
+			return result.get(0) ;
+		}	
+		
+		return null;
+		
+	}
+	
 
 	public ServiceSpecification findByNameAndVersion(String aname, String aversion) {
 

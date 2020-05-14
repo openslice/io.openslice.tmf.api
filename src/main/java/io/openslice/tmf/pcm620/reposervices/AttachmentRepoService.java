@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.pcm620.reposervices;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.pcm620.repo.AttachmentRepository;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 @Service
@@ -50,5 +52,11 @@ public class AttachmentRepoService {
 		Optional<Attachment> ret = this.attachmentRepo.findByUuid(attid);
 		return ret.orElse(null);
 		
+	}
+
+	public List<Attachment> findByLogoName(String attid) {
+
+		List<Attachment>  ret = this.attachmentRepo.findByNameContaining(attid);
+		return ret;
 	}
 }

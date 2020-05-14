@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.pcm620.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -31,6 +32,8 @@ public interface AttachmentRepository extends PagingAndSortingRepository<Attachm
 
 	
 	Optional<Attachment> findByUuid(String id);
+
+	List<Attachment> findByNameContaining(String name);
 	
 
 

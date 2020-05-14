@@ -240,8 +240,17 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 	@ResponseBody
 	public  ResponseEntity<byte[]> getAttachment(String id, String attid) {
 		try {
+			Attachment att;
+			if ( attid.equals("logo")) {
+				att = serviceSpecificationRepoService.getAttachmentLogo( attid );
+			} else {			
+				att = serviceSpecificationRepoService.getAttachment( attid );
+			}
 			
-			Attachment att = serviceSpecificationRepoService.getAttachment( attid );
+			if ( att == null ) {
+				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);				
+			}
+			
 			File file = new File( att.getContent() );
 			Path path = Paths.get(file.getAbsolutePath());
 			//ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));

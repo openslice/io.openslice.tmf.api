@@ -684,7 +684,8 @@ public class ServiceSpecificationRepoService {
 				att.setContent(targetfile);
 				att.setName(aFileNamePosted);
 				// Save the file destination
-				att.setUrl( urlpath  + spec.getId() + "/attachments/" + att.getId() + "/"
+				urlpath = urlpath.replace("tmf-api/", "");
+				att.setUrl( urlpath + "/" + att.getId() + "/"
 						+ aFileNamePosted);
 				att = this.attachmentRepoService.updateAttachment( att );
 			}

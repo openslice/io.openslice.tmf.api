@@ -251,7 +251,10 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			byte[] media = IOUtils.toByteArray(in);
 		    headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		    headers.setContentType( MediaType. parseMediaType( att.getMimeType()) );
-		    headers.add( "Content-Disposition", "attachment; filename=" + file.getName());//remove this returns directly the object
+		    
+		    if ( att.getMimeType().contains("zip") || att.getMimeType().contains("gz")) {		    
+		    	headers.add( "Content-Disposition", "attachment; filename=" + file.getName());//remove this returns directly the object
+		    }
 		    
 		    ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		    return responseEntity;

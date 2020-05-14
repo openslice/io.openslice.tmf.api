@@ -27,6 +27,7 @@ package io.openslice.tmf.scm633.api;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.core.io.ByteArrayResource;
@@ -233,7 +234,8 @@ public interface ServiceSpecificationApi {
     ResponseEntity<Attachment> addAttachmentToServiceSpecification(
     		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
     		//@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") Attachment attachment, 
-    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file);
+    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file,
+			HttpServletRequest request);
 
     @ApiOperation(value = "Get an attachment", nickname = "getAttachment", 
     		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
@@ -250,6 +252,26 @@ public interface ServiceSpecificationApi {
     	produces = MediaType.ALL_VALUE,
         method = RequestMethod.GET)
     ResponseEntity<byte[]> getAttachment(
+    		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
+
+    
+    
+    @ApiOperation(value = "Get an attachment with filename", nickname = "getAttachment", 
+    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/serviceSpecification/{id}/attachment/{attid}/{afilename}",        
+    	produces = MediaType.ALL_VALUE,
+        method = RequestMethod.GET)
+    ResponseEntity<byte[]> getAttachmentWithFilename(
     		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
     		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
 

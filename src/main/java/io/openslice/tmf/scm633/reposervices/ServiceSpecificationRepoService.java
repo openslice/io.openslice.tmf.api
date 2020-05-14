@@ -657,7 +657,8 @@ public class ServiceSpecificationRepoService {
 
 	public Attachment addAttachmentToService(String id, 
 			//@Valid Attachment attachment,
-			@Valid MultipartFile afile) {
+			@Valid MultipartFile afile,
+			String urlpath) {
 		Optional<ServiceSpecification> s = this.serviceSpecificationRepo.findByUuid(id);
 		if (s.get() == null) {
 			return null;
@@ -683,7 +684,7 @@ public class ServiceSpecificationRepoService {
 				att.setContent(targetfile);
 				att.setName(aFileNamePosted);
 				// Save the file destination
-				att.setUrl("/serviceSpecification/" + spec.getId() + "/attachments/" + att.getId() + "/"
+				att.setUrl( urlpath  + spec.getId() + "/attachments/" + att.getId() + "/"
 						+ aFileNamePosted);
 				att = this.attachmentRepoService.updateAttachment( att );
 			}

@@ -215,7 +215,8 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 	@Override
 	public ResponseEntity<Attachment> addAttachmentToServiceSpecification(String specid,
 			//@Valid @ModelAttribute("attachment") Attachment att,
-			@RequestParam(name = "afile") @Valid MultipartFile file) {
+			@RequestParam(name = "afile") @Valid MultipartFile file,
+			HttpServletRequest request) {
 		try {
 
 			//log.info("addAttachmentToServiceSpecification attachment=" + att.toString());
@@ -225,7 +226,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			//log.info("addAttachmentToServiceSpecification att=" + att);
 
 //			return new ResponseEntity<ServiceSpecification>( serviceSpecificationRepoService.findByUuid( id ), HttpStatus.OK);
-			Attachment c = serviceSpecificationRepoService.addAttachmentToService(specid,  file);
+			Attachment c = serviceSpecificationRepoService.addAttachmentToService(specid,  file, request.getRequestURI());
 
 			return new ResponseEntity<Attachment>(c, HttpStatus.OK);
 		} catch (Exception e) {
@@ -267,6 +268,15 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			log.error("Couldn't serialize response ByteArrayResource", e);
 			return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	
+
+	@Override
+	@ResponseBody
+	public ResponseEntity<byte[]> getAttachmentWithFilename(String id, String attid) {
+		
+		return getAttachment(id, attid);
 	}
 	
 	
@@ -314,6 +324,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
+
 
 
 }

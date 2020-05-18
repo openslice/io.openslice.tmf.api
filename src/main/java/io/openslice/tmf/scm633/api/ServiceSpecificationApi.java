@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -240,7 +241,7 @@ public interface ServiceSpecificationApi {
     @ApiOperation(value = "Get an attachment", nickname = "getAttachment", 
     		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+        @ApiResponse(code = 200, message = "Success", response = Resource.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
@@ -249,7 +250,7 @@ public interface ServiceSpecificationApi {
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceSpecification/{id}/attachment/{attid}",        
-    	produces = MediaType.ALL_VALUE,
+    	produces = MediaType.APPLICATION_OCTET_STREAM_VALUE,
         method = RequestMethod.GET)
     ResponseEntity<byte[]> getAttachment(
     		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
@@ -260,7 +261,7 @@ public interface ServiceSpecificationApi {
     @ApiOperation(value = "Get an attachment with filename", nickname = "getAttachmentWithFilename", 
     		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+        @ApiResponse(code = 200, message = "Success", response =  Resource.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

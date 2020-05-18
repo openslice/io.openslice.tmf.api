@@ -257,7 +257,7 @@ public interface ServiceSpecificationApi {
 
     
     
-    @ApiOperation(value = "Get an attachment with filename", nickname = "getAttachment", 
+    @ApiOperation(value = "Get an attachment with filename", nickname = "getAttachmentWithFilename", 
     		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
@@ -269,11 +269,12 @@ public interface ServiceSpecificationApi {
         @ApiResponse(code = 409, message = "Conflict", response = Error.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/serviceSpecification/{id}/attachment/{attid}/{afilename}",        
-    	produces = MediaType.ALL_VALUE,
+    	produces = MediaType.APPLICATION_OCTET_STREAM_VALUE ,
         method = RequestMethod.GET)
     ResponseEntity<byte[]> getAttachmentWithFilename(
     		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
-    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
+    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid, 
+    		@ApiParam(value = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
 
     
     

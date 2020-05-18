@@ -714,13 +714,14 @@ public class ServiceSpecificationRepoService {
 		
 	}
 	
-	public Attachment getAttachmentLogo(String attid) {
+	public Attachment getAttachmentLogo(String specid, String attid) {
 		
-		List<Attachment> result = this.attachmentRepoService.findByLogoName( attid );
-		
-		if ( result.size()>0) {
-			return result.get(0) ;
-		}	
+		ServiceSpecification spec = this.findByUuid( specid ); 
+		for (AttachmentRef att : spec.getAttachment()) {
+			if ( att.getName().contains("logo")) {
+				return this.attachmentRepoService.findByUuid( att.getId() );
+			}				
+		}
 		
 		return null;
 		

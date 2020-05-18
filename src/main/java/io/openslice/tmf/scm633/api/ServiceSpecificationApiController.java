@@ -242,7 +242,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		try {
 			Attachment att;
 			if ( attid.equals("logo")) {
-				att = serviceSpecificationRepoService.getAttachmentLogo( attid );
+				att = serviceSpecificationRepoService.getAttachmentLogo( id, attid );
 			} else {			
 				att = serviceSpecificationRepoService.getAttachment( attid );
 			}
@@ -286,7 +286,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	@Override
 	@ResponseBody
-	public ResponseEntity<byte[]> getAttachmentWithFilename(String id, String attid) {
+	public ResponseEntity<byte[]> getAttachmentWithFilename(String id, String attid, String afilename) {
 		
 		return getAttachment(id, attid);
 	}

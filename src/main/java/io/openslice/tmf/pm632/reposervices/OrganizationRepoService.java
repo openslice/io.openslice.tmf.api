@@ -57,6 +57,7 @@ import io.openslice.tmf.pm632.model.OrganizationUpdate;
 import io.openslice.tmf.pm632.repo.OrganizationRepository;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 @Service
@@ -180,7 +181,16 @@ public class OrganizationRepoService {
 			c.addPartyCharacteristicItem(partyCharacteristicItem);
 			
 		}
-		
+
+
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_STATUS" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_STATUS" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));
+			c.addPartyCharacteristicItem(partyCharacteristicItem);
+			
+		}
 		
 		c = updateOrganizationData(c, organization);
 		c = organizationRepository.save(c);
@@ -291,6 +301,25 @@ public class OrganizationRepoService {
 		Optional<Organization> c = this.organizationRepository.findByUuid(id);
 		this.organizationRepository.delete( c.get());
 		return null;
+	}
+	
+	
+	public Organization updateOrganization(String orgid, 
+			@Valid Organization srcOrgz) {
+		
+		OrganizationUpdate organization = new OrganizationUpdate();
+		
+		organization.setName(srcOrgz.getName());
+		for (Characteristic c : srcOrgz.getPartyCharacteristic()) {
+			organization.addPartyCharacteristicItem( c );			
+		}
+		
+		for (ContactMedium c : srcOrgz.getContactMedium() ) {			
+			organization.addContactMediumItem( c );		
+		}
+		
+		
+		return this.updateOrganization( orgid, organization);
 	}
 
 	

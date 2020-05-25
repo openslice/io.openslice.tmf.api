@@ -39,9 +39,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
+import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.pm632.model.OrganizationAttributeValueChangeEvent;
 import io.openslice.tmf.pm632.model.OrganizationCreateEvent;
 import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 @Configuration
 @Component
@@ -62,7 +64,9 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_PARTNER_ORGANIZATON_BY_ID}")
 	private String CATALOG_GET_PARTNER_ORGANIZATON_BY_ID = "";
 	
-	
+
+	@Value("${CATALOG_UPDATE_PARTNER_ORGANIZATION}")
+	private String CATALOG_UPDATE_PARTNER_ORGANIZATION = "";
 	
 	@Autowired
 	private ProducerTemplate template;
@@ -87,6 +91,17 @@ public class OrganizationApiRouteBuilder extends RouteBuilder {
 		.log(LoggingLevel.INFO, log, CATALOG_GET_PARTNER_ORGANIZATON_BY_ID + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( organizationRepoService, "findByUuidJson");
+		
+
+		from( CATALOG_UPDATE_PARTNER_ORGANIZATION )
+		.log(LoggingLevel.INFO, log, CATALOG_UPDATE_PARTNER_ORGANIZATION + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal()
+		.json(JsonLibrary.Jackson, Organization.class, true)		
+		.bean( organizationRepoService, "updateOrganization( ${header.orgid}, ${body})")
+		.marshal().json( JsonLibrary.Jackson, String.class)
+		.convertBodyTo( String.class );
+		
 	}
 
 	/**

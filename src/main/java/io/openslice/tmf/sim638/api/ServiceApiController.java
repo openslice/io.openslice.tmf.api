@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.sim638.api;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,13 +69,17 @@ public class ServiceApiController implements ServiceApi {
 		this.request = request;
 	}
 
+
+	@Secured({ "ROLE_USER" })
 	@Override
-	public ResponseEntity<Service> createService(@Valid ServiceCreate service) {
+	public ResponseEntity<Service> createService(
+			Principal principal,			
+			@Valid ServiceCreate service) {
 		try {
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				service.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-						SecurityContextHolder.getContext().getAuthentication().getName(), 
-						SecurityContextHolder.getContext().getAuthentication().getName(), 
+						principal.getName(), 
+						principal.getName(), 
 						UserPartRoleType.REQUESTER,
 						"",
 						service.getRelatedParty()));
@@ -93,14 +99,17 @@ public class ServiceApiController implements ServiceApi {
 		}
 	}
 	
-	
+
+	@Secured({ "ROLE_USER" })
 	@Override
 	public ResponseEntity<Void> deleteService(String id) {
 		return ServiceApi.super.deleteService(id);
 	}
 	
 	@Override
-	public ResponseEntity<List<Service>> listService(@Valid String fields, @Valid Integer offset,
+	public ResponseEntity<List<Service>> listService(
+			Principal principal,			
+			@Valid String fields, @Valid Integer offset,
 			@Valid Integer limit) {
 		try {
 			return new ResponseEntity<List<Service>>(serviceRepoService.findAll(),
@@ -111,16 +120,22 @@ public class ServiceApiController implements ServiceApi {
 			return new ResponseEntity<List<Service>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
+	@Secured({ "ROLE_USER" })
 	@Override
-	public ResponseEntity<Service> patchService(String id, @Valid ServiceUpdate service) {
+	public ResponseEntity<Service> patchService(
+			Principal principal,			
+			String id, @Valid ServiceUpdate service) {
 		Service c = serviceRepoService.updateService(id, service);
 
 		return new ResponseEntity<Service>(c, HttpStatus.OK);
 	}
-	
+
+	@Secured({ "ROLE_USER" })
 	@Override
-	public ResponseEntity<Service> retrieveService(String id, @Valid String fields) {
+	public ResponseEntity<Service> retrieveService(
+			Principal principal,			
+			String id, @Valid String fields) {
 		try {
 
 			return new ResponseEntity<Service>( serviceRepoService.findByUuid( id ), HttpStatus.OK);

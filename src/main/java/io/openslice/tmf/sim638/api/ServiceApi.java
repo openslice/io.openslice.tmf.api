@@ -25,6 +25,7 @@
 package io.openslice.tmf.sim638.api;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,7 +85,9 @@ public interface ServiceApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<Service> createService(@ApiParam(value = "The Service to be created" ,required=true )  @Valid @RequestBody ServiceCreate service) {
+    default ResponseEntity<Service> createService(
+			Principal principal,			
+			@ApiParam(value = "The Service to be created" ,required=true )  @Valid @RequestBody ServiceCreate service) {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -122,7 +125,9 @@ public interface ServiceApi {
     @RequestMapping(value = "/service",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<Service>> listService(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    default ResponseEntity<List<Service>> listService(
+			Principal principal,			
+			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -142,7 +147,9 @@ public interface ServiceApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<Service> patchService(@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "The Service to be updated" ,required=true )  @Valid @RequestBody ServiceUpdate service) {
+    default ResponseEntity<Service> patchService(
+			Principal principal,			
+			@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "The Service to be updated" ,required=true )  @Valid @RequestBody ServiceUpdate service) {
       
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
@@ -161,7 +168,9 @@ public interface ServiceApi {
     @RequestMapping(value = "/service/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<Service> retrieveService(@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<Service> retrieveService(
+			Principal principal,			
+			@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
     
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }

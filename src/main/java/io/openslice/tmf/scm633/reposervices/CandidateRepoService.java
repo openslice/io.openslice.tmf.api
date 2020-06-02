@@ -89,7 +89,9 @@ public class CandidateRepoService {
 
 	public Void deleteById(String id) {
 		Optional<ServiceCandidate> optionalCat = this.candidateRepo.findByUuid( id );
-		this.candidateRepo.delete( optionalCat.get());
+		if ( !optionalCat.isEmpty() ) {
+			this.candidateRepo.delete( optionalCat.get());			
+		}
 		return null;
 		
 	}

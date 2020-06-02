@@ -77,6 +77,7 @@ public class ServiceSpecRelationship extends BaseRootNamedEntity {
 		relationshipType = src.relationshipType;
 		role = src.role;
 		validFor = new TimePeriod( src.validFor );
+		this.id = src.getId();
 		
 	}
 

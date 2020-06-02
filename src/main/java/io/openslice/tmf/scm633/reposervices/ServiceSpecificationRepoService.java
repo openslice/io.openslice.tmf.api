@@ -628,7 +628,10 @@ public class ServiceSpecificationRepoService {
 			for (ServiceSpecCharacteristic ssc : sourceSpec.getServiceSpecCharacteristic()) {
 				ServiceSpecCharacteristic cnew = new ServiceSpecCharacteristic(ssc);
 				cnew.setName( sourceSpec.getName() +"::"+ cnew.getName() ); //:: is used as delimiter
-				targetServiceSpec.getServiceSpecCharacteristic().add( cnew );
+				
+				if ( targetServiceSpec.findSpecCharacteristicByName( cnew.getName() ) == null ) {
+					targetServiceSpec.getServiceSpecCharacteristic().add( cnew );					
+				}
 				
 			}			
 		}
@@ -641,18 +644,21 @@ public class ServiceSpecificationRepoService {
 
 	public ServiceSpecification cloneServiceSpecification(String uuid) {
 		ServiceSpecification source = this.findByUuid(uuid);
+
+
+		
 		ServiceSpecification dest = new ServiceSpecification(source);
 
 		dest.setName("Copy of " + dest.getName());
 		dest.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
 		dest.setLifecycleStatusEnum(ELifecycle.IN_STUDY);
+//
+//		dest = this.serviceSpecificationRepo.save(dest); // save to get uuids
+//		dest.fixSpecCharRelationhsipIDs(); // fix charRels. this is specific to
+//											// our solution on cloning
+//		dest = this.serviceSpecificationRepo.save(dest); // and resave
 
-		dest = this.serviceSpecificationRepo.save(dest); // save to get uuids
-		dest.fixSpecCharRelationhsipIDs(); // fix charRels. this is specific to
-											// our solution on cloning
-		dest = this.serviceSpecificationRepo.save(dest); // and resave
-
-		return dest;
+		return addServiceSpecification(  dest );
 	}
 
 	public Attachment addAttachmentToService(String id, 
@@ -748,9 +754,9 @@ public class ServiceSpecificationRepoService {
 
 		serviceServiceSpecificationCr.setName(c.getName());
 		serviceServiceSpecificationCr.setDescription(c.getDescription());
-		serviceServiceSpecificationCr.setAttachment(new ArrayList<>(c.getAttachment()));
+		//serviceServiceSpecificationCr.setAttachment(new ArrayList<>(c.getAttachment()));
 		serviceServiceSpecificationCr.setIsBundle(c.isIsBundle());
-		serviceServiceSpecificationCr.setRelatedParty(new ArrayList<>(c.getRelatedParty()));
+		//serviceServiceSpecificationCr.setRelatedParty(new ArrayList<>(c.getRelatedParty()));
 		serviceServiceSpecificationCr.setResourceSpecification(new ArrayList<>(c.getResourceSpecification()));
 		serviceServiceSpecificationCr.setServiceLevelSpecification(new ArrayList<>(c.getServiceLevelSpecification()));
 		serviceServiceSpecificationCr.setServiceSpecCharacteristic(new ArrayList<>(c.getServiceSpecCharacteristic()));

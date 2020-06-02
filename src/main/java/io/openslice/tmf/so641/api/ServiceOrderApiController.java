@@ -26,6 +26,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,18 +98,25 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 				log.info("authentication=  " + principal.toString());
 				String extInfo = null;
 				try {
-					PortalUser user = serviceOrderApiRouteBuilder.retrievePortalUser( principal.getName() );
-					if ( user!= null) {
-						extInfo = user.getEmail();	
+					
+
+					if ( principal instanceof KeycloakAuthenticationToken) {
+
+						KeycloakAuthenticationToken pr = ( KeycloakAuthenticationToken ) principal;
+						
+						KeycloakPrincipal lp = (KeycloakPrincipal) pr.getPrincipal();
+						extInfo = lp.getKeycloakSecurityContext().getToken().getEmail();	
 						log.info("extInfo=  " + extInfo);	
 
 						serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
 								principal.getName(), 
-								user.getId()+"", 
+								//user.getId()+"", 
+								principal.getName(), 
 								UserPartRoleType.REQUESTER,
 								extInfo,
 								serviceOrder.getRelatedParty()));
 					}
+				
 					
 				}finally {
 					

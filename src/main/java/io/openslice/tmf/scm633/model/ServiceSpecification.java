@@ -147,8 +147,10 @@ public class ServiceSpecification extends BaseEntity {
 	 * @return the id
 	 */
 	public String getId() {
-		id = uuid;
-		return uuid;
+		if ( uuid != null ) {
+			id = uuid;			
+		} 
+		return id;
 	}
 
 	public ServiceSpecification() {

@@ -756,7 +756,7 @@ public class ServiceSpecificationRepoService {
 		serviceServiceSpecificationCr.setDescription(c.getDescription());
 		//serviceServiceSpecificationCr.setAttachment(new ArrayList<>(c.getAttachment()));
 		serviceServiceSpecificationCr.setIsBundle(c.isIsBundle());
-		//serviceServiceSpecificationCr.setRelatedParty(new ArrayList<>(c.getRelatedParty()));
+		serviceServiceSpecificationCr.setRelatedParty(new ArrayList<>(c.getRelatedParty()));
 		serviceServiceSpecificationCr.setResourceSpecification(new ArrayList<>(c.getResourceSpecification()));
 		serviceServiceSpecificationCr.setServiceLevelSpecification(new ArrayList<>(c.getServiceLevelSpecification()));
 		serviceServiceSpecificationCr.setServiceSpecCharacteristic(new ArrayList<>(c.getServiceSpecCharacteristic()));

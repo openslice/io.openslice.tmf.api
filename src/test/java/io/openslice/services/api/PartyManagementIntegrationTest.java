@@ -213,6 +213,12 @@ public class PartyManagementIntegrationTest {
 		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_SERVICE_CATALOG_URLS");
 		partyCharacteristicItem.value( new Any(  "" ));
 		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+
+		partyCharacteristicItem = new Characteristic();
+		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_SERVICE_CATEGORY_URLS");
+		partyCharacteristicItem.value( new Any(  "" ));
+		oc.addPartyCharacteristicItem(partyCharacteristicItem );
+		
 		partyCharacteristicItem = new Characteristic();
 		partyCharacteristicItem.setName("EXTERNAL_TMFAPI_SERVICE_ORDER_URLS");
 		partyCharacteristicItem.value( new Any(  "" ));

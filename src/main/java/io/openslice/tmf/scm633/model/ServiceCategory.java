@@ -241,6 +241,7 @@ public class ServiceCategory extends BaseEntity {
 	/**
 	 * @param serviceCandidateObj the serviceCandidateObj to set
 	 */
+	@JsonProperty("serviceCandidate")
 	public void setServiceCandidateObj(Set<ServiceCandidate> serviceCandidateObj) {
 		this.serviceCandidateObj = serviceCandidateObj;
 	}

@@ -164,6 +164,17 @@ public class OrganizationRepoService {
 			partyCharacteristicItem.setValue( new Any(""));		
 			c.addPartyCharacteristicItem(partyCharacteristicItem);	
 		}
+		
+		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_SERVICE_CATEGORY_URLS" ) == null ) {
+			partyCharacteristicItem = new Characteristic();
+			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_SERVICE_CATEGORY_URLS" );
+			partyCharacteristicItem.setValueType( "TEXT" );
+			partyCharacteristicItem.setValue( new Any(""));		
+			c.addPartyCharacteristicItem(partyCharacteristicItem);	
+		}
+		
+		
+		
 		if ( organization.findCharacteristic( "EXTERNAL_TMFAPI_SERVICE_SPEC" ) == null ) {
 			partyCharacteristicItem = new Characteristic();
 			partyCharacteristicItem.setName( "EXTERNAL_TMFAPI_SERVICE_SPEC" );

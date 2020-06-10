@@ -77,7 +77,11 @@ public class ServiceCandidate extends BaseEntity {
 	 * @return the id
 	 */
 	public String getId() {
-		return uuid;
+		if ( uuid != null ) {
+			return uuid;			
+		} else {
+			return id;
+		}
 	}
 	
 	
@@ -147,6 +151,8 @@ public class ServiceCandidate extends BaseEntity {
 	/**
 	 * @param serviceSpecificationObj the serviceSpecificationObj to set
 	 */
+
+	@JsonProperty("serviceSpecification")
 	public void setServiceSpecificationObj(ServiceSpecification serviceSpecificationObj) {
 		this.serviceSpecificationObj = serviceSpecificationObj;
 	}

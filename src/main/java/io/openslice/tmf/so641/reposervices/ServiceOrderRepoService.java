@@ -612,6 +612,19 @@ public class ServiceOrderRepoService {
 				soiOrigin.getService().setState( soiUpd.getService().getState() );//this probably will change only
 				soiOrigin.getService().setName( soiUpd.getService().getName() );
 				
+				
+				for (Characteristic updChar : soiUpd.getService().getServiceCharacteristic() ) {
+					String charname = updChar.getName(); 
+					Characteristic originChar = soiOrigin.getService().findCharacteristicByName ( charname );
+					if ( ( originChar != null ) && ( originChar.getValue() != null )  && ( updChar.getValue() != null ) ) {						
+						if ( !originChar.getValue().getValue().equals( updChar.getValue().getValue() )   ) {
+							originChar.setValue( new Any( updChar.getValue() ) );
+						}
+					} else if ( ( originChar != null ) && ( originChar.getValue() == null )  && ( updChar.getValue() != null ) ) {
+							originChar.setValue( new Any( updChar.getValue() ) );						
+					}					
+				}
+				
 				//we need also to update supportingServices
 				for (ServiceRef serviceRef : soiUpd.getService().getSupportingService()) {
 					if ( soiOrigin.getService().getSupportingServiceById(serviceRef.getId() ) == null ) {

@@ -476,4 +476,19 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 		}
 		return null;
 	}
+	
+	/**
+	 * return a characteristic matching by name
+	 * @param name
+	 * @return
+	 */
+	public Characteristic findCharacteristicByName(String aName) {
+		for (Characteristic c : serviceCharacteristic) {
+			if ( c.getName().equals(aName) ) {
+				return c;
+			}
+		}
+		
+		return null;
+	}
 }

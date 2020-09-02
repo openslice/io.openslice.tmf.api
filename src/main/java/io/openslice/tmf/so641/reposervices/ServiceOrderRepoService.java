@@ -42,6 +42,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jms.JmsProperties.AcknowledgeMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +67,7 @@ import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
 import io.openslice.tmf.so641.model.ServiceOrder;
+import io.openslice.tmf.so641.model.ServiceOrderActionType;
 import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeEvent;
 import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
@@ -551,6 +553,17 @@ public class ServiceOrderRepoService {
 				ServiceOrderItem soiOrigin = so.findOrderItemById( soiUpd.getId() );
 				if (soiOrigin!=null) {
 					updateOrderItem(soiOrigin, soiUpd);
+					/**
+					 * When we patch the order and see a MODIFY or DELETE action, we set the state to ACKNOWLEDGED
+					 */
+					if ( soiOrigin.getAction().equals( ServiceOrderActionType.MODIFY ) ||
+							soiOrigin.getAction().equals( ServiceOrderActionType.DELETE )) {
+						soiOrigin.setState( ServiceOrderStateType.ACKNOWLEDGED  );
+						so.setState( ServiceOrderStateType.ACKNOWLEDGED );
+						
+						
+					}
+					
 				}
 			}
 		}

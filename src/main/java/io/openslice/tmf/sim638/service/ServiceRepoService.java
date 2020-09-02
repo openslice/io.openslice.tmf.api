@@ -45,10 +45,13 @@ import io.openslice.tmf.common.model.service.Place;
 import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.common.model.service.ServiceRelationship;
+import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.sim638.api.ServiceApiRouteBuilder;
 import io.openslice.tmf.sim638.model.Service;
+import io.openslice.tmf.sim638.model.ServiceActionQueueAction;
+import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
 import io.openslice.tmf.sim638.model.ServiceAttributeValueChangeEvent;
 import io.openslice.tmf.sim638.model.ServiceAttributeValueChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceCreate;
@@ -58,7 +61,9 @@ import io.openslice.tmf.sim638.model.ServiceOrderRef;
 import io.openslice.tmf.sim638.model.ServiceStateChangeEvent;
 import io.openslice.tmf.sim638.model.ServiceStateChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
+import io.openslice.tmf.sim638.repo.ServiceActionQueueRepository;
 import io.openslice.tmf.sim638.repo.ServiceRepository;
+import io.openslice.tmf.so641.model.ServiceOrder;
 
 
 
@@ -73,6 +78,8 @@ public class ServiceRepoService {
 	@Autowired
 	ServiceRepository serviceRepo;
 	
+	@Autowired
+	ServiceActionQueueRepository serviceActionQueueRepo;
 
 	@Autowired
 	ServiceSpecificationRepoService  serviceSpecRepoService;
@@ -289,10 +296,32 @@ public class ServiceRepoService {
 				}
 			}						
 		}
-		
-		
+				
 		service = this.serviceRepo.save( service );
+		
+		/**
+		 * Save in ServiceActionQueueItem
+		 */
+		
+		ServiceActionQueueItem saqi = new ServiceActionQueueItem();
+		saqi.setServiceRefId( id );
 		if (stateChanged) {
+			if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
+				saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
+			}else if ( service.getState().equals(  ServiceStateType.TERMINATED) ) {
+				saqi.setAction( ServiceActionQueueAction.TERMINATE );		
+			}
+			
+		} else {
+			saqi.setAction( ServiceActionQueueAction.MODIFY );			
+		}
+		
+		this.addServiceActionQueueItem(saqi);
+		/**
+		 * notify hub
+		 */
+		if (stateChanged) {
+			saqi.setAction( ServiceActionQueueAction.DEACTIVATE  );
 			raiseServiceStateChangedNotification( service );			
 		} else {
 			raiseServiceAttributeValueChangedNotification( service );
@@ -365,4 +394,45 @@ public class ServiceRepoService {
 		serviceApiRouteBuilder.publishEvent(n, so.getId());
 	
 	}
+	
+	
+	/**
+	 * @return
+	 */
+	public List<ServiceActionQueueItem> findAllServiceActionQueueItems() {
+
+		return (List<ServiceActionQueueItem>) this.serviceActionQueueRepo.findAll();
+	}
+	
+	public ServiceActionQueueItem  addServiceActionQueueItem(@Valid ServiceActionQueueItem item) {
+		logger.debug("Will add ServiceActionQueueItem ServiceRefId: " + item.getServiceRefId() );
+		return this.serviceActionQueueRepo.save( item);
+	}
+
+	/**
+	 * @param item
+	 * @return
+	 */
+	@Transactional
+	public ServiceActionQueueItem  updateServiceActionQueueItem(@Valid ServiceActionQueueItem item) {
+		logger.debug("Will update ServiceActionQueueItem ServiceRefId: " + item.getServiceRefId() );
+		return this.serviceActionQueueRepo.save( item);
+	}
+	
+	/**
+	 * @param id
+	 * @return
+	 */
+	public Void deleteServiceActionQueueItemByUuid(String id) {
+		
+		Optional<ServiceActionQueueItem> optso = this.serviceActionQueueRepo.findByUuid(id);
+		ServiceActionQueueItem so = optso.get();
+		if ( so == null ) {
+			return null;
+		}
+		
+		this.serviceActionQueueRepo.delete(so);
+		return null;
+	}
+	
 }

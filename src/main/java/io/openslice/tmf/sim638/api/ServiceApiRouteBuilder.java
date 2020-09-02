@@ -38,6 +38,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.Notification;
+import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
 import io.openslice.tmf.sim638.model.ServiceAttributeValueChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceCreateNotification;
@@ -69,7 +70,15 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_SERVICE_BY_ID}")
 	private String CATALOG_GET_SERVICE_BY_ID = "";
 
+	@Value("${CATALOG_SERVICE_QUEUE_ITEMS_GET}")
+	private String CATALOG_SERVICE_QUEUE_ITEMS_GET = "";	
 
+	@Value("${CATALOG_SERVICE_QUEUE_ITEM_UPD}")
+	private String CATALOG_SERVICE_QUEUE_ITEM_UPD = "";
+	
+	@Value("${CATALOG_SERVICE_QUEUE_ITEM_DELETE}")
+	private String CATALOG_SERVICE_QUEUE_ITEM_DELETE = "";
+	
 	@Value("${EVENT_SERVICE_CREATE}")
 	private String EVENT_SERVICE_CREATE = "";
 	
@@ -113,6 +122,28 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.bean( serviceRepoService, "updateService(${header.serviceid}, ${body})")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
+		
+		
+		from( CATALOG_SERVICE_QUEUE_ITEMS_GET )
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEMS_GET + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( serviceRepoService, "findAllServiceActionQueueItems")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+		
+		from( CATALOG_SERVICE_QUEUE_ITEM_UPD )
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEM_UPD + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceActionQueueItem.class, true)
+		.bean( serviceRepoService, "updateServiceActionQueueItem(${body})")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+		
+		from( CATALOG_SERVICE_QUEUE_ITEM_DELETE )
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEM_DELETE + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceActionQueueItem.class, true)
+		.bean( serviceRepoService, "deleteServiceActionQueueItemByUuid(${header.itemid})");
 		
 	}
 	

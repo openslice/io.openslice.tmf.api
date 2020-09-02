@@ -65,6 +65,7 @@ import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
+import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
@@ -75,6 +76,7 @@ import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.sim638.model.Service;
+import io.openslice.tmf.sim638.model.ServiceActionQueueAction;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
@@ -239,7 +241,7 @@ public class ServiceInventoryIntegrationTest {
 			}
 			servUpd.addServiceCharacteristicItem(c);
 		}
-		
+		servUpd.setState( ServiceStateType.INACTIVE );
 		serviceCharacteristicItem = new Characteristic();		
 		serviceCharacteristicItem.setName( "DeploymentRequestID" );
 		serviceCharacteristicItem.setValue( new Any("007a008"));
@@ -268,6 +270,8 @@ public class ServiceInventoryIntegrationTest {
 		assertThat( responseSOUpd.getServiceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
 		
 		 
+		assertThat( serviceRepoService.findAllServiceActionQueueItems().size() ).isEqualTo( 1 );		
+		assertThat( serviceRepoService.findAllServiceActionQueueItems().get(0).getAction() ).isEqualTo(ServiceActionQueueAction.DEACTIVATE   );
 		
 	}
 		

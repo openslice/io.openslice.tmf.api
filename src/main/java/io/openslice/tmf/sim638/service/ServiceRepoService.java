@@ -253,17 +253,24 @@ public class ServiceRepoService {
 			}						
 		}
 		
+		boolean serviceCharacteristicChanged = false;
 		if ( servUpd.getServiceCharacteristic()!=null ) {
 			for (Characteristic n : servUpd.getServiceCharacteristic()) {
-				if (n.getUuid() == null) {
-					service.addServiceCharacteristicItem(n);
-				} else {
+				
 					if ( service.getServiceCharacteristicByName( n.getName() )!= null ) {
+						
+						Characteristic origChar = service.getServiceCharacteristicByName( n.getName() );
+						if ( origChar.getValue() !=null ) {
+							if ( !origChar.getValue().getValue().equals(n.getValue().getValue()) ) {
+								serviceCharacteristicChanged = true;								
+							}
+						}
+						
 						 service.getServiceCharacteristicByName( n.getName() ).setValue( 
 								 new Any( n.getValue().getValue(), n.getValue().getAlias()  )
 								 );
 					}
-				}
+				
 			}						
 		}
 		
@@ -299,29 +306,35 @@ public class ServiceRepoService {
 				
 		service = this.serviceRepo.save( service );
 		
+		
+		
 		/**
 		 * Save in ServiceActionQueueItem
 		 */
-		
-		ServiceActionQueueItem saqi = new ServiceActionQueueItem();
-		saqi.setServiceRefId( id );
-		if (stateChanged) {
-			if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
-				saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
-			}else if ( service.getState().equals(  ServiceStateType.TERMINATED) ) {
-				saqi.setAction( ServiceActionQueueAction.TERMINATE );		
+		if (stateChanged || serviceCharacteristicChanged) {
+			ServiceActionQueueItem saqi = new ServiceActionQueueItem();
+			saqi.setServiceRefId( id );
+			if (stateChanged) {
+				if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
+					saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
+				}else if ( service.getState().equals(  ServiceStateType.TERMINATED) ) {
+					saqi.setAction( ServiceActionQueueAction.TERMINATE );		
+				}
+				
+			} else {
+				saqi.setAction( ServiceActionQueueAction.MODIFY );			
 			}
 			
-		} else {
-			saqi.setAction( ServiceActionQueueAction.MODIFY );			
+			this.addServiceActionQueueItem(saqi);
 		}
 		
-		this.addServiceActionQueueItem(saqi);
+		
+		
+		
 		/**
 		 * notify hub
 		 */
 		if (stateChanged) {
-			saqi.setAction( ServiceActionQueueAction.DEACTIVATE  );
 			raiseServiceStateChangedNotification( service );			
 		} else {
 			raiseServiceAttributeValueChangedNotification( service );

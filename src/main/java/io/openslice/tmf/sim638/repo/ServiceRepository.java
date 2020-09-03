@@ -19,8 +19,10 @@
  */
 package io.openslice.tmf.sim638.repo;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +35,8 @@ public interface ServiceRepository extends PagingAndSortingRepository<Service, L
 
 	
 	Optional<Service> findByUuid(String id);
+
+	@Query("SELECT srv FROM Service srv JOIN FETCH srv.relatedParty rp WHERE rp.name = ?1")	
+	Iterable<Service> findByRolename(String name);
 
 }

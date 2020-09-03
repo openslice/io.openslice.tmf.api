@@ -20,6 +20,7 @@
 package io.openslice.tmf.sim638.api;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,12 +33,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.UserRoleType;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.sim638.model.Service;
 import io.openslice.tmf.sim638.model.ServiceCreate;
@@ -59,35 +63,26 @@ public class ServiceApiController implements ServiceApi {
 
 	private final HttpServletRequest request;
 
-
 	@Autowired
 	ServiceRepoService serviceRepoService;
-	
+
 	@org.springframework.beans.factory.annotation.Autowired
 	public ServiceApiController(ObjectMapper objectMapper, HttpServletRequest request) {
 		this.objectMapper = objectMapper;
 		this.request = request;
 	}
 
-
 	@Secured({ "ROLE_USER" })
 	@Override
-	public ResponseEntity<Service> createService(
-			Principal principal,			
-			@Valid ServiceCreate service) {
+	public ResponseEntity<Service> createService(Principal principal, @Valid ServiceCreate service) {
 		try {
-			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
-				service.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
-						principal.getName(), 
-						principal.getName(), 
-						UserPartRoleType.REQUESTER,
-						"",
-						service.getRelatedParty()));
+			if (SecurityContextHolder.getContext().getAuthentication() != null) {
+				service.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(principal.getName(), principal.getName(),
+						UserPartRoleType.REQUESTER, "", service.getRelatedParty()));
 
-				
 				Service c = serviceRepoService.addService(service);
 
-				return new ResponseEntity<Service>(c, HttpStatus.OK);				
+				return new ResponseEntity<Service>(c, HttpStatus.OK);
 			} else {
 
 				return new ResponseEntity<Service>(HttpStatus.FORBIDDEN);
@@ -98,23 +93,31 @@ public class ServiceApiController implements ServiceApi {
 			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
 
 	@Secured({ "ROLE_USER" })
 	@Override
 	public ResponseEntity<Void> deleteService(String id) {
 		return ServiceApi.super.deleteService(id);
 	}
-	
+
 	@Override
-	public ResponseEntity<List<Service>> listService(
-			Principal principal,			
-			@Valid String fields, @Valid Integer offset,
+	@Secured({ "ROLE_USER" })
+	public ResponseEntity<List<Service>> listService(Principal principal, @Valid String fields, @Valid Integer offset,
 			@Valid Integer limit) {
 		try {
-			return new ResponseEntity<List<Service>>(serviceRepoService.findAll(),
-					HttpStatus.OK);
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			
+			
 
+			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
+				return new ResponseEntity<List<Service>>(serviceRepoService.findAll(null, new HashMap<>()), HttpStatus.OK);
+				//return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(null, new HashMap<>()), HttpStatus.OK);				
+			}else {
+				return new ResponseEntity<List<Service>>(serviceRepoService.findAll( principal.getName(), UserPartRoleType.REQUESTER ), HttpStatus.OK);
+				//return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll( principal.getName(), UserPartRoleType.REQUESTER), HttpStatus.OK);				
+			}
+			
+			
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<List<Service>>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,9 +126,7 @@ public class ServiceApiController implements ServiceApi {
 
 	@Secured({ "ROLE_USER" })
 	@Override
-	public ResponseEntity<Service> patchService(
-			Principal principal,			
-			String id, @Valid ServiceUpdate service) {
+	public ResponseEntity<Service> patchService(Principal principal, String id, @Valid ServiceUpdate service) {
 		Service c = serviceRepoService.updateService(id, service);
 
 		return new ResponseEntity<Service>(c, HttpStatus.OK);
@@ -133,13 +134,11 @@ public class ServiceApiController implements ServiceApi {
 
 	@Secured({ "ROLE_USER" })
 	@Override
-	public ResponseEntity<Service> retrieveService(
-			Principal principal,			
-			String id, @Valid String fields) {
+	public ResponseEntity<Service> retrieveService(Principal principal, String id, @Valid String fields) {
 		try {
 
-			return new ResponseEntity<Service>( serviceRepoService.findByUuid( id ), HttpStatus.OK);
-		} catch ( Exception e) {
+			return new ResponseEntity<Service>(serviceRepoService.findByUuid(id), HttpStatus.OK);
+		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

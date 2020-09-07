@@ -128,9 +128,10 @@ public class ServiceRepoService {
 					+ "srv.state as state,"
 					+ "srv.startMode as startMode,"
 					+ "srv.serviceType as serviceType,"
-					+ "sor.id as serviceOrderId,"
-					+ "rp.uuid as relatedParty_uuid,"
-					+ "rp.name as relatedParty_name";
+					+ "sor.id as serviceOrderId"
+//					+ "rp.uuid as relatedParty_uuid,"
+//					+ "rp.name as relatedParty_name"
+					;
 			
 			if (fields != null) {
 				String[] field = fields.split(",");
@@ -140,7 +141,7 @@ public class ServiceRepoService {
 				
 			}			
 			sql += "  FROM Service srv "
-					+ "JOIN srv.relatedParty rp "
+					//+ "JOIN srv.relatedParty rp "
 					+ "JOIN srv.serviceOrder sor ";
 //			if (allParams.size() > 0) {
 //				sql += " WHERE rp.role = 'REQUESTER' AND ";
@@ -334,7 +335,7 @@ public class ServiceRepoService {
 	}
 
 	@Transactional
-	public Service updateService(String id, @Valid ServiceUpdate servUpd ) {
+	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO ) {
 		Service service = this.findByUuid(id);
 
 		logger.info("Will update service: " + service.getName() );
@@ -430,7 +431,7 @@ public class ServiceRepoService {
 					if ( service.getServiceCharacteristicByName( n.getName() )!= null ) {
 						
 						Characteristic origChar = service.getServiceCharacteristicByName( n.getName() );
-						if ( origChar.getValue() !=null ) {
+						if ( ( origChar !=null ) && ( origChar.getValue() !=null ) && ( origChar.getValue().getValue() !=null )) {
 							if ( !origChar.getValue().getValue().equals(n.getValue().getValue()) ) {
 								serviceCharacteristicChanged = true;								
 							}
@@ -439,6 +440,8 @@ public class ServiceRepoService {
 						 service.getServiceCharacteristicByName( n.getName() ).setValue( 
 								 new Any( n.getValue().getValue(), n.getValue().getAlias()  )
 								 );
+					} else {
+						service.addServiceCharacteristicItem(n);
 					}
 				
 			}						
@@ -481,21 +484,24 @@ public class ServiceRepoService {
 		/**
 		 * Save in ServiceActionQueueItem
 		 */
-		if (stateChanged || serviceCharacteristicChanged) {
-			ServiceActionQueueItem saqi = new ServiceActionQueueItem();
-			saqi.setServiceRefId( id );
-			if (stateChanged) {
-				if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
-					saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
-				}else if ( service.getState().equals(  ServiceStateType.TERMINATED) ) {
-					saqi.setAction( ServiceActionQueueAction.TERMINATE );		
+		
+		if ( propagateToSO ) {
+			if (stateChanged || serviceCharacteristicChanged) {
+				ServiceActionQueueItem saqi = new ServiceActionQueueItem();
+				saqi.setServiceRefId( id );
+				if (stateChanged) {
+					if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
+						saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
+					}else if ( service.getState().equals(  ServiceStateType.TERMINATED) ) {
+						saqi.setAction( ServiceActionQueueAction.TERMINATE );		
+					}
+					
+				} else {
+					saqi.setAction( ServiceActionQueueAction.MODIFY );			
 				}
 				
-			} else {
-				saqi.setAction( ServiceActionQueueAction.MODIFY );			
-			}
-			
-			this.addServiceActionQueueItem(saqi);
+				this.addServiceActionQueueItem(saqi);
+			}			
 		}
 		
 		

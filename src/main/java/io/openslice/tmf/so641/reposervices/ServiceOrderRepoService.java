@@ -303,6 +303,7 @@ public class ServiceOrderRepoService {
 		so.priority(serviceOrderCreate.getPriority());
 		so.requestedCompletionDate(serviceOrderCreate.getRequestedCompletionDate());
 		so.requestedStartDate(serviceOrderCreate.getRequestedStartDate() );
+		so.setStartDate( serviceOrderCreate.getRequestedStartDate() );
 		so.setExpectedCompletionDate( serviceOrderCreate.getRequestedCompletionDate() );  //this is by default
 		if (serviceOrderCreate.getNote() != null) {
 			so.getNote().addAll(serviceOrderCreate.getNote());
@@ -629,7 +630,7 @@ public class ServiceOrderRepoService {
 				for (Characteristic updChar : soiUpd.getService().getServiceCharacteristic() ) {
 					String charname = updChar.getName(); 
 					Characteristic originChar = soiOrigin.getService().findCharacteristicByName ( charname );
-					if ( ( originChar != null ) && ( originChar.getValue() != null )  && ( updChar.getValue() != null ) ) {						
+					if ( ( originChar != null ) && ( updChar != null ) && ( originChar.getValue() != null )  &&( originChar.getValue().getValue() != null )  && ( updChar.getValue() != null ) ) {						
 						if ( !originChar.getValue().getValue().equals( updChar.getValue().getValue() )   ) {
 							originChar.setValue( new Any( updChar.getValue() ) );
 						}

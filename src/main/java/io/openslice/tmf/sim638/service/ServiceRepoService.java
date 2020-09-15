@@ -637,6 +637,17 @@ public class ServiceRepoService {
 
 	
 
+	@Transactional
+	public List<String> findAllActiveServicesToTerminate(){
+
+		List<String> result = new ArrayList<>();
+		List<Service> srvs = this.serviceRepo.findActiveToTerminate();
+		for (Service service : srvs) {
+			result.add(  service.getId());
+		}
+		
+		return result;
+	}
 
 	
 }

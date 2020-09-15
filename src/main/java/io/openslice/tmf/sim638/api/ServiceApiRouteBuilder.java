@@ -92,6 +92,10 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	private String EVENT_SERVICE_ATTRIBUTE_VALUE_CHANGED = "";
 
 
+	@Value("${CATALOG_SERVICES_TO_TERMINATE}")
+	private String CATALOG_SERVICES_TO_TERMINATE = "";
+
+
 	@Autowired
 	private ProducerTemplate template;
 
@@ -145,6 +149,14 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.unmarshal().json( JsonLibrary.Jackson, ServiceActionQueueItem.class, true)
 		.bean( serviceRepoService, "deleteServiceActionQueueItemByUuid(${header.itemid})");
 		
+		
+		
+		from( CATALOG_SERVICES_TO_TERMINATE )
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICES_TO_TERMINATE + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( serviceRepoService, "findAllActiveServicesToTerminate")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
 	}
 	
 	

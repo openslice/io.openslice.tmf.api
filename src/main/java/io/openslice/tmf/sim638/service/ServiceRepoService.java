@@ -340,7 +340,17 @@ public class ServiceRepoService {
 
 		logger.info("Will update service: " + service.getName() );
 		//logger.info("Will update service details: " + s.toString() );
-
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String originaServiceAsJson = null;
+		try {
+			originaServiceAsJson = mapper.writeValueAsString( service );
+		} catch (JsonProcessingException e) {
+			logger.error("cannot umarshall service: " + service.getName() );
+			e.printStackTrace();
+		}
+		
+				
 		if (servUpd.getType()!=null) {
 			service.setType(servUpd.getType());			
 		}
@@ -489,6 +499,7 @@ public class ServiceRepoService {
 			if (stateChanged || serviceCharacteristicChanged) {
 				ServiceActionQueueItem saqi = new ServiceActionQueueItem();
 				saqi.setServiceRefId( id );
+				saqi.setOriginalServiceInJSON( originaServiceAsJson );
 				if (stateChanged) {
 					if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
 						saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
@@ -497,7 +508,7 @@ public class ServiceRepoService {
 					}
 					
 				} else {
-					saqi.setAction( ServiceActionQueueAction.MODIFY );			
+					saqi.setAction( ServiceActionQueueAction.MODIFY );
 				}
 				
 				this.addServiceActionQueueItem(saqi);

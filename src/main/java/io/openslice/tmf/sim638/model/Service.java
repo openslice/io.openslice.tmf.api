@@ -28,7 +28,9 @@ import java.util.Set;
 import java.util.function.IntPredicate;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -68,8 +70,10 @@ public class Service extends BaseRootNamedEntity {
 	@JsonProperty("category")
 	private String category = null;
 
+	@Lob
+	@Column(name = "LDESCRIPTION", columnDefinition = "LONGTEXT")
 	@JsonProperty("description")
-	private String description = null;
+	private String descriptionL = null;
 
 	private OffsetDateTime endDate = null;
 
@@ -178,7 +182,7 @@ public class Service extends BaseRootNamedEntity {
 	}
 
 	public Service description(String description) {
-		this.description = description;
+		this.descriptionL = description;
 		return this;
 	}
 
@@ -190,11 +194,11 @@ public class Service extends BaseRootNamedEntity {
 	@ApiModelProperty(value = "Free-text description of the service")
 
 	public String getDescription() {
-		return description;
+		return descriptionL;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.descriptionL = description;
 	}
 
 	public Service endDate(OffsetDateTime endDate) {
@@ -699,7 +703,7 @@ public class Service extends BaseRootNamedEntity {
 		Service service = (Service) o;
 		return Objects.equals(this.id, service.id) && Objects.equals(this.href, service.href)
 				&& Objects.equals(this.category, service.category)
-				&& Objects.equals(this.description, service.description)
+				&& Objects.equals(this.descriptionL, service.descriptionL)
 				&& Objects.equals(this.endDate, service.endDate) && Objects.equals(this.hasStarted, service.hasStarted)
 				&& Objects.equals(this.isServiceEnabled, service.isServiceEnabled)
 				&& Objects.equals(this.isStateful, service.isStateful) && Objects.equals(this.name, service.name)
@@ -736,7 +740,7 @@ public class Service extends BaseRootNamedEntity {
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    category: ").append(toIndentedString(category)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    description: ").append(toIndentedString(descriptionL)).append("\n");
 		sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
 		sb.append("    hasStarted: ").append(toIndentedString(hasStarted)).append("\n");
 		sb.append("    isServiceEnabled: ").append(toIndentedString(isServiceEnabled)).append("\n");

@@ -24,11 +24,13 @@ package io.openslice.tmf.sim638.model;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
@@ -64,6 +66,14 @@ public class ServiceActionQueueItem {
 
 	@JsonProperty("action")
 	ServiceActionQueueAction action = ServiceActionQueueAction.NONE; 
+	
+	/**
+	 * keeps the original service object in JSON. Useful to revert changes or identify different characteristics
+	 */
+
+	@Lob
+	@Column(name = "LORIGINAL_SERVICE", columnDefinition = "LONGTEXT")
+	private String originalServiceInJSONL;
 	
 	public ServiceActionQueueItem() {
 		insertedDate = OffsetDateTime.now(ZoneOffset.UTC);
@@ -139,6 +149,22 @@ public class ServiceActionQueueItem {
 	 */
 	public void setAction(ServiceActionQueueAction action) {
 		this.action = action;
+	}
+	
+	
+	/**
+	 * keeps the original service object in JSON. Useful to revert changes or identify different characteristics
+	 */
+
+	public String getOriginalServiceInJSON() {
+		return originalServiceInJSONL;
+	}
+	/**
+	 * keeps the original service object in JSON. Useful to revert changes or identify different characteristics
+	 */
+
+	public void setOriginalServiceInJSON(String originalServiceInJSON) {
+		this.originalServiceInJSONL = originalServiceInJSON;
 	}
 	
 	

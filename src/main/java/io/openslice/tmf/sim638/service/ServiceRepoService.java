@@ -555,6 +555,8 @@ public class ServiceRepoService {
 			Hibernate.initialize(s.getServiceOrder() );
 			Hibernate.initialize(s.getServiceRelationship() );
 			Hibernate.initialize(s.getServiceSpecificationRef() );
+			Hibernate.initialize(s.getSupportingService() );
+			Hibernate.initialize(s.getSupportingResource()  );
 			
 			tx.commit();
 		} finally {

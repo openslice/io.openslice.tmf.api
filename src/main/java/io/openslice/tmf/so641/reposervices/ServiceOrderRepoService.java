@@ -309,6 +309,8 @@ public class ServiceOrderRepoService {
 			so.getNote().addAll(serviceOrderCreate.getNote());
 		}
 		
+		
+		
 
 		boolean allAcknowledged = true;
 		if (serviceOrderCreate.getOrderItem() != null) {
@@ -334,12 +336,24 @@ public class ServiceOrderRepoService {
 		
 //		so = this.serviceOrderRepo.save(so);
 //		so = this.fixServiceOrderItemsDependencies(so);
+		
+		Note noteItem = new Note();
+		noteItem.setText("Service Order " + ServiceOrderStateType.INITIAL);
+		noteItem.setAuthor("API");
+		noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+		so.addNoteItem(noteItem);
 
 		so = this.serviceOrderRepo.save(so);
 		
 		if (allAcknowledged) { //in the case were order items are automatically acknowledged
 			so.setState( ServiceOrderStateType.ACKNOWLEDGED );
 			so.setStartDate(  OffsetDateTime.now(ZoneOffset.UTC) );
+			noteItem = new Note();
+			noteItem.setText("Service Order " + ServiceOrderStateType.ACKNOWLEDGED);
+			noteItem.setAuthor("API");
+			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+			so.addNoteItem(noteItem);
+			
 			so = this.serviceOrderRepo.save(so);
 		}
 		
@@ -512,6 +526,8 @@ public class ServiceOrderRepoService {
 			}
 			
 			
+			
+			
 		}
 		if ( serviceOrderUpd.getCategory()!= null ) {
 			so.setCategory(serviceOrderUpd.getCategory());
@@ -594,6 +610,15 @@ public class ServiceOrderRepoService {
 					so.addOrderRelationshipItem(n);
 				}
 			}
+		}
+		
+		
+		if ( stateChanged ) {
+			Note noteItem = new Note();
+			noteItem.setText("Service Order " + so.getState() );
+			noteItem.setAuthor("API");
+			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+			so.addNoteItem(noteItem);				
 		}
 
 		so = this.serviceOrderRepo.save(so);

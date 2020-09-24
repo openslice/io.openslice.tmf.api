@@ -22,6 +22,8 @@ package io.openslice.tmf.sim638.service;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -320,6 +322,12 @@ public class ServiceRepoService {
 			s.getSupportingService().addAll( service.getSupportingService() );
 		}
 		
+		Note noteItem = new Note();
+		noteItem.setText("Service " + s.getState() );
+		noteItem.setAuthor("API");
+		noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+		s.addNoteItem(noteItem);		
+		
 		s = this.serviceRepo.save( s );
 
 		raiseServiceCreateNotification(s);
@@ -487,6 +495,16 @@ public class ServiceRepoService {
 			}						
 		}
 				
+
+		if (stateChanged) {
+			Note noteItem = new Note();
+			noteItem.setText("Service " + service.getState() );
+			noteItem.setAuthor("API");
+			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+			service.addNoteItem(noteItem);		
+		}
+			
+		
 		service = this.serviceRepo.save( service );
 		
 		

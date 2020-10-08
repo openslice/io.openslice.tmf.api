@@ -134,7 +134,9 @@ public class Note extends BaseRootEntity {
 
 	public Note text(String text) {
 		this.text = text;
-		this.setDate(  OffsetDateTime.now(ZoneOffset.UTC).toString() );
+		if ( date == null) {
+			this.setDate(  OffsetDateTime.now(ZoneOffset.UTC).toString() );			
+		}
 		return this;
 	}
 

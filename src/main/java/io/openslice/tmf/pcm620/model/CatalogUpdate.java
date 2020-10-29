@@ -43,41 +43,41 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class CatalogUpdate   {
   @JsonProperty("catalogType")
-  private String catalogType = null;
+  protected String catalogType = null;
 
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("category")
   @Valid
-  private List<CategoryRef> category = null;
+  protected List<CategoryRef> category = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
-  public CatalogUpdate catalogType(String catalogType) {
+  protected CatalogUpdate catalogType(String catalogType) {
     this.catalogType = catalogType;
     return this;
   }
@@ -339,10 +339,10 @@ public class CatalogUpdate   {
         Objects.equals(this.type, catalogUpdate.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(catalogType, description, lifecycleStatus, name, version, category, relatedParty, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(catalogType, description, lifecycleStatus, name, version, category, relatedParty, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

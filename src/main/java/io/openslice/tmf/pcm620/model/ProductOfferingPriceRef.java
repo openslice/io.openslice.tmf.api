@@ -21,12 +21,14 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -36,25 +38,10 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "ProductPriceOffering reference. An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
-
-public class ProductOfferingPriceRef   {
+@Entity(name = "ProductOfferingPriceRef")
+public class ProductOfferingPriceRef extends BaseEntity {
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   @JsonProperty("@referredType")
   private String referredType = null;
@@ -70,116 +57,17 @@ public class ProductOfferingPriceRef   {
   **/
   @ApiModelProperty(required = true, value = "Unique identifier of a related entity.")
   @NotNull
-
-
   public String getId() {
-    return id;
+		return id;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ProductOfferingPriceRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the related entity.
-   * @return href
-  **/
-  @ApiModelProperty(value = "Reference of the related entity.")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ProductOfferingPriceRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the related entity.
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the related entity.")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ProductOfferingPriceRef baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ProductOfferingPriceRef schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ProductOfferingPriceRef type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+	
   public ProductOfferingPriceRef referredType(String referredType) {
     this.referredType = referredType;
     return this;
@@ -219,10 +107,10 @@ public class ProductOfferingPriceRef   {
         Objects.equals(this.referredType, productOfferingPriceRef.referredType);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, baseType, schemaLocation, type, referredType);
+//  }
 
   @Override
   public String toString() {

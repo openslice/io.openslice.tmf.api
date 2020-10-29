@@ -584,7 +584,7 @@ public class ServiceSpecificationRepoService {
 			}
 
 			for (ResourceSpecificationRef ar : toRemove) {
-				serviceSpec.getServiceSpecRelationship().remove(ar);
+				serviceSpec.getResourceSpecification().remove(ar);
 			}
 
 		}

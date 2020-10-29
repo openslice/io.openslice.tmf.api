@@ -21,12 +21,14 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -37,35 +39,14 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class ServiceCandidateRef   {
+@Entity(name = "ServiceCandidateRef")
+public class ServiceCandidateRef  extends BaseEntity {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("version")
-  private String version = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   @JsonProperty("@referredType")
   private String referredType = null;
-
-  public ServiceCandidateRef id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique identifier of the service candidate
@@ -73,140 +54,16 @@ public class ServiceCandidateRef   {
   **/
   @ApiModelProperty(required = true, value = "Unique identifier of the service candidate")
   @NotNull
-
-
   public String getId() {
-    return id;
-  }
+		return id;
+}
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ServiceCandidateRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Unique reference of the service candidate
-   * @return href
-  **/
-  @ApiModelProperty(value = "Unique reference of the service candidate")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ServiceCandidateRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the service candidate
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the service candidate")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ServiceCandidateRef version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Version of the service candidate
-   * @return version
-  **/
-  @ApiModelProperty(value = "Version of the service candidate")
-
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public ServiceCandidateRef baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ServiceCandidateRef schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ServiceCandidateRef type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public ServiceCandidateRef referredType(String referredType) {
-    this.referredType = referredType;
-    return this;
-  }
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
   /**
    * The actual type of the target instance when needed for disambiguation.
@@ -243,10 +100,10 @@ public class ServiceCandidateRef   {
         Objects.equals(this.referredType, serviceCandidateRef.referredType);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, version, baseType, schemaLocation, type, referredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, version, baseType, schemaLocation, type, referredType);
+//  }
 
   @Override
   public String toString() {

@@ -42,81 +42,81 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProductOfferingPriceUpdate   {
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("isBundle")
-  private Boolean isBundle = null;
+  protected Boolean isBundle = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("percentage")
-  private Float percentage = null;
+  protected Float percentage = null;
 
   @JsonProperty("priceType")
-  private String priceType = null;
+  protected String priceType = null;
 
   @JsonProperty("recurringChargePeriodLength")
-  private Integer recurringChargePeriodLength = null;
+  protected Integer recurringChargePeriodLength = null;
 
   @JsonProperty("recurringChargePeriodType")
-  private String recurringChargePeriodType = null;
+  protected String recurringChargePeriodType = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("bundledPopRelationship")
   @Valid
-  private List<BundledProductOfferingPriceRelationship> bundledPopRelationship = null;
+  protected List<BundledProductOfferingPriceRelationship> bundledPopRelationship = null;
 
   @JsonProperty("constraint")
   @Valid
-  private List<ConstraintRef> constraint = null;
+  protected List<ConstraintRef> constraint = null;
 
   @JsonProperty("place")
   @Valid
-  private List<PlaceRef> place = null;
+  protected List<PlaceRef> place = null;
 
   @JsonProperty("popRelationship")
   @Valid
-  private List<ProductOfferingPriceRelationship> popRelationship = null;
+  protected List<ProductOfferingPriceRelationship> popRelationship = null;
 
   @JsonProperty("price")
-  private Money price = null;
+  protected Money price = null;
 
   @JsonProperty("pricingLogicAlgorithm")
   @Valid
-  private List<PricingLogicAlgorithm> pricingLogicAlgorithm = null;
+  protected List<PricingLogicAlgorithm> pricingLogicAlgorithm = null;
 
   @JsonProperty("prodSpecCharValueUse")
   @Valid
-  private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse = null;
+  protected List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse = null;
 
   @JsonProperty("productOfferingTerm")
   @Valid
-  private List<ProductOfferingTerm> productOfferingTerm = null;
+  protected List<ProductOfferingTerm> productOfferingTerm = null;
 
   @JsonProperty("tax")
   @Valid
-  private List<TaxItem> tax = null;
+  protected List<TaxItem> tax = null;
 
   @JsonProperty("unitOfMeasure")
-  private Quantity unitOfMeasure = null;
+  protected Quantity unitOfMeasure = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   public ProductOfferingPriceUpdate description(String description) {
     this.description = description;

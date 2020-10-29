@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -108,6 +109,15 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 						extInfo = lp.getKeycloakSecurityContext().getToken().getEmail();	
 						log.info("extInfo=  " + extInfo);	
 
+						serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
+								principal.getName(), 
+								//user.getId()+"", 
+								principal.getName(), 
+								UserPartRoleType.REQUESTER,
+								extInfo,
+								serviceOrder.getRelatedParty()));
+					} 
+					else if ( principal instanceof UsernamePasswordAuthenticationToken ) {
 						serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
 								principal.getName(), 
 								//user.getId()+"", 

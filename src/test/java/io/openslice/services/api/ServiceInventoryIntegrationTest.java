@@ -213,7 +213,7 @@ public class ServiceInventoryIntegrationTest {
 		assertThat( responseSrvc.getServiceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "NONE" )  ;
 		
 
-		assertThat( responseSrvc.getNote().size()  ).isEqualTo( 1 );
+		assertThat( responseSrvc.getNote().size()  ).isEqualTo( 2 );
 		
 		boolean userPartyRoleexists = false;
 		for (RelatedParty r : responseSrvc.getRelatedParty()) {
@@ -264,7 +264,7 @@ public class ServiceInventoryIntegrationTest {
 		assertThat( serviceRepoService.findAll().size() ).isEqualTo( 1 );
 
 		assertThat( responseSOUpd.getEndDate() ).isNotNull();
-		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 2 );
+		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 4 );
 		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 2 );
 		assertThat( responseSOUpd.getServiceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
 		assertThat( responseSOUpd.getServiceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;

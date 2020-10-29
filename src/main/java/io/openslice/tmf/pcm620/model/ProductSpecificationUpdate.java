@@ -45,68 +45,68 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProductSpecificationUpdate   {
   @JsonProperty("brand")
-  private String brand = null;
+  protected String brand = null;
 
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("isBundle")
-  private Boolean isBundle = null;
+  protected Boolean isBundle = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("productNumber")
-  private String productNumber = null;
+  protected String productNumber = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("attachment")
   @Valid
-  private List<AttachmentRefOrValue> attachment = null;
+  protected List<AttachmentRefOrValue> attachment = null;
 
   @JsonProperty("bundledProductSpecification")
   @Valid
-  private List<BundledProductSpecification> bundledProductSpecification = null;
+  protected List<BundledProductSpecification> bundledProductSpecification = null;
 
   @JsonProperty("productSpecCharacteristic")
   @Valid
-  private List<ProductSpecificationCharacteristic> productSpecCharacteristic = null;
+  protected List<ProductSpecificationCharacteristic> productSpecCharacteristic = null;
 
   @JsonProperty("productSpecificationRelationship")
   @Valid
-  private List<ProductSpecificationRelationship> productSpecificationRelationship = null;
+  protected List<ProductSpecificationRelationship> productSpecificationRelationship = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   @JsonProperty("resourceSpecification")
   @Valid
-  private List<ResourceSpecificationRef> resourceSpecification = null;
+  protected List<ResourceSpecificationRef> resourceSpecification = null;
 
   @JsonProperty("serviceSpecification")
   @Valid
-  private List<ServiceSpecificationRef> serviceSpecification = null;
+  protected List<ServiceSpecificationRef> serviceSpecification = null;
 
   @JsonProperty("targetProductSchema")
-  private TargetProductSchema targetProductSchema = null;
+  protected TargetProductSchema targetProductSchema = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   public ProductSpecificationUpdate brand(String brand) {
     this.brand = brand;

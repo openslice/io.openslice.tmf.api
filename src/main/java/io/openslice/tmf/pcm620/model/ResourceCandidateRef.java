@@ -21,12 +21,14 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -37,35 +39,14 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class ResourceCandidateRef   {
+@Entity(name = "ResourceCandidateRef")
+public class ResourceCandidateRef  extends BaseEntity {
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("version")
-  private String version = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   @JsonProperty("@referredType")
   private String referredType = null;
 
-  public ResourceCandidateRef id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique identifier of the resource candidate
@@ -73,135 +54,18 @@ public class ResourceCandidateRef   {
   **/
   @ApiModelProperty(required = true, value = "Unique identifier of the resource candidate")
   @NotNull
-
-
   public String getId() {
-    return id;
-  }
+		return id;
+}
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public ResourceCandidateRef href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the resource candidate
-   * @return href
-  **/
-  @ApiModelProperty(value = "Reference of the resource candidate")
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ResourceCandidateRef name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the resource candidate
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the resource candidate")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ResourceCandidateRef version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Version of the resource candidate
-   * @return version
-  **/
-  @ApiModelProperty(value = "Version of the resource candidate")
-
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public ResourceCandidateRef baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ResourceCandidateRef schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ResourceCandidateRef type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
   public ResourceCandidateRef referredType(String referredType) {
     this.referredType = referredType;
@@ -243,10 +107,10 @@ public class ResourceCandidateRef   {
         Objects.equals(this.referredType, resourceCandidateRef.referredType);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, version, baseType, schemaLocation, type, referredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, version, baseType, schemaLocation, type, referredType);
+//  }
 
   @Override
   public String toString() {

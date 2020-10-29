@@ -21,12 +21,14 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,33 +40,19 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class ProductSpecificationCharacteristicRelationship   {
+
+@Entity
+public class ProductSpecificationCharacteristicRelationship   extends BaseEntity {
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
 
   @JsonProperty("charSpecSeq")
   private Integer charSpecSeq = null;
 
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("relationshipType")
   private String relationshipType = null;
 
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public ProductSpecificationCharacteristicRelationship id(String id) {
     this.id = id;
@@ -86,25 +74,6 @@ public class ProductSpecificationCharacteristicRelationship   {
     this.id = id;
   }
 
-  public ProductSpecificationCharacteristicRelationship href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Hyperlink reference to the target product specification
-   * @return href
-  **/
-  @ApiModelProperty(value = "Hyperlink reference to the target product specification")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
 
   public ProductSpecificationCharacteristicRelationship charSpecSeq(Integer charSpecSeq) {
     this.charSpecSeq = charSpecSeq;
@@ -126,25 +95,6 @@ public class ProductSpecificationCharacteristicRelationship   {
     this.charSpecSeq = charSpecSeq;
   }
 
-  public ProductSpecificationCharacteristicRelationship name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the target product specification characteristic
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the target product specification characteristic")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public ProductSpecificationCharacteristicRelationship relationshipType(String relationshipType) {
     this.relationshipType = relationshipType;
@@ -166,86 +116,6 @@ public class ProductSpecificationCharacteristicRelationship   {
     this.relationshipType = relationshipType;
   }
 
-  public ProductSpecificationCharacteristicRelationship validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
-
-  /**
-   * The period for which the productSpecificationCharacteristicRelationship is valid
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period for which the productSpecificationCharacteristicRelationship is valid")
-
-  @Valid
-
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
-
-  public ProductSpecificationCharacteristicRelationship baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ProductSpecificationCharacteristicRelationship schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ProductSpecificationCharacteristicRelationship type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
 
   @Override
@@ -268,10 +138,10 @@ public class ProductSpecificationCharacteristicRelationship   {
         Objects.equals(this.type, productSpecificationCharacteristicRelationship.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, charSpecSeq, name, relationshipType, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, charSpecSeq, name, relationshipType, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

@@ -42,42 +42,42 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class CategoryUpdate   {
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("isRoot")
-  private Boolean isRoot = null;
+  protected Boolean isRoot = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("parentId")
-  private String parentId = null;
+  protected String parentId = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("productOffering")
   @Valid
-  private List<ProductOfferingRef> productOffering = null;
+  protected List<ProductOfferingRef> productOffering = null;
 
   @JsonProperty("subCategory")
   @Valid
-  private List<CategoryRef> subCategory = null;
+  protected List<CategoryRef> subCategory = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   public CategoryUpdate description(String description) {
     this.description = description;

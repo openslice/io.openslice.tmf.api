@@ -43,89 +43,89 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProductOfferingUpdate   {
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("isBundle")
-  private Boolean isBundle = null;
+  protected Boolean isBundle = null;
 
   @JsonProperty("isSellable")
-  private Boolean isSellable = null;
+  protected Boolean isSellable = null;
 
   @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
+  protected String lifecycleStatus = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("statusReason")
-  private String statusReason = null;
+  protected String statusReason = null;
 
   @JsonProperty("version")
-  private String version = null;
+  protected String version = null;
 
   @JsonProperty("agreement")
   @Valid
-  private List<AgreementRef> agreement = null;
+  protected List<AgreementRef> agreement = null;
 
   @JsonProperty("attachment")
   @Valid
-  private List<AttachmentRefOrValue> attachment = null;
+  protected List<AttachmentRefOrValue> attachment = null;
 
   @JsonProperty("bundledProductOffering")
   @Valid
-  private List<BundledProductOffering> bundledProductOffering = null;
+  protected List<BundledProductOffering> bundledProductOffering = null;
 
   @JsonProperty("category")
   @Valid
-  private List<CategoryRef> category = null;
+  protected List<CategoryRef> category = null;
 
   @JsonProperty("channel")
   @Valid
-  private List<ChannelRef> channel = null;
+  protected List<ChannelRef> channel = null;
 
   @JsonProperty("marketSegment")
   @Valid
-  private List<MarketSegmentRef> marketSegment = null;
+  protected List<MarketSegmentRef> marketSegment = null;
 
   @JsonProperty("place")
   @Valid
-  private List<PlaceRef> place = null;
+  protected List<PlaceRef> place = null;
 
   @JsonProperty("prodSpecCharValueUse")
   @Valid
-  private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse = null;
+  protected List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse = null;
 
   @JsonProperty("productOfferingPrice")
   @Valid
-  private List<ProductOfferingPriceRef> productOfferingPrice = null;
+  protected List<ProductOfferingPriceRef> productOfferingPrice = null;
 
   @JsonProperty("productOfferingTerm")
   @Valid
-  private List<ProductOfferingTerm> productOfferingTerm = null;
+  protected List<ProductOfferingTerm> productOfferingTerm = null;
 
   @JsonProperty("productSpecification")
-  private ProductSpecificationRef productSpecification = null;
+  protected ProductSpecificationRef productSpecification = null;
 
   @JsonProperty("resourceCandidate")
-  private ResourceCandidateRef resourceCandidate = null;
+  protected ResourceCandidateRef resourceCandidate = null;
 
   @JsonProperty("serviceCandidate")
-  private ServiceCandidateRef serviceCandidate = null;
+  protected ServiceCandidateRef serviceCandidate = null;
 
   @JsonProperty("serviceLevelAgreement")
-  private SLARef serviceLevelAgreement = null;
+  protected SLARef serviceLevelAgreement = null;
 
   @JsonProperty("validFor")
-  private TimePeriod validFor = null;
+  protected TimePeriod validFor = null;
 
   @JsonProperty("@baseType")
-  private String baseType = null;
+  protected String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
+  protected String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String type = null;
+  protected String type = null;
 
   public ProductOfferingUpdate description(String description) {
     this.description = description;
@@ -759,10 +759,10 @@ public class ProductOfferingUpdate   {
         Objects.equals(this.type, productOfferingUpdate.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, isBundle, isSellable, lifecycleStatus, name, statusReason, version, agreement, attachment, bundledProductOffering, category, channel, marketSegment, place, prodSpecCharValueUse, productOfferingPrice, productOfferingTerm, productSpecification, resourceCandidate, serviceCandidate, serviceLevelAgreement, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(description, isBundle, isSellable, lifecycleStatus, name, statusReason, version, agreement, attachment, bundledProductOffering, category, channel, marketSegment, place, prodSpecCharValueUse, productOfferingPrice, productOfferingTerm, productSpecification, resourceCandidate, serviceCandidate, serviceLevelAgreement, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

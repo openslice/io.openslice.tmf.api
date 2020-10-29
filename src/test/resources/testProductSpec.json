@@ -1,0 +1,145 @@
+{
+  "name": "Acme Firepower NGFW",
+  "brand": "Acme",
+  "productNumber": "CSC-340-NGFW",
+  "description": "Powerful product that integrates with a firewall, including intrusion prevention, advanced malware protection, cloud-based sandboxing, URL filtering, endpoint protection, web gateway, email security, network traffic analysis, network access control and CASB.",
+  "isBundle": true,
+  "lifecycleStatus": "Active",
+  "validFor": {
+    "startDateTime": "2017-06-19T00:00:00.0Z",
+    "endDateTime": "2018-04-19T16:42:23.0Z"
+  },
+  "version": "2.1",
+  "relatedParty": [
+    {
+      "id": "1234",
+      "role": "Owner",
+      "name": "Gustave Flaubert"
+    }
+  ],
+  "attachment": [
+    {
+      "id": "15",
+      "name": "Product Picture",
+      "mimeType": "image/jpeg",
+      "url": "https://mycsp.com:7070/docloader?docnum=774451234"
+    },
+    {
+      "id": "16",
+      "name": "Product Manual",
+      "mimeType": "application/pdf",
+      "url": "https://mycsp.com:7070/docloader?docnum=774454321"
+    }
+  ],
+  "bundledProductSpecification": [
+    {
+      "id": "15",
+      "name": "URL Filter"
+    },
+    {
+      "id": "64",
+      "name": "Malware Protector"
+    }
+  ],
+  "productSpecificationRelationship": [
+    {
+      "id": "23",
+      "relationshipType": "Dependency",
+      "validFor": {
+        "startDateTime": "2017-04-19T16:42:23.0Z"
+      }
+    }
+  ],
+  "serviceSpecification": [
+    {
+      "id": "22",
+      "name": "Firewall",
+      "version": "1.0"
+    }
+  ],
+  "resourceSpecification": [
+    {
+      "id": "63",
+      "name": "Firewall Port",
+      "version": "1.0"
+    }
+  ],
+  "productSpecCharacteristic": [
+    {
+      "name": "Number of Ports",
+      "description": "The total Number of Ports for this product",
+      "valueType": "number",
+      "configurable": true,
+      "minCardinality": 1,
+      "maxCardinality": 1,
+      "isUnique": true,
+      "productSpecCharRelationship": [
+        {
+          "id": "43",
+          "relationshipType": "Dependency",
+          "name": "Bandwidth",
+          "validFor": {
+            "startDateTime": "2018-04-19T16:42:23.0Z"
+          }
+        }
+      ],
+      "productSpecCharacteristicValue": [
+        {
+          "isDefault": true,
+          "valueType": "number",
+          "validFor": {
+            "startDateTime": "2017-06-16T00:00:23.0Z",
+            "endDateTime": "2018-01-13T00:00:23.0Z"
+          },
+          "value": 8
+        },
+        {
+          "isDefault": false,
+          "valueType": "number",
+          "validFor": {
+            "startDateTime": "2017-06-16T00:00:23.0Z",
+            "endDateTime": "2018-01-13T00:00:23.0Z"
+          },
+          "value": 16
+        },
+        {
+          "isDefault": false,
+          "valueType": "number",
+          "validFor": {
+            "startDateTime": "2017-06-16T00:00:23.0Z",
+            "endDateTime": "2018-01-13T00:00:23.0Z"
+          },
+          "value": 24
+        }
+      ],
+      "validFor": {
+        "startDateTime": "2017-04-19T16:42:23.0Z"
+      }
+    },
+    {
+      "name": "Color",
+      "description": "Color of the Firewall housing",
+      "valueType": "string",
+      "configurable": true,
+      "minCardinality": 1,
+      "maxCardinality": 1,
+      "extensible": true,
+      "isUnique": true,
+      "productSpecCharacteristicValue": [
+        {
+          "isDefault": true,
+          "valueType": " string",
+          "value": "Black"
+        },
+        {
+          "isDefault": false,
+          "valueType": " string",
+          "value": "White"
+        }
+      ],
+      "validFor": {
+        "startDateTime": "2017-04-19T16:42:23.0Z"
+      }
+    }
+  ]
+}

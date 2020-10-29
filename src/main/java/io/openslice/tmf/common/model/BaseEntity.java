@@ -125,7 +125,11 @@ public class BaseEntity extends BaseRootNamedEntity{
 	
 	public void setLastUpdate (String lastUpdate) {
 		
-		this.lastUpdate = OffsetDateTime.parse( lastUpdate );
+		if ( lastUpdate!= null) {
+			this.lastUpdate = OffsetDateTime.parse( lastUpdate );			
+		} else {
+			this.lastUpdate = OffsetDateTime.now();
+		}
 	}
 
 

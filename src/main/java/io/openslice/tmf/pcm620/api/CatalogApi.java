@@ -113,7 +113,6 @@ public interface CatalogApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/catalog/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteCatalog(@ApiParam(value = "Identifier of the Catalog",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -136,7 +135,6 @@ public interface CatalogApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/catalog",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     default ResponseEntity<List<Catalog>> listCatalog(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -198,7 +196,6 @@ public interface CatalogApi {
         @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/catalog/{id}",
         produces = { "application/json;charset=utf-8" }, 
-        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
     default ResponseEntity<Catalog> retrieveCatalog(@ApiParam(value = "Identifier of the Catalog",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {

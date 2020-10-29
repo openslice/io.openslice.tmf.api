@@ -21,231 +21,239 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.
+ * A type of ProductSpecification that belongs to a grouping of
+ * ProductSpecifications made available to the market. It inherits of all
+ * attributes of ProductSpecification.
  */
 @ApiModel(description = "A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class BundledProductSpecification   {
-  @JsonProperty("id")
-  private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  public BundledProductSpecification id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Unique identifier of the product specification
-   * @return id
-  **/
-  @ApiModelProperty(value = "Unique identifier of the product specification")
+@Entity
+public class BundledProductSpecification extends BaseEntity {
+	@JsonProperty("id")
+	private String id = null;
 
 
-  public String getId() {
-    return id;
-  }
+	@JsonProperty("lifecycleStatus")
+	private String lifecycleStatus = null;
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public BundledProductSpecification href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Reference of the product specification
-   * @return href
-  **/
-  @ApiModelProperty(value = "Reference of the product specification")
+	public BundledProductSpecification() {
+		super();
+	}
 
 
-  public String getHref() {
-    return href;
-  }
+	public BundledProductSpecification(BundledProductSpecification bundledProdSpec) {
+		this();
+		this.name = bundledProdSpec.getName();
+		this.lifecycleStatus = bundledProdSpec.getLifecycleStatus();
+	}
 
-  public void setHref(String href) {
-    this.href = href;
-  }
+	public BundledProductSpecification id(String id) {
+		this.id = id;
+		return this;
+	}
 
-  public BundledProductSpecification lifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-    return this;
-  }
+	/**
+	 * Unique identifier of the product specification
+	 * 
+	 * @return id
+	 **/
+	@ApiModelProperty(value = "Unique identifier of the product specification")
 
-  /**
-   * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
-  **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+	public String getId() {
+		return id;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 
-  public String getLifecycleStatus() {
-    return lifecycleStatus;
-  }
+	public BundledProductSpecification href(String href) {
+		this.href = href;
+		return this;
+	}
 
-  public void setLifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-  }
+	/**
+	 * Reference of the product specification
+	 * 
+	 * @return href
+	 **/
+	@ApiModelProperty(value = "Reference of the product specification")
 
-  public BundledProductSpecification name(String name) {
-    this.name = name;
-    return this;
-  }
+	public String getHref() {
+		return href;
+	}
 
-  /**
-   * Name of the product specification
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the product specification")
+	public void setHref(String href) {
+		this.href = href;
+	}
 
+	public BundledProductSpecification lifecycleStatus(String lifecycleStatus) {
+		this.lifecycleStatus = lifecycleStatus;
+		return this;
+	}
 
-  public String getName() {
-    return name;
-  }
+	/**
+	 * Used to indicate the current lifecycle status
+	 * 
+	 * @return lifecycleStatus
+	 **/
+	@ApiModelProperty(value = "Used to indicate the current lifecycle status")
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public String getLifecycleStatus() {
+		return lifecycleStatus;
+	}
 
-  public BundledProductSpecification baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
+	public void setLifecycleStatus(String lifecycleStatus) {
+		this.lifecycleStatus = lifecycleStatus;
+	}
 
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	public BundledProductSpecification name(String name) {
+		this.name = name;
+		return this;
+	}
 
+	/**
+	 * Name of the product specification
+	 * 
+	 * @return name
+	 **/
+	@ApiModelProperty(value = "Name of the product specification")
 
-  public String getBaseType() {
-    return baseType;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public BundledProductSpecification schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
+	public BundledProductSpecification baseType(String baseType) {
+		this.baseType = baseType;
+		return this;
+	}
 
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	/**
+	 * When sub-classing, this defines the super-class
+	 * 
+	 * @return baseType
+	 **/
+	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
 
+	public String getBaseType() {
+		return baseType;
+	}
 
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
+	public void setBaseType(String baseType) {
+		this.baseType = baseType;
+	}
 
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
+	public BundledProductSpecification schemaLocation(String schemaLocation) {
+		this.schemaLocation = schemaLocation;
+		return this;
+	}
 
-  public BundledProductSpecification type(String type) {
-    this.type = type;
-    return this;
-  }
+	/**
+	 * A URI to a JSON-Schema file that defines additional attributes and
+	 * relationships
+	 * 
+	 * @return schemaLocation
+	 **/
+	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	public String getSchemaLocation() {
+		return schemaLocation;
+	}
 
+	public void setSchemaLocation(String schemaLocation) {
+		this.schemaLocation = schemaLocation;
+	}
 
-  public String getType() {
-    return type;
-  }
+	public BundledProductSpecification type(String type) {
+		this.type = type;
+		return this;
+	}
 
-  public void setType(String type) {
-    this.type = type;
-  }
+	/**
+	 * When sub-classing, this defines the sub-class entity name
+	 * 
+	 * @return type
+	 **/
+	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
 
+	public String getType() {
+		return type;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    BundledProductSpecification bundledProductSpecification = (BundledProductSpecification) o;
-    return Objects.equals(this.id, bundledProductSpecification.id) &&
-        Objects.equals(this.href, bundledProductSpecification.href) &&
-        Objects.equals(this.lifecycleStatus, bundledProductSpecification.lifecycleStatus) &&
-        Objects.equals(this.name, bundledProductSpecification.name) &&
-        Objects.equals(this.baseType, bundledProductSpecification.baseType) &&
-        Objects.equals(this.schemaLocation, bundledProductSpecification.schemaLocation) &&
-        Objects.equals(this.type, bundledProductSpecification.type);
-  }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, lifecycleStatus, name, baseType, schemaLocation, type);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		BundledProductSpecification bundledProductSpecification = (BundledProductSpecification) o;
+		return Objects.equals(this.id, bundledProductSpecification.id)
+				&& Objects.equals(this.href, bundledProductSpecification.href)
+				&& Objects.equals(this.lifecycleStatus, bundledProductSpecification.lifecycleStatus)
+				&& Objects.equals(this.name, bundledProductSpecification.name)
+				&& Objects.equals(this.baseType, bundledProductSpecification.baseType)
+				&& Objects.equals(this.schemaLocation, bundledProductSpecification.schemaLocation)
+				&& Objects.equals(this.type, bundledProductSpecification.type);
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class BundledProductSpecification {\n");
-    
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
-    sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
-    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, href, lifecycleStatus, name, baseType, schemaLocation, type);
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class BundledProductSpecification {\n");
+
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    href: ").append(toIndentedString(href)).append("\n");
+		sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public void updateWith(BundledProductSpecification src) {
+		this.name = src.getName();
+		this.lifecycleStatus = src.getLifecycleStatus();
+
+	}
 }
-

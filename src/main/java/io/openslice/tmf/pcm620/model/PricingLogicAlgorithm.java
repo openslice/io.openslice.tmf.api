@@ -21,12 +21,14 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,33 +40,16 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class PricingLogicAlgorithm   {
+
+@Entity
+public class PricingLogicAlgorithm  extends BaseEntity {
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("description")
-  private String description = null;
-
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("plaSpecId")
   private String plaSpecId = null;
 
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public PricingLogicAlgorithm id(String id) {
     this.id = id;
@@ -79,72 +64,12 @@ public class PricingLogicAlgorithm   {
 
 
   public String getId() {
-    return id;
+		if ( uuid != null ) {
+			id = uuid;			
+		} 
+		return id;
   }
 
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public PricingLogicAlgorithm href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * hyperlink reference of this PricingLogicAlgorithm
-   * @return href
-  **/
-  @ApiModelProperty(value = "hyperlink reference of this PricingLogicAlgorithm")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public PricingLogicAlgorithm description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Description of the PricingLogicAlgorithm
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description of the PricingLogicAlgorithm")
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public PricingLogicAlgorithm name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name given to the PricingLogicAlgorithm
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name given to the PricingLogicAlgorithm")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public PricingLogicAlgorithm plaSpecId(String plaSpecId) {
     this.plaSpecId = plaSpecId;
@@ -166,86 +91,6 @@ public class PricingLogicAlgorithm   {
     this.plaSpecId = plaSpecId;
   }
 
-  public PricingLogicAlgorithm validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
-
-  /**
-   * The period for which the PricingLogicAlgorithm is valid
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period for which the PricingLogicAlgorithm is valid")
-
-  @Valid
-
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
-
-  public PricingLogicAlgorithm baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public PricingLogicAlgorithm schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public PricingLogicAlgorithm type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
 
   @Override
@@ -268,10 +113,10 @@ public class PricingLogicAlgorithm   {
         Objects.equals(this.type, pricingLogicAlgorithm.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, description, name, plaSpecId, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, description, name, plaSpecId, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

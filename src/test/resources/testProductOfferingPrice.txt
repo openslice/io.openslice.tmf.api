@@ -1,0 +1,65 @@
+{
+  "name": "Recurring Charge for Business Firewall",
+  "description": "This pricing describes the recurring charge for a firewall service that can be deployed in business customer premise.",
+  "version": "2.1",
+  "validFor": {
+    "startDateTime": "2017-08-23T13:27:56Z",
+    "endDateTime": "2018-03-25T13:27:56Z"
+  },
+  "priceType": "recurring",
+  "recurringChargePeriodType": "monthly",
+  "recurringChargePeriodLength": 1,
+  "isBundle": false,
+  "lifecycleStatus": "Active",
+  "price": {
+    "unit": "EUR",
+    "value": 50
+  },
+  "percentage": 0,
+  "productOfferingTerm": [
+    {
+      "name": "12 Month",
+      "description": "12 month contract",
+      "duration": {
+        "amount": 12,
+        "units": "Month"
+      },
+      "validFor": {
+        "startDateTime": "2017-04-19T16:42:23.0Z",
+        "endDateTime": "2017-06-19T00:00:00.0Z"
+      }
+    }
+  ],
+  "place": [
+    {
+      "id": "9979",
+      "name": "San Francisco Bay Area"
+    }
+  ],
+  "constraint": [
+    {
+      "name": "PriceRuleNo1",
+      "id": "525"
+    }
+  ],
+  "pricingLogicAlgorithm": [{
+    "id": "533",
+    "name": "PLA_rec",
+    "description": "Algorithm that rates Recurring event",
+    "plaSpecId": "525",
+    "validFor": {
+      "startDateTime": "2017-04-19T16:42:23.0Z",
+      "endDateTime": "2018-06-19T00:00:00.0Z"
+    }
+  }],
+  "tax": [
+    {
+      "taxAmount": {
+        "unit": "EUR",
+        "value": 10
+      },
+      "taxCategory": "VAT",
+      "taxRate": 20
+    }
+  ]
+}

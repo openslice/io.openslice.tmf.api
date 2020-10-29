@@ -21,10 +21,13 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -35,27 +38,15 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class ProductOfferingPriceRelationship   {
+@Entity
+public class ProductOfferingPriceRelationship  extends BaseEntity {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("relationshipType")
   private String relationshipType = null;
 
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public ProductOfferingPriceRelationship id(String id) {
     this.id = id;
@@ -77,45 +68,6 @@ public class ProductOfferingPriceRelationship   {
     this.id = id;
   }
 
-  public ProductOfferingPriceRelationship href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * hyperlink reference of the associated product offering price
-   * @return href
-  **/
-  @ApiModelProperty(value = "hyperlink reference of the associated product offering price")
-
-
-  public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public ProductOfferingPriceRelationship name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the associated product offering price
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the associated product offering price")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public ProductOfferingPriceRelationship relationshipType(String relationshipType) {
     this.relationshipType = relationshipType;
@@ -137,66 +89,6 @@ public class ProductOfferingPriceRelationship   {
     this.relationshipType = relationshipType;
   }
 
-  public ProductOfferingPriceRelationship baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ProductOfferingPriceRelationship schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ProductOfferingPriceRelationship type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -216,10 +108,10 @@ public class ProductOfferingPriceRelationship   {
         Objects.equals(this.type, productOfferingPriceRelationship.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, name, relationshipType, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, name, relationshipType, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

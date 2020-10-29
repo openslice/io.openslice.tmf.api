@@ -54,7 +54,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 	CatalogRepoService catalogRepoService;
 
 
-	//@Secured({ "ROLE_ADMIN" })
+	@Secured({ "ROLE_ADMIN" })
     public ResponseEntity<ServiceCatalog> createServiceCatalog(
     		@ApiParam(value = "The ServiceCatalog to be created" ,required=true )  @Valid @RequestBody ServiceCatalogCreate serviceCatalog) {
     	try {
@@ -68,6 +68,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 		}
     }
 
+	@Secured({ "ROLE_ADMIN" })
     public ResponseEntity<Void> deleteServiceCatalog(@ApiParam(value = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id) {
     	try {
 
@@ -89,6 +90,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 		}
     }
 
+	@Secured({ "ROLE_ADMIN" })
     public ResponseEntity<ServiceCatalog> patchServiceCatalog(@ApiParam(value = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceCatalog to be updated" ,required=true )  @Valid @RequestBody ServiceCatalogUpdate serviceCatalog) {
 
 		ServiceCatalog c = catalogRepoService.updateCatalog( id, serviceCatalog );

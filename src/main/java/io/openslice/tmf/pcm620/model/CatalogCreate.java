@@ -43,89 +43,12 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class CatalogCreate   {
-  @JsonProperty("catalogType")
-  private String catalogType = null;
-
-  @JsonProperty("description")
-  private String description = null;
+public class CatalogCreate  extends CatalogUpdate {
 
   @JsonProperty("lastUpdate")
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("version")
-  private String version = null;
-
-  @JsonProperty("category")
-  @Valid
-  private List<CategoryRef> category = null;
-
-  @JsonProperty("relatedParty")
-  @Valid
-  private List<RelatedParty> relatedParty = null;
-
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
-
-  public CatalogCreate catalogType(String catalogType) {
-    this.catalogType = catalogType;
-    return this;
-  }
-
-  /**
-   * Indicates if the catalog is a product, service or resource catalog
-   * @return catalogType
-  **/
-  @ApiModelProperty(value = "Indicates if the catalog is a product, service or resource catalog")
-
-
-  public String getCatalogType() {
-    return catalogType;
-  }
-
-  public void setCatalogType(String catalogType) {
-    this.catalogType = catalogType;
-  }
-
-  public CatalogCreate description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  /**
-   * Description of this catalog
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description of this catalog")
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public CatalogCreate lastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-    return this;
-  }
 
   /**
    * Date and time of the last update
@@ -143,205 +66,7 @@ public class CatalogCreate   {
     this.lastUpdate = lastUpdate;
   }
 
-  public CatalogCreate lifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-    return this;
-  }
 
-  /**
-   * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
-  **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
-
-
-  public String getLifecycleStatus() {
-    return lifecycleStatus;
-  }
-
-  public void setLifecycleStatus(String lifecycleStatus) {
-    this.lifecycleStatus = lifecycleStatus;
-  }
-
-  public CatalogCreate name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the catalog
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "Name of the catalog")
-  @NotNull
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public CatalogCreate version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  /**
-   * Catalog version
-   * @return version
-  **/
-  @ApiModelProperty(value = "Catalog version")
-
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public CatalogCreate category(List<CategoryRef> category) {
-    this.category = category;
-    return this;
-  }
-
-  public CatalogCreate addCategoryItem(CategoryRef categoryItem) {
-    if (this.category == null) {
-      this.category = new ArrayList<>();
-    }
-    this.category.add(categoryItem);
-    return this;
-  }
-
-  /**
-   * List of root categories contained in this catalog
-   * @return category
-  **/
-  @ApiModelProperty(value = "List of root categories contained in this catalog")
-
-  @Valid
-
-  public List<CategoryRef> getCategory() {
-    return category;
-  }
-
-  public void setCategory(List<CategoryRef> category) {
-    this.category = category;
-  }
-
-  public CatalogCreate relatedParty(List<RelatedParty> relatedParty) {
-    this.relatedParty = relatedParty;
-    return this;
-  }
-
-  public CatalogCreate addRelatedPartyItem(RelatedParty relatedPartyItem) {
-    if (this.relatedParty == null) {
-      this.relatedParty = new ArrayList<>();
-    }
-    this.relatedParty.add(relatedPartyItem);
-    return this;
-  }
-
-  /**
-   * List of parties involved in this catalog
-   * @return relatedParty
-  **/
-  @ApiModelProperty(value = "List of parties involved in this catalog")
-
-  @Valid
-
-  public List<RelatedParty> getRelatedParty() {
-    return relatedParty;
-  }
-
-  public void setRelatedParty(List<RelatedParty> relatedParty) {
-    this.relatedParty = relatedParty;
-  }
-
-  public CatalogCreate validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
-
-  /**
-   * The period for which the catalog is valid
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period for which the catalog is valid")
-
-  @Valid
-
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
-
-  public CatalogCreate baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public CatalogCreate schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public CatalogCreate type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
 
   @Override
@@ -367,10 +92,10 @@ public class CatalogCreate   {
         Objects.equals(this.type, catalogCreate.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(catalogType, description, lastUpdate, lifecycleStatus, name, version, category, relatedParty, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(catalogType, description, lastUpdate, lifecycleStatus, name, version, category, relatedParty, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

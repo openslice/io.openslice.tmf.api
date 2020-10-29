@@ -246,7 +246,7 @@ public class PartyManagementIntegrationTest {
 
 		Organization responseOrg = toJsonObj(response,  Organization.class);
 		assertThat( responseOrg.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()).isEqualTo("test@openslice.io"); 
-		assertThat( responseOrg.getPartyCharacteristic().size()).isEqualTo(11);
+		assertThat( responseOrg.getPartyCharacteristic().size()).isEqualTo(12);
 		
 		
 		String resp = organizationRepoService.getPartnerOrganizationsWithAPI();
@@ -255,7 +255,7 @@ public class PartyManagementIntegrationTest {
 		List<Organization> orgz = mapJsonToObjectList( new Organization(), (String)resp, Organization.class  ); 
 		
 		assertThat( orgz.size() ).isEqualTo( 1 );
-		assertThat( orgz.get(0).getPartyCharacteristic().size() ).isEqualTo( 11 );
+		assertThat( orgz.get(0).getPartyCharacteristic().size() ).isEqualTo( 12 );
 	}
 	
 	 protected static <T> List<T> mapJsonToObjectList(T typeDef,String json,Class clazz) throws Exception

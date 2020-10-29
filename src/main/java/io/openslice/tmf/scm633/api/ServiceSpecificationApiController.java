@@ -98,7 +98,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		this.request = request;
 	}
 
-	// @Secured({ "ROLE_USER" })
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<ServiceSpecification> createServiceSpecification(
 			@ApiParam(value = "The ServiceSpecification to be created", required = true) @Valid @RequestBody ServiceSpecificationCreate serviceSpecification) {
 		try {
@@ -120,6 +120,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Void> deleteServiceSpecification(
 			@ApiParam(value = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id) {
 		try {
@@ -169,6 +170,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<ServiceSpecification> patchServiceSpecification(
 			@ApiParam(value = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "The ServiceSpecification to be updated", required = true) @Valid @RequestBody ServiceSpecificationUpdate serviceSpecification) {
@@ -204,6 +206,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<ServiceSpecification> cloneServiceSpecification(
 			@ApiParam(value = "Identifier of the ServiceSpecification to clone", required = true) @PathVariable("id") String id) {
 
@@ -212,6 +215,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@Override
 	public ResponseEntity<Attachment> addAttachmentToServiceSpecification(String specid,
 			//@Valid @ModelAttribute("attachment") Attachment att,
@@ -309,6 +313,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		}
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@Override
 	public ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(String serviceName) {
 		ServiceSpecification c = serviceSpecificationRepoService.cloneGSTServiceSpecification( serviceName );
@@ -330,6 +335,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@Override
 	public ResponseEntity<ServiceSpecification> specFromNSDID(String id) {
 		ServiceSpecification c = serviceSpecificationRepoService.specFromNSDID(id);

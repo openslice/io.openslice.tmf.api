@@ -1,0 +1,5 @@
+{ 
+  "name": "Test Product Catalog",
+  "description": "A Test Product Catalog",
+  "version": "1.8"
+}

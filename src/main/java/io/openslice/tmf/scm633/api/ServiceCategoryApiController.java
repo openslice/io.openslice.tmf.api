@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,6 +65,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 		this.request = request;
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<ServiceCategory> createServiceCategory(
 			@ApiParam(value = "The ServiceCategory to be created", required = true) @Valid @RequestBody ServiceCategoryCreate serviceCategory) {
 
@@ -79,6 +81,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<Void> deleteServiceCategory(
 			@ApiParam(value = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id) {
 
@@ -111,6 +114,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<ServiceCategory> patchServiceCategory(
 			@ApiParam(value = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id,
 			@ApiParam(value = "The ServiceCategory to be updated", required = true) @Valid @RequestBody ServiceCategoryUpdate serviceCategory) {

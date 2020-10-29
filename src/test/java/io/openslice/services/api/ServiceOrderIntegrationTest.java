@@ -275,7 +275,7 @@ public class ServiceOrderIntegrationTest {
 			
 			
 		});
-		assertThat(responseSO.getNote().size()).isEqualTo(1);
+		assertThat(responseSO.getNote().size()).isEqualTo(3);
 
 		boolean userPartyRoleexists = false;
 		for (RelatedParty r : responseSO.getRelatedParty()) {
@@ -341,7 +341,7 @@ public class ServiceOrderIntegrationTest {
 		});
 
 		assertThat(responseSOUpd.getExpectedCompletionDate()).isNotNull();
-		assertThat(responseSOUpd.getNote().size()).isEqualTo(2);
+		assertThat(responseSOUpd.getNote().size()).isEqualTo( 4 );
 
 		File sspecSO = new File("src/test/resources/TestServiceOrderDates.json");
 		InputStream inSO = new FileInputStream(sspecSO);

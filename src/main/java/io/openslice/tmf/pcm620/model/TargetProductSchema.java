@@ -21,12 +21,16 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -37,77 +41,17 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class TargetProductSchema   {
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
+@Entity(name = "TargetProductSchema")
+@JsonIgnoreProperties( {"uuid"} )
+public class TargetProductSchema  extends BaseRootEntity {
+ 
 
   public TargetProductSchema baseType(String baseType) {
     this.baseType = baseType;
     return this;
   }
 
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public TargetProductSchema schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * This field provides a link to the schema describing the target product
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target product")
-  @NotNull
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public TargetProductSchema type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Class type of the target product
-   * @return type
-  **/
-  @ApiModelProperty(required = true, value = "Class type of the target product")
-  @NotNull
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
+ 
 
 
   @Override
@@ -124,10 +68,10 @@ public class TargetProductSchema   {
         Objects.equals(this.type, targetProductSchema.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

@@ -21,12 +21,14 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,67 +40,20 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-public class ProductOfferingTerm   {
-  @JsonProperty("description")
-  private String description = null;
-
-  @JsonProperty("name")
-  private String name = null;
+@Entity(name = "ProductOfferingTerm")
+public class ProductOfferingTerm   extends BaseEntity {
+ 
 
   @JsonProperty("duration")
   private Quantity duration = null;
 
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
-  @JsonProperty("@baseType")
-  private String baseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String schemaLocation = null;
-
-  @JsonProperty("@type")
-  private String type = null;
 
   public ProductOfferingTerm description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
-   * Description of the productOfferingTerm
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description of the productOfferingTerm")
-
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public ProductOfferingTerm name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the productOfferingTerm
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the productOfferingTerm")
-
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+ 
 
   public ProductOfferingTerm duration(Quantity duration) {
     this.duration = duration;
@@ -121,86 +76,7 @@ public class ProductOfferingTerm   {
     this.duration = duration;
   }
 
-  public ProductOfferingTerm validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
 
-  /**
-   * The period for which the productOfferingTerm is valid
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "The period for which the productOfferingTerm is valid")
-
-  @Valid
-
-  public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
-
-  public ProductOfferingTerm baseType(String baseType) {
-    this.baseType = baseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return baseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-
-
-  public String getBaseType() {
-    return baseType;
-  }
-
-  public void setBaseType(String baseType) {
-    this.baseType = baseType;
-  }
-
-  public ProductOfferingTerm schemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-
-
-  public String getSchemaLocation() {
-    return schemaLocation;
-  }
-
-  public void setSchemaLocation(String schemaLocation) {
-    this.schemaLocation = schemaLocation;
-  }
-
-  public ProductOfferingTerm type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class entity name
-   * @return type
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
-
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
 
 
   @Override
@@ -221,10 +97,10 @@ public class ProductOfferingTerm   {
         Objects.equals(this.type, productOfferingTerm.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, name, duration, validFor, baseType, schemaLocation, type);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(description, name, duration, validFor, baseType, schemaLocation, type);
+//  }
 
   @Override
   public String toString() {

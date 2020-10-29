@@ -530,12 +530,12 @@ public class ServiceSpecificationUpdate {
 				&& Objects.equals(this.type, serviceSpecificationUpdate.type);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(description, isBundle, lifecycleStatus, name, version, attachment, relatedParty,
-				resourceSpecification, serviceLevelSpecification, serviceSpecCharacteristic, serviceSpecRelationship,
-				targetServiceSchema, validFor, baseType, schemaLocation, type);
-	}
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(description, isBundle, lifecycleStatus, name, version, attachment, relatedParty,
+//				resourceSpecification, serviceLevelSpecification, serviceSpecCharacteristic, serviceSpecRelationship,
+//				targetServiceSchema, validFor, baseType, schemaLocation, type);
+//	}
 
 	@Override
 	public String toString() {

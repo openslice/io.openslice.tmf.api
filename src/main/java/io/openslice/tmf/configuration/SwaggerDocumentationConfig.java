@@ -128,9 +128,21 @@ public class SwaggerDocumentationConfig {
             .title("Product Catalog Management")
             .description("## TMF API Reference: TMF620 - Product Catalog Management  ### Release : 19.0 - June 2019  Product Catalog API is one of Catalog Management API Family. Product Catalog API goal is to provide a catalog of products.   ### Operations Product Catalog API performs the following operations on the resources : - Retrieve an entity or a collection of entities depending on filter criteria - Partial update of an entity (including updating rules) - Create an entity (including default values and creation rules) - Delete an entity - Manage notification of events")
             .license("")
-            .licenseUrl("http://unlicense.org")
+            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
             .termsOfServiceUrl("")
             .version("4.0.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
+    ApiInfo apiInfo622() {
+        return new ApiInfoBuilder()
+            .title("Product Ordering")
+            .description("TMF API Reference : TMF 622 - Product Ordering Management**\\n\\n**Release : 19.0 - June 2019**\\n\\nThe Product Ordering API provides a standardized mechanism for placing a product order with all of the necessary order parameters.")
+            .license("Apache 2.0")
+            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+            .termsOfServiceUrl("")
+            .version("1.0")
             .contact(new Contact("","", ""))
             .build();
     }
@@ -140,7 +152,7 @@ public class SwaggerDocumentationConfig {
             .title("Resource Catalog Management")
             .description("This is Swagger UI environment generated for the TMF Resource Catalog Management specification")
             .license("")
-            .licenseUrl("http://unlicense.org")
+            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
             .termsOfServiceUrl("")
             .version("2.0")
             .contact(new Contact("","", ""))
@@ -258,6 +270,10 @@ public class SwaggerDocumentationConfig {
             .build();
     }
     
+    
+
+    
+    
     ApiInfo apiInfo640() {
         return new ApiInfoBuilder()
             .title("API Service Activation and Configuration")
@@ -307,6 +323,24 @@ public class SwaggerDocumentationConfig {
         		.securityContexts(Arrays.asList(securityContext()));
 
     }
+    
+    @Bean
+    public Docket swaggerpo622() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-622-Product Ordering Management-v4.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.po622.api"))
+                    .build()
+                    .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo622())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+
+    }
+
+   
     
     @Bean
     public Docket swaggerrcm634() {

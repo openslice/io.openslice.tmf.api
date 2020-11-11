@@ -28,6 +28,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -51,7 +52,9 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-@Entity
+
+@Entity(name = "ProdSpecChar")
+@Table(name = "ProdSpecChar")
 public class ProductSpecificationCharacteristic extends BaseEntity {
 	@JsonProperty("configurable")
 	private Boolean configurable = null;

@@ -32,6 +32,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -63,7 +64,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-@Entity(name = "ProductSpecificationCharacteristicValueUse")
+@Entity(name = "ProdSpecCharValueUse")
+@Table(name = "ProdSpecCharValueUse")
 public class ProductSpecificationCharacteristicValueUse extends BaseEntity {
 
 	@JsonProperty("maxCardinality")

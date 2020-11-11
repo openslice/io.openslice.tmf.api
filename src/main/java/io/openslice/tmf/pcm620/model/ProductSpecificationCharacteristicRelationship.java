@@ -22,6 +22,7 @@ package io.openslice.tmf.pcm620.model;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -41,7 +42,8 @@ import io.swagger.annotations.ApiModelProperty;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 
-@Entity
+@Entity(name = "ProdSpecCharRelationship")
+@Table(name = "ProdSpecCharRelationship")
 public class ProductSpecificationCharacteristicRelationship   extends BaseEntity {
   @JsonProperty("id")
   private String id = null;

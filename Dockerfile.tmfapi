@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk13:latest
+FROM adoptopenjdk/openjdk13-openj9:latest
 MAINTAINER openslice.io
 ENV SPRING_APPLICATION_JSON='{ \
 	"spring.datasource.url": "dbc:mysql://10.0.2.15/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",  \
@@ -6,5 +6,5 @@ ENV SPRING_APPLICATION_JSON='{ \
 RUN mkdir /opt/shareclasses
 RUN mkdir -p /opt/openslice/lib/
 COPY target/io.openslice.tmf.api-1.0.2-SNAPSHOT-exec.jar /opt/openslice/lib/
-CMD ["java", "-jar", "/opt/openslice/lib/io.openslice.tmf.api-1.0.2-SNAPSHOT-exec.jar"]
+CMD ["java", "-Xshareclasses:cacheDir=/opt/shareclasses", "-jar", "/opt/openslice/lib/io.openslice.tmf.api-1.0.2-SNAPSHOT-exec.jar"]
 EXPOSE 13082

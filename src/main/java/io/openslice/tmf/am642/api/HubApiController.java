@@ -1,4 +1,4 @@
-package io.openslice.tmf.po622.api;
+package io.openslice.tmf.am642.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
@@ -6,18 +6,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
 
-@Controller("ListenerApiController622")
-@RequestMapping("/productOrder/v4/")
-public class ListenerApiController implements ListenerApi {
+@Controller("HubApiController642")
+@RequestMapping("/alarmsManagement/v3/")
+public class HubApiController implements HubApi {
 
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public ListenerApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public HubApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }

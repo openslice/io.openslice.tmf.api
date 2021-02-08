@@ -287,6 +287,31 @@ public class SwaggerDocumentationConfig {
     }   
     
     
+    ApiInfo apiInfo642() {
+        return new ApiInfoBuilder()
+            .title("API Alarm")
+            .description("## TMF API Reference: TMF642 Alarm Management API")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("2.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
+    ApiInfo apiInfo653() {
+        return new ApiInfoBuilder()
+            .title("Service Test Management")
+            .description("## TMF API Reference: TMF653 - Service Test Management  ### Release : 20.0 - April 2020  Service Test Management API goal is to provide the ability to manage tests of provisioned Services.   ### Resource  - ServiceTest  - ServiceTestSpecification  ### Operations Service Test Management API performs the following operations on the resources : - Retrieve an entity or a collection of entities depending on filter criteria - Partial update of an entity (including updating rules) - Create an entity (including default values and creation rules) - Delete an entity (for administration purposes) - Manage notification of events")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("4.0.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
+    
     
     
     @Bean
@@ -504,6 +529,35 @@ public class SwaggerDocumentationConfig {
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo640())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+    }
+    
+
+    @Bean
+    public Docket swaggeram642(){
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-642-Alarm Management-v3.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.am642.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo642())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+    }
+    
+    @Bean
+    public Docket swaggerstm653(){
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-653-Service Test Management-v4.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.stm653.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo653())
         		.securitySchemes(Arrays.asList(securityScheme()))
         		.securityContexts(Arrays.asList(securityContext()));
     }

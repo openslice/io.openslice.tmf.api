@@ -33,14 +33,19 @@ public class ServiceTestSpecificationRef extends BaseRootEntity {
 	@JsonProperty("@referredType")
 	private String _atReferredType = null;
 
+
 	/**
 	 * @return the id
 	 */
 	public String getId() {
-		if (uuid != null) {
-			id = uuid;
-		}
 		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public ServiceTestSpecificationRef href(String href) {

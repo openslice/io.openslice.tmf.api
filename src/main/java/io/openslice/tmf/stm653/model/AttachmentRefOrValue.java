@@ -21,8 +21,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-@Entity(name = "STMAttachmentRefOrValue")
-@Table(name = "STMAttachmentRefOrValue")
+@Entity(name = "AttachmentRefOrValue")
+@Table(name = "AttachmentRefOrValue")
 public class AttachmentRefOrValue extends BaseRootNamedEntity {
   @JsonProperty("id")
   private String id = null;

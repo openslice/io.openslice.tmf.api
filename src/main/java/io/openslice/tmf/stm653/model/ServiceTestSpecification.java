@@ -233,6 +233,28 @@ public class ServiceTestSpecification extends BaseEntity {
 	public void setRelatedParty( Set<RelatedParty> relatedParty) {
 		this.relatedParty = relatedParty;
 	}
+	
+	
+	public ServiceTestSpecification isBundle(Boolean isBundle) {
+		this.isBundle = isBundle;
+		return this;
+	}
+
+	/**
+	 * isBundle determines whether an EntitySpecification represents a single
+	 * EntitySpecification (false), or a bundle of EntitySpecifications (true).
+	 * 
+	 * @return isBundle
+	 **/
+	@ApiModelProperty(value = "isBundle determines whether an EntitySpecification represents a single EntitySpecification (false), or a bundle of EntitySpecifications (true).")
+
+	public Boolean isIsBundle() {
+		return isBundle;
+	}
+
+	public void setIsBundle(Boolean isBundle) {
+		this.isBundle = isBundle;
+	}
 
 	public ServiceTestSpecification relatedServiceSpecification(
 			Set<ServiceSpecificationRef> relatedServiceSpecification) {

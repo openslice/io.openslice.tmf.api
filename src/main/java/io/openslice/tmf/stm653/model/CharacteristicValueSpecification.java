@@ -52,6 +52,27 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
   @JsonProperty("value")
   private Any value = null;
 
+  
+  public CharacteristicValueSpecification() {
+	  
+  }
+  
+  
+  public CharacteristicValueSpecification( CharacteristicValueSpecification r) {
+		this();
+		isDefault = r.isDefault;
+		rangeInterval = r.rangeInterval;
+		regex = r.regex;
+		unitOfMeasure = r.unitOfMeasure;
+		valueFrom = r.valueFrom;
+		valueTo = r.valueTo;
+		valueType = r.valueType;
+		validFor = new TimePeriod( r.validFor );
+		value = new Any( r.value ) ;
+//		type = r.type;
+		baseType = r.baseType;
+	  
+  }
 
   public CharacteristicValueSpecification isDefault(Boolean isDefault) {
     this.isDefault = isDefault;

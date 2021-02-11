@@ -1,5 +1,6 @@
 package io.openslice.tmf.stm653.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -15,6 +16,8 @@ public interface ServiceTestRepository extends PagingAndSortingRepository<Servic
 	Optional<ServiceTest> findByUuid(String id);
 
 	Optional<ServiceTest> findByName(String aName);
+
+	List<ServiceTest> findByOrderByName();
 
 	
 

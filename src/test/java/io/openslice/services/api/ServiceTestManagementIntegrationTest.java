@@ -61,7 +61,6 @@ public class ServiceTestManagementIntegrationTest {
 		 * first add 2 specs
 		 */
 		
-		serv
 
 	}
 

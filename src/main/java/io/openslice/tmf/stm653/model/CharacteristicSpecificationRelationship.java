@@ -42,6 +42,11 @@ public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity
 	@JsonProperty("validFor")
 	private TimePeriod validFor = null;
 
+	public CharacteristicSpecificationRelationship() {
+		
+	}
+	
+	
 	public CharacteristicSpecificationRelationship(CharacteristicSpecificationRelationship src) {
 		name = src.name;
 		relationshipType = src.relationshipType;

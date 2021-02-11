@@ -91,6 +91,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@Override
 	public ResponseEntity<Void> deleteServiceTestSpecification(String id) {
 
@@ -135,6 +136,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
+	@Secured({ "ROLE_ADMIN" })
 	@Override
 	public ResponseEntity<ServiceTestSpecification> patchServiceTestSpecification(
 			@Valid ServiceTestSpecificationUpdate serviceSpecification, String id) {
@@ -143,6 +145,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 		return new ResponseEntity<ServiceTestSpecification>(c, HttpStatus.OK);
 	}
 
+	
 	@Override
 	public ResponseEntity<ServiceTestSpecification> retrieveServiceTestSpecification(String id, @Valid String fields) {
 		

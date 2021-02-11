@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -39,6 +40,17 @@ public class CharacteristicRelationship extends BaseRootEntity {
 		return id;
 	}
 
+	public CharacteristicRelationship() {
+		
+	}
+	
+	
+	public CharacteristicRelationship( CharacteristicRelationship src) {
+
+		relationshipType = src.relationshipType;
+	}
+
+	
 	public CharacteristicRelationship relationshipType(String relationshipType) {
 		this.relationshipType = relationshipType;
 		return this;

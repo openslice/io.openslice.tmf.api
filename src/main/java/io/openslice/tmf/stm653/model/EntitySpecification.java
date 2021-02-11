@@ -1,23 +1,23 @@
 package io.openslice.tmf.stm653.model;
 
+import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.AttachmentRefOrValue;
-import io.openslice.tmf.stm653.model.CharacteristicSpecification;
-import io.openslice.tmf.stm653.model.ConstraintRef;
-import io.openslice.tmf.stm653.model.EntitySpecificationRelationship;
-import io.openslice.tmf.stm653.model.RelatedParty;
-import io.openslice.tmf.stm653.model.TargetEntitySchema;
-import io.openslice.tmf.stm653.model.TimePeriod;
+
+import io.openslice.tmf.common.model.BaseEntity;
+import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * EntitySpecification is a class that offers characteristics to describe a type of entity. Entities are generic constructs that may be used to describe bespoke business entities that are not effectively covered by the existing SID model. Functionally, the entity specification acts as a template by which entities may be instantiated and described. By sharing the same specification, these entities would therefore share the same set of characteristics. Note: The ‘configurable’ attribute on the specCharacteristics determines if an entity instantiated from the entity specification can override the value of the attribute. When set to false, the entity instance may not define a value that differs from the value in the specification.
@@ -25,84 +25,51 @@ import javax.validation.constraints.*;
 @ApiModel(description = "EntitySpecification is a class that offers characteristics to describe a type of entity. Entities are generic constructs that may be used to describe bespoke business entities that are not effectively covered by the existing SID model. Functionally, the entity specification acts as a template by which entities may be instantiated and described. By sharing the same specification, these entities would therefore share the same set of characteristics. Note: The ‘configurable’ attribute on the specCharacteristics determines if an entity instantiated from the entity specification can override the value of the attribute. When set to false, the entity instance may not define a value that differs from the value in the specification.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class EntitySpecification   {
+
+@Entity(name = "STMEntitySpecification")
+@Table(name = "STMEntitySpecification")
+public class EntitySpecification  extends BaseEntity {
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("href")
-  private String href = null;
-
-  @JsonProperty("description")
-  private String description = null;
 
   @JsonProperty("isBundle")
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
-  private OffsetDateTime lastUpdate = null;
-
-  @JsonProperty("lifecycleStatus")
-  private String lifecycleStatus = null;
-
-  @JsonProperty("name")
-  private String name = null;
-
-  @JsonProperty("version")
-  private String version = null;
 
   @JsonProperty("attachment")
   @Valid
-  private List<AttachmentRefOrValue> attachment = null;
+  private Set<AttachmentRefOrValue> attachment = null;
 
   @JsonProperty("constraint")
   @Valid
-  private List<ConstraintRef> constraint = null;
+  private Set<ConstraintRef> constraint = null;
 
   @JsonProperty("entitySpecRelationship")
   @Valid
-  private List<EntitySpecificationRelationship> entitySpecRelationship = null;
+  private Set<EntitySpecificationRelationship> entitySpecRelationship = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = null;
+  private Set<RelatedParty> relatedParty = null;
 
   @JsonProperty("specCharacteristic")
   @Valid
-  private List<CharacteristicSpecification> specCharacteristic = null;
+  private Set<CharacteristicSpecification> specCharacteristic = null;
 
   @JsonProperty("targetEntitySchema")
   private TargetEntitySchema targetEntitySchema = null;
 
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
-
-  @JsonProperty("@type")
-  private String _atType = null;
-
-  public EntitySpecification id(String id) {
-    this.id = id;
-    return this;
-  }
-
+ 
   /**
-   * unique identifier
-   * @return id
-  **/
-  @ApiModelProperty(value = "unique identifier")
-  
-    public String getId() {
-    return id;
-  }
+	 * @return the id
+	 */
+	public String getId() {
+		if ( uuid != null ) {
+			id = uuid;			
+		} 
+		return id;
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
 
   public EntitySpecification href(String href) {
     this.href = href;
@@ -238,14 +205,14 @@ public class EntitySpecification   {
     this.version = version;
   }
 
-  public EntitySpecification attachment(List<AttachmentRefOrValue> attachment) {
+  public EntitySpecification attachment(Set<AttachmentRefOrValue> attachment) {
     this.attachment = attachment;
     return this;
   }
 
   public EntitySpecification addAttachmentItem(AttachmentRefOrValue attachmentItem) {
     if (this.attachment == null) {
-      this.attachment = new ArrayList<>();
+      this.attachment = new HashSet<>();
     }
     this.attachment.add(attachmentItem);
     return this;
@@ -257,22 +224,22 @@ public class EntitySpecification   {
   **/
   @ApiModelProperty(value = "Attachments that may be of relevance to this specification, such as picture, document, media")
       @Valid
-    public List<AttachmentRefOrValue> getAttachment() {
+    public Set<AttachmentRefOrValue> getAttachment() {
     return attachment;
   }
 
-  public void setAttachment(List<AttachmentRefOrValue> attachment) {
+  public void setAttachment(Set<AttachmentRefOrValue> attachment) {
     this.attachment = attachment;
   }
 
-  public EntitySpecification constraint(List<ConstraintRef> constraint) {
+  public EntitySpecification constraint(Set<ConstraintRef> constraint) {
     this.constraint = constraint;
     return this;
   }
 
   public EntitySpecification addConstraintItem(ConstraintRef constraintItem) {
     if (this.constraint == null) {
-      this.constraint = new ArrayList<>();
+      this.constraint = new HashSet<>();
     }
     this.constraint.add(constraintItem);
     return this;
@@ -284,22 +251,22 @@ public class EntitySpecification   {
   **/
   @ApiModelProperty(value = "This is a list of constraint references applied to this specification")
       @Valid
-    public List<ConstraintRef> getConstraint() {
+    public Set<ConstraintRef> getConstraint() {
     return constraint;
   }
 
-  public void setConstraint(List<ConstraintRef> constraint) {
+  public void setConstraint(Set<ConstraintRef> constraint) {
     this.constraint = constraint;
   }
 
-  public EntitySpecification entitySpecRelationship(List<EntitySpecificationRelationship> entitySpecRelationship) {
+  public EntitySpecification entitySpecRelationship( Set<EntitySpecificationRelationship> entitySpecRelationship) {
     this.entitySpecRelationship = entitySpecRelationship;
     return this;
   }
 
   public EntitySpecification addEntitySpecRelationshipItem(EntitySpecificationRelationship entitySpecRelationshipItem) {
     if (this.entitySpecRelationship == null) {
-      this.entitySpecRelationship = new ArrayList<>();
+      this.entitySpecRelationship = new HashSet<>();
     }
     this.entitySpecRelationship.add(entitySpecRelationshipItem);
     return this;
@@ -311,22 +278,22 @@ public class EntitySpecification   {
   **/
   @ApiModelProperty(value = "Relationship to another entity specification, might be dependency, substitution, etc.")
       @Valid
-    public List<EntitySpecificationRelationship> getEntitySpecRelationship() {
+    public Set<EntitySpecificationRelationship> getEntitySpecRelationship() {
     return entitySpecRelationship;
   }
 
-  public void setEntitySpecRelationship(List<EntitySpecificationRelationship> entitySpecRelationship) {
+  public void setEntitySpecRelationship(Set<EntitySpecificationRelationship> entitySpecRelationship) {
     this.entitySpecRelationship = entitySpecRelationship;
   }
 
-  public EntitySpecification relatedParty(List<RelatedParty> relatedParty) {
+  public EntitySpecification relatedParty(Set<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
     return this;
   }
 
   public EntitySpecification addRelatedPartyItem(RelatedParty relatedPartyItem) {
     if (this.relatedParty == null) {
-      this.relatedParty = new ArrayList<>();
+      this.relatedParty = new HashSet<>();
     }
     this.relatedParty.add(relatedPartyItem);
     return this;
@@ -338,22 +305,22 @@ public class EntitySpecification   {
   **/
   @ApiModelProperty(value = "Parties who manage or otherwise have an interest in this entity specification")
       @Valid
-    public List<RelatedParty> getRelatedParty() {
+    public Set<RelatedParty> getRelatedParty() {
     return relatedParty;
   }
 
-  public void setRelatedParty(List<RelatedParty> relatedParty) {
+  public void setRelatedParty(Set<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
   }
 
-  public EntitySpecification specCharacteristic(List<CharacteristicSpecification> specCharacteristic) {
+  public EntitySpecification specCharacteristic(Set<CharacteristicSpecification> specCharacteristic) {
     this.specCharacteristic = specCharacteristic;
     return this;
   }
 
   public EntitySpecification addSpecCharacteristicItem(CharacteristicSpecification specCharacteristicItem) {
     if (this.specCharacteristic == null) {
-      this.specCharacteristic = new ArrayList<>();
+      this.specCharacteristic = new HashSet<>();
     }
     this.specCharacteristic.add(specCharacteristicItem);
     return this;
@@ -365,11 +332,11 @@ public class EntitySpecification   {
   **/
   @ApiModelProperty(value = "List of characteristics that the entity can take")
       @Valid
-    public List<CharacteristicSpecification> getSpecCharacteristic() {
+    public Set<CharacteristicSpecification> getSpecCharacteristic() {
     return specCharacteristic;
   }
 
-  public void setSpecCharacteristic(List<CharacteristicSpecification> specCharacteristic) {
+  public void setSpecCharacteristic(Set<CharacteristicSpecification> specCharacteristic) {
     this.specCharacteristic = specCharacteristic;
   }
 
@@ -413,62 +380,7 @@ public class EntitySpecification   {
     this.validFor = validFor;
   }
 
-  public EntitySpecification _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-  
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
-
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
-
-  public EntitySpecification _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
-
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public EntitySpecification _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
+ 
 
 
   @Override
@@ -495,15 +407,15 @@ public class EntitySpecification   {
         Objects.equals(this.specCharacteristic, entitySpecification.specCharacteristic) &&
         Objects.equals(this.targetEntitySchema, entitySpecification.targetEntitySchema) &&
         Objects.equals(this.validFor, entitySpecification.validFor) &&
-        Objects.equals(this._atBaseType, entitySpecification._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, entitySpecification._atSchemaLocation) &&
-        Objects.equals(this._atType, entitySpecification._atType);
+        Objects.equals(this.baseType, entitySpecification.baseType) &&
+        Objects.equals(this.schemaLocation, entitySpecification.schemaLocation) &&
+        Objects.equals(this.type, entitySpecification.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, description, isBundle, lastUpdate, lifecycleStatus, name, version, attachment, constraint, entitySpecRelationship, relatedParty, specCharacteristic, targetEntitySchema, validFor, _atBaseType, _atSchemaLocation, _atType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, description, isBundle, lastUpdate, lifecycleStatus, name, version, attachment, constraint, entitySpecRelationship, relatedParty, specCharacteristic, targetEntitySchema, validFor, _atBaseType, _atSchemaLocation, _atType);
+//  }
 
   @Override
   public String toString() {
@@ -525,9 +437,9 @@ public class EntitySpecification   {
     sb.append("    specCharacteristic: ").append(toIndentedString(specCharacteristic)).append("\n");
     sb.append("    targetEntitySchema: ").append(toIndentedString(targetEntitySchema)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

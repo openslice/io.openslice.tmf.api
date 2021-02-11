@@ -1,15 +1,20 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.Any;
-import io.openslice.tmf.stm653.model.TimePeriod;
+
+import io.openslice.tmf.common.model.Any;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * specification of a value (number or text or an object) that can be assigned to a Characteristic.
@@ -17,7 +22,9 @@ import javax.validation.constraints.*;
 @ApiModel(description = "specification of a value (number or text or an object) that can be assigned to a Characteristic.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class CharacteristicValueSpecification   {
+@Entity(name = "STMCharacteristicValueSpecification")
+@Table(name = "STMCharacteristicValueSpecification")
+public class CharacteristicValueSpecification  extends BaseRootEntity {
   @JsonProperty("isDefault")
   private Boolean isDefault = null;
 
@@ -45,14 +52,6 @@ public class CharacteristicValueSpecification   {
   @JsonProperty("value")
   private Any value = null;
 
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
-
-  @JsonProperty("@type")
-  private String _atType = null;
 
   public CharacteristicValueSpecification isDefault(Boolean isDefault) {
     this.isDefault = isDefault;
@@ -227,62 +226,7 @@ public class CharacteristicValueSpecification   {
     this.value = value;
   }
 
-  public CharacteristicValueSpecification _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
-
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
-
-  public CharacteristicValueSpecification _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
-
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public CharacteristicValueSpecification _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
 
 
   @Override
@@ -303,15 +247,15 @@ public class CharacteristicValueSpecification   {
         Objects.equals(this.valueType, characteristicValueSpecification.valueType) &&
         Objects.equals(this.validFor, characteristicValueSpecification.validFor) &&
         Objects.equals(this.value, characteristicValueSpecification.value) &&
-        Objects.equals(this._atBaseType, characteristicValueSpecification._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, characteristicValueSpecification._atSchemaLocation) &&
-        Objects.equals(this._atType, characteristicValueSpecification._atType);
+        Objects.equals(this.baseType, characteristicValueSpecification.baseType) &&
+        Objects.equals(this.schemaLocation, characteristicValueSpecification.schemaLocation) &&
+        Objects.equals(this.type, characteristicValueSpecification.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor, value, _atBaseType, _atSchemaLocation, _atType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor, value, _atBaseType, _atSchemaLocation, _atType);
+//  }
 
   @Override
   public String toString() {
@@ -327,9 +271,9 @@ public class CharacteristicValueSpecification   {
     sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

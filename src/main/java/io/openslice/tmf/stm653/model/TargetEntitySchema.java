@@ -3,9 +3,13 @@ package io.openslice.tmf.stm653.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Embeddable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -15,7 +19,9 @@ import javax.validation.constraints.*;
 @ApiModel(description = "The reference object to the schema and type of target entity which is described by a specification")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class TargetEntitySchema   {
+
+@Embeddable
+public class TargetEntitySchema  extends BaseRootEntity  {
   @JsonProperty("@schemaLocation")
   private String _atSchemaLocation = null;
 

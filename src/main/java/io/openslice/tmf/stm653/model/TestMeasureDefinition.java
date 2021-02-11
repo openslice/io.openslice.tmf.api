@@ -1,18 +1,21 @@
 package io.openslice.tmf.stm653.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.Duration;
-import io.openslice.tmf.stm653.model.MetricDefMeasureThresholdRule;
-import io.openslice.tmf.stm653.model.TimePeriod;
+
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * A TestMeasureDefinition specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status
@@ -20,7 +23,10 @@ import javax.validation.constraints.*;
 @ApiModel(description = "A TestMeasureDefinition specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class TestMeasureDefinition   {
+
+@Entity(name = "STMTestMeasureDefinition")
+@Table(name = "STMTestMeasureDefinition")
+public class TestMeasureDefinition  extends BaseRootNamedEntity {
   @JsonProperty("captureFrequency")
   private String captureFrequency = null;
 
@@ -36,8 +42,6 @@ public class TestMeasureDefinition   {
   @JsonProperty("metricName")
   private String metricName = null;
 
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("unitOfMeasure")
   private String unitOfMeasure = null;
@@ -50,19 +54,11 @@ public class TestMeasureDefinition   {
 
   @JsonProperty("thresholdRule")
   @Valid
-  private List<MetricDefMeasureThresholdRule> thresholdRule = null;
+  private Set<MetricDefMeasureThresholdRule> thresholdRule = null;
 
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
-
-  @JsonProperty("@type")
-  private String _atType = null;
 
   public TestMeasureDefinition captureFrequency(String captureFrequency) {
     this.captureFrequency = captureFrequency;
@@ -236,14 +232,14 @@ public class TestMeasureDefinition   {
     this.capturePeriod = capturePeriod;
   }
 
-  public TestMeasureDefinition thresholdRule(List<MetricDefMeasureThresholdRule> thresholdRule) {
+  public TestMeasureDefinition thresholdRule(Set<MetricDefMeasureThresholdRule> thresholdRule) {
     this.thresholdRule = thresholdRule;
     return this;
   }
 
   public TestMeasureDefinition addThresholdRuleItem(MetricDefMeasureThresholdRule thresholdRuleItem) {
     if (this.thresholdRule == null) {
-      this.thresholdRule = new ArrayList<>();
+      this.thresholdRule = new HashSet<>();
     }
     this.thresholdRule.add(thresholdRuleItem);
     return this;
@@ -255,11 +251,11 @@ public class TestMeasureDefinition   {
   **/
   @ApiModelProperty(value = "The rule(s) associated with the measure threshold")
       @Valid
-    public List<MetricDefMeasureThresholdRule> getThresholdRule() {
+    public Set<MetricDefMeasureThresholdRule> getThresholdRule() {
     return thresholdRule;
   }
 
-  public void setThresholdRule(List<MetricDefMeasureThresholdRule> thresholdRule) {
+  public void setThresholdRule(Set<MetricDefMeasureThresholdRule> thresholdRule) {
     this.thresholdRule = thresholdRule;
   }
 
@@ -283,62 +279,6 @@ public class TestMeasureDefinition   {
     this.validFor = validFor;
   }
 
-  public TestMeasureDefinition _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-  
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
-
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
-
-  public TestMeasureDefinition _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
-
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public TestMeasureDefinition _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
 
 
   @Override
@@ -361,15 +301,15 @@ public class TestMeasureDefinition   {
         Objects.equals(this.capturePeriod, testMeasureDefinition.capturePeriod) &&
         Objects.equals(this.thresholdRule, testMeasureDefinition.thresholdRule) &&
         Objects.equals(this.validFor, testMeasureDefinition.validFor) &&
-        Objects.equals(this._atBaseType, testMeasureDefinition._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, testMeasureDefinition._atSchemaLocation) &&
-        Objects.equals(this._atType, testMeasureDefinition._atType);
+        Objects.equals(this.baseType, testMeasureDefinition.baseType) &&
+        Objects.equals(this.schemaLocation, testMeasureDefinition.schemaLocation) &&
+        Objects.equals(this.type, testMeasureDefinition.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(captureFrequency, captureMethod, metricDescription, metricHref, metricName, name, unitOfMeasure, valueType, capturePeriod, thresholdRule, validFor, _atBaseType, _atSchemaLocation, _atType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(captureFrequency, captureMethod, metricDescription, metricHref, metricName, name, unitOfMeasure, valueType, capturePeriod, thresholdRule, validFor, _atBaseType, _atSchemaLocation, _atType);
+//  }
 
   @Override
   public String toString() {
@@ -387,9 +327,9 @@ public class TestMeasureDefinition   {
     sb.append("    capturePeriod: ").append(toIndentedString(capturePeriod)).append("\n");
     sb.append("    thresholdRule: ").append(toIndentedString(thresholdRule)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

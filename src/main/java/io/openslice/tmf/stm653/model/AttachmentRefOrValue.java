@@ -1,15 +1,19 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.Quantity;
-import io.openslice.tmf.stm653.model.TimePeriod;
+
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.
@@ -17,12 +21,12 @@ import javax.validation.constraints.*;
 @ApiModel(description = "An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class AttachmentRefOrValue   {
+@Entity(name = "STMAttachmentRefOrValue")
+@Table(name = "STMAttachmentRefOrValue")
+public class AttachmentRefOrValue extends BaseRootNamedEntity {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
 
   @JsonProperty("attachmentType")
   private String attachmentType = null;
@@ -36,9 +40,6 @@ public class AttachmentRefOrValue   {
   @JsonProperty("mimeType")
   private String mimeType = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
   @JsonProperty("url")
   private String url = null;
 
@@ -48,23 +49,11 @@ public class AttachmentRefOrValue   {
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
-
-  @JsonProperty("@type")
-  private String _atType = null;
 
   @JsonProperty("@referredType")
   private String _atReferredType = null;
 
-  public AttachmentRefOrValue id(String id) {
-    this.id = id;
-    return this;
-  }
-
+  
   /**
    * Unique identifier for this particular attachment
    * @return id
@@ -72,31 +61,17 @@ public class AttachmentRefOrValue   {
   @ApiModelProperty(example = "4aafacbd-11ff-4dc8-b445-305f2215715f", value = "Unique identifier for this particular attachment")
   
     public String getId() {
-    return id;
+		if ( uuid != null ) {
+			id = uuid;			
+		} 
+		return id;
   }
 
   public void setId(String id) {
     this.id = id;
   }
 
-  public AttachmentRefOrValue href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * URI for this Attachment
-   * @return href
-  **/
-  @ApiModelProperty(example = "http://host/Attachment/4aafacbd-11ff-4dc8-b445-305f2215715f", value = "URI for this Attachment")
-  
-    public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
+ 
 
   public AttachmentRefOrValue attachmentType(String attachmentType) {
     this.attachmentType = attachmentType;
@@ -174,25 +149,7 @@ public class AttachmentRefOrValue   {
     this.mimeType = mimeType;
   }
 
-  public AttachmentRefOrValue name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * The name of the attachment
-   * @return name
-  **/
-  @ApiModelProperty(value = "The name of the attachment")
-  
-    public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
+ 
   public AttachmentRefOrValue url(String url) {
     this.url = url;
     return this;
@@ -252,62 +209,6 @@ public class AttachmentRefOrValue   {
     this.validFor = validFor;
   }
 
-  public AttachmentRefOrValue _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-  
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
-
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
-
-  public AttachmentRefOrValue _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
-
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public AttachmentRefOrValue _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
 
   public AttachmentRefOrValue _atReferredType(String _atReferredType) {
     this._atReferredType = _atReferredType;
@@ -348,16 +249,16 @@ public class AttachmentRefOrValue   {
         Objects.equals(this.url, attachmentRefOrValue.url) &&
         Objects.equals(this.size, attachmentRefOrValue.size) &&
         Objects.equals(this.validFor, attachmentRefOrValue.validFor) &&
-        Objects.equals(this._atBaseType, attachmentRefOrValue._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, attachmentRefOrValue._atSchemaLocation) &&
-        Objects.equals(this._atType, attachmentRefOrValue._atType) &&
+        Objects.equals(this.baseType, attachmentRefOrValue.baseType) &&
+        Objects.equals(this.schemaLocation, attachmentRefOrValue.schemaLocation) &&
+        Objects.equals(this.type, attachmentRefOrValue.type) &&
         Objects.equals(this._atReferredType, attachmentRefOrValue._atReferredType);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, attachmentType, content, description, mimeType, name, url, size, validFor, _atBaseType, _atSchemaLocation, _atType, _atReferredType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, attachmentType, content, description, mimeType, name, url, size, validFor, _atBaseType, _atSchemaLocation, _atType, _atReferredType);
+//  }
 
   @Override
   public String toString() {
@@ -374,9 +275,9 @@ public class AttachmentRefOrValue   {
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    size: ").append(toIndentedString(size)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
     sb.append("    _atReferredType: ").append(toIndentedString(_atReferredType)).append("\n");
     sb.append("}");
     return sb.toString();

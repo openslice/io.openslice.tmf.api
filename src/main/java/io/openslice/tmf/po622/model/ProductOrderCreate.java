@@ -1,26 +1,21 @@
 package io.openslice.tmf.po622.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.po622.model.AgreementRef;
-import io.openslice.tmf.po622.model.BillingAccountRef;
-import io.openslice.tmf.po622.model.Note;
-import io.openslice.tmf.po622.model.OrderPrice;
-import io.openslice.tmf.po622.model.PaymentRef;
-import io.openslice.tmf.po622.model.ProductOfferingQualificationRef;
-import io.openslice.tmf.po622.model.ProductOrderItem;
-import io.openslice.tmf.po622.model.QuoteRef;
-import io.openslice.tmf.po622.model.RelatedChannel;
-import io.openslice.tmf.po622.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * A Product Order is a type of order which  can  be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa, Skipped properties: id,href,completionDate,orderDate,state,expectedCompletionDate,productOrderItem.state

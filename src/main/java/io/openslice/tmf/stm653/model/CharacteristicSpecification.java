@@ -1,18 +1,23 @@
 package io.openslice.tmf.stm653.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.CharacteristicSpecificationRelationship;
-import io.openslice.tmf.stm653.model.CharacteristicValueSpecification;
-import io.openslice.tmf.stm653.model.TimePeriod;
+
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * This class defines a characteristic specification.
@@ -20,7 +25,9 @@ import javax.validation.constraints.*;
 @ApiModel(description = "This class defines a characteristic specification.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class CharacteristicSpecification   {
+@Entity(name = "STMCharacteristicSpecification")
+@Table(name = "STMCharacteristicSpecification")
+public class CharacteristicSpecification  extends BaseRootNamedEntity {
   @JsonProperty("id")
   private String id = null;
 
@@ -42,9 +49,6 @@ public class CharacteristicSpecification   {
   @JsonProperty("minCardinality")
   private Integer minCardinality = null;
 
-  @JsonProperty("name")
-  private String name = null;
-
   @JsonProperty("regex")
   private String regex = null;
 
@@ -53,45 +57,30 @@ public class CharacteristicSpecification   {
 
   @JsonProperty("charSpecRelationship")
   @Valid
-  private List<CharacteristicSpecificationRelationship> charSpecRelationship = null;
+  private Set<CharacteristicSpecificationRelationship> charSpecRelationship = null;
 
   @JsonProperty("characteristicValueSpecification")
   @Valid
-  private List<CharacteristicValueSpecification> characteristicValueSpecification = null;
+  private Set<CharacteristicValueSpecification> characteristicValueSpecification = null;
 
   @JsonProperty("validFor")
   private TimePeriod validFor = null;
 
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
-
-  @JsonProperty("@type")
-  private String _atType = null;
-
   @JsonProperty("@valueSchemaLocation")
   private String _atValueSchemaLocation = null;
-
-  public CharacteristicSpecification id(String id) {
-    this.id = id;
-    return this;
-  }
 
   /**
    * Unique ID for the characteristic
    * @return id
   **/
   @ApiModelProperty(value = "Unique ID for the characteristic")
-  
-    public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		id = uuid;
+		return uuid;
+	}
 
   public CharacteristicSpecification configurable(Boolean configurable) {
     this.configurable = configurable;
@@ -264,14 +253,14 @@ public class CharacteristicSpecification   {
     this.valueType = valueType;
   }
 
-  public CharacteristicSpecification charSpecRelationship(List<CharacteristicSpecificationRelationship> charSpecRelationship) {
+  public CharacteristicSpecification charSpecRelationship(Set<CharacteristicSpecificationRelationship> charSpecRelationship) {
     this.charSpecRelationship = charSpecRelationship;
     return this;
   }
 
   public CharacteristicSpecification addCharSpecRelationshipItem(CharacteristicSpecificationRelationship charSpecRelationshipItem) {
     if (this.charSpecRelationship == null) {
-      this.charSpecRelationship = new ArrayList<>();
+      this.charSpecRelationship = new HashSet<>();
     }
     this.charSpecRelationship.add(charSpecRelationshipItem);
     return this;
@@ -283,22 +272,22 @@ public class CharacteristicSpecification   {
   **/
   @ApiModelProperty(value = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
       @Valid
-    public List<CharacteristicSpecificationRelationship> getCharSpecRelationship() {
+    public Set<CharacteristicSpecificationRelationship> getCharSpecRelationship() {
     return charSpecRelationship;
   }
 
-  public void setCharSpecRelationship(List<CharacteristicSpecificationRelationship> charSpecRelationship) {
+  public void setCharSpecRelationship(Set<CharacteristicSpecificationRelationship> charSpecRelationship) {
     this.charSpecRelationship = charSpecRelationship;
   }
 
-  public CharacteristicSpecification characteristicValueSpecification(List<CharacteristicValueSpecification> characteristicValueSpecification) {
+  public CharacteristicSpecification characteristicValueSpecification(Set<CharacteristicValueSpecification> characteristicValueSpecification) {
     this.characteristicValueSpecification = characteristicValueSpecification;
     return this;
   }
 
   public CharacteristicSpecification addCharacteristicValueSpecificationItem(CharacteristicValueSpecification characteristicValueSpecificationItem) {
     if (this.characteristicValueSpecification == null) {
-      this.characteristicValueSpecification = new ArrayList<>();
+      this.characteristicValueSpecification = new HashSet<>();
     }
     this.characteristicValueSpecification.add(characteristicValueSpecificationItem);
     return this;
@@ -310,11 +299,11 @@ public class CharacteristicSpecification   {
   **/
   @ApiModelProperty(value = "A CharacteristicValueSpecification object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a CharacteristicSpecification object. The values of the attributes in the CharacteristicValueSpecification object describe the values of the attributes that a corresponding Characteristic object can take on.")
       @Valid
-    public List<CharacteristicValueSpecification> getCharacteristicValueSpecification() {
+    public Set<CharacteristicValueSpecification> getCharacteristicValueSpecification() {
     return characteristicValueSpecification;
   }
 
-  public void setCharacteristicValueSpecification(List<CharacteristicValueSpecification> characteristicValueSpecification) {
+  public void setCharacteristicValueSpecification(Set<CharacteristicValueSpecification> characteristicValueSpecification) {
     this.characteristicValueSpecification = characteristicValueSpecification;
   }
 
@@ -338,62 +327,7 @@ public class CharacteristicSpecification   {
     this.validFor = validFor;
   }
 
-  public CharacteristicSpecification _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-  
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
-
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
-
-  public CharacteristicSpecification _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
-
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public CharacteristicSpecification _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
+ 
 
   public CharacteristicSpecification _atValueSchemaLocation(String _atValueSchemaLocation) {
     this._atValueSchemaLocation = _atValueSchemaLocation;
@@ -437,16 +371,16 @@ public class CharacteristicSpecification   {
         Objects.equals(this.charSpecRelationship, characteristicSpecification.charSpecRelationship) &&
         Objects.equals(this.characteristicValueSpecification, characteristicSpecification.characteristicValueSpecification) &&
         Objects.equals(this.validFor, characteristicSpecification.validFor) &&
-        Objects.equals(this._atBaseType, characteristicSpecification._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, characteristicSpecification._atSchemaLocation) &&
-        Objects.equals(this._atType, characteristicSpecification._atType) &&
+        Objects.equals(this.baseType, characteristicSpecification.baseType) &&
+        Objects.equals(this.schemaLocation, characteristicSpecification.baseType) &&
+        Objects.equals(this.type, characteristicSpecification.type) &&
         Objects.equals(this._atValueSchemaLocation, characteristicSpecification._atValueSchemaLocation);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, configurable, description, extensible, isUnique, maxCardinality, minCardinality, name, regex, valueType, charSpecRelationship, characteristicValueSpecification, validFor, _atBaseType, _atSchemaLocation, _atType, _atValueSchemaLocation);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, configurable, description, extensible, isUnique, maxCardinality, minCardinality, name, regex, valueType, charSpecRelationship, characteristicValueSpecification, validFor, _atBaseType, _atSchemaLocation, _atType, _atValueSchemaLocation);
+//  }
 
   @Override
   public String toString() {
@@ -466,9 +400,9 @@ public class CharacteristicSpecification   {
     sb.append("    charSpecRelationship: ").append(toIndentedString(charSpecRelationship)).append("\n");
     sb.append("    characteristicValueSpecification: ").append(toIndentedString(characteristicValueSpecification)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
     sb.append("    _atValueSchemaLocation: ").append(toIndentedString(_atValueSchemaLocation)).append("\n");
     sb.append("}");
     return sb.toString();

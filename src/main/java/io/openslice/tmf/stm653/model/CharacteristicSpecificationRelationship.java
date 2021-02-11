@@ -1,14 +1,19 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.TimePeriod;
+
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity relationship between/among Characteristic specifications. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.
@@ -16,12 +21,12 @@ import javax.validation.constraints.*;
 @ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Characteristic specifications. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class CharacteristicSpecificationRelationship   {
+@Entity(name = "STMCharacteristicSpecificationRelationship")
+@Table(name = "STMCharacteristicSpecificationRelationship")
+public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity {
   @JsonProperty("characteristicSpecificationId")
   private String characteristicSpecificationId = null;
 
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("parentSpecificationHref")
   private String parentSpecificationHref = null;
@@ -54,24 +59,6 @@ public class CharacteristicSpecificationRelationship   {
     this.characteristicSpecificationId = characteristicSpecificationId;
   }
 
-  public CharacteristicSpecificationRelationship name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Name of the target characteristic within the specification
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the target characteristic within the specification")
-  
-    public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public CharacteristicSpecificationRelationship parentSpecificationHref(String parentSpecificationHref) {
     this.parentSpecificationHref = parentSpecificationHref;

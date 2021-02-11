@@ -1,18 +1,22 @@
 package io.openslice.tmf.stm653.model;
 
+import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.Characteristic;
-import io.openslice.tmf.stm653.model.MeasureThresholdRuleViolation;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * A TestMeasure specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status
@@ -20,11 +24,13 @@ import javax.validation.constraints.*;
 @ApiModel(description = "A TestMeasure specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class TestMeasure   {
+
+@Entity(name = "STMTestMeasure")
+@Table(name = "STMTestMeasure")
+public class TestMeasure  extends BaseRootEntity {
   @JsonProperty("accuracy")
   private Float accuracy = null;
 
-  @JsonProperty("captureDateTime")
   private OffsetDateTime captureDateTime = null;
 
   @JsonProperty("captureMethod")
@@ -44,19 +50,11 @@ public class TestMeasure   {
 
   @JsonProperty("ruleViolation")
   @Valid
-  private List<MeasureThresholdRuleViolation> ruleViolation = null;
+  private Set<MeasureThresholdRuleViolation> ruleViolation = null;
 
   @JsonProperty("value")
   private Characteristic value = null;
 
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
-
-  @JsonProperty("@type")
-  private String _atType = null;
 
   public TestMeasure accuracy(Float accuracy) {
     this.accuracy = accuracy;
@@ -101,6 +99,17 @@ public class TestMeasure   {
     this.captureMethod = captureMethod;
     return this;
   }
+  
+  
+
+  @JsonProperty("captureDateTime")
+	public String getcaptureDateTimeStr() {
+		if (this.captureDateTime != null) {
+			return this.captureDateTime.toString();
+		} else {
+			return null;
+		}
+	}
 
   /**
    * The method used to capture the Metrics (This may be replaced by a set of entities similar to the Performance Monitoring Ref)
@@ -192,14 +201,14 @@ public class TestMeasure   {
     this.unitOfMeasure = unitOfMeasure;
   }
 
-  public TestMeasure ruleViolation(List<MeasureThresholdRuleViolation> ruleViolation) {
+  public TestMeasure ruleViolation( Set<MeasureThresholdRuleViolation> ruleViolation) {
     this.ruleViolation = ruleViolation;
     return this;
   }
 
   public TestMeasure addRuleViolationItem(MeasureThresholdRuleViolation ruleViolationItem) {
     if (this.ruleViolation == null) {
-      this.ruleViolation = new ArrayList<>();
+      this.ruleViolation = new HashSet<>();
     }
     this.ruleViolation.add(ruleViolationItem);
     return this;
@@ -211,11 +220,11 @@ public class TestMeasure   {
   **/
   @ApiModelProperty(value = "A list of rules that were violated in this test measure")
       @Valid
-    public List<MeasureThresholdRuleViolation> getRuleViolation() {
+    public Set<MeasureThresholdRuleViolation> getRuleViolation() {
     return ruleViolation;
   }
 
-  public void setRuleViolation(List<MeasureThresholdRuleViolation> ruleViolation) {
+  public void setRuleViolation( Set<MeasureThresholdRuleViolation> ruleViolation) {
     this.ruleViolation = ruleViolation;
   }
 
@@ -239,62 +248,6 @@ public class TestMeasure   {
     this.value = value;
   }
 
-  public TestMeasure _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-  
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
-
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
-
-  public TestMeasure _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
-
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public TestMeasure _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
 
 
   @Override
@@ -315,15 +268,15 @@ public class TestMeasure   {
         Objects.equals(this.unitOfMeasure, testMeasure.unitOfMeasure) &&
         Objects.equals(this.ruleViolation, testMeasure.ruleViolation) &&
         Objects.equals(this.value, testMeasure.value) &&
-        Objects.equals(this._atBaseType, testMeasure._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, testMeasure._atSchemaLocation) &&
-        Objects.equals(this._atType, testMeasure._atType);
+        Objects.equals(this.baseType, testMeasure.baseType) &&
+        Objects.equals(this.schemaLocation, testMeasure.schemaLocation) &&
+        Objects.equals(this.type, testMeasure.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(accuracy, captureDateTime, captureMethod, metricDescription, metricHref, metricName, unitOfMeasure, ruleViolation, value, _atBaseType, _atSchemaLocation, _atType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(accuracy, captureDateTime, captureMethod, metricDescription, metricHref, metricName, unitOfMeasure, ruleViolation, value, _atBaseType, _atSchemaLocation, _atType);
+//  }
 
   @Override
   public String toString() {
@@ -339,9 +292,9 @@ public class TestMeasure   {
     sb.append("    unitOfMeasure: ").append(toIndentedString(unitOfMeasure)).append("\n");
     sb.append("    ruleViolation: ").append(toIndentedString(ruleViolation)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

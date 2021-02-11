@@ -1,13 +1,18 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * The service test specification used by the service test.
@@ -15,210 +20,138 @@ import javax.validation.constraints.*;
 @ApiModel(description = "The service test specification used by the service test.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class ServiceTestSpecificationRef   {
-  @JsonProperty("id")
-  private String id = null;
 
-  @JsonProperty("href")
-  private String href = null;
+@Entity(name = "STMServiceTestSpecificationRef")
+@Table(name = "STMServiceTestSpecificationRef")
+public class ServiceTestSpecificationRef extends BaseRootEntity {
+	@JsonProperty("id")
+	private String id = null;
 
-  @JsonProperty("version")
-  private String version = null;
+	@JsonProperty("version")
+	private String version = null;
 
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
+	@JsonProperty("@referredType")
+	private String _atReferredType = null;
 
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		if (uuid != null) {
+			id = uuid;
+		}
+		return id;
+	}
 
-  @JsonProperty("@type")
-  private String _atType = null;
+	public ServiceTestSpecificationRef href(String href) {
+		this.href = href;
+		return this;
+	}
 
-  @JsonProperty("@referredType")
-  private String _atReferredType = null;
+	/**
+	 * Hyperlink to access a service test specification.
+	 * 
+	 * @return href
+	 **/
+	@ApiModelProperty(value = "Hyperlink to access a service test specification.")
 
-  public ServiceTestSpecificationRef id(String id) {
-    this.id = id;
-    return this;
-  }
+	public String getHref() {
+		return href;
+	}
 
-  /**
-   * Identifier of a service test specification.
-   * @return id
-  **/
-  @ApiModelProperty(required = true, value = "Identifier of a service test specification.")
-      @NotNull
+	public void setHref(String href) {
+		this.href = href;
+	}
 
-    public String getId() {
-    return id;
-  }
+	public ServiceTestSpecificationRef version(String version) {
+		this.version = version;
+		return this;
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+	/**
+	 * Version of a service test specification
+	 * 
+	 * @return version
+	 **/
+	@ApiModelProperty(value = "Version of a service test specification ")
 
-  public ServiceTestSpecificationRef href(String href) {
-    this.href = href;
-    return this;
-  }
+	public String getVersion() {
+		return version;
+	}
 
-  /**
-   * Hyperlink to access a service test specification.
-   * @return href
-  **/
-  @ApiModelProperty(value = "Hyperlink to access a service test specification.")
-  
-    public String getHref() {
-    return href;
-  }
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
-  public void setHref(String href) {
-    this.href = href;
-  }
+	
 
-  public ServiceTestSpecificationRef version(String version) {
-    this.version = version;
-    return this;
-  }
+	public ServiceTestSpecificationRef _atReferredType(String _atReferredType) {
+		this._atReferredType = _atReferredType;
+		return this;
+	}
 
-  /**
-   * Version of a service test specification 
-   * @return version
-  **/
-  @ApiModelProperty(value = "Version of a service test specification ")
-  
-    public String getVersion() {
-    return version;
-  }
+	/**
+	 * The actual type of the target instance when needed for disambiguation.
+	 * 
+	 * @return _atReferredType
+	 **/
+	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
 
-  public void setVersion(String version) {
-    this.version = version;
-  }
+	public String getAtReferredType() {
+		return _atReferredType;
+	}
 
-  public ServiceTestSpecificationRef _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
+	public void setAtReferredType(String _atReferredType) {
+		this._atReferredType = _atReferredType;
+	}
 
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-  
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ServiceTestSpecificationRef serviceTestSpecificationRef = (ServiceTestSpecificationRef) o;
+		return Objects.equals(this.id, serviceTestSpecificationRef.id)
+				&& Objects.equals(this.href, serviceTestSpecificationRef.href)
+				&& Objects.equals(this.version, serviceTestSpecificationRef.version)
+				&& Objects.equals(this.baseType, serviceTestSpecificationRef.baseType)
+				&& Objects.equals(this.schemaLocation, serviceTestSpecificationRef.schemaLocation)
+				&& Objects.equals(this.type, serviceTestSpecificationRef.type)
+				&& Objects.equals(this._atReferredType, serviceTestSpecificationRef._atReferredType);
+	}
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(id, href, version, _atBaseType, _atSchemaLocation, _atType, _atReferredType);
+//	}
 
-  public ServiceTestSpecificationRef _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class ServiceTestSpecificationRef {\n");
 
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    href: ").append(toIndentedString(href)).append("\n");
+		sb.append("    version: ").append(toIndentedString(version)).append("\n");
+		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    _atReferredType: ").append(toIndentedString(_atReferredType)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public ServiceTestSpecificationRef _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
-
-  public ServiceTestSpecificationRef _atReferredType(String _atReferredType) {
-    this._atReferredType = _atReferredType;
-    return this;
-  }
-
-  /**
-   * The actual type of the target instance when needed for disambiguation.
-   * @return _atReferredType
-  **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
-  
-    public String getAtReferredType() {
-    return _atReferredType;
-  }
-
-  public void setAtReferredType(String _atReferredType) {
-    this._atReferredType = _atReferredType;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ServiceTestSpecificationRef serviceTestSpecificationRef = (ServiceTestSpecificationRef) o;
-    return Objects.equals(this.id, serviceTestSpecificationRef.id) &&
-        Objects.equals(this.href, serviceTestSpecificationRef.href) &&
-        Objects.equals(this.version, serviceTestSpecificationRef.version) &&
-        Objects.equals(this._atBaseType, serviceTestSpecificationRef._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, serviceTestSpecificationRef._atSchemaLocation) &&
-        Objects.equals(this._atType, serviceTestSpecificationRef._atType) &&
-        Objects.equals(this._atReferredType, serviceTestSpecificationRef._atReferredType);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, href, version, _atBaseType, _atSchemaLocation, _atType, _atReferredType);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ServiceTestSpecificationRef {\n");
-    
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
-    sb.append("    version: ").append(toIndentedString(version)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
-    sb.append("    _atReferredType: ").append(toIndentedString(_atReferredType)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }

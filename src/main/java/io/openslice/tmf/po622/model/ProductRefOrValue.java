@@ -1,31 +1,21 @@
 package io.openslice.tmf.po622.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.po622.model.AgreementItemRef;
-import io.openslice.tmf.po622.model.BillingAccountRef;
-import io.openslice.tmf.po622.model.Characteristic;
-import io.openslice.tmf.po622.model.ProductOfferingRef;
-import io.openslice.tmf.po622.model.ProductPrice;
-import io.openslice.tmf.po622.model.ProductRefOrValue;
-import io.openslice.tmf.po622.model.ProductRelationship;
-import io.openslice.tmf.po622.model.ProductSpecificationRef;
-import io.openslice.tmf.po622.model.ProductStatusType;
-import io.openslice.tmf.po622.model.ProductTerm;
-import io.openslice.tmf.po622.model.RelatedParty;
-import io.openslice.tmf.po622.model.RelatedPlaceRefOrValue;
-import io.openslice.tmf.po622.model.RelatedProductOrderItem;
-import io.openslice.tmf.po622.model.ResourceRef;
-import io.openslice.tmf.po622.model.ServiceRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.service.ResourceRef;
+import io.openslice.tmf.common.model.service.ServiceRef;
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself

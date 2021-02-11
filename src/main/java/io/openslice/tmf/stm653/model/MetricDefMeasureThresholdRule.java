@@ -1,17 +1,20 @@
 package io.openslice.tmf.stm653.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.Duration;
-import io.openslice.tmf.stm653.model.MetricDefMeasureConsequence;
+
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * A MetricDefMeasureThresholdRule is a rule that defines the condition (raise or clear) to achieve to apply  consequences when a threshold is crossed or ceased to be crossed. It also defines the severity of the  raise or clear of the threshold.
@@ -19,7 +22,10 @@ import javax.validation.constraints.*;
 @ApiModel(description = "A MetricDefMeasureThresholdRule is a rule that defines the condition (raise or clear) to achieve to apply  consequences when a threshold is crossed or ceased to be crossed. It also defines the severity of the  raise or clear of the threshold.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-public class MetricDefMeasureThresholdRule   {
+
+@Entity(name = "STMMetricDefMeasureThresholdRule")
+@Table(name = "STMMetricDefMeasureThresholdRule")
+public class MetricDefMeasureThresholdRule  extends BaseRootNamedEntity {
   @JsonProperty("conformanceComparatorLower")
   private String conformanceComparatorLower = null;
 
@@ -35,8 +41,6 @@ public class MetricDefMeasureThresholdRule   {
   @JsonProperty("description")
   private String description = null;
 
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("numberOfAllowedCrossing")
   private Integer numberOfAllowedCrossing = null;
@@ -46,19 +50,11 @@ public class MetricDefMeasureThresholdRule   {
 
   @JsonProperty("consequence")
   @Valid
-  private List<MetricDefMeasureConsequence> consequence = null;
+  private Set<MetricDefMeasureConsequence> consequence = null;
 
   @JsonProperty("tolerancePeriod")
   private Duration tolerancePeriod = null;
 
-  @JsonProperty("@baseType")
-  private String _atBaseType = null;
-
-  @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
-
-  @JsonProperty("@type")
-  private String _atType = null;
 
   public MetricDefMeasureThresholdRule conformanceComparatorLower(String conformanceComparatorLower) {
     this.conformanceComparatorLower = conformanceComparatorLower;
@@ -212,14 +208,14 @@ public class MetricDefMeasureThresholdRule   {
     this.thresholdRuleSeverity = thresholdRuleSeverity;
   }
 
-  public MetricDefMeasureThresholdRule consequence(List<MetricDefMeasureConsequence> consequence) {
+  public MetricDefMeasureThresholdRule consequence(Set<MetricDefMeasureConsequence> consequence) {
     this.consequence = consequence;
     return this;
   }
 
   public MetricDefMeasureThresholdRule addConsequenceItem(MetricDefMeasureConsequence consequenceItem) {
     if (this.consequence == null) {
-      this.consequence = new ArrayList<>();
+      this.consequence = new HashSet<>();
     }
     this.consequence.add(consequenceItem);
     return this;
@@ -231,11 +227,11 @@ public class MetricDefMeasureThresholdRule   {
   **/
   @ApiModelProperty(value = "A list of consequences (actions, notifications) that will arise if the threshold is crossed")
       @Valid
-    public List<MetricDefMeasureConsequence> getConsequence() {
+    public Set<MetricDefMeasureConsequence> getConsequence() {
     return consequence;
   }
 
-  public void setConsequence(List<MetricDefMeasureConsequence> consequence) {
+  public void setConsequence(Set<MetricDefMeasureConsequence> consequence) {
     this.consequence = consequence;
   }
 
@@ -259,62 +255,7 @@ public class MetricDefMeasureThresholdRule   {
     this.tolerancePeriod = tolerancePeriod;
   }
 
-  public MetricDefMeasureThresholdRule _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the super-class
-   * @return _atBaseType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
-  
-    public String getAtBaseType() {
-    return _atBaseType;
-  }
-
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
-  }
-
-  public MetricDefMeasureThresholdRule _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-    return this;
-  }
-
-  /**
-   * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
-  **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
-  
-    public String getAtSchemaLocation() {
-    return _atSchemaLocation;
-  }
-
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
-  }
-
-  public MetricDefMeasureThresholdRule _atType(String _atType) {
-    this._atType = _atType;
-    return this;
-  }
-
-  /**
-   * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
-  **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
-  
-    public String getAtType() {
-    return _atType;
-  }
-
-  public void setAtType(String _atType) {
-    this._atType = _atType;
-  }
+ 
 
 
   @Override
@@ -336,15 +277,15 @@ public class MetricDefMeasureThresholdRule   {
         Objects.equals(this.thresholdRuleSeverity, metricDefMeasureThresholdRule.thresholdRuleSeverity) &&
         Objects.equals(this.consequence, metricDefMeasureThresholdRule.consequence) &&
         Objects.equals(this.tolerancePeriod, metricDefMeasureThresholdRule.tolerancePeriod) &&
-        Objects.equals(this._atBaseType, metricDefMeasureThresholdRule._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, metricDefMeasureThresholdRule._atSchemaLocation) &&
-        Objects.equals(this._atType, metricDefMeasureThresholdRule._atType);
+        Objects.equals(this.baseType, metricDefMeasureThresholdRule.baseType) &&
+        Objects.equals(this.schemaLocation, metricDefMeasureThresholdRule.schemaLocation) &&
+        Objects.equals(this.type, metricDefMeasureThresholdRule.type);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(conformanceComparatorLower, conformanceComparatorUpper, conformanceTargetLower, conformanceTargetUpper, description, name, numberOfAllowedCrossing, thresholdRuleSeverity, consequence, tolerancePeriod, _atBaseType, _atSchemaLocation, _atType);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(conformanceComparatorLower, conformanceComparatorUpper, conformanceTargetLower, conformanceTargetUpper, description, name, numberOfAllowedCrossing, thresholdRuleSeverity, consequence, tolerancePeriod, _atBaseType, _atSchemaLocation, _atType);
+//  }
 
   @Override
   public String toString() {
@@ -361,9 +302,9 @@ public class MetricDefMeasureThresholdRule   {
     sb.append("    thresholdRuleSeverity: ").append(toIndentedString(thresholdRuleSeverity)).append("\n");
     sb.append("    consequence: ").append(toIndentedString(consequence)).append("\n");
     sb.append("    tolerancePeriod: ").append(toIndentedString(tolerancePeriod)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

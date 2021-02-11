@@ -74,9 +74,16 @@ public class Attachment extends BaseRootNamedEntity  {
   @ApiModelProperty(value = "Unique identifier for this particular attachment")
 
 
-  public String getId() {
-    return uuid;
-  }
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		if ( uuid != null ) {
+			id = uuid;			
+		} 
+		return id;
+	}
+
 
 
 

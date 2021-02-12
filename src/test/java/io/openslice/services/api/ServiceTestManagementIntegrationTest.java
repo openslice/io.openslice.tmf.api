@@ -1,10 +1,19 @@
 package io.openslice.services.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -13,16 +22,24 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
+import io.openslice.tmf.stm653.model.ServiceTestCreate;
+import io.openslice.tmf.stm653.model.ServiceTestSpecificationCreate;
 import io.openslice.tmf.stm653.reposervices.ServiceTestRepoService;
 import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
 
@@ -39,7 +56,9 @@ public class ServiceTestManagementIntegrationTest {
 	private MockMvc mvc;
 
 	@Autowired
-	ServiceTestSpecificationRepoService aServiceTestSpecRpoService;
+	ServiceTestSpecificationRepoService aServiceTestSpecRpoService;	
+
+	@Autowired
 	ServiceTestRepoService aServiceTestRpoService;
 
 	@Autowired
@@ -53,15 +72,84 @@ public class ServiceTestManagementIntegrationTest {
 		mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
 	}
 
-	@WithMockUser(username = "osadmin", roles = { "USER" })
+	@WithMockUser(username = "osadmin", roles = { "ADMIN","USER" })
 	@Test
 	public void testServiceTestSpecCreateAndUpdate() throws UnsupportedEncodingException, IOException, Exception {
 
 		/**
 		 * first add 2 specs
 		 */
+//		/testServiceTestSpec
+		
+		
+
+		File sspec = new File( "src/test/resources/testServiceTestSpec.json" );
+		InputStream in = new FileInputStream( sspec );
+		String sspectext = IOUtils.toString(in, "UTF-8");
+		ServiceTestSpecificationCreate spec = toJsonObj( sspectext,  ServiceTestSpecificationCreate.class);  
+		
+		
+		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceTestManagement/v4/serviceTestSpecification")
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( spec ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("A test name")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		
+
+		assertThat( aServiceTestSpecRpoService.findAll().size() ).isEqualTo( 1 );
+		
+		
+		sspec = new File( "src/test/resources/testServiceTest.json" );
+		in = new FileInputStream( sspec );
+		sspectext = IOUtils.toString(in, "UTF-8");
+		ServiceTestCreate stest = toJsonObj( sspectext,  ServiceTestCreate.class);  
+		
+		
+		response = mvc.perform(MockMvcRequestBuilders.post("/serviceTestManagement/v4/serviceTest")
+		            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( toJson( stest ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("A test name")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		
+
+		assertThat( aServiceTestRpoService.findAll().size() ).isEqualTo( 1 );
 		
 
 	}
+	
+
+	 static byte[] toJson(Object object) throws IOException {
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+	        return mapper.writeValueAsBytes(object);
+	    }
+	 
+	 static String toJsonString(Object object) throws IOException {
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+	        return mapper.writeValueAsString(object);
+	    }
+	 
+	 
+	 static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+	        return mapper.readValue( content, valueType);
+	    }
+	 
+	 static <T> T toJsonObj(InputStream content, Class<T> valueType)  throws IOException {
+	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+	        return mapper.readValue( content, valueType);
+	    }
+	
 
 }

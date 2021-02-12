@@ -222,7 +222,7 @@ public class ServiceTestRepoService {
 		return findAll();
 	}
 
-	private List<ServiceTest> findAll() {
+	public List<ServiceTest> findAll() {
 		return (List<ServiceTest>) this.aServiceTestRepo.findByOrderByName();
 	}
 

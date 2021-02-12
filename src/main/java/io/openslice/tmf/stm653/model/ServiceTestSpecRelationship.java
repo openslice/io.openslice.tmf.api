@@ -34,9 +34,6 @@ public class ServiceTestSpecRelationship extends BaseEntity {
   @JsonProperty("role")
   private String role = null;
 
-  @JsonProperty("validFor")
-  private TimePeriod validFor = null;
-
 
 
   @JsonProperty("@referredType")
@@ -127,26 +124,7 @@ public class ServiceTestSpecRelationship extends BaseEntity {
     this.role = role;
   }
 
-  public ServiceTestSpecRelationship validFor(TimePeriod validFor) {
-    this.validFor = validFor;
-    return this;
-  }
-
-  /**
-   * Get validFor
-   * @return validFor
-  **/
-  @ApiModelProperty(value = "")
-  
-    @Valid
-    public TimePeriod getValidFor() {
-    return validFor;
-  }
-
-  public void setValidFor(TimePeriod validFor) {
-    this.validFor = validFor;
-  }
-
+ 
   
 
   /**

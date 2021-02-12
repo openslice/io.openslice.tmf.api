@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 
@@ -28,8 +30,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "This class defines a characteristic specification.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-@Entity(name = "STMCharacteristicSpecification")
-@Table(name = "STMCharacteristicSpecification")
+@Entity(name = "STMCharactSpec")
+@Table(name = "STMCharactSpec")
 public class CharacteristicSpecification extends BaseRootNamedEntity {
 	@JsonProperty("id")
 	private String id = null;
@@ -60,11 +62,13 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 
 	@JsonProperty("charSpecRelationship")
 	@Valid
-	private Set<CharacteristicSpecificationRelationship> charSpecRelationship = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<CharacteristicSpecificationRelationship> charSpecRelationship = new HashSet<>();
 
 	@JsonProperty("characteristicValueSpecification")
 	@Valid
-	private Set<CharacteristicValueSpecification> characteristicValueSpecification = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<CharacteristicValueSpecification> characteristicValueSpecification = new HashSet<>();
 
 	@JsonProperty("validFor")
 	private TimePeriod validFor = null;

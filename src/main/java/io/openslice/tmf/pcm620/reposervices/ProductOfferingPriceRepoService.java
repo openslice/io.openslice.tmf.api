@@ -24,17 +24,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.openslice.tmf.am651.model.AgreementRef;
-import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.pcm620.model.AttachmentRefOrValue;
 import io.openslice.tmf.pcm620.model.ProductOfferingPrice;
 import io.openslice.tmf.pcm620.model.ProductOfferingPriceCreate;
 import io.openslice.tmf.pcm620.model.ProductOfferingPriceUpdate;
 import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristicValueUse;
 import io.openslice.tmf.pcm620.repo.ProductOfferingPriceRepository;
-import io.openslice.tmf.prm669.model.RelatedParty;
 
 @Service
 public class ProductOfferingPriceRepoService {

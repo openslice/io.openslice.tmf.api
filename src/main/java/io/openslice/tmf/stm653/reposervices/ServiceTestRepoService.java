@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,6 +27,11 @@ import io.openslice.tmf.stm653.model.ServiceTestUpdate;
 import io.openslice.tmf.stm653.model.TestMeasure;
 import io.openslice.tmf.stm653.repo.ServiceTestRepository;
 
+/**
+ * @author ctranoris
+ *
+ */
+@Service
 public class ServiceTestRepoService {
 
 	private static final transient Log logger = LogFactory.getLog(ServiceTestRepoService.class.getName());

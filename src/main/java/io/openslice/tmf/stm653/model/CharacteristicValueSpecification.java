@@ -22,8 +22,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "specification of a value (number or text or an object) that can be assigned to a Characteristic.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-@Entity(name = "STMCharacteristicValueSpecification")
-@Table(name = "STMCharacteristicValueSpecification")
+@Entity(name = "STMCharacValSpec")
+@Table(name = "STMCharacValSpec")
 public class CharacteristicValueSpecification  extends BaseRootEntity {
   @JsonProperty("isDefault")
   private Boolean isDefault = null;

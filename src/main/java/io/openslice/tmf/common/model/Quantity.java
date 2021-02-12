@@ -1,4 +1,4 @@
-package io.openslice.tmf.po622.model;
+package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Embeddable;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -14,7 +16,8 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "An amount in a given unit")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@Embeddable 
 public class Quantity   {
   @JsonProperty("amount")
   private Float amount = 1.0f;

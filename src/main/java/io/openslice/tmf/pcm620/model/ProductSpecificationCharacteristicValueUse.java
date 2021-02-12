@@ -40,8 +40,6 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

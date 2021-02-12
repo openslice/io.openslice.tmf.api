@@ -2,7 +2,9 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -23,8 +25,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among entity specifications.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-@Entity(name = "STMEntitySpecificationRelationship")
-@Table(name = "STMEntitySpecificationRelationship")
+@Entity(name = "STMEntitySpecRel")
+@Table(name = "STMEntitySpecRel")
 public class EntitySpecificationRelationship extends BaseEntity {
 	@JsonProperty("id")
 	private String id = null;
@@ -36,6 +38,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	private String role = null;
 
 	@JsonProperty("associationSpec")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private AssociationSpecificationRef associationSpec = null;
 
 	@JsonProperty("@referredType")
@@ -164,26 +167,6 @@ public class EntitySpecificationRelationship extends BaseEntity {
 		this.associationSpec = associationSpec;
 	}
 
-	public EntitySpecificationRelationship validFor(TimePeriod validFor) {
-		this.validFor = validFor;
-		return this;
-	}
-
-	/**
-	 * Get validFor
-	 * 
-	 * @return validFor
-	 **/
-	@ApiModelProperty(value = "")
-
-	@Valid
-	public TimePeriod getValidFor() {
-		return validFor;
-	}
-
-	public void setValidFor(TimePeriod validFor) {
-		this.validFor = validFor;
-	}
 
 	
 

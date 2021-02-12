@@ -20,21 +20,14 @@
 package io.openslice.tmf.pcm620.model;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

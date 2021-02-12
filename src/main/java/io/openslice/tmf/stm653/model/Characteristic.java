@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -41,6 +43,7 @@ public class Characteristic extends BaseRootNamedEntity {
 
 	@JsonProperty("characteristicRelationship")
 	@Valid
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private Set<CharacteristicRelationship> characteristicRelationship = null;
 
 	@JsonProperty("value")

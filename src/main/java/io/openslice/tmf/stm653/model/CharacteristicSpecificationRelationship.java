@@ -24,8 +24,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Characteristic specifications. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-@Entity(name = "STMCharacteristicSpecificationRelationship")
-@Table(name = "STMCharacteristicSpecificationRelationship")
+@Entity(name = "STMCharacSpecRel")
+@Table(name = "STMCharacSpecRel")
 public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity {
 	@JsonProperty("characteristicSpecificationId")
 	private String characteristicSpecificationId = null;

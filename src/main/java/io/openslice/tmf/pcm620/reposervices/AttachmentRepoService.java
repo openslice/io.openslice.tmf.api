@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.pcm620.repo.AttachmentRepository;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 @Service

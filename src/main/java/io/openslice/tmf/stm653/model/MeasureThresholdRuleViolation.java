@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 
@@ -57,7 +59,8 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 
 	@JsonProperty("appliedConsequence")
 	@Valid
-	private Set<AppliedConsequence> appliedConsequence = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<AppliedConsequence> appliedConsequence = new HashSet<>();
 
 	@JsonProperty("tolerancePeriod")
 	private Duration tolerancePeriod = null;

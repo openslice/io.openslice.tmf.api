@@ -19,10 +19,7 @@
  */
 package io.openslice.tmf.pcm620.model;
 
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -32,7 +29,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -40,10 +36,8 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.am651.model.AgreementRef;
+import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.scm633.model.ServiceSpecCharRelationship;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

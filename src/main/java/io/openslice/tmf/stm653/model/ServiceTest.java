@@ -5,7 +5,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 
@@ -35,11 +39,13 @@ public class ServiceTest extends BaseEntity {
 	@JsonProperty("id")
 	private String id = null;
 
+	@Column( name = "st_end_date_time" )
 	private OffsetDateTime endDateTime = null;
 
 	@JsonProperty("mode")
 	private String mode = null;
 
+	@Column( name = "st_start_date_time" )
 	private OffsetDateTime startDateTime = null;
 
 	@JsonProperty("state")
@@ -47,20 +53,25 @@ public class ServiceTest extends BaseEntity {
 
 	@JsonProperty("characteristic")
 	@Valid
-	private Set<Characteristic> characteristic = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<Characteristic> characteristic = new HashSet<>();
 
 	@JsonProperty("relatedParty")
 	@Valid
-	private Set<RelatedParty> relatedParty = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<RelatedParty> relatedParty = new HashSet<>();
 
 	@JsonProperty("relatedService")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private ServiceRef relatedService = null;
 
 	@JsonProperty("testMeasure")
 	@Valid
-	private Set<TestMeasure> testMeasure = null;
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<TestMeasure> testMeasure = new HashSet<>();
 
 	@JsonProperty("testSpecification")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private ServiceTestSpecificationRef testSpecification = null;
 
 	/**
@@ -360,26 +371,6 @@ public class ServiceTest extends BaseEntity {
 		this.testSpecification = testSpecification;
 	}
 
-	public ServiceTest validFor(TimePeriod validFor) {
-		this.validFor = validFor;
-		return this;
-	}
-
-	/**
-	 * Get validFor
-	 * 
-	 * @return validFor
-	 **/
-	@ApiModelProperty(value = "")
-
-	@Valid
-	public TimePeriod getValidFor() {
-		return validFor;
-	}
-
-	public void setValidFor(TimePeriod validFor) {
-		this.validFor = validFor;
-	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {

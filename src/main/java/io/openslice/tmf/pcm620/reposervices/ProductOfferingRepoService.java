@@ -25,10 +25,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.am651.model.AgreementRef;
-import io.openslice.tmf.common.model.AttachmentRef;
+import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.pcm620.model.AttachmentRefOrValue;
 import io.openslice.tmf.pcm620.model.BundledProductOffering;
 import io.openslice.tmf.pcm620.model.ProductOffering;
 import io.openslice.tmf.pcm620.model.ProductOfferingCreate;
@@ -36,7 +35,6 @@ import io.openslice.tmf.pcm620.model.ProductOfferingPriceRef;
 import io.openslice.tmf.pcm620.model.ProductOfferingUpdate;
 import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristicValueUse;
 import io.openslice.tmf.pcm620.repo.ProductOfferingRepository;
-import io.openslice.tmf.prm669.model.RelatedParty;
 
 @Service
 public class ProductOfferingRepoService {

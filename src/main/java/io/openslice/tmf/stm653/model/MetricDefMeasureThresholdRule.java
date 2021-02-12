@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 
@@ -17,306 +19,330 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * A MetricDefMeasureThresholdRule is a rule that defines the condition (raise or clear) to achieve to apply  consequences when a threshold is crossed or ceased to be crossed. It also defines the severity of the  raise or clear of the threshold.
+ * A MetricDefMeasureThresholdRule is a rule that defines the condition (raise
+ * or clear) to achieve to apply consequences when a threshold is crossed or
+ * ceased to be crossed. It also defines the severity of the raise or clear of
+ * the threshold.
  */
 @ApiModel(description = "A MetricDefMeasureThresholdRule is a rule that defines the condition (raise or clear) to achieve to apply  consequences when a threshold is crossed or ceased to be crossed. It also defines the severity of the  raise or clear of the threshold.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
-@Entity(name = "STMMetricDefMeasureThresholdRule")
-@Table(name = "STMMetricDefMeasureThresholdRule")
-public class MetricDefMeasureThresholdRule  extends BaseRootNamedEntity {
-  @JsonProperty("conformanceComparatorLower")
-  private String conformanceComparatorLower = null;
+@Entity(name = "STMMetrcDefMeasrThreshRule")
+@Table(name = "STMMetrcDefMeasrThreshRule")
+public class MetricDefMeasureThresholdRule extends BaseRootNamedEntity {
+	@JsonProperty("conformanceComparatorLower")
+	private String conformanceComparatorLower = null;
 
-  @JsonProperty("conformanceComparatorUpper")
-  private String conformanceComparatorUpper = null;
+	@JsonProperty("conformanceComparatorUpper")
+	private String conformanceComparatorUpper = null;
 
-  @JsonProperty("conformanceTargetLower")
-  private String conformanceTargetLower = null;
+	@JsonProperty("conformanceTargetLower")
+	private String conformanceTargetLower = null;
 
-  @JsonProperty("conformanceTargetUpper")
-  private String conformanceTargetUpper = null;
+	@JsonProperty("conformanceTargetUpper")
+	private String conformanceTargetUpper = null;
 
-  @JsonProperty("description")
-  private String description = null;
+	@JsonProperty("description")
+	private String description = null;
 
+	@JsonProperty("numberOfAllowedCrossing")
+	private Integer numberOfAllowedCrossing = null;
 
-  @JsonProperty("numberOfAllowedCrossing")
-  private Integer numberOfAllowedCrossing = null;
+	@JsonProperty("thresholdRuleSeverity")
+	private String thresholdRuleSeverity = null;
 
-  @JsonProperty("thresholdRuleSeverity")
-  private String thresholdRuleSeverity = null;
+	@JsonProperty("consequence")
+	@Valid
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<MetricDefMeasureConsequence> consequence = new HashSet<>();
 
-  @JsonProperty("consequence")
-  @Valid
-  private Set<MetricDefMeasureConsequence> consequence = null;
+	@JsonProperty("tolerancePeriod")
+	private Duration tolerancePeriod = null;
 
-  @JsonProperty("tolerancePeriod")
-  private Duration tolerancePeriod = null;
+	public MetricDefMeasureThresholdRule conformanceComparatorLower(String conformanceComparatorLower) {
+		this.conformanceComparatorLower = conformanceComparatorLower;
+		return this;
+	}
 
+	/**
+	 * An operator that when applied on a value specifies whether a threshold is
+	 * crossed or ceased to be crossed. This operator is used to Service Test
+	 * Management API REST Specification compare with the conformanceTargetLower.
+	 * 
+	 * @return conformanceComparatorLower
+	 **/
+	@ApiModelProperty(value = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to Service Test Management API REST Specification compare with the conformanceTargetLower.")
 
-  public MetricDefMeasureThresholdRule conformanceComparatorLower(String conformanceComparatorLower) {
-    this.conformanceComparatorLower = conformanceComparatorLower;
-    return this;
-  }
+	public String getConformanceComparatorLower() {
+		return conformanceComparatorLower;
+	}
 
-  /**
-   * An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to Service Test Management API REST Specification compare with the conformanceTargetLower.
-   * @return conformanceComparatorLower
-  **/
-  @ApiModelProperty(value = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to Service Test Management API REST Specification compare with the conformanceTargetLower.")
-  
-    public String getConformanceComparatorLower() {
-    return conformanceComparatorLower;
-  }
+	public void setConformanceComparatorLower(String conformanceComparatorLower) {
+		this.conformanceComparatorLower = conformanceComparatorLower;
+	}
 
-  public void setConformanceComparatorLower(String conformanceComparatorLower) {
-    this.conformanceComparatorLower = conformanceComparatorLower;
-  }
+	public MetricDefMeasureThresholdRule conformanceComparatorUpper(String conformanceComparatorUpper) {
+		this.conformanceComparatorUpper = conformanceComparatorUpper;
+		return this;
+	}
 
-  public MetricDefMeasureThresholdRule conformanceComparatorUpper(String conformanceComparatorUpper) {
-    this.conformanceComparatorUpper = conformanceComparatorUpper;
-    return this;
-  }
+	/**
+	 * An operator that when applied on a value specifies whether a threshold is
+	 * crossed or ceased to be crossed. This operator is used to compare with the
+	 * conformanceTargetUpper.
+	 * 
+	 * @return conformanceComparatorUpper
+	 **/
+	@ApiModelProperty(value = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to compare with the conformanceTargetUpper.")
 
-  /**
-   * An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to compare with the conformanceTargetUpper.
-   * @return conformanceComparatorUpper
-  **/
-  @ApiModelProperty(value = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to compare with the conformanceTargetUpper.")
-  
-    public String getConformanceComparatorUpper() {
-    return conformanceComparatorUpper;
-  }
+	public String getConformanceComparatorUpper() {
+		return conformanceComparatorUpper;
+	}
 
-  public void setConformanceComparatorUpper(String conformanceComparatorUpper) {
-    this.conformanceComparatorUpper = conformanceComparatorUpper;
-  }
+	public void setConformanceComparatorUpper(String conformanceComparatorUpper) {
+		this.conformanceComparatorUpper = conformanceComparatorUpper;
+	}
 
-  public MetricDefMeasureThresholdRule conformanceTargetLower(String conformanceTargetLower) {
-    this.conformanceTargetLower = conformanceTargetLower;
-    return this;
-  }
+	public MetricDefMeasureThresholdRule conformanceTargetLower(String conformanceTargetLower) {
+		this.conformanceTargetLower = conformanceTargetLower;
+		return this;
+	}
 
-  /**
-   * A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the lower limit. The value should be less than the conformanceTargetUpper. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.
-   * @return conformanceTargetLower
-  **/
-  @ApiModelProperty(value = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the lower limit. The value should be less than the conformanceTargetUpper. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
-  
-    public String getConformanceTargetLower() {
-    return conformanceTargetLower;
-  }
+	/**
+	 * A value used to determine if the threshold is crossed or ceases to be
+	 * crossed. It represents the lower limit. The value should be less than the
+	 * conformanceTargetUpper. The conformance comparators should also be logically
+	 * defined so as to not lead to a logically impossible condition.
+	 * 
+	 * @return conformanceTargetLower
+	 **/
+	@ApiModelProperty(value = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the lower limit. The value should be less than the conformanceTargetUpper. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
 
-  public void setConformanceTargetLower(String conformanceTargetLower) {
-    this.conformanceTargetLower = conformanceTargetLower;
-  }
+	public String getConformanceTargetLower() {
+		return conformanceTargetLower;
+	}
 
-  public MetricDefMeasureThresholdRule conformanceTargetUpper(String conformanceTargetUpper) {
-    this.conformanceTargetUpper = conformanceTargetUpper;
-    return this;
-  }
+	public void setConformanceTargetLower(String conformanceTargetLower) {
+		this.conformanceTargetLower = conformanceTargetLower;
+	}
 
-  /**
-   * A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the Upper limit. The value should be greater than the conformanceTargetLower. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.
-   * @return conformanceTargetUpper
-  **/
-  @ApiModelProperty(value = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the Upper limit. The value should be greater than the conformanceTargetLower. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
-  
-    public String getConformanceTargetUpper() {
-    return conformanceTargetUpper;
-  }
+	public MetricDefMeasureThresholdRule conformanceTargetUpper(String conformanceTargetUpper) {
+		this.conformanceTargetUpper = conformanceTargetUpper;
+		return this;
+	}
 
-  public void setConformanceTargetUpper(String conformanceTargetUpper) {
-    this.conformanceTargetUpper = conformanceTargetUpper;
-  }
+	/**
+	 * A value used to determine if the threshold is crossed or ceases to be
+	 * crossed. It represents the Upper limit. The value should be greater than the
+	 * conformanceTargetLower. The conformance comparators should also be logically
+	 * defined so as to not lead to a logically impossible condition.
+	 * 
+	 * @return conformanceTargetUpper
+	 **/
+	@ApiModelProperty(value = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the Upper limit. The value should be greater than the conformanceTargetLower. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
 
-  public MetricDefMeasureThresholdRule description(String description) {
-    this.description = description;
-    return this;
-  }
+	public String getConformanceTargetUpper() {
+		return conformanceTargetUpper;
+	}
 
-  /**
-   * Description for the MetricDefMeasureThresholdRule .
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description for the MetricDefMeasureThresholdRule .")
-  
-    public String getDescription() {
-    return description;
-  }
+	public void setConformanceTargetUpper(String conformanceTargetUpper) {
+		this.conformanceTargetUpper = conformanceTargetUpper;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public MetricDefMeasureThresholdRule description(String description) {
+		this.description = description;
+		return this;
+	}
 
-  public MetricDefMeasureThresholdRule name(String name) {
-    this.name = name;
-    return this;
-  }
+	/**
+	 * Description for the MetricDefMeasureThresholdRule .
+	 * 
+	 * @return description
+	 **/
+	@ApiModelProperty(value = "Description for the MetricDefMeasureThresholdRule .")
 
-  /**
-   * Name for the MetricDefMeasureThresholdRule .
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name for the MetricDefMeasureThresholdRule .")
-  
-    public String getName() {
-    return name;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public MetricDefMeasureThresholdRule numberOfAllowedCrossing(Integer numberOfAllowedCrossing) {
-    this.numberOfAllowedCrossing = numberOfAllowedCrossing;
-    return this;
-  }
+	public MetricDefMeasureThresholdRule name(String name) {
+		this.name = name;
+		return this;
+	}
 
-  /**
-   * The number of allowed crossing occurrences in reference to the  tolerancePeriod without a consequence being initiated.
-   * @return numberOfAllowedCrossing
-  **/
-  @ApiModelProperty(value = "The number of allowed crossing occurrences in reference to the  tolerancePeriod without a consequence being initiated.")
-  
-    public Integer getNumberOfAllowedCrossing() {
-    return numberOfAllowedCrossing;
-  }
+	/**
+	 * Name for the MetricDefMeasureThresholdRule .
+	 * 
+	 * @return name
+	 **/
+	@ApiModelProperty(value = "Name for the MetricDefMeasureThresholdRule .")
 
-  public void setNumberOfAllowedCrossing(Integer numberOfAllowedCrossing) {
-    this.numberOfAllowedCrossing = numberOfAllowedCrossing;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public MetricDefMeasureThresholdRule thresholdRuleSeverity(String thresholdRuleSeverity) {
-    this.thresholdRuleSeverity = thresholdRuleSeverity;
-    return this;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  /**
-   * A threshold can be generated in different severity levels. A  crossing for each level may require a different condition and possibly trigger a different consequence.
-   * @return thresholdRuleSeverity
-  **/
-  @ApiModelProperty(value = "A threshold can be generated in different severity levels. A  crossing for each level may require a different condition and possibly trigger a different consequence.")
-  
-    public String getThresholdRuleSeverity() {
-    return thresholdRuleSeverity;
-  }
+	public MetricDefMeasureThresholdRule numberOfAllowedCrossing(Integer numberOfAllowedCrossing) {
+		this.numberOfAllowedCrossing = numberOfAllowedCrossing;
+		return this;
+	}
 
-  public void setThresholdRuleSeverity(String thresholdRuleSeverity) {
-    this.thresholdRuleSeverity = thresholdRuleSeverity;
-  }
+	/**
+	 * The number of allowed crossing occurrences in reference to the
+	 * tolerancePeriod without a consequence being initiated.
+	 * 
+	 * @return numberOfAllowedCrossing
+	 **/
+	@ApiModelProperty(value = "The number of allowed crossing occurrences in reference to the  tolerancePeriod without a consequence being initiated.")
 
-  public MetricDefMeasureThresholdRule consequence(Set<MetricDefMeasureConsequence> consequence) {
-    this.consequence = consequence;
-    return this;
-  }
+	public Integer getNumberOfAllowedCrossing() {
+		return numberOfAllowedCrossing;
+	}
 
-  public MetricDefMeasureThresholdRule addConsequenceItem(MetricDefMeasureConsequence consequenceItem) {
-    if (this.consequence == null) {
-      this.consequence = new HashSet<>();
-    }
-    this.consequence.add(consequenceItem);
-    return this;
-  }
+	public void setNumberOfAllowedCrossing(Integer numberOfAllowedCrossing) {
+		this.numberOfAllowedCrossing = numberOfAllowedCrossing;
+	}
 
-  /**
-   * A list of consequences (actions, notifications) that will arise if the threshold is crossed
-   * @return consequence
-  **/
-  @ApiModelProperty(value = "A list of consequences (actions, notifications) that will arise if the threshold is crossed")
-      @Valid
-    public Set<MetricDefMeasureConsequence> getConsequence() {
-    return consequence;
-  }
+	public MetricDefMeasureThresholdRule thresholdRuleSeverity(String thresholdRuleSeverity) {
+		this.thresholdRuleSeverity = thresholdRuleSeverity;
+		return this;
+	}
 
-  public void setConsequence(Set<MetricDefMeasureConsequence> consequence) {
-    this.consequence = consequence;
-  }
+	/**
+	 * A threshold can be generated in different severity levels. A crossing for
+	 * each level may require a different condition and possibly trigger a different
+	 * consequence.
+	 * 
+	 * @return thresholdRuleSeverity
+	 **/
+	@ApiModelProperty(value = "A threshold can be generated in different severity levels. A  crossing for each level may require a different condition and possibly trigger a different consequence.")
 
-  public MetricDefMeasureThresholdRule tolerancePeriod(Duration tolerancePeriod) {
-    this.tolerancePeriod = tolerancePeriod;
-    return this;
-  }
+	public String getThresholdRuleSeverity() {
+		return thresholdRuleSeverity;
+	}
 
-  /**
-   * Get tolerancePeriod
-   * @return tolerancePeriod
-  **/
-  @ApiModelProperty(value = "")
-  
-    @Valid
-    public Duration getTolerancePeriod() {
-    return tolerancePeriod;
-  }
+	public void setThresholdRuleSeverity(String thresholdRuleSeverity) {
+		this.thresholdRuleSeverity = thresholdRuleSeverity;
+	}
 
-  public void setTolerancePeriod(Duration tolerancePeriod) {
-    this.tolerancePeriod = tolerancePeriod;
-  }
+	public MetricDefMeasureThresholdRule consequence(Set<MetricDefMeasureConsequence> consequence) {
+		this.consequence = consequence;
+		return this;
+	}
 
- 
+	public MetricDefMeasureThresholdRule addConsequenceItem(MetricDefMeasureConsequence consequenceItem) {
+		if (this.consequence == null) {
+			this.consequence = new HashSet<>();
+		}
+		this.consequence.add(consequenceItem);
+		return this;
+	}
 
+	/**
+	 * A list of consequences (actions, notifications) that will arise if the
+	 * threshold is crossed
+	 * 
+	 * @return consequence
+	 **/
+	@ApiModelProperty(value = "A list of consequences (actions, notifications) that will arise if the threshold is crossed")
+	@Valid
+	public Set<MetricDefMeasureConsequence> getConsequence() {
+		return consequence;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    MetricDefMeasureThresholdRule metricDefMeasureThresholdRule = (MetricDefMeasureThresholdRule) o;
-    return Objects.equals(this.conformanceComparatorLower, metricDefMeasureThresholdRule.conformanceComparatorLower) &&
-        Objects.equals(this.conformanceComparatorUpper, metricDefMeasureThresholdRule.conformanceComparatorUpper) &&
-        Objects.equals(this.conformanceTargetLower, metricDefMeasureThresholdRule.conformanceTargetLower) &&
-        Objects.equals(this.conformanceTargetUpper, metricDefMeasureThresholdRule.conformanceTargetUpper) &&
-        Objects.equals(this.description, metricDefMeasureThresholdRule.description) &&
-        Objects.equals(this.name, metricDefMeasureThresholdRule.name) &&
-        Objects.equals(this.numberOfAllowedCrossing, metricDefMeasureThresholdRule.numberOfAllowedCrossing) &&
-        Objects.equals(this.thresholdRuleSeverity, metricDefMeasureThresholdRule.thresholdRuleSeverity) &&
-        Objects.equals(this.consequence, metricDefMeasureThresholdRule.consequence) &&
-        Objects.equals(this.tolerancePeriod, metricDefMeasureThresholdRule.tolerancePeriod) &&
-        Objects.equals(this.baseType, metricDefMeasureThresholdRule.baseType) &&
-        Objects.equals(this.schemaLocation, metricDefMeasureThresholdRule.schemaLocation) &&
-        Objects.equals(this.type, metricDefMeasureThresholdRule.type);
-  }
+	public void setConsequence(Set<MetricDefMeasureConsequence> consequence) {
+		this.consequence = consequence;
+	}
+
+	public MetricDefMeasureThresholdRule tolerancePeriod(Duration tolerancePeriod) {
+		this.tolerancePeriod = tolerancePeriod;
+		return this;
+	}
+
+	/**
+	 * Get tolerancePeriod
+	 * 
+	 * @return tolerancePeriod
+	 **/
+	@ApiModelProperty(value = "")
+
+	@Valid
+	public Duration getTolerancePeriod() {
+		return tolerancePeriod;
+	}
+
+	public void setTolerancePeriod(Duration tolerancePeriod) {
+		this.tolerancePeriod = tolerancePeriod;
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		MetricDefMeasureThresholdRule metricDefMeasureThresholdRule = (MetricDefMeasureThresholdRule) o;
+		return Objects.equals(this.conformanceComparatorLower, metricDefMeasureThresholdRule.conformanceComparatorLower)
+				&& Objects.equals(this.conformanceComparatorUpper,
+						metricDefMeasureThresholdRule.conformanceComparatorUpper)
+				&& Objects.equals(this.conformanceTargetLower, metricDefMeasureThresholdRule.conformanceTargetLower)
+				&& Objects.equals(this.conformanceTargetUpper, metricDefMeasureThresholdRule.conformanceTargetUpper)
+				&& Objects.equals(this.description, metricDefMeasureThresholdRule.description)
+				&& Objects.equals(this.name, metricDefMeasureThresholdRule.name)
+				&& Objects.equals(this.numberOfAllowedCrossing, metricDefMeasureThresholdRule.numberOfAllowedCrossing)
+				&& Objects.equals(this.thresholdRuleSeverity, metricDefMeasureThresholdRule.thresholdRuleSeverity)
+				&& Objects.equals(this.consequence, metricDefMeasureThresholdRule.consequence)
+				&& Objects.equals(this.tolerancePeriod, metricDefMeasureThresholdRule.tolerancePeriod)
+				&& Objects.equals(this.baseType, metricDefMeasureThresholdRule.baseType)
+				&& Objects.equals(this.schemaLocation, metricDefMeasureThresholdRule.schemaLocation)
+				&& Objects.equals(this.type, metricDefMeasureThresholdRule.type);
+	}
 
 //  @Override
 //  public int hashCode() {
 //    return Objects.hash(conformanceComparatorLower, conformanceComparatorUpper, conformanceTargetLower, conformanceTargetUpper, description, name, numberOfAllowedCrossing, thresholdRuleSeverity, consequence, tolerancePeriod, _atBaseType, _atSchemaLocation, _atType);
 //  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class MetricDefMeasureThresholdRule {\n");
-    
-    sb.append("    conformanceComparatorLower: ").append(toIndentedString(conformanceComparatorLower)).append("\n");
-    sb.append("    conformanceComparatorUpper: ").append(toIndentedString(conformanceComparatorUpper)).append("\n");
-    sb.append("    conformanceTargetLower: ").append(toIndentedString(conformanceTargetLower)).append("\n");
-    sb.append("    conformanceTargetUpper: ").append(toIndentedString(conformanceTargetUpper)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    numberOfAllowedCrossing: ").append(toIndentedString(numberOfAllowedCrossing)).append("\n");
-    sb.append("    thresholdRuleSeverity: ").append(toIndentedString(thresholdRuleSeverity)).append("\n");
-    sb.append("    consequence: ").append(toIndentedString(consequence)).append("\n");
-    sb.append("    tolerancePeriod: ").append(toIndentedString(tolerancePeriod)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class MetricDefMeasureThresholdRule {\n");
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+		sb.append("    conformanceComparatorLower: ").append(toIndentedString(conformanceComparatorLower)).append("\n");
+		sb.append("    conformanceComparatorUpper: ").append(toIndentedString(conformanceComparatorUpper)).append("\n");
+		sb.append("    conformanceTargetLower: ").append(toIndentedString(conformanceTargetLower)).append("\n");
+		sb.append("    conformanceTargetUpper: ").append(toIndentedString(conformanceTargetUpper)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    numberOfAllowedCrossing: ").append(toIndentedString(numberOfAllowedCrossing)).append("\n");
+		sb.append("    thresholdRuleSeverity: ").append(toIndentedString(thresholdRuleSeverity)).append("\n");
+		sb.append("    consequence: ").append(toIndentedString(consequence)).append("\n");
+		sb.append("    tolerancePeriod: ").append(toIndentedString(tolerancePeriod)).append("\n");
+		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }

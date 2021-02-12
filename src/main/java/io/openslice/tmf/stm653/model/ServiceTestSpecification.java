@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
@@ -28,8 +29,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
-@Entity(name = "STMServiceTestSpecification")
-@Table(name = "STMServiceTestSpecification")
+@Entity(name = "STMServiceTestSpec")
+@Table(name = "STMServiceTestSpec")
 public class ServiceTestSpecification extends BaseEntity {
 
 	@JsonProperty("id")
@@ -45,37 +46,37 @@ public class ServiceTestSpecification extends BaseEntity {
 	@JsonProperty("attachment")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<AttachmentRefOrValue> attachment = null;
+	private Set<AttachmentRefOrValue> attachment = new HashSet<>();
 
 	@JsonProperty("constraint")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<ConstraintRef> constraint = null;
+	private Set<ConstraintRef> constraint = new HashSet<>();
 
 	@JsonProperty("entitySpecRelationship")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<EntitySpecificationRelationship> entitySpecRelationship = null;
+	private Set<EntitySpecificationRelationship> entitySpecRelationship = new HashSet<>();
 
 	@JsonProperty("relatedParty")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<RelatedParty> relatedParty = null;
+	private Set<RelatedParty> relatedParty = new HashSet<>();
 
 	@JsonProperty("relatedServiceSpecification")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<ServiceSpecificationRef> relatedServiceSpecification = null;
+	private Set<ServiceSpecificationRef> relatedServiceSpecification = new HashSet<>();
 
 	@JsonProperty("serviceTestSpecRelationship")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<ServiceTestSpecRelationship> serviceTestSpecRelationship = null;
+	private Set<ServiceTestSpecRelationship> serviceTestSpecRelationship = new HashSet<>();
 
 	@JsonProperty("specCharacteristic")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<CharacteristicSpecification> specCharacteristic = null;
+	private Set<CharacteristicSpecification> specCharacteristic = new HashSet<>();
 
 	@JsonProperty("targetEntitySchema")
 	private TargetEntitySchema targetEntitySchema = null;
@@ -83,7 +84,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	@JsonProperty("testMeasureDefinition")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<TestMeasureDefinition> testMeasureDefinition = null;
+	private Set<TestMeasureDefinition> testMeasureDefinition = new HashSet<>();
 
 	
 	/**

@@ -22,8 +22,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
-@Entity(name = "STMMetricDefMeasureConsequence")
-@Table(name = "STMMetricDefMeasureConsequence")
+@Entity(name = "STMMetricDefMeasrConseq")
+@Table(name = "STMMetricDefMeasrConseq")
 public class MetricDefMeasureConsequence  extends BaseRootNamedEntity {
   @JsonProperty("description")
   private String description = null;

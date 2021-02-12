@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
@@ -27,7 +28,6 @@ import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
-import io.openslice.tmf.stm653.model.AttachmentRefOrValue;
 import io.openslice.tmf.stm653.model.CharacteristicSpecification;
 import io.openslice.tmf.stm653.model.ServiceTestSpecRelationship;
 import io.openslice.tmf.stm653.model.ServiceTestSpecification;

@@ -300,6 +300,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	public void setServiceSpecification(ServiceSpecificationRef aServiceSpecificationRef) {
 		
 		this.serviceSpecificationRef = aServiceSpecificationRef;
+		this.name = aServiceSpecificationRef.getName();
 	}
 	
 

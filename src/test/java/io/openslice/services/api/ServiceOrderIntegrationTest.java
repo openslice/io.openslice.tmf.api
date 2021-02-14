@@ -153,7 +153,7 @@ public class ServiceOrderIntegrationTest {
 
 	}
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"USER","ADMIN"})
 	@Test
 	public void testServiceOrderCreateAndUpdate() throws UnsupportedEncodingException, IOException, Exception {
 
@@ -228,6 +228,7 @@ public class ServiceOrderIntegrationTest {
 		aServiceSpecificationRef.setName(responsesSpec3.getName());
 
 		serviceRestriction.setServiceSpecification(aServiceSpecificationRef);
+		serviceRestriction.setName("aserviceRestriction");
 		soi.setService(serviceRestriction);
 
 		String responseSorder = mvc

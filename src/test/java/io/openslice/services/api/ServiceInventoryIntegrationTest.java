@@ -129,7 +129,7 @@ public class ServiceInventoryIntegrationTest {
 		
 	}
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"USER","ADMIN"})
 	@Test
 	public void testServiceCreateAndUpdate() throws UnsupportedEncodingException, IOException, Exception {
 	
@@ -166,6 +166,7 @@ public class ServiceInventoryIntegrationTest {
 		ServiceSpecification responsesSpec3 = createServiceSpec(sspectext, sspeccr3);
 		
 		ServiceCreate aService = new ServiceCreate();
+		aService.setName("aNew Service");
 		aService.setCategory("Experimentation");
 		aService.setDescription("Experimentation Descr");
 		aService.setStartDate( OffsetDateTime.now(ZoneOffset.UTC ).toString() );

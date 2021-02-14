@@ -443,7 +443,7 @@ public class ServiceCatalogIntegrationTest {
 		return responsesCateg;
 	}
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
 	public void testSpecAttributesUpdate() throws Exception {
 		logger.info("Test: testSpecAttributesUpdate");
@@ -460,6 +460,7 @@ public class ServiceCatalogIntegrationTest {
 		attachmentItem.setId( "a-ref-id" );
 		attachmentItem.setDescription("an attachment");
 		attachmentItem.setUrl("a url");
+		attachmentItem.setName("a url");
 		sspeccr.addAttachmentItem(attachmentItem);
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
@@ -610,7 +611,7 @@ public class ServiceCatalogIntegrationTest {
 		return responsesSpec1;
 	}
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
 	public void testBundledSpec() throws Exception {
 		logger.info("Test: testBundledSpec " );
@@ -743,7 +744,7 @@ public class ServiceCatalogIntegrationTest {
 	}
 	
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
 	public void testCloneSpec() throws Exception {
 
@@ -873,7 +874,7 @@ public class ServiceCatalogIntegrationTest {
 	
 	
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
 	public void testSpecAttachment() throws Exception {
 		File sspec = new File( "src/test/resources/testServiceSpec.json" );
@@ -916,7 +917,7 @@ public class ServiceCatalogIntegrationTest {
 	}
 
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
 	public void testGST() throws Exception {
 		logger.info("Test: testGST " );
@@ -1020,7 +1021,7 @@ public class ServiceCatalogIntegrationTest {
 	}
 	
 	
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN","USER"})
 	@Test
 	public void testVINNISBT() throws Exception {
 		logger.info("Test: testVINNISBT " );

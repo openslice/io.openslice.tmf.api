@@ -437,6 +437,7 @@ public class ResourceCatalogIntegrationTest {
 		attachmentItem.setId( "a-ref-id" );
 		attachmentItem.setDescription("an attachment");
 		attachmentItem.setUrl("a url");
+		attachmentItem.setName("aname");
 		sspeccr.addAttachmentItem(attachmentItem);
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/logicalResourceSpec")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())

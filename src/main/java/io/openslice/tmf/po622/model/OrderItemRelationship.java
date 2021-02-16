@@ -21,13 +21,13 @@ public class OrderItemRelationship   {
   private String relationshipType = null;
 
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  private String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
   public OrderItemRelationship id(String id) {
     this.id = id;
@@ -67,61 +67,61 @@ public class OrderItemRelationship   {
     this.relationshipType = relationshipType;
   }
 
-  public OrderItemRelationship _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public OrderItemRelationship baseType(String baseType) {
+    this.baseType = baseType;
     return this;
   }
 
   /**
    * When sub-classing, this defines the super-class
-   * @return _atBaseType
+   * @return baseType
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
-    return _atBaseType;
+    return baseType;
   }
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public void setAtBaseType(String baseType) {
+    this.baseType = baseType;
   }
 
-  public OrderItemRelationship _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public OrderItemRelationship schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public OrderItemRelationship _atType(String _atType) {
-    this._atType = _atType;
+  public OrderItemRelationship type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
 
@@ -136,14 +136,14 @@ public class OrderItemRelationship   {
     OrderItemRelationship orderItemRelationship = (OrderItemRelationship) o;
     return Objects.equals(this.id, orderItemRelationship.id) &&
         Objects.equals(this.relationshipType, orderItemRelationship.relationshipType) &&
-        Objects.equals(this._atBaseType, orderItemRelationship._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, orderItemRelationship._atSchemaLocation) &&
-        Objects.equals(this._atType, orderItemRelationship._atType);
+        Objects.equals(this.baseType, orderItemRelationship.baseType) &&
+        Objects.equals(this.schemaLocation, orderItemRelationship.schemaLocation) &&
+        Objects.equals(this.type, orderItemRelationship.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, relationshipType, _atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(id, relationshipType, baseType, schemaLocation, type);
   }
 
   @Override
@@ -153,9 +153,9 @@ public class OrderItemRelationship   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    relationshipType: ").append(toIndentedString(relationshipType)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

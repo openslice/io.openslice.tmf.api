@@ -400,7 +400,7 @@ public class ServiceTest extends BaseEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(id, href, description, endDateTime, mode, name, startDateTime, state, characteristic, relatedParty, relatedService, testMeasure, testSpecification, validFor, _atBaseType, _atSchemaLocation, _atType);
+//    return Objects.hash(id, href, description, endDateTime, mode, name, startDateTime, state, characteristic, relatedParty, relatedService, testMeasure, testSpecification, validFor, baseType, schemaLocation, type);
 //  }
 
 	@Override
@@ -422,9 +422,9 @@ public class ServiceTest extends BaseEntity {
 		sb.append("    testMeasure: ").append(toIndentedString(testMeasure)).append("\n");
 		sb.append("    testSpecification: ").append(toIndentedString(testSpecification)).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

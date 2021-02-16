@@ -31,13 +31,13 @@ public class RelatedChannel   {
   private String role = null;
 
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  private String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
   @JsonProperty("@referredType")
   private String _atReferredType = null;
@@ -119,61 +119,61 @@ public class RelatedChannel   {
     this.role = role;
   }
 
-  public RelatedChannel _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public RelatedChannel baseType(String baseType) {
+    this.baseType = baseType;
     return this;
   }
 
   /**
    * When sub-classing, this defines the super-class
-   * @return _atBaseType
+   * @return baseType
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
-    return _atBaseType;
+    return baseType;
   }
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public void setAtBaseType(String baseType) {
+    this.baseType = baseType;
   }
 
-  public RelatedChannel _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public RelatedChannel schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public RelatedChannel _atType(String _atType) {
-    this._atType = _atType;
+  public RelatedChannel type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
   public RelatedChannel _atReferredType(String _atReferredType) {
@@ -209,15 +209,15 @@ public class RelatedChannel   {
         Objects.equals(this.href, relatedChannel.href) &&
         Objects.equals(this.name, relatedChannel.name) &&
         Objects.equals(this.role, relatedChannel.role) &&
-        Objects.equals(this._atBaseType, relatedChannel._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, relatedChannel._atSchemaLocation) &&
-        Objects.equals(this._atType, relatedChannel._atType) &&
+        Objects.equals(this.baseType, relatedChannel.baseType) &&
+        Objects.equals(this.schemaLocation, relatedChannel.schemaLocation) &&
+        Objects.equals(this.type, relatedChannel.type) &&
         Objects.equals(this._atReferredType, relatedChannel._atReferredType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, href, name, role, _atBaseType, _atSchemaLocation, _atType, _atReferredType);
+    return Objects.hash(id, href, name, role, baseType, schemaLocation, type, _atReferredType);
   }
 
   @Override
@@ -229,9 +229,9 @@ public class RelatedChannel   {
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    role: ").append(toIndentedString(role)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    _atReferredType: ").append(toIndentedString(_atReferredType)).append("\n");
     sb.append("}");
     return sb.toString();

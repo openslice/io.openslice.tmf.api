@@ -10,50 +10,30 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Hub
+ * Sets the communication endpoint address the service instance must use to deliver notification information
  */
+@ApiModel(description = "Sets the communication endpoint address the service instance must use to deliver notification information")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
-public class Hub   {
-  @JsonProperty("id")
-  private String id = null;
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+public class EventSubscriptionInput   {
   @JsonProperty("callback")
   private String callback = null;
 
   @JsonProperty("query")
   private String query = null;
 
-  public Hub id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  
-    public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Hub callback(String callback) {
+  public EventSubscriptionInput callback(String callback) {
     this.callback = callback;
     return this;
   }
 
   /**
-   * Get callback
+   * The callback being registered.
    * @return callback
   **/
-  @ApiModelProperty(value = "")
-  
+  @ApiModelProperty(required = true, value = "The callback being registered.")
+      @NotNull
+
     public String getCallback() {
     return callback;
   }
@@ -62,16 +42,16 @@ public class Hub   {
     this.callback = callback;
   }
 
-  public Hub query(String query) {
+  public EventSubscriptionInput query(String query) {
     this.query = query;
     return this;
   }
 
   /**
-   * Get query
+   * additional data to be passed
    * @return query
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "additional data to be passed")
   
     public String getQuery() {
     return query;
@@ -90,23 +70,21 @@ public class Hub   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Hub hub = (Hub) o;
-    return Objects.equals(this.id, hub.id) &&
-        Objects.equals(this.callback, hub.callback) &&
-        Objects.equals(this.query, hub.query);
+    EventSubscriptionInput eventSubscriptionInput = (EventSubscriptionInput) o;
+    return Objects.equals(this.callback, eventSubscriptionInput.callback) &&
+        Objects.equals(this.query, eventSubscriptionInput.query);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, callback, query);
+    return Objects.hash(callback, query);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Hub {\n");
+    sb.append("class EventSubscriptionInput {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    callback: ").append(toIndentedString(callback)).append("\n");
     sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("}");

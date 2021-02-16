@@ -148,7 +148,7 @@ public class AppliedConsequence extends BaseRootNamedEntity {
 
 //	@Override
 //	public int hashCode() {
-//		return Objects.hash(appliedAction, description, name, repeatAction, _atBaseType, _atSchemaLocation, _atType);
+//		return Objects.hash(appliedAction, description, name, repeatAction, baseType, schemaLocation, type);
 //	}
 
 	@Override
@@ -160,9 +160,9 @@ public class AppliedConsequence extends BaseRootNamedEntity {
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    repeatAction: ").append(toIndentedString(repeatAction)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

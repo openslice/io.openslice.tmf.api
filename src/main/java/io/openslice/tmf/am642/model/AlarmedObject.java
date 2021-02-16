@@ -1,102 +1,81 @@
 package io.openslice.tmf.am642.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.annotations.ApiModel;
 
 /**
- * AlarmedObject
+ * Identifies the managed object instance associated with the alarm.
  */
+@ApiModel(description = "Identifies the managed object instance associated with the alarm.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
-public class AlarmedObject   {
-  @JsonProperty("href")
-  private String href = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Entity(name = "AMAlarmedObject")
+@Table(name = "AMAlarmedObject")
+public class AlarmedObject extends BaseRootEntity {
+	@JsonProperty("id")
+	private String id = null;
 
-  @JsonProperty("id")
-  private String id = null;
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		if (uuid != null) {
+			id = uuid;
+		}
+		return id;
+	}
 
-  public AlarmedObject href(String href) {
-    this.href = href;
-    return this;
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		AlarmedObject alarmedObject = (AlarmedObject) o;
+		return Objects.equals(this.id, alarmedObject.id) && Objects.equals(this.href, alarmedObject.href)
+				&& Objects.equals(this.baseType, alarmedObject.baseType)
+				&& Objects.equals(this.schemaLocation, alarmedObject.schemaLocation)
+				&& Objects.equals(this.type, alarmedObject.type);
+	}
 
-  /**
-   * A reference to the alarm
-   * @return href
-  **/
-  @ApiModelProperty(value = "A reference to the alarm")
-  
-    public String getHref() {
-    return href;
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(id, href, baseType, schemaLocation, type);
+//  }
 
-  public void setHref(String href) {
-    this.href = href;
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class AlarmedObject {\n");
 
-  public AlarmedObject id(String id) {
-    this.id = id;
-    return this;
-  }
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    href: ").append(toIndentedString(href)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  /**
-   * The identifier of the object associated with the event
-   * @return id
-  **/
-  @ApiModelProperty(value = "The identifier of the object associated with the event")
-  
-    public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    AlarmedObject alarmedObject = (AlarmedObject) o;
-    return Objects.equals(this.href, alarmedObject.href) &&
-        Objects.equals(this.id, alarmedObject.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(href, id);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AlarmedObject {\n");
-    
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }

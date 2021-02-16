@@ -72,14 +72,14 @@ public class ServiceTestSpecificationCreate extends ServiceTestSpecificationUpda
         Objects.equals(this.targetEntitySchema, serviceTestSpecificationCreate.targetEntitySchema) &&
         Objects.equals(this.testMeasureDefinition, serviceTestSpecificationCreate.testMeasureDefinition) &&
         Objects.equals(this.validFor, serviceTestSpecificationCreate.validFor) &&
-        Objects.equals(this._atBaseType, serviceTestSpecificationCreate._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, serviceTestSpecificationCreate._atSchemaLocation) &&
-        Objects.equals(this._atType, serviceTestSpecificationCreate._atType);
+        Objects.equals(this.baseType, serviceTestSpecificationCreate.baseType) &&
+        Objects.equals(this.schemaLocation, serviceTestSpecificationCreate.schemaLocation) &&
+        Objects.equals(this.type, serviceTestSpecificationCreate.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, isBundle, lastUpdate, lifecycleStatus, name, version, attachment, constraint, entitySpecRelationship, relatedParty, relatedServiceSpecification, serviceTestSpecRelationship, specCharacteristic, targetEntitySchema, testMeasureDefinition, validFor, _atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(description, isBundle, lastUpdate, lifecycleStatus, name, version, attachment, constraint, entitySpecRelationship, relatedParty, relatedServiceSpecification, serviceTestSpecRelationship, specCharacteristic, targetEntitySchema, testMeasureDefinition, validFor, baseType, schemaLocation, type);
   }
 
   @Override
@@ -103,9 +103,9 @@ public class ServiceTestSpecificationCreate extends ServiceTestSpecificationUpda
     sb.append("    targetEntitySchema: ").append(toIndentedString(targetEntitySchema)).append("\n");
     sb.append("    testMeasureDefinition: ").append(toIndentedString(testMeasureDefinition)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

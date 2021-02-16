@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 
@@ -74,6 +75,7 @@ public class EntitySpecification extends BaseEntity {
 	private Set<CharacteristicSpecification> specCharacteristic = new HashSet<>();
 
 	@JsonProperty("targetEntitySchema")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private TargetEntitySchema targetEntitySchema = null;
 
 	/**

@@ -30,13 +30,13 @@ public class CancelProductOrderCreate   {
   private ProductOrderRef productOrder = null;
 
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  private String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
   public CancelProductOrderCreate cancellationReason(String cancellationReason) {
     this.cancellationReason = cancellationReason;
@@ -98,61 +98,61 @@ public class CancelProductOrderCreate   {
     this.productOrder = productOrder;
   }
 
-  public CancelProductOrderCreate _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public CancelProductOrderCreate baseType(String baseType) {
+    this.baseType = baseType;
     return this;
   }
 
   /**
    * When sub-classing, this defines the super-class
-   * @return _atBaseType
+   * @return baseType
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
-    return _atBaseType;
+    return baseType;
   }
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public void setAtBaseType(String baseType) {
+    this.baseType = baseType;
   }
 
-  public CancelProductOrderCreate _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public CancelProductOrderCreate schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public CancelProductOrderCreate _atType(String _atType) {
-    this._atType = _atType;
+  public CancelProductOrderCreate type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
 
@@ -168,14 +168,14 @@ public class CancelProductOrderCreate   {
     return Objects.equals(this.cancellationReason, cancelProductOrderCreate.cancellationReason) &&
         Objects.equals(this.requestedCancellationDate, cancelProductOrderCreate.requestedCancellationDate) &&
         Objects.equals(this.productOrder, cancelProductOrderCreate.productOrder) &&
-        Objects.equals(this._atBaseType, cancelProductOrderCreate._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, cancelProductOrderCreate._atSchemaLocation) &&
-        Objects.equals(this._atType, cancelProductOrderCreate._atType);
+        Objects.equals(this.baseType, cancelProductOrderCreate.baseType) &&
+        Objects.equals(this.schemaLocation, cancelProductOrderCreate.schemaLocation) &&
+        Objects.equals(this.type, cancelProductOrderCreate.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cancellationReason, requestedCancellationDate, productOrder, _atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(cancellationReason, requestedCancellationDate, productOrder, baseType, schemaLocation, type);
   }
 
   @Override
@@ -186,9 +186,9 @@ public class CancelProductOrderCreate   {
     sb.append("    cancellationReason: ").append(toIndentedString(cancellationReason)).append("\n");
     sb.append("    requestedCancellationDate: ").append(toIndentedString(requestedCancellationDate)).append("\n");
     sb.append("    productOrder: ").append(toIndentedString(productOrder)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

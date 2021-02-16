@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 
@@ -79,6 +80,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	private Set<CharacteristicSpecification> specCharacteristic = new HashSet<>();
 
 	@JsonProperty("targetEntitySchema")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private TargetEntitySchema targetEntitySchema = null;
 
 	@JsonProperty("testMeasureDefinition")
@@ -433,7 +435,7 @@ public class ServiceTestSpecification extends BaseEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(id, href, description, isBundle, lastUpdate, lifecycleStatus, name, version, attachment, constraint, entitySpecRelationship, relatedParty, relatedServiceSpecification, serviceTestSpecRelationship, specCharacteristic, targetEntitySchema, testMeasureDefinition, validFor, _atBaseType, _atSchemaLocation, _atType);
+//    return Objects.hash(id, href, description, isBundle, lastUpdate, lifecycleStatus, name, version, attachment, constraint, entitySpecRelationship, relatedParty, relatedServiceSpecification, serviceTestSpecRelationship, specCharacteristic, targetEntitySchema, testMeasureDefinition, validFor, baseType, schemaLocation, type);
 //  }
 
 	@Override
@@ -461,9 +463,9 @@ public class ServiceTestSpecification extends BaseEntity {
 		sb.append("    targetEntitySchema: ").append(toIndentedString(targetEntitySchema)).append("\n");
 		sb.append("    testMeasureDefinition: ").append(toIndentedString(testMeasureDefinition)).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

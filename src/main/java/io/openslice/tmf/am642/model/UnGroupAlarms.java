@@ -1,0 +1,344 @@
+package io.openslice.tmf.am642.model;
+
+import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+/**
+ * Task resource for ungroup alarms operation
+ */
+@ApiModel(description = "Task resource for ungroup alarms operation")
+@Validated
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Entity(name = "AMUnGroupAlarms")
+@Table(name = "AMUnGroupAlarms")
+public class UnGroupAlarms extends BaseRootEntity {
+	@JsonProperty("id")
+	private String id = null;
+
+	@JsonProperty("alarmChangedTime")
+	private OffsetDateTime alarmChangedTime = null;
+
+	@JsonProperty("sourceSystemId")
+	private String sourceSystemId = null;
+
+	@JsonProperty("state")
+	private String state = null;
+
+	@JsonProperty("correlatedAlarm")
+	@Valid
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<AlarmRefOrValue> correlatedAlarm = null;
+
+	@JsonProperty("parentAlarm")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private AlarmRefOrValue parentAlarm = null;
+
+	@JsonProperty("unGroupedAlarm")
+	@Valid
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private Set<AlarmRefOrValue> unGroupedAlarm = null;
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		if (uuid != null) {
+			id = uuid;
+		}
+		return id;
+	}
+
+	public UnGroupAlarms href(String href) {
+		this.href = href;
+		return this;
+	}
+
+	/**
+	 * A reference to the task
+	 * 
+	 * @return href
+	 **/
+	@ApiModelProperty(value = "A reference to the task")
+
+	public String getHref() {
+		return href;
+	}
+
+	public void setHref(String href) {
+		this.href = href;
+	}
+
+	public UnGroupAlarms alarmChangedTime(OffsetDateTime alarmChangedTime) {
+		this.alarmChangedTime = alarmChangedTime;
+		return this;
+	}
+
+	/**
+	 * Time of the uncorrelation
+	 * 
+	 * @return alarmChangedTime
+	 **/
+	@ApiModelProperty(value = "Time of the uncorrelation")
+
+	@Valid
+	public OffsetDateTime getAlarmChangedTime() {
+		return alarmChangedTime;
+	}
+
+	public void setAlarmChangedTime(OffsetDateTime alarmChangedTime) {
+		this.alarmChangedTime = alarmChangedTime;
+	}
+
+	public UnGroupAlarms sourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+		return this;
+	}
+
+	/**
+	 * Source system identifier
+	 * 
+	 * @return sourceSystemId
+	 **/
+	@ApiModelProperty(value = "Source system identifier")
+
+	public String getSourceSystemId() {
+		return sourceSystemId;
+	}
+
+	public void setSourceSystemId(String sourceSystemId) {
+		this.sourceSystemId = sourceSystemId;
+	}
+
+	public UnGroupAlarms state(String state) {
+		this.state = state;
+		return this;
+	}
+
+	/**
+	 * Current state of the operation task
+	 * 
+	 * @return state
+	 **/
+	@ApiModelProperty(value = "Current state of the operation task")
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public UnGroupAlarms correlatedAlarm(Set<AlarmRefOrValue> correlatedAlarm) {
+		this.correlatedAlarm = correlatedAlarm;
+		return this;
+	}
+
+	public UnGroupAlarms addCorrelatedAlarmItem(AlarmRefOrValue correlatedAlarmItem) {
+		if (this.correlatedAlarm == null) {
+			this.correlatedAlarm = new HashSet<>();
+		}
+		this.correlatedAlarm.add(correlatedAlarmItem);
+		return this;
+	}
+
+	/**
+	 * Correlated alarms
+	 * 
+	 * @return correlatedAlarm
+	 **/
+	@ApiModelProperty(value = "Correlated alarms")
+	@Valid
+	public Set<AlarmRefOrValue> getCorrelatedAlarm() {
+		return correlatedAlarm;
+	}
+
+	public void setCorrelatedAlarm(Set<AlarmRefOrValue> correlatedAlarm) {
+		this.correlatedAlarm = correlatedAlarm;
+	}
+
+	public UnGroupAlarms parentAlarm(AlarmRefOrValue parentAlarm) {
+		this.parentAlarm = parentAlarm;
+		return this;
+	}
+
+	/**
+	 * Get parentAlarm
+	 * 
+	 * @return parentAlarm
+	 **/
+	@ApiModelProperty(value = "")
+
+	@Valid
+	public AlarmRefOrValue getParentAlarm() {
+		return parentAlarm;
+	}
+
+	public void setParentAlarm(AlarmRefOrValue parentAlarm) {
+		this.parentAlarm = parentAlarm;
+	}
+
+	public UnGroupAlarms unGroupedAlarm(Set<AlarmRefOrValue> unGroupedAlarm) {
+		this.unGroupedAlarm = unGroupedAlarm;
+		return this;
+	}
+
+	public UnGroupAlarms addUnGroupedAlarmItem(AlarmRefOrValue unGroupedAlarmItem) {
+		if (this.unGroupedAlarm == null) {
+			this.unGroupedAlarm = new HashSet<>();
+		}
+		this.unGroupedAlarm.add(unGroupedAlarmItem);
+		return this;
+	}
+
+	/**
+	 * The successfully uncorrelated alarms
+	 * 
+	 * @return unGroupedAlarm
+	 **/
+	@ApiModelProperty(value = "The successfully uncorrelated alarms")
+	@Valid
+	public Set<AlarmRefOrValue> getUnGroupedAlarm() {
+		return unGroupedAlarm;
+	}
+
+	public void setUnGroupedAlarm(Set<AlarmRefOrValue> unGroupedAlarm) {
+		this.unGroupedAlarm = unGroupedAlarm;
+	}
+
+	public UnGroupAlarms baseType(String baseType) {
+		this.baseType = baseType;
+		return this;
+	}
+
+	/**
+	 * When sub-classing, this defines the super-class
+	 * 
+	 * @return baseType
+	 **/
+	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
+	public String getAtBaseType() {
+		return baseType;
+	}
+
+	public void setAtBaseType(String baseType) {
+		this.baseType = baseType;
+	}
+
+	public UnGroupAlarms schemaLocation(String schemaLocation) {
+		this.schemaLocation = schemaLocation;
+		return this;
+	}
+
+	/**
+	 * A URI to a JSON-Schema file that defines additional attributes and
+	 * relationships
+	 * 
+	 * @return schemaLocation
+	 **/
+	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
+	public String getAtSchemaLocation() {
+		return schemaLocation;
+	}
+
+	public void setAtSchemaLocation(String schemaLocation) {
+		this.schemaLocation = schemaLocation;
+	}
+
+	public UnGroupAlarms type(String type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * When sub-classing, this defines the sub-class entity name
+	 * 
+	 * @return type
+	 **/
+	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+
+	public String getAtType() {
+		return type;
+	}
+
+	public void setAtType(String type) {
+		this.type = type;
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		UnGroupAlarms unGroupAlarms = (UnGroupAlarms) o;
+		return Objects.equals(this.id, unGroupAlarms.id) && Objects.equals(this.href, unGroupAlarms.href)
+				&& Objects.equals(this.alarmChangedTime, unGroupAlarms.alarmChangedTime)
+				&& Objects.equals(this.sourceSystemId, unGroupAlarms.sourceSystemId)
+				&& Objects.equals(this.state, unGroupAlarms.state)
+				&& Objects.equals(this.correlatedAlarm, unGroupAlarms.correlatedAlarm)
+				&& Objects.equals(this.parentAlarm, unGroupAlarms.parentAlarm)
+				&& Objects.equals(this.unGroupedAlarm, unGroupAlarms.unGroupedAlarm)
+				&& Objects.equals(this.baseType, unGroupAlarms.baseType)
+				&& Objects.equals(this.schemaLocation, unGroupAlarms.schemaLocation)
+				&& Objects.equals(this.type, unGroupAlarms.type);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, href, alarmChangedTime, sourceSystemId, state, correlatedAlarm, parentAlarm,
+				unGroupedAlarm, baseType, schemaLocation, type);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class UnGroupAlarms {\n");
+
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    href: ").append(toIndentedString(href)).append("\n");
+		sb.append("    alarmChangedTime: ").append(toIndentedString(alarmChangedTime)).append("\n");
+		sb.append("    sourceSystemId: ").append(toIndentedString(sourceSystemId)).append("\n");
+		sb.append("    state: ").append(toIndentedString(state)).append("\n");
+		sb.append("    correlatedAlarm: ").append(toIndentedString(correlatedAlarm)).append("\n");
+		sb.append("    parentAlarm: ").append(toIndentedString(parentAlarm)).append("\n");
+		sb.append("    unGroupedAlarm: ").append(toIndentedString(unGroupedAlarm)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+}

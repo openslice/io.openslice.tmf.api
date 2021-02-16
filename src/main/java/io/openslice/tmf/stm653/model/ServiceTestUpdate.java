@@ -65,13 +65,13 @@ public class ServiceTestUpdate {
 	protected TimePeriod validFor = null;
 
 	@JsonProperty("@baseType")
-	protected String _atBaseType = null;
+	protected String baseType = null;
 
 	@JsonProperty("@schemaLocation")
-	protected String _atSchemaLocation = null;
+	protected String schemaLocation = null;
 
 	@JsonProperty("@type")
-	protected String _atType = null;
+	protected String type = null;
 
 	public ServiceTestUpdate description(String description) {
 		this.description = description;
@@ -363,28 +363,28 @@ public class ServiceTestUpdate {
 		this.validFor = validFor;
 	}
 
-	public ServiceTestUpdate _atBaseType(String _atBaseType) {
-		this._atBaseType = _atBaseType;
+	public ServiceTestUpdate baseType(String baseType) {
+		this.baseType = baseType;
 		return this;
 	}
 
 	/**
 	 * When sub-classing, this defines the super-class
 	 * 
-	 * @return _atBaseType
+	 * @return baseType
 	 **/
 	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
-		return _atBaseType;
+		return baseType;
 	}
 
-	public void setAtBaseType(String _atBaseType) {
-		this._atBaseType = _atBaseType;
+	public void setAtBaseType(String baseType) {
+		this.baseType = baseType;
 	}
 
-	public ServiceTestUpdate _atSchemaLocation(String _atSchemaLocation) {
-		this._atSchemaLocation = _atSchemaLocation;
+	public ServiceTestUpdate schemaLocation(String schemaLocation) {
+		this.schemaLocation = schemaLocation;
 		return this;
 	}
 
@@ -392,36 +392,36 @@ public class ServiceTestUpdate {
 	 * A URI to a JSON-Schema file that defines additional attributes and
 	 * relationships
 	 * 
-	 * @return _atSchemaLocation
+	 * @return schemaLocation
 	 **/
 	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
-		return _atSchemaLocation;
+		return schemaLocation;
 	}
 
-	public void setAtSchemaLocation(String _atSchemaLocation) {
-		this._atSchemaLocation = _atSchemaLocation;
+	public void setAtSchemaLocation(String schemaLocation) {
+		this.schemaLocation = schemaLocation;
 	}
 
-	public ServiceTestUpdate _atType(String _atType) {
-		this._atType = _atType;
+	public ServiceTestUpdate type(String type) {
+		this.type = type;
 		return this;
 	}
 
 	/**
 	 * When sub-classing, this defines the sub-class Extensible name
 	 * 
-	 * @return _atType
+	 * @return type
 	 **/
 	@ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
 
 	public String getAtType() {
-		return _atType;
+		return type;
 	}
 
-	public void setAtType(String _atType) {
-		this._atType = _atType;
+	public void setAtType(String type) {
+		this.type = type;
 	}
 
 	@Override
@@ -445,15 +445,15 @@ public class ServiceTestUpdate {
 				&& Objects.equals(this.testMeasure, serviceTestUpdate.testMeasure)
 				&& Objects.equals(this.testSpecification, serviceTestUpdate.testSpecification)
 				&& Objects.equals(this.validFor, serviceTestUpdate.validFor)
-				&& Objects.equals(this._atBaseType, serviceTestUpdate._atBaseType)
-				&& Objects.equals(this._atSchemaLocation, serviceTestUpdate._atSchemaLocation)
-				&& Objects.equals(this._atType, serviceTestUpdate._atType);
+				&& Objects.equals(this.baseType, serviceTestUpdate.baseType)
+				&& Objects.equals(this.schemaLocation, serviceTestUpdate.schemaLocation)
+				&& Objects.equals(this.type, serviceTestUpdate.type);
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(description, endDateTime, mode, name, startDateTime, state, characteristic, relatedParty,
-				relatedService, testMeasure, testSpecification, validFor, _atBaseType, _atSchemaLocation, _atType);
+				relatedService, testMeasure, testSpecification, validFor, baseType, schemaLocation, type);
 	}
 
 	@Override
@@ -473,9 +473,9 @@ public class ServiceTestUpdate {
 		sb.append("    testMeasure: ").append(toIndentedString(testMeasure)).append("\n");
 		sb.append("    testSpecification: ").append(toIndentedString(testSpecification)).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

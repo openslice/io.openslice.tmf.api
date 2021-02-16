@@ -1,0 +1,169 @@
+package io.openslice.tmf.am642.model;
+
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.time.OffsetDateTime;
+import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+
+/**
+ * Indicates the comments entered on the alarm.
+ */
+@ApiModel(description = "Indicates the comments entered on the alarm.")
+@Validated
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Entity(name = "AMcomment")
+@Table(name = "AMcomment")
+public class Comment  extends BaseRootEntity {
+  @JsonProperty("comment")
+  private String comment = null;
+
+  @JsonProperty("systemId")
+  private String systemId = null;
+
+  @JsonProperty("time")
+  private OffsetDateTime time = null;
+
+  @JsonProperty("userId")
+  private String userId = null;
+
+
+  public Comment comment(String comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  /**
+   * Indicates the text of the comment.
+   * @return comment
+  **/
+  @ApiModelProperty(value = "Indicates the text of the comment.")
+  
+    public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
+
+  public Comment systemId(String systemId) {
+    this.systemId = systemId;
+    return this;
+  }
+
+  /**
+   * Indicates the system identifier on which the client set the comment.
+   * @return systemId
+  **/
+  @ApiModelProperty(value = "Indicates the system identifier on which the client set the comment.")
+  
+    public String getSystemId() {
+    return systemId;
+  }
+
+  public void setSystemId(String systemId) {
+    this.systemId = systemId;
+  }
+
+  public Comment time(OffsetDateTime time) {
+    this.time = time;
+    return this;
+  }
+
+  /**
+   * Indicates the time commenting the alarm
+   * @return time
+  **/
+  @ApiModelProperty(value = "Indicates the time commenting the alarm")
+  
+    @Valid
+    public OffsetDateTime getTime() {
+    return time;
+  }
+
+  public void setTime(OffsetDateTime time) {
+    this.time = time;
+  }
+
+  public Comment userId(String userId) {
+    this.userId = userId;
+    return this;
+  }
+
+  /**
+   * Indicates the user commenting the alarm.
+   * @return userId
+  **/
+  @ApiModelProperty(value = "Indicates the user commenting the alarm.")
+  
+    public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
+
+ 
+
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Comment comment = (Comment) o;
+    return Objects.equals(this.comment, comment.comment) &&
+        Objects.equals(this.systemId, comment.systemId) &&
+        Objects.equals(this.time, comment.time) &&
+        Objects.equals(this.userId, comment.userId) &&
+        Objects.equals(this.baseType, comment.baseType) &&
+        Objects.equals(this.schemaLocation, comment.schemaLocation) &&
+        Objects.equals(this.type, comment.type);
+  }
+
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(comment, systemId, time, userId, baseType, schemaLocation, type);
+//  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Comment {\n");
+    
+    sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
+    sb.append("    systemId: ").append(toIndentedString(systemId)).append("\n");
+    sb.append("    time: ").append(toIndentedString(time)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+}

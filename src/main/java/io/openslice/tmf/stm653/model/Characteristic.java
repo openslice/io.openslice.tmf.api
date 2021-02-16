@@ -179,7 +179,7 @@ public class Characteristic extends BaseRootNamedEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(id, name, valueType, characteristicRelationship, value, _atBaseType, _atSchemaLocation, _atType);
+//    return Objects.hash(id, name, valueType, characteristicRelationship, value, baseType, schemaLocation, type);
 //  }
 
 	@Override
@@ -192,9 +192,9 @@ public class Characteristic extends BaseRootNamedEntity {
 		sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
 		sb.append("    characteristicRelationship: ").append(toIndentedString(characteristicRelationship)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

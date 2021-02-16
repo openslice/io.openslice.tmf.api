@@ -310,7 +310,7 @@ public class MetricDefMeasureThresholdRule extends BaseRootNamedEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(conformanceComparatorLower, conformanceComparatorUpper, conformanceTargetLower, conformanceTargetUpper, description, name, numberOfAllowedCrossing, thresholdRuleSeverity, consequence, tolerancePeriod, _atBaseType, _atSchemaLocation, _atType);
+//    return Objects.hash(conformanceComparatorLower, conformanceComparatorUpper, conformanceTargetLower, conformanceTargetUpper, description, name, numberOfAllowedCrossing, thresholdRuleSeverity, consequence, tolerancePeriod, baseType, schemaLocation, type);
 //  }
 
 	@Override
@@ -328,9 +328,9 @@ public class MetricDefMeasureThresholdRule extends BaseRootNamedEntity {
 		sb.append("    thresholdRuleSeverity: ").append(toIndentedString(thresholdRuleSeverity)).append("\n");
 		sb.append("    consequence: ").append(toIndentedString(consequence)).append("\n");
 		sb.append("    tolerancePeriod: ").append(toIndentedString(tolerancePeriod)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

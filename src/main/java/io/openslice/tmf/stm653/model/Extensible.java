@@ -17,69 +17,69 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 public class Extensible   {
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  private String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
-  public Extensible _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public Extensible baseType(String baseType) {
+    this.baseType = baseType;
     return this;
   }
 
   /**
    * When sub-classing, this defines the super-class
-   * @return _atBaseType
+   * @return baseType
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
-    return _atBaseType;
+    return baseType;
   }
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public void setAtBaseType(String baseType) {
+    this.baseType = baseType;
   }
 
-  public Extensible _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public Extensible schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public Extensible _atType(String _atType) {
-    this._atType = _atType;
+  public Extensible type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * When sub-classing, this defines the sub-class Extensible name
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
   
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
 
@@ -92,14 +92,14 @@ public class Extensible   {
       return false;
     }
     Extensible extensible = (Extensible) o;
-    return Objects.equals(this._atBaseType, extensible._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, extensible._atSchemaLocation) &&
-        Objects.equals(this._atType, extensible._atType);
+    return Objects.equals(this.baseType, extensible.baseType) &&
+        Objects.equals(this.schemaLocation, extensible.schemaLocation) &&
+        Objects.equals(this.type, extensible.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(_atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(baseType, schemaLocation, type);
   }
 
   @Override
@@ -107,9 +107,9 @@ public class Extensible   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Extensible {\n");
     
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

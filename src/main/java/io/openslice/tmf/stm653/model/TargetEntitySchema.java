@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -20,52 +22,54 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
-@Embeddable
+
+@Entity(name = "STMTargetEntitySchema")
+@Table(name = "STMTargetEntitySchema")
 public class TargetEntitySchema  extends BaseRootEntity  {
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
-  public TargetEntitySchema _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public TargetEntitySchema schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * This field provides a link to the schema describing the target entity
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target entity")
       @NotNull
 
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public TargetEntitySchema _atType(String _atType) {
-    this._atType = _atType;
+  public TargetEntitySchema type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * Class type of the target entity
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(required = true, value = "Class type of the target entity")
       @NotNull
 
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
 
@@ -78,13 +82,13 @@ public class TargetEntitySchema  extends BaseRootEntity  {
       return false;
     }
     TargetEntitySchema targetEntitySchema = (TargetEntitySchema) o;
-    return Objects.equals(this._atSchemaLocation, targetEntitySchema._atSchemaLocation) &&
-        Objects.equals(this._atType, targetEntitySchema._atType);
+    return Objects.equals(this.schemaLocation, targetEntitySchema.schemaLocation) &&
+        Objects.equals(this.type, targetEntitySchema.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(_atSchemaLocation, _atType);
+    return Objects.hash(schemaLocation, type);
   }
 
   @Override
@@ -92,8 +96,8 @@ public class TargetEntitySchema  extends BaseRootEntity  {
     StringBuilder sb = new StringBuilder();
     sb.append("class TargetEntitySchema {\n");
     
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

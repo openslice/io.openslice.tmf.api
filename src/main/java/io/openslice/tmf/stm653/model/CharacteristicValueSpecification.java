@@ -275,7 +275,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor, value, _atBaseType, _atSchemaLocation, _atType);
+//    return Objects.hash(isDefault, rangeInterval, regex, unitOfMeasure, valueFrom, valueTo, valueType, validFor, value, baseType, schemaLocation, type);
 //  }
 
   @Override
@@ -292,9 +292,9 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
     sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

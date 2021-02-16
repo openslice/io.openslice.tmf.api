@@ -1,0 +1,15 @@
+{
+  "name": "A test name",
+  "description": "a test",
+  "lifecycleStatus": "In study",
+  "version": "0.beta",
+  "isBundle": false,
+  "attachment": [],
+  "constraint": [],
+  "entitySpecRelationship": [], 
+  "relatedServiceSpecification": [],
+  "serviceTestSpecRelationship": [],
+  "specCharacteristic": [],
+  "targetEntitySchema": null,
+  "testMeasureDefinition": []
+}

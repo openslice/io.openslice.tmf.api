@@ -323,7 +323,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(captureFrequency, captureMethod, metricDescription, metricHref, metricName, name, unitOfMeasure, valueType, capturePeriod, thresholdRule, validFor, _atBaseType, _atSchemaLocation, _atType);
+//    return Objects.hash(captureFrequency, captureMethod, metricDescription, metricHref, metricName, name, unitOfMeasure, valueType, capturePeriod, thresholdRule, validFor, baseType, schemaLocation, type);
 //  }
 
 	@Override
@@ -342,9 +342,9 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 		sb.append("    capturePeriod: ").append(toIndentedString(capturePeriod)).append("\n");
 		sb.append("    thresholdRule: ").append(toIndentedString(thresholdRule)).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

@@ -1,14 +1,14 @@
 package io.openslice.tmf.am642.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
-@Controller("ListenerApiController642")
-@RequestMapping("/alarmsManagement/v3/")
+
+import org.springframework.stereotype.Controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Controller
 public class ListenerApiController implements ListenerApi {
 
     private final ObjectMapper objectMapper;

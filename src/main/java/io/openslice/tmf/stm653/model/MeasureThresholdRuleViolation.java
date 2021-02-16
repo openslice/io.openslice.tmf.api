@@ -342,7 +342,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 //	public int hashCode() {
 //		return Objects.hash(conformanceComparatorLower, conformanceComparatorUpper, conformanceTargetExact,
 //				conformanceTargetLower, conformanceTargetUpper, description, name, numberOfAllowedCrossing,
-//				thresholdRuleSeverity, appliedConsequence, tolerancePeriod, _atBaseType, _atSchemaLocation, _atType);
+//				thresholdRuleSeverity, appliedConsequence, tolerancePeriod, baseType, schemaLocation, type);
 //	}
 
 	@Override
@@ -361,9 +361,9 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 		sb.append("    thresholdRuleSeverity: ").append(toIndentedString(thresholdRuleSeverity)).append("\n");
 		sb.append("    appliedConsequence: ").append(toIndentedString(appliedConsequence)).append("\n");
 		sb.append("    tolerancePeriod: ").append(toIndentedString(tolerancePeriod)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

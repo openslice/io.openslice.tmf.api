@@ -91,13 +91,13 @@ public class ProductOrderCreate   {
   private List<RelatedParty> relatedParty = null;
 
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  private String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
   public ProductOrderCreate cancellationDate(OffsetDateTime cancellationDate) {
     this.cancellationDate = cancellationDate;
@@ -534,61 +534,61 @@ public class ProductOrderCreate   {
     this.relatedParty = relatedParty;
   }
 
-  public ProductOrderCreate _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public ProductOrderCreate baseType(String baseType) {
+    this.baseType = baseType;
     return this;
   }
 
   /**
    * When sub-classing, this defines the super-class
-   * @return _atBaseType
+   * @return baseType
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
-    return _atBaseType;
+    return baseType;
   }
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public void setAtBaseType(String baseType) {
+    this.baseType = baseType;
   }
 
-  public ProductOrderCreate _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public ProductOrderCreate schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public ProductOrderCreate _atType(String _atType) {
-    this._atType = _atType;
+  public ProductOrderCreate type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
 
@@ -620,14 +620,14 @@ public class ProductOrderCreate   {
         Objects.equals(this.productOrderItem, productOrderCreate.productOrderItem) &&
         Objects.equals(this.quote, productOrderCreate.quote) &&
         Objects.equals(this.relatedParty, productOrderCreate.relatedParty) &&
-        Objects.equals(this._atBaseType, productOrderCreate._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, productOrderCreate._atSchemaLocation) &&
-        Objects.equals(this._atType, productOrderCreate._atType);
+        Objects.equals(this.baseType, productOrderCreate.baseType) &&
+        Objects.equals(this.schemaLocation, productOrderCreate.schemaLocation) &&
+        Objects.equals(this.type, productOrderCreate.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cancellationDate, cancellationReason, category, description, externalId, notificationContact, priority, requestedCompletionDate, requestedStartDate, agreement, billingAccount, channel, note, orderTotalPrice, payment, productOfferingQualification, productOrderItem, quote, relatedParty, _atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(cancellationDate, cancellationReason, category, description, externalId, notificationContact, priority, requestedCompletionDate, requestedStartDate, agreement, billingAccount, channel, note, orderTotalPrice, payment, productOfferingQualification, productOrderItem, quote, relatedParty, baseType, schemaLocation, type);
   }
 
   @Override
@@ -654,9 +654,9 @@ public class ProductOrderCreate   {
     sb.append("    productOrderItem: ").append(toIndentedString(productOrderItem)).append("\n");
     sb.append("    quote: ").append(toIndentedString(quote)).append("\n");
     sb.append("    relatedParty: ").append(toIndentedString(relatedParty)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

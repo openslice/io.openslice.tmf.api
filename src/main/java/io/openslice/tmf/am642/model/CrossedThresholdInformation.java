@@ -3,9 +3,16 @@ package io.openslice.tmf.am642.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import io.openslice.tmf.am642.model.ThresholdRef;
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -14,234 +21,245 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Identifies the details of the threshold that has been crossed.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
-public class CrossedThresholdInformation   {
-  @JsonProperty("thresholdId")
-  private String thresholdId = null;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Entity(name = "AMCrossedThreshInfo")
+@Table(name = "AMCrossedThreshInfo")
+public class CrossedThresholdInformation extends BaseRootEntity {
+	@JsonProperty("direction")
+	private String direction = null;
 
-  @JsonProperty("thresholdRef")
-  private String thresholdRef = null;
+	@JsonProperty("granularity")
+	private String granularity = null;
 
-  @JsonProperty("indicatorName")
-  private String indicatorName = null;
+	@JsonProperty("indicatorName")
+	private String indicatorName = null;
 
-  @JsonProperty("observedValue")
-  private String observedValue = null;
+	@JsonProperty("indicatorUnit")
+	private String indicatorUnit = null;
 
-  @JsonProperty("indicatorUnit")
-  private String indicatorUnit = null;
+	@JsonProperty("observedValue")
+	private String observedValue = null;
 
-  @JsonProperty("granularity")
-  private String granularity = null;
+	@JsonProperty("thresholdCrossingDescription")
+	private String thresholdCrossingDescription = null;
 
-  @JsonProperty("direction")
-  private String direction = null;
+	@JsonProperty("threshold")
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private ThresholdRef threshold = null;
 
-  @JsonProperty("thresholdCrossingDescription")
-  private String thresholdCrossingDescription = null;
+	public CrossedThresholdInformation direction(String direction) {
+		this.direction = direction;
+		return this;
+	}
 
-  public CrossedThresholdInformation thresholdId(String thresholdId) {
-    this.thresholdId = thresholdId;
-    return this;
-  }
+	/**
+	 * Indicates the threshold crossing direction: up or down.
+	 * 
+	 * @return direction
+	 **/
+	@ApiModelProperty(value = "Indicates the threshold crossing direction: up or down.")
 
-  /**
-   * Indicates the threshold id that caused the alarm.
-   * @return thresholdId
-  **/
-  @ApiModelProperty(value = "Indicates the threshold id that caused the alarm.")
-  
-    public String getThresholdId() {
-    return thresholdId;
-  }
+	public String getDirection() {
+		return direction;
+	}
 
-  public void setThresholdId(String thresholdId) {
-    this.thresholdId = thresholdId;
-  }
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
 
-  public CrossedThresholdInformation thresholdRef(String thresholdRef) {
-    this.thresholdRef = thresholdRef;
-    return this;
-  }
+	public CrossedThresholdInformation granularity(String granularity) {
+		this.granularity = granularity;
+		return this;
+	}
 
-  /**
-   * Get thresholdRef
-   * @return thresholdRef
-  **/
-  @ApiModelProperty(value = "")
-  
-    public String getThresholdRef() {
-    return thresholdRef;
-  }
+	/**
+	 * Indicates the granularity at which the indicator is evaluated for threshold
+	 * crossing
+	 * 
+	 * @return granularity
+	 **/
+	@ApiModelProperty(value = "Indicates the granularity at which the indicator is evaluated for threshold crossing")
 
-  public void setThresholdRef(String thresholdRef) {
-    this.thresholdRef = thresholdRef;
-  }
+	public String getGranularity() {
+		return granularity;
+	}
 
-  public CrossedThresholdInformation indicatorName(String indicatorName) {
-    this.indicatorName = indicatorName;
-    return this;
-  }
+	public void setGranularity(String granularity) {
+		this.granularity = granularity;
+	}
 
-  /**
-   * Indicates the name of indicator which crossed the threshold.
-   * @return indicatorName
-  **/
-  @ApiModelProperty(value = "Indicates the name of indicator which crossed the threshold.")
-  
-    public String getIndicatorName() {
-    return indicatorName;
-  }
+	public CrossedThresholdInformation indicatorName(String indicatorName) {
+		this.indicatorName = indicatorName;
+		return this;
+	}
 
-  public void setIndicatorName(String indicatorName) {
-    this.indicatorName = indicatorName;
-  }
+	/**
+	 * Indicates the name of indicator which crossed the threshold.
+	 * 
+	 * @return indicatorName
+	 **/
+	@ApiModelProperty(value = "Indicates the name of indicator which crossed the threshold.")
 
-  public CrossedThresholdInformation observedValue(String observedValue) {
-    this.observedValue = observedValue;
-    return this;
-  }
+	public String getIndicatorName() {
+		return indicatorName;
+	}
 
-  /**
-   * Indicates the value of the indicator which crossed the threshold.
-   * @return observedValue
-  **/
-  @ApiModelProperty(value = "Indicates the value of the indicator which crossed the threshold.")
-  
-    public String getObservedValue() {
-    return observedValue;
-  }
+	public void setIndicatorName(String indicatorName) {
+		this.indicatorName = indicatorName;
+	}
 
-  public void setObservedValue(String observedValue) {
-    this.observedValue = observedValue;
-  }
+	public CrossedThresholdInformation indicatorUnit(String indicatorUnit) {
+		this.indicatorUnit = indicatorUnit;
+		return this;
+	}
 
-  public CrossedThresholdInformation indicatorUnit(String indicatorUnit) {
-    this.indicatorUnit = indicatorUnit;
-    return this;
-  }
+	/**
+	 * Indicates the unit of the measurement of the indicator corresponding to the
+	 * threshold that has been crossed.
+	 * 
+	 * @return indicatorUnit
+	 **/
+	@ApiModelProperty(value = "Indicates the unit of the measurement of the indicator corresponding to the threshold that has been crossed.")
 
-  /**
-   * Indicates the unit of the measurement of the indicator corresponding to the threshold that has been crossed.
-   * @return indicatorUnit
-  **/
-  @ApiModelProperty(value = "Indicates the unit of the measurement of the indicator corresponding to the threshold that has been crossed.")
-  
-    public String getIndicatorUnit() {
-    return indicatorUnit;
-  }
+	public String getIndicatorUnit() {
+		return indicatorUnit;
+	}
 
-  public void setIndicatorUnit(String indicatorUnit) {
-    this.indicatorUnit = indicatorUnit;
-  }
+	public void setIndicatorUnit(String indicatorUnit) {
+		this.indicatorUnit = indicatorUnit;
+	}
 
-  public CrossedThresholdInformation granularity(String granularity) {
-    this.granularity = granularity;
-    return this;
-  }
+	public CrossedThresholdInformation observedValue(String observedValue) {
+		this.observedValue = observedValue;
+		return this;
+	}
 
-  /**
-   * Indicates the granularity at which the indicator is evaluated for threshold crossing
-   * @return granularity
-  **/
-  @ApiModelProperty(value = "Indicates the granularity at which the indicator is evaluated for threshold crossing")
-  
-    public String getGranularity() {
-    return granularity;
-  }
+	/**
+	 * Indicates the value of the indicator which crossed the threshold.
+	 * 
+	 * @return observedValue
+	 **/
+	@ApiModelProperty(value = "Indicates the value of the indicator which crossed the threshold.")
 
-  public void setGranularity(String granularity) {
-    this.granularity = granularity;
-  }
+	public String getObservedValue() {
+		return observedValue;
+	}
 
-  public CrossedThresholdInformation direction(String direction) {
-    this.direction = direction;
-    return this;
-  }
+	public void setObservedValue(String observedValue) {
+		this.observedValue = observedValue;
+	}
 
-  /**
-   * Indicates the threshold crossing direction: up or down.
-   * @return direction
-  **/
-  @ApiModelProperty(value = "Indicates the threshold crossing direction: up or down.")
-  
-    public String getDirection() {
-    return direction;
-  }
+	public CrossedThresholdInformation thresholdCrossingDescription(String thresholdCrossingDescription) {
+		this.thresholdCrossingDescription = thresholdCrossingDescription;
+		return this;
+	}
 
-  public void setDirection(String direction) {
-    this.direction = direction;
-  }
+	/**
+	 * Indicates further information on the threshold crossing alarm.
+	 * 
+	 * @return thresholdCrossingDescription
+	 **/
+	@ApiModelProperty(value = "Indicates further information on the threshold crossing alarm.")
 
-  public CrossedThresholdInformation thresholdCrossingDescription(String thresholdCrossingDescription) {
-    this.thresholdCrossingDescription = thresholdCrossingDescription;
-    return this;
-  }
+	public String getThresholdCrossingDescription() {
+		return thresholdCrossingDescription;
+	}
 
-  /**
-   * Indicates further information on the threshold crossing alarm.
-   * @return thresholdCrossingDescription
-  **/
-  @ApiModelProperty(value = "Indicates further information on the threshold crossing alarm.")
-  
-    public String getThresholdCrossingDescription() {
-    return thresholdCrossingDescription;
-  }
+	public void setThresholdCrossingDescription(String thresholdCrossingDescription) {
+		this.thresholdCrossingDescription = thresholdCrossingDescription;
+	}
 
-  public void setThresholdCrossingDescription(String thresholdCrossingDescription) {
-    this.thresholdCrossingDescription = thresholdCrossingDescription;
-  }
+	public CrossedThresholdInformation threshold(ThresholdRef threshold) {
+		this.threshold = threshold;
+		return this;
+	}
 
+	/**
+	 * Get threshold
+	 * 
+	 * @return threshold
+	 **/
+	@ApiModelProperty(value = "")
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CrossedThresholdInformation crossedThresholdInformation = (CrossedThresholdInformation) o;
-    return Objects.equals(this.thresholdId, crossedThresholdInformation.thresholdId) &&
-        Objects.equals(this.thresholdRef, crossedThresholdInformation.thresholdRef) &&
-        Objects.equals(this.indicatorName, crossedThresholdInformation.indicatorName) &&
-        Objects.equals(this.observedValue, crossedThresholdInformation.observedValue) &&
-        Objects.equals(this.indicatorUnit, crossedThresholdInformation.indicatorUnit) &&
-        Objects.equals(this.granularity, crossedThresholdInformation.granularity) &&
-        Objects.equals(this.direction, crossedThresholdInformation.direction) &&
-        Objects.equals(this.thresholdCrossingDescription, crossedThresholdInformation.thresholdCrossingDescription);
-  }
+	@Valid
+	public ThresholdRef getThreshold() {
+		return threshold;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(thresholdId, thresholdRef, indicatorName, observedValue, indicatorUnit, granularity, direction, thresholdCrossingDescription);
-  }
+	public void setThreshold(ThresholdRef threshold) {
+		this.threshold = threshold;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CrossedThresholdInformation {\n");
-    
-    sb.append("    thresholdId: ").append(toIndentedString(thresholdId)).append("\n");
-    sb.append("    thresholdRef: ").append(toIndentedString(thresholdRef)).append("\n");
-    sb.append("    indicatorName: ").append(toIndentedString(indicatorName)).append("\n");
-    sb.append("    observedValue: ").append(toIndentedString(observedValue)).append("\n");
-    sb.append("    indicatorUnit: ").append(toIndentedString(indicatorUnit)).append("\n");
-    sb.append("    granularity: ").append(toIndentedString(granularity)).append("\n");
-    sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
-    sb.append("    thresholdCrossingDescription: ").append(toIndentedString(thresholdCrossingDescription)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	/**
+	 * When sub-classing, this defines the sub-class entity name
+	 * 
+	 * @return type
+	 **/
+	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public String getAtType() {
+		return type;
+	}
+
+	public void setAtType(String type) {
+		this.type = type;
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		CrossedThresholdInformation crossedThresholdInformation = (CrossedThresholdInformation) o;
+		return Objects.equals(this.direction, crossedThresholdInformation.direction)
+				&& Objects.equals(this.granularity, crossedThresholdInformation.granularity)
+				&& Objects.equals(this.indicatorName, crossedThresholdInformation.indicatorName)
+				&& Objects.equals(this.indicatorUnit, crossedThresholdInformation.indicatorUnit)
+				&& Objects.equals(this.observedValue, crossedThresholdInformation.observedValue)
+				&& Objects.equals(this.thresholdCrossingDescription,
+						crossedThresholdInformation.thresholdCrossingDescription)
+				&& Objects.equals(this.threshold, crossedThresholdInformation.threshold)
+				&& Objects.equals(this.baseType, crossedThresholdInformation.baseType)
+				&& Objects.equals(this.schemaLocation, crossedThresholdInformation.schemaLocation)
+				&& Objects.equals(this.type, crossedThresholdInformation.type);
+	}
+
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(direction, granularity, indicatorName, indicatorUnit, observedValue, thresholdCrossingDescription, threshold, baseType, schemaLocation, type);
+//  }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class CrossedThresholdInformation {\n");
+
+		sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
+		sb.append("    granularity: ").append(toIndentedString(granularity)).append("\n");
+		sb.append("    indicatorName: ").append(toIndentedString(indicatorName)).append("\n");
+		sb.append("    indicatorUnit: ").append(toIndentedString(indicatorUnit)).append("\n");
+		sb.append("    observedValue: ").append(toIndentedString(observedValue)).append("\n");
+		sb.append("    thresholdCrossingDescription: ").append(toIndentedString(thresholdCrossingDescription))
+				.append("\n");
+		sb.append("    threshold: ").append(toIndentedString(threshold)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }

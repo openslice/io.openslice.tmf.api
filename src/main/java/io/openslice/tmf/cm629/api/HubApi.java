@@ -68,7 +68,7 @@ public interface HubApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Register a listener", nickname = "registerListener", notes = "Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.", response = EventSubscription.class, tags={ "events subscription", })
+    @ApiOperation(value = "Register a listener", nickname = "registerListener629", notes = "Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.", response = EventSubscription.class, tags={ "events subscription", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Subscribed", response = EventSubscription.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
@@ -99,7 +99,7 @@ public interface HubApi {
     }
 
 
-    @ApiOperation(value = "Unregister a listener", nickname = "unregisterListener", notes = "Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.", tags={ "events subscription", })
+    @ApiOperation(value = "Unregister a listener", nickname = "unregisterListener629", notes = "Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.", tags={ "events subscription", })
     @ApiResponses(value = { 
         @ApiResponse(code = 204, message = "Deleted"),
         @ApiResponse(code = 400, message = "Bad request", response = Error.class),

@@ -285,7 +285,7 @@ public class TestMeasure extends BaseRootEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(accuracy, captureDateTime, captureMethod, metricDescription, metricHref, metricName, unitOfMeasure, ruleViolation, value, _atBaseType, _atSchemaLocation, _atType);
+//    return Objects.hash(accuracy, captureDateTime, captureMethod, metricDescription, metricHref, metricName, unitOfMeasure, ruleViolation, value, baseType, schemaLocation, type);
 //  }
 
 	@Override
@@ -302,9 +302,9 @@ public class TestMeasure extends BaseRootEntity {
 		sb.append("    unitOfMeasure: ").append(toIndentedString(unitOfMeasure)).append("\n");
 		sb.append("    ruleViolation: ").append(toIndentedString(ruleViolation)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
-		sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}

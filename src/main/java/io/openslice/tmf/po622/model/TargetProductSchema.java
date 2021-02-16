@@ -19,71 +19,71 @@ import io.swagger.annotations.ApiModelProperty;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class TargetProductSchema   {
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  private String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
-  public TargetProductSchema _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public TargetProductSchema baseType(String baseType) {
+    this.baseType = baseType;
     return this;
   }
 
   /**
    * When sub-classing, this defines the super-class
-   * @return _atBaseType
+   * @return baseType
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
-    return _atBaseType;
+    return baseType;
   }
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public void setAtBaseType(String baseType) {
+    this.baseType = baseType;
   }
 
-  public TargetProductSchema _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public TargetProductSchema schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * This field provides a link to the schema describing the target product
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target product")
       @NotNull
 
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public TargetProductSchema _atType(String _atType) {
-    this._atType = _atType;
+  public TargetProductSchema type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * Class type of the target product
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(required = true, value = "Class type of the target product")
       @NotNull
 
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
 
@@ -96,14 +96,14 @@ public class TargetProductSchema   {
       return false;
     }
     TargetProductSchema targetProductSchema = (TargetProductSchema) o;
-    return Objects.equals(this._atBaseType, targetProductSchema._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, targetProductSchema._atSchemaLocation) &&
-        Objects.equals(this._atType, targetProductSchema._atType);
+    return Objects.equals(this.baseType, targetProductSchema.baseType) &&
+        Objects.equals(this.schemaLocation, targetProductSchema.schemaLocation) &&
+        Objects.equals(this.type, targetProductSchema.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(_atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(baseType, schemaLocation, type);
   }
 
   @Override
@@ -111,9 +111,9 @@ public class TargetProductSchema   {
     StringBuilder sb = new StringBuilder();
     sb.append("class TargetProductSchema {\n");
     
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

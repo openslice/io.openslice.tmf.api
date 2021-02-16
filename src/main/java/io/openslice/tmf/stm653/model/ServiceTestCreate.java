@@ -37,14 +37,14 @@ public class ServiceTestCreate  extends ServiceTestUpdate {
         Objects.equals(this.testMeasure, serviceTestCreate.testMeasure) &&
         Objects.equals(this.testSpecification, serviceTestCreate.testSpecification) &&
         Objects.equals(this.validFor, serviceTestCreate.validFor) &&
-        Objects.equals(this._atBaseType, serviceTestCreate._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, serviceTestCreate._atSchemaLocation) &&
-        Objects.equals(this._atType, serviceTestCreate._atType);
+        Objects.equals(this.baseType, serviceTestCreate.baseType) &&
+        Objects.equals(this.schemaLocation, serviceTestCreate.schemaLocation) &&
+        Objects.equals(this.type, serviceTestCreate.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, endDateTime, mode, name, startDateTime, state, characteristic, relatedParty, relatedService, testMeasure, testSpecification, validFor, _atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(description, endDateTime, mode, name, startDateTime, state, characteristic, relatedParty, relatedService, testMeasure, testSpecification, validFor, baseType, schemaLocation, type);
   }
 
   @Override
@@ -64,9 +64,9 @@ public class ServiceTestCreate  extends ServiceTestUpdate {
     sb.append("    testMeasure: ").append(toIndentedString(testMeasure)).append("\n");
     sb.append("    testSpecification: ").append(toIndentedString(testSpecification)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

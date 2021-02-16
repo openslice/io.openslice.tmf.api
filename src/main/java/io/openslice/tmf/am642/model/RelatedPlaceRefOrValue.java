@@ -1,0 +1,152 @@
+package io.openslice.tmf.am642.model;
+
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+
+/**
+ * Related Entity reference. A related place defines a place described by
+ * reference or by value linked to a specific entity. The polymorphic
+ * attributes @type, @schemaLocation &amp; @referredType are related to the
+ * place entity and not the RelatedPlaceRefOrValue class itself
+ */
+@ApiModel(description = "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself")
+@Validated
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Entity(name = "AMRelPlaceRefOrVal")
+@Table(name = "AMRelPlaceRefOrVal")
+public class RelatedPlaceRefOrValue extends BaseRootNamedEntity {
+	@JsonProperty("id")
+	private String id = null;
+
+
+	@JsonProperty("role")
+	private String role = null;
+
+
+	@JsonProperty("@referredType")
+	private String _atReferredType = null;
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		if (uuid != null) {
+			id = uuid;
+		}
+		return id;
+	}
+
+	public RelatedPlaceRefOrValue href(String href) {
+		this.href = href;
+		return this;
+	}
+
+	
+
+	public RelatedPlaceRefOrValue role(String role) {
+		this.role = role;
+		return this;
+	}
+
+	/**
+	 * Get role
+	 * 
+	 * @return role
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	@NotNull
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+
+	public RelatedPlaceRefOrValue _atReferredType(String _atReferredType) {
+		this._atReferredType = _atReferredType;
+		return this;
+	}
+
+	/**
+	 * The actual type of the target instance when needed for disambiguation.
+	 * 
+	 * @return _atReferredType
+	 **/
+	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+
+	public String getAtReferredType() {
+		return _atReferredType;
+	}
+
+	public void setAtReferredType(String _atReferredType) {
+		this._atReferredType = _atReferredType;
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		RelatedPlaceRefOrValue relatedPlaceRefOrValue = (RelatedPlaceRefOrValue) o;
+		return Objects.equals(this.id, relatedPlaceRefOrValue.id)
+				&& Objects.equals(this.href, relatedPlaceRefOrValue.href)
+				&& Objects.equals(this.name, relatedPlaceRefOrValue.name)
+				&& Objects.equals(this.role, relatedPlaceRefOrValue.role)
+				&& Objects.equals(this.baseType, relatedPlaceRefOrValue.baseType)
+				&& Objects.equals(this.schemaLocation, relatedPlaceRefOrValue.schemaLocation)
+				&& Objects.equals(this.type, relatedPlaceRefOrValue.type)
+				&& Objects.equals(this._atReferredType, relatedPlaceRefOrValue._atReferredType);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, href, name, role, baseType, schemaLocation, type, _atReferredType);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class RelatedPlaceRefOrValue {\n");
+
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    href: ").append(toIndentedString(href)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    role: ").append(toIndentedString(role)).append("\n");
+		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    _atReferredType: ").append(toIndentedString(_atReferredType)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+}

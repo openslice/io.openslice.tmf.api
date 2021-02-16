@@ -131,7 +131,7 @@ public class AssociationSpecificationRef  extends BaseRootNamedEntity {
 
 //  @Override
 //  public int hashCode() {
-//    return Objects.hash(id, href, name, _atBaseType, _atSchemaLocation, _atType, _atReferredType);
+//    return Objects.hash(id, href, name, baseType, schemaLocation, type, _atReferredType);
 //  }
 
   @Override
@@ -142,9 +142,9 @@ public class AssociationSpecificationRef  extends BaseRootNamedEntity {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(baseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(type)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    _atReferredType: ").append(toIndentedString(_atReferredType)).append("\n");
     sb.append("}");
     return sb.toString();

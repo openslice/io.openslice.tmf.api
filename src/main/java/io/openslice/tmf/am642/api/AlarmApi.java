@@ -5,32 +5,36 @@
  */
 package io.openslice.tmf.am642.api;
 
-import io.openslice.tmf.am642.model.Alarm;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.tmf.am642.model.Alarm;
+import io.openslice.tmf.am642.model.AlarmCreate;
+import io.openslice.tmf.am642.model.AlarmUpdate;
+import io.openslice.tmf.am642.model.Error;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Api(value = "alarm", description = "the alarm API")
 public interface AlarmApi {
 
@@ -48,45 +52,25 @@ public interface AlarmApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "alarmClearbyID", nickname = "alarmClearbyID", notes = "", response = Alarm.class, tags={ "alarm", })
+    @ApiOperation(value = "Creates a Alarm", nickname = "createAlarm", notes = "This operation creates a Alarm entity.", response = Alarm.class, tags={ "alarm", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Success alarm", response = Alarm.class) })
-    @RequestMapping(value = "/alarm/{alarmId}/clear",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<Alarm> alarmClearbyID(@ApiParam(value = "",required=true) @PathVariable("alarmId") String alarmId
-,@ApiParam(value = ""  )  @Valid @RequestBody Alarm body
-) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  },\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"affectedService\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"thresholdId\" : \"thresholdId\",\r\n    \"thresholdRef\" : \"thresholdRef\",\r\n    \"indicatorUnit\" : \"indicatorUnit\",\r\n    \"direction\" : \"direction\"\r\n  },\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"isRootCause\" : \"isRootCause\",\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"comments\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : \"serviceAffecting\",\r\n  \"alarmEscelation\" : \"alarmEscelation\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}", Alarm.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default AlarmApi interface so no example is generated");
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-
-    @ApiOperation(value = "alarmCreate", nickname = "alarmCreate", notes = "", response = Alarm.class, tags={ "alarm", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Alarm", response = Alarm.class) })
+        @ApiResponse(code = 201, message = "Created", response = Alarm.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/alarm",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<Alarm> alarmCreate(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Alarm body
+    default ResponseEntity<Alarm> createAlarm(@ApiParam(value = "The Alarm to be created" ,required=true )  @Valid @RequestBody AlarmCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  },\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"affectedService\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"thresholdId\" : \"thresholdId\",\r\n    \"thresholdRef\" : \"thresholdRef\",\r\n    \"indicatorUnit\" : \"indicatorUnit\",\r\n    \"direction\" : \"direction\"\r\n  },\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"isRootCause\" : \"isRootCause\",\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"comments\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : \"serviceAffecting\",\r\n  \"alarmEscelation\" : \"alarmEscelation\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}", Alarm.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"reportingSystemId\" : \"reportingSystemId\",\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  },\r\n  \"alarmEscalation\" : true,\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"probableCause\" : \"probableCause\",\r\n  \"affectedService\" : [ {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"place\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"@type\" : \"@type\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"threshold\" : {\r\n      \"@referredType\" : \"@referredType\",\r\n      \"@baseType\" : \"@baseType\",\r\n      \"@type\" : \"@type\",\r\n      \"name\" : \"name\",\r\n      \"id\" : \"id\",\r\n      \"href\" : \"href\",\r\n      \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n    },\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"direction\" : \"direction\",\r\n    \"indicatorUnit\" : \"indicatorUnit\"\r\n  },\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ null, null ],\r\n  \"isRootCause\" : true,\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : true,\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"specificProblem\" : \"specificProblem\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"comment\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}", Alarm.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -99,12 +83,20 @@ public interface AlarmApi {
     }
 
 
-    @ApiOperation(value = "alarmDelete", nickname = "alarmDelete", notes = "", tags={ "alarm", })
+    @ApiOperation(value = "Deletes a Alarm", nickname = "deleteAlarm", notes = "This operation deletes a Alarm entity.", tags={ "alarm", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Success") })
-    @RequestMapping(value = "/alarm/{alarmId}",
+        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/alarm/{id}",
+        produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> alarmDelete(@ApiParam(value = "",required=true) @PathVariable("alarmId") String alarmId
+    default ResponseEntity<Void> deleteAlarm(@ApiParam(value = "Identifier of the Alarm",required=true) @PathVariable("id") String id
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
@@ -114,69 +106,93 @@ public interface AlarmApi {
     }
 
 
-    @ApiOperation(value = "alarmGet", nickname = "alarmGet", notes = "", response = Alarm.class, tags={ "alarm", })
+    @ApiOperation(value = "List or find Alarm objects", nickname = "listAlarm", notes = "This operation list or find Alarm entities", response = Alarm.class, responseContainer = "List", tags={ "alarm", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "alarm", response = Alarm.class) })
-    @RequestMapping(value = "/alarm/{alarmId}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    default ResponseEntity<Alarm> alarmGet(@ApiParam(value = "",required=true) @PathVariable("alarmId") String alarmId
-,@ApiParam(value = "") @Valid @RequestParam(value = "fields", required = false) String fields
-) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  },\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"affectedService\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"thresholdId\" : \"thresholdId\",\r\n    \"thresholdRef\" : \"thresholdRef\",\r\n    \"indicatorUnit\" : \"indicatorUnit\",\r\n    \"direction\" : \"direction\"\r\n  },\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"isRootCause\" : \"isRootCause\",\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"comments\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : \"serviceAffecting\",\r\n  \"alarmEscelation\" : \"alarmEscelation\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}", Alarm.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default AlarmApi interface so no example is generated");
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-
-    @ApiOperation(value = "alarmPatch", nickname = "alarmPatch", notes = "", response = Alarm.class, tags={ "alarm", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Success alarm", response = Alarm.class) })
-    @RequestMapping(value = "/alarm/{alarmId}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.PATCH)
-    default ResponseEntity<Alarm> alarmPatch(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Alarm body
-,@ApiParam(value = "",required=true) @PathVariable("alarmId") String alarmId
-) {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  },\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"affectedService\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"thresholdId\" : \"thresholdId\",\r\n    \"thresholdRef\" : \"thresholdRef\",\r\n    \"indicatorUnit\" : \"indicatorUnit\",\r\n    \"direction\" : \"direction\"\r\n  },\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"isRootCause\" : \"isRootCause\",\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"comments\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : \"serviceAffecting\",\r\n  \"alarmEscelation\" : \"alarmEscelation\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}", Alarm.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default AlarmApi interface so no example is generated");
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-
-    @ApiOperation(value = "alarmsFind", nickname = "alarmsFind", notes = "", response = Alarm.class, responseContainer = "List", tags={ "alarms", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "List of Alarms", response = Alarm.class, responseContainer = "List") })
+        @ApiResponse(code = 200, message = "Success", response = Alarm.class, responseContainer = "List"),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
     @RequestMapping(value = "/alarm",
-        produces = { "application/json" }, 
+        produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<Alarm>> alarmsFind(@ApiParam(value = "") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<List<Alarm>> listAlarm(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
+,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
+,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  },\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"affectedService\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"thresholdId\" : \"thresholdId\",\r\n    \"thresholdRef\" : \"thresholdRef\",\r\n    \"indicatorUnit\" : \"indicatorUnit\",\r\n    \"direction\" : \"direction\"\r\n  },\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"isRootCause\" : \"isRootCause\",\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"comments\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : \"serviceAffecting\",\r\n  \"alarmEscelation\" : \"alarmEscelation\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}, {\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  },\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"affectedService\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"thresholdId\" : \"thresholdId\",\r\n    \"thresholdRef\" : \"thresholdRef\",\r\n    \"indicatorUnit\" : \"indicatorUnit\",\r\n    \"direction\" : \"direction\"\r\n  },\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  }, {\r\n    \"href\" : \"href\",\r\n    \"id\" : \"id\"\r\n  } ],\r\n  \"isRootCause\" : \"isRootCause\",\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"comments\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : \"serviceAffecting\",\r\n  \"alarmEscelation\" : \"alarmEscelation\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ {\r\n  \"reportingSystemId\" : \"reportingSystemId\",\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  },\r\n  \"alarmEscalation\" : true,\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"probableCause\" : \"probableCause\",\r\n  \"affectedService\" : [ {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"place\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"@type\" : \"@type\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"threshold\" : {\r\n      \"@referredType\" : \"@referredType\",\r\n      \"@baseType\" : \"@baseType\",\r\n      \"@type\" : \"@type\",\r\n      \"name\" : \"name\",\r\n      \"id\" : \"id\",\r\n      \"href\" : \"href\",\r\n      \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n    },\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"direction\" : \"direction\",\r\n    \"indicatorUnit\" : \"indicatorUnit\"\r\n  },\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ null, null ],\r\n  \"isRootCause\" : true,\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : true,\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"specificProblem\" : \"specificProblem\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"comment\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}, {\r\n  \"reportingSystemId\" : \"reportingSystemId\",\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  },\r\n  \"alarmEscalation\" : true,\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"probableCause\" : \"probableCause\",\r\n  \"affectedService\" : [ {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"place\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"@type\" : \"@type\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"threshold\" : {\r\n      \"@referredType\" : \"@referredType\",\r\n      \"@baseType\" : \"@baseType\",\r\n      \"@type\" : \"@type\",\r\n      \"name\" : \"name\",\r\n      \"id\" : \"id\",\r\n      \"href\" : \"href\",\r\n      \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n    },\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"direction\" : \"direction\",\r\n    \"indicatorUnit\" : \"indicatorUnit\"\r\n  },\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ null, null ],\r\n  \"isRootCause\" : true,\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : true,\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"specificProblem\" : \"specificProblem\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"comment\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default AlarmApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Updates partially a Alarm", nickname = "patchAlarm", notes = "This operation updates partially a Alarm entity.", response = Alarm.class, tags={ "alarm", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Updated", response = Alarm.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/alarm/{id}",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.PATCH)
+    default ResponseEntity<Alarm> patchAlarm(@ApiParam(value = "The Alarm to be updated" ,required=true )  @Valid @RequestBody AlarmUpdate body
+,@ApiParam(value = "Identifier of the Alarm",required=true) @PathVariable("id") String id
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"reportingSystemId\" : \"reportingSystemId\",\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  },\r\n  \"alarmEscalation\" : true,\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"probableCause\" : \"probableCause\",\r\n  \"affectedService\" : [ {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"place\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"@type\" : \"@type\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"threshold\" : {\r\n      \"@referredType\" : \"@referredType\",\r\n      \"@baseType\" : \"@baseType\",\r\n      \"@type\" : \"@type\",\r\n      \"name\" : \"name\",\r\n      \"id\" : \"id\",\r\n      \"href\" : \"href\",\r\n      \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n    },\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"direction\" : \"direction\",\r\n    \"indicatorUnit\" : \"indicatorUnit\"\r\n  },\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ null, null ],\r\n  \"isRootCause\" : true,\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : true,\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"specificProblem\" : \"specificProblem\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"comment\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}", Alarm.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default AlarmApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Retrieves a Alarm by ID", nickname = "retrieveAlarm", notes = "This operation retrieves a Alarm entity. Attribute selection is enabled for all first level attributes.", response = Alarm.class, tags={ "alarm", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Success", response = Alarm.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/alarm/{id}",
+        produces = { "application/json;charset=utf-8" }, 
+        method = RequestMethod.GET)
+    default ResponseEntity<Alarm> retrieveAlarm(@ApiParam(value = "Identifier of the Alarm",required=true) @PathVariable("id") String id
+,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"reportingSystemId\" : \"reportingSystemId\",\r\n  \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObjectType\" : \"alarmedObjectType\",\r\n  \"@type\" : \"@type\",\r\n  \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n  \"correlatedAlarm\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"alarmedObject\" : {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  },\r\n  \"alarmEscalation\" : true,\r\n  \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"@baseType\" : \"@baseType\",\r\n  \"perceivedSeverity\" : \"perceivedSeverity\",\r\n  \"probableCause\" : \"probableCause\",\r\n  \"affectedService\" : [ {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"ackSystemId\" : \"ackSystemId\",\r\n  \"id\" : 0,\r\n  \"href\" : \"href\",\r\n  \"state\" : \"state\",\r\n  \"place\" : [ {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  }, {\r\n    \"@referredType\" : \"@referredType\",\r\n    \"role\" : \"role\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"name\" : \"name\",\r\n    \"id\" : \"id\",\r\n    \"href\" : \"href\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n  } ],\r\n  \"crossedThresholdInformation\" : {\r\n    \"indicatorName\" : \"indicatorName\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n    \"granularity\" : \"granularity\",\r\n    \"@type\" : \"@type\",\r\n    \"observedValue\" : \"observedValue\",\r\n    \"threshold\" : {\r\n      \"@referredType\" : \"@referredType\",\r\n      \"@baseType\" : \"@baseType\",\r\n      \"@type\" : \"@type\",\r\n      \"name\" : \"name\",\r\n      \"id\" : \"id\",\r\n      \"href\" : \"href\",\r\n      \"@schemaLocation\" : \"http://example.com/aeiou\"\r\n    },\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"direction\" : \"direction\",\r\n    \"indicatorUnit\" : \"indicatorUnit\"\r\n  },\r\n  \"@schemaLocation\" : \"@schemaLocation\",\r\n  \"externalAlarmId\" : \"externalAlarmId\",\r\n  \"clearSystemId\" : \"clearSystemId\",\r\n  \"parentAlarm\" : [ null, null ],\r\n  \"isRootCause\" : true,\r\n  \"ackUserId\" : \"ackUserId\",\r\n  \"clearUserId\" : \"clearUserId\",\r\n  \"serviceAffecting\" : true,\r\n  \"sourceSystemId\" : \"sourceSystemId\",\r\n  \"ackState\" : \"ackState\",\r\n  \"alarmType\" : \"alarmType\",\r\n  \"specificProblem\" : \"specificProblem\",\r\n  \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n  \"comment\" : [ {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  }, {\r\n    \"systemId\" : \"systemId\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"@type\" : \"@type\",\r\n    \"comment\" : \"comment\",\r\n    \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@schemaLocation\" : \"http://example.com/aeiou\",\r\n    \"userId\" : \"userId\"\r\n  } ],\r\n  \"alarmDetails\" : \"alarmDetails\"\r\n}", Alarm.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

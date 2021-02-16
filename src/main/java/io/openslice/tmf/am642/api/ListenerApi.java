@@ -5,35 +5,46 @@
  */
 package io.openslice.tmf.am642.api;
 
-import io.openslice.tmf.am642.model.AlarmAckStateNotification;
-import io.openslice.tmf.am642.model.AlarmChangeNotification;
-import io.openslice.tmf.am642.model.AlarmClearedNotification;
-import io.openslice.tmf.am642.model.AlarmCreateNotification;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import java.io.IOException;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.tmf.am642.model.AckAlarmsCreateEvent;
+import io.openslice.tmf.am642.model.AckAlarmsStateChangeEvent;
+import io.openslice.tmf.am642.model.AlarmAttributeValueChangeEvent;
+import io.openslice.tmf.am642.model.AlarmCreateEvent;
+import io.openslice.tmf.am642.model.AlarmDeleteEvent;
+import io.openslice.tmf.am642.model.AlarmStateChangeEvent;
+import io.openslice.tmf.am642.model.ClearAlarmsCreateEvent;
+import io.openslice.tmf.am642.model.ClearAlarmsStateChangeEvent;
+import io.openslice.tmf.am642.model.CommentAlarmsCreateEvent;
+import io.openslice.tmf.am642.model.CommentAlarmsStateChangeEvent;
+import io.openslice.tmf.am642.model.Error;
+import io.openslice.tmf.am642.model.EventSubscription;
+import io.openslice.tmf.am642.model.GroupAlarmsCreateEvent;
+import io.openslice.tmf.am642.model.GroupAlarmsStateChangeEvent;
+import io.openslice.tmf.am642.model.UnAckAlarmsCreateEvent;
+import io.openslice.tmf.am642.model.UnAckAlarmsStateChangeEvent;
+import io.openslice.tmf.am642.model.UnGroupAlarmsCreateEvent;
+import io.openslice.tmf.am642.model.UnGroupAlarmsStateChangeEvent;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Api(value = "listener", description = "the listener API")
 public interface ListenerApi {
 
@@ -51,18 +62,26 @@ public interface ListenerApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "alarmAckStateNotification", nickname = "alarmAckStateNotification", notes = "", response = AlarmAckStateNotification.class, tags={ "notification", })
+    @ApiOperation(value = "Client listener for entity AckAlarmsCreateEvent", nickname = "listenToAckAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification AckAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "alarm", response = AlarmAckStateNotification.class) })
-    @RequestMapping(value = "/listener/alarmAckStateNotification",
-        produces = { "application/json" }, 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/ackAlarmsCreateEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<AlarmAckStateNotification> alarmAckStateNotification(@ApiParam(value = "") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<EventSubscription> listenToAckAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AckAlarmsCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"eventId\" : 0,\r\n  \"eventTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"eventType\" : \"eventType\",\r\n  \"event\" : {\r\n    \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObjectType\" : \"alarmedObjectType\",\r\n    \"@type\" : \"@type\",\r\n    \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n    \"correlatedAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObject\" : {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    },\r\n    \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"perceivedSeverity\" : \"perceivedSeverity\",\r\n    \"affectedService\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"ackSystemId\" : \"ackSystemId\",\r\n    \"id\" : 0,\r\n    \"href\" : \"href\",\r\n    \"state\" : \"state\",\r\n    \"@schemaLocation\" : \"@schemaLocation\",\r\n    \"crossedThresholdInformation\" : {\r\n      \"indicatorName\" : \"indicatorName\",\r\n      \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n      \"granularity\" : \"granularity\",\r\n      \"observedValue\" : \"observedValue\",\r\n      \"thresholdId\" : \"thresholdId\",\r\n      \"thresholdRef\" : \"thresholdRef\",\r\n      \"indicatorUnit\" : \"indicatorUnit\",\r\n      \"direction\" : \"direction\"\r\n    },\r\n    \"externalAlarmId\" : \"externalAlarmId\",\r\n    \"clearSystemId\" : \"clearSystemId\",\r\n    \"parentAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"isRootCause\" : \"isRootCause\",\r\n    \"ackUserId\" : \"ackUserId\",\r\n    \"comments\" : [ {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    }, {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    } ],\r\n    \"sourceSystemId\" : \"sourceSystemId\",\r\n    \"clearUserId\" : \"clearUserId\",\r\n    \"serviceAffecting\" : \"serviceAffecting\",\r\n    \"alarmEscelation\" : \"alarmEscelation\",\r\n    \"ackState\" : \"ackState\",\r\n    \"alarmType\" : \"alarmType\",\r\n    \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n    \"alarmDetails\" : \"alarmDetails\"\r\n  }\r\n}", AlarmAckStateNotification.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -75,18 +94,26 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "alarmChangeNotification", nickname = "alarmChangeNotification", notes = "", response = AlarmChangeNotification.class, tags={ "notification", })
+    @ApiOperation(value = "Client listener for entity AckAlarmsStateChangeEvent", nickname = "listenToAckAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification AckAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "alarm", response = AlarmChangeNotification.class) })
-    @RequestMapping(value = "/listener/alarmChangeNotification",
-        produces = { "application/json" }, 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/ackAlarmsStateChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<AlarmChangeNotification> alarmChangeNotification(@ApiParam(value = "") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<EventSubscription> listenToAckAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AckAlarmsStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"eventId\" : 0,\r\n  \"eventTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"eventType\" : \"eventType\",\r\n  \"event\" : {\r\n    \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObjectType\" : \"alarmedObjectType\",\r\n    \"@type\" : \"@type\",\r\n    \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n    \"correlatedAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObject\" : {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    },\r\n    \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"perceivedSeverity\" : \"perceivedSeverity\",\r\n    \"affectedService\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"ackSystemId\" : \"ackSystemId\",\r\n    \"id\" : 0,\r\n    \"href\" : \"href\",\r\n    \"state\" : \"state\",\r\n    \"@schemaLocation\" : \"@schemaLocation\",\r\n    \"crossedThresholdInformation\" : {\r\n      \"indicatorName\" : \"indicatorName\",\r\n      \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n      \"granularity\" : \"granularity\",\r\n      \"observedValue\" : \"observedValue\",\r\n      \"thresholdId\" : \"thresholdId\",\r\n      \"thresholdRef\" : \"thresholdRef\",\r\n      \"indicatorUnit\" : \"indicatorUnit\",\r\n      \"direction\" : \"direction\"\r\n    },\r\n    \"externalAlarmId\" : \"externalAlarmId\",\r\n    \"clearSystemId\" : \"clearSystemId\",\r\n    \"parentAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"isRootCause\" : \"isRootCause\",\r\n    \"ackUserId\" : \"ackUserId\",\r\n    \"comments\" : [ {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    }, {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    } ],\r\n    \"sourceSystemId\" : \"sourceSystemId\",\r\n    \"clearUserId\" : \"clearUserId\",\r\n    \"serviceAffecting\" : \"serviceAffecting\",\r\n    \"alarmEscelation\" : \"alarmEscelation\",\r\n    \"ackState\" : \"ackState\",\r\n    \"alarmType\" : \"alarmType\",\r\n    \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n    \"alarmDetails\" : \"alarmDetails\"\r\n  }\r\n}", AlarmChangeNotification.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -99,18 +126,26 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "alarmClearedNotification", nickname = "alarmClearedNotification", notes = "", response = AlarmClearedNotification.class, tags={ "notification", })
+    @ApiOperation(value = "Client listener for entity AlarmAttributeValueChangeEvent", nickname = "listenToAlarmAttributeValueChangeEvent", notes = "Example of a client listener for receiving the notification AlarmAttributeValueChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "alarm", response = AlarmClearedNotification.class) })
-    @RequestMapping(value = "/listener/alarmClearedNotification",
-        produces = { "application/json" }, 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/alarmAttributeValueChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<AlarmClearedNotification> alarmClearedNotification(@ApiParam(value = "") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<EventSubscription> listenToAlarmAttributeValueChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmAttributeValueChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"eventId\" : 0,\r\n  \"eventTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"eventType\" : \"eventType\",\r\n  \"event\" : {\r\n    \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObjectType\" : \"alarmedObjectType\",\r\n    \"@type\" : \"@type\",\r\n    \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n    \"correlatedAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObject\" : {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    },\r\n    \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"perceivedSeverity\" : \"perceivedSeverity\",\r\n    \"affectedService\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"ackSystemId\" : \"ackSystemId\",\r\n    \"id\" : 0,\r\n    \"href\" : \"href\",\r\n    \"state\" : \"state\",\r\n    \"@schemaLocation\" : \"@schemaLocation\",\r\n    \"crossedThresholdInformation\" : {\r\n      \"indicatorName\" : \"indicatorName\",\r\n      \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n      \"granularity\" : \"granularity\",\r\n      \"observedValue\" : \"observedValue\",\r\n      \"thresholdId\" : \"thresholdId\",\r\n      \"thresholdRef\" : \"thresholdRef\",\r\n      \"indicatorUnit\" : \"indicatorUnit\",\r\n      \"direction\" : \"direction\"\r\n    },\r\n    \"externalAlarmId\" : \"externalAlarmId\",\r\n    \"clearSystemId\" : \"clearSystemId\",\r\n    \"parentAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"isRootCause\" : \"isRootCause\",\r\n    \"ackUserId\" : \"ackUserId\",\r\n    \"comments\" : [ {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    }, {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    } ],\r\n    \"sourceSystemId\" : \"sourceSystemId\",\r\n    \"clearUserId\" : \"clearUserId\",\r\n    \"serviceAffecting\" : \"serviceAffecting\",\r\n    \"alarmEscelation\" : \"alarmEscelation\",\r\n    \"ackState\" : \"ackState\",\r\n    \"alarmType\" : \"alarmType\",\r\n    \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n    \"alarmDetails\" : \"alarmDetails\"\r\n  }\r\n}", AlarmClearedNotification.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,18 +158,410 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "alarmCreateNotification", nickname = "alarmCreateNotification", notes = "", response = AlarmCreateNotification.class, tags={ "notification", })
+    @ApiOperation(value = "Client listener for entity AlarmCreateEvent", nickname = "listenToAlarmCreateEvent", notes = "Example of a client listener for receiving the notification AlarmCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "alarm", response = AlarmCreateNotification.class) })
-    @RequestMapping(value = "/listener/alarmCreateNotification",
-        produces = { "application/json" }, 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/alarmCreateEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<AlarmCreateNotification> alarmCreateNotification(@ApiParam(value = "") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<EventSubscription> listenToAlarmCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"eventId\" : 0,\r\n  \"eventTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n  \"eventType\" : \"eventType\",\r\n  \"event\" : {\r\n    \"alarmRaisedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmClearedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObjectType\" : \"alarmedObjectType\",\r\n    \"@type\" : \"@type\",\r\n    \"proposedRepairedActions\" : \"proposedRepairedActions\",\r\n    \"correlatedAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"alarmReportingTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"alarmedObject\" : {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    },\r\n    \"alarmChangedTime\" : \"2000-01-23T04:56:07.000+00:00\",\r\n    \"@baseType\" : \"@baseType\",\r\n    \"perceivedSeverity\" : \"perceivedSeverity\",\r\n    \"affectedService\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"ackSystemId\" : \"ackSystemId\",\r\n    \"id\" : 0,\r\n    \"href\" : \"href\",\r\n    \"state\" : \"state\",\r\n    \"@schemaLocation\" : \"@schemaLocation\",\r\n    \"crossedThresholdInformation\" : {\r\n      \"indicatorName\" : \"indicatorName\",\r\n      \"thresholdCrossingDescription\" : \"thresholdCrossingDescription\",\r\n      \"granularity\" : \"granularity\",\r\n      \"observedValue\" : \"observedValue\",\r\n      \"thresholdId\" : \"thresholdId\",\r\n      \"thresholdRef\" : \"thresholdRef\",\r\n      \"indicatorUnit\" : \"indicatorUnit\",\r\n      \"direction\" : \"direction\"\r\n    },\r\n    \"externalAlarmId\" : \"externalAlarmId\",\r\n    \"clearSystemId\" : \"clearSystemId\",\r\n    \"parentAlarm\" : [ {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    }, {\r\n      \"href\" : \"href\",\r\n      \"id\" : \"id\"\r\n    } ],\r\n    \"isRootCause\" : \"isRootCause\",\r\n    \"ackUserId\" : \"ackUserId\",\r\n    \"comments\" : [ {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    }, {\r\n      \"systemId\" : \"systemId\",\r\n      \"comment\" : \"comment\",\r\n      \"time\" : \"2000-01-23T04:56:07.000+00:00\",\r\n      \"userId\" : \"userId\"\r\n    } ],\r\n    \"sourceSystemId\" : \"sourceSystemId\",\r\n    \"clearUserId\" : \"clearUserId\",\r\n    \"serviceAffecting\" : \"serviceAffecting\",\r\n    \"alarmEscelation\" : \"alarmEscelation\",\r\n    \"ackState\" : \"ackState\",\r\n    \"alarmType\" : \"alarmType\",\r\n    \"plannedOutageIndicator\" : \"plannedOutageIndicator\",\r\n    \"alarmDetails\" : \"alarmDetails\"\r\n  }\r\n}", AlarmCreateNotification.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity AlarmDeleteEvent", nickname = "listenToAlarmDeleteEvent", notes = "Example of a client listener for receiving the notification AlarmDeleteEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/alarmDeleteEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToAlarmDeleteEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmDeleteEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity AlarmStateChangeEvent", nickname = "listenToAlarmStateChangeEvent", notes = "Example of a client listener for receiving the notification AlarmStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/alarmStateChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToAlarmStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmStateChangeEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity ClearAlarmsCreateEvent", nickname = "listenToClearAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification ClearAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/clearAlarmsCreateEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToClearAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ClearAlarmsCreateEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity ClearAlarmsStateChangeEvent", nickname = "listenToClearAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification ClearAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/clearAlarmsStateChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToClearAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ClearAlarmsStateChangeEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity CommentAlarmsCreateEvent", nickname = "listenToCommentAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification CommentAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/commentAlarmsCreateEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToCommentAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody CommentAlarmsCreateEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity CommentAlarmsStateChangeEvent", nickname = "listenToCommentAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification CommentAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/commentAlarmsStateChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToCommentAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody CommentAlarmsStateChangeEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity GroupAlarmsCreateEvent", nickname = "listenToGroupAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification GroupAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/groupAlarmsCreateEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToGroupAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody GroupAlarmsCreateEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity GroupAlarmsStateChangeEvent", nickname = "listenToGroupAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification GroupAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/groupAlarmsStateChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToGroupAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody GroupAlarmsStateChangeEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity UnAckAlarmsCreateEvent", nickname = "listenToUnAckAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification UnAckAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/unAckAlarmsCreateEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToUnAckAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnAckAlarmsCreateEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity UnAckAlarmsStateChangeEvent", nickname = "listenToUnAckAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification UnAckAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/unAckAlarmsStateChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToUnAckAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnAckAlarmsStateChangeEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity UnGroupAlarmsCreateEvent", nickname = "listenToUnGroupAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification UnGroupAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/unGroupAlarmsCreateEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToUnGroupAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnGroupAlarmsCreateEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default ListenerApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Client listener for entity UnGroupAlarmsStateChangeEvent", nickname = "listenToUnGroupAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification UnGroupAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/listener/unGroupAlarmsStateChangeEvent",
+        produces = { "application/json;charset=utf-8" }, 
+        consumes = { "application/json;charset=utf-8" },
+        method = RequestMethod.POST)
+    default ResponseEntity<EventSubscription> listenToUnGroupAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnGroupAlarmsStateChangeEvent body
+) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{\r\n  \"query\" : \"query\",\r\n  \"callback\" : \"callback\",\r\n  \"id\" : \"id\"\r\n}", EventSubscription.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

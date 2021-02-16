@@ -100,13 +100,13 @@ public class ProductOrderUpdate   {
   private ProductOrderStateType state = null;
 
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  private String baseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  private String schemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  private String type = null;
 
   public ProductOrderUpdate cancellationDate(OffsetDateTime cancellationDate) {
     this.cancellationDate = cancellationDate;
@@ -603,61 +603,61 @@ public class ProductOrderUpdate   {
     this.state = state;
   }
 
-  public ProductOrderUpdate _atBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public ProductOrderUpdate baseType(String baseType) {
+    this.baseType = baseType;
     return this;
   }
 
   /**
    * When sub-classing, this defines the super-class
-   * @return _atBaseType
+   * @return baseType
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
-    return _atBaseType;
+    return baseType;
   }
 
-  public void setAtBaseType(String _atBaseType) {
-    this._atBaseType = _atBaseType;
+  public void setAtBaseType(String baseType) {
+    this.baseType = baseType;
   }
 
-  public ProductOrderUpdate _atSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public ProductOrderUpdate schemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
     return this;
   }
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return _atSchemaLocation
+   * @return schemaLocation
   **/
   @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
-    return _atSchemaLocation;
+    return schemaLocation;
   }
 
-  public void setAtSchemaLocation(String _atSchemaLocation) {
-    this._atSchemaLocation = _atSchemaLocation;
+  public void setAtSchemaLocation(String schemaLocation) {
+    this.schemaLocation = schemaLocation;
   }
 
-  public ProductOrderUpdate _atType(String _atType) {
-    this._atType = _atType;
+  public ProductOrderUpdate type(String type) {
+    this.type = type;
     return this;
   }
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return _atType
+   * @return type
   **/
   @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
-    return _atType;
+    return type;
   }
 
-  public void setAtType(String _atType) {
-    this._atType = _atType;
+  public void setAtType(String type) {
+    this.type = type;
   }
 
 
@@ -692,14 +692,14 @@ public class ProductOrderUpdate   {
         Objects.equals(this.quote, productOrderUpdate.quote) &&
         Objects.equals(this.relatedParty, productOrderUpdate.relatedParty) &&
         Objects.equals(this.state, productOrderUpdate.state) &&
-        Objects.equals(this._atBaseType, productOrderUpdate._atBaseType) &&
-        Objects.equals(this._atSchemaLocation, productOrderUpdate._atSchemaLocation) &&
-        Objects.equals(this._atType, productOrderUpdate._atType);
+        Objects.equals(this.baseType, productOrderUpdate.baseType) &&
+        Objects.equals(this.schemaLocation, productOrderUpdate.schemaLocation) &&
+        Objects.equals(this.type, productOrderUpdate.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cancellationDate, cancellationReason, category, completionDate, description, expectedCompletionDate, externalId, notificationContact, priority, requestedCompletionDate, requestedStartDate, agreement, billingAccount, channel, note, orderTotalPrice, payment, productOfferingQualification, productOrderItem, quote, relatedParty, state, _atBaseType, _atSchemaLocation, _atType);
+    return Objects.hash(cancellationDate, cancellationReason, category, completionDate, description, expectedCompletionDate, externalId, notificationContact, priority, requestedCompletionDate, requestedStartDate, agreement, billingAccount, channel, note, orderTotalPrice, payment, productOfferingQualification, productOrderItem, quote, relatedParty, state, baseType, schemaLocation, type);
   }
 
   @Override
@@ -729,9 +729,9 @@ public class ProductOrderUpdate   {
     sb.append("    quote: ").append(toIndentedString(quote)).append("\n");
     sb.append("    relatedParty: ").append(toIndentedString(relatedParty)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
-    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
-    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

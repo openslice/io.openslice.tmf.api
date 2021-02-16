@@ -3,9 +3,14 @@ package io.openslice.tmf.am642.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -13,51 +18,25 @@ import javax.validation.constraints.*;
  * AffectedService
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T12:06:56.372977300+02:00[Europe/Athens]")
-public class AffectedService   {
-  @JsonProperty("href")
-  private String href = null;
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Entity(name = "AMAffectedService")
+@Table(name = "AMAffectedService")
+public class AffectedService extends BaseRootEntity {
   @JsonProperty("id")
   private String id = null;
-
-  public AffectedService href(String href) {
-    this.href = href;
-    return this;
-  }
-
-  /**
-   * Provides the identifier of the service affected by the alarm
-   * @return href
-  **/
-  @ApiModelProperty(value = "Provides the identifier of the service affected by the alarm")
   
-    public String getHref() {
-    return href;
-  }
-
-  public void setHref(String href) {
-    this.href = href;
-  }
-
-  public AffectedService id(String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
   
-    public String getId() {
-    return id;
-  }
+  /**
+	 * @return the id
+	 */
+	public String getId() {
+		if (uuid != null) {
+			id = uuid;
+		}
+		return id;
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+  
 
 
   @Override
@@ -69,13 +48,16 @@ public class AffectedService   {
       return false;
     }
     AffectedService affectedService = (AffectedService) o;
-    return Objects.equals(this.href, affectedService.href) &&
-        Objects.equals(this.id, affectedService.id);
+    return Objects.equals(this.id, affectedService.id) &&
+        Objects.equals(this.href, affectedService.href) &&
+        Objects.equals(this.baseType, affectedService.baseType) &&
+        Objects.equals(this.schemaLocation, affectedService.schemaLocation) &&
+        Objects.equals(this.type, affectedService.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(href, id);
+    return Objects.hash(id, href, baseType, schemaLocation, type);
   }
 
   @Override
@@ -83,8 +65,11 @@ public class AffectedService   {
     StringBuilder sb = new StringBuilder();
     sb.append("class AffectedService {\n");
     
-    sb.append("    href: ").append(toIndentedString(href)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    href: ").append(toIndentedString(href)).append("\n");
+    sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+    sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

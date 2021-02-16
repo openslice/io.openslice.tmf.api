@@ -294,7 +294,7 @@ public class SwaggerDocumentationConfig {
             .license("")
             .licenseUrl("http://unlicense.org")
             .termsOfServiceUrl("")
-            .version("2.0")
+            .version("4.0.0")
             .contact(new Contact("","", ""))
             .build();
     }
@@ -537,7 +537,7 @@ public class SwaggerDocumentationConfig {
     @Bean
     public Docket swaggeram642(){
         return new Docket(DocumentationType.SWAGGER_2)
-        		.groupName("tmf-api-642-Alarm Management-v3.0.0")
+        		.groupName("tmf-api-642-Alarm Management-v4.0.0")
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.am642.api"))
                     .build()

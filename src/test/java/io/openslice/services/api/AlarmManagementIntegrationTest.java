@@ -14,12 +14,16 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.ProducerTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -65,6 +69,19 @@ public class AlarmManagementIntegrationTest {
 	@Autowired
 	private WebApplicationContext context;
 
+
+    @Autowired
+    private ProducerTemplate template;
+
+	@Value("${ALARMS_ADD_ALARM}")
+	private String ALARMS_ADD_ALARM ="";
+	
+	@Value("${ALARMS_UPDATE_ALARM}")
+	private String ALARMS_UPDATE_ALARM ="";
+	
+	@Value("${ALARMS_GET_ALARM}")
+	private String ALARMS_GET_ALARM ="";
+	
 	@Before
 	public void setup() {
 		mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
@@ -91,11 +108,10 @@ public class AlarmManagementIntegrationTest {
 		as.setId("aServiceID");
 		as.setType("Service");
 		a.getAffectedService().add(as);
-
 		String response = mvc
 				.perform(MockMvcRequestBuilders.post("/alarmManagement/v4/alarm")
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
-						.content(toJson(a)))
+						.content( toJson(a)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("alarmDetails", is("details..."))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
@@ -153,6 +169,80 @@ public class AlarmManagementIntegrationTest {
 		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.cleared.name());
 		assertThat(alarm.getAlarmType()).isEqualTo(AlarmType.qualityOfServiceAlarm.name());
 
+	}
+	
+
+	@WithMockUser(username = "osadmin", roles = { "ADMIN", "USER" })
+	@Test
+	public void testAlarmCreateAndUpdateRoutes() throws IOException  {
+		AlarmCreate a = new AlarmCreate();
+		a.setPerceivedSeverity(PerceivedSeverityType.warning.name());
+		a.setState(AlarmStateType.raised.name());
+		a.setAckState("unacknowledged");
+		a.setAlarmRaisedTime(OffsetDateTime.now(ZoneOffset.UTC).toString());
+		a.setSourceSystemId("NFVO");
+		a.setAffectedService(new ArrayList<>());
+		a.setAlarmDetails("details...");
+		a.setAlarmType(AlarmType.qualityOfServiceAlarm.name());
+		a.setIsRootCause(true);
+		a.setProbableCause(ProbableCauseType.resourceAtOrNearingCapacity.name());
+		a.reportingSystemId("OSA");
+
+		AffectedService as = new AffectedService();
+		as.setId("aServiceID");
+		as.setType("Service");
+		a.getAffectedService().add(as);
+		
+		String body = toJsonString(a);
+		Object response = template.requestBody( ALARMS_ADD_ALARM, body);
+
+		assertThat( response).isInstanceOf( String.class);
+		Alarm alarm = toJsonObj( (String)response, Alarm.class);
+		assertThat(alarm.getAckState()).isEqualTo("unacknowledged");
+		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
+		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.warning.name());
+		assertThat(alarm.getAlarmType()).isEqualTo(AlarmType.qualityOfServiceAlarm.name());
+		
+		
+		AlarmUpdate aupd = new AlarmUpdate();
+		aupd.setAckState("acknowledged");
+		aupd.setAckSystemId("OSA");
+		aupd.setPerceivedSeverity(PerceivedSeverityType.warning.name());
+		aupd.setState(AlarmStateType.updated.name());
+		body = toJsonString(aupd);
+		response = template.requestBodyAndHeader( ALARMS_UPDATE_ALARM, body , "alarmid", alarm.getId());
+
+		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
+
+		alarm = toJsonObj( (String)response, Alarm.class);;
+		assertThat(alarm.getAckState()).isEqualTo("acknowledged");
+		assertThat(alarm.getState()).isEqualTo( AlarmStateType.updated.name() );
+		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
+		assertThat(alarm.getAckSystemId()).isEqualTo("OSA");
+		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.warning.name());
+		assertThat(alarm.getAlarmType()).isEqualTo(AlarmType.qualityOfServiceAlarm.name());
+
+		aupd = new AlarmUpdate();
+		aupd.setState(AlarmStateType.cleared.name());
+		aupd.setAckSystemId("OSA");
+		aupd.setPerceivedSeverity(PerceivedSeverityType.cleared.name());
+		body = toJsonString(aupd);
+		response = template.requestBodyAndHeader( ALARMS_UPDATE_ALARM, body , "alarmid", alarm.getId());
+
+		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
+
+		alarm = toJsonObj( (String)response, Alarm.class);
+		assertThat(alarm.getAckState()).isEqualTo("acknowledged");
+		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
+		assertThat(alarm.getAckSystemId()).isEqualTo("OSA");
+		assertThat(alarm.getState()).isEqualTo( AlarmStateType.cleared.name() );
+		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.cleared.name());
+		assertThat(alarm.getAlarmType()).isEqualTo(AlarmType.qualityOfServiceAlarm.name());
+		
+		
+
+		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
+		
 	}
 
 	static byte[] toJson(Object object) throws IOException {

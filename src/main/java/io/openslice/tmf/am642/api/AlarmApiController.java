@@ -95,7 +95,7 @@ public class AlarmApiController implements AlarmApi {
 			}
 			if ((fields == null) && (allParams.size() == 0)) {
 
-				String myfields = "lastUpdate,lifecycleStatus";
+				String myfields = null;
 				return new ResponseEntity<List<Alarm>>(						
 						alarmRepoService.findAll( myfields, allParams), HttpStatus.OK);
 				

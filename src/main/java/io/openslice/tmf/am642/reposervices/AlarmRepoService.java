@@ -15,12 +15,14 @@ import java.util.Optional;
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.am642.model.AffectedService;
 import io.openslice.tmf.am642.model.Alarm;
@@ -28,6 +30,7 @@ import io.openslice.tmf.am642.model.AlarmCreate;
 import io.openslice.tmf.am642.model.AlarmRef;
 import io.openslice.tmf.am642.model.AlarmStateType;
 import io.openslice.tmf.am642.model.AlarmUpdate;
+import io.openslice.tmf.am642.model.Comment;
 import io.openslice.tmf.am642.model.RelatedPlaceRefOrValue;
 import io.openslice.tmf.am642.repo.AlarmRepository;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
@@ -54,6 +57,7 @@ public class AlarmRepoService {
 	}
 
 
+	@Transactional
 	public Alarm addAlarm(@Valid AlarmCreate alarmUpdate) {
 		Alarm al = new Alarm();
 		al.setAlarmReportingTime( OffsetDateTime.now(ZoneOffset.UTC)  );
@@ -75,6 +79,7 @@ public class AlarmRepoService {
 	
 	
 
+	@Transactional
 	private Alarm updateAlarmFromAPICall(Alarm al, @Valid AlarmUpdate alarmUpdate) {
 
 		if (alarmUpdate.getAckState()!=null){
@@ -305,6 +310,43 @@ public class AlarmRepoService {
 
 		}
 		
+		
+		if (alarmUpdate.getComment() != null) {
+			// reattach attachments fromDB
+
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+
+			for (Comment ar : alarmUpdate.getComment()) {
+				// find  by id and reload it here.
+				// we need the  model from resource models
+				boolean idexists = false;
+				for (Comment orinalCom : al.getComment()) {
+					if (orinalCom.getUuid().equals(ar.getUuid())) {
+						idexists = true;
+						idAddedUpdated.put(orinalCom.getUuid(), true);
+						break;
+					}
+				}
+
+				if (!idexists) {
+					al.getComment().add(ar);
+					idAddedUpdated.put(ar.getUuid(), true);
+				}
+			}
+
+			List<Comment> toRemove = new ArrayList<>();
+			for (Comment ss : al.getComment()) {
+				if (idAddedUpdated.get(ss.getUuid()) == null) {
+					toRemove.add(ss);
+				}
+			}
+
+			for (Comment ar : toRemove) {
+				al.getComment().remove(ar);
+			}
+
+		}
+		
 		return al;
 	}
 
@@ -322,10 +364,9 @@ public class AlarmRepoService {
 		try {
 			String sql = "SELECT "
 					+ "s.uuid as uuid,"
-					+ "s.id as id,"
+					+ "s.uuid as id,"
 					+ "s.alarmType as alarmType,"
 					+ "s.ackState as ackState,"
-					+ "s.affectedService as affectedService,"
 					+ "s.alarmRaisedTime as alarmRaisedTime,"
 					+ "s.alarmReportingTime as alarmReportingTime,"
 					+ "s.probableCause as probableCause,"
@@ -404,6 +445,7 @@ public class AlarmRepoService {
 	}
 
 
+	@Transactional
 	public Alarm updateAlarm(String id, @Valid AlarmUpdate alarmUpdate) {
 		Alarm s = this.findByUuid(id);
 		if (s == null) {
@@ -417,9 +459,33 @@ public class AlarmRepoService {
 	}
 
 
-	private Alarm findByUuid(String id) {
+	public Alarm findByUuid(String id) {
 		Optional< Alarm> optionalCat = this.alarmRepo.findByUuid(id);
 		return optionalCat.orElse(null);
 	}
+	
+	public Alarm findByUuidEager(String id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
+		Alarm dd = null;
+		try {
+			dd = session.get(Alarm.class, id);
+			if (dd == null) {
+				return this.findByUuid(id);// last resort
+			}
+			Hibernate.initialize(dd.getAffectedService() );
+			Hibernate.initialize(dd.getComment() );
+			Hibernate.initialize(dd.getCorrelatedAlarm());
+			Hibernate.initialize(dd.getParentAlarm());
+			Hibernate.initialize(dd.getPlace() );
+
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		return dd;
+	}
+	
+	
 
 }

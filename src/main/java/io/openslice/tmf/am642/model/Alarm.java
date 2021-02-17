@@ -254,6 +254,13 @@ public class Alarm extends BaseRootEntity {
 	public void setAlarmChangedTime(OffsetDateTime alarmChangedTime) {
 		this.alarmChangedTime = alarmChangedTime;
 	}
+	
+	public void setAlarmChangedTime(String alarmChangedTime) {
+		if ( alarmChangedTime != null) {
+			this.alarmChangedTime = OffsetDateTime.parse( alarmChangedTime );
+			
+		}
+	}
 
 	@JsonProperty("alarmChangedTime")
 	public String getAlarmChangedTimeStr() {
@@ -268,6 +275,9 @@ public class Alarm extends BaseRootEntity {
 		this.alarmClearedTime = alarmClearedTime;
 		return this;
 	}
+	
+	
+	
 	
 
 	
@@ -287,6 +297,12 @@ public class Alarm extends BaseRootEntity {
 
 	public void setAlarmClearedTime(OffsetDateTime alarmClearedTime) {
 		this.alarmClearedTime = alarmClearedTime;
+	}
+	
+	public void setAlarmClearedTime(String alarmClearedTime) {
+		if ( alarmClearedTime != null) {
+			this.alarmClearedTime = OffsetDateTime.parse( alarmClearedTime );			
+		}
 	}
 	
 
@@ -361,6 +377,13 @@ public class Alarm extends BaseRootEntity {
 		this.alarmRaisedTime = alarmRaisedTime;
 	}
 	
+	public void setAlarmRaisedTime(String alarmRaisedTime) {
+
+		if ( alarmRaisedTime != null) {
+			this.alarmRaisedTime = OffsetDateTime.parse( alarmRaisedTime );
+			
+		}
+	}
 	
 
 	@JsonProperty("alarmRaisedTime")
@@ -399,6 +422,13 @@ public class Alarm extends BaseRootEntity {
 		this.alarmReportingTime = alarmReportingTime;
 	}
 	
+	
+	public void setAlarmReportingTime(String alarmReportingTime) {
+		if ( alarmReportingTime != null) {
+			this.alarmReportingTime = OffsetDateTime.parse( alarmReportingTime );
+			
+		}
+	}
 
 	@JsonProperty("alarmReportingTime")
 	public String getAlarmReportingTimeStr() {

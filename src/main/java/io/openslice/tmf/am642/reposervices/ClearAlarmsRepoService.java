@@ -20,6 +20,7 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.openslice.tmf.am642.model.AlarmStateType;
 import io.openslice.tmf.am642.model.ClearAlarms;
 import io.openslice.tmf.am642.model.ClearAlarmsCreate;
 import io.openslice.tmf.am642.repo.ClearAlarmsRepository;
@@ -141,9 +142,24 @@ public class ClearAlarmsRepoService {
 		al.setClearSystemId( aSrc.getClearSystemId());
 		al.setAlarmClearedTime( OffsetDateTime.now(ZoneOffset.UTC) );
 		al.setClearUserId( aSrc.getClearUserId() );
-		al.setState( aSrc.getState());
+		
+		if ( aSrc.getState() != null ) {
+			al.setState( aSrc.getState());			
+		}
+		al.setState( AlarmStateType.cleared.name() );
+		if ( aSrc.getState() != null ) {
+			al.setState( aSrc.getState());			
+		}
+		
+//		maybe here we need to update the real Alarm?
+//				raised | updated | cleared).
+
 		al.getClearedAlarm().addAll( aSrc.getClearedAlarm() )  ;
+		
+		
 		al.getAlarmPattern().addAll(aSrc.getAlarmPattern() );
+		
+		
 
 		return al;
 	}

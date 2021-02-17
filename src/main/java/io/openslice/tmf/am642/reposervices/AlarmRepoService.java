@@ -26,6 +26,7 @@ import io.openslice.tmf.am642.model.AffectedService;
 import io.openslice.tmf.am642.model.Alarm;
 import io.openslice.tmf.am642.model.AlarmCreate;
 import io.openslice.tmf.am642.model.AlarmRef;
+import io.openslice.tmf.am642.model.AlarmStateType;
 import io.openslice.tmf.am642.model.AlarmUpdate;
 import io.openslice.tmf.am642.model.RelatedPlaceRefOrValue;
 import io.openslice.tmf.am642.repo.AlarmRepository;
@@ -55,6 +56,7 @@ public class AlarmRepoService {
 
 	public Alarm addAlarm(@Valid AlarmCreate alarmUpdate) {
 		Alarm al = new Alarm();
+		al.setAlarmReportingTime( OffsetDateTime.now(ZoneOffset.UTC)  );
 		al.setAlarmChangedTime( OffsetDateTime.now(ZoneOffset.UTC)  );
 		al.setSourceSystemId(alarmUpdate.getSourceSystemId());
 		
@@ -96,9 +98,9 @@ public class AlarmRepoService {
 		if (alarmUpdate.isAlarmEscalation()!=null){
 			al.setAlarmEscalation(alarmUpdate.isAlarmEscalation());			
 		}
-		if (alarmUpdate.getAlarmReportingTime()!=null){
-			al.setAlarmReportingTime(alarmUpdate.getAlarmReportingTime());			
-		}
+//		if (alarmUpdate.getAlarmReportingTime()!=null){
+//			al.setAlarmReportingTime(alarmUpdate.getAlarmReportingTime());			
+//		}
 		if (alarmUpdate.getAlarmType()!=null){
 			al.setAlarmType(alarmUpdate.getAlarmType());			
 		}
@@ -139,9 +141,12 @@ public class AlarmRepoService {
 		if (alarmUpdate.getSpecificProblem()!=null){
 			al.setSpecificProblem(alarmUpdate.getSpecificProblem());			
 		}
+
+		al.setState( AlarmStateType.raised.name() );
 		if (alarmUpdate.getState()!=null){
 			al.setState(alarmUpdate.getState());			
 		}
+		
 		
 
 		if (alarmUpdate.getAffectedService() != null) {
@@ -322,6 +327,7 @@ public class AlarmRepoService {
 					+ "s.ackState as ackState,"
 					+ "s.affectedService as affectedService,"
 					+ "s.alarmRaisedTime as alarmRaisedTime,"
+					+ "s.alarmReportingTime as alarmReportingTime,"
 					+ "s.probableCause as probableCause,"
 					+ "s.sourceSystemId as sourceSystemId,"
 					+ "s.state as state,"

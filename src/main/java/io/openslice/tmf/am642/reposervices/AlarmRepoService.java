@@ -43,9 +43,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.openslice.tmf.am642.api.AlarmApiRouteBuilder;
 import io.openslice.tmf.am642.model.AffectedService;
 import io.openslice.tmf.am642.model.Alarm;
 import io.openslice.tmf.am642.model.AlarmCreate;
+import io.openslice.tmf.am642.model.AlarmCreateEvent;
+import io.openslice.tmf.am642.model.AlarmCreateEventPayload;
 import io.openslice.tmf.am642.model.AlarmRef;
 import io.openslice.tmf.am642.model.AlarmStateType;
 import io.openslice.tmf.am642.model.AlarmUpdate;
@@ -53,20 +56,22 @@ import io.openslice.tmf.am642.model.Comment;
 import io.openslice.tmf.am642.model.RelatedPlaceRefOrValue;
 import io.openslice.tmf.am642.repo.AlarmRepository;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
+import io.openslice.tmf.sim638.service.ServiceRepoService;
 
 @Service
 public class AlarmRepoService {
-	
-
 
 	@Autowired
 	AlarmRepository alarmRepo;
 
+	@Autowired
+	ServiceRepoService serviceRepoService;
 
-	
+	@Autowired
+	AlarmApiRouteBuilder alarmApiRouteBuilder;
+
 	private SessionFactory sessionFactory;
-	
-	
+
 	@Autowired
 	public AlarmRepoService(EntityManagerFactory factory) {
 		if (factory.unwrap(SessionFactory.class) == null) {
@@ -75,18 +80,22 @@ public class AlarmRepoService {
 		this.sessionFactory = factory.unwrap(SessionFactory.class);
 	}
 
-
 	@Transactional
 	public Alarm addAlarm(@Valid AlarmCreate alarmUpdate) {
 		Alarm al = new Alarm();
-		al.setAlarmReportingTime( OffsetDateTime.now(ZoneOffset.UTC)  );
-		al.setAlarmChangedTime( OffsetDateTime.now(ZoneOffset.UTC)  );
+		al.setAlarmReportingTime(OffsetDateTime.now(ZoneOffset.UTC));
+		al.setAlarmChangedTime(OffsetDateTime.now(ZoneOffset.UTC));
 		al.setSourceSystemId(alarmUpdate.getSourceSystemId());
-		
-		al = updateAlarmFromAPICall( al , alarmUpdate);
-		return this.alarmRepo.save( al );
+
+		al = updateAlarmFromAPICall(al, alarmUpdate);
+
+		al = updateAffectedService(al);
+
+		al = this.alarmRepo.save(al);
+		raiseAlarmCreateEvent(al);
+		return al;
 	}
-	
+
 	public List<Alarm> findAll() {
 		return (List<Alarm>) this.alarmRepo.findAll();
 	}
@@ -95,83 +104,105 @@ public class AlarmRepoService {
 		Optional<Alarm> optionalCat = this.alarmRepo.findByUuid(id);
 		return optionalCat.orElse(null);
 	}
-	
-	
+
+	private Alarm updateAffectedService(Alarm al) {
+		// specificProblem(DeploymentRequestID=OSM NS_ID)
+
+		if (al.getSpecificProblem() != null) {
+			if (al.getSpecificProblem().contains("DeploymentRequestID")) {
+				String[] vals = al.getSpecificProblem().split(";");
+				for (String details : vals) {
+					String[] d = details.split("=");
+					if ( d[0].equals( "DeploymentRequestID" ) ) {
+						var aservices = serviceRepoService.findDeploymentRequestID( d[1] );
+						for (io.openslice.tmf.sim638.model.Service service : aservices) {
+							AffectedService as = new AffectedService();
+							as.setId( service.getUuid());
+							as.setBaseType("Service");
+							al.getAffectedService().add(as );
+						}	
+						
+					}				
+				}
+				
+			}
+		}
+
+		return al;
+	}
 
 	@Transactional
 	private Alarm updateAlarmFromAPICall(Alarm al, @Valid AlarmUpdate alarmUpdate) {
 
-		if (alarmUpdate.getAckState()!=null){
-			al.setAckState(alarmUpdate.getAckState());			
+		if (alarmUpdate.getAckState() != null) {
+			al.setAckState(alarmUpdate.getAckState());
 		}
-		if (alarmUpdate.getAckSystemId()!=null){
-			al.setAckSystemId(alarmUpdate.getAckSystemId());			
+		if (alarmUpdate.getAckSystemId() != null) {
+			al.setAckSystemId(alarmUpdate.getAckSystemId());
 		}
-		if (alarmUpdate.getAckUserId()!=null){
-			al.setAckUserId(alarmUpdate.getAckUserId());			
+		if (alarmUpdate.getAckUserId() != null) {
+			al.setAckUserId(alarmUpdate.getAckUserId());
 		}
-		if (alarmUpdate.getAlarmChangedTime()!=null){
-			al.setAlarmChangedTime(alarmUpdate.getAlarmChangedTime());			
+		if (alarmUpdate.getAlarmChangedTime() != null) {
+			al.setAlarmChangedTime(alarmUpdate.getAlarmChangedTime());
 		}
-		if (alarmUpdate.getAlarmClearedTime()!=null){
-			al.setAlarmClearedTime(alarmUpdate.getAlarmClearedTime());			
+		if (alarmUpdate.getAlarmClearedTime() != null) {
+			al.setAlarmClearedTime(alarmUpdate.getAlarmClearedTime());
 		}
-		if (alarmUpdate.getAlarmDetails()!=null){
-			al.setAlarmDetails(alarmUpdate.getAlarmDetails());			
+		if (alarmUpdate.getAlarmDetails() != null) {
+			al.setAlarmDetails(alarmUpdate.getAlarmDetails());
 		}
-		if (alarmUpdate.isAlarmEscalation()!=null){
-			al.setAlarmEscalation(alarmUpdate.isAlarmEscalation());			
+		if (alarmUpdate.isAlarmEscalation() != null) {
+			al.setAlarmEscalation(alarmUpdate.isAlarmEscalation());
 		}
 //		if (alarmUpdate.getAlarmReportingTime()!=null){
 //			al.setAlarmReportingTime(alarmUpdate.getAlarmReportingTime());			
 //		}
-		if (alarmUpdate.getAlarmType()!=null){
-			al.setAlarmType(alarmUpdate.getAlarmType());			
+		if (alarmUpdate.getAlarmType() != null) {
+			al.setAlarmType(alarmUpdate.getAlarmType());
 		}
-		if (alarmUpdate.getAlarmedObjectType()!=null){
-			al.setAlarmedObjectType(alarmUpdate.getAlarmedObjectType());			
+		if (alarmUpdate.getAlarmedObjectType() != null) {
+			al.setAlarmedObjectType(alarmUpdate.getAlarmedObjectType());
 		}
-		if (alarmUpdate.getClearSystemId()!=null){
-			al.setClearSystemId(alarmUpdate.getClearSystemId());			
+		if (alarmUpdate.getClearSystemId() != null) {
+			al.setClearSystemId(alarmUpdate.getClearSystemId());
 		}
-		if (alarmUpdate.getClearUserId()!=null){
-			al.setClearUserId(alarmUpdate.getClearUserId());			
+		if (alarmUpdate.getClearUserId() != null) {
+			al.setClearUserId(alarmUpdate.getClearUserId());
 		}
-		if (alarmUpdate.getExternalAlarmId()!=null){
-			al.setExternalAlarmId(alarmUpdate.getExternalAlarmId());			
+		if (alarmUpdate.getExternalAlarmId() != null) {
+			al.setExternalAlarmId(alarmUpdate.getExternalAlarmId());
 		}
-		if (alarmUpdate.isIsRootCause()!=null){
-			al.setIsRootCause(alarmUpdate.isIsRootCause());			
+		if (alarmUpdate.isIsRootCause() != null) {
+			al.setIsRootCause(alarmUpdate.isIsRootCause());
 		}
-		if (alarmUpdate.getPerceivedSeverity()!=null){
-			al.setPerceivedSeverity(alarmUpdate.getPerceivedSeverity());			
+		if (alarmUpdate.getPerceivedSeverity() != null) {
+			al.setPerceivedSeverity(alarmUpdate.getPerceivedSeverity());
 		}
-		if (alarmUpdate.getPlannedOutageIndicator()!=null){
-			al.setPlannedOutageIndicator(alarmUpdate.getPlannedOutageIndicator());			
+		if (alarmUpdate.getPlannedOutageIndicator() != null) {
+			al.setPlannedOutageIndicator(alarmUpdate.getPlannedOutageIndicator());
 		}
-		if (alarmUpdate.getProbableCause()!=null){
-			al.setProbableCause(alarmUpdate.getProbableCause());			
+		if (alarmUpdate.getProbableCause() != null) {
+			al.setProbableCause(alarmUpdate.getProbableCause());
 		}
-		if (alarmUpdate.getProposedRepairedActions()!=null){
-			al.setProposedRepairedActions(alarmUpdate.getProposedRepairedActions());			
+		if (alarmUpdate.getProposedRepairedActions() != null) {
+			al.setProposedRepairedActions(alarmUpdate.getProposedRepairedActions());
 		}
-		if (alarmUpdate.getReportingSystemId()!=null){
-			al.setReportingSystemId(alarmUpdate.getReportingSystemId());			
-		}
-		
-		if (alarmUpdate.isServiceAffecting()!=null){
-			al.setServiceAffecting(alarmUpdate.isServiceAffecting());			
-		}
-		if (alarmUpdate.getSpecificProblem()!=null){
-			al.setSpecificProblem(alarmUpdate.getSpecificProblem());			
+		if (alarmUpdate.getReportingSystemId() != null) {
+			al.setReportingSystemId(alarmUpdate.getReportingSystemId());
 		}
 
-		al.setState( AlarmStateType.raised.name() );
-		if (alarmUpdate.getState()!=null){
-			al.setState(alarmUpdate.getState());			
+		if (alarmUpdate.isServiceAffecting() != null) {
+			al.setServiceAffecting(alarmUpdate.isServiceAffecting());
 		}
-		
-		
+		if (alarmUpdate.getSpecificProblem() != null) {
+			al.setSpecificProblem(alarmUpdate.getSpecificProblem());
+		}
+
+		al.setState(AlarmStateType.raised.name());
+		if (alarmUpdate.getState() != null) {
+			al.setState(alarmUpdate.getState());
+		}
 
 		if (alarmUpdate.getAffectedService() != null) {
 			// reattach attachments fromDB
@@ -179,8 +210,8 @@ public class AlarmRepoService {
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
 			for (AffectedService ar : alarmUpdate.getAffectedService()) {
-				// find  by id and reload it here.
-				// we need the  model from resource models
+				// find by id and reload it here.
+				// we need the model from resource models
 				boolean idexists = false;
 				for (AffectedService orinalAtt : al.getAffectedService()) {
 					if (orinalAtt.getId().equals(ar.getId())) {
@@ -209,20 +240,18 @@ public class AlarmRepoService {
 
 		}
 
-
-		if (alarmUpdate.getAlarmedObject()!=null){
-			al.setAlarmedObject(alarmUpdate.getAlarmedObject());			
+		if (alarmUpdate.getAlarmedObject() != null) {
+			al.setAlarmedObject(alarmUpdate.getAlarmedObject());
 		}
-		
-		
+
 		if (alarmUpdate.getCorrelatedAlarm() != null) {
 			// reattach attachments fromDB
 
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
 			for (AlarmRef ar : alarmUpdate.getCorrelatedAlarm()) {
-				// find  by id and reload it here.
-				// we need the  model from resource models
+				// find by id and reload it here.
+				// we need the model from resource models
 				boolean idexists = false;
 				for (AlarmRef orinalCom : al.getCorrelatedAlarm()) {
 					if (orinalCom.getUuid().equals(ar.getUuid())) {
@@ -250,20 +279,19 @@ public class AlarmRepoService {
 			}
 
 		}
-		
-		if (alarmUpdate.getCrossedThresholdInformation()!=null){
-			al.setCrossedThresholdInformation(alarmUpdate.getCrossedThresholdInformation());			
+
+		if (alarmUpdate.getCrossedThresholdInformation() != null) {
+			al.setCrossedThresholdInformation(alarmUpdate.getCrossedThresholdInformation());
 		}
-		
-		
+
 		if (alarmUpdate.getParentAlarm() != null) {
 			// reattach attachments fromDB
 
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
 			for (AlarmRef ar : alarmUpdate.getParentAlarm()) {
-				// find  by id and reload it here.
-				// we need the  model from resource models
+				// find by id and reload it here.
+				// we need the model from resource models
 				boolean idexists = false;
 				for (AlarmRef orinalCom : al.getParentAlarm()) {
 					if (orinalCom.getUuid().equals(ar.getUuid())) {
@@ -291,16 +319,15 @@ public class AlarmRepoService {
 			}
 
 		}
-		
-		
+
 		if (alarmUpdate.getPlace() != null) {
 			// reattach attachments fromDB
 
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
 			for (RelatedPlaceRefOrValue ar : alarmUpdate.getPlace()) {
-				// find  by id and reload it here.
-				// we need the  model from resource models
+				// find by id and reload it here.
+				// we need the model from resource models
 				boolean idexists = false;
 				for (RelatedPlaceRefOrValue orinalCom : al.getPlace()) {
 					if (orinalCom.getUuid().equals(ar.getUuid())) {
@@ -328,16 +355,15 @@ public class AlarmRepoService {
 			}
 
 		}
-		
-		
+
 		if (alarmUpdate.getComment() != null) {
 			// reattach attachments fromDB
 
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
 			for (Comment ar : alarmUpdate.getComment()) {
-				// find  by id and reload it here.
-				// we need the  model from resource models
+				// find by id and reload it here.
+				// we need the model from resource models
 				boolean idexists = false;
 				for (Comment orinalCom : al.getComment()) {
 					if (orinalCom.getUuid().equals(ar.getUuid())) {
@@ -365,7 +391,7 @@ public class AlarmRepoService {
 			}
 
 		}
-		
+
 		return al;
 	}
 
@@ -381,25 +407,19 @@ public class AlarmRepoService {
 		Transaction tx = session.beginTransaction();
 		List<ServiceSpecification> alist = null;
 		try {
-			String sql = "SELECT "
-					+ "s.uuid as uuid,"
-					+ "s.uuid as id,"
-					+ "s.alarmType as alarmType,"
-					+ "s.ackState as ackState,"
-					+ "s.alarmRaisedTime as alarmRaisedTime,"
-					+ "s.alarmReportingTime as alarmReportingTime,"
-					+ "s.probableCause as probableCause,"
-					+ "s.sourceSystemId as sourceSystemId,"
-					+ "s.state as state,"
+			String sql = "SELECT " + "s.uuid as uuid," + "s.uuid as id," + "s.alarmType as alarmType,"
+					+ "s.ackState as ackState," + "s.alarmRaisedTime as alarmRaisedTime,"
+					+ "s.alarmReportingTime as alarmReportingTime," + "s.probableCause as probableCause,"
+					+ "s.sourceSystemId as sourceSystemId," + "s.state as state,"
 					+ "s.perceivedSeverity as perceivedSeverity";
-			
+
 			if (fields != null) {
 				String[] field = fields.split(",");
 				for (String f : field) {
-					sql += ", s." + f + " as " + f ;
+					sql += ", s." + f + " as " + f;
 				}
-				
-			}			
+
+			}
 			sql += " FROM AMAlarm s";
 			if (allParams.size() > 0) {
 				sql += " WHERE ";
@@ -411,36 +431,31 @@ public class AlarmRepoService {
 
 			}
 			sql += " ORDER BY s.alarmRaisedTime DESC";
-			
-	
-			
-			List<Object> mapaEntity = session
-				    .createQuery(sql )
-				    .setResultTransformer( new ResultTransformer() {
-						
-						@Override
-						public Object transformTuple(Object[] tuple, String[] aliases) {
-							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
-							        for (int i = 0; i < tuple.length; i++) {
-							            String alias = aliases[i];
-							            if (alias.equals("type")) {
-							            	alias = "@type";
-							            }
-							            if (alias != null) {
-							                result.put(alias, tuple[i]);
-							            }
-							        }
 
-							        return result;
+			List<Object> mapaEntity = session.createQuery(sql).setResultTransformer(new ResultTransformer() {
+
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
+					for (int i = 0; i < tuple.length; i++) {
+						String alias = aliases[i];
+						if (alias.equals("type")) {
+							alias = "@type";
 						}
-						
-						@Override
-						public List transformList(List collection) {
-							return collection;
+						if (alias != null) {
+							result.put(alias, tuple[i]);
 						}
-					} )
-				    .list();
-			
+					}
+
+					return result;
+				}
+
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			}).list();
+
 //			//this will fetch the whole object fields
 //			if ( (( allParams!= null) && ( allParams.size()>0)) ) {
 //				List<ServiceSpecification> resultlist = new ArrayList<>();
@@ -449,20 +464,14 @@ public class AlarmRepoService {
 //				}
 //				return resultlist;
 //			}
-			
-			
-			
+
 			return mapaEntity;
-		
-			
-			
-			
+
 		} finally {
 			tx.commit();
 			session.close();
 		}
 	}
-
 
 	@Transactional
 	public Alarm updateAlarm(String id, @Valid AlarmUpdate alarmUpdate) {
@@ -477,12 +486,11 @@ public class AlarmRepoService {
 		return alm;
 	}
 
-
 	public Alarm findByUuid(String id) {
-		Optional< Alarm> optionalCat = this.alarmRepo.findByUuid(id);
+		Optional<Alarm> optionalCat = this.alarmRepo.findByUuid(id);
 		return optionalCat.orElse(null);
 	}
-	
+
 	public Alarm findByUuidEager(String id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
@@ -492,11 +500,11 @@ public class AlarmRepoService {
 			if (dd == null) {
 				return this.findByUuid(id);// last resort
 			}
-			Hibernate.initialize(dd.getAffectedService() );
-			Hibernate.initialize(dd.getComment() );
+			Hibernate.initialize(dd.getAffectedService());
+			Hibernate.initialize(dd.getComment());
 			Hibernate.initialize(dd.getCorrelatedAlarm());
 			Hibernate.initialize(dd.getParentAlarm());
-			Hibernate.initialize(dd.getPlace() );
+			Hibernate.initialize(dd.getPlace());
 
 			tx.commit();
 		} finally {
@@ -504,7 +512,16 @@ public class AlarmRepoService {
 		}
 		return dd;
 	}
-	
-	
+
+	@Transactional
+	private void raiseAlarmCreateEvent(Alarm alarm) {
+		AlarmCreateEvent e = new AlarmCreateEvent();
+		AlarmCreateEventPayload p = new AlarmCreateEventPayload();
+		p.setAlarm(alarm);
+		e.setEvent(p);
+		e.setTitle("AlarmCreate " + alarm.getId());
+		e.setTimeOcurred( alarm.getAlarmReportingTime() );
+		alarmApiRouteBuilder.publishEvent(e, alarm.getId());
+	}
 
 }

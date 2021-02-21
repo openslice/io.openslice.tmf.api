@@ -19,7 +19,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring.boot-version>${spring-boot-version}</spring.boot-version>
 		<spring.cloud-consul-version>${spring-cloud-consul-version}</spring.cloud-consul-version>
-		<keycloak.version>9.0.2</keycloak.version>
 	</properties>
 
 

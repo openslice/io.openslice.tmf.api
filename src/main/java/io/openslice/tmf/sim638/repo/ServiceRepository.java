@@ -43,4 +43,11 @@ public interface ServiceRepository extends PagingAndSortingRepository<Service, L
 			+ "srv.endDate < CURRENT_TIMESTAMP")	
 	List<Service> findActiveToTerminate();
 
+	@Query("SELECT srv FROM Service srv "
+			+ "JOIN FETCH srv.serviceCharacteristic char "
+			+ "JOIN FETCH char.value val "
+			+ "WHERE char.name = 'DeploymentRequestID' AND "
+			+ " val.value = ?1 " )	
+	List<Service> findByDeploymentRequestID(String aDeploymentRequestID);
+
 }

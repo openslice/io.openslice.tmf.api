@@ -668,6 +668,21 @@ public class ServiceRepoService {
 		
 		return result;
 	}
+	
+	
+
+	/**
+	 * Given a DeploymentRequestID (which is provided by OSM in our case)
+	 * we locate the equivalent service
+	 * @param aDeploymentRequestID
+	 * @return
+	 */
+	@Transactional
+	public List<Service> findDeploymentRequestID( String aDeploymentRequestID){
+
+		return (List<Service>) this.serviceRepo.findByDeploymentRequestID( aDeploymentRequestID );
+
+	}
 
 	
 }

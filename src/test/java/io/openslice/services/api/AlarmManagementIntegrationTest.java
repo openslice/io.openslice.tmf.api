@@ -142,6 +142,7 @@ public class AlarmManagementIntegrationTest {
 		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
 		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.warning.name());
 		assertThat(alarm.getAlarmType()).isEqualTo(AlarmType.qualityOfServiceAlarm.name());
+		assertThat(alarm.getAlarmRaisedTime()  ).isNotNull();
 
 		AlarmUpdate aupd = new AlarmUpdate();
 		aupd.setAckState("acknowledged");

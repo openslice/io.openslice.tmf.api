@@ -86,6 +86,7 @@ public class AlarmRepoService {
 		al.setAlarmReportingTime(OffsetDateTime.now(ZoneOffset.UTC));
 		al.setAlarmChangedTime(OffsetDateTime.now(ZoneOffset.UTC));
 		al.setSourceSystemId(alarmUpdate.getSourceSystemId());
+		al.setAlarmRaisedTime( alarmUpdate.getAlarmRaisedTime() );
 
 		al = updateAlarmFromAPICall(al, alarmUpdate);
 

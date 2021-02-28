@@ -360,7 +360,7 @@ public class AlarmUpdate {
 	
 	public void setAlarmReportingTime(String alarmReportingTime) {
 		if (alarmReportingTime != null) {
-			this.alarmClearedTime = OffsetDateTime.parse(alarmReportingTime);
+			this.alarmReportingTime = OffsetDateTime.parse(alarmReportingTime);
 		}
 
 	}

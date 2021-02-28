@@ -163,6 +163,13 @@ public class OpensliceEvent {
 	public void setEventTime(OffsetDateTime eventTime) {
 		this.eventTime = eventTime;
 	}
+	
+	public void setEventTime(String eventTime) {
+		if ( eventTime != null) {
+			this.eventTime = OffsetDateTime.parse( eventTime );
+			
+		}
+	}
 
 	public OpensliceEvent eventType(String eventType) {
 		this.eventType = eventType;
@@ -310,6 +317,14 @@ public class OpensliceEvent {
 
 	public void setTimeOcurred(OffsetDateTime timeOcurred) {
 		this.timeOcurred = timeOcurred;
+	}
+	
+	
+	public void setTimeOcurred(String timeOcurred) {
+		if ( timeOcurred != null) {
+			this.timeOcurred = OffsetDateTime.parse( timeOcurred );
+			
+		}
 	}
 
 	@Override

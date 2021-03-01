@@ -90,7 +90,7 @@ public class AlarmRepoService {
 
 		al = updateAlarmFromAPICall(al, alarmUpdate);
 
-		al = updateAffectedService(al);
+		al = updateAffectedServiceIF_NFVO(al);
 
 		al = this.alarmRepo.save(al);
 		raiseAlarmCreateEvent(al);
@@ -106,10 +106,20 @@ public class AlarmRepoService {
 		return optionalCat.orElse(null);
 	}
 
-	private Alarm updateAffectedService(Alarm al) {
+	/**
+	 * 
+	 * This one is needed if we have a specific alarm from NFVO (OSM in our case)
+	 * In future we might have more complex things
+	 * This function could be in OAS to find and identify the related Service from the inventory
+	 * that is related with this NS instance
+	 * 
+	 * @param al
+	 * @return
+	 */
+	private Alarm updateAffectedServiceIF_NFVO(Alarm al) {
 		// specificProblem(DeploymentRequestID=OSM NS_ID)
 
-		if (al.getSpecificProblem() != null) {
+		if ( (al.getSourceSystemId().equals("mano-client-service") ) && (al.getSpecificProblem() != null) ) {
 			if (al.getSpecificProblem().contains("DeploymentRequestID")) {
 				String[] vals = al.getSpecificProblem().split(";");
 				for (String details : vals) {

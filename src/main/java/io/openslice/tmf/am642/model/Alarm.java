@@ -25,7 +25,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -70,6 +72,8 @@ public class Alarm extends BaseRootEntity {
 	private OffsetDateTime alarmClearedTime = null;
 
 	@JsonProperty("alarmDetails")
+	@Lob
+	@Column(name = "LALARMDETAILS", columnDefinition = "LONGTEXT")
 	private String alarmDetails = null;
 
 	@JsonProperty("alarmEscalation")
@@ -119,6 +123,8 @@ public class Alarm extends BaseRootEntity {
 	private String sourceSystemId = null;
 
 	@JsonProperty("specificProblem")
+	@Lob
+	@Column(name = "LSPECIFICPROB", columnDefinition = "LONGTEXT")
 	private String specificProblem = null;
 
 	@JsonProperty("state")

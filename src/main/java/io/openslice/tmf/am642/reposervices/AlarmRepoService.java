@@ -119,9 +119,9 @@ public class AlarmRepoService {
 	private Alarm updateAffectedServiceIF_NFVO(Alarm al) {
 		// specificProblem(DeploymentRequestID=OSM NS_ID)
 
-		if ( (al.getSourceSystemId().equals("mano-client-service") ) && (al.getSpecificProblem() != null) ) {
-			if (al.getSpecificProblem().contains("DeploymentRequestID")) {
-				String[] vals = al.getSpecificProblem().split(";");
+		if ( (al.getSourceSystemId().equals("mano-client-service") ) && (al.getAlarmDetails() != null) ) {
+			if (al.getAlarmDetails().contains("DeploymentRequestID")) {
+				String[] vals = al.getAlarmDetails().split(";");
 				for (String details : vals) {
 					String[] d = details.split("=");
 					if ( d[0].equals( "DeploymentRequestID" ) ) {
@@ -388,17 +388,6 @@ public class AlarmRepoService {
 					al.getComment().add(ar);
 					idAddedUpdated.put(ar.getUuid(), true);
 				}
-			}
-
-			List<Comment> toRemove = new ArrayList<>();
-			for (Comment ss : al.getComment()) {
-				if (idAddedUpdated.get(ss.getUuid()) == null) {
-					toRemove.add(ss);
-				}
-			}
-
-			for (Comment ar : toRemove) {
-				al.getComment().remove(ar);
 			}
 
 		}

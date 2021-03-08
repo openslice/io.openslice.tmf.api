@@ -66,6 +66,7 @@ import io.openslice.tmf.am642.model.AlarmCreate;
 import io.openslice.tmf.am642.model.AlarmStateType;
 import io.openslice.tmf.am642.model.AlarmType;
 import io.openslice.tmf.am642.model.AlarmUpdate;
+import io.openslice.tmf.am642.model.Comment;
 import io.openslice.tmf.am642.model.PerceivedSeverityType;
 import io.openslice.tmf.am642.model.ProbableCauseType;
 import io.openslice.tmf.am642.reposervices.AlarmRepoService;
@@ -122,6 +123,10 @@ public class AlarmManagementIntegrationTest {
 		a.setIsRootCause(true);
 		a.setProbableCause(ProbableCauseType.resourceAtOrNearingCapacity.name());
 		a.reportingSystemId("OSA");
+		
+		Comment comment = new Comment();
+		comment.setComment("test");
+		a.addCommentItem(comment );
 
 		AffectedService as = new AffectedService();
 		as.setId("aServiceID");
@@ -143,12 +148,17 @@ public class AlarmManagementIntegrationTest {
 		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.warning.name());
 		assertThat(alarm.getAlarmType()).isEqualTo(AlarmType.qualityOfServiceAlarm.name());
 		assertThat(alarm.getAlarmRaisedTime()  ).isNotNull();
+		assertThat(alarm.getComment().size() ).isEqualTo(1);
 
 		AlarmUpdate aupd = new AlarmUpdate();
 		aupd.setAckState("acknowledged");
 		aupd.setAckSystemId("OSA");
 		aupd.setPerceivedSeverity(PerceivedSeverityType.warning.name());
 		aupd.setState(AlarmStateType.updated.name());
+		comment = new Comment();
+		comment.setComment("test");
+		aupd.addCommentItem(comment );
+		
 		response = mvc
 				.perform(MockMvcRequestBuilders.patch("/alarmManagement/v4/alarm/" + alarm.getId() )
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
@@ -166,6 +176,7 @@ public class AlarmManagementIntegrationTest {
 		assertThat(alarm.getAckSystemId()).isEqualTo("OSA");
 		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.warning.name());
 		assertThat(alarm.getAlarmType()).isEqualTo(AlarmType.qualityOfServiceAlarm.name());
+		assertThat(alarm.getComment().size() ).isEqualTo(2);
 
 		aupd = new AlarmUpdate();
 		aupd.setState(AlarmStateType.cleared.name());

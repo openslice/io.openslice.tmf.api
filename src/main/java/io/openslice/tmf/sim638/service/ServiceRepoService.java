@@ -646,6 +646,9 @@ public class ServiceRepoService {
 	public Void deleteServiceActionQueueItemByUuid(String id) {
 		
 		Optional<ServiceActionQueueItem> optso = this.serviceActionQueueRepo.findByUuid(id);
+		if ( optso == null ) {
+			return null;
+		}
 		ServiceActionQueueItem so = optso.get();
 		if ( so == null ) {
 			return null;

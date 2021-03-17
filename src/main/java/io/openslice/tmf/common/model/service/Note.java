@@ -23,7 +23,9 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
@@ -50,6 +52,8 @@ public class Note extends BaseRootEntity {
 	@JsonProperty("system")
 	private String system = null;
 
+	@Lob
+	@Column(name = "LTEXT", columnDefinition = "LONGTEXT")
 	@JsonProperty("text")
 	private String text = null;
 

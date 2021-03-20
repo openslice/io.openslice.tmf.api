@@ -345,6 +345,12 @@ public class ServiceRepoService {
 	@Transactional
 	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO ) {
 		Service service = this.findByUuid(id);
+		
+		if ( service == null ) {
+
+			logger.error("Service cannot be found in registry, UUID: " + id  );
+			return null;
+		}
 
 		logger.info("Will update service: " + service.getName() );
 		//logger.info("Will update service details: " + s.toString() );
@@ -646,7 +652,7 @@ public class ServiceRepoService {
 	public Void deleteServiceActionQueueItemByUuid(String id) {
 		
 		Optional<ServiceActionQueueItem> optso = this.serviceActionQueueRepo.findByUuid(id);
-		if ( optso == null ) {
+		if ( optso.isEmpty() ) {
 			return null;
 		}
 		ServiceActionQueueItem so = optso.get();
@@ -665,6 +671,21 @@ public class ServiceRepoService {
 
 		List<String> result = new ArrayList<>();
 		List<Service> srvs = this.serviceRepo.findActiveToTerminate();
+		for (Service service : srvs) {
+			result.add(  service.getId());
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @return UUIDs of Services and put them in a List
+	 */
+	@Transactional
+	public List<String> findAllActiveServicesOfPartners(){
+
+		List<String> result = new ArrayList<>();
+		List<Service> srvs = this.serviceRepo.findActiveServicesOfPartners();
 		for (Service service : srvs) {
 			result.add(  service.getId());
 		}

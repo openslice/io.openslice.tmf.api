@@ -55,6 +55,7 @@ import io.openslice.tmf.am642.model.AlarmUpdate;
 import io.openslice.tmf.am642.model.Comment;
 import io.openslice.tmf.am642.model.RelatedPlaceRefOrValue;
 import io.openslice.tmf.am642.repo.AlarmRepository;
+import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
 
@@ -126,11 +127,14 @@ public class AlarmRepoService {
 					String[] d = details.split("=");
 					if ( d[0].equals( "DeploymentRequestID" ) ) {
 						var aservices = serviceRepoService.findDeploymentRequestID( d[1] );
+						
 						for (io.openslice.tmf.sim638.model.Service service : aservices) {
-							AffectedService as = new AffectedService();
-							as.setId( service.getUuid());
-							as.setBaseType("Service");
-							al.getAffectedService().add(as );
+							if ( service.getState().equals( ServiceStateType.ACTIVE )  ) {
+								AffectedService as = new AffectedService();
+								as.setId( service.getUuid());
+								as.setBaseType("Service");
+								al.getAffectedService().add(as );								
+							}
 						}	
 						
 					}				

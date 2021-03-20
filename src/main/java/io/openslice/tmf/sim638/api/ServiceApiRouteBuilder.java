@@ -95,6 +95,9 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_SERVICES_TO_TERMINATE}")
 	private String CATALOG_SERVICES_TO_TERMINATE = "";
 
+	@Value("${CATALOG_SERVICES_OF_PARTNERS}")
+	private String CATALOG_SERVICES_OF_PARTNERS = "";
+	
 
 	@Autowired
 	private ProducerTemplate template;
@@ -157,6 +160,15 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.bean( serviceRepoService, "findAllActiveServicesToTerminate")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
+		
+
+		from( CATALOG_SERVICES_OF_PARTNERS )
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICES_OF_PARTNERS + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( serviceRepoService, "findAllActiveServicesOfPartners")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+		
 	}
 	
 	

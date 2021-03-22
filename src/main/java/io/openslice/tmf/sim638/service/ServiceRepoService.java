@@ -682,10 +682,10 @@ public class ServiceRepoService {
 	 * @return UUIDs of Services and put them in a List
 	 */
 	@Transactional
-	public List<String> findAllActiveServicesOfPartners(){
+	public List<String> findAllActiveAndReservedServicesOfPartners(){
 
 		List<String> result = new ArrayList<>();
-		List<Service> srvs = this.serviceRepo.findActiveServicesOfPartners();
+		List<Service> srvs = this.serviceRepo.findActiveAndReservedServicesOfPartners();
 		for (Service service : srvs) {
 			result.add(  service.getId());
 		}
@@ -708,5 +708,17 @@ public class ServiceRepoService {
 
 	}
 
+
+	@Transactional
+	public List<String> getServicesFromOrderID(String orderid){
+
+		List<String> result = new ArrayList<>();
+		List<Service> srvs = this.serviceRepo.findServicesFromOrderID( orderid );
+		for (Service service : srvs) {
+			result.add(  service.getId());
+		}
+		
+		return result;
+	}
 	
 }

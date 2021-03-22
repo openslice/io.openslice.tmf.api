@@ -53,9 +53,15 @@ public interface ServiceRepository extends PagingAndSortingRepository<Service, L
 	@Query("SELECT srv FROM Service srv "
 			+ "JOIN FETCH srv.serviceCharacteristic char "
 			+ "JOIN FETCH char.value val "
-			+ "WHERE srv.state = io.openslice.tmf.common.model.service.ServiceStateType.ACTIVE AND "
+			+ "WHERE (srv.state = io.openslice.tmf.common.model.service.ServiceStateType.ACTIVE OR "
+			+ " srv.state = io.openslice.tmf.common.model.service.ServiceStateType.RESERVED) AND "
 			+ "char.name = 'externalPartnerServiceId'"
 			 )	
-	List<Service> findActiveServicesOfPartners();
+	List<Service> findActiveAndReservedServicesOfPartners();
+
+	@Query("SELECT srv FROM Service srv "
+			+ "JOIN FETCH srv.serviceOrder sorder "
+			+ "WHERE sorder.id = ?1 " )	
+	List<Service> findServicesFromOrderID(String orderid);
 
 }

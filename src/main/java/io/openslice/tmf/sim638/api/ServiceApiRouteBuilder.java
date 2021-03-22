@@ -68,8 +68,12 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	private String CATALOG_UPD_SERVICE = "";
 
 	@Value("${CATALOG_GET_SERVICE_BY_ID}")
-	private String CATALOG_GET_SERVICE_BY_ID = "";
+	private String CATALOG_GET_SERVICE_BY_ID = "";	
 
+	@Value("${CATALOG_GET_SERVICE_BY_ORDERID}")
+	private String CATALOG_GET_SERVICE_BY_ORDERID = "";
+	
+	
 	@Value("${CATALOG_SERVICE_QUEUE_ITEMS_GET}")
 	private String CATALOG_SERVICE_QUEUE_ITEMS_GET = "";	
 
@@ -122,6 +126,8 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.bean( serviceRepoService, "getServiceEagerAsString")
 		.convertBodyTo( String.class );
 		
+		
+		
 		from( CATALOG_UPD_SERVICE )
 		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICE + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
@@ -165,9 +171,18 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		from( CATALOG_SERVICES_OF_PARTNERS )
 		.log(LoggingLevel.INFO, log, CATALOG_SERVICES_OF_PARTNERS + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
-		.bean( serviceRepoService, "findAllActiveServicesOfPartners")
+		.bean( serviceRepoService, "findAllActiveAndReservedServicesOfPartners")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
+		
+
+		from( CATALOG_GET_SERVICE_BY_ORDERID )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICE_BY_ORDERID + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( serviceRepoService, "getServicesFromOrderID")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+		
 		
 	}
 	

@@ -339,7 +339,7 @@ public class ServiceOrderRepoService {
 		
 		Note noteItem = new Note();
 		noteItem.setText("Service Order " + ServiceOrderStateType.INITIAL);
-		noteItem.setAuthor("API");
+		noteItem.setAuthor("SO641API-addServiceOrder");
 		noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 		so.addNoteItem(noteItem);
 
@@ -350,7 +350,7 @@ public class ServiceOrderRepoService {
 			so.setStartDate(  OffsetDateTime.now(ZoneOffset.UTC) );
 			noteItem = new Note();
 			noteItem.setText("Service Order " + ServiceOrderStateType.ACKNOWLEDGED);
-			noteItem.setAuthor("API");
+			noteItem.setAuthor("SO641API-addServiceOrder");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			so.addNoteItem(noteItem);
 			
@@ -616,7 +616,7 @@ public class ServiceOrderRepoService {
 		if ( stateChanged ) {
 			Note noteItem = new Note();
 			noteItem.setText("Service Order " + so.getState() );
-			noteItem.setAuthor("API");
+			noteItem.setAuthor("SO641API-copySpecCharacteristics");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			so.addNoteItem(noteItem);				
 		}

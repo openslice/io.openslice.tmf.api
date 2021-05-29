@@ -2,7 +2,7 @@
  * ========================LICENSE_START=================================
  * io.openslice.tmf.api
  * %%
- * Copyright (C) 2019 openslice.io
+ * Copyright (C) 2019 - 2021 openslice.io
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,46 +27,78 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Error
+ * Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
  */
+@ApiModel(description = "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
-
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 public class Error   {
   @JsonProperty("code")
-  private Integer code = null;
+  private String code = null;
+
+  @JsonProperty("reason")
+  private String reason = null;
 
   @JsonProperty("message")
   private String message = null;
 
-  @JsonProperty("description")
-  private String description = null;
+  @JsonProperty("status")
+  private String status = null;
 
-  @JsonProperty("infoURL")
-  private String infoURL = null;
+  @JsonProperty("referenceError")
+  private String referenceError = null;
 
-  public Error code(Integer code) {
+  @JsonProperty("@baseType")
+  private String _atBaseType = null;
+
+  @JsonProperty("@schemaLocation")
+  private String _atSchemaLocation = null;
+
+  @JsonProperty("@type")
+  private String _atType = null;
+
+  public Error code(String code) {
     this.code = code;
     return this;
   }
 
   /**
-   * An integer coding the error type. This is given to caller so he can translate them if required.
+   * Application relevant detail, defined in the API or a common list.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "An integer coding the error type. This is given to caller so he can translate them if required.")
-  @NotNull
+  @ApiModelProperty(required = true, value = "Application relevant detail, defined in the API or a common list.")
+      @NotNull
 
-
-  public Integer getCode() {
+    public String getCode() {
     return code;
   }
 
-  public void setCode(Integer code) {
+  public void setCode(String code) {
     this.code = code;
+  }
+
+  public Error reason(String reason) {
+    this.reason = reason;
+    return this;
+  }
+
+  /**
+   * Explanation of the reason for the error which can be shown to a client user.
+   * @return reason
+  **/
+  @ApiModelProperty(required = true, value = "Explanation of the reason for the error which can be shown to a client user.")
+      @NotNull
+
+    public String getReason() {
+    return reason;
+  }
+
+  public void setReason(String reason) {
+    this.reason = reason;
   }
 
   public Error message(String message) {
@@ -75,14 +107,12 @@ public class Error   {
   }
 
   /**
-   * A short localized string that describes the error.
+   * More details and corrective actions related to the error which can be shown to a client user.
    * @return message
   **/
-  @ApiModelProperty(required = true, value = "A short localized string that describes the error.")
-  @NotNull
-
-
-  public String getMessage() {
+  @ApiModelProperty(value = "More details and corrective actions related to the error which can be shown to a client user.")
+  
+    public String getMessage() {
     return message;
   }
 
@@ -90,44 +120,99 @@ public class Error   {
     this.message = message;
   }
 
-  public Error description(String description) {
-    this.description = description;
+  public Error status(String status) {
+    this.status = status;
     return this;
   }
 
   /**
-   * (optional) A long localized error description if needed. It can contain precise information about which parameter is missing, or what are the identifier acceptable values.
-   * @return description
+   * HTTP Error code extension
+   * @return status
   **/
-  @ApiModelProperty(value = "(optional) A long localized error description if needed. It can contain precise information about which parameter is missing, or what are the identifier acceptable values.")
-
-
-  public String getDescription() {
-    return description;
+  @ApiModelProperty(value = "HTTP Error code extension")
+  
+    public String getStatus() {
+    return status;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
-  public Error infoURL(String infoURL) {
-    this.infoURL = infoURL;
+  public Error referenceError(String referenceError) {
+    this.referenceError = referenceError;
     return this;
   }
 
   /**
-   * (optional) A URL to online documentation that provides more information about the error.
-   * @return infoURL
+   * URI of documentation describing the error.
+   * @return referenceError
   **/
-  @ApiModelProperty(value = "(optional) A URL to online documentation that provides more information about the error.")
-
-
-  public String getInfoURL() {
-    return infoURL;
+  @ApiModelProperty(value = "URI of documentation describing the error.")
+  
+    public String getReferenceError() {
+    return referenceError;
   }
 
-  public void setInfoURL(String infoURL) {
-    this.infoURL = infoURL;
+  public void setReferenceError(String referenceError) {
+    this.referenceError = referenceError;
+  }
+
+  public Error _atBaseType(String _atBaseType) {
+    this._atBaseType = _atBaseType;
+    return this;
+  }
+
+  /**
+   * When sub-classing, this defines the super-class.
+   * @return _atBaseType
+  **/
+  @ApiModelProperty(value = "When sub-classing, this defines the super-class.")
+  
+    public String getAtBaseType() {
+    return _atBaseType;
+  }
+
+  public void setAtBaseType(String _atBaseType) {
+    this._atBaseType = _atBaseType;
+  }
+
+  public Error _atSchemaLocation(String _atSchemaLocation) {
+    this._atSchemaLocation = _atSchemaLocation;
+    return this;
+  }
+
+  /**
+   * A URI to a JSON-Schema file that defines additional attributes and relationships
+   * @return _atSchemaLocation
+  **/
+  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  
+    public String getAtSchemaLocation() {
+    return _atSchemaLocation;
+  }
+
+  public void setAtSchemaLocation(String _atSchemaLocation) {
+    this._atSchemaLocation = _atSchemaLocation;
+  }
+
+  public Error _atType(String _atType) {
+    this._atType = _atType;
+    return this;
+  }
+
+  /**
+   * When sub-classing, this defines the sub-class entity name.
+   * @return _atType
+  **/
+  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name.")
+  
+    public String getAtType() {
+    return _atType;
+  }
+
+  public void setAtType(String _atType) {
+    this._atType = _atType;
   }
 
 
@@ -141,14 +226,18 @@ public class Error   {
     }
     Error error = (Error) o;
     return Objects.equals(this.code, error.code) &&
+        Objects.equals(this.reason, error.reason) &&
         Objects.equals(this.message, error.message) &&
-        Objects.equals(this.description, error.description) &&
-        Objects.equals(this.infoURL, error.infoURL);
+        Objects.equals(this.status, error.status) &&
+        Objects.equals(this.referenceError, error.referenceError) &&
+        Objects.equals(this._atBaseType, error._atBaseType) &&
+        Objects.equals(this._atSchemaLocation, error._atSchemaLocation) &&
+        Objects.equals(this._atType, error._atType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message, description, infoURL);
+    return Objects.hash(code, reason, message, status, referenceError, _atBaseType, _atSchemaLocation, _atType);
   }
 
   @Override
@@ -157,9 +246,13 @@ public class Error   {
     sb.append("class Error {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    infoURL: ").append(toIndentedString(infoURL)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    referenceError: ").append(toIndentedString(referenceError)).append("\n");
+    sb.append("    _atBaseType: ").append(toIndentedString(_atBaseType)).append("\n");
+    sb.append("    _atSchemaLocation: ").append(toIndentedString(_atSchemaLocation)).append("\n");
+    sb.append("    _atType: ").append(toIndentedString(_atType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -175,4 +268,3 @@ public class Error   {
     return o.toString().replace("\n", "\n    ");
   }
 }
-

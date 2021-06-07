@@ -43,16 +43,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.common.model.AttachmentRef;
+import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpecUpdate;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpecCreate;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
@@ -82,26 +81,26 @@ public class ResourceSpecificationRepoService {
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
 		ResourceSpecification reSpec ;
-		if ( resourceSpecification.getType().equals( "PhysicalResourceSpec" )  || 
-				 resourceSpecification.getType().equals( "PhysicalResourceSpecCreate" )  ) {
-			reSpec = new PhysicalResourceSpec(); 
+		if ( resourceSpecification.getType().equals( "PhysicalResourceSpecification" )  || 
+				 resourceSpecification.getType().equals( "PhysicalResourceSpecificationCreate" )  ) {
+			reSpec = new PhysicalResourceSpecification(); 
 		}else {
-			reSpec = new LogicalResourceSpec();			
+			reSpec = new LogicalResourceSpecification();			
 		}
 		
 		return addResourceSpecificationGeneric(reSpec, resourceSpecification);
 	}
 	
-	public LogicalResourceSpec addLogicalResourceSpecification(@Valid LogicalResourceSpecCreate logicalResourceSpec) {
-		LogicalResourceSpec reSpec = new LogicalResourceSpec();
+	public LogicalResourceSpecification addLogicalResourceSpecification(@Valid ResourceSpecificationCreate logicalResourceSpec) {
+		LogicalResourceSpecification reSpec = new LogicalResourceSpecification();
 
-		return (LogicalResourceSpec) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
+		return (LogicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
 	}
 	
-	public PhysicalResourceSpec addPhysicalResourceSpecification(@Valid PhysicalResourceSpecCreate logicalResourceSpec) {
-		PhysicalResourceSpec reSpec = new PhysicalResourceSpec();
+	public PhysicalResourceSpecification addPhysicalResourceSpecification(@Valid PhysicalResourceSpecificationCreate logicalResourceSpec) {
+		PhysicalResourceSpecification reSpec = new PhysicalResourceSpecification();
 
-		return (PhysicalResourceSpec) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
+		return (PhysicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
 	}
 	
 	private ResourceSpecification addResourceSpecificationGeneric(ResourceSpecification reSpec, @Valid ResourceSpecificationUpdate  resourceSpecification) {
@@ -116,12 +115,12 @@ public class ResourceSpecificationRepoService {
 		return (List<ResourceSpecification>) this.resourceSpecificationRepo.findAll();
 	}
 	
-	public List<LogicalResourceSpec> findAllLogical() {
-		return (List<LogicalResourceSpec>) this.resourceSpecificationRepo.findAllLogical();
+	public List<LogicalResourceSpecification> findAllLogical() {
+		return (List<LogicalResourceSpecification>) this.resourceSpecificationRepo.findAllLogical();
 	}
 	
-	public List<PhysicalResourceSpec> findAllPhysical() {
-		return (List<PhysicalResourceSpec>) this.resourceSpecificationRepo.findAllPhysical();
+	public List<PhysicalResourceSpecification> findAllPhysical() {
+		return (List<PhysicalResourceSpecification>) this.resourceSpecificationRepo.findAllPhysical();
 	}
 
 	public ResourceSpecification findByUuid(String id) {
@@ -153,14 +152,14 @@ public class ResourceSpecificationRepoService {
 		
 	}
 	
-	public LogicalResourceSpec updateLogicalResourceSpecSpecification(String id,
-			@Valid LogicalResourceSpecUpdate logicalResourceSpec) {
-		return (LogicalResourceSpec) this.updateResourceSpecification(id, logicalResourceSpec);
+	public LogicalResourceSpecification updateLogicalResourceSpecSpecification(String id,
+			@Valid ResourceSpecificationUpdate logicalResourceSpec) {
+		return (LogicalResourceSpecification) this.updateResourceSpecification(id, logicalResourceSpec);
 	}
 	
-	public PhysicalResourceSpec updatePhysicalResourceSpecSpecification(String id,
-			@Valid PhysicalResourceSpecUpdate physicalResourceSpec) {
-		return (PhysicalResourceSpec) this.updateResourceSpecification(id, physicalResourceSpec);
+	public PhysicalResourceSpecification updatePhysicalResourceSpecSpecification(String id,
+			@Valid ResourceSpecificationUpdate physicalResourceSpec) {
+		return (PhysicalResourceSpecification) this.updateResourceSpecification(id, physicalResourceSpec);
 	}
 	
 	
@@ -182,12 +181,11 @@ public class ResourceSpecificationRepoService {
 		
 		resourceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		
-		if (resourceSpec instanceof PhysicalResourceSpec){
-			((PhysicalResourceSpec) resourceSpec).setModel(( (PhysicalResourceSpecUpdate) resSpecUpd ).getModel() );
-			((PhysicalResourceSpec) resourceSpec).setPart(( (PhysicalResourceSpecUpdate) resSpecUpd ).getPart() );
-			((PhysicalResourceSpec) resourceSpec).setSku(( (PhysicalResourceSpecUpdate) resSpecUpd ).getSku() );
-			((PhysicalResourceSpec) resourceSpec).setVendor(( (PhysicalResourceSpecUpdate) resSpecUpd ).getVendor() );
-			((PhysicalResourceSpec) resourceSpec).setPlace(( (PhysicalResourceSpecUpdate) resSpecUpd ).getPlace() );
+		if (resourceSpec instanceof PhysicalResourceSpecification){
+			((PhysicalResourceSpecification) resourceSpec).setModel(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getModel() );
+			((PhysicalResourceSpecification) resourceSpec).setPart(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getPart() );
+			((PhysicalResourceSpecification) resourceSpec).setSku(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getSku() );
+			((PhysicalResourceSpecification) resourceSpec).setVendor(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getVendor() );
 		}
 		
 		
@@ -207,11 +205,11 @@ public class ResourceSpecificationRepoService {
 
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 			
-			for (AttachmentRef ar : resSpecUpd.getAttachment()) {
+			for (AttachmentRefOrValue ar : resSpecUpd.getAttachment()) {
 				//find attachmet by id and reload it here.
 				//we need the attachment model from resource spec models
 				boolean idexists = false;
-				for (AttachmentRef orinalAtt : resourceSpec.getAttachment()) {
+				for (AttachmentRefOrValue orinalAtt : resourceSpec.getAttachment()) {
 					if ( orinalAtt.getId().equals(ar.getId())) {
 						idexists = true;
 						idAddedUpdated.put( orinalAtt.getId(), true);
@@ -225,14 +223,14 @@ public class ResourceSpecificationRepoService {
 				}				
 			}
 			
-			List<AttachmentRef> toRemove = new ArrayList<>();
-			for (AttachmentRef ss : resourceSpec.getAttachment()) {
+			List<AttachmentRefOrValue> toRemove = new ArrayList<>();
+			for (AttachmentRefOrValue ss : resourceSpec.getAttachment()) {
 				if ( idAddedUpdated.get( ss.getId() ) == null ) {
 					toRemove.add(ss);
 				}
 			}
 			
-			for (AttachmentRef ar : toRemove) {
+			for (AttachmentRefOrValue ar : toRemove) {
 				resourceSpec.getAttachment().remove(ar);
 			}
 			
@@ -243,18 +241,18 @@ public class ResourceSpecificationRepoService {
 		
 		
 		/**
-		 * Update ResourceSpecCharacteristic list
+		 * Update ResourceSpecificationCharacteristic list
 		 * We need to compare by name, since IDs will not exist
 		 */
-		if (resSpecUpd.getResourceSpecCharacteristic() != null ){
+		if (resSpecUpd.getResourceSpecificationCharacteristic() != null ){
 			//reattach attachments fromDB
 			
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 			
-			for (ResourceSpecCharacteristic charUpd : resSpecUpd.getResourceSpecCharacteristic()) {			
+			for (ResourceSpecificationCharacteristic charUpd : resSpecUpd.getResourceSpecificationCharacteristic()) {			
 				
 				boolean nameExists = false;
-				for (ResourceSpecCharacteristic originalSpecChar : resourceSpec.getResourceSpecCharacteristic()) {
+				for (ResourceSpecificationCharacteristic originalSpecChar : resourceSpec.getResourceSpecCharacteristic()) {
 					if ( originalSpecChar.getName().equals(charUpd.getName())) {
 						nameExists = true;
 						idAddedUpdated.put( originalSpecChar.getName(), true);
@@ -264,20 +262,20 @@ public class ResourceSpecificationRepoService {
 				}
 				
 				if (!nameExists) {
-					resourceSpec.getResourceSpecCharacteristic().add( new ResourceSpecCharacteristic( charUpd ));
+					resourceSpec.getResourceSpecCharacteristic().add( new ResourceSpecificationCharacteristic( charUpd ));
 					idAddedUpdated.put( charUpd.getName(), true);
 				}
 				
 			}
 			
-			List<ResourceSpecCharacteristic> toRemove = new ArrayList<>();
-			for (ResourceSpecCharacteristic ss : resourceSpec.getResourceSpecCharacteristic()) {
+			List<ResourceSpecificationCharacteristic> toRemove = new ArrayList<>();
+			for (ResourceSpecificationCharacteristic ss : resourceSpec.getResourceSpecCharacteristic()) {
 				if ( idAddedUpdated.get( ss.getName() ) == null ) {
 					toRemove.add(ss);
 				}
 			}
 			
-			for (ResourceSpecCharacteristic pecCharacteristic : toRemove) {
+			for (ResourceSpecificationCharacteristic pecCharacteristic : toRemove) {
 				resourceSpec.getResourceSpecCharacteristic().remove(pecCharacteristic);
 			}
 
@@ -289,9 +287,9 @@ public class ResourceSpecificationRepoService {
 		 * Update ResourceSpecRelationship list
 		 */
 		
-		if (resSpecUpd.getResourceSpecRelationship() != null ){
+		if (resSpecUpd.getResourceSpecificationRelationship() != null ){
 			resourceSpec.getResourceSpecRelationship().clear();
-			resourceSpec.getResourceSpecRelationship().addAll( resSpecUpd.getResourceSpecRelationship() );
+			resourceSpec.getResourceSpecRelationship().addAll( resSpecUpd.getResourceSpecificationRelationship() );
 		}
 		
 		/**
@@ -316,7 +314,7 @@ public class ResourceSpecificationRepoService {
 	}
 
 	public ResourceSpecification initRepo() {
-		ResourceSpecification spec = new LogicalResourceSpec();
+		ResourceSpecification spec = new LogicalResourceSpecification();
 		spec.setName("A Logical Resource");
 		spec.setVersion("1.0.0");
 		spec = this.resourceSpecificationRepo.save(spec);
@@ -358,9 +356,9 @@ public class ResourceSpecificationRepoService {
 				att.setName(aFileNamePosted);				
 				// Save the file destination
 				
-				if ( spec instanceof LogicalResourceSpec ) {
+				if ( spec instanceof LogicalResourceSpecification ) {
 					att.setUrl(  "/logicalResourceSpec/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
-				}if ( spec instanceof PhysicalResourceSpec ) {
+				}if ( spec instanceof PhysicalResourceSpecification ) {
 					att.setUrl(  "/physicalResourceSpec/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
 				}else {
 					 att.setUrl(  "/resourceSpecification/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
@@ -375,7 +373,7 @@ public class ResourceSpecificationRepoService {
 		}	
 		
 		
-		AttachmentRef attref = new AttachmentRef();
+		AttachmentRefOrValue attref = new AttachmentRefOrValue();
 		attref.setId(att.getId());
 		attref.setDescription(att.getDescription());
 		attref.setUrl(att.getUrl());

@@ -39,18 +39,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.scm633.model.ServiceCategory;
-import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+
 /**
- * The (resource) category resource is used to group resource candidates in
- * logical containers. Categories can contain other categories.
+ * The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories.
  */
 @ApiModel(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "ResourceCategory")
 public class ResourceCategory extends BaseEntity {

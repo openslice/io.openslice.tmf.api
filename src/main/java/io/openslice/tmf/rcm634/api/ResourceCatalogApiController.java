@@ -2,7 +2,7 @@
  * ========================LICENSE_START=================================
  * io.openslice.tmf.api
  * %%
- * Copyright (C) 2019 openslice.io
+ * Copyright (C) 2019 - 2021 openslice.io
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,7 @@
 package io.openslice.tmf.rcm634.api;
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +39,10 @@ import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
 import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.swagger.annotations.ApiParam;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 @Controller
-@RequestMapping("/resourceCatalogManagement/v2/")
+@RequestMapping("/resourceCatalogManagement/v4/")
 public class ResourceCatalogApiController implements ResourceCatalogApi {
 
 
@@ -53,6 +51,7 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
 	
 
 
+	@Override
 	public ResponseEntity<ResourceCatalog> createResourceCatalog(
 			@ApiParam(value = "The Resource Catalog to be created" ,required=true )  @Valid @RequestBody ResourceCatalogCreate resourceCatalog) {
     	try {
@@ -68,6 +67,7 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
 	
 	
 
+	@Override
     public ResponseEntity<Void> deleteResourceCatalog(@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id) {
     	try {
 
@@ -78,6 +78,7 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
 		}
     }
 
+	@Override
     public ResponseEntity<List<ResourceCatalog>> listResourceCatalog(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
        
         try {
@@ -89,13 +90,16 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
 		}
     }
 
-    public ResponseEntity<ResourceCatalog> patchResourceCatalog(@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id,@ApiParam(value = "The ResourceCatalog to be updated" ,required=true )  @Valid @RequestBody ResourceCatalogUpdate serviceCatalog) {
-
-		ResourceCatalog c = catalogRepoService.updateCatalog( id, serviceCatalog );
+	@Override
+	public ResponseEntity<ResourceCatalog> patchResourceCatalog(@Valid ResourceCatalogUpdate body, String id) {
+		ResourceCatalog c = catalogRepoService.updateCatalog( id, body );
 
 		return new ResponseEntity<ResourceCatalog>(c, HttpStatus.OK);
-    }
+	}
+	
+   
 
+	@Override
     public ResponseEntity<ResourceCatalog> retrieveResourceCatalog(@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
     	try {
 

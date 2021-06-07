@@ -62,14 +62,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.Attachment;
-import io.openslice.tmf.common.model.AttachmentRef;
+import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.Quantity;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpecCreate;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpecCreate;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpecUpdate;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCatalog;
 import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
 import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
@@ -78,11 +78,11 @@ import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceCategoryUpdate;
 import io.openslice.tmf.rcm634.model.ResourceSpecCharRelationship;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
-import io.openslice.tmf.rcm634.model.ResourceSpecRelationship;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristicValue;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRelationship;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceCandidateRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
@@ -160,7 +160,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		ResourceCatalogCreate scc = toJsonObj( resvxf,  ResourceCatalogCreate.class);
 		
-		String response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCatalog")
+		String response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCatalog")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scc ) ))
@@ -189,7 +189,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		ResourceCategoryCreate scategcreate = toJsonObj( sc,  ResourceCategoryCreate.class);
 		
-		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCategory")
+		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCategory")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scategcreate ) ))
@@ -214,7 +214,7 @@ public class ResourceCatalogIntegrationTest {
 		categoryItem.setId( responsesCateg.getId() );
 		
 		scu.addCategoryItem(categoryItem);
-		 response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/resourceCatalog/" + responsesCatalog.getId() )
+		 response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v4/resourceCatalog/" + responsesCatalog.getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scu ) ))
@@ -240,9 +240,9 @@ public class ResourceCatalogIntegrationTest {
 		in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
-		LogicalResourceSpecCreate sspeccr = toJsonObj( sspectext,  LogicalResourceSpecCreate.class);
+		LogicalResourceSpecificationCreate sspeccr = toJsonObj( sspectext,  LogicalResourceSpecificationCreate.class);
 		
-		 response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/logicalResourceSpec")
+		 response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceSpecification")
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
@@ -254,16 +254,17 @@ public class ResourceCatalogIntegrationTest {
 		
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
-		LogicalResourceSpec responsesSpec = toJsonObj(response,  LogicalResourceSpec.class);
+		LogicalResourceSpecification responsesSpec = toJsonObj(response,  LogicalResourceSpecification.class);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Resource Spec" );
 
 		assertThat( responsesSpec.getResourceSpecCharacteristic().size() ).isEqualTo(1);
-		assertThat( responsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
 		
 		
-		PhysicalResourceSpecCreate physpeccr = toJsonObj( sspectext,  PhysicalResourceSpecCreate.class);
+		PhysicalResourceSpecificationCreate physpeccr = toJsonObj( sspectext,  PhysicalResourceSpecificationCreate.class);
+		physpeccr.setType("PhysicalResourceSpecification");
 		physpeccr.setModel("ACME");
-		 response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/physicalResourceSpec")
+		 response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceSpecification")
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( physpeccr ) ))
@@ -275,12 +276,12 @@ public class ResourceCatalogIntegrationTest {
 		
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +2 );
-		PhysicalResourceSpec phyresponsesSpec = toJsonObj(response,  PhysicalResourceSpec.class);
+		PhysicalResourceSpecification phyresponsesSpec = toJsonObj(response,  PhysicalResourceSpecification.class);
 		assertThat( phyresponsesSpec.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( phyresponsesSpec.getModel() ).isEqualTo( "ACME" );
 
 		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().size() ).isEqualTo(1);
-		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
 		
 	}
 	
@@ -315,7 +316,7 @@ public class ResourceCatalogIntegrationTest {
 
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
 
-		String response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+		String response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scUpd1 ) ))
@@ -357,7 +358,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );//categories must remain
 		//fetch the subcategory and check parent ID
 		
-		 response = mvc.perform(MockMvcRequestBuilders.get("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+		 response = mvc.perform(MockMvcRequestBuilders.get("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( scUpd1 ) ))
 			    .andExpect(status().isOk())
@@ -369,7 +370,7 @@ public class ResourceCatalogIntegrationTest {
 		 assertThat( child1Subcategory.getParentId()  ).isEqualTo( parentRootCategory.getId() );
 		 		 
 		 //delete category with childs not allows (not modified)
-		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
@@ -379,7 +380,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
 		
 		//delete subcategory
-		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
@@ -389,7 +390,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
 		
 		 //delete rootcategory 
-		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v2/resourceCategory/" + parentRootCategory.getId() )
+		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scUpd1 ) ))
@@ -404,7 +405,7 @@ public class ResourceCatalogIntegrationTest {
 
 	private ResourceCategory postCategory(ResourceCategoryCreate scategcreate, String name) throws UnsupportedEncodingException, IOException, Exception {
 			
-			String response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/resourceCategory")
+			String response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCategory")
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
 					.content( toJson( scategcreate ) ))
@@ -431,15 +432,15 @@ public class ResourceCatalogIntegrationTest {
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
-		LogicalResourceSpecCreate sspeccr = toJsonObj( sspectext,  LogicalResourceSpecCreate.class);
+		LogicalResourceSpecificationCreate sspeccr = toJsonObj( sspectext,  LogicalResourceSpecificationCreate.class);
 		
-		AttachmentRef attachmentItem = new AttachmentRef();
+		AttachmentRefOrValue attachmentItem = new AttachmentRefOrValue();
 		attachmentItem.setId( "a-ref-id" );
 		attachmentItem.setDescription("an attachment");
 		attachmentItem.setUrl("a url");
 		attachmentItem.setName("aname");
 		sspeccr.addAttachmentItem(attachmentItem);
-		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v2/logicalResourceSpec")
+		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceSpecification")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( sspeccr ) ))
@@ -448,7 +449,7 @@ public class ResourceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		LogicalResourceSpec responsesSpec = toJsonObj(responseSpec,  LogicalResourceSpec.class);
+		LogicalResourceSpecification responsesSpec = toJsonObj(responseSpec,  LogicalResourceSpecification.class);
 		//logger.info("Test: testSpecAttachments response = " + responseSpec);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( responsesSpec.getAttachment().size() ).isEqualTo( 1 );
@@ -464,15 +465,15 @@ public class ResourceCatalogIntegrationTest {
 		ResourceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec,  ResourceSpecificationUpdate.class);
 		responsesSpecUpd.setName( "Test Spec a attr" );
 		responsesSpecUpd.setVersion("2.x");
-		ResourceSpecCharacteristic spechar = new ResourceSpecCharacteristic();
+		ResourceSpecificationCharacteristic spechar = new ResourceSpecificationCharacteristic();
 		spechar.setName("A new characteristic");
-		ResourceSpecCharacteristicValue sv = new ResourceSpecCharacteristicValue();
+		ResourceSpecificationCharacteristicValue sv = new ResourceSpecificationCharacteristicValue();
 		sv.setValue( new Any("1" ,"a first value") );
 		sv.setValueType( EValueType.LONGTEXT.getValue());
-		spechar.getResourceSpecCharacteristicValue().add( sv );
-		responsesSpecUpd.getResourceSpecCharacteristic().add(spechar );
+		spechar.getResourceSpecificationCharacteristicValue().add( sv );
+		responsesSpecUpd.getResourceSpecificationCharacteristic().add(spechar );
 				
-		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec.getId() )
+		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v4/resourceSpecification/" + responsesSpec.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
@@ -481,16 +482,16 @@ public class ResourceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("Test Spec a attr")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification responsesSpec2 = toJsonObj(response2,  LogicalResourceSpec.class);
+		ResourceSpecification responsesSpec2 = toJsonObj(response2,  LogicalResourceSpecification.class);
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec a attr" );
 		assertThat( responsesSpec2.getVersion() ).isEqualTo( "2.x" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(2);
-		assertThat( responsesSpec2.getResourceSpecCharacteristic().toArray( new ResourceSpecCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec")   ).isNotNull();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNotNull();
-		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
-		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecCharacteristicValue().toArray( new ResourceSpecCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a first value");
-		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecCharacteristicValue().toArray( new ResourceSpecCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("LONGTEXT");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecificationCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a first value");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecificationCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("LONGTEXT");
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharRelationship().size()  ).isEqualTo(4);
 		
 
@@ -498,22 +499,22 @@ public class ResourceCatalogIntegrationTest {
 		
 		//test now update and delete things
 		responsesSpecUpd = toJsonObj(responseSpec,  ResourceSpecificationUpdate.class);
-		ResourceSpecCharacteristicValue val = new ResourceSpecCharacteristicValue();
+		ResourceSpecificationCharacteristicValue val = new ResourceSpecificationCharacteristicValue();
 		val.setValueType( EValueType.ARRAY.toString());
 		val.setValue( new Any("1" ,"a second value") );
-		responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharacteristicValue().add(val);
-		ResourceSpecCharRelationship scrObj = responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[0];
-		ResourceSpecCharRelationship scrObj2 = responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[1];
-		ResourceSpecCharRelationship scrObj3 = responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[2];
+		responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecificationCharacteristicValue().add(val);
+		ResourceSpecCharRelationship scrObj = responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[0];
+		ResourceSpecCharRelationship scrObj2 = responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[1];
+		ResourceSpecCharRelationship scrObj3 = responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[2];
 		scrObj3.setName("FORTESTING");
 		String preid = scrObj3.getId();
-		responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharRelationship().remove(scrObj);
-		responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharRelationship().remove(scrObj2);
+		responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().remove(scrObj);
+		responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().remove(scrObj2);
 		ResourceSpecCharRelationship scrObj4 = new ResourceSpecCharRelationship();
 		scrObj4.setName("ANEWCharRel");
-		responsesSpecUpd.getResourceSpecCharacteristic().get(0).getResourceSpecCharRelationship().add(scrObj4);
+		responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().add(scrObj4);
 		
-		response2 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec.getId() )
+		response2 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v4/resourceSpecification/" + responsesSpec.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
@@ -524,7 +525,7 @@ public class ResourceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 //		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2.toString());
 
-		responsesSpec2 = toJsonObj(response2,  LogicalResourceSpec.class);
+		responsesSpec2 = toJsonObj(response2,  LogicalResourceSpecification.class);
 
 		
 		
@@ -533,10 +534,10 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(1);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec")   ).isNotNull();
-		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().size()  ).isEqualTo(2);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(2);
 		boolean secvalExists = false;
 		boolean arrayValExists = false;
-		for (ResourceSpecCharacteristicValue respval : responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().toArray( new ResourceSpecCharacteristicValue[0] )) {
+		for (ResourceSpecificationCharacteristicValue respval : responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecificationCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )) {
 			if ( respval.getValue().getAlias().equals("a second value")){
 				secvalExists = true;
 			}
@@ -573,12 +574,20 @@ public class ResourceCatalogIntegrationTest {
 		
 	}
 	
+//	@GetMapping("/customHeader")
+//    public ResponseEntity<String> customHeader() {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Custom-Header", "foo");
+//
+//        return new ResponseEntity<>("Custom header set", headers, HttpStatus.OK);
+//    }
+
 	
 	private ResourceSpecification createResourceSpec(String sspectext, ResourceSpecificationUpdate sspeccr1) throws Exception{
 		
-		URI url = new URI("/resourceCatalogManagement/v2/logicalResourceSpec");
-		if (sspeccr1 instanceof PhysicalResourceSpecUpdate ) {
-			url = new URI("/resourceCatalogManagement/v2/physicalResourceSpec");
+		URI url = new URI("/resourceCatalogManagement/v4/resourceSpecification");
+		if (sspeccr1 instanceof PhysicalResourceSpecificationUpdate ) {
+			url = new URI("/resourceCatalogManagement/v4/resourceSpecification");
 		}
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
@@ -590,10 +599,10 @@ public class ResourceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		
 		ResourceSpecification responsesSpec1;
-		if (sspeccr1 instanceof PhysicalResourceSpecUpdate ) {
-			responsesSpec1 = toJsonObj(responseSpec,  PhysicalResourceSpec.class);			
+		if (sspeccr1 instanceof PhysicalResourceSpecificationUpdate ) {
+			responsesSpec1 = toJsonObj(responseSpec,  PhysicalResourceSpecification.class);			
 		}else {
-			responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpec.class);			
+			responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpecification.class);			
 		}
 		
 //		logger.info("createResourceSpec = " + responseSpec);
@@ -616,27 +625,27 @@ public class ResourceCatalogIntegrationTest {
 		
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpec responsesSpec1 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr1);
 
 		
 		ResourceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
-		LogicalResourceSpec responsesSpec2 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr2);
+		LogicalResourceSpecification responsesSpec2 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr2);
 
 
 		ResourceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr3.setName("Spec3");
 		sspeccr3.isBundle(true);
-		sspeccr3.addResourceSpecRelationshipWith( responsesSpec1 );
-		sspeccr3.addResourceSpecRelationshipWith( responsesSpec2 );
-		LogicalResourceSpec responsesSpec3 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr3);
+		sspeccr3.addResourceSpecificationRelationshipWith( responsesSpec1 );
+		sspeccr3.addResourceSpecificationRelationshipWith( responsesSpec2 );
+		LogicalResourceSpecification responsesSpec3 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr3);
 		
 		
 		assertThat( responsesSpec3.getResourceSpecRelationship().size() ).isEqualTo(2);
 		boolean idspec1Exists = false;
 		boolean idspec2Exists = false;
 		String relationship2UUID = null;
-		for (ResourceSpecRelationship r : responsesSpec3.getResourceSpecRelationship()) {
+		for (ResourceSpecificationRelationship r : responsesSpec3.getResourceSpecRelationship()) {
 			if ( r.getId().equals( responsesSpec1.getId() ) ) {
 				idspec1Exists= true;
 			}
@@ -665,16 +674,16 @@ public class ResourceCatalogIntegrationTest {
 		responseSpec3 = toJsonString(obj);
 				
 		ResourceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec3,  ResourceSpecificationUpdate.class);	
-		for (ResourceSpecRelationship r : responsesSpecUpd.getResourceSpecRelationship()) {
+		for (ResourceSpecificationRelationship r : responsesSpecUpd.getResourceSpecificationRelationship()) {
 			if ( r.getId().equals( responsesSpec1.getId() ) ) {
-				responsesSpecUpd.getResourceSpecRelationship().remove(r);
+				responsesSpecUpd.getResourceSpecificationRelationship().remove(r);
 				break;
 			}
 		}
-		responsesSpecUpd.addResourceSpecRelationshipWith(responsesSpec4);
+		responsesSpecUpd.addResourceSpecificationRelationshipWith(responsesSpec4);
 //		logger.info("Test: testBundledSpec responsesSpecUpd= " + responsesSpecUpd.toString());
 		
-		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec3.getId() )
+		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v4/resourceSpecification/" + responsesSpec3.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( toJson( responsesSpecUpd ) ))
@@ -683,7 +692,7 @@ public class ResourceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("Spec3")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification responseSpecPatch1 = toJsonObj( responsePatch1,  LogicalResourceSpec.class);
+		ResourceSpecification responseSpecPatch1 = toJsonObj( responsePatch1,  LogicalResourceSpecification.class);
 
 //		logger.info("Test: testBundledSpec responsePatch1= " + responsePatch1);
 
@@ -692,7 +701,7 @@ public class ResourceCatalogIntegrationTest {
 		idspec1Exists = false;
 		idspec2Exists = false;
 		boolean idspec4Exists = false;
-		for (ResourceSpecRelationship r : responseSpecPatch1.getResourceSpecRelationship()) {
+		for (ResourceSpecificationRelationship r : responseSpecPatch1.getResourceSpecRelationship()) {
 			if ( r.getId().equals( responsesSpec1.getId() ) ) {
 				idspec1Exists= true;
 			}
@@ -730,7 +739,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpec responsesSpec1 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr1);
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		
@@ -745,7 +754,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		
 		String responsePatch1 = mvc.perform(MockMvcRequestBuilders
-				.multipart("/resourceCatalogManagement/v2/logicalResourceSpec/" + responsesSpec1.getId() + "/attachment" )
+				.multipart("/resourceCatalogManagement/v4/resourceSpecification/" + responsesSpec1.getId() + "/attachment" )
 				.file(prodFile)
 				.param("attachment", toJsonString(att))
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
@@ -755,7 +764,7 @@ public class ResourceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("Spec1")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ResourceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  LogicalResourceSpec.class);
+		ResourceSpecification responseSpecPost1 = toJsonObj( responsePatch1,  LogicalResourceSpecification.class);
 
 		//logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
 
@@ -773,18 +782,19 @@ public class ResourceCatalogIntegrationTest {
 
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpec responsesSpec1 = (LogicalResourceSpec) createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr1);
 		
 
-		PhysicalResourceSpecCreate physspeccr1 = toJsonObj( sspectext,  PhysicalResourceSpecCreate.class);
+		PhysicalResourceSpecificationCreate physspeccr1 = toJsonObj( sspectext,  PhysicalResourceSpecificationCreate.class);
+		physspeccr1.setType("PhysicalResourceSpecification");
 		physspeccr1.setName("SpecPhy1");
 		physspeccr1.setPart("APART");
 		physspeccr1.setModel("ACME");
-		PhysicalResourceSpec phyresponsesSpec1 = (PhysicalResourceSpec) createResourceSpec(sspectext, physspeccr1);
+		PhysicalResourceSpecification phyresponsesSpec1 = (PhysicalResourceSpecification) createResourceSpec(sspectext, physspeccr1);
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 2 );
-		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		assertThat( specRepoService.findAllPhysical().size() ).isEqualTo( 1 );
+		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		
 	}
 	

@@ -38,41 +38,16 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
-public class PhysicalResourceSpecCreate  extends PhysicalResourceSpecUpdate {
+public class PhysicalResourceSpecificationCreate  extends PhysicalResourceSpecificationUpdate {
  
   @JsonProperty("@type")
-  private String type = null;
+  private String type = "PhysicalResourceSpecification";
 
-  @JsonProperty("lastUpdate")
-  private OffsetDateTime lastUpdate = null;
-
-
-  public PhysicalResourceSpecCreate name(String name) {
+  public PhysicalResourceSpecificationCreate name(String name) {
     this.name = name;
     return this;
   }
 
-
-  public PhysicalResourceSpecCreate lastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-    return this;
-  }
-
-  /**
-   * Date and time of the last update of this REST resource
-   * @return lastUpdate
-  **/
-  @ApiModelProperty(value = "Date and time of the last update of this REST resource")
-
-  @Valid
-
-  public OffsetDateTime getLastUpdate() {
-    return lastUpdate;
-  }
-
-  public void setLastUpdate(OffsetDateTime lastUpdate) {
-    this.lastUpdate = lastUpdate;
-  }
 
 
 
@@ -84,7 +59,7 @@ public class PhysicalResourceSpecCreate  extends PhysicalResourceSpecUpdate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PhysicalResourceSpecCreate physicalResourceSpecCreate = (PhysicalResourceSpecCreate) o;
+    PhysicalResourceSpecificationCreate physicalResourceSpecCreate = (PhysicalResourceSpecificationCreate) o;
     return Objects.equals(this.name, physicalResourceSpecCreate.name) &&
         Objects.equals(this.description, physicalResourceSpecCreate.description) &&
         Objects.equals(this.type, physicalResourceSpecCreate.type) &&
@@ -92,7 +67,6 @@ public class PhysicalResourceSpecCreate  extends PhysicalResourceSpecUpdate {
         Objects.equals(this.baseType, physicalResourceSpecCreate.baseType) &&
         Objects.equals(this.version, physicalResourceSpecCreate.version) &&
         Objects.equals(this.validFor, physicalResourceSpecCreate.validFor) &&
-        Objects.equals(this.lastUpdate, physicalResourceSpecCreate.lastUpdate) &&
         Objects.equals(this.lifecycleStatus, physicalResourceSpecCreate.lifecycleStatus) &&
         Objects.equals(this.isBundle, physicalResourceSpecCreate.isBundle) &&
         Objects.equals(this.category, physicalResourceSpecCreate.category) &&
@@ -100,19 +74,18 @@ public class PhysicalResourceSpecCreate  extends PhysicalResourceSpecUpdate {
         Objects.equals(this.part, physicalResourceSpecCreate.part) &&
         Objects.equals(this.sku, physicalResourceSpecCreate.sku) &&
         Objects.equals(this.vendor, physicalResourceSpecCreate.vendor) &&
-        Objects.equals(this.place, physicalResourceSpecCreate.place) &&
         Objects.equals(this.targetResourceSchema, physicalResourceSpecCreate.targetResourceSchema) &&
-        Objects.equals(this.feature, physicalResourceSpecCreate.feature) &&
+        Objects.equals(this.featureSpecification, physicalResourceSpecCreate.featureSpecification) &&
         Objects.equals(this.attachment, physicalResourceSpecCreate.attachment) &&
         Objects.equals(this.relatedParty, physicalResourceSpecCreate.relatedParty) &&
-        Objects.equals(this.resourceSpecCharacteristic, physicalResourceSpecCreate.resourceSpecCharacteristic) &&
-        Objects.equals(this.resourceSpecRelationship, physicalResourceSpecCreate.resourceSpecRelationship);
+        Objects.equals(this.resourceSpecificationCharacteristic, physicalResourceSpecCreate.resourceSpecificationCharacteristic) &&
+        Objects.equals(this.resourceSpecificationRelationship, physicalResourceSpecCreate.resourceSpecificationRelationship);
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, description, type, schemaLocation, baseType, version, validFor, lastUpdate, lifecycleStatus, isBundle, category, model, part, sku, vendor, place, targetResourceSchema, feature, attachment, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship);
-  }
+//  @Override
+//  public int hashCode() {
+//    return Objects.hash(name, description, type, _atSchemaLocation, _atBaseType, version, validFor, lastUpdate, lifecycleStatus, isBundle, category, model, part, sku, vendor, place, targetResourceSchema, feature, attachment, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship);
+//  }
 
   @Override
   public String toString() {
@@ -126,7 +99,6 @@ public class PhysicalResourceSpecCreate  extends PhysicalResourceSpecUpdate {
     sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-    sb.append("    lastUpdate: ").append(toIndentedString(lastUpdate)).append("\n");
     sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
     sb.append("    isBundle: ").append(toIndentedString(isBundle)).append("\n");
     sb.append("    category: ").append(toIndentedString(category)).append("\n");
@@ -134,26 +106,15 @@ public class PhysicalResourceSpecCreate  extends PhysicalResourceSpecUpdate {
     sb.append("    part: ").append(toIndentedString(part)).append("\n");
     sb.append("    sku: ").append(toIndentedString(sku)).append("\n");
     sb.append("    vendor: ").append(toIndentedString(vendor)).append("\n");
-    sb.append("    place: ").append(toIndentedString(place)).append("\n");
     sb.append("    targetResourceSchema: ").append(toIndentedString(targetResourceSchema)).append("\n");
-    sb.append("    feature: ").append(toIndentedString(feature)).append("\n");
+    sb.append("    featureSpecification: ").append(toIndentedString(featureSpecification)).append("\n");
     sb.append("    attachment: ").append(toIndentedString(attachment)).append("\n");
     sb.append("    relatedParty: ").append(toIndentedString(relatedParty)).append("\n");
-    sb.append("    resourceSpecCharacteristic: ").append(toIndentedString(resourceSpecCharacteristic)).append("\n");
-    sb.append("    resourceSpecRelationship: ").append(toIndentedString(resourceSpecRelationship)).append("\n");
+    sb.append("    resourceSpecificationCharacteristic: ").append(toIndentedString(resourceSpecificationCharacteristic)).append("\n");
+    sb.append("    resourceSpecRelationship: ").append(toIndentedString(resourceSpecificationRelationship)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
 }
 

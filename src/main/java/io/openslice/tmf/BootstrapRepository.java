@@ -19,37 +19,24 @@
  */
 package io.openslice.tmf;
 
-import java.io.IOException;
-
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.openslice.tmf.common.model.Any;
-import io.openslice.tmf.common.model.EValueType;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
-import io.openslice.tmf.rcm634.model.ResourceSpecification;
-import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
-import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
-import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;

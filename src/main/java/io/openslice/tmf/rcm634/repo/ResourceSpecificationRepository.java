@@ -26,8 +26,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
-import io.openslice.tmf.rcm634.model.PhysicalResourceSpec;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 
 
@@ -38,10 +38,10 @@ public interface ResourceSpecificationRepository extends PagingAndSortingReposit
 	Optional<ResourceSpecification> findByUuid(String id);
 
 	@Query("SELECT sc FROM LogicalResourceSpec sc")
-	List<LogicalResourceSpec> findAllLogical();
+	List<LogicalResourceSpecification> findAllLogical();
 	
 
 	@Query("SELECT sc FROM PhysicalResourceSpec sc")
-	List<PhysicalResourceSpec> findAllPhysical();
+	List<PhysicalResourceSpecification> findAllPhysical();
 
 }

@@ -20,8 +20,6 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.validation.Valid;
@@ -38,6 +36,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "The root entity for resource catalog management. A resource catalog is a group of resource specifications made available through resource candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). Skipped properties: id,href")
 @Validated
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 public class ResourceCatalogCreate extends ResourceCatalogUpdate   {

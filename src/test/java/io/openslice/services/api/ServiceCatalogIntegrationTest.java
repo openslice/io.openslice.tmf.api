@@ -77,7 +77,7 @@ import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.pm632.model.OrganizationCreate;
 import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceCandidateRef;
@@ -1213,13 +1213,13 @@ public class ServiceCatalogIntegrationTest {
 		
 	}
 	
-	private LogicalResourceSpec createLogicalResourceSpec() throws Exception{
+	private LogicalResourceSpecification createLogicalResourceSpec() throws Exception{
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 
-		URI url = new URI("/resourceCatalogManagement/v2/logicalResourceSpec");
+		URI url = new URI("/resourceCatalogManagement/v4/logicalResourceSpec");
 		
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
 				.contentType(MediaType.APPLICATION_JSON)
@@ -1229,9 +1229,9 @@ public class ServiceCatalogIntegrationTest {
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		
-		LogicalResourceSpec responsesSpec1;
+		LogicalResourceSpecification responsesSpec1;
 		
-		responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpec.class);
+		responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpecification.class);
 		
 		logger.info("createResourceSpec = " + responseSpec);
 		return responsesSpec1;

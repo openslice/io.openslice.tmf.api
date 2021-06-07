@@ -3,6 +3,7 @@
 	"description": "Test Resource Spec example",
 	"version": "1.8.0",
 	"isBundle": false,
+	"@type": "LogicalResourceSpecification",
 	"attachment": [
 	],
 	"relatedParty": [

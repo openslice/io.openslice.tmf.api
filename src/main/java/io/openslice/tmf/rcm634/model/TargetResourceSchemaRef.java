@@ -25,11 +25,8 @@ import javax.persistence.Embeddable;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * The reference object to the schema and type of target resource which is described by resource specification

@@ -19,7 +19,6 @@
  */
 package io.openslice.tmf.rcm634.model;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

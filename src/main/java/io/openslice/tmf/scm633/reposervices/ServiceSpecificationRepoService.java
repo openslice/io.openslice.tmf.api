@@ -72,9 +72,9 @@ import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpec;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristic;
-import io.openslice.tmf.rcm634.model.ResourceSpecCharacteristicValue;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristicValue;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
@@ -857,16 +857,16 @@ public class ServiceSpecificationRepoService {
 		 * 
 		 */
 		if (  addServiceTopology ){
-			ResourceSpecification resourceNSTopology = new LogicalResourceSpec();
+			ResourceSpecification resourceNSTopology = new LogicalResourceSpecification();
 			resourceNSTopology.setName( specName + "-" + "NS Topology");
 			resourceNSTopology.setVersion( serviceSpecVinniSB.getVersion() );		
-			ResourceSpecCharacteristic resourceSpecCharacteristicItem = new ResourceSpecCharacteristic();
+			ResourceSpecificationCharacteristic resourceSpecCharacteristicItem = new ResourceSpecificationCharacteristic();
 			resourceSpecCharacteristicItem.setName("Network Slice name");
 			resourceSpecCharacteristicItem.setDescription("Network Slice Name on target NFVO");
 			resourceSpecCharacteristicItem.setValueType( EValueType.TEXT.getValue() );
-			ResourceSpecCharacteristicValue resourceSpecCharacteristicValueItem = new ResourceSpecCharacteristicValue();
+			ResourceSpecificationCharacteristicValue resourceSpecCharacteristicValueItem = new ResourceSpecificationCharacteristicValue();
 			resourceSpecCharacteristicValueItem.setValue( new Any("SLICENAME", "The Network slice name"));
-			resourceSpecCharacteristicItem.addResourceSpecCharacteristicValueItem(resourceSpecCharacteristicValueItem);
+			resourceSpecCharacteristicItem.addResourceSpecificationCharacteristicValueItem(resourceSpecCharacteristicValueItem);
 			resourceNSTopology.addResourceSpecCharacteristicItem(resourceSpecCharacteristicItem);
 			
 			resourceNSTopology = resourceSpecRepoService.addResourceSpec( resourceNSTopology );
@@ -1070,7 +1070,7 @@ public class ServiceSpecificationRepoService {
 
 		logger.error("nsdid returned: " + nsd.getName());
 		
-		ResourceSpecification resourceNSD = new LogicalResourceSpec();
+		ResourceSpecification resourceNSD = new LogicalResourceSpecification();
 		resourceNSD.setName( nsd.getName() );
 		resourceNSD.setVersion( nsd.getVersion() );
 		resourceNSD.setDescription(nsd.getShortDescription());

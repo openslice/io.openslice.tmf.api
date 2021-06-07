@@ -2,7 +2,7 @@
  * ========================LICENSE_START=================================
  * io.openslice.tmf.api
  * %%
- * Copyright (C) 2019 openslice.io
+ * Copyright (C) 2019 - 2021 openslice.io
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +19,12 @@
  */
 package io.openslice.tmf.rcm634.api;
 
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
-
-@Controller("ImportJobApiController634")
-@RequestMapping("/resourceCatalogManagement/v2/")
+import org.springframework.stereotype.Controller;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@Controller
 public class ImportJobApiController implements ImportJobApi {
 
     private final ObjectMapper objectMapper;

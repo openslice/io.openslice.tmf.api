@@ -154,7 +154,7 @@ public class SwaggerDocumentationConfig {
             .license("")
             .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
             .termsOfServiceUrl("")
-            .version("2.0")
+            .version("4.0")
             .contact(new Contact("","", ""))
             .build();
     }
@@ -371,7 +371,7 @@ public class SwaggerDocumentationConfig {
     public Docket swaggerrcm634() {
 
         return new Docket(DocumentationType.SWAGGER_2)
-        		.groupName("tmf-api-634-Resource Catalog Management-v2.0")
+        		.groupName("tmf-api-634-Resource Catalog Management-v4.0.0")
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.rcm634.api"))
                     .build()

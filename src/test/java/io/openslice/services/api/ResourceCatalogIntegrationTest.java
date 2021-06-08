@@ -583,7 +583,7 @@ public class ResourceCatalogIntegrationTest {
 //    }
 
 	
-	private ResourceSpecification createResourceSpec(String sspectext, ResourceSpecificationUpdate sspeccr1) throws Exception{
+	private ResourceSpecification createResourceSpec(ResourceSpecificationUpdate sspeccr1) throws Exception{
 		
 		URI url = new URI("/resourceCatalogManagement/v4/resourceSpecification");
 		if (sspeccr1 instanceof PhysicalResourceSpecificationUpdate ) {
@@ -625,12 +625,12 @@ public class ResourceCatalogIntegrationTest {
 		
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec( sspeccr1);
 
 		
 		ResourceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
-		LogicalResourceSpecification responsesSpec2 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr2);
+		LogicalResourceSpecification responsesSpec2 = (LogicalResourceSpecification) createResourceSpec(sspeccr2);
 
 
 		ResourceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
@@ -638,7 +638,7 @@ public class ResourceCatalogIntegrationTest {
 		sspeccr3.isBundle(true);
 		sspeccr3.addResourceSpecificationRelationshipWith( responsesSpec1 );
 		sspeccr3.addResourceSpecificationRelationshipWith( responsesSpec2 );
-		LogicalResourceSpecification responsesSpec3 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr3);
+		LogicalResourceSpecification responsesSpec3 = (LogicalResourceSpecification) createResourceSpec(sspeccr3);
 		
 		
 		assertThat( responsesSpec3.getResourceSpecRelationship().size() ).isEqualTo(2);
@@ -663,7 +663,7 @@ public class ResourceCatalogIntegrationTest {
 		//first add a new service spec and then reference it
 		ResourceSpecificationCreate sspeccr4 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr4.setName("Spec4");
-		ResourceSpecification responsesSpec4 = createResourceSpec(sspectext, sspeccr3);
+		ResourceSpecification responsesSpec4 = createResourceSpec( sspeccr3);
 		
 		String responseSpec3 = toJsonString( responsesSpec3 );
 		JSONObject obj = toJsonObj(responseSpec3, JSONObject.class);
@@ -739,7 +739,7 @@ public class ResourceCatalogIntegrationTest {
 		
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec( sspeccr1);
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		
@@ -782,7 +782,7 @@ public class ResourceCatalogIntegrationTest {
 
 		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
-		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec(sspectext, sspeccr1);
+		LogicalResourceSpecification responsesSpec1 = (LogicalResourceSpecification) createResourceSpec( sspeccr1);
 		
 
 		PhysicalResourceSpecificationCreate physspeccr1 = toJsonObj( sspectext,  PhysicalResourceSpecificationCreate.class);
@@ -790,10 +790,19 @@ public class ResourceCatalogIntegrationTest {
 		physspeccr1.setName("SpecPhy1");
 		physspeccr1.setPart("APART");
 		physspeccr1.setModel("ACME");
-		PhysicalResourceSpecification phyresponsesSpec1 = (PhysicalResourceSpecification) createResourceSpec(sspectext, physspeccr1);
+		PhysicalResourceSpecification phyresponsesSpec1 = (PhysicalResourceSpecification) createResourceSpec( physspeccr1);
 
-		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 2 );
-		assertThat( specRepoService.findAllPhysical().size() ).isEqualTo( 1 );
+		
+		//testPhysicalResourceSpec.json
+		File physsspec2 = new File( "src/test/resources/testPhysicalResourceSpec.json" );
+		in = new FileInputStream( physsspec2 );
+		String physsspectext = IOUtils.toString(in, "UTF-8");
+		PhysicalResourceSpecificationCreate physspeccr2 = toJsonObj( physsspectext,  PhysicalResourceSpecificationCreate.class);
+		phyresponsesSpec1 = (PhysicalResourceSpecification) createResourceSpec( physspeccr2);
+		
+		
+		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 3 );
+		assertThat( specRepoService.findAllPhysical().size() ).isEqualTo( 2 );
 		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
 		
 	}

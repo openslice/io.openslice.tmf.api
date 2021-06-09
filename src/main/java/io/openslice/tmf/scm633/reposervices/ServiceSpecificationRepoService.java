@@ -866,7 +866,7 @@ public class ServiceSpecificationRepoService {
 			resourceSpecCharacteristicItem.setValueType( EValueType.TEXT.getValue() );
 			ResourceSpecificationCharacteristicValue resourceSpecCharacteristicValueItem = new ResourceSpecificationCharacteristicValue();
 			resourceSpecCharacteristicValueItem.setValue( new Any("SLICENAME", "The Network slice name"));
-			resourceSpecCharacteristicItem.addResourceSpecificationCharacteristicValueItem(resourceSpecCharacteristicValueItem);
+			resourceSpecCharacteristicItem.addResourceSpecCharacteristicValueItem(resourceSpecCharacteristicValueItem);
 			resourceNSTopology.addResourceSpecCharacteristicItem(resourceSpecCharacteristicItem);
 			
 			resourceNSTopology = resourceSpecRepoService.addResourceSpec( resourceNSTopology );

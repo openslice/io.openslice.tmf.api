@@ -258,7 +258,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Resource Spec" );
 
 		assertThat( responsesSpec.getResourceSpecCharacteristic().size() ).isEqualTo(1);
-		assertThat( responsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
 		
 		
 		PhysicalResourceSpecificationCreate physpeccr = toJsonObj( sspectext,  PhysicalResourceSpecificationCreate.class);
@@ -281,7 +281,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( phyresponsesSpec.getModel() ).isEqualTo( "ACME" );
 
 		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().size() ).isEqualTo(1);
-		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
 		
 	}
 	
@@ -470,7 +470,7 @@ public class ResourceCatalogIntegrationTest {
 		ResourceSpecificationCharacteristicValue sv = new ResourceSpecificationCharacteristicValue();
 		sv.setValue( new Any("1" ,"a first value") );
 		sv.setValueType( EValueType.LONGTEXT.getValue());
-		spechar.getResourceSpecificationCharacteristicValue().add( sv );
+		spechar.getResourceSpecCharacteristicValue().add( sv );
 		responsesSpecUpd.getResourceSpecificationCharacteristic().add(spechar );
 				
 		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v4/resourceSpecification/" + responsesSpec.getId() )
@@ -486,12 +486,12 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec a attr" );
 		assertThat( responsesSpec2.getVersion() ).isEqualTo( "2.x" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(2);
-		assertThat( responsesSpec2.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec")   ).isNotNull();
 		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic")   ).isNotNull();
-		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(1);
-		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecificationCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a first value");
-		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecificationCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("LONGTEXT");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )[0].getValue().getAlias() ).isEqualTo("a first value");
+		assertThat( responsesSpec2.findSpecCharacteristicByName("A new characteristic").getResourceSpecCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )[0].getValueType()  ).isEqualTo("LONGTEXT");
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharRelationship().size()  ).isEqualTo(4);
 		
 
@@ -502,7 +502,7 @@ public class ResourceCatalogIntegrationTest {
 		ResourceSpecificationCharacteristicValue val = new ResourceSpecificationCharacteristicValue();
 		val.setValueType( EValueType.ARRAY.toString());
 		val.setValue( new Any("1" ,"a second value") );
-		responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecificationCharacteristicValue().add(val);
+		responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharacteristicValue().add(val);
 		ResourceSpecCharRelationship scrObj = responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[0];
 		ResourceSpecCharRelationship scrObj2 = responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[1];
 		ResourceSpecCharRelationship scrObj3 = responsesSpecUpd.getResourceSpecificationCharacteristic().get(0).getResourceSpecCharRelationship().toArray( new ResourceSpecCharRelationship[0])[2];
@@ -534,10 +534,10 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Resource Spec" );
 		assertThat( responsesSpec2.getResourceSpecCharacteristic().size() ).isEqualTo(1);
 		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec")   ).isNotNull();
-		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecificationCharacteristicValue().size()  ).isEqualTo(2);
+		assertThat( responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().size()  ).isEqualTo(2);
 		boolean secvalExists = false;
 		boolean arrayValExists = false;
-		for (ResourceSpecificationCharacteristicValue respval : responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecificationCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )) {
+		for (ResourceSpecificationCharacteristicValue respval : responsesSpec2.findSpecCharacteristicByName("CoverageSpec").getResourceSpecCharacteristicValue().toArray( new ResourceSpecificationCharacteristicValue[0] )) {
 			if ( respval.getValue().getAlias().equals("a second value")){
 				secvalExists = true;
 			}

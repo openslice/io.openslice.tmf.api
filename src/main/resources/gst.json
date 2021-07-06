@@ -73,7 +73,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "Country",
@@ -441,7 +441,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 0,
 			"regex": "Conditional: Attribute must be present if service is supported requiring guaranteed downlink throughput",
-			"valueType": "STRING",			
+			"valueType": "TEXT",			
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
@@ -454,7 +454,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "Service Category"
@@ -1143,7 +1143,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "UPF",
@@ -1157,7 +1157,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "UDM/AUSF",
@@ -1171,7 +1171,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "AF",
@@ -1185,7 +1185,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "PCF",
@@ -1877,7 +1877,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "n1",
@@ -1891,7 +1891,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "n77",
@@ -1905,7 +1905,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "n78",
@@ -1919,7 +1919,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "n79",
@@ -2173,7 +2173,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 0,
 			"regex": "Conditional: Attribute must be present if service is supported requiring Simultaneous Use Class",
-			"valueType": "STRING",			
+			"valueType": "TEXT",			
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
@@ -2186,7 +2186,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "Service Category"
@@ -2883,7 +2883,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 0,
 			"regex": "Conditional: Either Maximum uplink throughput per network slice or Maximum uplink throughput per UE must be present",
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Functional", "role": "tag", "relationshipType": "tag" },
@@ -2897,7 +2897,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "Service Category"
@@ -3443,7 +3443,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "DataNetwork1, DataNetwork2",
@@ -3457,7 +3457,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "DataNetwork1",
@@ -3476,7 +3476,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 0,
 			"regex": "",
-			"valueType": "STRING",			
+			"valueType": "TEXT",			
 			"serviceSpecCharRelationship": [
 				{ "name": "Character Attribute", "role": "tag", "relationshipType": "tag" },
 				{ "name": "Functional", "role": "tag", "relationshipType": "tag" }
@@ -3489,7 +3489,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
 						"value": "Service Category"

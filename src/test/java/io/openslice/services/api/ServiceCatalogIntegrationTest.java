@@ -1005,7 +1005,7 @@ public class ServiceCatalogIntegrationTest {
 		ServiceCategory categ2 = categRepoService.findByIdEager( categ.getId() );
 		assertThat( categ2.getServiceCandidateRefs().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		
-		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("A GST(NEST) Service Example", "0.4.0" );
+		ServiceSpecification spec = this.specRepoService.findByNameAndVersion("A GST(NEST) Service Example", "5.0.0" );
 		assertThat( spec ).isNotNull();
 		
 		spec.setVersion("0.x.0");

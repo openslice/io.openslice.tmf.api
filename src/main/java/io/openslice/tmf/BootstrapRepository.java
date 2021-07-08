@@ -114,7 +114,7 @@ public class BootstrapRepository {
 		} else { //check if we have the latest version of GST
 			if (ADDGST) {
 				ServiceCategory scategory = this.categRepoService.findByName("Generic Services");
-				ServiceSpecification serviceSpecificationObj = this.specRepoService.findByNameAndVersion( GST_EXAMPLE_NAME , "0.4.0");
+				ServiceSpecification serviceSpecificationObj = this.specRepoService.findByNameAndVersion( GST_EXAMPLE_NAME , "5.0.0");
 				
 				if ( ( scategory != null ) &&  ( serviceSpecificationObj == null ))
 				{

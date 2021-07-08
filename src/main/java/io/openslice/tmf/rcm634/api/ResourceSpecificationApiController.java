@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
 
 import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.ResourceFunctionSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
@@ -110,7 +111,16 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 					ResourceSpecification c = resourceSpecificationRepoService.addPhysicalResourceSpecification(serviceSpecification );
 					return new ResponseEntity<ResourceSpecification>(c, HttpStatus.OK);
 					
-				}				
+				} else if ( an.asText().equals("ResourceFunctionSpecification")) {
+					@Valid
+					ResourceFunctionSpecificationCreate serviceSpecification = objectMapper.treeToValue( jsonNode, ResourceFunctionSpecificationCreate.class);
+					ResourceSpecification c = resourceSpecificationRepoService.addResourceFunctionSpecification(serviceSpecification );
+					return new ResponseEntity<ResourceSpecification>(c, HttpStatus.OK);
+					
+				} 
+					
+					
+					
 			}
 
 			ResourceSpecificationCreate serviceSpecification = objectMapper.treeToValue( jsonNode, ResourceSpecificationCreate.class);

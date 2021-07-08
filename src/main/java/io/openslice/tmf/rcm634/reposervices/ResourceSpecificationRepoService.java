@@ -51,6 +51,8 @@ import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
+import io.openslice.tmf.rcm634.model.ResourceFunctionSpecification;
+import io.openslice.tmf.rcm634.model.ResourceFunctionSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
@@ -96,6 +98,15 @@ public class ResourceSpecificationRepoService {
 
 		return (LogicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
 	}
+	
+	
+	public LogicalResourceSpecification addResourceFunctionSpecification(@Valid ResourceFunctionSpecificationCreate serviceSpecification) {
+		ResourceFunctionSpecification reSpec = new ResourceFunctionSpecification();
+		
+		return (ResourceFunctionSpecification) addResourceSpecificationGeneric(reSpec, serviceSpecification);
+	}
+	
+	
 	
 	public PhysicalResourceSpecification addPhysicalResourceSpecification(@Valid PhysicalResourceSpecificationCreate logicalResourceSpec) {
 		PhysicalResourceSpecification reSpec = new PhysicalResourceSpecification();

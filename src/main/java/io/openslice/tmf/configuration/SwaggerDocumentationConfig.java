@@ -311,7 +311,17 @@ public class SwaggerDocumentationConfig {
             .build();
     }
     
-    
+    ApiInfo apiInfo639() {
+        return new ApiInfoBuilder()
+                .title("API Resource Inventory Management")
+                .description("## TMF API Reference: TMF639 - Resource Inventory   ### Release : 19.5 - December 2019  Resource Inventory  API goal is to provide the ability to manage Resources.  ### Operations Resource Inventory API performs the following operations on the resources : - Retrieve an entity or a collection of entities depending on filter criteria - Partial update of an entity (including updating rules) - Create an entity (including default values and creation rules) - Delete an entity (for administration purposes) - Manage notification of events")
+                .license("")
+                .licenseUrl("http://unlicense.org")
+                .termsOfServiceUrl("")
+                .version("4.0.0")
+                .contact(new Contact("","", ""))
+                .build();
+    }
     
     
     @Bean
@@ -397,6 +407,25 @@ public class SwaggerDocumentationConfig {
         		.securityContexts(Arrays.asList(securityContext()));
 
     }
+    
+
+
+    @Bean
+    public Docket swaggerri639() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-639-API Resource Inventory Management-v4.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.ri639.api"))
+                    .build()
+                    .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo639())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+
+    }
+    
     @Bean
     public Docket swaggerso641() {
 

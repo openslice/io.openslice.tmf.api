@@ -1,28 +1,20 @@
 package io.openslice.tmf.ri639.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.ri639.model.AttachmentRefOrValue;
-import io.openslice.tmf.ri639.model.Characteristic;
-import io.openslice.tmf.ri639.model.Feature;
-import io.openslice.tmf.ri639.model.Note;
-import io.openslice.tmf.ri639.model.RelatedParty;
-import io.openslice.tmf.ri639.model.RelatedPlaceRefOrValue;
-import io.openslice.tmf.ri639.model.ResourceAdministrativeStateType;
-import io.openslice.tmf.ri639.model.ResourceOperationalStateType;
-import io.openslice.tmf.ri639.model.ResourceRelationship;
-import io.openslice.tmf.ri639.model.ResourceSpecificationRef;
-import io.openslice.tmf.ri639.model.ResourceStatusType;
-import io.openslice.tmf.ri639.model.ResourceUsageStateType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.validation.annotation.Validated;
+import java.util.Objects;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.openslice.tmf.common.model.AttachmentRefOrValue;
+import io.openslice.tmf.common.model.service.Note;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory. Skipped properties: id,href
@@ -32,73 +24,73 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 public class ResourceUpdate   {
   @JsonProperty("category")
-  private String category = null;
+  protected String category = null;
 
   @JsonProperty("description")
-  private String description = null;
+  protected String description = null;
 
   @JsonProperty("endOperatingDate")
-  private OffsetDateTime endOperatingDate = null;
+  protected OffsetDateTime endOperatingDate = null;
 
   @JsonProperty("name")
-  private String name = null;
+  protected String name = null;
 
   @JsonProperty("resourceVersion")
-  private String resourceVersion = null;
+  protected String resourceVersion = null;
 
   @JsonProperty("startOperatingDate")
-  private OffsetDateTime startOperatingDate = null;
+  protected OffsetDateTime startOperatingDate = null;
 
   @JsonProperty("activationFeature")
   @Valid
-  private List<Feature> activationFeature = null;
+  protected List<Feature> activationFeature = null;
 
   @JsonProperty("administrativeState")
-  private ResourceAdministrativeStateType administrativeState = null;
+  protected ResourceAdministrativeStateType administrativeState = null;
 
   @JsonProperty("attachment")
   @Valid
-  private List<AttachmentRefOrValue> attachment = null;
+  protected List<AttachmentRefOrValue> attachment = null;
 
   @JsonProperty("note")
   @Valid
-  private List<Note> note = null;
+  protected List<Note> note = null;
 
   @JsonProperty("operationalState")
-  private ResourceOperationalStateType operationalState = null;
+  protected ResourceOperationalStateType operationalState = null;
 
   @JsonProperty("place")
-  private RelatedPlaceRefOrValue place = null;
+  protected RelatedPlaceRefOrValue place = null;
 
   @JsonProperty("relatedParty")
   @Valid
-  private List<RelatedParty> relatedParty = null;
+  protected List<RelatedParty> relatedParty = null;
 
   @JsonProperty("resourceCharacteristic")
   @Valid
-  private List<Characteristic> resourceCharacteristic = null;
+  protected List<Characteristic> resourceCharacteristic = null;
 
   @JsonProperty("resourceRelationship")
   @Valid
-  private List<ResourceRelationship> resourceRelationship = null;
+  protected List<ResourceRelationship> resourceRelationship = null;
 
   @JsonProperty("resourceSpecification")
-  private ResourceSpecificationRef resourceSpecification = null;
+  protected ResourceSpecificationRef resourceSpecification = null;
 
   @JsonProperty("resourceStatus")
-  private ResourceStatusType resourceStatus = null;
+  protected ResourceStatusType resourceStatus = null;
 
   @JsonProperty("usageState")
-  private ResourceUsageStateType usageState = null;
+  protected ResourceUsageStateType usageState = null;
 
   @JsonProperty("@baseType")
-  private String _atBaseType = null;
+  protected String _atBaseType = null;
 
   @JsonProperty("@schemaLocation")
-  private String _atSchemaLocation = null;
+  protected String _atSchemaLocation = null;
 
   @JsonProperty("@type")
-  private String _atType = null;
+  protected String _atType = null;
 
   public ResourceUpdate category(String category) {
     this.category = category;
@@ -627,7 +619,7 @@ public class ResourceUpdate   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  protected String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }

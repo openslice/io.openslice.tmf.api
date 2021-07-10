@@ -163,6 +163,7 @@ public class Service extends BaseRootNamedEntity {
 	@ApiModelProperty(value = "Unique identifier of the service")
 
 	public String getId() {
+		id = uuid;
 		return uuid;
 	}
 

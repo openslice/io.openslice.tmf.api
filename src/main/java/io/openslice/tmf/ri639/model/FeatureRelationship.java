@@ -1,14 +1,18 @@
 package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.ri639.model.TimePeriod;
+
+import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Configuration feature
@@ -16,6 +20,7 @@ import javax.validation.constraints.*;
 @ApiModel(description = "Configuration feature")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@Entity(name = "RIFeatureRel")
 public class FeatureRelationship   {
   @JsonProperty("id")
   private String id = null;

@@ -5,34 +5,35 @@
  */
 package io.openslice.tmf.ri639.api;
 
-import io.openslice.tmf.ri639.model.Error;
-import org.springframework.core.io.Resource;
-import io.openslice.tmf.ri639.model.ResourceCreate;
-import io.openslice.tmf.ri639.model.ResourceUpdate;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.tmf.ri639.model.Error;
+import io.openslice.tmf.ri639.model.Resource;
+import io.openslice.tmf.ri639.model.ResourceCreate;
+import io.openslice.tmf.ri639.model.ResourceUpdate;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Api(value = "resource", description = "the resource API")
 public interface ResourceApi {
@@ -64,7 +65,7 @@ public interface ResourceApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<Resource> createResource(@ApiParam(value = "The Resource to be created" ,required=true )  @Valid @RequestBody ResourceCreate body
+    default ResponseEntity<Resource> createResource(Principal principal, @ApiParam(value = "The Resource to be created" ,required=true )  @Valid @RequestBody ResourceCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -118,7 +119,8 @@ public interface ResourceApi {
     @RequestMapping(value = "/resource",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<Resource>> listResource(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<List<Resource>> listResource(Principal principal, 
+    		@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
 ,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
 ,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
 ) {
@@ -152,7 +154,8 @@ public interface ResourceApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<Resource> patchResource(@ApiParam(value = "The Resource to be updated" ,required=true )  @Valid @RequestBody ResourceUpdate body
+    default ResponseEntity<Resource> patchResource(Principal principal, 
+    		@ApiParam(value = "The Resource to be updated" ,required=true )  @Valid @RequestBody ResourceUpdate body
 ,@ApiParam(value = "Identifier of the Resource",required=true) @PathVariable("id") String id
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
@@ -184,7 +187,8 @@ public interface ResourceApi {
     @RequestMapping(value = "/resource/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<Resource> retrieveResource(@ApiParam(value = "Identifier of the Resource",required=true) @PathVariable("id") String id
+    default ResponseEntity<Resource> retrieveResource(Principal principal, 
+    		@ApiParam(value = "Identifier of the Resource",required=true) @PathVariable("id") String id
 ,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {

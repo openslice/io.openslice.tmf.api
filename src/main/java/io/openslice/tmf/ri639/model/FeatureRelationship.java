@@ -10,6 +10,8 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,12 +23,9 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIFeatureRel")
-public class FeatureRelationship   {
+public class FeatureRelationship  extends BaseRootNamedEntity {
   @JsonProperty("id")
   private String id = null;
-
-  @JsonProperty("name")
-  private String name = null;
 
   @JsonProperty("relationshipType")
   private String relationshipType = null;
@@ -53,25 +52,7 @@ public class FeatureRelationship   {
     this.id = id;
   }
 
-  public FeatureRelationship name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * This is the name of the target feature.
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "This is the name of the target feature.")
-      @NotNull
-
-    public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+  
 
   public FeatureRelationship relationshipType(String relationshipType) {
     this.relationshipType = relationshipType;

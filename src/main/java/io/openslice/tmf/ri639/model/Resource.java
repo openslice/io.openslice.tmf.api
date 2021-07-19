@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.service.Note;
+import io.openslice.tmf.prm669.model.RelatedParty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -667,5 +668,14 @@ public class Resource extends BaseRootNamedEntity {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	public Characteristic getResourceCharacteristicByName(String aName) {
+		for (Characteristic c : this.resourceCharacteristic) {
+			if ( c.getName().equals( aName )) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import javax.validation.Valid;
 
-import org.springframework.core.io.Resource;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

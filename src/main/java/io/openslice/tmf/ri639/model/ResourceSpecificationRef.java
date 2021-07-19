@@ -49,9 +49,19 @@ public class ResourceSpecificationRef extends BaseRootNamedEntity {
 	@ApiModelProperty(required = true, value = "unique identifier")
 	@NotNull
 
+	
+	/**
+	 * @return the id
+	 */
 	public String getId() {
-		id = uuid;
-		return uuid;
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 

@@ -118,7 +118,7 @@ public class ResourceRepoService {
 				}
 				
 			}			
-			sql += "  FROM Resource srv ";
+			sql += "  FROM RIResource srv ";
 
 			
 			sql += "  ORDER BY srv.startOperatingDate DESC";

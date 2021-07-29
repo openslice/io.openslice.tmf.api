@@ -135,14 +135,14 @@ public class AlarmManagementIntegrationTest {
 		String response = mvc
 				.perform(MockMvcRequestBuilders.post("/alarmManagement/v4/alarm")
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
-						.content( toJson(a)))
+						.content( JsonUtils.toJson(a)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("alarmDetails", is("details..."))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
 
 		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
 
-		Alarm alarm = toJsonObj(response, Alarm.class);
+		Alarm alarm = JsonUtils.toJsonObj(response, Alarm.class);
 		assertThat(alarm.getAckState()).isEqualTo("unacknowledged");
 		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
 		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.warning.name());
@@ -162,14 +162,14 @@ public class AlarmManagementIntegrationTest {
 		response = mvc
 				.perform(MockMvcRequestBuilders.patch("/alarmManagement/v4/alarm/" + alarm.getId() )
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
-						.content(toJson(aupd)))
+						.content(JsonUtils.toJson(aupd)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("alarmDetails", is("details..."))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
 
 		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
 
-		alarm = toJsonObj(response, Alarm.class);
+		alarm = JsonUtils.toJsonObj(response, Alarm.class);
 		assertThat(alarm.getAckState()).isEqualTo("acknowledged");
 		assertThat(alarm.getState()).isEqualTo( AlarmStateType.updated.name() );
 		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
@@ -185,14 +185,14 @@ public class AlarmManagementIntegrationTest {
 		response = mvc
 				.perform(MockMvcRequestBuilders.patch("/alarmManagement/v4/alarm/" + alarm.getId() )
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
-						.content(toJson(aupd)))
+						.content(JsonUtils.toJson(aupd)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("alarmDetails", is("details..."))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
 
 		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
 
-		alarm = toJsonObj(response, Alarm.class);
+		alarm = JsonUtils.toJsonObj(response, Alarm.class);
 		assertThat(alarm.getAckState()).isEqualTo("acknowledged");
 		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
 		assertThat(alarm.getAckSystemId()).isEqualTo("OSA");
@@ -224,11 +224,11 @@ public class AlarmManagementIntegrationTest {
 		as.setType("Service");
 		a.getAffectedService().add(as);
 		
-		String body = toJsonString(a);
+		String body = JsonUtils.toJsonString(a);
 		Object response = template.requestBody( ALARMS_ADD_ALARM, body);
 
 		assertThat( response).isInstanceOf( String.class);
-		Alarm alarm = toJsonObj( (String)response, Alarm.class);
+		Alarm alarm = JsonUtils.toJsonObj( (String)response, Alarm.class);
 		assertThat(alarm.getAckState()).isEqualTo("unacknowledged");
 		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
 		assertThat(alarm.getPerceivedSeverity()).isEqualTo(PerceivedSeverityType.warning.name());
@@ -240,12 +240,12 @@ public class AlarmManagementIntegrationTest {
 		aupd.setAckSystemId("OSA");
 		aupd.setPerceivedSeverity(PerceivedSeverityType.warning.name());
 		aupd.setState(AlarmStateType.updated.name());
-		body = toJsonString(aupd);
+		body = JsonUtils.toJsonString(aupd);
 		response = template.requestBodyAndHeader( ALARMS_UPDATE_ALARM, body , "alarmid", alarm.getId());
 
 		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
 
-		alarm = toJsonObj( (String)response, Alarm.class);;
+		alarm = JsonUtils.toJsonObj( (String)response, Alarm.class);;
 		assertThat(alarm.getAckState()).isEqualTo("acknowledged");
 		assertThat(alarm.getState()).isEqualTo( AlarmStateType.updated.name() );
 		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
@@ -257,12 +257,12 @@ public class AlarmManagementIntegrationTest {
 		aupd.setState(AlarmStateType.cleared.name());
 		aupd.setAckSystemId("OSA");
 		aupd.setPerceivedSeverity(PerceivedSeverityType.cleared.name());
-		body = toJsonString(aupd);
+		body = JsonUtils.toJsonString(aupd);
 		response = template.requestBodyAndHeader( ALARMS_UPDATE_ALARM, body , "alarmid", alarm.getId());
 
 		assertThat(alarmRepoService.findAll().size()).isEqualTo(1);
 
-		alarm = toJsonObj( (String)response, Alarm.class);
+		alarm = JsonUtils.toJsonObj( (String)response, Alarm.class);
 		assertThat(alarm.getAckState()).isEqualTo("acknowledged");
 		assertThat(alarm.getSourceSystemId()).isEqualTo("NFVO");
 		assertThat(alarm.getAckSystemId()).isEqualTo("OSA");
@@ -276,28 +276,5 @@ public class AlarmManagementIntegrationTest {
 		
 	}
 
-	static byte[] toJson(Object object) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsBytes(object);
-	}
-
-	static String toJsonString(Object object) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsString(object);
-	}
-
-	static <T> T toJsonObj(String content, Class<T> valueType) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.readValue(content, valueType);
-	}
-
-	static <T> T toJsonObj(InputStream content, Class<T> valueType) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.readValue(content, valueType);
-	}
 
 }

@@ -129,7 +129,7 @@ public class PartyManagementIntegrationTest {
 		String response = mvc.perform(MockMvcRequestBuilders.post("/party/v4/individual")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( ic ) ))				
+				.content( JsonUtils.toJson( ic ) ))				
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("familyName", is("A Customer")))								 
@@ -140,7 +140,7 @@ public class PartyManagementIntegrationTest {
 		assertThat( individualRepoService.findAll().size() ).isEqualTo( 1 );
 		
 
-		Individual responseIndv = toJsonObj(response,  Individual.class);
+		Individual responseIndv = JsonUtils.toJsonObj(response,  Individual.class);
 		assertThat( responseIndv.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()).isEqualTo("test@openslice.io"); 
 	}
 	
@@ -227,7 +227,7 @@ public class PartyManagementIntegrationTest {
 		String response = mvc.perform(MockMvcRequestBuilders.post("/party/v4/organization")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( oc ) ))
+				.content( JsonUtils.toJson( oc ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("An Organization")))								 
@@ -238,7 +238,7 @@ public class PartyManagementIntegrationTest {
 		assertThat( organizationRepoService.findAll().size() ).isEqualTo( 1 );
 		
 
-		Organization responseOrg = toJsonObj(response,  Organization.class);
+		Organization responseOrg = JsonUtils.toJsonObj(response,  Organization.class);
 		assertThat( responseOrg.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()).isEqualTo("test@openslice.io"); 
 		assertThat( responseOrg.getPartyCharacteristic().size()).isEqualTo(12);
 		
@@ -265,15 +265,4 @@ public class PartyManagementIntegrationTest {
 	      return list;
 	   }
 	
-	 static byte[] toJson(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsBytes(object);
-	    }
-	 
-	static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return mapper.readValue( content, valueType);
-    }
 }

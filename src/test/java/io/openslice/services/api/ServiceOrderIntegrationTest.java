@@ -174,7 +174,7 @@ public class ServiceOrderIntegrationTest {
 		InputStream in = new FileInputStream(sspec);
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
-		ServiceSpecificationCreate sspeccr1 = toJsonObj(sspectext, ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj(sspectext, ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec( sspeccr1);
 
@@ -182,7 +182,7 @@ public class ServiceOrderIntegrationTest {
 		in = new FileInputStream(sspec);
 		sspectext = IOUtils.toString(in, "UTF-8");
 		// service 2 is an RFS
-		ServiceSpecificationCreate sspeccr2 = toJsonObj(sspectext, ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr2 = JsonUtils.toJsonObj(sspectext, ServiceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
 		ResourceSpecificationRef resourceSpecificationItem = new ResourceSpecificationRef();
 		resourceSpecificationItem.setId("resourceid");
@@ -193,7 +193,7 @@ public class ServiceOrderIntegrationTest {
 		 * add them as bundle
 		 */
 
-		ServiceSpecificationCreate sspeccr3 = toJsonObj(sspectext, ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr3 = JsonUtils.toJsonObj(sspectext, ServiceSpecificationCreate.class);
 		sspeccr3.setName("BundleExampleSpec");
 		sspeccr3.isBundle(true);
 		sspeccr3.addServiceSpecRelationshipWith(responsesSpec1);
@@ -234,16 +234,16 @@ public class ServiceOrderIntegrationTest {
 		String responseSorder = mvc
 				.perform(MockMvcRequestBuilders.post("/serviceOrdering/v4/serviceOrder")
 			            .with( SecurityMockMvcRequestPostProcessors.csrf())
-						.contentType(MediaType.APPLICATION_JSON).content(toJson(servOrder)))
+						.contentType(MediaType.APPLICATION_JSON).content(JsonUtils.toJson(servOrder)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderCreate = " + responseSorder);
-		ServiceOrder responseSO = toJsonObj(responseSorder, ServiceOrder.class);
+		ServiceOrder responseSO = JsonUtils.toJsonObj(responseSorder, ServiceOrder.class);
 
-		logger.info("BundleExampleSpec  = " + toJsonString(responsesSpec3));
-		logger.info("responsesSpec1 = " + toJsonString(responsesSpec1));
-		logger.info("responsesSpec2 = " + toJsonString(responsesSpec2));
-		logger.info("testServiceOrderCreate = " + toJsonString(responseSO));
+		logger.info("BundleExampleSpec  = " + JsonUtils.toJsonString(responsesSpec3));
+		logger.info("responsesSpec1 = " + JsonUtils.toJsonString(responsesSpec1));
+		logger.info("responsesSpec2 = " + JsonUtils.toJsonString(responsesSpec2));
+		logger.info("testServiceOrderCreate = " + JsonUtils.toJsonString(responseSO));
 
 		assertThat(responseSO.getCategory()).isEqualTo("Experimentation");
 		assertThat(responseSO.getDescription()).isEqualTo("Experimentation Descr");
@@ -320,11 +320,11 @@ public class ServiceOrderIntegrationTest {
 		String responseSorderUpd = mvc
 				.perform(MockMvcRequestBuilders.patch("/serviceOrdering/v4/serviceOrder/" + responseSO.getId())
 			            .with( SecurityMockMvcRequestPostProcessors.csrf())
-						.contentType(MediaType.APPLICATION_JSON).content(toJson(servOrderUpd)))
+						.contentType(MediaType.APPLICATION_JSON).content(JsonUtils.toJson(servOrderUpd)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
-		ServiceOrder responseSOUpd = toJsonObj(responseSorderUpd, ServiceOrder.class);
+		ServiceOrder responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd, ServiceOrder.class);
 
 		assertThat(serviceOrderRepoService.findAll().size()).isEqualTo(1);
 
@@ -343,7 +343,7 @@ public class ServiceOrderIntegrationTest {
 		InputStream inSO = new FileInputStream(sspecSO);
 		String sspectextSO = IOUtils.toString(inSO, "UTF-8");
 
-		ServiceOrder sspeccr1SO = toJsonObj(sspectextSO, ServiceOrder.class);
+		ServiceOrder sspeccr1SO = JsonUtils.toJsonObj(sspectextSO, ServiceOrder.class);
 
 		assertThat(sspeccr1SO).isNotNull();
 		
@@ -366,13 +366,13 @@ public class ServiceOrderIntegrationTest {
 				.param("addServiceTesting", "true")
 				.param("addServiceVNF", "true")
 				.param("addServiceNSD", "true")
-				.content( toJson( "" ) ))
+				.content( JsonUtils.toJson( "" ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 
-		ServiceSpecification clonedSpec = toJsonObj( responseSpecClonedVINNI,  ServiceSpecification.class);
+		ServiceSpecification clonedSpec = JsonUtils.toJsonObj( responseSpecClonedVINNI,  ServiceSpecification.class);
 		assertThat( clonedSpec.getName() ).isEqualTo( "aVINNIService" );	
 		
 	}
@@ -384,10 +384,10 @@ public class ServiceOrderIntegrationTest {
 		String responseSpec = mvc
 				.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 			            .with( SecurityMockMvcRequestPostProcessors.csrf())
-						.contentType(MediaType.APPLICATION_JSON).content(toJson(sspeccr1)))
+						.contentType(MediaType.APPLICATION_JSON).content(JsonUtils.toJson(sspeccr1)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec, ServiceSpecification.class);
+		ServiceSpecification responsesSpec1 = JsonUtils.toJsonObj(responseSpec, ServiceSpecification.class);
 		logger.info("createServiceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
@@ -396,46 +396,23 @@ public class ServiceOrderIntegrationTest {
 		File sspec = new File("src/test/resources/testResourceSpec.json");
 		InputStream in = new FileInputStream(sspec);
 		String sspectext = IOUtils.toString(in, "UTF-8");
-		ResourceSpecificationCreate sspeccr1 = toJsonObj(sspectext, ResourceSpecificationCreate.class);
+		ResourceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj(sspectext, ResourceSpecificationCreate.class);
 
 		URI url = new URI("/resourceCatalogManagement/v4/logicalResourceSpec");
 
 		String responseSpec = mvc
 				.perform(MockMvcRequestBuilders.post(url).contentType(MediaType.APPLICATION_JSON)
-						.content(toJson(sspeccr1)))
+						.content(JsonUtils.toJson(sspeccr1)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
 		LogicalResourceSpecification responsesSpec1;
 
-		responsesSpec1 = toJsonObj(responseSpec, LogicalResourceSpecification.class);
+		responsesSpec1 = JsonUtils.toJsonObj(responseSpec, LogicalResourceSpecification.class);
 
 		logger.info("createResourceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
 
-	static byte[] toJson(Object object) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsBytes(object);
-	}
-
-	static String toJsonString(Object object) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsString(object);
-	}
-
-	static <T> T toJsonObj(String content, Class<T> valueType) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.readValue(content, valueType);
-	}
-
-	static <T> T toJsonObj(InputStream content, Class<T> valueType) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.readValue(content, valueType);
-	}
 
 }

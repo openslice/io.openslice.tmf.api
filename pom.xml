@@ -51,7 +51,7 @@
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				 <version>29.0-jre</version>
+				<version>29.0-jre</version>
 			</dependency>
 			<dependency>
 				<groupId>org.keycloak.bom</groupId>
@@ -102,6 +102,13 @@
 			<scope>test</scope>
 		</dependency>
 
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-spring-boot-starter</artifactId>
@@ -116,7 +123,7 @@
 			<artifactId>keycloak-admin-client</artifactId>
 			<version>${keycloak.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -212,6 +219,11 @@
 		<!-- swagger -->
 		<dependency>
 			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>${swagger.version}</version>
 		</dependency>
@@ -241,10 +253,10 @@
 			<artifactId>junit-platform-commons</artifactId>
 			<scope>test</scope>
 		</dependency>
-		 <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-runner</artifactId>
-            <scope>test</scope>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>

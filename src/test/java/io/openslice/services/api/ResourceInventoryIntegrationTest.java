@@ -143,12 +143,12 @@ public class ResourceInventoryIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
 		
-		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
+		ResourceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ResourceSpecification responsesSpec1 = createResourceSpec( sspeccr1);
 
 		//res 2 is an RFS
-		ResourceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
+		ResourceSpecificationCreate sspeccr2 = JsonUtils.toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
 
 		sspeccr2.addResourceSpecificationRelationshipWith( responsesSpec1 );		
@@ -157,7 +157,7 @@ public class ResourceInventoryIntegrationTest {
 		 * add them as bundle
 		 */
 
-		ResourceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
+		ResourceSpecificationCreate sspeccr3 = JsonUtils.toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 		sspeccr3.setName("BundleExampleSpec");
 		sspeccr3.isBundle(true);
 		sspeccr3.addResourceSpecificationRelationshipWith( responsesSpec1 );
@@ -187,21 +187,21 @@ public class ResourceInventoryIntegrationTest {
 		
 		aResource.setResourceSpecification( aServiceSpecificationRef );
 
-		logger.info("aService JSON = " + toJsonString( aResource ));
+		logger.info("aService JSON = " + JsonUtils.toJsonString( aResource ));
 		
 		String responseResource = mvc.perform(MockMvcRequestBuilders.post("/resourceInventoryManagement/v4/resource")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( aResource ) ))
+				.content( JsonUtils.toJson( aResource ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderCreate = " + responseResource);
-		Resource responseSrvc = toJsonObj( responseResource,  Resource.class);
+		Resource responseSrvc = JsonUtils.toJsonObj( responseResource,  Resource.class);
 		
 		
-		logger.info("testService = " + toJsonString( responseSrvc ));
+		logger.info("testService = " + JsonUtils.toJsonString( responseSrvc ));
 		
 
 		assertThat( responseSrvc.getCategory()  ).isEqualTo( "Experimentation" );
@@ -252,13 +252,13 @@ public class ResourceInventoryIntegrationTest {
 		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/resourceInventoryManagement/v4/resource/" + responseSrvc.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( resUpd ) ))
+				.content( JsonUtils.toJson( resUpd ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
-		Resource responseSOUpd = toJsonObj(responseSorderUpd,  Resource.class);
+		Resource responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd,  Resource.class);
 		
 
 		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 1 );
@@ -282,7 +282,7 @@ public class ResourceInventoryIntegrationTest {
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
@@ -290,9 +290,9 @@ public class ResourceInventoryIntegrationTest {
 		
 		ResourceSpecification responsesSpec1;
 		if (sspeccr1 instanceof PhysicalResourceSpecificationUpdate ) {
-			responsesSpec1 = toJsonObj(responseSpec,  PhysicalResourceSpecification.class);			
+			responsesSpec1 = JsonUtils.toJsonObj(responseSpec,  PhysicalResourceSpecification.class);			
 		}else {
-			responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpecification.class);			
+			responsesSpec1 = JsonUtils.toJsonObj(responseSpec,  LogicalResourceSpecification.class);			
 		}
 		
 //		logger.info("createResourceSpec = " + responseSpec);
@@ -306,13 +306,13 @@ public class ResourceInventoryIntegrationTest {
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
-		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
+		ResourceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 
 		URI url = new URI("/resourceCatalogManagement/v4/logicalResourceSpec");
 		
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
@@ -320,7 +320,7 @@ public class ResourceInventoryIntegrationTest {
 		
 		LogicalResourceSpecification responsesSpec1;
 		
-		responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpecification.class);
+		responsesSpec1 = JsonUtils.toJsonObj(responseSpec,  LogicalResourceSpecification.class);
 		
 		logger.info("createResourceSpec = " + responseSpec);
 		return responsesSpec1;
@@ -328,29 +328,5 @@ public class ResourceInventoryIntegrationTest {
 	
 	
 	
-	 static byte[] toJson(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsBytes(object);
-	    }
-	 
-	 static String toJsonString(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsString(object);
-	    }
-	 
-	 
-	 static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.readValue( content, valueType);
-	    }
-	 
-	 static <T> T toJsonObj(InputStream content, Class<T> valueType)  throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.readValue( content, valueType);
-	    }
 	
 }

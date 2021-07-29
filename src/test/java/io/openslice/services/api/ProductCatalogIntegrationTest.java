@@ -126,19 +126,19 @@ public class ProductCatalogIntegrationTest {
 		InputStream in = new FileInputStream(scatalog);
 		String resvxf = IOUtils.toString(in, "UTF-8");
 
-		CatalogCreate scc = toJsonObj(resvxf, CatalogCreate.class);
+		CatalogCreate scc = JsonUtils.toJsonObj(resvxf, CatalogCreate.class);
 		scc.setVersion("1.1");
 		String response = mvc
 				.perform(MockMvcRequestBuilders.post("/productCatalogManagement/v4/catalog")
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
-						.content(toJson(scc)))
+						.content(JsonUtils.toJson(scc)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("name", is("Test Product Catalog"))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
 
 		assertThat(catalogRepoService.findAll().size()).isEqualTo(1);
 
-		Catalog responsesCatalog = toJsonObj(response, Catalog.class);
+		Catalog responsesCatalog = JsonUtils.toJsonObj(response, Catalog.class);
 		assertThat(responsesCatalog.getName()).isEqualTo("Test Product Catalog");
 		assertThat(responsesCatalog.getVersion()).isEqualTo("1.1");
 
@@ -152,20 +152,20 @@ public class ProductCatalogIntegrationTest {
 		in = new FileInputStream(scat);
 		String sc = IOUtils.toString(in, "UTF-8");
 
-		CategoryCreate scategcreate = toJsonObj(sc, CategoryCreate.class);
+		CategoryCreate scategcreate = JsonUtils.toJsonObj(sc, CategoryCreate.class);
 		scategcreate.setVersion("1.2");
 
 		response = mvc
 				.perform(MockMvcRequestBuilders.post("/productCatalogManagement/v4/category")
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
-						.content(toJson(scategcreate)))
+						.content(JsonUtils.toJson(scategcreate)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("name", is("Test Product Category 2"))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
 
 		assertThat(categRepoService.findAll().size()).isEqualTo(1);
 
-		Category responsesCateg = toJsonObj(response, Category.class);
+		Category responsesCateg = JsonUtils.toJsonObj(response, Category.class);
 		assertThat(responsesCateg.getName()).isEqualTo("Test Product Category 2");
 		assertThat(responsesCateg.getVersion()).isEqualTo("1.2");
 
@@ -183,14 +183,14 @@ public class ProductCatalogIntegrationTest {
 				.perform(
 						MockMvcRequestBuilders.patch("/productCatalogManagement/v4/catalog/" + responsesCatalog.getId())
 								.with(SecurityMockMvcRequestPostProcessors.csrf())
-								.contentType(MediaType.APPLICATION_JSON).content(toJson(scu)))
+								.contentType(MediaType.APPLICATION_JSON).content(JsonUtils.toJson(scu)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("name", is("A new Name"))).andExpect(status().isOk()).andReturn().getResponse()
 				.getContentAsString();
 
 		assertThat(catalogRepoService.findAll().size()).isEqualTo(1);
 
-		responsesCatalog = toJsonObj(response, Catalog.class);
+		responsesCatalog = JsonUtils.toJsonObj(response, Catalog.class);
 		assertThat(responsesCatalog.getName()).isEqualTo("A new Name");
 		assertThat(responsesCatalog.getVersion()).isEqualTo("1.3");
 
@@ -204,7 +204,7 @@ public class ProductCatalogIntegrationTest {
 		in = new FileInputStream(sspec);
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
-		ProductOfferingCreate sspeccr = toJsonObj(sspectext, ProductOfferingCreate.class);
+		ProductOfferingCreate sspeccr = JsonUtils.toJsonObj(sspectext, ProductOfferingCreate.class);
 
 		ProductOfferingPriceRef productOfferingPriceItem = new ProductOfferingPriceRef();
 		productOfferingPriceItem.setId(UUID.randomUUID().toString());
@@ -247,17 +247,17 @@ public class ProductCatalogIntegrationTest {
 		aProductSpecificationRef.setName("a aProductSpecificationRef");
 		sspeccr.setProductSpecification(aProductSpecificationRef);
 
-		// byte[] s = toJson( sspeccr );
+		// byte[] s = JsonUtils.toJson( sspeccr );
 
 		response = mvc
 				.perform(MockMvcRequestBuilders.post("/productCatalogManagement/v4/productOffering")
 						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
-						.content(toJson(sspeccr)))
+						.content(JsonUtils.toJson(sspeccr)))
 				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("name", is("Test Product offering Spec"))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
 		assertThat(productOfferingRepoService.findAll().size()).isEqualTo(1);
-		ProductOffering responsesSpec = toJsonObj(response, ProductOffering.class);
+		ProductOffering responsesSpec = JsonUtils.toJsonObj(response, ProductOffering.class);
 		assertThat(responsesSpec.getName()).isEqualTo("Test Product offering Spec");
 		assertThat(responsesSpec.getProductOfferingPrice().size()).isEqualTo(1);
 		assertThat(responsesSpec.getProdSpecCharValueUse().size()).isEqualTo(1);
@@ -274,12 +274,12 @@ public class ProductCatalogIntegrationTest {
 		InputStream in = new FileInputStream( testProductOfferingPrice );
 		String resvxf = IOUtils.toString(in, "UTF-8");
 		
-		ProductOfferingPriceCreate scc = toJsonObj( resvxf,  ProductOfferingPriceCreate.class);
+		ProductOfferingPriceCreate scc = JsonUtils.toJsonObj( resvxf,  ProductOfferingPriceCreate.class);
 		scc.setVersion("1.1");
 		String response = mvc.perform(MockMvcRequestBuilders.post("/productCatalogManagement/v4/productOfferingPrice")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scc ) ))
+				.content( JsonUtils.toJson( scc ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Recurring Charge for Business Firewall")))								 
@@ -299,12 +299,12 @@ public class ProductCatalogIntegrationTest {
 		InputStream in = new FileInputStream( testProductOfferingPrice );
 		String resvxf = IOUtils.toString(in, "UTF-8");
 		
-		ProductSpecificationCreate scc = toJsonObj( resvxf,  ProductSpecificationCreate.class);
+		ProductSpecificationCreate scc = JsonUtils.toJsonObj( resvxf,  ProductSpecificationCreate.class);
 		scc.setVersion("1.1");
 		String response = mvc.perform(MockMvcRequestBuilders.post("/productCatalogManagement/v4/productSpecification")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scc ) ))
+				.content( JsonUtils.toJson( scc ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Acme Firepower NGFW")))								 
@@ -319,27 +319,4 @@ public class ProductCatalogIntegrationTest {
 
 	
 	
-	static byte[] toJson(Object object) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsBytes(object);
-	}
-
-	static String toJsonString(Object object) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsString(object);
-	}
-
-	static <T> T toJsonObj(String content, Class<T> valueType) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.readValue(content, valueType);
-	}
-
-	static <T> T toJsonObj(InputStream content, Class<T> valueType) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.readValue(content, valueType);
-	}
 }

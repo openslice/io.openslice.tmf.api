@@ -38,20 +38,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackages = { 
-
-		"io.openslice",
-		"io.openslice.sd",
-		"io.openslice.sd.model",
-		"io.openslice.tmf",  
-		"io.openslice.tmf.configuration", 
-		"io.openslice.tmf.scm633", 
-		"io.openslice.tmf.scm633.api",
-		"io.openslice.tmf.scm633.repo", 
-		"io.openslice.tmf.scm633.reposervices",
-		"io.openslice.tmf.scm634", 
-		"io.openslice.tmf.scm634.api",
-		"io.openslice.centrallog.client"})
+@ComponentScan
 @EntityScan( basePackages = { 
 		"io.openslice",
 		"io.openslice.sd",
@@ -80,9 +67,9 @@ public class OpenAPISpringBoot implements CommandLineRunner {
       
         applicationContext =  new SpringApplication(OpenAPISpringBoot.class).run(args);
         
-//        for (String beanName : applicationContext.getBeanDefinitionNames()) {
-//            System.out.println(beanName);
-//        }
+        for (String beanName : applicationContext.getBeanDefinitionNames()) {
+            System.out.println(beanName);
+        }
     }
 
     class ExitException extends RuntimeException implements ExitCodeGenerator {

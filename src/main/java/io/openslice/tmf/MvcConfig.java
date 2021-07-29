@@ -54,7 +54,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc - removed 30/7/2021
 public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Autowired
 	Environment env;

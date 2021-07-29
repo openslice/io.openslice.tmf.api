@@ -37,11 +37,11 @@ public interface ResourceSpecificationRepository extends PagingAndSortingReposit
 	
 	Optional<ResourceSpecification> findByUuid(String id);
 
-	@Query("SELECT sc FROM LogicalResourceSpec sc")
+	@Query("SELECT sc FROM LogicalRspec sc")
 	List<LogicalResourceSpecification> findAllLogical();
 	
 
-	@Query("SELECT sc FROM PhysicalResourceSpec sc")
+	@Query("SELECT sc FROM PhysicalRspec sc")
 	List<PhysicalResourceSpecification> findAllPhysical();
 
 }

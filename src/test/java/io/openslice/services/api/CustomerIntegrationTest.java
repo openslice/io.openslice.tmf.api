@@ -116,7 +116,7 @@ public class CustomerIntegrationTest {
 		String response = mvc.perform(MockMvcRequestBuilders.post("/customerManagement/v4/customer")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( cc ) ))
+				.content( JsonUtils.toJson( cc ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("A Customer")))								 
@@ -126,7 +126,7 @@ public class CustomerIntegrationTest {
 
 		assertThat( customerRepoService.findAll().size() ).isEqualTo( 1 );
 		
-		Customer respc = toJsonObj( response, Customer.class);
+		Customer respc = JsonUtils.toJsonObj( response, Customer.class);
 		assertThat( respc.getContactMedium().stream().findFirst().get().getMediumType() ).isEqualTo("email");
 		assertThat( respc.getContactMedium().stream().findFirst().get().getCharacteristic().getEmailAddress()  ).isEqualTo("test@openslice.io");
 		
@@ -148,7 +148,7 @@ public class CustomerIntegrationTest {
 		String responseUpd = mvc.perform(MockMvcRequestBuilders.patch("/customerManagement/v4/customer/" + respc.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 	            .contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( cu ) ))
+				.content( JsonUtils.toJson( cu ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("A Customer")))								 
@@ -158,19 +158,19 @@ public class CustomerIntegrationTest {
 
 		assertThat( customerRepoService.findAll().size() ).isEqualTo( 1 );
 		
-		respc = toJsonObj( responseUpd, Customer.class);
+		respc = JsonUtils.toJsonObj( responseUpd, Customer.class);
 
 		assertThat( respc.getContactMedium().size()  ).isEqualTo(2);
 
 		String responseGet = mvc.perform(MockMvcRequestBuilders.get("/customerManagement/v4/customer")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( cc ) ))
+				.content( JsonUtils.toJson( cc ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andReturn().getResponse().getContentAsString();
 		
 
-		List<Customer> respcs = toJsonObj( responseGet, ArrayList.class);
+		List<Customer> respcs = JsonUtils.toJsonObj( responseGet, ArrayList.class);
 
 		assertThat( respcs.size()  ).isEqualTo( 1 );
 		
@@ -178,14 +178,14 @@ public class CustomerIntegrationTest {
 		responseGet = mvc.perform(MockMvcRequestBuilders.get("/customerManagement/v4/customer/" + respc.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( cc ) ))
+				.content( JsonUtils.toJson( cc ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("A Customer")))								 
 	    	    .andReturn().getResponse().getContentAsString();
 
 
-		respc = toJsonObj( responseGet, Customer.class);
+		respc = JsonUtils.toJsonObj( responseGet, Customer.class);
 		
 		
 
@@ -193,7 +193,7 @@ public class CustomerIntegrationTest {
 				.delete("/customerManagement/v4/customer/" + respc.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( cu ) ))
+				.content( JsonUtils.toJson( cu ) ))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		
@@ -202,15 +202,4 @@ public class CustomerIntegrationTest {
 		
 	}
 	
-	 static byte[] toJson(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsBytes(object);
-	    }
-	 
-	static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return mapper.readValue( content, valueType);
-    }
 }

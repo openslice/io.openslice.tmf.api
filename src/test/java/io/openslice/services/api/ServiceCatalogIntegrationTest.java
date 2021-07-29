@@ -200,12 +200,12 @@ public class ServiceCatalogIntegrationTest {
 		InputStream in = new FileInputStream( scatalog );
 		String resvxf = IOUtils.toString(in, "UTF-8");
 		
-		ServiceCatalogCreate scc = toJsonObj( resvxf,  ServiceCatalogCreate.class);
+		ServiceCatalogCreate scc = JsonUtils.toJsonObj( resvxf,  ServiceCatalogCreate.class);
 		
 		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCatalog")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scc ) ))
+				.content( JsonUtils.toJson( scc ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Test Catalog")))								 
@@ -215,7 +215,7 @@ public class ServiceCatalogIntegrationTest {
 
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 2 );
 		
-		ServiceCatalog responsesCatalog = toJsonObj(response,  ServiceCatalog.class);
+		ServiceCatalog responsesCatalog = JsonUtils.toJsonObj(response,  ServiceCatalog.class);
 		assertThat( responsesCatalog.getName() ).isEqualTo( "Test Catalog" );
 		
 		assertThat( responsesCatalog.getCategoryObj().size()).isEqualTo(0);
@@ -229,12 +229,12 @@ public class ServiceCatalogIntegrationTest {
 		in = new FileInputStream( scat );
 		String sc = IOUtils.toString(in, "UTF-8");
 		
-		ServiceCategoryCreate scategcreate = toJsonObj( sc,  ServiceCategoryCreate.class);
+		ServiceCategoryCreate scategcreate = JsonUtils.toJsonObj( sc,  ServiceCategoryCreate.class);
 		
 		response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCategory")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scategcreate ) ))
+				.content( JsonUtils.toJson( scategcreate ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Test Category 2")))								 
@@ -243,7 +243,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
 		
-		ServiceCategory responsesCateg = toJsonObj(response,  ServiceCategory.class);
+		ServiceCategory responsesCateg = JsonUtils.toJsonObj(response,  ServiceCategory.class);
 		assertThat( responsesCateg.getName() ).isEqualTo( "Test Category 2" );
 		
 		
@@ -259,7 +259,7 @@ public class ServiceCatalogIntegrationTest {
 		 response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceCatalog/" + responsesCatalog.getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scu ) ))
+				.content( JsonUtils.toJson( scu ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Test Catalog")))								 
@@ -268,7 +268,7 @@ public class ServiceCatalogIntegrationTest {
 		
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 2 );
 			
-		responsesCatalog = toJsonObj(response, ServiceCatalog.class);
+		responsesCatalog = JsonUtils.toJsonObj(response, ServiceCatalog.class);
 		assertThat(responsesCatalog.getName()).isEqualTo("Test Catalog");
 
 
@@ -282,12 +282,12 @@ public class ServiceCatalogIntegrationTest {
 		in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
-		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		
 		 response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr ) ))
+				.content( JsonUtils.toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Test Spec")))								 
@@ -296,7 +296,7 @@ public class ServiceCatalogIntegrationTest {
 		
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
-		ServiceSpecification responsesSpec = toJsonObj(response,  ServiceSpecification.class);
+		ServiceSpecification responsesSpec = JsonUtils.toJsonObj(response,  ServiceSpecification.class);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec" );
 
 		assertThat( responsesSpec.getServiceSpecCharacteristic().size() ).isEqualTo(1);
@@ -319,15 +319,15 @@ public class ServiceCatalogIntegrationTest {
 		InputStream in = new FileInputStream( scat );
 		String sc = IOUtils.toString(in, "UTF-8");
 		
-		ServiceCategoryCreate scategcreate = toJsonObj( sc,  ServiceCategoryCreate.class);
+		ServiceCategoryCreate scategcreate = JsonUtils.toJsonObj( sc,  ServiceCategoryCreate.class);
 		scategcreate.setIsRoot(true);
 		ServiceCategory parentRootCategory = postCategory( scategcreate, scategcreate.getName() );
 
-		ServiceCategoryCreate scategcreate2 = toJsonObj( sc,  ServiceCategoryCreate.class);
+		ServiceCategoryCreate scategcreate2 = JsonUtils.toJsonObj( sc,  ServiceCategoryCreate.class);
 		scategcreate2.setName("Child Cat");
 		ServiceCategory child1Subcategory = postCategory( scategcreate2, scategcreate2.getName() );
 		
-		ServiceCategoryUpdate scUpd1 = toJsonObj( sc,  ServiceCategoryUpdate.class);
+		ServiceCategoryUpdate scUpd1 = JsonUtils.toJsonObj( sc,  ServiceCategoryUpdate.class);
 		scUpd1.setIsRoot(true);
 		scUpd1.setName("Parent Cat");
 		ServiceCategoryRef scRef = new ServiceCategoryRef();
@@ -341,14 +341,14 @@ public class ServiceCatalogIntegrationTest {
 		String response = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scUpd1 ) ))
+				.content( JsonUtils.toJson( scUpd1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is( "Parent Cat" )))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 				
-		parentRootCategory = toJsonObj(response,  ServiceCategory.class);
+		parentRootCategory = JsonUtils.toJsonObj(response,  ServiceCategory.class);
 		
 
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
@@ -385,12 +385,12 @@ public class ServiceCatalogIntegrationTest {
 		
 		 response = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scUpd1 ) ))
+				.content( JsonUtils.toJson( scUpd1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))	
 	    	    .andReturn().getResponse().getContentAsString();
 		 
-		 child1Subcategory = toJsonObj(response,  ServiceCategory.class);
+		 child1Subcategory = JsonUtils.toJsonObj(response,  ServiceCategory.class);
 		
 		 assertThat( child1Subcategory.getParentId()  ).isEqualTo( parentRootCategory.getId() );
 		 		 
@@ -398,7 +398,7 @@ public class ServiceCatalogIntegrationTest {
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
-					.content( toJson( scUpd1 ) ))
+					.content( JsonUtils.toJson( scUpd1 ) ))
 				    .andExpect(status().isNotModified() )
 		    	    .andReturn().getResponse().getContentAsString();
 		 
@@ -408,7 +408,7 @@ public class ServiceCatalogIntegrationTest {
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
-					.content( toJson( scUpd1 ) ))
+					.content( JsonUtils.toJson( scUpd1 ) ))
 				    .andExpect(status().isOk() )
 		    	    .andReturn().getResponse().getContentAsString();
 		 
@@ -418,7 +418,7 @@ public class ServiceCatalogIntegrationTest {
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/serviceCatalogManagement/v4/serviceCategory/" + parentRootCategory.getId() )
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 					.contentType(MediaType.APPLICATION_JSON)
-					.content( toJson( scUpd1 ) ))
+					.content( JsonUtils.toJson( scUpd1 ) ))
 				    .andExpect(status().isOk() )
 		    	    .andReturn().getResponse().getContentAsString();
 		 
@@ -431,14 +431,14 @@ public class ServiceCatalogIntegrationTest {
 		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceCategory")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( scategcreate ) ))
+				.content( JsonUtils.toJson( scategcreate ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is( name )))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 				
-		ServiceCategory responsesCateg = toJsonObj(response,  ServiceCategory.class);
+		ServiceCategory responsesCateg = JsonUtils.toJsonObj(response,  ServiceCategory.class);
 		
 		return responsesCateg;
 	}
@@ -454,7 +454,7 @@ public class ServiceCatalogIntegrationTest {
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
-		ServiceSpecificationCreate sspeccr = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		
 		AttachmentRef attachmentItem = new AttachmentRef();
 		attachmentItem.setId( "a-ref-id" );
@@ -465,25 +465,25 @@ public class ServiceCatalogIntegrationTest {
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr ) ))
+				.content( JsonUtils.toJson( sspeccr ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Test Spec")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec = toJsonObj(responseSpec,  ServiceSpecification.class);
+		ServiceSpecification responsesSpec = JsonUtils.toJsonObj(responseSpec,  ServiceSpecification.class);
 		logger.info("Test: testSpecAttachments response = " + responseSpec);
 		assertThat( responsesSpec.getName() ).isEqualTo( "Test Spec" );
 		assertThat( responsesSpec.getAttachment().size() ).isEqualTo( 1 );
 		
 		//make it now as a ServiceSpecificationUpdate, no id, uuid and lastUpdate
-		JSONObject obj = toJsonObj(responseSpec, JSONObject.class);
+		JSONObject obj = JsonUtils.toJsonObj(responseSpec, JSONObject.class);
 		obj.remove("uuid");
 		obj.remove("id");
 		obj.remove("lastUpdate");
-		responseSpec = toJsonString(obj);
+		responseSpec = JsonUtils.toJsonString(obj);
 				
-		ServiceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
+		ServiceSpecificationUpdate responsesSpecUpd = JsonUtils.toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
 		responsesSpecUpd.setName( "Test Spec a attr" );
 		responsesSpecUpd.setVersion("2.x");
 		ServiceSpecCharacteristic spechar = new ServiceSpecCharacteristic();
@@ -497,13 +497,13 @@ public class ServiceCatalogIntegrationTest {
 		String response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( responsesSpecUpd ) ))
+				.content( JsonUtils.toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Test Spec a attr")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
+		ServiceSpecification responsesSpec2 = JsonUtils.toJsonObj(response2,  ServiceSpecification.class);
 		assertThat( responsesSpec2.getName() ).isEqualTo( "Test Spec a attr" );
 		assertThat( responsesSpec2.getVersion() ).isEqualTo( "2.x" );
 		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo(2);
@@ -519,7 +519,7 @@ public class ServiceCatalogIntegrationTest {
 		logger.info("Test: testSpecAttachments responsesSpec2 patch1= " + response2.toString());
 		
 		//test now update and delete things
-		responsesSpecUpd = toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
+		responsesSpecUpd = JsonUtils.toJsonObj(responseSpec,  ServiceSpecificationUpdate.class);
 		ServiceSpecCharacteristicValue val = new ServiceSpecCharacteristicValue();
 		val.setValueType( EValueType.ARRAY.toString());
 		val.setValue( new Any("1" ,"a second value") );
@@ -538,7 +538,7 @@ public class ServiceCatalogIntegrationTest {
 		response2 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( responsesSpecUpd ) ))
+				.content( JsonUtils.toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Test Spec")))								 
@@ -546,7 +546,7 @@ public class ServiceCatalogIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("Test: testSpecAttachments responsesSpec2 patch2= " + response2.toString());
 
-		responsesSpec2 = toJsonObj(response2,  ServiceSpecification.class);
+		responsesSpec2 = JsonUtils.toJsonObj(response2,  ServiceSpecification.class);
 
 		
 		
@@ -601,12 +601,12 @@ public class ServiceCatalogIntegrationTest {
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec,  ServiceSpecification.class);
+		ServiceSpecification responsesSpec1 = JsonUtils.toJsonObj(responseSpec,  ServiceSpecification.class);
 		logger.info("createServiceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
@@ -625,17 +625,17 @@ public class ServiceCatalogIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
 		
-		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
 
 		
-		ServiceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr2 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
 		ServiceSpecification responsesSpec2 = createServiceSpec(sspectext, sspeccr2);
 
 
-		ServiceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr3 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr3.setName("Spec3");
 		sspeccr3.isBundle(true);
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
@@ -672,18 +672,18 @@ public class ServiceCatalogIntegrationTest {
 		 * try PATCH with service relationships
 		 */
 		//first add a new service spec and then reference it
-		ServiceSpecificationCreate sspeccr4 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr4 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr4.setName("Spec4");
 		ServiceSpecification responsesSpec4 = createServiceSpec(sspectext, sspeccr3);
 		
-		String responseSpec3 = toJsonString( responsesSpec3 );
-		JSONObject obj = toJsonObj(responseSpec3, JSONObject.class);
+		String responseSpec3 = JsonUtils.toJsonString( responsesSpec3 );
+		JSONObject obj = JsonUtils.toJsonObj(responseSpec3, JSONObject.class);
 		obj.remove("uuid");
 		obj.remove("id");
 		obj.remove("lastUpdate");
-		responseSpec3 = toJsonString(obj);
+		responseSpec3 = JsonUtils.toJsonString(obj);
 				
-		ServiceSpecificationUpdate responsesSpecUpd = toJsonObj(responseSpec3,  ServiceSpecificationUpdate.class);	
+		ServiceSpecificationUpdate responsesSpecUpd = JsonUtils.toJsonObj(responseSpec3,  ServiceSpecificationUpdate.class);	
 		for (ServiceSpecRelationship r : responsesSpecUpd.getServiceSpecRelationship()) {
 			if ( r.getId().equals( responsesSpec1.getId() ) ) {
 				responsesSpecUpd.getServiceSpecRelationship().remove(r);
@@ -703,13 +703,13 @@ public class ServiceCatalogIntegrationTest {
 		String responsePatch1 = mvc.perform(MockMvcRequestBuilders.patch("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec3.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( responsesSpecUpd ) ))
+				.content( JsonUtils.toJson( responsesSpecUpd ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("Spec3")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responseSpecPatch1 = toJsonObj( responsePatch1,  ServiceSpecification.class);
+		ServiceSpecification responseSpecPatch1 = JsonUtils.toJsonObj( responsePatch1,  ServiceSpecification.class);
 
 		logger.info("Test: testBundledSpec responsePatch1= " + responsePatch1);
 
@@ -760,17 +760,17 @@ public class ServiceCatalogIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
 		
-		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
 
 		
-		ServiceSpecificationCreate sspeccr2 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr2 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr2.setName("Spec2");
 		ServiceSpecification responsesSpec2 = createServiceSpec(sspectext, sspeccr2);
 
 
-		ServiceSpecificationCreate sspeccr3 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr3 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr3.setName("Spec3");
 		sspeccr3.isBundle(true);
 		sspeccr3.addServiceSpecRelationshipWith( responsesSpec1 );
@@ -782,12 +782,12 @@ public class ServiceCatalogIntegrationTest {
 
 		String responseSpecCloned = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/"+responsesSpec3.getId()+"/clone")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( "" ) ))
+				.content( JsonUtils.toJson( "" ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification clonedSpec = toJsonObj( responseSpecCloned,  ServiceSpecification.class);
+		ServiceSpecification clonedSpec = JsonUtils.toJsonObj( responseSpecCloned,  ServiceSpecification.class);
 		//logger.info("source = " + responsesSpec3.toString());
 		//logger.info("clonedSpec = " + clonedSpec.toString());
 
@@ -805,12 +805,12 @@ public class ServiceCatalogIntegrationTest {
 		
 		String responseSpecClonedGST = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification/cloneGST?serviceName=aGST Service")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( "" ) ))				
+				.content( JsonUtils.toJson( "" ) ))				
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		clonedSpec = toJsonObj( responseSpecClonedGST,  ServiceSpecification.class);
+		clonedSpec = JsonUtils.toJsonObj( responseSpecClonedGST,  ServiceSpecification.class);
 		assertThat( clonedSpec.getName() ).isEqualTo( "aGST Service" );	
 		
 
@@ -828,13 +828,13 @@ public class ServiceCatalogIntegrationTest {
 				.param("addServiceTesting", "true")
 				.param("addServiceVNF", "true")
 				.param("addServiceNSD", "true")
-				.content( toJson( "" ) ))
+				.content( JsonUtils.toJson( "" ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 
-		clonedSpec = toJsonObj( responseSpecClonedVINNI,  ServiceSpecification.class);
+		clonedSpec = JsonUtils.toJsonObj( responseSpecClonedVINNI,  ServiceSpecification.class);
 		assertThat( clonedSpec.getName() ).isEqualTo( "aVINNIService" );	
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 16 );
@@ -860,13 +860,13 @@ public class ServiceCatalogIntegrationTest {
 				.param("addServiceTesting", "false")
 				.param("addServiceVNF", "false")
 				.param("addServiceNSD", "false")
-				.content( toJson( "" ) ))
+				.content( JsonUtils.toJson( "" ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 
-		clonedSpec = toJsonObj( responseSpecClonedVINNI2,  ServiceSpecification.class);
+		clonedSpec = JsonUtils.toJsonObj( responseSpecClonedVINNI2,  ServiceSpecification.class);
 		assertThat( clonedSpec.getName() ).isEqualTo( "aVINNIService" );	
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 20 );
@@ -882,7 +882,7 @@ public class ServiceCatalogIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
 		
-		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);
 
@@ -901,7 +901,7 @@ public class ServiceCatalogIntegrationTest {
 		String responsePatch1 = mvc.perform(MockMvcRequestBuilders
 				.multipart("/serviceCatalogManagement/v4/serviceSpecification/" + responsesSpec1.getId() + "/attachment" )
 				.file(prodFile)
-				.param("attachment", toJsonString(att))
+				.param("attachment", JsonUtils.toJsonString(att))
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				)
 			    .andExpect(status().isOk())
@@ -909,7 +909,7 @@ public class ServiceCatalogIntegrationTest {
 			    .andExpect(jsonPath("name", is("cirros_vnf.tar.gz")))								 
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		Attachment responseSpecPost1 = toJsonObj( responsePatch1,  Attachment.class);
+		Attachment responseSpecPost1 = JsonUtils.toJsonObj( responsePatch1,  Attachment.class);
 
 		//logger.info("Test: testSpecAttachment responseSpecPost1= " + responseSpecPost1);
 
@@ -930,17 +930,17 @@ public class ServiceCatalogIntegrationTest {
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
-		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName( sspeccr1.getName()+"_acopy_" );
 		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec1,  ServiceSpecification.class);
+		ServiceSpecification responsesSpec1 = JsonUtils.toJsonObj(responseSpec1,  ServiceSpecification.class);
 
 		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
 
@@ -965,12 +965,12 @@ public class ServiceCatalogIntegrationTest {
 		
 		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		List<ServiceSpecification> specs = toJsonObj( responseSpecs,  ArrayList.class );
+		List<ServiceSpecification> specs = JsonUtils.toJsonObj( responseSpecs,  ArrayList.class );
 
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
@@ -985,12 +985,12 @@ public class ServiceCatalogIntegrationTest {
 		
 		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=A%20GST(NEST)%20Service%20Example")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		List<ServiceSpecification> specsFilter = toJsonObj( responseSpecsFilter,  ArrayList.class );
+		List<ServiceSpecification> specsFilter = JsonUtils.toJsonObj( responseSpecsFilter,  ArrayList.class );
 
 
 		assertThat(specsFilter.size()  ).isEqualTo(1) ;
@@ -1034,17 +1034,17 @@ public class ServiceCatalogIntegrationTest {
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
 		
-		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName( sspeccr1.getName()+"_acopy_" );
 		String responseSpec1 = mvc.perform(MockMvcRequestBuilders.post("/serviceCatalogManagement/v4/serviceSpecification")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		ServiceSpecification responsesSpec1 = toJsonObj(responseSpec1,  ServiceSpecification.class);
+		ServiceSpecification responsesSpec1 = JsonUtils.toJsonObj(responseSpec1,  ServiceSpecification.class);
 
 		logger.info("Test: testBundledSpec responseSpec1 = " + responseSpec1);
 
@@ -1069,12 +1069,12 @@ public class ServiceCatalogIntegrationTest {
 		
 		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		List<ServiceSpecification> specs = toJsonObj( responseSpecs,  ArrayList.class );
+		List<ServiceSpecification> specs = JsonUtils.toJsonObj( responseSpecs,  ArrayList.class );
 
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
@@ -1089,12 +1089,12 @@ public class ServiceCatalogIntegrationTest {
 		
 		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=A%20VINNI%20Service%20Example")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		List<ServiceSpecification> specsFilter = toJsonObj( responseSpecsFilter,  ArrayList.class );
+		List<ServiceSpecification> specsFilter = JsonUtils.toJsonObj( responseSpecsFilter,  ArrayList.class );
 
 
 		assertThat(specsFilter.size()  ).isEqualTo(0) ;
@@ -1143,7 +1143,7 @@ public class ServiceCatalogIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
 		
-		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);		
 
@@ -1170,7 +1170,7 @@ public class ServiceCatalogIntegrationTest {
 		String sspectext = IOUtils.toString(in, "UTF-8");
 
 		
-		ServiceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ServiceSpecificationCreate.class);
+		ServiceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ServiceSpecificationCreate.class);
 		sspeccr1.setName("Spec1");
 		ServiceSpecification responsesSpec1 = createServiceSpec(sspectext, sspeccr1);		
 
@@ -1217,13 +1217,13 @@ public class ServiceCatalogIntegrationTest {
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
-		ResourceSpecificationCreate sspeccr1 = toJsonObj( sspectext,  ResourceSpecificationCreate.class);
+		ResourceSpecificationCreate sspeccr1 = JsonUtils.toJsonObj( sspectext,  ResourceSpecificationCreate.class);
 
 		URI url = new URI("/resourceCatalogManagement/v4/logicalResourceSpec");
 		
 		String responseSpec = mvc.perform(MockMvcRequestBuilders.post( url  )
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( sspeccr1 ) ))
+				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
@@ -1231,37 +1231,12 @@ public class ServiceCatalogIntegrationTest {
 		
 		LogicalResourceSpecification responsesSpec1;
 		
-		responsesSpec1 = toJsonObj(responseSpec,  LogicalResourceSpecification.class);
+		responsesSpec1 = JsonUtils.toJsonObj(responseSpec,  LogicalResourceSpecification.class);
 		
 		logger.info("createResourceSpec = " + responseSpec);
 		return responsesSpec1;
 	}
 	
 	
-	
-	 static byte[] toJson(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsBytes(object);
-	    }
-	 
-	 static String toJsonString(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsString(object);
-	    }
-	 
-	 
-	 static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.readValue( content, valueType);
-	    }
-	 
-	 static <T> T toJsonObj(InputStream content, Class<T> valueType)  throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.readValue( content, valueType);
-	    }
 	
 }

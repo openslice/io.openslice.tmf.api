@@ -38,7 +38,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
-@Entity(name = "PhysicalResourceSpec")
+@Entity(name = "PhysicalRspec")
 public class PhysicalResourceSpecification extends ResourceSpecification {
 
 	public PhysicalResourceSpecification() {

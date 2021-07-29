@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "Specifies a function as a behavior to transform inputs of any nature into outputs of any nature independently from the way it is provided, for example a Medium to Large Enterprise Firewall.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
-@Entity(name = "ResourceFunctionSpec")
+@Entity(name = "Resfuncspec")
 public class ResourceFunctionSpecification extends LogicalResourceSpecification {
 
 	@JsonProperty("connectionPointSpecification")

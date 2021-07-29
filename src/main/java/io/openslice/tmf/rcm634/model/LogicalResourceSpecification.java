@@ -33,7 +33,7 @@ import io.swagger.annotations.ApiModel;
 @ApiModel(description = "This is a base class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a LogicalResource.")
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
-@Entity(name = "LogicalResourceSpec")
+@Entity(name = "LogicalRspec")
 public class LogicalResourceSpecification extends ResourceSpecification {
 
 	public LogicalResourceSpecification() {

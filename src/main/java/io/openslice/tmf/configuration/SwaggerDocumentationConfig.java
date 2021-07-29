@@ -271,6 +271,7 @@ public class SwaggerDocumentationConfig {
     }
     
     
+    
 
     
     
@@ -323,6 +324,18 @@ public class SwaggerDocumentationConfig {
                 .build();
     }
     
+
+    ApiInfo apiInfoLCMRules() {
+        return new ApiInfoBuilder()
+            .title("LCM Rules")
+            .description("This is Swagger UI environment for LCM Rules")
+            .license("Apache 2.0")
+            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+            .termsOfServiceUrl("")
+            .version("1.0")
+            .contact(new Contact("openslice.io","", ""))
+            .build();
+    }
     
     @Bean
     public Docket customscm633(){
@@ -587,6 +600,20 @@ public class SwaggerDocumentationConfig {
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo653())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+    }
+    
+    @Bean
+    public Docket swaggerLCMInfo(){
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("LCMRules specification API")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.lcm.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfoLCMRules())
         		.securitySchemes(Arrays.asList(securityScheme()))
         		.securityContexts(Arrays.asList(securityContext()));
     }

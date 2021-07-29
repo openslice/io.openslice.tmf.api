@@ -105,13 +105,13 @@ public class ServiceTestManagementIntegrationTest {
 		File sspec = new File( "src/test/resources/testServiceTestSpec.json" );
 		InputStream in = new FileInputStream( sspec );
 		String sspectext = IOUtils.toString(in, "UTF-8");
-		ServiceTestSpecificationCreate spec = toJsonObj( sspectext,  ServiceTestSpecificationCreate.class);  
+		ServiceTestSpecificationCreate spec = JsonUtils.toJsonObj( sspectext,  ServiceTestSpecificationCreate.class);  
 		
 		
 		String response = mvc.perform(MockMvcRequestBuilders.post("/serviceTestManagement/v4/serviceTestSpecification")
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( spec ) ))
+				.content( JsonUtils.toJson( spec ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("A test name")))								 
@@ -125,13 +125,13 @@ public class ServiceTestManagementIntegrationTest {
 		sspec = new File( "src/test/resources/testServiceTest.json" );
 		in = new FileInputStream( sspec );
 		sspectext = IOUtils.toString(in, "UTF-8");
-		ServiceTestCreate stest = toJsonObj( sspectext,  ServiceTestCreate.class);  
+		ServiceTestCreate stest = JsonUtils.toJsonObj( sspectext,  ServiceTestCreate.class);  
 		
 		
 		response = mvc.perform(MockMvcRequestBuilders.post("/serviceTestManagement/v4/serviceTest")
 		            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
-				.content( toJson( stest ) ))
+				.content( JsonUtils.toJson( stest ) ))
 			    .andExpect(status().isOk())
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 			    .andExpect(jsonPath("name", is("A test name")))								 
@@ -143,32 +143,6 @@ public class ServiceTestManagementIntegrationTest {
 		
 
 	}
-	
-
-	 static byte[] toJson(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsBytes(object);
-	    }
-	 
-	 static String toJsonString(Object object) throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.writeValueAsString(object);
-	    }
-	 
-	 
-	 static <T> T toJsonObj(String content, Class<T> valueType)  throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.readValue( content, valueType);
-	    }
-	 
-	 static <T> T toJsonObj(InputStream content, Class<T> valueType)  throws IOException {
-	        ObjectMapper mapper = new ObjectMapper();
-	        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-	        return mapper.readValue( content, valueType);
-	    }
 	
 
 }

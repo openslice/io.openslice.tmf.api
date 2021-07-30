@@ -126,7 +126,7 @@ public interface ResourceSpecificationApi {
 
     @ApiOperation(value = "Deletes a ResourceSpecification", nickname = "deleteResourceSpecification", notes = "This operation deletes a ResourceSpecification entity.", tags={ "resourceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

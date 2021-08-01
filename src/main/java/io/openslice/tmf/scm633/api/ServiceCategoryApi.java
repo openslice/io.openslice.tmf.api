@@ -68,7 +68,7 @@ public interface ServiceCategoryApi {
 
     @ApiOperation(value = "Deletes a ServiceCategory", nickname = "deleteServiceCategory", notes = "This operation deletes a ServiceCategory entity.", tags={ "serviceCategory", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

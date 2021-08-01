@@ -103,7 +103,7 @@ public interface PartyRoleApi {
 
     @ApiOperation(value = "Deletes a PartyRole", nickname = "deletePartyRole", notes = "This operation deletes a PartyRole entity.", tags={ "partyRole", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

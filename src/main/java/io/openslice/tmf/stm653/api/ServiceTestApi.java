@@ -103,7 +103,7 @@ public interface ServiceTestApi {
 
     @ApiOperation(value = "Deletes a ServiceTest", nickname = "deleteServiceTest", notes = "This operation deletes a ServiceTest entity.", tags={ "serviceTest", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

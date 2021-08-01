@@ -98,6 +98,9 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 		}
 	}
 	
+
+
+	
 	@Override
 	@Secured({ "ROLE_ADMIN" })
 	public ResponseEntity<LCMRuleSpecification> patchLCMRuleSpecification(@Valid LCMRuleSpecificationUpdate body, String id) {
@@ -132,6 +135,24 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 				return new ResponseEntity<List<LCMRuleSpecification>>(
 						lcmRuleSpecificationRepoService.findAll(fields, allParams), HttpStatus.OK);
 			}
+
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<List<LCMRuleSpecification>>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+
+	@Override
+	@Secured({ "ROLE_ADMIN" })
+	public ResponseEntity<List<LCMRuleSpecification>> listLCMRuleSpecificationBySpecID(String id, @Valid String fields,
+			@Valid Integer offset, @Valid Integer limit, @Valid Map<String, String> allParams) {
+		try {
+			
+				
+				return new ResponseEntity<List<LCMRuleSpecification>>(
+						lcmRuleSpecificationRepoService.findByServiceSpecificationRefId(id) , HttpStatus.OK);
+			
 
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);

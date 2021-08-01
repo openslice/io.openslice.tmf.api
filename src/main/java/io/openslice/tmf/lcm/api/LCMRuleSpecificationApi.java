@@ -105,6 +105,29 @@ public interface LCMRuleSpecificationApi {
 			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
 			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams);
 
+	
+	@ApiOperation(value = "List or find LCM RuleSpecification objects by Service Specification ID", nickname = "listLCMRuleSpecificationsByServiceSpecID", notes = "This operation list or find LCM RuleSpecification entities by SpecID", response = LCMRuleSpecification.class, responseContainer = "List", tags = {
+			"lcmRuleSpecification", })
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success", response = LCMRuleSpecification.class, responseContainer = "List"),
+			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
+			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
+			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@RequestMapping(value = "/lcmRuleSpecification/serviceSpec/{id}", produces = {
+			"application/json;charset=utf-8" }, method = RequestMethod.GET)
+	ResponseEntity<List<LCMRuleSpecification>> listLCMRuleSpecificationBySpecID(
+			@ApiParam(value = "Identifier of the ServiceSpecification Id", required = true) @PathVariable("id") String id,
+			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams);
+
+	
+	
 	@ApiOperation(value = "Updates partially a LCM RuleSpecification", nickname = "patchLCMRuleSpecification", notes = "This operation updates partially a LCM RuleSpecification entity.", response = LCMRuleSpecification.class, tags = {
 			"lcmRuleSpecification", })
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Updated", response = LCMRuleSpecification.class),

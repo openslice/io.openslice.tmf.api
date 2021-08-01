@@ -101,7 +101,7 @@ public interface HubApi {
 
     @ApiOperation(value = "Unregister a listener", nickname = "unregisterListener", notes = "Resets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics.", tags={ "events subscription", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
         @ApiResponse(code = 400, message = "Bad request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

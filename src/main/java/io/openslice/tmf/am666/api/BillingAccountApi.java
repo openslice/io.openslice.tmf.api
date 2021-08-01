@@ -103,7 +103,7 @@ public interface BillingAccountApi {
 
     @ApiOperation(value = "Deletes a BillingAccount", nickname = "deleteBillingAccount", notes = "This operation deletes a BillingAccount entity.", tags={ "billingAccount", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

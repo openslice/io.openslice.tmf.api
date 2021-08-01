@@ -102,7 +102,7 @@ public interface ImportJobApi {
 
     @ApiOperation(value = "Deletes a ImportJob", nickname = "deleteImportJob", notes = "This operation deletes a ImportJob entity.", tags={ "importJob", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
+        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
         @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
         @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
         @ApiResponse(code = 403, message = "Forbidden", response = Error.class),

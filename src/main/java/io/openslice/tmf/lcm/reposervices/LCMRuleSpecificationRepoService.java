@@ -1,7 +1,11 @@
 package io.openslice.tmf.lcm.reposervices;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,7 +13,11 @@ import java.util.Optional;
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +27,7 @@ import io.openslice.tmf.lcm.model.LCMRuleSpecification;
 import io.openslice.tmf.lcm.model.LCMRuleSpecificationCreate;
 import io.openslice.tmf.lcm.model.LCMRuleSpecificationUpdate;
 import io.openslice.tmf.lcm.repo.LCMRuleSpecificationRepository;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 
@@ -86,8 +95,88 @@ public class LCMRuleSpecificationRepoService {
 		return optionalCat.orElse(null);
 	}
 	
-	public List<LCMRuleSpecification> findAll(String myfields, @Valid Map<String, String> allParams) {
-		return findAll();
+	public List findAll(String myfields, @Valid Map<String, String> allParams) 
+			throws UnsupportedEncodingException {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		List<ServiceSpecification> alist = null;
+		try {
+//			String sql = "SELECT s FROM ServiceSpecification s";
+			String sql = "SELECT "
+					+ "s.uuid as uuid,"
+					+ "s.uuid as id,"
+					+ "s.name as name,"
+					+ "s.description as description,"
+					+ "s.lcmrulephase as lcmrulephase";
+			
+			if (myfields != null) {
+				String[] field = myfields.split(",");
+				for (String f : field) {
+					sql += ", s." + f + " as " + f ;
+				}
+				
+			}			
+			sql += " FROM LCMRuleSpec s";
+			if (allParams.size() > 0) {
+				sql += " WHERE ";
+				for (String pname : allParams.keySet()) {
+					sql += " " + pname + " LIKE ";
+					String pval = URLDecoder.decode(allParams.get(pname), StandardCharsets.UTF_8.toString());
+					sql += "'" + pval + "'";
+				}
+
+			}
+			sql += " ORDER BY s.name";
+			
+	
+			
+			List<Object> mapaEntity = session
+				    .createQuery(sql )
+				    .setResultTransformer( new ResultTransformer() {
+						
+						@Override
+						public Object transformTuple(Object[] tuple, String[] aliases) {
+							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
+							        for (int i = 0; i < tuple.length; i++) {
+							            String alias = aliases[i];
+							            if (alias.equals("type")) {
+							            	alias = "@type";
+							            }
+							            if (alias != null) {
+							                result.put(alias, tuple[i]);
+							            }
+							        }
+
+							        return result;
+						}
+						
+						@Override
+						public List transformList(List collection) {
+							return collection;
+						}
+					} )
+				    .list();
+			
+//			//this will fetch the whole object fields
+//			if ( (( allParams!= null) && ( allParams.size()>0)) ) {
+//				List<ServiceSpecification> resultlist = new ArrayList<>();
+//				for (ServiceSpecification s : alist) {
+//					resultlist.add(  findByUuid( s.getUuid() ));
+//				}
+//				return resultlist;
+//			}
+			
+			
+			
+			return mapaEntity;
+		
+			
+			
+			
+		} finally {
+			tx.commit();
+			session.close();
+		}
 	}
 	
 	
@@ -97,9 +186,94 @@ public class LCMRuleSpecificationRepoService {
 		return optionalCat.orElse(null);
 	}
 
+	
+	@Transactional 
+	public LCMRuleSpecification findByUuidEager(String id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
+		LCMRuleSpecification ls = null;
+		try {
+			ls = session.get(LCMRuleSpecification.class, id);
+			if ( ls == null) {
+				return this.findByUuid(id);// last resort
+			}
+			Hibernate.initialize(ls.getServiceSpecificationRefs() );
+			tx.commit();
+		} finally {
+			session.close();
+		}
+
+		return ls;
+	}
+	
 	@Transactional
-	public List<LCMRuleSpecification> findByServiceSpecificationRefId(String serviceSpecId) {
-		return this.lcmRuleSpecificationRepository.findByServiceSpecificationRef( serviceSpecId );		
+	public List findByServiceSpecificationRefId(String serviceSpecId) {
+		//return this.lcmRuleSpecificationRepository.findByServiceSpecificationRef( serviceSpecId );		
+		
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		List<ServiceSpecification> alist = null;
+		try {
+//			String sql = "SELECT s FROM ServiceSpecification s";
+			String sql = "SELECT "
+					+ "s.uuid as uuid,"
+					+ "s.uuid as id,"	//this is correct
+					+ "s.name as name,"
+					+ "s.description as description,"
+					+ "s.lcmrulephase as lcmrulephase";
+			
+
+			sql += " FROM LCMRuleSpec s JOIN s.serviceSpecs spec WHERE spec.id LIKE '" + serviceSpecId+"'";
+			//sql += " FROM LCMRuleSpec s JOIN s.serviceSpecs spec";
+			
+			sql += " ORDER BY s.name";
+			
+	
+			
+			List<Object> mapaEntity = session
+				    .createQuery(sql )
+				    .setResultTransformer( new ResultTransformer() {
+						
+						@Override
+						public Object transformTuple(Object[] tuple, String[] aliases) {
+							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
+							        for (int i = 0; i < tuple.length; i++) {
+							            String alias = aliases[i];
+							            if (alias.equals("type")) {
+							            	alias = "@type";
+							            }
+							            if (alias != null) {
+							                result.put(alias, tuple[i]);
+							            }
+							        }
+
+							        return result;
+						}
+						
+						@Override
+						public List transformList(List collection) {
+							return collection;
+						}
+					} )
+				    .list();
+			
+			
+			return mapaEntity;
+		
+			
+			
+			
+		} finally {
+			tx.commit();
+			session.close();
+		}
+	}
+	
+	@Transactional
+	public List<LCMRuleSpecification> findByServiceSpecificationRefIdAndPhase(String serviceSpecId, String phaseName) {
+		
+		
+		return this.lcmRuleSpecificationRepository.findByServiceSpecificationRefAndPhase( serviceSpecId, phaseName );		
 	}
 	
 
@@ -137,7 +311,7 @@ public class LCMRuleSpecificationRepoService {
 				// find by id and reload it here.
 
 				boolean idexists = false;
-				for (ServiceSpecificationRef orinalCom : as.getServiceSpecs()) {
+				for (ServiceSpecificationRef orinalCom : as.getServiceSpecificationRefs()) {
 					if (ar.getId()!=null && orinalCom.getId().equals(ar.getId())) {
 						idexists = true;
 						idAddedUpdated.put(orinalCom.getId(), true);
@@ -146,20 +320,20 @@ public class LCMRuleSpecificationRepoService {
 				}
 
 				if (!idexists) {
-					as.getServiceSpecs().add(ar);
+					as.getServiceSpecificationRefs().add(ar);
 					idAddedUpdated.put(ar.getId(), true);
 				}
 			}
 
 			List<ServiceSpecificationRef> toRemove = new ArrayList<>();
-			for (ServiceSpecificationRef ss : as.getServiceSpecs()) {
+			for (ServiceSpecificationRef ss : as.getServiceSpecificationRefs()) {
 				if (idAddedUpdated.get(ss.getId()) == null) {
 					toRemove.add(ss);
 				}
 			}
 
 			for (ServiceSpecificationRef ar : toRemove) {
-				as.getServiceSpecs().remove(ar);
+				as.getServiceSpecificationRefs().remove(ar);
 			}
 
 		}

@@ -74,6 +74,10 @@ public class AlarmApiRouteBuilder extends RouteBuilder {
 
 	@Autowired
 	private ProducerTemplate template;
+
+
+	@Autowired
+	private CentralLogger centralLogger;
 		
 	@Override
 	public void configure() throws Exception {
@@ -126,7 +130,7 @@ public class AlarmApiRouteBuilder extends RouteBuilder {
 			template.sendBodyAndHeaders(msgtopic, apayload , map);
 			
 
-			CentralLogger.log( CLevel.INFO, apayload, compname );	
+			centralLogger.log( CLevel.INFO, apayload, compname );	
 
 		} catch (Exception e) {
 			e.printStackTrace();

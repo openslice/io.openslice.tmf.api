@@ -68,6 +68,9 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 	@Autowired
 	ProductSpecificationRepoService productSpecificationRepoService;
 
+	@Autowired
+	private CentralLogger centralLogger;
+
 	@org.springframework.beans.factory.annotation.Autowired
 	public ProductSpecificationApiController(ObjectMapper objectMapper, HttpServletRequest request) {
 		this.objectMapper = objectMapper;
@@ -155,9 +158,9 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 			}
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				CentralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id , compname );
+				centralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id , compname );
 			} else {
-				CentralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
+				centralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
 			}	
 			
 			return new ResponseEntity<ProductSpecification>( productSpecificationRepoService.findByUuid(id),

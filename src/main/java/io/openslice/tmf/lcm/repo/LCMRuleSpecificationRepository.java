@@ -37,5 +37,7 @@ public interface LCMRuleSpecificationRepository  extends PagingAndSortingReposit
 	@Query("SELECT sc FROM LCMRuleSpec sc JOIN FETCH sc.serviceSpecs spec WHERE spec.id = ?1")
 	List<LCMRuleSpecification> findByServiceSpecificationRef(String id);
 
+	@Query("SELECT sc FROM LCMRuleSpec sc JOIN FETCH sc.serviceSpecs spec WHERE spec.id = ?1 AND sc.lcmrulephase LIKE ?2")
+	List<LCMRuleSpecification> findByServiceSpecificationRefAndPhase(String id, String phaseName);
 	
 }

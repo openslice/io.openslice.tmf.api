@@ -1103,7 +1103,7 @@ public class ServiceSpecificationRepoService {
 			logger.error("nsdid getConstituentVxF null returned: " + nsd.toString() );
 		}
 		addServiceSpecCharacteristic(serviceSpec, "SSHKEY", "SSH public key", new Any(""  , ""), EValueType.TEXT);
-		addServiceSpecCharacteristic(serviceSpec, "CONFIG", "Initial config to OSM", new Any(""  , ""), EValueType.TEXT);
+		addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any(""  , ""), EValueType.TEXT);
 		
 		
 		ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();

@@ -54,8 +54,7 @@ public class LCMRuleSpecification extends BaseEntity{
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST,  CascadeType.DETACH, CascadeType.REFRESH })
 	@JsonIgnore
 	private Set<ServiceSpecificationRef > serviceSpecs = new HashSet<>();
-	
-	
+		
 
 	@Lob
 	@Column(name = "LCONTENT", columnDefinition = "LONGTEXT")
@@ -83,25 +82,25 @@ public class LCMRuleSpecification extends BaseEntity{
 	}
 	
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class Entity {\n");
-
-		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
-		sb.append("    href: ").append(toIndentedString(href)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    lastUpdate: ").append(toIndentedString(lastUpdate)).append("\n");
-		sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
-		sb.append("    name: ").append(toIndentedString(name)).append("\n");
-		sb.append("    version: ").append(toIndentedString(version)).append("\n");
-		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
-		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
-		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+//	@Override
+//	public String toString() {
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("class Entity {\n");
+//
+//		sb.append("    uuid: ").append(toIndentedString(uuid)).append("\n");
+//		sb.append("    href: ").append(toIndentedString(href)).append("\n");
+//		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+//		sb.append("    lastUpdate: ").append(toIndentedString(lastUpdate)).append("\n");
+//		sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
+//		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+//		sb.append("    version: ").append(toIndentedString(version)).append("\n");
+//		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
+//		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");
+//		sb.append("    schemaLocation: ").append(toIndentedString(schemaLocation)).append("\n");
+//		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+//		sb.append("}");
+//		return sb.toString();
+//	}
 	
 	
 	

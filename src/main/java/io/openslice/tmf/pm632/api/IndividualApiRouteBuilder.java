@@ -58,6 +58,9 @@ public class IndividualApiRouteBuilder extends RouteBuilder {
 
 	@Value("${spring.application.name}")
 	private String compname;
+
+	@Autowired
+	private CentralLogger centralLogger;
 	
 	@Override
 	public void configure() throws Exception {
@@ -91,7 +94,7 @@ public class IndividualApiRouteBuilder extends RouteBuilder {
 			String apayload = toJsonString( ce );
 			template.sendBodyAndHeaders(msgtopic, apayload, map);
 
-			CentralLogger.log(CLevel.INFO, apayload, compname);
+			centralLogger.log(CLevel.INFO, apayload, compname);
 
 		} catch (Exception e) {
 			e.printStackTrace();

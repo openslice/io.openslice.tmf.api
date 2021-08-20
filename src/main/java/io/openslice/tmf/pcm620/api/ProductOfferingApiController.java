@@ -68,6 +68,10 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 
 	@Value("${spring.application.name}")
 	private String compname;
+
+
+	@Autowired
+	private CentralLogger centralLogger;
 	
 	@org.springframework.beans.factory.annotation.Autowired
 	public ProductOfferingApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -156,9 +160,9 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 			}
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				CentralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id , compname );
+				centralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id , compname );
 			} else {
-				CentralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
+				centralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
 			}	
 			
 			return new ResponseEntity<ProductOffering>(productOfferingRepoService.findByUuid(id),

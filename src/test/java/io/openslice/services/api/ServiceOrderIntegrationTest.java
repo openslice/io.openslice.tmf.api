@@ -62,7 +62,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
+import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
@@ -230,6 +232,11 @@ public class ServiceOrderIntegrationTest {
 		serviceRestriction.setServiceSpecification(aServiceSpecificationRef);
 		serviceRestriction.setName("aserviceRestriction");
 		soi.setService(serviceRestriction);
+		
+		Characteristic charitem = new Characteristic();
+		charitem.setName("Spec2Attribute1");
+		charitem.setValue( new Any("3", "Indoor"));
+		serviceRestriction.addServiceCharacteristicItem(charitem );
 
 		String responseSorder = mvc
 				.perform(MockMvcRequestBuilders.post("/serviceOrdering/v4/serviceOrder")
@@ -264,10 +271,13 @@ public class ServiceOrderIntegrationTest {
 			assertThat(soiElement.getService().getServiceSpecification().getName()).isEqualTo( "BundleExampleSpec" );
 
 			/**
-			 * the ordered service characteristics must be same with the total of characteristics of service with user values and default values
-			 * from non configurable attributes
+			 * the ordered service characteristics must be same with the total of characteristics of service
+			 *  with ONLY user configurable values (This changed on 20/8/2021 with the implementation of rules) 
+			 *  (and NO with default values from non configurable attributes)
+			 *  Therefore the service should have only 1 characteristic (the Spec2Attribute1 name)
 			 */
-			assertThat( soiElement.getService().getServiceCharacteristic().size() ).isEqualTo( 5 );
+			assertThat( soiElement.getService().getServiceCharacteristic().size() ).isEqualTo( 1 );
+			assertThat( soiElement.getService().getServiceCharacteristic().stream().findFirst().get().getName()  ).isEqualTo( "Spec2Attribute1" );
 			
 			
 		});

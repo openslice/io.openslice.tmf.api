@@ -71,6 +71,9 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 	@Value("${spring.application.name}")
 	private String compname;
 
+	@Autowired
+	private CentralLogger centralLogger;
+
 	@org.springframework.beans.factory.annotation.Autowired
 	public ServiceTestSpecificationApiController(ObjectMapper objectMapper, HttpServletRequest request) {
 		this.objectMapper = objectMapper;
@@ -177,9 +180,9 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 			}
 			if ( SecurityContextHolder.getContext().getAuthentication() != null ) {
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				CentralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id , compname );
+				centralLogger.log( CLevel.INFO, "User " + authentication.getName() + " retrieve spec id: "+ id , compname );
 			} else {
-				CentralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
+				centralLogger.log( CLevel.INFO, "Anonymous retrieve spec id: "+ id, compname );				
 			}	
 			
 			return new ResponseEntity<ServiceTestSpecification>( serviceTestSpecificationRepoService.findByUuid(id),

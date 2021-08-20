@@ -98,6 +98,9 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 	@Autowired
 	ServiceOrderRepoService serviceOrderRepoService;
 
+	@Autowired
+	private CentralLogger centralLogger;
+
 	@Override
 	public void configure() throws Exception {
 
@@ -160,7 +163,7 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 			template.sendBodyAndHeaders(msgtopic, apayload , map);
 			
 
-			CentralLogger.log( CLevel.INFO, apayload, compname );	
+			centralLogger.log( CLevel.INFO, apayload, compname );	
 
 		} catch (Exception e) {
 			e.printStackTrace();

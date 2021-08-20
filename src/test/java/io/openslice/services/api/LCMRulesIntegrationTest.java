@@ -127,14 +127,22 @@ public class LCMRulesIntegrationTest {
 		assertThat( lcmRuleSpecificationRepoService.findAll().size() ).isEqualTo( 2 );
 		LCMRuleSpecification resp2 = JsonUtils.toJsonObj(response2,  LCMRuleSpecification.class);
 		assertThat( resp2.getContent() ).isEqualTo( "CONTENT2" );
-		
-		List<LCMRuleSpecification> rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefId("0x0x1");
-		assertThat( rules.size() ).isEqualTo( 2 );
+
+		assertThat( lcmRuleSpecificationRepoService.findAll().size() ).isEqualTo( 2 );
+		for (LCMRuleSpecification iterable_element : lcmRuleSpecificationRepoService.findAll()) {
+			logger.info( iterable_element );
+			
+		}
+		List<LCMRuleSpecification> rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefIdAndPhase("0x0x1", ELCMRulePhase.PRE_PROVISION.getValue());
+		assertThat( rules.size() ).isEqualTo( 1 );
+		rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefIdAndPhase("0x0x1", ELCMRulePhase.AFTER_ACTIVATION.getValue());
+		assertThat( rules.size() ).isEqualTo( 1 );
 		
 		//attach same rule on other spec
 
 		LCMRuleSpecificationUpdate cu1 = new LCMRuleSpecificationUpdate();
 		cu1.setServiceSpecs( new ArrayList<>());
+		cu1.setLcmrulephase( resp.getLcmrulephase() );
 		cu1.getServiceSpecs().addAll(resp.getServiceSpecificationRefs());
 		ServiceSpecificationRef specref2 = new ServiceSpecificationRef();
 		specref2.setId("0x0x2");
@@ -155,11 +163,21 @@ public class LCMRulesIntegrationTest {
 		resp = JsonUtils.toJsonObj(response3,  LCMRuleSpecification.class);
 		assertThat( lcmRuleSpecificationRepoService.findAll().size() ).isEqualTo( 2 );
 
-		rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefId("0x0x1");
-		assertThat( rules.size() ).isEqualTo( 2 );
-		assertThat( resp.getServiceSpecificationRefs().size() ).isEqualTo( 2 );
-		rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefId("0x0x2");
+		rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefIdAndPhase("0x0x1", ELCMRulePhase.AFTER_ACTIVATION.getValue());
 		assertThat( rules.size() ).isEqualTo( 1 );
+		rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefIdAndPhase("0x0x2", ELCMRulePhase.AFTER_ACTIVATION.getValue());
+		assertThat( rules.size() ).isEqualTo( 1 );
+		
+		for (LCMRuleSpecification iterable_element : lcmRuleSpecificationRepoService.findAll()) {
+			logger.info( iterable_element );
+			
+		}
+		
+//		rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefId("0x0x1");
+//		assertThat( rules.size() ).isEqualTo( 2 );
+//		assertThat( resp.getServiceSpecificationRefs().size() ).isEqualTo( 2 );
+//		rules = lcmRuleSpecificationRepoService.findByServiceSpecificationRefId("0x0x2");
+//		assertThat( rules.size() ).isEqualTo( 1 );
 		
 		
 		//delete rule from spec
@@ -181,7 +199,7 @@ public class LCMRulesIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 
 		resp = JsonUtils.toJsonObj(response4,  LCMRuleSpecification.class);
-		assertThat( resp.getServiceSpecs().size() ).isEqualTo( 1 );
+		assertThat( resp.getServiceSpecificationRefs().size() ).isEqualTo( 1 );
 
 		assertThat( lcmRuleSpecificationRepoService.findAll().size() ).isEqualTo( 2 );
 

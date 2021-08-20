@@ -316,7 +316,10 @@ public class ServiceOrderRepoService {
 		if (serviceOrderCreate.getOrderItem() != null) {
 			so.getOrderItem().addAll(serviceOrderCreate.getOrderItem());
 			for (ServiceOrderItem soi : so.getOrderItem()) {				
-				copySpecCharacteristicsToServiceCharacteristic( soi.getService().getServiceSpecification().getId(), soi.getService().getServiceCharacteristic() );
+				//as of 18/8/2021 in service item we do not copy all service spec characteristics. The characteristics of the spec, since they are not user configurable will
+				//be just exist in the service instance
+				//copySpecCharacteristicsToServiceCharacteristic( soi.getService().getServiceSpecification().getId(), soi.getService().getServiceCharacteristic() );
+				
 				if ( ! soi.getState().equals( ServiceOrderStateType.ACKNOWLEDGED )) {
 					allAcknowledged = false;
 				}

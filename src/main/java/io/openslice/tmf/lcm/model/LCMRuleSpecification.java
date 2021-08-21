@@ -67,6 +67,9 @@ public class LCMRuleSpecification extends BaseEntity{
 	@JsonProperty("code")
 	protected String code = null;
 
+	@JsonProperty("priority")
+	protected int priority = 0;
+
 	/**
 	 * @return the id
 	 */

@@ -29,6 +29,9 @@ public class LCMRuleSpecificationUpdate {
 	@JsonProperty("description")
 	protected String description = null;
 
+	@JsonProperty("priority")
+	protected int priority = 0;
+
 	protected String lcmrulephase = ELCMRulePhase.PRE_PROVISION.getValue();
 
 	private List<ServiceSpecificationRef> serviceSpecs = null;

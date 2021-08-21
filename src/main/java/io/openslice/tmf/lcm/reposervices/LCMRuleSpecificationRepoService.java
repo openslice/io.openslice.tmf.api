@@ -107,6 +107,7 @@ public class LCMRuleSpecificationRepoService {
 					+ "s.uuid as id,"
 					+ "s.name as name,"
 					+ "s.description as description,"
+					+ "s.priority as priority,"
 					+ "s.lcmrulephase as lcmrulephase";
 			
 			if (myfields != null) {
@@ -126,7 +127,7 @@ public class LCMRuleSpecificationRepoService {
 				}
 
 			}
-			sql += " ORDER BY s.name";
+			sql += " ORDER BY s.priority, s.name";
 			
 	
 			
@@ -220,13 +221,14 @@ public class LCMRuleSpecificationRepoService {
 					+ "s.uuid as id,"	//this is correct
 					+ "s.name as name,"
 					+ "s.description as description,"
+					+ "s.priority as priority,"
 					+ "s.lcmrulephase as lcmrulephase";
 			
 
 			sql += " FROM LCMRuleSpec s JOIN s.serviceSpecs spec WHERE spec.id LIKE '" + serviceSpecId+"'";
 			//sql += " FROM LCMRuleSpec s JOIN s.serviceSpecs spec";
 			
-			sql += " ORDER BY s.name";
+			sql += " ORDER BY s.priority, s.name";
 			
 	
 			
@@ -292,6 +294,12 @@ public class LCMRuleSpecificationRepoService {
 			as.setLcmrulephase( ruleSpecificationUpdate.getLcmrulephase()  );
 
 		}
+
+		if ( ruleSpecificationUpdate.getPriority() != 0) {
+			as.setPriority( ruleSpecificationUpdate.getPriority()  );
+		}
+		
+		
 		
 		if ( ruleSpecificationUpdate.getLifecycleStatus()   != null) {
 			as.setLifecycleStatus( ruleSpecificationUpdate.getLifecycleStatus() );

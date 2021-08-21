@@ -34,10 +34,10 @@ public interface LCMRuleSpecificationRepository  extends PagingAndSortingReposit
 	
 	Optional<LCMRuleSpecification> findByUuid(String id);
 
-	@Query("SELECT sc FROM LCMRuleSpec sc JOIN FETCH sc.serviceSpecs spec WHERE spec.id = ?1")
+	@Query("SELECT sc FROM LCMRuleSpec sc JOIN FETCH sc.serviceSpecs spec WHERE spec.id = ?1 ORDER BY sc.priority")
 	List<LCMRuleSpecification> findByServiceSpecificationRef(String id);
 
-	@Query("SELECT sc FROM LCMRuleSpec sc JOIN FETCH sc.serviceSpecs spec WHERE spec.id = ?1 AND sc.lcmrulephase LIKE ?2")
+	@Query("SELECT sc FROM LCMRuleSpec sc JOIN FETCH sc.serviceSpecs spec WHERE spec.id = ?1 AND sc.lcmrulephase LIKE ?2 ORDER BY sc.priority")
 	List<LCMRuleSpecification> findByServiceSpecificationRefAndPhase(String id, String phaseName);
 	
 }

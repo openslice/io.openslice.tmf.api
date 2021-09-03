@@ -773,5 +773,17 @@ public class ServiceOrderRepoService {
 		this.serviceOrderRepo.delete(so);
 		return null;
 	}
+	
+	public String addServiceOrderReturnEager(@Valid ServiceOrderCreate serviceOrderCreate) {
+		ServiceOrder so = this.addServiceOrder(serviceOrderCreate);
+		try {
+			return this.getServiceOrderEagerAsString( so.getUuid());
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 }

@@ -43,6 +43,7 @@ import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.model.PortalUser;
 import io.openslice.tmf.common.model.Notification;
 import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
+import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderCreateNotification;
 import io.openslice.tmf.so641.model.ServiceOrderDeleteEvent;
 import io.openslice.tmf.so641.model.ServiceOrderDeleteNotification;
@@ -71,6 +72,9 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 
 	@Value("${CATALOG_UPD_SERVICEORDER_BY_ID}")
 	private String CATALOG_UPD_SERVICEORDER_BY_ID = "";
+
+	@Value("${CATALOG_ADD_SERVICEORDER}")
+	private String CATALOG_ADD_SERVICEORDER = "";
 	
 
 	@Value("${EVENT_SERVICE_ORDER_CREATE}")
@@ -134,6 +138,15 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 				.to("log:DEBUG?showBody=true&showHeaders=true").unmarshal()
 				.json(JsonLibrary.Jackson, ServiceOrderUpdate.class, true)
 				.bean(serviceOrderRepoService, "updateServiceOrder(${header.orderid}, ${body})");
+		
+
+		from(CATALOG_ADD_SERVICEORDER)
+				.log(LoggingLevel.INFO, log, CATALOG_ADD_SERVICEORDER + " message received!")
+				.to("log:DEBUG?showBody=true&showHeaders=true").unmarshal()
+				.json(JsonLibrary.Jackson, ServiceOrderCreate.class, true)
+				.bean(serviceOrderRepoService, "addServiceOrderReturnEager(${body})")
+				.convertBodyTo(String.class); //creates back a response
+		
 
 	}
 

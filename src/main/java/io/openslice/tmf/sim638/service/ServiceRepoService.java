@@ -410,7 +410,8 @@ public class ServiceRepoService {
 		
 
 		boolean stateChanged = false;
-		if (servUpd.getState() != null ) {
+		ServiceStateType previousState = service.getState();		
+		if (servUpd.getState() != null ) {	
 			stateChanged = service.getState() != servUpd.getState();
 			service.setState(servUpd.getState());
 			
@@ -540,7 +541,27 @@ public class ServiceRepoService {
 		}
 		
 		
+//		//here on any state change of a Service we must send an ActionQueueItem that reflects the state changed with the Action  
+		if  ( stateChanged  ) {
+			ServiceActionQueueItem saqi = new ServiceActionQueueItem();
+			saqi.setServiceRefId( id );
+			saqi.setOriginalServiceInJSON( originaServiceAsJson );			
+			if ( service.getState().equals(  ServiceStateType.ACTIVE) ) {
+				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOACTIVE  );				
+			}else if ( previousState.equals( ServiceStateType.ACTIVE) ) {
+				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOINACTIVE  );
+			}
+			this.addServiceActionQueueItem(saqi);
+		}		
 		
+		if ( serviceCharacteristicChanged &&  service.getState().equals(  ServiceStateType.ACTIVE) && previousState.equals( ServiceStateType.ACTIVE) ) {
+			ServiceActionQueueItem saqi = new ServiceActionQueueItem();
+			saqi.setServiceRefId( id );
+			saqi.setOriginalServiceInJSON( originaServiceAsJson );		
+			saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED  );	
+			this.addServiceActionQueueItem(saqi);
+			
+		}
 		
 		/**
 		 * notify hub

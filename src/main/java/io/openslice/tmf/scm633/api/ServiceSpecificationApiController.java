@@ -341,8 +341,11 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 	@Secured({ "ROLE_ADMIN" })
 	@Override
 	public ResponseEntity<ServiceSpecification> specFromNSDID(String id) {
-		ServiceSpecification c = serviceSpecificationRepoService.specFromNSDID(id);
-
+		 List<ServiceSpecification> result = serviceSpecificationRepoService.specFromNSDID(id);
+		 ServiceSpecification c = null;
+		 if ( result.size()>0) {
+			 c = result.get(0); //we by default return the first one
+		 }
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 

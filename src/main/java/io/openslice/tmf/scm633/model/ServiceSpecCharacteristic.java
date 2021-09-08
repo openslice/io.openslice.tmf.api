@@ -36,6 +36,7 @@ import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
@@ -607,5 +608,18 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 		}
 		
 		
+	}
+	
+	@JsonIgnore
+	public String getDefaultValue( ) {
+		for (ServiceSpecCharacteristicValue val : this.getServiceSpecCharacteristicValue()) {
+			if (val.isIsDefault()) {
+				return val.getValue().getValue();
+				
+			}
+		}			
+	return null;
+	
+	
 	}
 }

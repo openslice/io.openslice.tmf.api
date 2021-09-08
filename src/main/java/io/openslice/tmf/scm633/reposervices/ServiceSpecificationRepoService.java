@@ -1060,7 +1060,7 @@ public class ServiceSpecificationRepoService {
 	 * @param id the NSD id
 	 * @return a ServiceSpecification
 	 */
-	public ServiceSpecification specFromNSDID(String id) {
+	public List<ServiceSpecification> specFromNSDID(String id) {
 		
 		NetworkServiceDescriptor nsd = serviceSpecificationApiRouteBuilder.retrieveNSD(id);
 		if (nsd == null) {
@@ -1070,51 +1070,68 @@ public class ServiceSpecificationRepoService {
 
 		logger.error("nsdid returned: " + nsd.getName());
 		
-		ResourceSpecification resourceNSD = new LogicalResourceSpecification();
-		resourceNSD.setName( nsd.getName() );
-		resourceNSD.setVersion( nsd.getVersion() );
-		resourceNSD.setDescription(nsd.getShortDescription());
-		resourceNSD = resourceSpecRepoService.addResourceSpec( resourceNSD );
-		/**
-		 * add here characteristics
-		 */
+		List<ServiceSpecification> newRfservices = new ArrayList<>(); 
 		
 		/**
-		 * 2: Create Service  related to resourceSpec
+		 * for each OnBoardDescriptor we need to create a resource, because each resource will be an NSD on a specific OSM
 		 */
-		ServiceSpecification serviceSpec = new ServiceSpecification();
-		serviceSpec.setName( nsd.getName()  );
-		serviceSpec.setVersion( nsd.getVersion() );
-		serviceSpec.setDescription( nsd.getShortDescription() );		
-		addServiceSpecCharacteristic(serviceSpec, "PackagingFormat", "NSD PackagingFormat", new Any(nsd.getPackagingFormat().toString(), "PackagingFormat"), EValueType.TEXT);
-		addServiceSpecCharacteristic(serviceSpec, "PackageLocation", "NSD PackageLocation", new Any(nsd.getPackageLocation() , "PackageLocation"), EValueType.TEXT);
-		addServiceSpecCharacteristic(serviceSpec, "Vendor", "NSD Vendor", new Any(nsd.getVendor()  , "Vendor"), EValueType.TEXT);
-		addServiceSpecCharacteristic(serviceSpec, "NSDID", "NSD id", new Any(nsd.getId()+""  , "id"), EValueType.TEXT);
+		
 		for (ExperimentOnBoardDescriptor eobd : nsd.getExperimentOnBoardDescriptors()) {
-			addServiceSpecCharacteristic(serviceSpec, "ObMANOprovider_Name", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""), EValueType.TEXT);
-			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);			
-		}
-		if (  nsd.getConstituentVxF() != null  ) {
-			for (ConstituentVxF cv : nsd.getConstituentVxF()) {
-				addServiceSpecCharacteristic(serviceSpec, "MemberVNFIndex_"+cv.getMembervnfIndex(), "Member VNF Index", new Any( cv.getMembervnfIndex() +""  , cv.getVnfdidRef()), EValueType.TEXT);
-			}
-		} else {
+			ResourceSpecification resourceNSD = new LogicalResourceSpecification();
+			resourceNSD.setName( nsd.getName() );
+			resourceNSD.setVersion( nsd.getVersion() );
+			resourceNSD.setDescription(nsd.getShortDescription());
+			resourceNSD = resourceSpecRepoService.addResourceSpec( resourceNSD );
+			/**
+			 * add here characteristics
+			 */
+			
+			/**
+			 * 2: Create Service  related to resourceSpec
+			 */
+			ServiceSpecification serviceSpec = new ServiceSpecification();
+			serviceSpec.setName( nsd.getName()+'@'+eobd.getObMANOprovider().getName()  );
+			serviceSpec.setVersion( nsd.getVersion() );
+			serviceSpec.setDescription( nsd.getShortDescription() );		
+			addServiceSpecCharacteristic(serviceSpec, "PackagingFormat", "NSD PackagingFormat", new Any(nsd.getPackagingFormat().toString(), "PackagingFormat"), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "PackageLocation", "NSD PackageLocation", new Any(nsd.getPackageLocation() , "PackageLocation"), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "Vendor", "NSD Vendor", new Any(nsd.getVendor()  , "Vendor"), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OSM_NSDCATALOGID", "NSD Onboarded MANO provider Name", new Any( eobd.getDeployId()     , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "NSDID", "NSD id", new Any(nsd.getId()+""  , "id"), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "MANOproviderName", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getName()   , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "MANOproviderID", "NSD Onboarded MANO provider Name", new Any( eobd.getObMANOprovider().getId()    , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OnBoardDescriptorID", "NSD Onboarded MANO provider Name", new Any( eobd.getId()    , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OnBoardDescriptorUUID", "NSD Onboarded MANO provider Name", new Any( eobd.getUuid()    , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);
 
-			logger.error("nsdid getConstituentVxF null returned: " + nsd.toString() );
+			addServiceSpecCharacteristic(serviceSpec, "SSHKEY", "SSH public key", new Any(""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any(""  , ""), EValueType.TEXT);
+			
+			if (  nsd.getConstituentVxF() != null  ) {
+				for (ConstituentVxF cv : nsd.getConstituentVxF()) {
+					addServiceSpecCharacteristic(serviceSpec, "MemberVNFIndex_"+cv.getMembervnfIndex(), "Member VNF Index", new Any( cv.getMembervnfIndex() +""  , cv.getVnfdidRef()), EValueType.TEXT);
+				}
+			} else {
+
+				logger.error("nsdid getConstituentVxF null returned: " + nsd.toString() );
+			}
+			
+			
+			ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();
+			resourceSpecificationItemRef.setId( resourceNSD.getId() );
+			resourceSpecificationItemRef.setName( resourceNSD.getName() );
+			resourceSpecificationItemRef.setVersion(resourceNSD.getVersion() );
+			
+			serviceSpec.addResourceSpecificationItem(resourceSpecificationItemRef);
+			serviceSpec = this.addServiceSpecification( serviceSpec );
+			
+			newRfservices.add(serviceSpec);
+			
 		}
-		addServiceSpecCharacteristic(serviceSpec, "SSHKEY", "SSH public key", new Any(""  , ""), EValueType.TEXT);
-		addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any(""  , ""), EValueType.TEXT);
 		
 		
-		ResourceSpecificationRef resourceSpecificationItemRef = new ResourceSpecificationRef();
-		resourceSpecificationItemRef.setId( resourceNSD.getId() );
-		resourceSpecificationItemRef.setName( resourceNSD.getName() );
-		resourceSpecificationItemRef.setVersion(resourceNSD.getVersion() );
 		
-		serviceSpec.addResourceSpecificationItem(resourceSpecificationItemRef);
-		serviceSpec = this.addServiceSpecification( serviceSpec );
-		
-		return serviceSpec;
+		return newRfservices;
 	}
 
 	/**

@@ -5,6 +5,6 @@ ENV SPRING_APPLICATION_JSON='{ \
 	"spring.activemq.broker-url": "tcp://10.0.2.15:61616"  }'
 RUN mkdir /opt/shareclasses
 RUN mkdir -p /opt/openslice/lib/
-COPY target/io.openslice.tmf.api-1.0.2-SNAPSHOT-exec.jar /opt/openslice/lib/
-CMD ["java", "-Xshareclasses:cacheDir=/opt/shareclasses", "-jar", "/opt/openslice/lib/io.openslice.tmf.api-1.0.2-SNAPSHOT-exec.jar"]
+COPY target/io.openslice.tmf.api-1.1.0-SNAPSHOT-exec.jar /opt/openslice/lib/
+CMD ["java", "-Xshareclasses:cacheDir=/opt/shareclasses", "-jar", "/opt/openslice/lib/io.openslice.tmf.api-1.1.0-SNAPSHOT-exec.jar"]
 EXPOSE 13082

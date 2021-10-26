@@ -467,6 +467,7 @@ public class ServiceRepoService {
 								 );
 					} else {
 						service.addServiceCharacteristicItem(n);
+						serviceCharacteristicChanged = true;	
 					}
 				
 			}						
@@ -547,11 +548,12 @@ public class ServiceRepoService {
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );			
 			if ( service.getState().equals(  ServiceStateType.ACTIVE) ) {
-				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOACTIVE  );				
+				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOACTIVE  );	
+				this.addServiceActionQueueItem(saqi);			
 			}else if ( previousState.equals( ServiceStateType.ACTIVE) ) {
 				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOINACTIVE  );
+				this.addServiceActionQueueItem(saqi);
 			}
-			this.addServiceActionQueueItem(saqi);
 		}		
 		
 		if ( serviceCharacteristicChanged &&  service.getState().equals(  ServiceStateType.ACTIVE) && previousState.equals( ServiceStateType.ACTIVE) ) {

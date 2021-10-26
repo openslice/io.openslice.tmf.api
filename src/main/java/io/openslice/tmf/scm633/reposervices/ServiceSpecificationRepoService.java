@@ -1105,7 +1105,13 @@ public class ServiceSpecificationRepoService {
 			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);
 
 			addServiceSpecCharacteristic(serviceSpec, "SSHKEY", "SSH public key", new Any(""  , ""), EValueType.TEXT);
-			addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any(""  , ""), EValueType.TEXT);
+			String osmconfig = "{\"nsdid\":\"" + eobd.getDeployId() + "\"}";
+			if ( eobd.getObMANOprovider().getVims() != null &&  eobd.getObMANOprovider().getVims().get(0) != null ) {
+				 osmconfig = "{\"nsdid\":\"" + eobd.getDeployId() + "\", \"vimAccountId\":\"" + eobd.getObMANOprovider().getVims().get(0).getVIMid() + "\"}";			
+			}
+			
+			
+			addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any( osmconfig  , ""), EValueType.TEXT);
 			
 			if (  nsd.getConstituentVxF() != null  ) {
 				for (ConstituentVxF cv : nsd.getConstituentVxF()) {

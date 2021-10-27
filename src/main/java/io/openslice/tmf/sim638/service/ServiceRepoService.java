@@ -598,7 +598,7 @@ public class ServiceRepoService {
 		
 		for (Characteristic n : childService.getServiceCharacteristic()) {			
 			Characteristic serviceCharacteristicItem = new Characteristic();
-			serviceCharacteristicItem.setName( childService.getName() + "" + n.getName());
+			serviceCharacteristicItem.setName( childService.getName() + "::" + n.getName());
 			serviceCharacteristicItem.setValue( new Any( n.getValue() ));
 			servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
 		}

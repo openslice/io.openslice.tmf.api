@@ -565,6 +565,17 @@ public class ServiceRepoService {
 			
 		}
 		
+		/*
+		 * Update any parent service
+		 */
+		for (ServiceRelationship serviceRelationship : service.getServiceRelationship()) {
+			if ( serviceRelationship.getRelationshipType().equals("ChildService") ) {
+				if ( serviceRelationship.getService() != null ) {
+						propagateCharacteristicsToParentService(service, serviceRelationship.getService().getId());	
+				}
+			}
+		}
+		
 		/**
 		 * notify hub
 		 */
@@ -575,6 +586,24 @@ public class ServiceRepoService {
 		}
 		
 		return service;
+	}
+
+	/**
+	 * @param service
+	 * @param parentService
+	 */
+	private void propagateCharacteristicsToParentService(Service childService, String parentServiceId) {
+		
+		ServiceUpdate servUpd = new ServiceUpdate();
+		
+		for (Characteristic n : childService.getServiceCharacteristic()) {			
+			Characteristic serviceCharacteristicItem = new Characteristic();
+			serviceCharacteristicItem.setName( childService.getName() + "" + n.getName());
+			serviceCharacteristicItem.setValue( new Any( n.getValue() ));
+			servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
+		}
+		
+		this.updateService( parentServiceId, servUpd, false);
 	}
 
 	public String getServiceEagerAsString(String id) throws JsonProcessingException {

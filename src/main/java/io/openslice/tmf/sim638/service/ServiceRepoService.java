@@ -550,13 +550,13 @@ public class ServiceRepoService {
 			if ( service.getState().equals(  ServiceStateType.ACTIVE) ) {
 				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOACTIVE  );	
 				this.addServiceActionQueueItem(saqi);			
-			}else if ( previousState.equals( ServiceStateType.ACTIVE) ) {
+			}else if ( previousState!=null && previousState.equals( ServiceStateType.ACTIVE) ) {
 				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOINACTIVE  );
 				this.addServiceActionQueueItem(saqi);
 			}
 		}		
 		
-		if ( serviceCharacteristicChanged &&  service.getState().equals(  ServiceStateType.ACTIVE) && previousState.equals( ServiceStateType.ACTIVE) ) {
+		if ( serviceCharacteristicChanged &&  service.getState().equals(  ServiceStateType.ACTIVE) &&  previousState!=null && previousState.equals( ServiceStateType.ACTIVE) ) {
 			ServiceActionQueueItem saqi = new ServiceActionQueueItem();
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );		

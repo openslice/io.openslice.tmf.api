@@ -1112,10 +1112,24 @@ public class ServiceSpecificationRepoService {
 			
 			
 			addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any( osmconfig  , ""), EValueType.TEXT);
+
+			addServiceSpecCharacteristic(serviceSpec, "DeploymentRequestID", "DeploymentRequestID", new Any( ""  , ""), EValueType.TEXT);
+
+			addServiceSpecCharacteristic(serviceSpec, "Status", "Status", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OperationalStatus", "OperationalStatus", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "ConstituentVnfrIps", "ConstituentVnfrIps", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "ConfigStatus", "ConfigStatus", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "APPLY_CONFIG", "APPLY_CONFIG", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "InstanceId", "InstanceId", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "NSR", "NSR", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "NSLCM", "NSLCM", new Any( ""  , ""), EValueType.TEXT);
+			
+			
 			
 			if (  nsd.getConstituentVxF() != null  ) {
 				for (ConstituentVxF cv : nsd.getConstituentVxF()) {
 					addServiceSpecCharacteristic(serviceSpec, "MemberVNFIndex_"+cv.getMembervnfIndex(), "Member VNF Index", new Any( cv.getMembervnfIndex() +""  , cv.getVnfdidRef()), EValueType.TEXT);
+					addServiceSpecCharacteristic(serviceSpec, "VNFINDEXREF_INFO_" +cv.getMembervnfIndex() , "Member VNF Index info", new Any( ""  , ""), EValueType.TEXT);
 				}
 			} else {
 

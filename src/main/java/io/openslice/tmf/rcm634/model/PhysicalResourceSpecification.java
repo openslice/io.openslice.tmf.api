@@ -169,7 +169,7 @@ public class PhysicalResourceSpecification extends ResourceSpecification {
 			return false;
 		}
 		PhysicalResourceSpecification physicalResourceSpecification = (PhysicalResourceSpecification) o;
-		return Objects.equals(this.id, physicalResourceSpecification.id)
+		return Objects.equals(this.uuid, physicalResourceSpecification.uuid)
 				&& Objects.equals(this.href, physicalResourceSpecification.href)
 				&& Objects.equals(this.category, physicalResourceSpecification.category)
 				&& Objects.equals(this.description, physicalResourceSpecification.description)
@@ -207,7 +207,7 @@ public class PhysicalResourceSpecification extends ResourceSpecification {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PhysicalResourceSpecification {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    id: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    category: ").append(toIndentedString(category)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");

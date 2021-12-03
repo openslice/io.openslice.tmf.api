@@ -325,11 +325,11 @@ public class ResourceSpecificationRepoService {
 	}
 
 	public ResourceSpecification initRepo() {
-		ResourceSpecification spec = new LogicalResourceSpecification();
-		spec.setName("A Logical Resource");
-		spec.setVersion("1.0.0");
-		spec = this.resourceSpecificationRepo.save(spec);
-		return spec;
+		
+		ResourceSpecificationCreate spec = new ResourceSpecificationCreate();
+		spec.setName("Example Logical Resource");
+		spec.setVersion("1.0.0");		
+		return this.addLogicalResourceSpecification(spec);
 	}
 
 	/**

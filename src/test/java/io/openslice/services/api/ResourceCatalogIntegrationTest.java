@@ -70,6 +70,7 @@ import io.openslice.tmf.rcm634.model.LogicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
+import io.openslice.tmf.rcm634.model.ResourceCandidateCreate;
 import io.openslice.tmf.rcm634.model.ResourceCatalog;
 import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
 import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
@@ -82,6 +83,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristicValue;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRelationship;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceCandidateRepoService;
@@ -204,6 +206,19 @@ public class ResourceCatalogIntegrationTest {
 		ResourceCategory responsesCateg = JsonUtils.toJsonObj(response,  ResourceCategory.class);
 		assertThat( responsesCateg.getName() ).isEqualTo( "Test Category 2" );
 		
+		response = mvc.perform(MockMvcRequestBuilders.get("/resourceCatalogManagement/v4/resourceCategory/"+responsesCateg.getId())
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( JsonUtils.toJson( scategcreate ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			    .andExpect(jsonPath("name", is("Test Category 2")))								 
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+
+		responsesCateg = JsonUtils.toJsonObj(response,  ResourceCategory.class);
+		assertThat( responsesCateg.getName() ).isEqualTo( "Test Category 2" );
+		
 		
 		/**
 		 * update catalog with category
@@ -232,6 +247,7 @@ public class ResourceCatalogIntegrationTest {
 
 		assertThat( responsesCatalog.getCategoryObj().size()).isEqualTo(1);
 		assertThat( responsesCatalog.getCategoryRefs().get(0).getName() ).isEqualTo(  "Test Category 2" );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
 		
 		/**
 		 * Resource Spec
@@ -261,6 +277,32 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( responsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
 		
 		
+		
+
+		ResourceCandidateCreate scand = new ResourceCandidateCreate();
+		scand.setName( responsesSpec.getName());
+		ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
+		resSpecificationRef.setId( responsesSpec.getId());
+		resSpecificationRef.setName( responsesSpec .getName());
+		scand.resourceSpecification(resSpecificationRef);
+		categoryItem = new ResourceCategoryRef();
+		categoryItem.setId( responsesCateg.getId());
+		categoryItem.setName( responsesCateg.getName() );
+		scand.addCategoryItem(categoryItem);
+		
+		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCandidate")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+			.contentType(MediaType.APPLICATION_JSON)
+			.content( JsonUtils.toJson( scand ) ))
+		    .andExpect(status().isOk())
+		    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+		    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
+    	    .andExpect(status().isOk())
+    	    .andReturn().getResponse().getContentAsString();
+	
+		
+		
+		
 		PhysicalResourceSpecificationCreate physpeccr = JsonUtils.toJsonObj( sspectext,  PhysicalResourceSpecificationCreate.class);
 		physpeccr.setType("PhysicalResourceSpecification");
 		physpeccr.setModel("ACME");
@@ -282,6 +324,7 @@ public class ResourceCatalogIntegrationTest {
 
 		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().size() ).isEqualTo(1);
 		assertThat( phyresponsesSpec.getResourceSpecCharacteristic().toArray( new ResourceSpecificationCharacteristic[0] )[0].getResourceSpecCharacteristicValue().size()  ).isEqualTo(1);
+		
 		
 	}
 	

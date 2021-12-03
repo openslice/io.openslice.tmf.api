@@ -115,13 +115,17 @@ public class ResourceCategoryRepoService {
 		    ResourceCategory dd = null;
 		    try {
 		        dd = (ResourceCategory) session.get(ResourceCategory.class, id);
-		        Hibernate.initialize( dd.getCategoryObj()  );
-		        Hibernate.initialize( dd.getResourceCandidateObj() );
-		        for (ResourceCandidate rc : dd.getResourceCandidateObj()) {
-			        Hibernate.initialize(rc );
-			        Hibernate.initialize(rc.getCategoryObj() );
-					
-				}
+		        if ( dd != null ) {
+			        Hibernate.initialize( dd.getCategoryObj()  );
+			        Hibernate.initialize( dd.getResourceCandidateObj() );
+			        for (ResourceCandidate rc : dd.getResourceCandidateObj()) {
+				        Hibernate.initialize(rc );
+				        Hibernate.initialize(rc.getCategoryObj() );
+						
+					}		        	
+		        } else {
+		        	return this.findByUuid(id);
+		        }
 		        
 		        tx.commit();
 		    } finally {

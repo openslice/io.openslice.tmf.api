@@ -25,12 +25,14 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
@@ -97,6 +99,13 @@ public abstract class ResourceSpecification extends BaseEntity {
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	protected Set<ResourceSpecificationRelationship> resourceSpecRelationship =  new HashSet<>();
 
+
+	@JsonIgnore
+	@Column( name = "candidate_specid" )
+	private String resourceCandidateObjId;
+
+
+	
 
 
 	/**
@@ -364,6 +373,25 @@ public abstract class ResourceSpecification extends BaseEntity {
 		this.resourceSpecRelationship.add(resourceSpecRelationshipItem);
 		return this;
 	}
+	
+	
+
+	/**
+	 * @return the resourceCandidateObjId
+	 */
+	public String getResourceCandidateObjId() {
+		return resourceCandidateObjId;
+	}
+
+
+	/**
+	 * @param resourceCandidateObjId the resourceCandidateObjId to set
+	 */
+	public void setResourceCandidateObjId(String resourceCandidateObjId) {
+		this.resourceCandidateObjId = resourceCandidateObjId;
+	}
+	
+	
 
 	/**
 	 * A migration, substitution, dependency or exclusivity relationship

@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -318,7 +319,7 @@ public class ResourceSpecificationRepoService {
 				
 				boolean nameExists = false;
 				for (ResourceSpecificationCharacteristic originalSpecChar : resourceSpec.getResourceSpecCharacteristic()) {
-					if ( originalSpecChar.getName().equals(charUpd.getName())) {
+					if ( originalSpecChar.getName()!=null && charUpd.getName()!=null && originalSpecChar.getName().equals(charUpd.getName())) {
 						nameExists = true;
 						idAddedUpdated.put( originalSpecChar.getName(), true);
 						originalSpecChar.updateWith( charUpd );
@@ -328,6 +329,9 @@ public class ResourceSpecificationRepoService {
 				
 				if (!nameExists) {
 					resourceSpec.getResourceSpecCharacteristic().add( new ResourceSpecificationCharacteristic( charUpd ));
+					if ( charUpd.getName() == null ) {
+						charUpd.setName( UUID.randomUUID().toString() );
+					}
 					idAddedUpdated.put( charUpd.getName(), true);
 				}
 				

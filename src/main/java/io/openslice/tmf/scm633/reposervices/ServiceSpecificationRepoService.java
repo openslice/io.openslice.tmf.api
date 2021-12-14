@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -440,7 +441,7 @@ public class ServiceSpecificationRepoService {
 
 				boolean nameExists = false;
 				for (ServiceSpecCharacteristic originalSpecChar : serviceSpec.getServiceSpecCharacteristic()) {
-					if (originalSpecChar.getName().equals(charUpd.getName())) {
+					if (originalSpecChar.getName()!=null && charUpd.getName()!=null && originalSpecChar.getName().equals(charUpd.getName())) {
 						nameExists = true;
 						idAddedUpdated.put(originalSpecChar.getName(), true);
 						originalSpecChar.updateWith(charUpd);
@@ -450,6 +451,9 @@ public class ServiceSpecificationRepoService {
 
 				if (!nameExists) {
 					serviceSpec.getServiceSpecCharacteristic().add(new ServiceSpecCharacteristic(charUpd));
+					if ( charUpd.getName() == null ) {
+						charUpd.setName( UUID.randomUUID().toString() );
+					}
 					idAddedUpdated.put(charUpd.getName(), true);
 				}
 

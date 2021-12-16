@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -46,18 +47,27 @@ import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
+import io.openslice.tmf.rcm634.model.ResourceCandidate;
+import io.openslice.tmf.rcm634.model.ResourceCandidateCreate;
+import io.openslice.tmf.rcm634.model.ResourceCandidateUpdate;
 import io.openslice.tmf.rcm634.model.ResourceFunctionSpecification;
 import io.openslice.tmf.rcm634.model.ResourceFunctionSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
+import io.openslice.tmf.scm633.model.ServiceCandidate;
+import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
+import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
+import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
 
 @Service
@@ -72,6 +82,10 @@ public class ResourceSpecificationRepoService {
 	
 	@Autowired
 	AttachmentRepoService attachmentRepoService;
+	
+
+	@Autowired
+	ResourceCandidateRepoService resCandidateRepoService;
 	
 	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
 			+ File.separator + "metadata" + File.separator;
@@ -119,6 +133,18 @@ public class ResourceSpecificationRepoService {
 		reSpec = this.updateResourceSpecDataFromAPIcall(reSpec, resourceSpecification);
 		reSpec = this.resourceSpecificationRepo.save(reSpec);
 		reSpec.fixResourceCharRelationhsipIDs();
+		
+		/*
+		 * automatically create resource candidate
+		 */
+		
+		ResourceCandidateCreate rCandidate = new ResourceCandidateCreate();		
+		ResourceSpecificationRef rSpecRef = new ResourceSpecificationRef();
+		rCandidate.setResourceSpecification(rSpecRef );
+		rSpecRef.setId( reSpec.getId() );
+		ResourceCandidate resCand =  resCandidateRepoService.addResourceCandidate(rCandidate);
+		reSpec.setResourceCandidateObjId( resCand.getUuid() );
+		
 		return this.resourceSpecificationRepo.save(reSpec);
 	}
 	
@@ -141,9 +167,16 @@ public class ResourceSpecificationRepoService {
 	}
 
 	public Void deleteByUuid(String id) {
-		Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid( id );
-		this.resourceSpecificationRepo.delete( optionalCat.get());
-		return null;		
+		Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid(id);
+		ResourceSpecification s = optionalCat.get();
+		if (s == null) {
+			return null;
+		}
+
+		this.resCandidateRepoService.deleteById( s.getResourceCandidateObjId() );
+		
+		this.resourceSpecificationRepo.delete( s );
+		return null;
 	}
 	
 
@@ -159,6 +192,28 @@ public class ResourceSpecificationRepoService {
 
 		resourceSpec = this.resourceSpecificationRepo.save( resourceSpec );
 		resourceSpec.fixResourceCharRelationhsipIDs();
+		resourceSpec = this.resourceSpecificationRepo.save( resourceSpec );
+		
+		
+		//save the equivalent candidate
+		ResourceCandidate resCandidateObj = resCandidateRepoService.findById( resourceSpec.getResourceCandidateObjId() );
+		if ( resCandidateObj!=null) {
+			ResourceCandidateUpdate resCandidateUpd = new ResourceCandidateUpdate();
+			resCandidateUpd.setName( resourceSpec.getName() );		
+			resCandidateUpd.setDescription( resourceSpec.getDescription() );		
+			resCandidateUpd.setLifecycleStatus( resourceSpec.getLifecycleStatus() );	
+			resCandidateUpd.setVersion( resourceSpec.getVersion() );				
+			resCandidateRepoService.updateCandidate( resCandidateObj.getId(), resCandidateUpd);
+		} else {
+			ResourceCandidateCreate rCandidate = new ResourceCandidateCreate();
+			ResourceSpecificationRef rSpecRef = new ResourceSpecificationRef();
+			rCandidate.setResourceSpecification(rSpecRef);
+			rSpecRef.setId( resourceSpec.getId());
+			resCandidateObj = resCandidateRepoService.addResourceCandidate(rCandidate);
+			resourceSpec.setResourceCandidateObjId(resCandidateObj.getUuid());
+		}
+		
+		
 		return this.resourceSpecificationRepo.save( resourceSpec );
 		
 	}
@@ -264,7 +319,7 @@ public class ResourceSpecificationRepoService {
 				
 				boolean nameExists = false;
 				for (ResourceSpecificationCharacteristic originalSpecChar : resourceSpec.getResourceSpecCharacteristic()) {
-					if ( originalSpecChar.getName().equals(charUpd.getName())) {
+					if ( originalSpecChar.getName()!=null && charUpd.getName()!=null && originalSpecChar.getName().equals(charUpd.getName())) {
 						nameExists = true;
 						idAddedUpdated.put( originalSpecChar.getName(), true);
 						originalSpecChar.updateWith( charUpd );
@@ -274,6 +329,9 @@ public class ResourceSpecificationRepoService {
 				
 				if (!nameExists) {
 					resourceSpec.getResourceSpecCharacteristic().add( new ResourceSpecificationCharacteristic( charUpd ));
+					if ( charUpd.getName() == null ) {
+						charUpd.setName( UUID.randomUUID().toString() );
+					}
 					idAddedUpdated.put( charUpd.getName(), true);
 				}
 				
@@ -325,11 +383,11 @@ public class ResourceSpecificationRepoService {
 	}
 
 	public ResourceSpecification initRepo() {
-		ResourceSpecification spec = new LogicalResourceSpecification();
-		spec.setName("A Logical Resource");
-		spec.setVersion("1.0.0");
-		spec = this.resourceSpecificationRepo.save(spec);
-		return spec;
+		
+		ResourceSpecificationCreate spec = new ResourceSpecificationCreate();
+		spec.setName("Example Logical Resource");
+		spec.setVersion("1.0.0");		
+		return this.addLogicalResourceSpecification(spec);
 	}
 
 	/**

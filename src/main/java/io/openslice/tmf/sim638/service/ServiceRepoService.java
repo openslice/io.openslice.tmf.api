@@ -467,6 +467,7 @@ public class ServiceRepoService {
 								 );
 					} else {
 						service.addServiceCharacteristicItem(n);
+						serviceCharacteristicChanged = true;	
 					}
 				
 			}						
@@ -547,20 +548,32 @@ public class ServiceRepoService {
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );			
 			if ( service.getState().equals(  ServiceStateType.ACTIVE) ) {
-				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOACTIVE  );				
-			}else if ( previousState.equals( ServiceStateType.ACTIVE) ) {
+				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOACTIVE  );	
+				this.addServiceActionQueueItem(saqi);			
+			}else if ( previousState!=null && previousState.equals( ServiceStateType.ACTIVE) ) {
 				saqi.setAction( ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOINACTIVE  );
+				this.addServiceActionQueueItem(saqi);
 			}
-			this.addServiceActionQueueItem(saqi);
 		}		
 		
-		if ( serviceCharacteristicChanged &&  service.getState().equals(  ServiceStateType.ACTIVE) && previousState.equals( ServiceStateType.ACTIVE) ) {
+		if ( serviceCharacteristicChanged &&  service.getState().equals(  ServiceStateType.ACTIVE) &&  previousState!=null && previousState.equals( ServiceStateType.ACTIVE) ) {
 			ServiceActionQueueItem saqi = new ServiceActionQueueItem();
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );		
 			saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED  );	
 			this.addServiceActionQueueItem(saqi);
 			
+		}
+		
+		/*
+		 * Update any parent service
+		 */
+		for (ServiceRelationship serviceRelationship : service.getServiceRelationship()) {
+			if ( serviceRelationship.getRelationshipType().equals("ChildService") ) {
+				if ( serviceRelationship.getService() != null ) {
+						propagateCharacteristicsToParentService(service, serviceRelationship.getService().getId());	
+				}
+			}
 		}
 		
 		/**
@@ -573,6 +586,24 @@ public class ServiceRepoService {
 		}
 		
 		return service;
+	}
+
+	/**
+	 * @param service
+	 * @param parentService
+	 */
+	private void propagateCharacteristicsToParentService(Service childService, String parentServiceId) {
+		
+		ServiceUpdate servUpd = new ServiceUpdate();
+		
+		for (Characteristic n : childService.getServiceCharacteristic()) {			
+			Characteristic serviceCharacteristicItem = new Characteristic();
+			serviceCharacteristicItem.setName( childService.getName() + "::" + n.getName());
+			serviceCharacteristicItem.setValue( new Any( n.getValue() ));
+			servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
+		}
+		
+		this.updateService( parentServiceId, servUpd, false);
 	}
 
 	public String getServiceEagerAsString(String id) throws JsonProcessingException {

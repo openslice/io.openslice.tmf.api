@@ -116,7 +116,7 @@ public class ResourceFunctionSpecification extends LogicalResourceSpecification 
 			return false;
 		}
 		ResourceFunctionSpecification resourceFunctionSpecification = (ResourceFunctionSpecification) o;
-		return Objects.equals(this.id, resourceFunctionSpecification.id)
+		return Objects.equals(this.uuid, resourceFunctionSpecification.uuid)
 				&& Objects.equals(this.href, resourceFunctionSpecification.href)
 				&& Objects.equals(this.category, resourceFunctionSpecification.category)
 				&& Objects.equals(this.description, resourceFunctionSpecification.description)
@@ -144,7 +144,7 @@ public class ResourceFunctionSpecification extends LogicalResourceSpecification 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, href, category, description, isBundle, lastUpdate, lifecycleStatus, name, version,
+		return Objects.hash(uuid, href, category, description, isBundle, lastUpdate, lifecycleStatus, name, version,
 				attachment, connectionPointSpecification, connectivitySpecification, featureSpecification, relatedParty,
 				resourceSpecCharacteristic, resourceSpecRelationship, targetResourceSchema, validFor, baseType,
 				schemaLocation, type);
@@ -155,7 +155,7 @@ public class ResourceFunctionSpecification extends LogicalResourceSpecification 
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ResourceFunctionSpecification {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    id: ").append(toIndentedString(uuid)).append("\n");
 		sb.append("    href: ").append(toIndentedString(href)).append("\n");
 		sb.append("    category: ").append(toIndentedString(category)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");

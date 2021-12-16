@@ -158,12 +158,6 @@ public class ResourceCatalogRepoService {
 
 			ResourceSpecification resSpecificationObj = this.resourceSpecRepoService.initRepo();
 			
-//			ResourceSpecificationCreate spec = new ResourceSpecificationCreate();
-//			spec.setName("GST");
-//			spec.setDescription("GST example");
-//			ResourceSpecification serviceSpecificationObj = this.specRepoService.addResourceSpecification(spec);
-//			serviceSpecificationObj = createGSTExample(serviceSpecificationObj);
-//			serviceSpecificationObj = this.specRepoService.serviceSpecificationRepo.save(serviceSpecificationObj);
 
 			ResourceCandidateCreate scand = new ResourceCandidateCreate();
 			scand.setName( resSpecificationObj.getName());

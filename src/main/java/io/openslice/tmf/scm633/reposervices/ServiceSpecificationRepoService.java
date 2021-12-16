@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -440,7 +441,7 @@ public class ServiceSpecificationRepoService {
 
 				boolean nameExists = false;
 				for (ServiceSpecCharacteristic originalSpecChar : serviceSpec.getServiceSpecCharacteristic()) {
-					if (originalSpecChar.getName().equals(charUpd.getName())) {
+					if (originalSpecChar.getName()!=null && charUpd.getName()!=null && originalSpecChar.getName().equals(charUpd.getName())) {
 						nameExists = true;
 						idAddedUpdated.put(originalSpecChar.getName(), true);
 						originalSpecChar.updateWith(charUpd);
@@ -450,6 +451,9 @@ public class ServiceSpecificationRepoService {
 
 				if (!nameExists) {
 					serviceSpec.getServiceSpecCharacteristic().add(new ServiceSpecCharacteristic(charUpd));
+					if ( charUpd.getName() == null ) {
+						charUpd.setName( UUID.randomUUID().toString() );
+					}
 					idAddedUpdated.put(charUpd.getName(), true);
 				}
 
@@ -1105,11 +1109,31 @@ public class ServiceSpecificationRepoService {
 			addServiceSpecCharacteristic(serviceSpec, "OnBoardingStatus", "NSDtOnBoardingStatus", new Any( eobd.getOnBoardingStatus().name()   , ""), EValueType.TEXT);
 
 			addServiceSpecCharacteristic(serviceSpec, "SSHKEY", "SSH public key", new Any(""  , ""), EValueType.TEXT);
-			addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any(""  , ""), EValueType.TEXT);
+			String osmconfig = "{\"nsdId\":\"" + eobd.getDeployId() + "\"}";
+			if ( eobd.getObMANOprovider().getVims() != null &&  eobd.getObMANOprovider().getVims().get(0) != null ) {
+				 osmconfig = "{\"nsdId\":\"" + eobd.getDeployId() + "\", \"vimAccountId\":\"" + eobd.getObMANOprovider().getVims().get(0).getVIMid() + "\"}";			
+			}
+			
+			
+			addServiceSpecCharacteristic(serviceSpec, "OSM_CONFIG", "Initial config to OSM", new Any( osmconfig  , ""), EValueType.TEXT);
+
+			addServiceSpecCharacteristic(serviceSpec, "DeploymentRequestID", "DeploymentRequestID", new Any( ""  , ""), EValueType.TEXT);
+
+			addServiceSpecCharacteristic(serviceSpec, "Status", "Status", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "OperationalStatus", "OperationalStatus", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "ConstituentVnfrIps", "ConstituentVnfrIps", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "ConfigStatus", "ConfigStatus", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "APPLY_CONFIG", "APPLY_CONFIG", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "InstanceId", "InstanceId", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "NSR", "NSR", new Any( ""  , ""), EValueType.TEXT);
+			addServiceSpecCharacteristic(serviceSpec, "NSLCM", "NSLCM", new Any( ""  , ""), EValueType.TEXT);
+			
+			
 			
 			if (  nsd.getConstituentVxF() != null  ) {
 				for (ConstituentVxF cv : nsd.getConstituentVxF()) {
 					addServiceSpecCharacteristic(serviceSpec, "MemberVNFIndex_"+cv.getMembervnfIndex(), "Member VNF Index", new Any( cv.getMembervnfIndex() +""  , cv.getVnfdidRef()), EValueType.TEXT);
+					addServiceSpecCharacteristic(serviceSpec, "VNFINDEXREF_INFO_" +cv.getMembervnfIndex() , "Member VNF Index info", new Any( ""  , ""), EValueType.TEXT);
 				}
 			} else {
 

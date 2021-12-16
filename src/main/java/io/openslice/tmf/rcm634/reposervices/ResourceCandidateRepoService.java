@@ -61,12 +61,12 @@ public class ResourceCandidateRepoService {
 		
 
 		ResourceCandidate sc = new ResourceCandidate() ;
-		if ( resCand.getResourceSpecification() != null) {
-			Optional<ResourceCandidate> optsc = this.candidateRepo.findByResourceSpecUuid(resCand.getResourceSpecification().getId());
-			if (optsc.isPresent() ) {
-					sc = optsc.get();//add to an existing candidate
-			}
-		}
+//		if ( resCand.getResourceSpecification() != null) {
+//			Optional<ResourceCandidate> optsc = this.candidateRepo.findByResourceSpecUuid(resCand.getResourceSpecification().getId());
+//			if (optsc.isPresent() ) {
+//					sc = optsc.get();//add to an existing candidate
+//			}
+//		}
 		
 		sc = updateResourceCandidateDataFromAPI( sc, resCand);
 		
@@ -85,7 +85,10 @@ public class ResourceCandidateRepoService {
 
 	public Void deleteById(String id) {
 		Optional<ResourceCandidate> optionalCat = this.candidateRepo.findByUuid( id );
-		this.candidateRepo.delete( optionalCat.get());
+		if ( !optionalCat.isEmpty() ) {
+			this.candidateRepo.delete( optionalCat.get());
+			
+		}
 		return null;
 		
 	}
@@ -105,7 +108,11 @@ public class ResourceCandidateRepoService {
 	
 	public ResourceCandidate updateResourceCandidateDataFromAPI(ResourceCandidate sc, @Valid ResourceCandidateUpdate serviceCandidateUpd) {	
 
-		ResourceSpecification specObj = this.specRepo.findByUuid( serviceCandidateUpd.getResourceSpecification().getId() );
+		ResourceSpecification specObj = null;
+		
+		if ( serviceCandidateUpd.getResourceSpecification()!=null) {
+			specObj = this.specRepo.findByUuid( serviceCandidateUpd.getResourceSpecification().getId() );			
+		}
 		
 		if ( specObj != null ) {
 			sc.setName( specObj.getName() );
@@ -133,20 +140,23 @@ public class ResourceCandidateRepoService {
 		}
 		sc.setValidFor( tp );
 		
+		if ( specObj != null){
+			sc.setResourceSpecificationObj( specObj );			
+		}
+		
 		//save first to continue
 		ResourceCandidate savedCand = this.candidateRepo.save( sc );
 		
-		if ( specObj != null){
-			savedCand.setResourceSpecificationObj( specObj );			
-		}
-		
-		for (ResourceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
-			ResourceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());
 
-			if ( catObj!=null){
-				catObj.getResourceCandidateObj().add(savedCand); //add candidate ref to category
-				catObj = this.categsRepoService.categsRepo.save(catObj); 
-				
+		if ( serviceCandidateUpd.getCategory() !=null ){
+			for (ResourceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
+				ResourceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());
+	
+				if ( catObj!=null){
+					catObj.getResourceCandidateObj().add(savedCand); //add candidate ref to category
+					catObj = this.categsRepoService.categsRepo.save(catObj); 
+					
+				}
 			}
 		}
 		

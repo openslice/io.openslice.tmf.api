@@ -67,6 +67,7 @@ import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
 
@@ -396,8 +397,9 @@ public class ResourceSpecificationRepoService {
 	 * @param afile
 	 * @return
 	 */
-	public ResourceSpecification addAttachmentToResourceSpec(String id, @Valid Attachment attachment,
-			@Valid MultipartFile afile) {
+	public ResourceSpecification addAttachmentToResourceSpec(String id, 
+			@Valid MultipartFile afile,
+			String urlpath) {
 		Optional<ResourceSpecification> s = this.resourceSpecificationRepo.findByUuid(id);
 		if ( s.get() == null ) {
 			return null;
@@ -406,7 +408,9 @@ public class ResourceSpecificationRepoService {
 				
 		
 		ResourceSpecification spec = s.get();
-		Attachment att = this.attachmentRepoService.addAttachment(attachment);
+		Attachment att = new Attachment();
+		att = this.attachmentRepoService.addAttachment(att);
+		att.setMimeType(afile.getContentType());
 		
 		String tempDir = METADATADIR + spec.getId() + "/attachments/" + att.getId() + File.separator;
 		
@@ -424,17 +428,21 @@ public class ResourceSpecificationRepoService {
 				att.setMimeType( afile.getContentType() );
 				att.setName(aFileNamePosted);				
 				// Save the file destination
+				urlpath = urlpath.replace("tmf-api/", "");
 				
-				if ( spec instanceof LogicalResourceSpecification ) {
-					att.setUrl(  "/logicalResourceSpec/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
-				}if ( spec instanceof PhysicalResourceSpecification ) {
-					att.setUrl(  "/physicalResourceSpec/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
-				}else {
-					 att.setUrl(  "/resourceSpecification/" + spec.getId() + "/attachments/" + att.getId() + "/"+ aFileNamePosted);					
-				}
+//				if ( spec instanceof LogicalResourceSpecification ) {
+//					att.setUrl(  urlpath + "/logicalResourceSpec/" + spec.getId() + "/attachment/" + att.getId() + "/"+ aFileNamePosted);					
+//				}if ( spec instanceof PhysicalResourceSpecification ) {
+//					att.setUrl(  urlpath + "/physicalResourceSpec/" + spec.getId() + "/attachment/" + att.getId() + "/"+ aFileNamePosted);					
+//				}else {
+//					 att.setUrl(  urlpath + "/resourceSpecification/" + spec.getId() + "/attachment/" + att.getId() + "/"+ aFileNamePosted);					
+//				}
+
+						att.setUrl( urlpath + "/" + att.getId() + "/"
+								+ aFileNamePosted);
 				
 				
-				att = this.attachmentRepoService.updateAttachment(attachment);
+				att = this.attachmentRepoService.updateAttachment( att );
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -451,6 +459,21 @@ public class ResourceSpecificationRepoService {
 		spec.addAttachmentItem(attref);
 		this.resourceSpecificationRepo.save(spec);
 		return spec;
+	}
+
+	public Attachment getAttachmentLogo(String id, String attid) {
+		ResourceSpecification spec = this.findByUuid( id ); 
+		for (AttachmentRefOrValue att : spec.getAttachment()) {
+			if ( att.getName().contains("logo")) {
+				return this.attachmentRepoService.findByUuid( att.getId() );
+			}				
+		}
+		
+		return null;
+	}
+
+	public Attachment getAttachment(String attid) {
+		return this.attachmentRepoService.findByUuid( attid );
 	}
 
 	

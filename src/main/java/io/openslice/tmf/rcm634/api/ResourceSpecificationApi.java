@@ -24,6 +24,7 @@
  */
 package io.openslice.tmf.rcm634.api;
 
+import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.rcm634.model.Error;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
@@ -34,7 +35,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -261,10 +264,51 @@ public interface ResourceSpecificationApi {
         method = RequestMethod.POST)
     default ResponseEntity<ResourceSpecification>  addAttachmentToLogicalResourceSpec(
     		@ApiParam(value = "Identifier of the ResourceSpecification",required=true) @PathVariable("id") String id, 
-    		@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
-    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file){
+    		//@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
+    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file,
+			HttpServletRequest request){
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    @ApiOperation(value = "Get an attachment from a 'ResourceSpecification'", nickname = "getAttachment", 
+    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "resourceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/resourceSpecification/{id}/attachment/{attid}",        
+    	produces = MediaType.ALL_VALUE,
+        method = RequestMethod.GET)
+    ResponseEntity<byte[]> getAttachment(
+    		@ApiParam(value = "Identifier of the ResourceSpecification",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
+
+    
+    
+    @ApiOperation(value = "Get an attachment from a 'ResourceSpecification' with filename", nickname = "getAttachmentWithFilename", 
+    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "resourceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/resourceSpecification/{id}/attachment/{attid}/{afilename}",        
+    	produces = MediaType.ALL_VALUE ,
+        method = RequestMethod.GET)
+    ResponseEntity<byte[]> getAttachmentWithFilename(
+    		@ApiParam(value = "Identifier of the ResourceSpecification",required=true) @PathVariable("id") String id, 
+    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid, 
+    		@ApiParam(value = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
+
+    
 }

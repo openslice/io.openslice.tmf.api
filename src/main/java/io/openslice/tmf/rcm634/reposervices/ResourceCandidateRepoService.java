@@ -38,6 +38,7 @@ import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
+import io.openslice.tmf.scm633.model.ServiceCandidate;
 
 @Service
 public class ResourceCandidateRepoService {
@@ -162,6 +163,11 @@ public class ResourceCandidateRepoService {
 		
 		
 		return savedCand;
+	}
+
+	public Optional<ServiceCandidate> findByUuid(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

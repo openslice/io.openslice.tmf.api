@@ -39,6 +39,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -49,6 +50,7 @@ import io.openslice.tmf.pcm620.model.ProductSpecification;
 import io.openslice.tmf.pcm620.model.ProductSpecificationCreate;
 import io.openslice.tmf.pcm620.model.ProductSpecificationUpdate;
 import io.openslice.tmf.pcm620.reposervices.ProductSpecificationRepoService;
+import io.swagger.annotations.ApiParam;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
@@ -107,7 +109,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 	@Override
 	public ResponseEntity<List<ProductSpecification>> listProductSpecification(@Valid String fields,
 			@Valid Integer offset, @Valid Integer limit,
-			 @Valid Map<String, String> allParams) {
+			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
 		try {
 			if (allParams != null) {
 				allParams.remove("fields");

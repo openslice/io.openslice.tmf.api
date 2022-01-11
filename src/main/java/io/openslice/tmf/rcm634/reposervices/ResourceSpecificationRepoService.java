@@ -249,10 +249,11 @@ public class ResourceSpecificationRepoService {
 		resourceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		
 		if (resourceSpec instanceof PhysicalResourceSpecification){
-			((PhysicalResourceSpecification) resourceSpec).setModel(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getModel() );
-			((PhysicalResourceSpecification) resourceSpec).setPart(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getPart() );
-			((PhysicalResourceSpecification) resourceSpec).setSku(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getSku() );
-			((PhysicalResourceSpecification) resourceSpec).setVendor(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getVendor() );
+			((PhysicalResourceSpecification) resourceSpec)
+				.model(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getModel() )
+				.part( ( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getPart())
+				.sku( ( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getSku())
+				.vendor(( (PhysicalResourceSpecificationUpdate) resSpecUpd ).getVendor() );
 		}
 		
 		

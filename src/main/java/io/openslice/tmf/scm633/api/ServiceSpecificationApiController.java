@@ -257,7 +257,9 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 			if ( att == null ) {
 				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);				
 			}
-			
+			if ( att.getContent() == null ) {
+				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);				
+			}
 			File file = new File( att.getContent() );
 			Path path = Paths.get(file.getAbsolutePath());
 			//ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));

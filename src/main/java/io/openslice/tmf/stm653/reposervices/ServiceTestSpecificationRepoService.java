@@ -51,8 +51,10 @@ import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
+import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
@@ -469,6 +471,9 @@ public class ServiceTestSpecificationRepoService {
 	public Attachment getAttachment(String attid) {
 		return this.attachmentRepoService.findByUuid( attid );
 	}
+	
+	
+
 	
 	
 }

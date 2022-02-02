@@ -351,6 +351,14 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<ServiceSpecification> specFromTestSpec(String id) {
+		 ServiceSpecification result = serviceSpecificationRepoService.specFromTestSpec(id);
+		 ServiceSpecification c = null;
+		
+		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
+	}
+
 
 
 }

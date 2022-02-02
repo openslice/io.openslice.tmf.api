@@ -90,6 +90,10 @@ import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.repo.ServiceSpecificationRepository;
+import io.openslice.tmf.stm653.model.CharacteristicSpecification;
+import io.openslice.tmf.stm653.model.ServiceTestSpecification;
+import io.openslice.tmf.stm653.model.ServiceTestSpecificationUpdate;
+import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
 
 /**
@@ -125,6 +129,9 @@ public class ServiceSpecificationRepoService {
 	@Autowired
 	OrganizationRepoService organizationRepoService;
 	
+
+	@Autowired
+	ServiceTestSpecificationRepoService serviceTestSpecificationRepoService;
 	
 	private SessionFactory sessionFactory;
 
@@ -1227,6 +1234,44 @@ public class ServiceSpecificationRepoService {
 		 }
 		 
 		 
+	}
+
+	public ServiceSpecification specFromTestSpec(String id) {
+		ServiceTestSpecification testSpec = serviceTestSpecificationRepoService.findByUuid(id);
+		if (testSpec == null) {
+			logger.error("specFromTestSpec return null");
+			return null;
+		}
+		
+
+		/**
+		 * 1: Create Service Spec related to ServiceTestSpecification
+		 */
+		ServiceSpecification serviceSpec = new ServiceSpecification();
+		serviceSpec.setName( testSpec.getName()  );
+		serviceSpec.setVersion( testSpec.getVersion() );
+		serviceSpec.setDescription( testSpec.getDescription() );		
+
+		addServiceSpecCharacteristic(serviceSpec, "testSpecRef", "testSpecRef", new Any( testSpec.getId() ,  testSpec.getId() ), EValueType.TEXT);
+		
+		for (CharacteristicSpecification sourceChar : testSpec.getSpecCharacteristic()) {
+			addServiceSpecCharacteristic(serviceSpec, 
+					sourceChar.getName(), 
+					sourceChar.getDescription() , new Any( ""  , ""), EValueType.TEXT);
+			
+		}
+		
+
+		serviceSpec = this.addServiceSpecification( serviceSpec );
+		
+		ServiceSpecificationRef serviceSpecRef = new ServiceSpecificationRef();
+		serviceSpecRef.setId(serviceSpec.getId());
+		@Valid
+		ServiceTestSpecificationUpdate stUpd = new ServiceTestSpecificationUpdate();
+		stUpd.getRelatedServiceSpecification().add( serviceSpecRef );
+		
+		serviceTestSpecificationRepoService.updateServiceTestSpecification(id, stUpd );
+		return null;
 	}
 
 

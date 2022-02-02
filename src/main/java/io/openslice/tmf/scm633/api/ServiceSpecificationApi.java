@@ -293,4 +293,22 @@ public interface ServiceSpecificationApi {
         method = RequestMethod.GET)
     ResponseEntity<ServiceDescriptor> retrieveServiceSpecificationDescriptor(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
 
+    @ApiOperation(value = "Creates a ServiceSpecification from an ServiceTestSpecification id. It retreives the ServicTestSpecification from  the ServiceTestSpecification catalog", nickname = "createServiceSpecificationFromServiceTestSpecification", 
+    		notes = "This operation creates a ServiceSpecification from a ServiceTestSpecification id. It retreives the ServiceTestSpecification from  the ServiceTestSpecification catalog. "
+    				+ "The response is the Service Spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Created", response = ServiceSpecification.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value = "/serviceSpecification/specFromTestSpec/{id}",
+        produces = { "application/json;charset=utf-8" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<ServiceSpecification> specFromTestSpec( @ApiParam(value = "Identifier of the ServiceTestSpecification id from the ServiceTestSpecification catalog",required=true) @PathVariable("id") String id );
+    
+    
 }

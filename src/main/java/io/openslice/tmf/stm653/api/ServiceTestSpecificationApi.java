@@ -25,6 +25,7 @@
 package io.openslice.tmf.stm653.api;
 
 import io.openslice.tmf.common.model.Attachment;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.stm653.model.Error;
 import io.openslice.tmf.stm653.model.ServiceTestSpecification;
 import io.openslice.tmf.stm653.model.ServiceTestSpecificationCreate;
@@ -278,5 +279,6 @@ public interface ServiceTestSpecificationApi {
 	    		@ApiParam(value = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
 	
 	
+	  
 
 }

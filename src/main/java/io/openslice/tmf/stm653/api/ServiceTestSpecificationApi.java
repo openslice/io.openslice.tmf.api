@@ -24,6 +24,7 @@
  */
 package io.openslice.tmf.stm653.api;
 
+import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.stm653.model.Error;
 import io.openslice.tmf.stm653.model.ServiceTestSpecification;
 import io.openslice.tmf.stm653.model.ServiceTestSpecificationCreate;
@@ -32,7 +33,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -212,5 +215,68 @@ public interface ServiceTestSpecificationApi {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
+	
+	
+	  @ApiOperation(value = "Adds an attachment to a ServiceTestSpecification", nickname = "addAttachmentToServiceTestSpecification", 
+	    		notes = "This operation adds an attachment to a ServiceTestSpecification and updates partially a ServiceTestSpecification entity", response = Attachment.class, tags={ "ServiceTestSpecification", })
+	    @ApiResponses(value = { 
+	        @ApiResponse(code = 200, message = "Success", response = Attachment.class),
+	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+	        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+	        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+	        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+	        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+	        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+	        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	    @RequestMapping(value = "/serviceTestSpecification/{id}/attachment",
+	        produces = { "application/json;charset=utf-8" }, 
+	        consumes = { "multipart/form-data" },
+	        method = RequestMethod.POST)
+	    ResponseEntity<Attachment> addAttachmentToServiceTestSpecification(
+	    		@ApiParam(value = "Identifier of the ServiceTestSpecification",required=true) @PathVariable("id") String id, 
+	    		//@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") Attachment attachment, 
+	    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file,
+				HttpServletRequest request);
+
+	    @ApiOperation(value = "Get an attachment", nickname = "getAttachment", 
+	    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "ServiceTestSpecification", })
+	    @ApiResponses(value = { 
+	        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+	        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+	        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+	        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+	        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+	        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+	        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	    @RequestMapping(value = "/serviceTestSpecification/{id}/attachment/{attid}",        
+	    	produces = MediaType.ALL_VALUE,
+	        method = RequestMethod.GET)
+	    ResponseEntity<byte[]> getAttachment(
+	    		@ApiParam(value = "Identifier of the serviceTestSpecification",required=true) @PathVariable("id") String id, 
+	    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
+
+	    
+	    
+	    @ApiOperation(value = "Get an attachment with filename", nickname = "getAttachmentWithFilename", 
+	    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceTestSpecification", })
+	    @ApiResponses(value = { 
+	        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+	        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+	        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+	        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+	        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+	        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+	        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	    @RequestMapping(value = "/serviceTestSpecification/{id}/attachment/{attid}/{afilename}",        
+	    	produces = MediaType.ALL_VALUE ,
+	        method = RequestMethod.GET)
+	    ResponseEntity<byte[]> getAttachmentWithFilename(
+	    		@ApiParam(value = "Identifier of the serviceTestSpecification",required=true) @PathVariable("id") String id, 
+	    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid, 
+	    		@ApiParam(value = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
+	
+	
 
 }

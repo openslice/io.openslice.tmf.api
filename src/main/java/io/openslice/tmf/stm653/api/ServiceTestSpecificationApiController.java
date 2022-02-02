@@ -19,6 +19,11 @@
  */
 package io.openslice.tmf.stm653.api;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +32,15 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -40,11 +49,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
+import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.stm653.model.ServiceTestSpecification;
@@ -192,6 +203,77 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 			return new ResponseEntity<ServiceTestSpecification>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+	}
+
+	@Secured({ "ROLE_ADMIN" })
+	@Override
+	public ResponseEntity<Attachment> addAttachmentToServiceTestSpecification(String specid,
+			//@Valid @ModelAttribute("attachment") Attachment att,
+			@RequestParam(name = "afile") @Valid MultipartFile file,
+			HttpServletRequest request) {
+		try {
+
+			//log.info("addAttachmentToServiceSpecification attachment=" + att.toString());
+			log.info("addAttachmentToServiceTestSpecification file=" + file);
+
+			//Attachment att = objectMapper.readValue(attachment, Attachment.class);
+			//log.info("addAttachmentToServiceSpecification att=" + att);
+
+//			return new ResponseEntity<ServiceSpecification>( serviceSpecificationRepoService.findByUuid( id ), HttpStatus.OK);
+			Attachment c = serviceTestSpecificationRepoService.addAttachmentToServiceTest(specid,  file, request.getRequestURI());
+
+			return new ResponseEntity<Attachment>(c, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Attachment>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Secured({ "ROLE_USER" })
+	@Override
+	public ResponseEntity<byte[]> getAttachment(String id, String attid) {
+		try {
+			Attachment att;
+						
+			att = serviceTestSpecificationRepoService.getAttachment( attid );
+			
+			if ( att == null ) {
+				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);				
+			}
+			if ( att.getContent() == null ) {
+				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);				
+			}
+			File file = new File( att.getContent() );
+			Path path = Paths.get(file.getAbsolutePath());
+			//ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+			HttpHeaders headers = new HttpHeaders();
+			InputStream in = new FileInputStream( file );
+			
+			byte[] media = IOUtils.toByteArray(in);
+		    headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+		    headers.setContentType( MediaType. parseMediaType( att.getMimeType()) );
+		    
+		    if ( att.getMimeType().contains("zip") || att.getMimeType().contains("gz")) {		    
+		    	headers.add( "Content-Disposition", "attachment; filename=" + file.getName());//remove this returns directly the object
+		    }
+		    
+		    ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
+		    return responseEntity;
+			
+			
+			
+			
+		} catch (Exception e) {
+			log.error("Couldn't serialize response ByteArrayResource", e);
+			return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Secured({ "ROLE_USER" })
+	@Override
+	public ResponseEntity<byte[]> getAttachmentWithFilename(String id, String attid, String afilename) {
+
+		return getAttachment(id, attid);
 	}
 
 }

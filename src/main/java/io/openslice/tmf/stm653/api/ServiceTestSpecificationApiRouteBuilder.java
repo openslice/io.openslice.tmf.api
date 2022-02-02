@@ -35,6 +35,9 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.tmf.sim638.model.ServiceCreate;
+import io.openslice.tmf.stm653.model.ServiceTestCreate;
+import io.openslice.tmf.stm653.reposervices.ServiceTestRepoService;
 import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
 
 @Configuration
@@ -48,8 +51,16 @@ public class ServiceTestSpecificationApiRouteBuilder extends RouteBuilder {
 	private String CATALOG_GET_SERVICETESTSPEC_BY_ID = "";
 	
 	
+
+	@Value("${CATALOG_ADD_SERVICETEST}")
+	private String CATALOG_ADD_SERVICETEST = "";
+
 	@Autowired
 	ServiceTestSpecificationRepoService serviceTestSpecificationRepoService;
+	
+
+	@Autowired
+	ServiceTestRepoService serviceTestRepoService;
 	
     @Autowired
     private ProducerTemplate template;
@@ -64,7 +75,14 @@ public class ServiceTestSpecificationApiRouteBuilder extends RouteBuilder {
 		.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
 		
-		
+
+		from( CATALOG_ADD_SERVICETEST )
+		.log(LoggingLevel.INFO, log, CATALOG_ADD_SERVICETEST + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceTestCreate.class, true)
+		.bean( serviceTestRepoService, "addServiceTest(${body})")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
 	}
 
 

@@ -32,11 +32,16 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.stm653.model.Characteristic;
@@ -262,5 +267,37 @@ public class ServiceTestRepoService {
 	public ServiceTest findByUuid(String id) {
 		Optional<ServiceTest> optionalCat = this.aServiceTestRepo.findByUuid(id);
 		return optionalCat.orElse(null);
+	}
+	
+	public String getServiceTestEagerAsString(String id) throws JsonProcessingException {
+		ServiceTest s = this.getServiceTestEager(id);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new Hibernate5Module());
+		String res = mapper.writeValueAsString(s);
+
+		return res;
+	}
+	
+	public ServiceTest getServiceTestEager(String id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		ServiceTest s = null;
+		try {
+			s = (ServiceTest) session.get(ServiceTest.class, id);
+			if (s == null) {
+				return this.findByUuid(id);// last resort
+			}
+
+			Hibernate.initialize(s.getRelatedParty());
+
+			Hibernate.initialize(s.getCharacteristic() );
+			Hibernate.initialize(s.getTestSpecification() );
+			
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		
+		return s;
 	}
 }

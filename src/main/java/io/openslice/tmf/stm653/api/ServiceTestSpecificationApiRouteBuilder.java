@@ -36,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.sim638.model.ServiceCreate;
+import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.stm653.model.ServiceTestCreate;
 import io.openslice.tmf.stm653.reposervices.ServiceTestRepoService;
 import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
@@ -55,6 +56,16 @@ public class ServiceTestSpecificationApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_ADD_SERVICETEST}")
 	private String CATALOG_ADD_SERVICETEST = "";
 
+
+	@Value("${CATALOG_UPD_SERVICETEST}")
+	private String CATALOG_UPD_SERVICETEST = "";
+	
+
+	@Value("${CATALOG_GET_SERVICETEST_BY_ID}")
+	private String CATALOG_GET_SERVICETEST_BY_ID = "";
+	
+	
+	
 	@Autowired
 	ServiceTestSpecificationRepoService serviceTestSpecificationRepoService;
 	
@@ -81,6 +92,20 @@ public class ServiceTestSpecificationApiRouteBuilder extends RouteBuilder {
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ServiceTestCreate.class, true)
 		.bean( serviceTestRepoService, "addServiceTest(${body})")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+
+		from( CATALOG_GET_SERVICETEST_BY_ID )
+		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICETEST_BY_ID + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.bean( serviceTestRepoService, "getServiceTestEagerAsString")
+		.convertBodyTo( String.class );
+
+		from(CATALOG_UPD_SERVICETEST)
+		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICETEST + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceUpdate.class, true)
+		.bean( serviceTestRepoService, "updateServiceTest(${header.serviceid}, ${body} )")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
 	}

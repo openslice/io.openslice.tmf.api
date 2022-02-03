@@ -528,8 +528,7 @@ public class ServiceRepoService {
 		 * Save in ServiceActionQueueItem
 		 */
 		
-		if ( propagateToSO ) {
-			if (stateChanged || serviceCharacteristicChanged) {
+			if (propagateToSO && stateChanged) {
 				ServiceActionQueueItem saqi = new ServiceActionQueueItem();
 				saqi.setServiceRefId( id );
 				saqi.setOriginalServiceInJSON( originaServiceAsJson );
@@ -540,17 +539,12 @@ public class ServiceRepoService {
 						saqi.setAction( ServiceActionQueueAction.TERMINATE );		
 					}
 					
-				} else {
-					if ( childCharacteristicsChanged.size() == 0 ) { //send MODIFY only for services (usually RFS)
-						saqi.setAction( ServiceActionQueueAction.MODIFY );
-					}
 				}
 				
 				if ( saqi.getAction() != ServiceActionQueueAction.NONE  ) {
 					this.addServiceActionQueueItem(saqi);					
 				}
-			}			
-		}
+			}		
 		
 		
 //		//here on any state change of a Service we must send an ActionQueueItem that reflects the state changed with the Action  
@@ -572,6 +566,8 @@ public class ServiceRepoService {
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );		
 			saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED  );	
+			
+			
 			this.addServiceActionQueueItem(saqi);
 			
 			/*

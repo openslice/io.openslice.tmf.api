@@ -1268,7 +1268,7 @@ public class ServiceSpecificationRepoService {
 		serviceSpecRef.setId(serviceSpec.getId());
 		@Valid
 		ServiceTestSpecificationUpdate stUpd = new ServiceTestSpecificationUpdate();
-		stUpd.getRelatedServiceSpecification().add( serviceSpecRef );
+		stUpd.addRelatedServiceSpecificationItem( serviceSpecRef );
 		
 		serviceTestSpecificationRepoService.updateServiceTestSpecification(id, stUpd );
 		return null;

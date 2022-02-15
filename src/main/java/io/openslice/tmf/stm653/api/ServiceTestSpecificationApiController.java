@@ -101,7 +101,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 		return Optional.ofNullable(request);
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@Secured({ "ROLE_USER" })
 	@Override
 	public ResponseEntity<ServiceTestSpecification> createServiceTestSpecification(
 			@Valid ServiceTestSpecificationCreate serviceSpecification) {
@@ -124,7 +124,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@Secured({ "ROLE_USER" })
 	@Override
 	public ResponseEntity<Void> deleteServiceTestSpecification(String id) {
 
@@ -169,7 +169,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@Secured({ "ROLE_USER" })
 	@Override
 	public ResponseEntity<ServiceTestSpecification> patchServiceTestSpecification(
 			@Valid ServiceTestSpecificationUpdate serviceSpecification, String id) {
@@ -205,7 +205,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@Secured({ "ROLE_USER" })
 	@Override
 	public ResponseEntity<Attachment> addAttachmentToServiceTestSpecification(String specid,
 			//@Valid @ModelAttribute("attachment") Attachment att,

@@ -219,7 +219,7 @@ public interface ServiceTestSpecificationApi {
 	
 	
 	  @ApiOperation(value = "Adds an attachment to a ServiceTestSpecification", nickname = "addAttachmentToServiceTestSpecification", 
-	    		notes = "This operation adds an attachment to a ServiceTestSpecification and updates partially a ServiceTestSpecification entity", response = Attachment.class, tags={ "ServiceTestSpecification", })
+	    		notes = "This operation adds an attachment to a ServiceTestSpecification and updates partially a ServiceTestSpecification entity", response = Attachment.class, tags={ "serviceTestSpecification", })
 	    @ApiResponses(value = { 
 	        @ApiResponse(code = 200, message = "Success", response = Attachment.class),
 	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
@@ -240,7 +240,7 @@ public interface ServiceTestSpecificationApi {
 				HttpServletRequest request);
 
 	    @ApiOperation(value = "Get an attachment", nickname = "getAttachment", 
-	    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "ServiceTestSpecification", })
+	    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceTestSpecification", })
 	    @ApiResponses(value = { 
 	        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
 	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),

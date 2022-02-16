@@ -356,6 +356,10 @@ public class ServiceTestSpecificationRepoService {
 			Hibernate.initialize(dd.getRelatedParty());
 			Hibernate.initialize(dd.getServiceTestSpecRelationship() );
 			Hibernate.initialize(dd.getSpecCharacteristic());
+			Hibernate.initialize(dd.getConstraint());
+			Hibernate.initialize(dd.getEntitySpecRelationship() );
+			Hibernate.initialize(dd.getTestMeasureDefinition()  );
+			
 			for (CharacteristicSpecification schar : dd.getSpecCharacteristic()) {
 				Hibernate.initialize(schar.getCharacteristicValueSpecification() );
 				Hibernate.initialize(schar.getCharSpecRelationship());

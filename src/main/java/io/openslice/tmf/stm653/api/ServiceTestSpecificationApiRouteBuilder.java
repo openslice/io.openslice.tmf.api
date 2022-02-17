@@ -38,6 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.stm653.model.ServiceTestCreate;
+import io.openslice.tmf.stm653.model.ServiceTestUpdate;
 import io.openslice.tmf.stm653.reposervices.ServiceTestRepoService;
 import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
 
@@ -104,7 +105,7 @@ public class ServiceTestSpecificationApiRouteBuilder extends RouteBuilder {
 		from(CATALOG_UPD_SERVICETEST)
 		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICETEST + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
-		.unmarshal().json( JsonLibrary.Jackson, ServiceUpdate.class, true)
+		.unmarshal().json( JsonLibrary.Jackson, ServiceTestUpdate.class, true)
 		.bean( serviceTestRepoService, "updateServiceTest(${header.serviceid}, ${body} )")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );

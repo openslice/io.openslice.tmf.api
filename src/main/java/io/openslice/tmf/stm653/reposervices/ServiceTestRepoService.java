@@ -185,6 +185,9 @@ public class ServiceTestRepoService {
 		}
 
 	
+		if (serviceSpecUpd.getRelatedService()  != null) {
+			serviceSpec.setRelatedService( (serviceSpecUpd.getRelatedService() );
+		}
 
 		
 

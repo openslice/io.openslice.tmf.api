@@ -47,6 +47,7 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.stm653.model.Characteristic;
+import io.openslice.tmf.stm653.model.CharacteristicRelationship;
 import io.openslice.tmf.stm653.model.CharacteristicSpecification;
 import io.openslice.tmf.stm653.model.ServiceTest;
 import io.openslice.tmf.stm653.model.ServiceTestCreate;
@@ -258,6 +259,8 @@ public class ServiceTestRepoService {
 		serviceSpec = this.aServiceTestRepo.save(serviceSpec);	
 
 		
+		serviceSpec = this.getServiceTestEager( serviceSpec.getId() );
+		
 		return serviceSpec;
 	}
 
@@ -292,6 +295,9 @@ public class ServiceTestRepoService {
 			
 			for (Characteristic schar : s.getCharacteristic()) {
 				Hibernate.initialize(schar.getCharacteristicRelationship()  );
+				for (CharacteristicRelationship cr : schar.getCharacteristicRelationship() ) {
+					Hibernate.initialize(cr  );					
+				}
 
 			}
 			

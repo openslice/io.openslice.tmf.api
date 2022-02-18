@@ -44,6 +44,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.stm653.model.Characteristic;
 import io.openslice.tmf.stm653.model.ServiceTest;
@@ -89,80 +90,68 @@ public class ServiceTestRepoService {
 
 
 	@Transactional
-	private ServiceTest updateServiceTestDataFromAPIcall(ServiceTest serviceSpec,
-			@Valid ServiceTestUpdate serviceSpecUpd) {
+	private ServiceTest updateServiceTestDataFromAPIcall(ServiceTest serviceT,
+			@Valid ServiceTestUpdate serviceUpd) {
 
-		if (serviceSpecUpd.getName() != null) {
-			serviceSpec.setName(serviceSpecUpd.getName());
+		if (serviceUpd.getName() != null) {
+			serviceT.setName(serviceUpd.getName());
 		}
 
-		if (serviceSpecUpd.getDescription() != null) {
-			serviceSpec.setDescription(serviceSpecUpd.getDescription());
+		if (serviceUpd.getDescription() != null) {
+			serviceT.setDescription(serviceUpd.getDescription());
 
 		}
 		
 		
-		if (serviceSpecUpd.getTestSpecification() != null ){
-			serviceSpec.setTestSpecification( serviceSpecUpd.getTestSpecification() );
+		if (serviceUpd.getTestSpecification() != null ){
+			serviceT.setTestSpecification( serviceUpd.getTestSpecification() );
 		}
 
 
-		serviceSpec.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
+		serviceT.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
 
 	
+		
 
-		/**
-		 * Update ServiceSpecCharacteristic list We need to compare by name, since IDs
-		 * will not exist
-		 */
-		if (serviceSpecUpd.getCharacteristic() != null) {
-			// reattach attachments fromDB
-
-			Map<String, Boolean> idAddedUpdated = new HashMap<>();
-
-			for (Characteristic charUpd : serviceSpecUpd.getCharacteristic()) {
-
-				boolean nameExists = false;
-				for (Characteristic originalSpecChar : serviceSpec.getCharacteristic()) {
-					if (originalSpecChar.getName().equals(charUpd.getName())) {
-						nameExists = true;
-						idAddedUpdated.put(originalSpecChar.getName(), true);
-						originalSpecChar.updateWith(charUpd);
-						break;
+		List<Characteristic> childCharacteristicsChanged = new ArrayList<>();
+		if ( serviceUpd.getCharacteristic()!=null ) {
+			for (Characteristic n : serviceUpd.getCharacteristic()) {
+				
+					if ( serviceT.getCharacteristicByName( n.getName() )!= null ) {
+						
+						Characteristic origChar = serviceT.getCharacteristicByName( n.getName() );
+						if ( ( origChar !=null ) && ( origChar.getValue() !=null ) && ( origChar.getValue().getValue() !=null )) {
+							if ( !origChar.getValue().getValue().equals(n.getValue().getValue()) ) {									
+								if ( n.getName().contains("::") ) {
+									childCharacteristicsChanged.add(n); //the characteristic needs later to be propagated to its children
+									
+								
+								}
+								
+							}
+						}
+						
+						serviceT.getCharacteristicByName( n.getName() ).setValue( 
+								 new Any( n.getValue().getValue(), n.getValue().getAlias()  )
+								 );
+					} else {
+						serviceT.addCharacteristicItem(n);
 					}
-				}
-
-				if (!nameExists) {
-					serviceSpec.getCharacteristic().add(new Characteristic(charUpd));
-					idAddedUpdated.put(charUpd.getName(), true);
-				}
-
-			}
-
-			List<Characteristic> toRemove = new ArrayList<>();
-			for (Characteristic ss : serviceSpec.getCharacteristic()) {
-				if (idAddedUpdated.get(ss.getName()) == null) {
-					toRemove.add(ss);
-				}
-			}
-
-			for (Characteristic serviceSpecCharacteristic : toRemove) {
-				serviceSpec.getCharacteristic().remove(serviceSpecCharacteristic);
-			}
-
+				
+			}						
 		}
 
 		/**
 		 * Update RelatedParty list
 		 */
-		if (serviceSpecUpd.getRelatedParty() != null) {
+		if (serviceUpd.getRelatedParty() != null) {
 			// reattach fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
-			for (RelatedParty rp : serviceSpecUpd.getRelatedParty()) {
+			for (RelatedParty rp : serviceUpd.getRelatedParty()) {
 
 				boolean idexists = false;
-				for (RelatedParty originalRP : serviceSpec.getRelatedParty()) {
+				for (RelatedParty originalRP : serviceT.getRelatedParty()) {
 					if (originalRP.getId().equals(rp.getId())) {
 						idexists = true;
 						idAddedUpdated.put(originalRP.getId(), true);
@@ -170,39 +159,39 @@ public class ServiceTestRepoService {
 					}
 				}
 				if (!idexists) {
-					serviceSpec.getRelatedParty().add(rp);
+					serviceT.getRelatedParty().add(rp);
 					idAddedUpdated.put(rp.getId(), true);
 				}
 			}
 			List<RelatedParty> toRemove = new ArrayList<>();
-			for (RelatedParty ss : serviceSpec.getRelatedParty()) {
+			for (RelatedParty ss : serviceT.getRelatedParty()) {
 				if (idAddedUpdated.get(ss.getId()) == null) {
 					toRemove.add(ss);
 				}
 			}
 
 			for (RelatedParty ar : toRemove) {
-				serviceSpec.getRelatedParty().remove(ar);
+				serviceT.getRelatedParty().remove(ar);
 			}
 		}
 
 	
-		if (serviceSpecUpd.getRelatedService()  != null) {
-			serviceSpec.setRelatedService( (serviceSpecUpd.getRelatedService() ) );
+		if (serviceUpd.getRelatedService()  != null) {
+			serviceT.setRelatedService( (serviceUpd.getRelatedService() ) );
 			
 		}
 
 		
 
-		if (serviceSpecUpd.getTestMeasure()  != null) {
+		if (serviceUpd.getTestMeasure()  != null) {
 			// reattach attachments fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
-			for (TestMeasure ar : serviceSpecUpd.getTestMeasure()) {
+			for (TestMeasure ar : serviceUpd.getTestMeasure()) {
 				// find ServiceSpecRelationship by id and reload it here.
 				// we need the ServiceSpecRelationship model from spec models
 				boolean idexists = false;
-				for (TestMeasure orinalAtt : serviceSpec.getTestMeasure()  ) {
+				for (TestMeasure orinalAtt : serviceT.getTestMeasure()  ) {
 					if (orinalAtt.getMetricName().equals(ar.getMetricName())) {
 						idexists = true;
 						idAddedUpdated.put(orinalAtt.getMetricName(), true);
@@ -211,28 +200,28 @@ public class ServiceTestRepoService {
 				}
 
 				if (!idexists) {
-					serviceSpec.getTestMeasure().add(ar);
+					serviceT.getTestMeasure().add(ar);
 					idAddedUpdated.put(ar.getMetricName(), true);
 
 				}
 			}
 
 			List<TestMeasure> toRemove = new ArrayList<>();
-			for (TestMeasure ss : serviceSpec.getTestMeasure()) {
+			for (TestMeasure ss : serviceT.getTestMeasure()) {
 				if (idAddedUpdated.get(ss.getMetricName()) == null) {
 					toRemove.add(ss);
 				}
 			}
 
 			for (TestMeasure ar : toRemove) {
-				serviceSpec.getTestMeasure().remove(ar);
+				serviceT.getTestMeasure().remove(ar);
 			}
 
 		}
 		
 		
 
-		return serviceSpec;
+		return serviceT;
 
 	}
 

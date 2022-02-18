@@ -229,52 +229,55 @@ public class Characteristic extends BaseRootNamedEntity {
 		return o.toString().replace("\n", "\n    ");
 	}
 
-	public void updateWith(Characteristic src) {
-		this.name = src.getName();
-		this.valueType = src.valueType;
-
-		this.updateServiceCharacteristicRel(src.getCharacteristicRelationship() );
-
-	}
-
-	private void updateServiceCharacteristicRel(@Valid Set<CharacteristicRelationship> srcSet) {
-		
-		Map< String, Boolean> idAddedUpdated = new HashMap<>();
-		/**
-		 * update, add the incomings
-		 */
-		for (CharacteristicRelationship r : srcSet) {
-
-			boolean valueExists = false;
-			for (CharacteristicRelationship thisCharVal : this.characteristicRelationship ) {
-				if ( (thisCharVal.getId() !=null) && (thisCharVal.getId().equals(r.getId() ) )) {
-					valueExists = true;
-					idAddedUpdated.put( thisCharVal.getId() , true);
-					break;
-				}
-			}
-			
-			if (!valueExists) {
-				this.characteristicRelationship.add( new CharacteristicRelationship( r ));
-				idAddedUpdated.put( r.getId(), true);
-			}
-			
-		}
-		
-		/**
-		 * remove those that don't exist anymore
-		 */
-		
-		List<CharacteristicRelationship> toRemove = new ArrayList<>();
-		for (CharacteristicRelationship ss : this.characteristicRelationship) {
-			if ( idAddedUpdated.get( ss.getId() ) == null ) {
-				toRemove.add(ss);
-			}
-		}
-		
-		for (CharacteristicRelationship r : toRemove) {
-			this.characteristicRelationship.remove(r);
-		}
-		
-	}
+//	public void updateWith(Characteristic src) {
+//		this.name = src.getName();
+//		this.valueType = src.valueType;
+//
+//		this.updateServiceCharacteristicRel(src.getCharacteristicRelationship() );
+//
+//	}
+//
+//	private void updateServiceCharacteristicRel(@Valid Set<CharacteristicRelationship> srcSet) {
+//		
+//		if ( srcSet == null ) {
+//			return;
+//		}
+//		Map< String, Boolean> idAddedUpdated = new HashMap<>();
+//		/**
+//		 * update, add the incomings
+//		 */
+//		for (CharacteristicRelationship r : srcSet) {
+//
+//			boolean valueExists = false;
+//			for (CharacteristicRelationship thisCharVal : this.characteristicRelationship ) {
+//				if ( (thisCharVal.getId() !=null) && (thisCharVal.getId().equals(r.getId() ) )) {
+//					valueExists = true;
+//					idAddedUpdated.put( thisCharVal.getId() , true);
+//					break;
+//				}
+//			}
+//			
+//			if (!valueExists) {
+//				this.characteristicRelationship.add( new CharacteristicRelationship( r ));
+//				idAddedUpdated.put( r.getId(), true);
+//			}
+//			
+//		}
+//		
+//		/**
+//		 * remove those that don't exist anymore
+//		 */
+//		
+//		List<CharacteristicRelationship> toRemove = new ArrayList<>();
+//		for (CharacteristicRelationship ss : this.characteristicRelationship) {
+//			if ( idAddedUpdated.get( ss.getId() ) == null ) {
+//				toRemove.add(ss);
+//			}
+//		}
+//		
+//		for (CharacteristicRelationship r : toRemove) {
+//			this.characteristicRelationship.remove(r);
+//		}
+//		
+//	}
 }

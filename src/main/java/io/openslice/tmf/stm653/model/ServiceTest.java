@@ -31,6 +31,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -457,5 +458,14 @@ public class ServiceTest extends BaseEntity {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	public Characteristic getCharacteristicByName(@NotNull String name) {
+		for (Characteristic c : this.characteristic) {
+			if ( c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

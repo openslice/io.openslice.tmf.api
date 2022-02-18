@@ -525,6 +525,10 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	private void updateServiceSpecCharacteristicValues(
 			@Valid Set<ServiceSpecCharacteristicValue> srcSet) {
 
+		if ( srcSet == null ) {
+			return;
+		}
+		
 		Map<Integer, Boolean> idAddedUpdated = new HashMap<>();
 		/**
 		 * update, add the incomings

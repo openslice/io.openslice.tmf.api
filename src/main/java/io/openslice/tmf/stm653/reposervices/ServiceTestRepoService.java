@@ -38,6 +38,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,7 +87,8 @@ public class ServiceTestRepoService {
 		return this.aServiceTestRepo.save(serviceSpec);
 	}
 
-	
+
+	@Transactional
 	private ServiceTest updateServiceTestDataFromAPIcall(ServiceTest serviceSpec,
 			@Valid ServiceTestUpdate serviceSpecUpd) {
 
@@ -254,6 +256,7 @@ public class ServiceTestRepoService {
 		return (List<ServiceTest>) this.aServiceTestRepo.findByOrderByName();
 	}
 
+	@Transactional
 	public ServiceTest updateServiceTest(String id, @Valid ServiceTestUpdate serviceSpecification) {
 		ServiceTest s = this.findByUuid(id);
 		if (s == null) {
@@ -265,7 +268,7 @@ public class ServiceTestRepoService {
 		serviceSpec = this.aServiceTestRepo.save(serviceSpec);	
 
 		
-		return this.aServiceTestRepo.save(serviceSpec);
+		return serviceSpec;
 	}
 
 	public ServiceTest findByUuid(String id) {

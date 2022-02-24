@@ -292,6 +292,7 @@ public class ServiceTestRepoService {
 
 			Hibernate.initialize(s.getCharacteristic() );
 			Hibernate.initialize(s.getTestSpecification() );
+			Hibernate.initialize(s.getTestMeasure()  );
 			
 			for (Characteristic schar : s.getCharacteristic()) {
 				Hibernate.initialize(schar.getCharacteristicRelationship()  );

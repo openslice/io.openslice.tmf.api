@@ -1271,7 +1271,8 @@ public class ServiceSpecificationRepoService {
 		stUpd.addRelatedServiceSpecificationItem( serviceSpecRef );
 		
 		serviceTestSpecificationRepoService.updateServiceTestSpecification(id, stUpd );
-		return null;
+		
+		return serviceSpec;
 	}
 
 

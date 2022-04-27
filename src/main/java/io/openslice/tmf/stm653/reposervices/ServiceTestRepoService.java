@@ -23,6 +23,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,6 +47,8 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.sim638.model.ServiceUpdate;
+import io.openslice.tmf.sim638.service.ServiceRepoService;
 import io.openslice.tmf.stm653.model.Characteristic;
 import io.openslice.tmf.stm653.model.CharacteristicRelationship;
 import io.openslice.tmf.stm653.model.CharacteristicSpecification;
@@ -69,6 +72,10 @@ public class ServiceTestRepoService {
 	ServiceTestRepository aServiceTestRepo;
 
 	private SessionFactory sessionFactory;
+	
+
+	@Autowired
+	ServiceRepoService serviceRepoService;
 	
 	@Autowired
 	ObjectMapper objectMapper;
@@ -221,10 +228,32 @@ public class ServiceTestRepoService {
 
 		}
 		
-		
-
 		return serviceT;
 
+	}
+	
+	
+	/**
+	 * update related service characteristics
+	 * @param serviceT
+	 */
+	private void updateRelatedService(ServiceTest serviceT) {
+
+		if (serviceT.getRelatedService()  != null) {
+			
+			@Valid
+			ServiceUpdate servUpd = new ServiceUpdate();
+			
+			for (Characteristic c : serviceT.getCharacteristic()) {
+
+				io.openslice.tmf.common.model.service.Characteristic newC = new io.openslice.tmf.common.model.service.Characteristic();
+				newC.setName( c.getName());
+				newC.setValue( new Any( c.getValue()) );				
+				servUpd.addServiceCharacteristicItem( newC  );
+			}			
+			serviceRepoService.updateService( serviceT.getRelatedService().getId() , servUpd, true, null);
+		}
+		
 	}
 
 	public Void deleteByUuid(String id) {
@@ -261,8 +290,12 @@ public class ServiceTestRepoService {
 		
 		serviceSpec = this.getServiceTestEager( serviceSpec.getId() );
 		
+		updateRelatedService( serviceSpec );
+		
 		return serviceSpec;
 	}
+
+	
 
 	public ServiceTest findByUuid(String id) {
 		Optional<ServiceTest> optionalCat = this.aServiceTestRepo.findByUuid(id);

@@ -286,11 +286,10 @@ public class ServiceTestRepoService {
 		serviceSpec = this.updateServiceTestDataFromAPIcall(serviceSpec, serviceSpecification);
 
 		serviceSpec = this.aServiceTestRepo.save(serviceSpec);	
-
-		
-		serviceSpec = this.getServiceTestEager( serviceSpec.getId() );
 		
 		updateRelatedService( serviceSpec );
+		
+		//serviceSpec = this.getServiceTestEager( serviceSpec.getId() );
 		
 		return serviceSpec;
 	}

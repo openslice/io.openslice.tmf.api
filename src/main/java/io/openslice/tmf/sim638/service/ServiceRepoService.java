@@ -662,6 +662,9 @@ public class ServiceRepoService {
 	}
 	
 	public Service getServiceEager(String id) {
+		if ( id == null || id.equals("")) {
+			return null;
+		}
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Service s = null;

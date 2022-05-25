@@ -815,7 +815,7 @@ public class ResourceCatalogIntegrationTest {
 	}
 
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"USER", "ADMIN"})
 	@Test
 	public void testLogicalPhysicalResources() throws Exception {
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );

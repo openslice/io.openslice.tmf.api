@@ -389,6 +389,7 @@ public class ResourceSpecificationRepoService {
 		ResourceSpecificationCreate spec = new ResourceSpecificationCreate();
 		spec.setName("Example Logical Resource");
 		spec.setVersion("1.0.0");		
+
 		return this.addLogicalResourceSpecification(spec);
 	}
 

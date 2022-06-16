@@ -521,12 +521,17 @@ public class ServiceOrderRepoService {
 		}
 		if ( serviceOrderUpd.getState()!= null ) {
 
+			
+			
 			stateChanged = so.getState() != serviceOrderUpd.getState();
 			so.setState( serviceOrderUpd.getState() );
 			
 			if ( so.getState().equals( ServiceOrderStateType.COMPLETED )) {
 				so.setCompletionDate( OffsetDateTime.now(ZoneOffset.UTC));
 			}
+			
+			
+			
 			
 			
 			
@@ -619,7 +624,7 @@ public class ServiceOrderRepoService {
 		if ( stateChanged ) {
 			Note noteItem = new Note();
 			noteItem.setText("Service Order " + so.getState() );
-			noteItem.setAuthor("SO641API-copySpecCharacteristics");
+			noteItem.setAuthor("SO641API-stateChanged");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			so.addNoteItem(noteItem);				
 		}

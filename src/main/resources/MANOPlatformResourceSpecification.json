@@ -1,0 +1,37 @@
+{
+	"name": "MANO Platform Resource Specification",
+		"description": "This Resource Specification is used to add a new MANO Platform",
+		"version": "0.1.0",
+		"isBundle": false,
+		"@type": "LogicalResourceSpecification",
+		"attachment": [
+		],
+		"relatedParty": [
+		],
+		"resourceSpecCharacteristic": [
+			{
+				"name":"Name",
+				"configurable": true,
+				"description": "The alias of the MANO Provider as it will be seen in the platform",
+				"extensible": null,
+				"isUnique": true,
+				"valueType": "String"
+			},
+			{
+				"name":"Version",
+				"configurable": true,
+				"description": "The alias of the MANO Provider as it will be seen in the platform",
+				"extensible": null,
+				"isUnique": true,
+				"valueType": "String"
+			},
+			{
+				"name":"Description",
+				"configurable": true,
+				"description": "The alias of the MANO Provider as it will be seen in the platform",
+				"extensible": null,
+				"isUnique": true,
+				"valueType": "String"
+			}
+		]
+}

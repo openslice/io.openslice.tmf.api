@@ -1,0 +1,46 @@
+{
+	"name": "Test Resource Spec",
+	"description": "Test Resource Spec example",
+	"version": "1.8.0",
+	"isBundle": false,
+	"@type": "LogicalResourceSpecification",
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	"resourceSpecCharacteristic": [
+		{
+			"name": "CoverageSpec",
+			"configurable": true,
+			"description": "This attribute specifies the coverage area of the network slice - the area where the terminals can access a particular network slice",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",			
+			"resourceSpecCharRelationship": [
+				{ "name": "Character Attribute", "relationshipType": "dependency" },
+				{ "name": "Operational",  "relationshipType": "dependency" },
+				{ "name": "Scalability Attribute", "relationshipType": "dependency" },
+				{ "name": "KPI", "relationshipType": "dependency" }			
+			],
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "SMALLINT",
+					"validFor": null,
+					"value": {
+						"value": "4",
+						"alias": "Local (outdoor)"
+					}
+				}
+			]
+		}
+	]
+}

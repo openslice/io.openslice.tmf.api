@@ -1,0 +1,65 @@
+{
+	"name": "Open Source MANO Resource Specification",
+	"description": "This Resource Specification is used to describe an OSM",
+	"version": "0.1.0",
+	"isBundle": true,
+	"@type": "LogicalResourceSpecification",
+	"attachment": [
+	],
+	"relatedParty": [
+	],
+	  "resourceSpecRelationship": [
+    {
+      "id": "",
+      "href": "",
+      "relationshipType": "dependency"
+    }
+    ],
+	"resourceSpecCharacteristic": [
+		{
+			"name":"Name",
+			"configurable": true,
+			"description": "The alias of the OSM tenant",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"
+		},
+		{
+			"name":"Description",
+			"configurable": true,
+			"description": "The description of the OSM tenant",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"				
+		},
+		{
+			"name":"Username",
+			"configurable": true,
+			"description": "The username used to access the MANO Provider",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"		
+		},
+		{
+			"name":"Password",
+			"configurable": true,
+			"description": "The password used to access the MANO Provider",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"	
+		}
+
+	]
+}

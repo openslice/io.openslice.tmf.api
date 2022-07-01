@@ -1,0 +1,285 @@
+{
+    "name": "Open Source MANO Project's VIM account Resource Specification",
+    "description": "This Resource Specification is used to describe an OSM Project's VIM account",
+    "version": "0.1.0",
+    "isBundle": true,
+    "@type": "LogicalResourceSpecification",
+    "attachment": [
+        {
+            "id": "25553",
+            "href": "https://mycsp.com:8080/tmf-api/documentManagement/v4/attachment/25553",
+            "name": "Config",
+            "mimeType": ["application/yml" , "application/yaml"],
+            "url": "https://onestore.nokia.com/asset/205421"
+        }
+    ],
+    "relatedParty": [
+    ],
+    "resourceSpecCharacteristic": [
+        {
+            "name":"Name",
+            "configurable": true,
+            "description": "The alias of the OSM Project's VIM account",
+            "extensible": null,
+            "isUnique": true,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"
+        },
+        {
+            "name":"Description",
+            "configurable": true,
+            "description": "The description of the OSM Project's VIM account",
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"vimProjectOrTenantName",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"vimURL",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"vimUsername",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"vimPassword",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"Type",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "ENUM",
+            "resourceSpecCharacteristicValue": [
+                {
+                    "value": {
+                        "value": "Openstack"
+                    },
+                    "value": {
+                        "value": "AWS"
+                    },
+                    "value": {
+                        "value": "VMware vCD"
+                    },
+                    "value": {
+                        "value": "OpenVIM"
+                    },
+                    "value": {
+                        "value": "OpenNebula"
+                    },
+                    "value": {
+                        "value": "Azure"
+                    }
+                }
+            ]               
+        },
+        {
+            "name":"totalRAM",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"usedRAM",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"totalVCPUs",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"usedVCPUs",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"totalInstances",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"usedInstances",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"totalVolumes",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"usedVolumes",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"totalVolumeSnapshots",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"usedVolumeSnapshots",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"totalVolumeStorage",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"freeVolumeStorage",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"totalNetworks",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"usedNetworks",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"totalSubnets",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"usedSubnets",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        {
+            "name":"schemaType",
+            "configurable": true,
+            "extensible": null,
+            "isUnique": false,
+            "maxCardinality": 1,
+            "minCardinality": 1,
+            "regex": null,
+            "valueType": "String"               
+        },
+        
+    ]
+}

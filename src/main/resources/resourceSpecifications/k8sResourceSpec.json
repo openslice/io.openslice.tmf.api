@@ -1,61 +1,86 @@
 {
-	"name": "NFVO Provider Resource Specification",
-	"description": "This Resource Specification is used to add a new MANO Provider",
+	"name": "K8s Resource Specification",
+	"description": "This Resource Specification is used to describe a K8s",
 	"version": "0.1.0",
 	"isBundle": true,
 	"@type": "LogicalResourceSpecification",
 	"resourceSpecCHaracteristic":[
-		
-		host                   = "${data.azurerm_kubernetes_cluster.example.kube_config.0.host}"
-
-  		client_certificate     = ""
-  		client_key             = ""
-  		cluster_ca_certificate = ""
-  		token                  = data.google_client_config.default.access_token
-
-
-  		config_path = "~/.kube/config"
-
-
-
+		{
+			"name":"Name",
+			"configurable": true,
+			"description": "The alias of the K8s as it will be seen in the platform",
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"valueType": "String"
+		},
+		{
+			"name":"Description",
+			"configurable": true,
+			"description": "The description of the K8s as it will be seen in the platform",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"				
+		},
+		{
+			"name":"hostIP",
+			"configurable": true,
+			"description": "The IPv4 or IPv6 address where the K8s can be accessed at",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"
+		},
+		{
+			"name":"clientCertificate",
+			"configurable": true,
+			"description": "The Client Certificate needed to access the K8s",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"
+		},
+		{
+			"name":"clientKey",
+			"configurable": true,
+			"description": "The Client Key needed to access the K8s",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"
+		},
+		{
+			"name":"clusterCaCertificate",
+			"configurable": true,
+			"description": "The Cluster Ca Certificate needed to access the K8s",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"
+		},
+		{
+			"name":"accessToken",
+			"configurable": true,
+			"description": "The Access Token needed to access the K8s",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "String"
+		}		
 	]
 
-	exec {
-	    api_version = "client.authentication.k8s.io/v1alpha1"
-	    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
-	    command     = "aws"
-	 }
 
-
-	 resource "kubernetes_deployment" "test" {
-	  metadata {
-	    name      = "nginx"
-	    namespace = kubernetes_namespace.test.metadata.0.name
-	  }
-	  spec {
-	    replicas = 2
-	    selector {
-	      match_labels = {
-	        app = "MyTestApp"
-	      }
-	    }
-	    template {
-	      metadata {
-	        labels = {
-	          app = "MyTestApp"
-	        }
-	      }
-	      spec {
-	        container {
-	          image = "nginx"
-	          name  = "nginx-container"
-	          port {
-	            container_port = 80
-	          }
-	        }
-	      }
-	    }
-	  }
-	}
-	 
 }

@@ -484,7 +484,7 @@ public class ResourceSpecificationRepoService {
 		ResourceSpecification rc;
 		try {
 			
-			rc = objectMapper.readValue(new ClassPathResource( rname ).getInputStream(), PhysicalResourceSpecification.class);
+			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), PhysicalResourceSpecification.class);
 			
 			return rc;
 		} catch (IOException e) {

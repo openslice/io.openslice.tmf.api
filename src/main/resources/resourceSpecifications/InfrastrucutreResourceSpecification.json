@@ -36,7 +36,7 @@
 			{
 				"name":"VIM id",
 				"configurable": true,
-				"description": "The alias of the id of the Datacenter VIM.",
+				"description": "The id of the Datacenter VIM.",
 				"extensible": null,
 				"isUnique": true,
 				"valueType": "String"

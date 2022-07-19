@@ -57,7 +57,6 @@
 			"minCardinality": 1,
 			"regex": null,
 			"valueType": "String"
-		},
-
+		}
 	]
 }

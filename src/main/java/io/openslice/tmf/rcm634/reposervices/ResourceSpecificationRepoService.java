@@ -37,6 +37,7 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -479,13 +480,52 @@ public class ResourceSpecificationRepoService {
 	}
 
 	
+	private ResourceSpecification readFromLocalResource(String rname) {
+		ResourceSpecification rc;
+		try {
+			
+			rc = objectMapper.readValue(new ClassPathResource( rname ).getInputStream(), PhysicalResourceSpecification.class);
+			
+			return rc;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
+		return null;
+	}
 	
 
-	
+	public ResourceSpecification cloneTestResourceSpec() {
+		return this.cloneTestResourceSpec(null);
+	} 
 
-	
 
+	public ResourceSpecification cloneTestResourceSpec(String specName) {
+
+		ResourceSpecification resourceSpecificationObj = readFromLocalResource( "testResourceSpec.json" );
+		resourceSpecificationObj.setName(specName);
+		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		return resourceSpecificationObj;
+	}
+	
+	public ResourceSpecification cloneTestResourceSpec(String specName, String fileName) {
+
+		ResourceSpecification resourceSpecificationObj = readFromLocalResource( fileName );
+		resourceSpecificationObj.setName(specName);
+		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		return resourceSpecificationObj;
+	}
+
+	public ResourceSpecification findByNameAndVersion(String aname, String aversion) {
+
+		List<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByNameAndVersion(aname,
+				aversion);
+		if ( ( optionalCat !=null) && ( optionalCat.size()>0) ) {
+			return optionalCat.get(0);
+		} else {
+			return null;
+		}
+	}
 	
 
 	

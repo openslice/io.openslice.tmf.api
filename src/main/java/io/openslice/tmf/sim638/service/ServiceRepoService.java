@@ -816,12 +816,16 @@ public class ServiceRepoService {
 	 * @param item
 	 * @return
 	 */
+	@Transactional
 	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
 		String deploymentRequestID = dd.getId() + "";
 		logger.info("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
 		
 		var aservices = findDeploymentRequestID( deploymentRequestID );
-		for (io.openslice.tmf.sim638.model.Service aService : aservices) {
+		for (io.openslice.tmf.sim638.model.Service as : aservices) {
+			
+			Service aService = getServiceEager( as.getId() );
+			
 			if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
 				
 

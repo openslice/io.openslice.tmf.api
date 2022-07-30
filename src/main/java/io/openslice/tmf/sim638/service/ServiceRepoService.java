@@ -819,7 +819,7 @@ public class ServiceRepoService {
 	@Transactional
 	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
 		String deploymentRequestID = dd.getId() + "";
-		logger.debug("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
+		logger.info("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
 		
 		var aservices = findDeploymentRequestID( deploymentRequestID );
 		for (io.openslice.tmf.sim638.model.Service aService : aservices) {

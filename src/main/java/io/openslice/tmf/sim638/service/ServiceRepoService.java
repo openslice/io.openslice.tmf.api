@@ -48,6 +48,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
+import io.openslice.model.DeploymentDescriptor;
+import io.openslice.model.DeploymentDescriptorVxFInstanceInfo;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Characteristic;
@@ -807,6 +809,54 @@ public class ServiceRepoService {
 
 		return (List<Service>) this.serviceRepo.findByDeploymentRequestID( aDeploymentRequestID );
 
+	}
+	
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	@Transactional
+	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
+		String deploymentRequestID = dd.getId() + "";
+		logger.debug("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
+		
+		var aservices = findDeploymentRequestID( deploymentRequestID );
+		for (io.openslice.tmf.sim638.model.Service aService : aservices) {
+			if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
+				
+
+				ServiceUpdate supd = new ServiceUpdate();
+				
+				Characteristic cNewLCM = new Characteristic();
+				cNewLCM.setName("NSLCM" );
+				cNewLCM.value( new Any( dd.getNs_nslcm_details()  ));
+				supd.addServiceCharacteristicItem( cNewLCM );
+				
+				Characteristic cNewNSR = new Characteristic();
+				cNewNSR.setName("NSR" );
+				cNewNSR.value( new Any( dd.getNsr()  ));
+				supd.addServiceCharacteristicItem( cNewNSR );
+
+				
+				
+				if ( dd.getDeploymentDescriptorVxFInstanceInfo() !=null ) {
+					for ( DeploymentDescriptorVxFInstanceInfo vnfinfo : dd.getDeploymentDescriptorVxFInstanceInfo() ) {							
+							Characteristic cNewMember = new Characteristic();
+							cNewMember.setName(  "VNFINDEXREF_INFO_" + vnfinfo.getMemberVnfIndexRef() );
+							cNewMember.value( new Any( vnfinfo.getVxfInstanceInfo()  + "" ));
+							supd.addServiceCharacteristicItem( cNewMember );
+					}					
+				}
+				
+				Note n = new Note();
+				n.setText("NS Resource LCM Changed"  );
+				n.setAuthor( "SIM638-API" );
+				n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+				supd.addNoteItem( n );						
+				this.updateService( aService.getId(), supd , false, null); //update the service			
+			}
+		}
 	}
 
 

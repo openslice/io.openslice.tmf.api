@@ -816,7 +816,6 @@ public class ServiceRepoService {
 	 * @param item
 	 * @return
 	 */
-	@Transactional
 	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
 		String deploymentRequestID = dd.getId() + "";
 		logger.info("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
@@ -837,7 +836,7 @@ public class ServiceRepoService {
 				cNewNSR.setName("NSR" );
 				cNewNSR.value( new Any( dd.getNsr()  ));
 				supd.addServiceCharacteristicItem( cNewNSR );
-
+				
 				
 				
 				if ( dd.getDeploymentDescriptorVxFInstanceInfo() !=null ) {
@@ -854,7 +853,7 @@ public class ServiceRepoService {
 				n.setAuthor( "SIM638-API" );
 				n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
 				supd.addNoteItem( n );						
-				this.updateService( aService.getId(), supd , false, null); //update the service			
+				this.updateService( aService.getId(), supd , true, null); //update the service			
 			}
 		}
 	}

@@ -832,11 +832,13 @@ public class ServiceRepoService {
 				ServiceUpdate supd = new ServiceUpdate();
 				
 				Characteristic cNewLCM = aService.getServiceCharacteristicByName( "NSLCM" );
+				cNewLCM.setUuid(null);
 				//cNewLCM.setName("NSLCM" );
 				cNewLCM.value( new Any( dd.getNs_nslcm_details()  ));
 				supd.addServiceCharacteristicItem( cNewLCM );
 				
 				Characteristic cNewNSR = aService.getServiceCharacteristicByName( "NSR" );
+				cNewNSR.setUuid(null);
 				//cNewNSR.setName("NSR" );
 				cNewNSR.value( new Any( dd.getNsr()  ));
 				supd.addServiceCharacteristicItem( cNewNSR );

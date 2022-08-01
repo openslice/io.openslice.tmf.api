@@ -37,12 +37,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.DeploymentDescriptor;
 import io.openslice.model.UserRoleType;
 import io.openslice.tmf.common.model.UserPartRoleType;
+import io.openslice.tmf.sim638.model.Error;
 import io.openslice.tmf.sim638.model.Service;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
@@ -50,6 +55,10 @@ import io.openslice.tmf.sim638.service.ServiceRepoService;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
@@ -143,5 +152,39 @@ public class ServiceApiController implements ServiceApi {
 			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+
+	@Secured({ "ROLE_USER" })   
+    @RequestMapping(value = "/service/updateServiceDeploymentDescriptor/{id}",
+        produces = { "application/json;charset=utf-8" }, 
+        method = RequestMethod.GET)
+    public ResponseEntity<Service> updateServiceDeploymentDescriptor(
+			Principal principal,			
+			@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    
+		try {
+
+			@Valid
+			DeploymentDescriptor dd = new DeploymentDescriptor();
+			dd.setId( Long.parseLong(id) );
+			dd.setNs_nslcm_details("NEW NSLCM updated");
+			dd.setNsr("new nsr updated");
+			serviceRepoService.nfvCatalogNSResourceChanged(dd );
+			
+
+			var aservices = serviceRepoService.findDeploymentRequestID( id );
+			for (io.openslice.tmf.sim638.model.Service as : aservices) {
+				
+				Service aService = serviceRepoService.getServiceEager( as.getId() );
+				return  new ResponseEntity<Service>(aService, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			
+			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
+    }
 
 }

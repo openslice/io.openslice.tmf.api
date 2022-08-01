@@ -454,6 +454,10 @@ public class ServiceRepoService {
 		boolean serviceCharacteristicChanged = false;
 		List<Characteristic> childCharacteristicsChanged = new ArrayList<>();
 		
+
+		logger.info("==> Will update serviceToString: " + service.toString() );
+		
+		
 		if ( servUpd.getServiceCharacteristic()!=null ) {
 			for (Characteristic n : servUpd.getServiceCharacteristic()) {
 				
@@ -812,18 +816,21 @@ public class ServiceRepoService {
 	}
 	
 	
+	
+	
 	/**
 	 * @param item
 	 * @return
 	 */
+	@Transactional
 	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
 		String deploymentRequestID = dd.getId() + "";
 		logger.info("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
 		
 		var aservices = findDeploymentRequestID( deploymentRequestID );
-		for (io.openslice.tmf.sim638.model.Service as : aservices) {
+		for (Service as : aservices) {
 			
-			Service aService = getServiceEager( as.getId() );
+			Service aService = findByUuid(as.getId()); 
 			
 			if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
 				

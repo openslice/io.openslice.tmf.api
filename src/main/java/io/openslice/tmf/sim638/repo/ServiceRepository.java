@@ -49,8 +49,9 @@ public interface ServiceRepository extends PagingAndSortingRepository<Service, L
 			+ "WHERE char.name = 'DeploymentRequestID' AND "
 			+ " val.value = ?1 " )	
 	List<Service> findByDeploymentRequestID(String aDeploymentRequestID);
-
-	@Query("SELECT srv FROM Service srv "
+	
+	
+		@Query("SELECT srv FROM Service srv "
 			+ "JOIN FETCH srv.serviceCharacteristic char "
 			+ "JOIN FETCH char.value val "
 			+ "WHERE (srv.state = io.openslice.tmf.common.model.service.ServiceStateType.ACTIVE OR "

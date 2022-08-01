@@ -816,7 +816,6 @@ public class ServiceRepoService {
 	 * @param item
 	 * @return
 	 */
-	@Transactional
 	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
 		String deploymentRequestID = dd.getId() + "";
 		logger.info("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
@@ -831,15 +830,14 @@ public class ServiceRepoService {
 
 				ServiceUpdate supd = new ServiceUpdate();
 				
-				Characteristic cNewLCM = aService.getServiceCharacteristicByName( "NSLCM" );
-				cNewLCM.setUuid(null);
-				//cNewLCM.setName("NSLCM" );
+				Characteristic cNewLCM = new Characteristic();
+				cNewLCM.setName("NSLCM" );
 				cNewLCM.value( new Any( dd.getNs_nslcm_details()  ));
 				supd.addServiceCharacteristicItem( cNewLCM );
 				
-				Characteristic cNewNSR = aService.getServiceCharacteristicByName( "NSR" );
-				cNewNSR.setUuid(null);
-				//cNewNSR.setName("NSR" );
+				Characteristic cNewNSR = new Characteristic();
+				//cNewNSR.setUuid(null);
+				cNewNSR.setName("NSR" );
 				cNewNSR.value( new Any( dd.getNsr()  ));
 				supd.addServiceCharacteristicItem( cNewNSR );
 				

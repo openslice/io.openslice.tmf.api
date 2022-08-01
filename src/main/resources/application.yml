@@ -10,6 +10,12 @@ spring:
     url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     password: letmein
     username: root
+    hikari:
+       minimumIdle: 2
+       maximumPoolSize: 40
+       idleTimeout: 120000
+       connectionTimeout: 400000
+       leakDetectionThreshold: 100000
   jpa:
     database-platform: io.openslice.tmf.LocalMysqlDialect
     hibernate:
@@ -42,6 +48,7 @@ logging:
     portal.api: INFO
     org.springframework: INFO
     org.apache.camel: INFO 
+    com.zaxxer.hikari: DEBUG
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d %p %c{1.} [%t] %m%n"

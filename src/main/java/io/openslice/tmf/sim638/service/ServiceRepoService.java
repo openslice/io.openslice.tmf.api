@@ -42,6 +42,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -346,10 +348,11 @@ public class ServiceRepoService {
 
 	@Transactional
 	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO, Service updatedFromParentService ) {
-		Service service = this.findByUuid(id);
+		//Service service = this.findByUuid(id);
+		Service service = this.getServiceEager(id);
+		
 		
 		if ( service == null ) {
-
 			logger.error("Service cannot be found in registry, UUID: " + id  );
 			return null;
 		}
@@ -455,7 +458,7 @@ public class ServiceRepoService {
 		List<Characteristic> childCharacteristicsChanged = new ArrayList<>();
 		
 
-		logger.info("==> Will update serviceToString: " + service.toString() );
+		//logger.info("==> Will update serviceToString: " + service.toString() );
 		
 		
 		if ( servUpd.getServiceCharacteristic()!=null ) {
@@ -688,6 +691,7 @@ public class ServiceRepoService {
 			Hibernate.initialize(s.getServiceSpecificationRef() );
 			Hibernate.initialize(s.getSupportingService() );
 			Hibernate.initialize(s.getSupportingResource()  );
+			Hibernate.initialize(s.getPlace()  );
 			
 			tx.commit();
 		} finally {

@@ -154,37 +154,37 @@ public class ServiceApiController implements ServiceApi {
 	}
 	
 
-	@Secured({ "ROLE_USER" })   
-    @RequestMapping(value = "/service/updateServiceDeploymentDescriptor/{id}",
-        produces = { "application/json;charset=utf-8" }, 
-        method = RequestMethod.GET)
-    public ResponseEntity<Service> updateServiceDeploymentDescriptor(
-			Principal principal,			
-			@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
-    
-		try {
-
-			@Valid
-			DeploymentDescriptor dd = new DeploymentDescriptor();
-			dd.setId( Long.parseLong(id) );
-			dd.setNs_nslcm_details("NEW NSLCM updated");
-			dd.setNsr("new nsr updated");
-			serviceRepoService.nfvCatalogNSResourceChanged(dd );
-			
-
-			var aservices = serviceRepoService.findDeploymentRequestID( id );
-			for (io.openslice.tmf.sim638.model.Service as : aservices) {
-				
-				Service aService = serviceRepoService.getServiceEager( as.getId() );
-				return  new ResponseEntity<Service>(aService, HttpStatus.OK);
-			}
-			
-		} catch (Exception e) {
-			log.error("Couldn't serialize response for content type application/json", e);
-			
-			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return null;
-    }
+//	@Secured({ "ROLE_USER" })   
+//    @RequestMapping(value = "/service/updateServiceDeploymentDescriptor/{id}",
+//        produces = { "application/json;charset=utf-8" }, 
+//        method = RequestMethod.GET)
+//    public ResponseEntity<Service> updateServiceDeploymentDescriptor(
+//			Principal principal,			
+//			@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+//    
+//		try {
+//
+//			@Valid
+//			DeploymentDescriptor dd = new DeploymentDescriptor();
+//			dd.setId( Long.parseLong(id) );
+//			dd.setNs_nslcm_details("NEW NSLCM updated");
+//			dd.setNsr("new nsr updated");
+//			serviceRepoService.nfvCatalogNSResourceChanged(dd );
+//			
+//
+//			var aservices = serviceRepoService.findDeploymentRequestID( id );
+//			for (io.openslice.tmf.sim638.model.Service as : aservices) {
+//				
+//				Service aService = serviceRepoService.getServiceEager( as.getId() );
+//				return  new ResponseEntity<Service>(aService, HttpStatus.OK);
+//			}
+//			
+//		} catch (Exception e) {
+//			log.error("Couldn't serialize response for content type application/json", e);
+//			
+//			return new ResponseEntity<Service>(HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//		return null;
+//    }
 
 }

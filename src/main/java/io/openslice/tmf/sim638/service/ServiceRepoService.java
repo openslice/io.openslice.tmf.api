@@ -347,7 +347,7 @@ public class ServiceRepoService {
 	}
 
 	@Transactional
-	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO, Service updatedFromParentService ) {
+	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO, Service updatedFromParentService, Service updatedFromChildService ) {
 		//Service service = this.findByUuid(id);
 		Service service = this.getServiceEager(id);
 		
@@ -621,8 +621,11 @@ public class ServiceRepoService {
 						n.setText("Child Characteristics Changed"  );
 						n.setAuthor( "SIM638-API" );
 						n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
-						supd.addNoteItem( n );						
-						this.updateService( aSupportingService.getId(), supd , false, service); //update the service						
+						supd.addNoteItem( n );					
+						if ( updatedFromChildService == null || 
+								(updatedFromChildService!=null && !updatedFromChildService.getId().equals( aSupportingService.getId())) ) { //avoid circular
+							this.updateService( aSupportingService.getId(), supd , false, service, null); //update the service							
+						} 
 					}
 				}
 				
@@ -658,7 +661,7 @@ public class ServiceRepoService {
 			servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
 		}
 		
-		this.updateService( parentServiceId, servUpd, false, null);
+		this.updateService( parentServiceId, servUpd, false, null, childService);
 	}
 
 	public String getServiceEagerAsString(String id) throws JsonProcessingException {
@@ -869,7 +872,7 @@ public class ServiceRepoService {
 				n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
 				supd.addNoteItem( n );					
 				
-				this.updateService( aService.getId(), supd , true, null); //update the service			
+				this.updateService( aService.getId(), supd , true, null, null); //update the service			
 			}
 		}
 	}

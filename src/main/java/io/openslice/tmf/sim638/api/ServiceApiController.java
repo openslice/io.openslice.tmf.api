@@ -136,7 +136,7 @@ public class ServiceApiController implements ServiceApi {
 	@Secured({ "ROLE_USER" })
 	@Override
 	public ResponseEntity<Service> patchService(Principal principal, String id, @Valid ServiceUpdate service) {
-		Service c = serviceRepoService.updateService(id, service, true, null);
+		Service c = serviceRepoService.updateService(id, service, true, null, null);
 
 		return new ResponseEntity<Service>(c, HttpStatus.OK);
 	}

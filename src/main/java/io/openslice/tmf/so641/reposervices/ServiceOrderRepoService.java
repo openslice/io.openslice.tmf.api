@@ -729,7 +729,6 @@ public class ServiceOrderRepoService {
 				
 				tx.commit();
 			} finally {
-				session.flush();
 				session.close();
 			}
 			

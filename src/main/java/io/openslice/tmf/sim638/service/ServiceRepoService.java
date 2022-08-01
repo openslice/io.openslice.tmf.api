@@ -867,7 +867,8 @@ public class ServiceRepoService {
 				n.setText("NS Resource LCM Changed"  );
 				n.setAuthor( "SIM638-API" );
 				n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
-				supd.addNoteItem( n );						
+				supd.addNoteItem( n );					
+				
 				this.updateService( aService.getId(), supd , true, null); //update the service			
 			}
 		}

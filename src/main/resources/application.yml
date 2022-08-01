@@ -48,7 +48,7 @@ logging:
     portal.api: INFO
     org.springframework: INFO
     org.apache.camel: INFO 
-    com.zaxxer.hikari: DEBUG
+    com.zaxxer.hikari: INFO
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d %p %c{1.} [%t] %m%n"

@@ -695,7 +695,6 @@ public class ServiceOrderRepoService {
 	}
 
 
-	@Transactional
 	public String getServiceOrderEagerAsString(String id) throws JsonProcessingException {
 		ServiceOrder s = this.getServiceORderEager(id);
 		ObjectMapper mapper = new ObjectMapper();

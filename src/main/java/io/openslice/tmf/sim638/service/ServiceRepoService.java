@@ -453,8 +453,11 @@ public class ServiceRepoService {
 				}
 			}						
 		}
-		
+
 		boolean serviceCharacteristicChanged = false;
+		boolean serviceCharacteristicChangedContainsPrimitive = false;
+		
+		String charChangedForNotes = "";
 		List<Characteristic> childCharacteristicsChanged = new ArrayList<>();
 		
 
@@ -474,6 +477,10 @@ public class ServiceRepoService {
 									
 								}
 								serviceCharacteristicChanged = true; //change only characteristics of this service
+								charChangedForNotes += n.getName(); 
+								if ( n.getName().toUpperCase().contains(  "PRIMITIVE::" ) ){
+									serviceCharacteristicChangedContainsPrimitive = true;
+								}
 								
 							}
 						}
@@ -484,6 +491,7 @@ public class ServiceRepoService {
 					} else {
 						service.addServiceCharacteristicItem(n);
 						serviceCharacteristicChanged = true;	
+						charChangedForNotes += n.getName(); 
 					}
 				
 			}						
@@ -522,11 +530,20 @@ public class ServiceRepoService {
 
 		if (stateChanged) {
 			Note noteItem = new Note();
-			noteItem.setText("Service " + service.getState() );
+			noteItem.setText("Service is " + service.getState() );
 			noteItem.setAuthor("API");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			service.addNoteItem(noteItem);		
 		}
+		
+		if (serviceCharacteristicChanged) {
+			Note noteItem = new Note();
+			noteItem.setText("Service Characteristic changed: " + charChangedForNotes );
+			noteItem.setAuthor("API");
+			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+			service.addNoteItem(noteItem);		
+		}
+		
 			
 		
 		service = this.serviceRepo.save( service );
@@ -575,6 +592,10 @@ public class ServiceRepoService {
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );		
 			saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED  );	
+			if ( serviceCharacteristicChangedContainsPrimitive ) {
+				saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED_MANODAY2  );					
+			}
+			
 			
 			
 			this.addServiceActionQueueItem(saqi);

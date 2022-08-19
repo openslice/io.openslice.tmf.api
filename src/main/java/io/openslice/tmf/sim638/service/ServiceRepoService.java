@@ -491,7 +491,7 @@ public class ServiceRepoService {
 					} else {
 						service.addServiceCharacteristicItem(n);
 						serviceCharacteristicChanged = true;	
-						charChangedForNotes += n.getName(); 
+						charChangedForNotes += n.getName() + ", "; 
 					}
 				
 			}						

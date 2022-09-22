@@ -480,7 +480,7 @@ public class ResourceSpecificationRepoService {
 	}
 
 	
-	private ResourceSpecification readFromLocalResource(String rname) {
+	private ResourceSpecification readFromLocalPhysicalResourceSpec(String rname) {
 		ResourceSpecification rc;
 		try {
 			
@@ -494,23 +494,58 @@ public class ResourceSpecificationRepoService {
 		return null;
 	}
 	
+	private ResourceSpecification readFromLocalLogicalResourceSpec(String rname) {
+		ResourceSpecification rc;
+		try {
+			
+			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), LogicalResourceSpecification.class);
+			
+			return rc;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-	public ResourceSpecification cloneTestResourceSpec() {
-		return this.cloneTestResourceSpec(null);
+		return null;
+	}
+	
+
+	public ResourceSpecification clonePhysicalResourceSpec() {
+		return this.clonePhysicalResourceSpec(null);
 	} 
 
 
-	public ResourceSpecification cloneTestResourceSpec(String specName) {
+	public ResourceSpecification clonePhysicalResourceSpec(String specName) {
 
-		ResourceSpecification resourceSpecificationObj = readFromLocalResource( "testResourceSpec.json" );
+		ResourceSpecification resourceSpecificationObj = readFromLocalPhysicalResourceSpec( "testResourceSpec.json" );
 		resourceSpecificationObj.setName(specName);
 		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
 		return resourceSpecificationObj;
 	}
 	
-	public ResourceSpecification cloneTestResourceSpec(String specName, String fileName) {
+	public ResourceSpecification clonePhysicalResourceSpec(String specName, String fileName) {
 
-		ResourceSpecification resourceSpecificationObj = readFromLocalResource( fileName );
+		ResourceSpecification resourceSpecificationObj = readFromLocalPhysicalResourceSpec( fileName );
+		resourceSpecificationObj.setName(specName);
+		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		return resourceSpecificationObj;
+	}
+	
+	public ResourceSpecification cloneLogicalResourceSpec() {
+		return this.cloneLogicalResourceSpec(null);
+	} 
+
+
+	public ResourceSpecification cloneLogicalResourceSpec(String specName) {
+
+		ResourceSpecification resourceSpecificationObj = readFromLocalLogicalResourceSpec( "testResourceSpec.json" );
+		resourceSpecificationObj.setName(specName);
+		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		return resourceSpecificationObj;
+	}
+	
+	public ResourceSpecification cloneLogicalResourceSpec(String specName, String fileName) {
+
+		ResourceSpecification resourceSpecificationObj = readFromLocalLogicalResourceSpec( fileName );
 		resourceSpecificationObj.setName(specName);
 		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
 		return resourceSpecificationObj;

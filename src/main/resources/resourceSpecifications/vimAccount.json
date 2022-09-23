@@ -16,7 +16,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "Description",
@@ -27,7 +27,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "vimProjectOrTenantName",
@@ -37,7 +37,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "vimURL",
@@ -47,7 +47,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "vimUsername",
@@ -57,7 +57,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "vimPassword",
@@ -67,7 +67,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "Type",
@@ -109,7 +109,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "usedRAM",
@@ -119,7 +119,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "totalVCPUs",
@@ -129,7 +129,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "usedVCPUs",
@@ -139,7 +139,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "totalInstances",
@@ -149,7 +149,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "usedInstances",
@@ -159,7 +159,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "totalVolumes",
@@ -169,7 +169,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "usedVolumes",
@@ -179,7 +179,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "totalVolumeSnapshots",
@@ -189,7 +189,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "usedVolumeSnapshots",
@@ -199,7 +199,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "totalVolumeStorage",
@@ -209,7 +209,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "freeVolumeStorage",
@@ -219,7 +219,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "totalNetworks",
@@ -229,7 +229,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "usedNetworks",
@@ -239,7 +239,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "totalSubnets",
@@ -249,7 +249,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "usedSubnets",
@@ -259,7 +259,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "schemaType",
@@ -269,7 +269,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		}
 	]
 }

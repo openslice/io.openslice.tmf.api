@@ -16,7 +16,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "Description",
@@ -27,7 +27,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "SupportedManoPlatform",
@@ -47,7 +47,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "Boolean",
+					"valueType": "BOOLEAN",
 					"validFor": null,
 					"value": {
 						"value": "OSMvSEVEN",
@@ -61,7 +61,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "Boolean",
+					"valueType": "BOOLEAN",
 					"validFor": null,
 					"value": {
 						"value": "OSMvEIGHT",
@@ -75,7 +75,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "Boolean",
+					"valueType": "BOOLEAN",
 					"validFor": null,
 					"value": {
 						"value": "OSMvNINE",
@@ -89,7 +89,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "Boolean",
+					"valueType": "BOOLEAN",
 					"validFor": null,
 					"value": {
 						"value": "OSMvTEN",
@@ -107,7 +107,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "BasicAuthHeader",
@@ -118,7 +118,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "Username",
@@ -129,7 +129,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "Password",
@@ -140,7 +140,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "Project",
@@ -151,7 +151,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "String"
+			"valueType": "TEXT"
 		},
 		{
 			"name": "EnabledForOnBoarding",
@@ -162,7 +162,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "Boolean",
+			"valueType": "BOOLEAN",
 			"resourceSpecCharacteristicValue": [
 				{
 					"isDefault": true,
@@ -171,7 +171,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "Boolean",
+					"valueType": "BOOLEAN",
 					"validFor": null,
 					"value": {
 						"value": false,
@@ -189,7 +189,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "Boolean",
+			"valueType": "BOOLEAN",
 			"resourceSpecCharacteristicValue": [
 				{
 					"isDefault": true,
@@ -198,7 +198,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "Boolean",
+					"valueType": "BOOLEAN",
 					"validFor": null,
 					"value": {
 						"value": false,

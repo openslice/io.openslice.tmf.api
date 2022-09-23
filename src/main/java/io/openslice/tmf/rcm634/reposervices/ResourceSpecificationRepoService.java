@@ -516,9 +516,7 @@ public class ResourceSpecificationRepoService {
 
 	public ResourceSpecification clonePhysicalResourceSpec(String specName) {
 
-		ResourceSpecification resourceSpecificationObj = readFromLocalPhysicalResourceSpec( "testResourceSpec.json" );
-		resourceSpecificationObj.setName(specName);
-		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		ResourceSpecification resourceSpecificationObj = clonePhysicalResourceSpec( specName , "testResourceSpec.json" );
 		return resourceSpecificationObj;
 	}
 	
@@ -536,10 +534,7 @@ public class ResourceSpecificationRepoService {
 
 
 	public ResourceSpecification cloneLogicalResourceSpec(String specName) {
-
-		ResourceSpecification resourceSpecificationObj = readFromLocalLogicalResourceSpec( "testResourceSpec.json" );
-		resourceSpecificationObj.setName(specName);
-		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		ResourceSpecification resourceSpecificationObj = cloneLogicalResourceSpec(specName, "testResourceSpec.json");
 		return resourceSpecificationObj;
 	}
 	

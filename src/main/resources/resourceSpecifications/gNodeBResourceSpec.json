@@ -1,13 +1,11 @@
 {
-	"name":"GNodeB Resource Specification",
-	"description":"The resource specification which describes a gNodeB",
-	"version":"0.1.0",
-	"isBundle":false,
+	"name": "GNodeB Resource Specification",
+	"description": "The resource specification which describes a gNodeB",
+	"version": "0.1.0",
+	"isBundle": false,
 	"@type": "PhysicalResourceSpecification",
-	"attachment": [
-	],
-	"relatedParty": [
-	],
+	"attachment": [],
+	"relatedParty": [],
 	"resourceSpecCharacteristic": [
 		{
 			"name": "Name",
@@ -18,7 +16,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -28,12 +26,12 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": null
 				}
 			]
-		},			
+		},
 		{
 			"name": "Server",
 			"configurable": false,
@@ -43,7 +41,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -53,10 +51,10 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
-						"value": "http://172.16.10.37:18080",
+						"value": "localhost",
 						"alias": "Local network"
 					}
 				}
@@ -71,7 +69,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -81,15 +79,15 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
-						"value": "172.16.10.208:28080",
+						"value": "localhost",
 						"alias": "Local network"
 					}
 				}
 			]
-		},	
+		},
 		{
 			"name": "GtpInterface",
 			"configurable": false,
@@ -99,7 +97,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -109,15 +107,15 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": {
-						"value": "172.16.10.208",
+						"value": "localhost",
 						"alias": "Local network"
 					}
 				}
 			]
-		},			
+		},
 		{
 			"name": "Vendor",
 			"configurable": true,
@@ -127,7 +125,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -137,7 +135,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": null
 				}
@@ -152,7 +150,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -162,7 +160,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": null
 				}
@@ -177,7 +175,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -187,7 +185,7 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
 					"value": null
 				}
@@ -202,7 +200,7 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "STRING",
+			"valueType": "TEXT",
 			"resourceSpecCharRelationship": null,
 			"resourceSpecCharacteristicValue": [
 				{
@@ -212,17 +210,17 @@
 					"unitOfMeasure": "N/A",
 					"valueFrom": null,
 					"valueTo": null,
-					"valueType": "STRING",
+					"valueType": "TEXT",
 					"validFor": null,
-					"value":{
+					"value": {
 						"value": "[ -90.0715, 29.9510 ]",
 						"alias": "Local (outdoor)"
 					}
 				}
 			]
-		},		
+		},
 		{
-			"name": "CoverageSpec",
+			"name": "Coverage",
 			"configurable": true,
 			"description": "This attribute specifies the coverage area of the gNodeB",
 			"extensible": null,
@@ -230,30 +228,25 @@
 			"maxCardinality": 1,
 			"minCardinality": 1,
 			"regex": null,
-			"valueType": "ENUM",			
-			"resourceSpecCharRelationship": [
-				{ "name": "Character Attribute", "relationshipType": "dependency" },
-				{ "name": "Operational",  "relationshipType": "dependency" },
-				{ "name": "Scalability Attribute", "relationshipType": "dependency" },
-				{ "name": "KPI", "relationshipType": "dependency" }			
-			],
+			"valueType": "ENUM",
 			"resourceSpecCharacteristicValue": [
 				{
 					"isDefault": true,
-					"rangeInterval": null,
-					"regex": null,
-					"unitOfMeasure": "N/A",
-					"valueFrom": null,
-					"valueTo": null,
 					"valueType": "SMALLINT",
-					"validFor": null,
 					"value": {
-						"value": "4",
-						"alias": "Local (outdoor)"
+						"value": "1",
+						"alias": "Picocell (outdoor)"
+					}
+				},
+				{
+					"isDefault": false,
+					"valueType": "SMALLINT",
+					"value": {
+						"value": "2",
+						"alias": "Nanocell (indoor)"
 					}
 				}
 			]
 		}
-
 	]
 }

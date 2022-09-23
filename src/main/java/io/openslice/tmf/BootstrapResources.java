@@ -149,6 +149,7 @@ public class BootstrapResources {
 		}
 		if( !VIM_ACCOUNT_EXISTS ) {
 			//Find the MANO Provider Spec, get its href and use it to create a dependency with the VIM 
+/*----------------------------------------------------------------------------------------------------------------------------	
 			List<ResourceCandidate> proexistingResCandidates = resourceCandidateRepoService.findAll();
 			ResourceCandidate MANOProvider = new ResourceCandidate();
 			for(int i=0; i<proexistingResCandidates.size(); i++) {
@@ -156,8 +157,6 @@ public class BootstrapResources {
 					MANOProvider = proexistingResCandidates.get(i);
 				}
 			}
-			
-/*----------------------------------------------------------------------------------------------------------------------------			
 			String MANOProviderResourceCandidateHref = MANOProvider.getHref();
 			ResourceSpecificationRelationship vimToManoRelationship= new ResourceSpecificationRelationship();
 			vimToManoRelationship.setHref(MANOProviderResourceCandidateHref);

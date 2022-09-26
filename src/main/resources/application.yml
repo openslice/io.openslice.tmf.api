@@ -10,6 +10,12 @@ spring:
     url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     password: letmein
     username: root
+    hikari:
+       minimumIdle: 2
+       maximumPoolSize: 40
+       idleTimeout: 120000
+       connectionTimeout: 400000
+       leakDetectionThreshold: 100000
   jpa:
     database-platform: io.openslice.tmf.LocalMysqlDialect
     hibernate:
@@ -42,6 +48,7 @@ logging:
     portal.api: INFO
     org.springframework: INFO
     org.apache.camel: INFO 
+    com.zaxxer.hikari: INFO
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d %p %c{1.} [%t] %m%n"
@@ -140,3 +147,8 @@ CATALOG_GET_SERVICETESTSPEC_BY_ID: "jms:queue:CATALOG.GET.SERVICETESTSPEC_BY_ID"
 CATALOG_ADD_SERVICETEST: "jms:queue:CATALOG.ADD.SERVICETEST"
 CATALOG_UPD_SERVICETEST: "jms:queue:CATALOG.UPD.SERVICETEST"
 CATALOG_GET_SERVICETEST_BY_ID: "jms:queue:CATALOG.GET.SERVICETEST"
+
+
+#NS ACTIONS
+NFV_CATALOG_NSACTIONS_SCALE: "jms:queue:NSACTIONS.SCALE"
+NFV_CATALOG_NS_LCMCHANGED: "jms:topic:NFV_CATALOG_NS_LCMCHANGED"

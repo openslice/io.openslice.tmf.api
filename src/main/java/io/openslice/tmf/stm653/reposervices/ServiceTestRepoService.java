@@ -251,7 +251,7 @@ public class ServiceTestRepoService {
 				newC.setValue( new Any( c.getValue()) );				
 				servUpd.addServiceCharacteristicItem( newC  );
 			}			
-			serviceRepoService.updateService( serviceT.getRelatedService().getId() , servUpd, true, null);
+			serviceRepoService.updateService( serviceT.getRelatedService().getId() , servUpd, true, null, null);
 		}
 		
 	}

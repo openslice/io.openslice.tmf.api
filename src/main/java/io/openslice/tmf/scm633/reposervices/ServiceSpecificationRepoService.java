@@ -277,32 +277,44 @@ public class ServiceSpecificationRepoService {
 		return optionalCat.orElse(null);
 	}
 
+	@Transactional
 	public ServiceSpecification findByUuidEager(String id) {
+
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
-		ServiceSpecification dd = null;
 		try {
-			dd = session.get(ServiceSpecification.class, id);
-			if (dd == null) {
-				return this.findByUuid(id);// last resort
-			}
-			Hibernate.initialize(dd.getAttachment());
-			Hibernate.initialize(dd.getRelatedParty());
-			Hibernate.initialize(dd.getResourceSpecification());
-			Hibernate.initialize(dd.getServiceLevelSpecification());
-			Hibernate.initialize(dd.getServiceSpecCharacteristic());
-			for (ServiceSpecCharacteristic schar : dd.getServiceSpecCharacteristic()) {
-				Hibernate.initialize(schar.getServiceSpecCharacteristicValue());
-				Hibernate.initialize(schar.getServiceSpecCharRelationship());
+			ServiceSpecification dd = null;
+			try {
+				dd = session.get(ServiceSpecification.class, id);
+				if (dd == null) {
+					return this.findByUuid(id);// last resort
+				}
+				Hibernate.initialize(dd.getAttachment());
+				Hibernate.initialize(dd.getRelatedParty());
+				Hibernate.initialize(dd.getResourceSpecification());
+				Hibernate.initialize(dd.getServiceLevelSpecification());
+				Hibernate.initialize(dd.getServiceSpecCharacteristic());
+				for (ServiceSpecCharacteristic schar : dd.getServiceSpecCharacteristic()) {
+					Hibernate.initialize(schar.getServiceSpecCharacteristicValue());
+					Hibernate.initialize(schar.getServiceSpecCharRelationship());
 
-			}
-			Hibernate.initialize(dd.getServiceSpecRelationship());
+				}
+				Hibernate.initialize(dd.getServiceSpecRelationship());
 
-			tx.commit();
-		} finally {
-			session.close();
+				tx.commit();
+			} finally {
+				session.close();
+			}
+			return dd;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return dd;
+
+		session.close();
+		return null;
+		
+		
 	}
 
 	public Void deleteByUuid(String id) {

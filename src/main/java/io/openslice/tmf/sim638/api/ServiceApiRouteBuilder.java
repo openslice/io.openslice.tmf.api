@@ -37,6 +37,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.openslice.model.DeploymentDescriptor;
 import io.openslice.tmf.common.model.Notification;
 import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
 import io.openslice.tmf.sim638.model.ServiceAttributeValueChangeNotification;
@@ -101,6 +102,10 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 
 	@Value("${CATALOG_SERVICES_OF_PARTNERS}")
 	private String CATALOG_SERVICES_OF_PARTNERS = "";
+	
+
+	@Value("${NFV_CATALOG_NS_LCMCHANGED}")
+	private String NFV_CATALOG_NS_LCMCHANGED = "";
 	
 
 	@Autowired
@@ -182,6 +187,14 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.bean( serviceRepoService, "getServicesFromOrderID")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
+		
+		from( NFV_CATALOG_NS_LCMCHANGED )
+		.log(LoggingLevel.INFO, log, NFV_CATALOG_NS_LCMCHANGED + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, DeploymentDescriptor.class, true)
+		.bean( serviceRepoService, "nfvCatalogNSResourceChanged(${body})");
+		
+		
 		
 		
 	}

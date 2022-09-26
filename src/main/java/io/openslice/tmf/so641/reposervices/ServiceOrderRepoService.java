@@ -521,12 +521,17 @@ public class ServiceOrderRepoService {
 		}
 		if ( serviceOrderUpd.getState()!= null ) {
 
+			
+			
 			stateChanged = so.getState() != serviceOrderUpd.getState();
 			so.setState( serviceOrderUpd.getState() );
 			
 			if ( so.getState().equals( ServiceOrderStateType.COMPLETED )) {
 				so.setCompletionDate( OffsetDateTime.now(ZoneOffset.UTC));
 			}
+			
+			
+			
 			
 			
 			
@@ -619,7 +624,7 @@ public class ServiceOrderRepoService {
 		if ( stateChanged ) {
 			Note noteItem = new Note();
 			noteItem.setText("Service Order " + so.getState() );
-			noteItem.setAuthor("SO641API-copySpecCharacteristics");
+			noteItem.setAuthor("SO641API-stateChanged");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			so.addNoteItem(noteItem);				
 		}
@@ -689,6 +694,7 @@ public class ServiceOrderRepoService {
 		return optionalCat.orElse(null);
 	}
 
+
 	public String getServiceOrderEagerAsString(String id) throws JsonProcessingException {
 		ServiceOrder s = this.getServiceORderEager(id);
 		ObjectMapper mapper = new ObjectMapper();
@@ -699,31 +705,42 @@ public class ServiceOrderRepoService {
 	}
 
 	public ServiceOrder getServiceORderEager(String id) {
+
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		ServiceOrder s = null;
+		
 		try {
-			s = (ServiceOrder) session.get(ServiceOrder.class, id);
-			if (s == null) {
-				return this.findByUuid(id);// last resort
-			}
+			ServiceOrder s = null;
+			try {
+				s = (ServiceOrder) session.get(ServiceOrder.class, id);
+				if (s == null) {
+					return this.findByUuid(id);// last resort
+				}
 
-			Hibernate.initialize(s.getRelatedParty());
-			Hibernate.initialize(s.getOrderItem() );
-			Hibernate.initialize(s.getNote() );
-			for (ServiceOrderItem soi : s.getOrderItem()) {
-				Hibernate.initialize( soi.getService().getSupportingService() );
-				Hibernate.initialize( soi.getService().getSupportingResource());
-				Hibernate.initialize( soi.getService().getServiceCharacteristic() );
-				Hibernate.initialize( soi.getService().getRelatedParty() );
+				Hibernate.initialize(s.getRelatedParty());
+				Hibernate.initialize(s.getOrderItem() );
+				Hibernate.initialize(s.getNote() );
+				for (ServiceOrderItem soi : s.getOrderItem()) {
+					Hibernate.initialize( soi.getService().getSupportingService() );
+					Hibernate.initialize( soi.getService().getSupportingResource());
+					Hibernate.initialize( soi.getService().getServiceCharacteristic() );
+					Hibernate.initialize( soi.getService().getRelatedParty() );
+				}
+				
+				tx.commit();
+			} finally {
+				session.close();
 			}
 			
-			tx.commit();
-		} finally {
-			session.close();
+			return s;
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+
+		session.close();
+		return null;
 		
-		return s;
+		
 	}
 
 	@Transactional

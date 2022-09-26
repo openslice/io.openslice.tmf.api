@@ -126,8 +126,8 @@ public class IndividualApiController implements IndividualApi {
 							
 							individualnew.setPreferredGivenName(  lp.getKeycloakSecurityContext().getToken().getPreferredUsername() );
 							
-							individualnew.setFamilyName( lp.getKeycloakSecurityContext().getToken().getGivenName() );
-							individualnew.setGivenName( lp.getKeycloakSecurityContext().getToken().getName()  );
+							individualnew.setFamilyName( lp.getKeycloakSecurityContext().getToken().getFamilyName() );
+							individualnew.setGivenName( lp.getKeycloakSecurityContext().getToken().getGivenName()  );
 							ContactMedium contactMediumItem = new ContactMedium();
 							contactMediumItem.setPreferred(true);
 							contactMediumItem.setMediumType("main");

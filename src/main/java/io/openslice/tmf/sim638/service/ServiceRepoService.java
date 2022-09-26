@@ -42,12 +42,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
+import io.openslice.model.DeploymentDescriptor;
+import io.openslice.model.DeploymentDescriptorVxFInstanceInfo;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Characteristic;
@@ -343,11 +347,12 @@ public class ServiceRepoService {
 	}
 
 	@Transactional
-	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO, Service updatedFromParentService ) {
-		Service service = this.findByUuid(id);
+	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO, Service updatedFromParentService, Service updatedFromChildService ) {
+		//Service service = this.findByUuid(id);
+		Service service = this.getServiceEager(id);
+		
 		
 		if ( service == null ) {
-
 			logger.error("Service cannot be found in registry, UUID: " + id  );
 			return null;
 		}
@@ -448,9 +453,16 @@ public class ServiceRepoService {
 				}
 			}						
 		}
-		
+
 		boolean serviceCharacteristicChanged = false;
+		boolean serviceCharacteristicChangedContainsPrimitive = false;
+		
+		String charChangedForNotes = "";
 		List<Characteristic> childCharacteristicsChanged = new ArrayList<>();
+		
+
+		//logger.info("==> Will update serviceToString: " + service.toString() );
+		
 		
 		if ( servUpd.getServiceCharacteristic()!=null ) {
 			for (Characteristic n : servUpd.getServiceCharacteristic()) {
@@ -465,6 +477,10 @@ public class ServiceRepoService {
 									
 								}
 								serviceCharacteristicChanged = true; //change only characteristics of this service
+								charChangedForNotes += n.getName(); 
+								if ( n.getName().toUpperCase().contains(  "PRIMITIVE::" ) ){
+									serviceCharacteristicChangedContainsPrimitive = true;
+								}
 								
 							}
 						}
@@ -475,6 +491,7 @@ public class ServiceRepoService {
 					} else {
 						service.addServiceCharacteristicItem(n);
 						serviceCharacteristicChanged = true;	
+						charChangedForNotes += n.getName() + ", "; 
 					}
 				
 			}						
@@ -513,11 +530,20 @@ public class ServiceRepoService {
 
 		if (stateChanged) {
 			Note noteItem = new Note();
-			noteItem.setText("Service " + service.getState() );
+			noteItem.setText("Service is " + service.getState() );
 			noteItem.setAuthor("API");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			service.addNoteItem(noteItem);		
 		}
+		
+		if (serviceCharacteristicChanged) {
+			Note noteItem = new Note();
+			noteItem.setText("Service Characteristic changed: " + charChangedForNotes );
+			noteItem.setAuthor("API");
+			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+			service.addNoteItem(noteItem);		
+		}
+		
 			
 		
 		service = this.serviceRepo.save( service );
@@ -566,6 +592,10 @@ public class ServiceRepoService {
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );		
 			saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED  );	
+			if ( serviceCharacteristicChangedContainsPrimitive ) {
+				saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED_MANODAY2  );					
+			}
+			
 			
 			
 			this.addServiceActionQueueItem(saqi);
@@ -612,8 +642,11 @@ public class ServiceRepoService {
 						n.setText("Child Characteristics Changed"  );
 						n.setAuthor( "SIM638-API" );
 						n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
-						supd.addNoteItem( n );						
-						this.updateService( aSupportingService.getId(), supd , false, service); //update the service						
+						supd.addNoteItem( n );					
+						if ( updatedFromChildService == null || 
+								(updatedFromChildService!=null && !updatedFromChildService.getId().equals( aSupportingService.getId())) ) { //avoid circular
+							this.updateService( aSupportingService.getId(), supd , false, service, null); //update the service							
+						} 
 					}
 				}
 				
@@ -649,7 +682,7 @@ public class ServiceRepoService {
 			servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
 		}
 		
-		this.updateService( parentServiceId, servUpd, false, null);
+		this.updateService( parentServiceId, servUpd, false, null, childService);
 	}
 
 	public String getServiceEagerAsString(String id) throws JsonProcessingException {
@@ -682,6 +715,7 @@ public class ServiceRepoService {
 			Hibernate.initialize(s.getServiceSpecificationRef() );
 			Hibernate.initialize(s.getSupportingService() );
 			Hibernate.initialize(s.getSupportingResource()  );
+			Hibernate.initialize(s.getPlace()  );
 			
 			tx.commit();
 		} finally {
@@ -807,6 +841,61 @@ public class ServiceRepoService {
 
 		return (List<Service>) this.serviceRepo.findByDeploymentRequestID( aDeploymentRequestID );
 
+	}
+	
+	
+	
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	@Transactional
+	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
+		String deploymentRequestID = dd.getId() + "";
+		logger.info("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
+		
+		var aservices = findDeploymentRequestID( deploymentRequestID );
+		for (Service as : aservices) {
+			
+			Service aService = findByUuid(as.getId()); 
+			
+			if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
+				
+
+				ServiceUpdate supd = new ServiceUpdate();
+				
+				Characteristic cNewLCM = new Characteristic();
+				cNewLCM.setName("NSLCM" );
+				cNewLCM.value( new Any( dd.getNs_nslcm_details()  ));
+				supd.addServiceCharacteristicItem( cNewLCM );
+				
+				Characteristic cNewNSR = new Characteristic();
+				//cNewNSR.setUuid(null);
+				cNewNSR.setName("NSR" );
+				cNewNSR.value( new Any( dd.getNsr()  ));
+				supd.addServiceCharacteristicItem( cNewNSR );
+				
+				
+				
+				if ( dd.getDeploymentDescriptorVxFInstanceInfo() !=null ) {
+					for ( DeploymentDescriptorVxFInstanceInfo vnfinfo : dd.getDeploymentDescriptorVxFInstanceInfo() ) {							
+							Characteristic cNewMember = new Characteristic();
+							cNewMember.setName(  "VNFINDEXREF_INFO_" + vnfinfo.getMemberVnfIndexRef() );
+							cNewMember.value( new Any( vnfinfo.getVxfInstanceInfo()  + "" ));
+							supd.addServiceCharacteristicItem( cNewMember );
+					}					
+				}
+				
+				Note n = new Note();
+				n.setText("NS Resource LCM Changed"  );
+				n.setAuthor( "SIM638-API" );
+				n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+				supd.addNoteItem( n );					
+				
+				this.updateService( aService.getId(), supd , true, null, null); //update the service			
+			}
+		}
 	}
 
 

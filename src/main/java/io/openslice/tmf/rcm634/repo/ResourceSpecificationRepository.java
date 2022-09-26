@@ -29,6 +29,7 @@ import org.springframework.stereotype.Repository;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 @Repository
@@ -40,6 +41,7 @@ public interface ResourceSpecificationRepository extends PagingAndSortingReposit
 	@Query("SELECT sc FROM LogicalRspec sc")
 	List<LogicalResourceSpecification> findAllLogical();
 	
+	List<ResourceSpecification> findByNameAndVersion(String aname, String aversion);
 
 	@Query("SELECT sc FROM PhysicalRspec sc")
 	List<PhysicalResourceSpecification> findAllPhysical();

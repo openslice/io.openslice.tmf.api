@@ -99,6 +99,10 @@ public class ResourceCatalogRepoService {
 		sc = updateCatalogDataFromAPICall(sc, serviceCatalog);
 		return this.catalogRepo.save(sc);
 	}
+	
+	public ResourceCatalog updateCatalog(ResourceCatalog serviceCatalog) {
+		return this.catalogRepo.save(serviceCatalog);
+	}
 
 	public ResourceCatalog updateCatalogDataFromAPICall(ResourceCatalog rc, ResourceCatalogUpdate resCatalog) {
 		
@@ -136,7 +140,9 @@ public class ResourceCatalogRepoService {
 		return rc;
 
 	}
+	
 
+/*---------------------------------------------------------------------------------------------------------------	
 	@PostConstruct
 	public void initRepo() {
 		if (this.findAll().size() == 0) {
@@ -173,7 +179,9 @@ public class ResourceCatalogRepoService {
 			this.candidateRepoService.addResourceCandidate(scand);
 		}
 	}
-
+---------------------------------------------------------------------------------------------------------------*/
+	
+	
 	public ResourceCatalog findByName(String aName) {
 		Optional<ResourceCatalog> optionalCat = this.catalogRepo.findByName( aName );
 		return optionalCat.orElse(null);

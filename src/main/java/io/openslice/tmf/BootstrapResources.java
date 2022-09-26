@@ -149,7 +149,7 @@ public class BootstrapResources {
 		}
 		if( !VIM_ACCOUNT_EXISTS ) {
 			//Find the MANO Provider Spec, get its href and use it to create a dependency with the VIM 
-/*----------------------------------------------------------------------------------------------------------------------------	
+
 			List<ResourceCandidate> proexistingResCandidates = resourceCandidateRepoService.findAll();
 			ResourceCandidate MANOProvider = new ResourceCandidate();
 			for(int i=0; i<proexistingResCandidates.size(); i++) {
@@ -157,15 +157,14 @@ public class BootstrapResources {
 					MANOProvider = proexistingResCandidates.get(i);
 				}
 			}
-			String MANOProviderResourceCandidateHref = MANOProvider.getHref();
+			String MANOProviderResourceCandidateId = MANOProvider.getId();
 			ResourceSpecificationRelationship vimToManoRelationship= new ResourceSpecificationRelationship();
-			vimToManoRelationship.setHref(MANOProviderResourceCandidateHref);
+			vimToManoRelationship.setId(MANOProviderResourceCandidateId);
 			vimToManoRelationship.setRelationshipType("dependency");
-			vimToManoRelationship.id(vimToManoRelationship.getUuid());
-			
+						
 			Set<ResourceSpecificationRelationship> setOfVimToManoRelationships = new HashSet<ResourceSpecificationRelationship>();
 			setOfVimToManoRelationships.add(vimToManoRelationship);
-----------------------------------------------------------------------------------------------------------------------------*/			
+	
 			//As it is not the first resource spec we add, we already have a category to add it under
 			ResourceCatalog scatalog = this.resourceCatalogRepoService.findByName("Catalog");
 			ResourceCategory scategory = this.resourceCategRepoService.findByName("Network Resources");
@@ -174,11 +173,11 @@ public class BootstrapResources {
 			
 			
 			//Add the relationship that was created above
-/*----------------------------------------------------------------------------------------------------------------------------		
+	
 			resourceSpecificationRepo.delete(resourceSpecificationObj);
 			resourceSpecificationObj.setResourceSpecRelationship(setOfVimToManoRelationships);
 			resourceSpecificationRepo.save(resourceSpecificationObj);
-----------------------------------------------------------------------------------------------------------------------------*/			
+
 			
 			//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
 			ResourceCandidateCreate scand = new ResourceCandidateCreate();

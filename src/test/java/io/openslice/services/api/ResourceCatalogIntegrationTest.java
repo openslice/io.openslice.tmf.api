@@ -106,9 +106,9 @@ public class ResourceCatalogIntegrationTest {
 
 	private static final transient Log logger = LogFactory.getLog( ResourceCatalogIntegrationTest.class.getName());
 
-	private static final int FIXED_BOOTSTRAPS_SPECS = 2;
+	private static final int FIXED_BOOTSTRAPS_SPECS = 3;
 	private static final int FIXED_BOOTSTRAPS_CATEGORIES = 2;
-	private static final int FIXED_BOOTSTRAPS_PHYSICAL_SPECS = 0;
+	private static final int FIXED_BOOTSTRAPS_PHYSICAL_SPECS = 1;
 	private static final int FIXED_BOOTSTRAPS_LOGICAL_SPECS = 2;
 	
     @Autowired
@@ -144,7 +144,7 @@ public class ResourceCatalogIntegrationTest {
 
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );
 		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
-		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( candidateRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		
 
@@ -152,7 +152,7 @@ public class ResourceCatalogIntegrationTest {
 		assertThat( categRepoService.findByName( "Network Resources" )  ).isNotNull() ;
 
 		ResourceCategory categ = categRepoService.findByName( "Network Resources" );
-		assertThat( categ.getResourceCandidateRefs().size() ).isEqualTo( 2 );
+		assertThat( categ.getResourceCandidateRefs().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 	}
 	
 

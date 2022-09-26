@@ -96,11 +96,20 @@ public class BootstrapResources {
 			scatCreate.setDescription("Generic Resources of this catalog");
 			scatCreate.setVersion("1.0");
 			scatCreate.setIsRoot(true);
-			// Turns ResourceCategoryCreate to a ResourceCategory with the same attributes set at the ResourceCategoryCreate
+			
+			ResourceCategoryCreate scatCreate2 = new ResourceCategoryCreate();
+			scatCreate2.setName("Network Resources");
+			scatCreate2.setDescription("Network Resources on this catalog");
+			scatCreate2.setVersion("1.0");
+			scatCreate2.setIsRoot(true);
 			ResourceCategory scategory = this.resourceCategRepoService.addCategory(scatCreate);
+			// Turns ResourceCategoryCreate to a ResourceCategory with the same attributes set at the ResourceCategoryCreate
+			scategory = this.resourceCategRepoService.addCategory(scatCreate2);
 			//Adds the ResourceCategory to the Primary Resource Catalog and then saves it to the resourceCatalogRepository
 			scatalog.getCategoryObj().add(scategory);
 			this.resourceCatalogRepository.save(scatalog);
+						
+
 		}
 		
 		List<ResourceSpecification> proexistingResSpecs = resourceSpecRepoService.findAll();
@@ -124,14 +133,10 @@ public class BootstrapResources {
 		}
 		
 		if( !MANO_PROVIDER_EXISTS ) {
-			//As it is the first resource spec we add we create a category to add it under
+			//We already have a category to add it under
 			ResourceCatalog scatalog = this.resourceCatalogRepoService.findByName("Catalog");
-			ResourceCategoryCreate scatCreate = new ResourceCategoryCreate();
-			scatCreate.setName("Network Resources");
-			scatCreate.setDescription("Network Resources on this catalog");
-			scatCreate.setVersion("1.0");
-			scatCreate.setIsRoot(true);
-			ResourceCategory scategory = this.resourceCategRepoService.addCategory(scatCreate);
+			ResourceCategory scategory = this.resourceCategRepoService.findByName("Network Resources");
+
 			//Reads a JSON and turns it to a ResourceSpecification					
 			ResourceSpecification resourceSpecificationObj = this.addLogicalResourceSpecFromJSON( "MANO Provider Resource Specification" , "MANOProviderResourceSpecification.json");
 			//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			

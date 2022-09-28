@@ -385,7 +385,7 @@ public class ResourceCatalogIntegrationTest {
 		 */
 
 		ResourceCatalog catalog = catalogRepoService.findByName( "Catalog" ); 
-		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 1 );
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 2 );
 		ResourceCatalogUpdate scu = new ResourceCatalogUpdate();
 		scu.setName( catalog.getName() );
 		for (ResourceCategoryRef iref : catalog.getCategoryRefs()) {
@@ -396,7 +396,7 @@ public class ResourceCatalogIntegrationTest {
 		scu.addCategoryItem( categoryItem );
 		catalog = catalogRepoService.updateCatalog( catalog.getId(), scu);
 
-		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 2 );
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 3 );
 		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 2 );
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );		
 		catalogRepoService.deleteById( catalog.getId() );//delete

@@ -120,14 +120,17 @@ public class BootstrapResources {
 		
 		//Check if the resources we want to bootstrap already exist
 		for(int i=0; i<proexistingResSpecs.size(); i++) {
-			if(proexistingResSpecs.get(i).getName().equals("Open Source MANO Project's VIM account Resource Specification")) {
-				VIM_ACCOUNT_EXISTS = true;
-			}
-			else if (proexistingResSpecs.get(i).getName().equals("MANO Provider Resource Specification")) {
-				MANO_PROVIDER_EXISTS = true;
-			}
-			else if (proexistingResSpecs.get(i).getName().equals("GNodeB Resource Specification")) {
-				GNB_EXISTS = true;
+			if ( proexistingResSpecs.get(i).getName() != null ) {
+				if(proexistingResSpecs.get(i).getName().equals("Open Source MANO Project's VIM account Resource Specification")) {
+					VIM_ACCOUNT_EXISTS = true;
+				}
+				else if (proexistingResSpecs.get(i).getName().equals("MANO Provider Resource Specification")) {
+					MANO_PROVIDER_EXISTS = true;
+				}
+				else if (proexistingResSpecs.get(i).getName().equals("GNodeB Resource Specification")) {
+					GNB_EXISTS = true;
+				}
+				
 			}
 			
 		}

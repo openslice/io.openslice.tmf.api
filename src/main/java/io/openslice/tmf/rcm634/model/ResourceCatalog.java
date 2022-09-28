@@ -27,6 +27,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
@@ -61,7 +62,7 @@ public class ResourceCatalog extends BaseEntity {
 	@Valid
 	private List<RelatedParty> relatedParty = null;
 
-	@ManyToMany(cascade = { CascadeType.DETACH })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH })
 	@JoinTable()
 	@JsonIgnore
 	private Set<ResourceCategory> categoryObj = new HashSet<>();

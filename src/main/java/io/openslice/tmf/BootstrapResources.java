@@ -37,6 +37,7 @@ import io.openslice.tmf.rcm634.model.ResourceCandidateCreate;
 import io.openslice.tmf.rcm634.model.ResourceCandidateUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCatalog;
 import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
+import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
@@ -84,7 +85,8 @@ public class BootstrapResources {
 	public void initRepo() {
 		
 		
-		
+
+		ResourceCatalogUpdate catUpdate = new ResourceCatalogUpdate();
 
 		ResourceCatalog scatalog = this.resourceCatalogRepoService.findByName("Catalog");
 		if ( scatalog == null ){
@@ -109,7 +111,12 @@ public class BootstrapResources {
 
 				scategory = this.resourceCategRepoService.addCategory(scatCreate);
 				//Adds the ResourceCategory to the Primary Resource Catalog and then saves it to the resourceCatalogRepository
-				scatalog.getCategoryObj().add(scategory);
+				//scatalog.getCategoryObj().add(scategory);
+				ResourceCategoryRef catref = new ResourceCategoryRef();
+				catref.setId( scategory.getId() );
+				catref.setName( scategory.getName());
+				catUpdate.addCategoryItem(catref);
+				
 
 		}
 		
@@ -123,11 +130,16 @@ public class BootstrapResources {
 			// Turns ResourceCategoryCreate to a ResourceCategory with the same attributes set at the ResourceCategoryCreate
 			scategoryNetw = this.resourceCategRepoService.addCategory( scategoryNetwCreate );
 			//Adds the ResourceCategory to the Primary Resource Catalog and then saves it to the resourceCatalogRepository
-			scatalog.getCategoryObj().add( scategoryNetw );
+			
+			ResourceCategoryRef catref = new ResourceCategoryRef();
+			catref.setId( scategoryNetw.getId() );
+			catref.setName( scategoryNetw.getName());
+			catUpdate.addCategoryItem(catref);
 		}
 		
 
-		scatalog = this.resourceCatalogRepository.save( scatalog );
+		
+		this.resourceCatalogRepoService.updateCatalog( scatalog.getId() , catUpdate );
 		
 		
 		List<ResourceSpecification> proexistingResSpecs = resourceSpecRepoService.findAll();

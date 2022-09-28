@@ -27,6 +27,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -63,14 +64,14 @@ public class ResourceCategory extends BaseEntity {
 	@JsonProperty("isRoot")
 	private Boolean isRoot = null;
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ResourceCategory> categoryObj = new HashSet<>();
 	
 	
 
-	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ResourceCandidate> resourceCandidateObj = new HashSet<>();

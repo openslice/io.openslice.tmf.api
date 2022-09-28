@@ -179,8 +179,10 @@ public class BootstrapResources {
 			List<ResourceCandidate> proexistingResCandidates = resourceCandidateRepoService.findAll();
 			ResourceCandidate MANOProvider = new ResourceCandidate();
 			for(int i=0; i<proexistingResCandidates.size(); i++) {
-				if(proexistingResCandidates.get(i).getName().equals("MANO Provider Resource Specification")) {
-					MANOProvider = proexistingResCandidates.get(i);
+				if(proexistingResCandidates.get(i).getName()!= null) {
+					if(proexistingResCandidates.get(i).getName().equals("MANO Provider Resource Specification")) {
+						MANOProvider = proexistingResCandidates.get(i);
+					}
 				}
 			}
 			String MANOProviderResourceCandidateId = MANOProvider.getId();

@@ -1,5 +1,6 @@
 {
-	"name": "Open Source MANO Project's VIM account Resource Specification",
+	"name": "OSM VIM",
+	"category": "VIMAccount",
 	"description": "This Resource Specification is used to describe an OSM Project's VIM account",
 	"version": "0.1.0",
 	"isBundle": true,

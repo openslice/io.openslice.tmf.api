@@ -1,5 +1,6 @@
 {
-	"name": "MANO Provider Resource Specification",
+	"name": "OSM Tenant",
+	"category": "OSMTenant",
 	"description": "This Resource Specification is used to add a new MANO Provider",
 	"version": "0.1.0",
 	"isBundle": false,

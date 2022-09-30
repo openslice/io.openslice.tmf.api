@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -22,6 +23,7 @@ import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -94,7 +96,8 @@ public class Resource extends BaseRootNamedEntity {
 	protected Set<ResourceRelationship> resourceRelationship = new HashSet<>();
 
 	@JsonProperty("resourceSpecification")
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne( cascade = {CascadeType.ALL} )
+    @JoinColumn(name = "resSpecRef", referencedColumnName = "uuid")
 	protected ResourceSpecificationRef resourceSpecification = null;
 
 	@JsonProperty("resourceStatus")

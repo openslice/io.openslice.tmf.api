@@ -1,5 +1,6 @@
 {
-	"name": "GNodeB Resource Specification",
+	"name": "gNodeB",
+	"category": "gNB",
 	"description": "The resource specification which describes a gNodeB",
 	"version": "0.1.0",
 	"isBundle": false,

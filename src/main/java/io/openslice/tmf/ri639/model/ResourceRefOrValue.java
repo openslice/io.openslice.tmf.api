@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
@@ -25,7 +26,19 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIResourceRefOrVal")
+@JsonIgnoreProperties( {"uuid"} )
 public class ResourceRefOrValue extends Resource  {
 
+	public void setId(@NotNull String id) {
+		this.id = id;
+				
+	}
+
+	public String getId() {
+		if ( id == null) {
+			return super.getId();
+		}
+		return this.id;
+	}
   
 }

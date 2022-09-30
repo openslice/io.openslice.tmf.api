@@ -68,15 +68,16 @@ import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.model.Characteristic;
+import io.openslice.tmf.ri639.model.LogicalResource;
 import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceOperationalStateType;
-import io.openslice.tmf.ri639.model.ResourceSpecificationRef;
 import io.openslice.tmf.ri639.model.ResourceStatusType;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
@@ -198,7 +199,7 @@ public class ResourceInventoryIntegrationTest {
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderCreate = " + responseResource);
-		Resource responseSrvc = JsonUtils.toJsonObj( responseResource,  Resource.class);
+		Resource responseSrvc = JsonUtils.toJsonObj( responseResource,  LogicalResource.class);
 		
 		
 		logger.info("testService = " + JsonUtils.toJsonString( responseSrvc ));
@@ -258,7 +259,7 @@ public class ResourceInventoryIntegrationTest {
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
-		Resource responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd,  Resource.class);
+		Resource responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd,  LogicalResource.class);
 		
 
 		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 1 );

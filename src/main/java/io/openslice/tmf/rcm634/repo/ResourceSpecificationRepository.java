@@ -41,6 +41,9 @@ public interface ResourceSpecificationRepository extends PagingAndSortingReposit
 	@Query("SELECT sc FROM LogicalRspec sc")
 	List<LogicalResourceSpecification> findAllLogical();
 	
+
+	List<ResourceSpecification> findByName(String aname );
+	
 	List<ResourceSpecification> findByNameAndVersion(String aname, String aversion);
 
 	@Query("SELECT sc FROM PhysicalRspec sc")

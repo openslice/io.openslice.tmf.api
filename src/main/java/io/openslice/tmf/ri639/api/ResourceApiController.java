@@ -9,6 +9,7 @@ import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
 import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
+import io.swagger.annotations.ApiParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -26,6 +28,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Controller
@@ -80,14 +83,15 @@ public class ResourceApiController implements ResourceApi {
 	@Secured({ "ROLE_USER" })
     @Override
     public ResponseEntity<List<Resource>> listResource(Principal principal, @Valid String fields, @Valid Integer offset,
-    		@Valid Integer limit) {
+    		@Valid Integer limit,
+    		 Map<String, String> allParams) {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			
 			
 
 			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
-				return new ResponseEntity<List<Resource>>( resourceRepoService.findAll(null, new HashMap<>()), HttpStatus.OK);
+				return new ResponseEntity<List<Resource>>( resourceRepoService.findAll( fields, allParams), HttpStatus.OK);
 	
 			}else {
 				return new ResponseEntity<List<Resource>>( resourceRepoService.findAll( principal.getName(), UserPartRoleType.REQUESTER ), HttpStatus.OK);

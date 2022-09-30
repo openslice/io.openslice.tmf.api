@@ -556,6 +556,15 @@ public class ResourceSpecificationRepoService {
 			return null;
 		}
 	}
+
+	public ResourceSpecification findByName(String aname) {
+		List<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByName(aname);
+		if ( ( optionalCat !=null) && ( optionalCat.size()>0) ) {
+			return optionalCat.get(0);
+		} else {
+			return null;
+		}
+	}
 	
 
 	

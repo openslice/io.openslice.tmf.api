@@ -234,6 +234,18 @@ public class SwaggerDocumentationConfig {
             .build();
     }
     
+    ApiInfo apiInfo652() {
+        return new ApiInfoBuilder()
+            .title("Agreement Management")
+            .description("This is Swagger UI environment generated for the TMF Agreement Management specification")
+            .license("")
+            .licenseUrl("http://unlicense.org")
+            .termsOfServiceUrl("")
+            .version("4.0.0")
+            .contact(new Contact("","", ""))
+            .build();
+    }
+    
     ApiInfo apiInfo666() {
         return new ApiInfoBuilder()
             .title("Account Management")
@@ -427,7 +439,7 @@ public class SwaggerDocumentationConfig {
     public Docket swaggerri639() {
 
         return new Docket(DocumentationType.SWAGGER_2)
-        		.groupName("tmf-api-639-API Resource Inventory Management-v4.0.0")
+        		.groupName("tmf-api-639-Resource Inventory Management-v4.0.0")
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.ri639.api"))
                     .build()
@@ -443,7 +455,7 @@ public class SwaggerDocumentationConfig {
     public Docket swaggerso641() {
 
         return new Docket(DocumentationType.SWAGGER_2)
-        		.groupName("tmf-api-641-API ServiceOrdering-v4.0.0")
+        		.groupName("tmf-api-641-ServiceOrdering-v4.0.0")
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.so641.api"))
                     .build()
@@ -481,7 +493,7 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo657())
+                .apiInfo(apiInfo669())
         		.securitySchemes(Arrays.asList(securityScheme()))
         		.securityContexts(Arrays.asList(securityContext()));
 
@@ -496,7 +508,7 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo657())
+                .apiInfo(apiInfo632())
         		.securitySchemes(Arrays.asList(securityScheme()))
         		.securityContexts(Arrays.asList(securityContext()));
 
@@ -512,7 +524,23 @@ public class SwaggerDocumentationConfig {
                     .build()
                     .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-                .apiInfo(apiInfo657())
+                .apiInfo(apiInfo651())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+
+    }
+    
+    @Bean
+    public Docket swaggeram652() {
+
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-652-Resource Order Management-v4.0.0")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.ro652.api"))
+                    .build()
+                    .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo652())
         		.securitySchemes(Arrays.asList(securityScheme()))
         		.securityContexts(Arrays.asList(securityContext()));
 

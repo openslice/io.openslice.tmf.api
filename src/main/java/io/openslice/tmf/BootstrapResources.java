@@ -147,17 +147,20 @@ public class BootstrapResources {
 		boolean MANO_PROVIDER_EXISTS = false;
 		boolean VIM_ACCOUNT_EXISTS = false;
 		boolean GNB_EXISTS = false;
+		String OSM_TENANT = "OSM Tenant";
+		String VIM_ACCOUNT = "OSM VIM";
+		String GNB_TENANT = "gNodeB";
 		
 		//Check if the resources we want to bootstrap already exist
 		for(int i=0; i<proexistingResSpecs.size(); i++) {
 			if ( proexistingResSpecs.get(i).getName() != null ) {
-				if(proexistingResSpecs.get(i).getName().equals("Open Source MANO Project's VIM account Resource Specification")) {
+				if(proexistingResSpecs.get(i).getName().equals( VIM_ACCOUNT )) {
 					VIM_ACCOUNT_EXISTS = true;
 				}
-				else if (proexistingResSpecs.get(i).getName().equals("MANO Provider Resource Specification")) {
+				else if (proexistingResSpecs.get(i).getName().equals( OSM_TENANT )) {
 					MANO_PROVIDER_EXISTS = true;
 				}
-				else if (proexistingResSpecs.get(i).getName().equals("GNodeB Resource Specification")) {
+				else if (proexistingResSpecs.get(i).getName().equals( GNB_TENANT )) {
 					GNB_EXISTS = true;
 				}
 				
@@ -171,7 +174,7 @@ public class BootstrapResources {
 			scategory = this.resourceCategRepoService.findByName("Network Resources");
 
 			//Reads a JSON and turns it to a ResourceSpecification					
-			ResourceSpecification resourceSpecificationObj = this.addLogicalResourceSpecFromJSON( "MANO Provider Resource Specification" , "MANOProviderResourceSpecification.json");
+			ResourceSpecification resourceSpecificationObj = this.addLogicalResourceSpecFromJSON( OSM_TENANT , "OSMTenantResourceSpecification.json");
 			//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
 			ResourceCandidateCreate scand = new ResourceCandidateCreate();
 			scand.setName( resourceSpecificationObj.getName());
@@ -192,7 +195,7 @@ public class BootstrapResources {
 			ResourceCandidate MANOProvider = new ResourceCandidate();
 			for(int i=0; i<proexistingResCandidates.size(); i++) {
 				if(proexistingResCandidates.get(i).getName()!= null) {
-					if(proexistingResCandidates.get(i).getName().equals("MANO Provider Resource Specification")) {
+					if(proexistingResCandidates.get(i).getName().equals( OSM_TENANT )) {
 						MANOProvider = proexistingResCandidates.get(i);
 					}
 				}
@@ -209,7 +212,7 @@ public class BootstrapResources {
 			scatalog = this.resourceCatalogRepoService.findByName("Catalog");
 			scategory = this.resourceCategRepoService.findByName("Network Resources");
 			//Reads a JSON and turns it to a ResourceSpecification					
-			ResourceSpecification resourceSpecificationObj = this.addLogicalResourceSpecFromJSON( "Open Source MANO Project's VIM account Resource Specification" , "vimAccount.json");
+			ResourceSpecification resourceSpecificationObj = this.addLogicalResourceSpecFromJSON( VIM_ACCOUNT , "vimAccount.json");
 			
 			
 			//Add the relationship that was created above
@@ -237,7 +240,7 @@ public class BootstrapResources {
 			scatalog = this.resourceCatalogRepoService.findByName("Catalog");
 			scategory = this.resourceCategRepoService.findByName("Network Resources");
 			//Reads a JSON and turns it to a ResourceSpecification					
-			ResourceSpecification resourceSpecificationObj = this.addPhysicalResourceSpecFromJSON( "GNodeB Resource Specification" , "gNodeBResourceSpec.json");
+			ResourceSpecification resourceSpecificationObj = this.addPhysicalResourceSpecFromJSON( GNB_TENANT , "gNodeBResourceSpec.json");
 			//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
 			ResourceCandidateCreate scand = new ResourceCandidateCreate();
 			scand.setName( resourceSpecificationObj.getName());

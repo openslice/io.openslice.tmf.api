@@ -20,6 +20,8 @@
 package io.openslice.tmf.ri639.reposervices;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -50,10 +52,13 @@ import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.Place;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.api.ResourceApiRouteBuilder;
 import io.openslice.tmf.ri639.model.Characteristic;
 import io.openslice.tmf.ri639.model.Feature;
+import io.openslice.tmf.ri639.model.LogicalResource;
+import io.openslice.tmf.ri639.model.PhysicalResource;
 import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceCreateEvent;
@@ -118,8 +123,18 @@ public class ResourceRepoService {
 				}
 				
 			}			
+			//sql += "  FROM RIResource  RILogicalRes RIPhysicalRes srv ";
 			sql += "  FROM RIResource srv ";
+			
+			if (allParams.size() > 0) {
+				sql += " WHERE ";
+				for (String pname : allParams.keySet()) {
+					sql += " " + pname + " LIKE ";
+					String pval = URLDecoder.decode(allParams.get(pname), StandardCharsets.UTF_8.toString());
+					sql += "'" + pval + "'";
+				}
 
+			}
 			
 			sql += "  ORDER BY srv.startOperatingDate DESC";
 			
@@ -190,7 +205,15 @@ public class ResourceRepoService {
 
 	public Resource addResource(@Valid ResourceCreate resource) {
 		logger.info("Will add Resource: " + resource.getName() );
-		Resource s = new Resource();
+		
+		Resource s;
+		
+		if (resource.getAtType()!=null && resource.getAtType().toLowerCase().contains( "physicalresource" ) ) {
+			s = new PhysicalResource();			
+		} else {
+			s = new LogicalResource();
+		}
+		
 		if (resource.getAtType()!=null) {
 			s.setType(resource.getAtType());			
 		}
@@ -209,9 +232,13 @@ public class ResourceRepoService {
 		
 
 
-		if ( resource.getResourceSpecification() != null) {
-			s.setResourceSpecification( resource.getResourceSpecification() );
-		}
+		
+		ResourceSpecificationRef thespecRef = new ResourceSpecificationRef();
+		thespecRef.setId( s.getId());
+		thespecRef.setName(s.getName());
+		//resCreate.setResourceSpecification( thespecRef  );
+		s.setResourceSpecification( thespecRef );
+		
 		
 		if ( resource.getPlace() != null) {
 			s.setPlace( resource.getPlace() );

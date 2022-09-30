@@ -81,8 +81,6 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		this.objectMapper = objectMapper;
 		this.request = request;
 	}
-
-
 	
 	@Secured({ "ROLE_USER" })
 	@Override

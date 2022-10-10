@@ -234,8 +234,8 @@ public class ResourceRepoService {
 
 		
 		ResourceSpecificationRef thespecRef = new ResourceSpecificationRef();
-		thespecRef.setId( s.getId());
-		thespecRef.setName(s.getName());
+		thespecRef.setId( s.getResourceSpecification().getId());
+		thespecRef.setName( s.getResourceSpecification().getName());
 		//resCreate.setResourceSpecification( thespecRef  );
 		s.setResourceSpecification( thespecRef );
 		

@@ -182,8 +182,16 @@ public class ResourceOrderRepoService {
 				return new ResourceRefOrValue();				
 			}
 		}
-		resCreate.setName( spec.getName() );
-		resCreate.setDescription("A Resource for " + spec.getName());
+		
+		if ( soi.getResource().getName() !=null ) {
+			resCreate.setName( soi.getResource().getName() );
+		} else {
+			resCreate.setName( spec.getName() );
+			
+		}
+		
+		
+		resCreate.setDescription("A Resource called " +resCreate.getName() + " based on resource spec" + spec.getName());
 		resCreate.setCategory( spec.getCategory() ); 
 		if ( spec.getType().toLowerCase().contains( "physical" ) ) {
 			resCreate.setAtType("PhysicalResource");					
@@ -191,9 +199,11 @@ public class ResourceOrderRepoService {
 			resCreate.setAtType("LogicalResource");			
 		}
 		
-//		ResourceSpecificationRef thespecRef = new ResourceSpecificationRef();
-//		thespecRef.setId( spec.getId());
-//		resCreate.setResourceSpecification( thespecRef  );
+		
+		ResourceSpecificationRef thespecRef = new ResourceSpecificationRef();
+		thespecRef.setId( spec.getId());
+		thespecRef.setName( spec.getName() );
+		resCreate.setResourceSpecification( thespecRef  );
 		
 		
 		for (ResourceSpecificationCharacteristic c : spec.getResourceSpecCharacteristic()) {

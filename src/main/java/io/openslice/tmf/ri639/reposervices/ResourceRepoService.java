@@ -52,6 +52,7 @@ import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.Place;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.api.ResourceApiRouteBuilder;
@@ -488,6 +489,18 @@ public class ResourceRepoService {
 		}
 		
 		return result;
+	}
+
+	public Void deleteByUuid(String id) {
+		Optional<Resource> optionalCat = this.resourceRepo.findByUuid(id);
+		Resource s = optionalCat.get();
+		if (s == null) {
+			return null;
+		}
+
+		
+		this.resourceRepo.delete( s );
+		return null;
 	}
 	
 	

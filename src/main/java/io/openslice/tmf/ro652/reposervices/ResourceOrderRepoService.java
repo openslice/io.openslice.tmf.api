@@ -138,7 +138,7 @@ public class ResourceOrderRepoService {
 					allAcknowledged = false;
 				}
 				
-				//at this stage we have no ResOrchestrator.. we will dot this by simple code
+				//at this stage we have no ResOrchestrator.. we will do this by simple code
 				ResourceRefOrValue r = createResource( soi, rOrderCreate.getRelatedParty() );
 				soi.resource( r );
 				
@@ -223,6 +223,15 @@ public class ResourceOrderRepoService {
 		
 		copyRemainingSpecCharacteristicsToResourceCharacteristic(spec , resCreate.getResourceCharacteristic() );	//copy to resource the rest of the characteristics that do not exists yet from the above search	
 		
+		if ( resCreate.getResourceRelationship() == null) {
+			resCreate.setResourceRelationship( new ArrayList<>() );
+		}
+		resCreate.getResourceRelationship().addAll( soi.getResource().getResourceRelationship() );
+		
+		if ( resCreate.getAttachment() == null) {
+			resCreate.setAttachment( new ArrayList<>() );
+		}
+		resCreate.getAttachment().addAll( soi.getResource().getAttachment() );
 		
 		var newresource		= resourceRepoService.addResource( resCreate  );
 		

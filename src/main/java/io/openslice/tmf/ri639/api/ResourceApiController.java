@@ -76,8 +76,13 @@ public class ResourceApiController implements ResourceApi {
 	@Secured({ "ROLE_USER" })
     @Override
     public ResponseEntity<Void> deleteResource(String id) {
-    	// TODO Auto-generated method stub
-    	return ResourceApi.super.deleteResource(id);
+		try {
+
+			return new ResponseEntity<Void>( resourceRepoService.deleteByUuid(id), HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
 
 	@Secured({ "ROLE_USER" })

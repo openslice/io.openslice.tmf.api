@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk15-openj9:latest
+FROM adoptopenjdk/openjdk13-openj9:latest
 MAINTAINER openslice.io
 ENV SPRING_APPLICATION_JSON='{ \
 	"spring.datasource.url": "dbc:mysql://10.0.2.15/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",  \

@@ -212,6 +212,8 @@ public class ResourceInventoryIntegrationTest {
 		assertThat( responseSrvc.getResourceCharacteristic().size()  ).isEqualTo( 1 );
 		assertThat( responseSrvc.getResourceCharacteristicByName( "ConfigStatus" ) ).isNotNull();
 		assertThat( responseSrvc.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "NONE" )  ;
+		assertThat( responseSrvc.getResourceSpecification().getId()  ).isNotNull();
+		assertThat( responseSrvc.getResourceSpecification().getName()  ).isNotNull();
 		
 
 		assertThat( responseSrvc.getNote().size()  ).isEqualTo( 2 );
@@ -250,7 +252,8 @@ public class ResourceInventoryIntegrationTest {
 		
 		
 		
-		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/resourceInventoryManagement/v4/resource/" + responseSrvc.getId() )
+		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders
+				.patch("/resourceInventoryManagement/v4/resource/" + responseSrvc.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( JsonUtils.toJson( resUpd ) ))
@@ -269,6 +272,34 @@ public class ResourceInventoryIntegrationTest {
 		assertThat( responseSOUpd.getResourceCharacteristic().size()  ).isEqualTo( 2 );
 		assertThat( responseSOUpd.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
 		assertThat( responseSOUpd.getResourceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		assertThat( responseSOUpd.getResourceSpecification().getId()  ).isNotNull();
+		assertThat( responseSOUpd.getResourceSpecification().getName()  ).isNotNull();
+		
+		
+
+		responseSorderUpd = mvc.perform(MockMvcRequestBuilders
+				.get("/resourceInventoryManagement/v4/resource/" + responseSrvc.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( JsonUtils.toJson( resUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
+		responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd,  LogicalResource.class);
+		
+
+		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 1 );
+
+		assertThat( responseSOUpd.getEndOperatingDate() ).isNotNull();
+		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 3 );
+		assertThat( responseSOUpd.getResourceCharacteristic().size()  ).isEqualTo( 2 );
+		assertThat( responseSOUpd.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
+		assertThat( responseSOUpd.getResourceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		assertThat( responseSOUpd.getResourceSpecification().getId()  ).isNotNull();
+		assertThat( responseSOUpd.getResourceSpecification().getName()  ).isNotNull();
+		
 		
 		
 	}

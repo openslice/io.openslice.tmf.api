@@ -31,6 +31,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +58,7 @@ import io.openslice.tmf.ro652.model.ResourceOrderCreate;
 import io.openslice.tmf.ro652.model.ResourceOrderItem;
 import io.openslice.tmf.ro652.model.ResourceOrderStateType;
 import io.openslice.tmf.ro652.model.ResourceOrderUpdate;
+import io.openslice.tmf.rpm685.model.ResourcePoolMapper;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 
@@ -235,11 +237,8 @@ public class ResourceOrderRepoService {
 		
 		var newresource		= resourceRepoService.addResource( resCreate  );
 		
-		var result = new ResourceRefOrValue();
-		result.setId( newresource.getId() );
-		result.setName(newresource.getName());
-		result.getResourceCharacteristic().addAll( newresource.getResourceCharacteristic() );
-		result.setResourceSpecification( newresource.getResourceSpecification()  );
+		ResourceOrderMapper mapper = Mappers.getMapper(ResourceOrderMapper.class);
+		var result = mapper.fromResource( newresource  );
 		return result;
 	}
 

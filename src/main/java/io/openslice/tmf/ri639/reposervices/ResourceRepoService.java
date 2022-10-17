@@ -309,6 +309,11 @@ public class ResourceRepoService {
 			e.printStackTrace();
 		}
 		
+
+		if ( resourceUpd.getResourceRelationship() != null) {
+			resource.getResourceRelationship().addAll( resourceUpd.getResourceRelationship() );
+		}
+
 				
 		if (resourceUpd.getAtType()!=null) {
 			resource.setType(resourceUpd.getAtType());			

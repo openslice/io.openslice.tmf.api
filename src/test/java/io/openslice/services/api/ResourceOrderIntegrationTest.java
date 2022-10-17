@@ -13,7 +13,9 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -46,6 +48,7 @@ import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.model.Characteristic;
 import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceRefOrValue;
+import io.openslice.tmf.ri639.model.ResourceRelationship;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
 import io.openslice.tmf.ro652.model.ExternalId;
 import io.openslice.tmf.ro652.model.ResourceOrder;
@@ -123,10 +126,18 @@ public class ResourceOrderIntegrationTest {
 			.name("SupportedManoPlatform" ).value( new Any( "OSMvTEN", "OSMvTEN" ))
 			.name("Username" ).value( new Any( "testakis", "testakis" ));
 		
+		Set<ResourceRelationship> relationships = new HashSet<>();
+		ResourceRelationship erel = new ResourceRelationship();
+		erel.setRelationshipType("bubndled");
+		relationships.add(erel );
+		
 		ResourceRefOrValue resrc = new ResourceRefOrValue();
+		
+		
 		resrc
 			.addResourceCharacteristicItem(charitem)
-			.resourceSpecification(resSpecRef);
+			.resourceSpecification(resSpecRef)
+			.resourceRelationship( relationships );
 		oItem.setResourceRefOrValue( resrc  );
 
 		resorder.addOrderItemItem(oItem);
@@ -146,6 +157,7 @@ public class ResourceOrderIntegrationTest {
 
 		// @formatter:on
 		logger.info("testResourceOrderCreate = " + responseSorder);
+		
 		
 
 		ResourceOrder responseRO = JsonUtils.toJsonObj(responseSorder, ResourceOrder.class);

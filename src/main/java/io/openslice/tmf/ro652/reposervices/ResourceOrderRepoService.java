@@ -23,7 +23,6 @@ import java.io.UnsupportedEncodingException;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +48,6 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristicValue;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.model.Characteristic;
-import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceRefOrValue;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
@@ -58,9 +56,6 @@ import io.openslice.tmf.ro652.model.ResourceOrderCreate;
 import io.openslice.tmf.ro652.model.ResourceOrderItem;
 import io.openslice.tmf.ro652.model.ResourceOrderStateType;
 import io.openslice.tmf.ro652.model.ResourceOrderUpdate;
-import io.openslice.tmf.rpm685.model.ResourcePoolMapper;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 
 @Service
 public class ResourceOrderRepoService {

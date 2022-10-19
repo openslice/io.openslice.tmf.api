@@ -142,6 +142,7 @@ public class ResourceOrderIntegrationTest {
 
 		resorder.addOrderItemItem(oItem);
 
+		logger.info("testResourceOrderCreate Req= " + JsonUtils.toJsonString( resorder ));
 		// @formatter:off
 		String responseSorder = mvc
 				.perform(MockMvcRequestBuilders

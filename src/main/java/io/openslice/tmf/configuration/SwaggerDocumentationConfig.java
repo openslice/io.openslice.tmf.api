@@ -236,8 +236,8 @@ public class SwaggerDocumentationConfig {
     
     ApiInfo apiInfo652() {
         return new ApiInfoBuilder()
-            .title("Agreement Management")
-            .description("This is Swagger UI environment generated for the TMF Agreement Management specification")
+            .title("Resource Order Management-v4.0.0")
+            .description("This is Swagger UI environment generated for the TMF 652-Resource Order Management-v4.0.0 specification")
             .license("")
             .licenseUrl("http://unlicense.org")
             .termsOfServiceUrl("")
@@ -347,6 +347,27 @@ public class SwaggerDocumentationConfig {
             .version("1.0")
             .contact(new Contact("openslice.io","", ""))
             .build();
+    }
+    
+    
+    ApiInfo apiInfo685() {
+        return new ApiInfoBuilder()
+                .title("Resource Pool Management")
+                .description("## TMF API Reference: TMF685 Resource Pool Management   ### Release : 18.0 "
+                		+ "Resources that can\r\n"
+                		+ "be reserved are only\r\n"
+                		+ "in one pool.\r\n"
+                		+ "IF a resource is not found in a pool is infinite.\r\n"
+                		+ "When one makes a reservation for a resource, then we check availability of \r\n"
+                		+ "this resource on that specific dates\r\n"
+                		+ "if checkAvailability returns the resource\r\n"
+                		+ "then it can be reserved on that specific requested date and time.")
+                .license("")
+                .licenseUrl("http://unlicense.org")
+                .termsOfServiceUrl("")
+                .version("1.0.0")
+                .contact(new Contact("","", ""))
+                .build();
     }
     
     @Bean
@@ -642,6 +663,20 @@ public class SwaggerDocumentationConfig {
                 .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfoLCMRules())
+        		.securitySchemes(Arrays.asList(securityScheme()))
+        		.securityContexts(Arrays.asList(securityContext()));
+    }
+    
+    @Bean
+    public Docket swaggerrpm685(){
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("tmf-api-685 Resource Pool Management")
+                .select()
+                    .apis(RequestHandlerSelectors.basePackage("io.openslice.tmf.rpm685.api"))
+                    .build()
+                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .apiInfo(apiInfo685())
         		.securitySchemes(Arrays.asList(securityScheme()))
         		.securityContexts(Arrays.asList(securityContext()));
     }

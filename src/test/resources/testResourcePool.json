@@ -1,0 +1,86 @@
+{
+	"id": "42",
+	"href": "/hostname:port/ResourcePoolManagement/resourcePool/42",
+	"name": "StorageCapacity",
+	"@schemaLocation": "http://hostname:port/ResourcePoolManagement/v1/schema/storageCapacity ",
+	"@type": "Storage",
+
+	"capacity": [{
+			"capacitySpec": {
+				"id": "44",
+				"href": "http://hostname:port/ResourcePoolManagement/capacitySpecificatoin/44"
+			},
+			"capacityAmount": "500GB",
+			"relatedParty": {
+				"partyRole": "EnterpriseConpany"
+			},
+			"place": {
+				"id": "00555",
+				"type": "CITY",
+				"name": "Mitaka"
+			},
+			"apricableTimePeriod": {
+				"from": "2017.11.11 11:11"
+			},
+			"appliedCapacitylist": [{
+					"appliedCapacityamount": "200GB",
+					"capacityDemand": {
+						"capacityDemandAmount": "200GB"
+					},
+					"Resource": [{
+						"id": "3",
+						"href": "http://server:port/resourceInventoryManagement/logicalResource/3"
+					}]
+				},
+				{
+					"appliedCapacityamount": "300GB",
+					"capacityDemand": {
+						"capacityDemandAmount": "300GB"
+					},
+					"resource": [{
+							"id": "3",
+							"href": " http://server:port/resourceInventoryManagement/logicalResource/3"
+						},
+						{
+							"id": "5",
+							"href": " http://server:port/resourceInventoryManagement/logicalResource/5"
+						}
+					]
+				}
+			],
+			"resourceRef": [{
+					"id": "3",
+					"href": " http://server:port/resourceInventoryManagement/logicalResource/3"
+				},
+				{
+					"id": "5",
+					"href": " http://server:port/resourceInventoryManagement/logicalResource/5"
+				}
+			]
+		},
+		{
+			"capacitySpec": {
+				"id": "54",
+				"href": "http://hostname:port/ResourcePoolManagement/CapacitySpecificatoin/54"
+			},
+			"capacityAmount": "1TB",
+			"relatedParty": {
+				"partyRole": "EnterpriseConpany"
+			},
+			"place": {
+				"id": "00555",
+				"type": "CITY",
+				"name": "Mitaka"
+			},
+			"apricableTimePeriod": {
+				"from": "2017.12.11 11:11"
+			},
+			"appliedCapacitylist": [{
+				"resourceRef": [{
+					"id": "9",
+					"href": "http://server:port/resourceInventoryManagement/logicalResource/9"
+				}]
+			}]
+		}
+	]
+}

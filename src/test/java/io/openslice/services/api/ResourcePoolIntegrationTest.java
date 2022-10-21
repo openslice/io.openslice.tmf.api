@@ -378,7 +378,7 @@ public class ResourcePoolIntegrationTest {
 		AvailabilityCheck respAvailabilityCheck = JsonUtils.toJsonObj(responseAvailabilityCheck,
 				AvailabilityCheck.class);
 
-		assertThat(respAvailabilityCheck.getAvailableResources().size()).isEqualTo( 0 );
+		assertThat(respAvailabilityCheck.getAvailableResources().size()).isEqualTo( 4 );
 
 //		RelatedParty relatedParty = new RelatedParty();
 //		relatedParty.setName("Actor");

@@ -26,6 +26,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -64,8 +65,10 @@ import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceCreateEvent;
 import io.openslice.tmf.ri639.model.ResourceCreateNotification;
+import io.openslice.tmf.ri639.model.ResourceRelationship;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
 import io.openslice.tmf.ri639.repo.ResourceRepository;
+import io.openslice.tmf.rpm685.model.ReservationItem;
 import io.openslice.tmf.sim638.model.Service;
 
 
@@ -311,7 +314,9 @@ public class ResourceRepoService {
 		
 
 		if ( resourceUpd.getResourceRelationship() != null) {
-			resource.getResourceRelationship().addAll( resourceUpd.getResourceRelationship() );
+			//resource.getResourceRelationship().addAll( resourceUpd.getResourceRelationship() );
+			// new LinkedHashSet<ReservationItem>( list )
+			resource.setResourceRelationship(new LinkedHashSet<ResourceRelationship>( resourceUpd.getResourceRelationship() ) );
 		}
 
 				

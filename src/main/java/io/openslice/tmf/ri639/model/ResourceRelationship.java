@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
+import io.openslice.tmf.common.model.service.ResourceRef;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -36,7 +38,8 @@ public class ResourceRelationship extends BaseRootEntity {
 
 	@JsonProperty("resource")
 	@OneToOne(cascade = CascadeType.ALL)
-	private ResourceRefOrValue resource = null;
+	@JoinColumn(name = "rsrc_rsrcref_uuid", referencedColumnName = "uuid")
+	private ResourceRef resource = null;
 
 	/**
 	 * unique identifier
@@ -75,7 +78,7 @@ public class ResourceRelationship extends BaseRootEntity {
 		this.relationshipType = relationshipType;
 	}
 
-	public ResourceRelationship resource(ResourceRefOrValue resource) {
+	public ResourceRelationship resource( ResourceRef resource) {
 		this.resource = resource;
 		return this;
 	}
@@ -89,11 +92,11 @@ public class ResourceRelationship extends BaseRootEntity {
 	@NotNull
 
 	@Valid
-	public ResourceRefOrValue getResource() {
+	public ResourceRef getResource() {
 		return resource;
 	}
 
-	public void setResource(ResourceRefOrValue resource) {
+	public void setResource(ResourceRef resource) {
 		this.resource = resource;
 	}
 

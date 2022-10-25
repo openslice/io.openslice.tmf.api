@@ -27,6 +27,7 @@ import io.openslice.tmf.rpm685.model.ReservationMapper;
 import io.openslice.tmf.rpm685.model.ReservationStateType;
 import io.openslice.tmf.rpm685.model.ReservationUpdate;
 import io.openslice.tmf.rpm685.model.ResourceCapacityDemand;
+import io.openslice.tmf.rpm685.model.ResourcePool;
 import io.openslice.tmf.rpm685.model.ResourcePoolRef;
 import io.openslice.tmf.rpm685.repo.ResourceReservationRepository;
 
@@ -175,5 +176,15 @@ public class ResourceReservationRepoService {
 		
 		
 		return aReservation;
+	}
+
+	public Void deleteByUuid(String id) {
+		Reservation s = this.findByUuid(id);
+		if (s == null) {
+			return null;
+		}
+
+		this.resourceReservationRepository.delete( s );
+		return null;
 	}
 }

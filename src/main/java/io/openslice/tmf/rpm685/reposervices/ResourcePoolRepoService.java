@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.common.model.service.ResourceRef;
+import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.rpm685.model.AvailabilityCheck;
 import io.openslice.tmf.rpm685.model.AvailabilityCheckCreate;
 import io.openslice.tmf.rpm685.model.ExtractCreate;
@@ -169,6 +170,17 @@ public class ResourcePoolRepoService {
 	public Set<ResourcePool> findResourceRefinPools(@NotNull String resourceRefId) {
 		return this.resourcePoolRepo.findByResourceId( resourceRefId ) ;
 		
+	}
+
+	public Void deleteByUuid(String id) {
+		Optional<ResourcePool> optionalCat = this.resourcePoolRepo.findByUuid(id);
+		ResourcePool s = optionalCat.get();
+		if (s == null) {
+			return null;
+		}
+
+		this.resourcePoolRepo.delete( s );
+		return null;
 	}
 
 }

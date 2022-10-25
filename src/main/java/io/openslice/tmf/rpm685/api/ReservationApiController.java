@@ -113,6 +113,18 @@ public class ReservationApiController implements ReservationApi {
 			return new ResponseEntity<Reservation>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
+	
+	
+	@Override
+	public ResponseEntity<Void> deleteReservation(Principal principal, String id) {
+		try {
+
+			return new ResponseEntity<Void>( resourceReservationRepoService.deleteByUuid(id), HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
     
     
     

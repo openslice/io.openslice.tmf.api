@@ -86,7 +86,17 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 	@Override
 	public ResponseEntity<Void> deleteResourcePool(
 			Principal principal,String id) {
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		
+
+		try {
+
+			return new ResponseEntity<Void>( resourcePoolRepoService.deleteByUuid(id), HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Couldn't serialize response for content type application/json", e);
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
 	}
 	
 

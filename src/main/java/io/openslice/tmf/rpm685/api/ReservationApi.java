@@ -179,5 +179,30 @@ public interface ReservationApi {
         }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
+    
+    
+    
+	@ApiOperation(value = "Deletes a 'Reservation' by Id", nickname = "deleteReservation", notes = "", tags = {
+			"resourcePool", })
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Deleted"),
+			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
+			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
+			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@RequestMapping(value = "/reservation/{id}", produces = { "application/json" }, method = RequestMethod.DELETE)
+	default ResponseEntity<Void> deleteReservation(
+			Principal principal,
+			@ApiParam(value = "Identifier of the Reservation", required = true) @PathVariable("id") String id) {
+		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+		} else {
+			log.warn(
+					"ObjectMapper or HttpServletRequest not configured in default ReservationApi interface so no example is generated");
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+	}
+
 
 }

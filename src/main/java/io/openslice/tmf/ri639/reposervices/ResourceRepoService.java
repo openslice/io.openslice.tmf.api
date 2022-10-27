@@ -118,6 +118,7 @@ public class ResourceRepoService {
 					+ "srv.name as name,"
 					+ "srv.category as category,"
 					+ "srv.resourceStatus as resourceStatus"
+					+ "srv.type as type"
 					;
 			
 			if (fields != null) {

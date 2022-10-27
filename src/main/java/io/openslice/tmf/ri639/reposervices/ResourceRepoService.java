@@ -117,7 +117,7 @@ public class ResourceRepoService {
 					+ "srv.startOperatingDate as startOperatingDate,"
 					+ "srv.name as name,"
 					+ "srv.category as category,"
-					+ "srv.resourceStatus as resourceStatus"
+					+ "srv.resourceStatus as resourceStatus,"
 					+ "srv.type as type"
 					;
 			

@@ -26,6 +26,7 @@ package io.openslice.tmf.so641.api;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -130,7 +132,9 @@ public interface ServiceOrderApi {
 			Principal principal,			
     		@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
     		@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-    		@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    		@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+    		@ApiParam(value = "Requested starttime for start of resources to be provided in response") @Valid @RequestParam(value = "starttime", required = false)  @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date starttime,
+    		@ApiParam(value = "Requested endtime for start of resources to be provided in response") @Valid @RequestParam(value = "endtime", required = false) @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date endtime    		
 			) {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);

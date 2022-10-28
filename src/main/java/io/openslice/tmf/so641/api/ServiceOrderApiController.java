@@ -20,6 +20,7 @@
 package io.openslice.tmf.so641.api;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -168,8 +169,11 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			Principal principal,			
 			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
 			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+    		@ApiParam(value = "Requested starttime for start of resources to be provided in response") @Valid @RequestParam(value = "starttime", required = false) Date starttime,
+    		@ApiParam(value = "Requested endtime for start of resources to be provided in response") @Valid @RequestParam(value = "endtime", required = false) Date endtime  ) {
 
+		
 		try {
 //			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
 //			SecurityContextHolder.setContext( (SecurityContext) attr );  
@@ -183,7 +187,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			
 			if ( authentication.getAuthorities().contains( new SimpleGrantedAuthority( UserRoleType.ROLE_ADMIN.getValue()  ) ) ) {
 
-				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(null, new HashMap<>()), HttpStatus.OK);				
+				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll( fields, new HashMap<>(), starttime, endtime), HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<List<ServiceOrder>>(serviceOrderRepoService.findAll(
 						principal.getName(),

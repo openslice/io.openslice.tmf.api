@@ -24,7 +24,10 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +122,7 @@ public class ServiceOrderRepoService {
 	 * @throws UnsupportedEncodingException
 	 */
 	@Transactional
-	public List findAll(@Valid String fields, Map<String, String> allParams)
+	public List findAll(@Valid String fields, Map<String, String> allParams, @Valid Date starttime, @Valid Date endtime)
 			throws UnsupportedEncodingException {
 
 		Session session = sessionFactory.openSession();
@@ -132,12 +135,14 @@ public class ServiceOrderRepoService {
 					+ "sor.orderDate as orderDate,"
 					+ "sor.requestedStartDate as requestedStartDate,"
 					+ "sor.requestedCompletionDate as requestedCompletionDate,"
+					+ "sor.startDate as startDate,"
+					+ "sor.expectedCompletionDate as expectedCompletionDate,"
 					+ "sor.state as state,"
 					+ "sor.type as type,"
 					+ "rp.uuid as relatedParty_uuid,"
 					+ "rp.name as relatedParty_name";
 			
-			if (fields != null) {
+			if (fields != null && fields.length()>0 ) {
 				String[] field = fields.split(",");
 				for (String f : field) {
 					sql += ", sor." + f + " as " + f ;
@@ -146,6 +151,7 @@ public class ServiceOrderRepoService {
 			}			
 			sql += "  FROM ServiceOrder sor "
 					+ "JOIN sor.relatedParty rp ";
+			
 			if (allParams.size() > 0) {
 				sql += " WHERE rp.role = 'REQUESTER' AND ";
 				for (String pname : allParams.keySet()) {
@@ -156,6 +162,21 @@ public class ServiceOrderRepoService {
 			} else {
 				sql += " WHERE rp.role = 'REQUESTER' ";				
 			}
+			
+			if ( starttime != null ) {
+				DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss" );
+				String sd = europeanDateFormatter.format( starttime.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime() );
+				
+				sql += " AND sor.startDate >= '"+ sd +"' ";		
+				
+			}
+			if ( endtime != null ) {
+
+				DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss" );
+				String sd = europeanDateFormatter.format( starttime.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime() );
+				sql += " AND sor.expectedCompletionDate <= '"+ sd +"' ";		
+			}
+			
 			sql += "  ORDER BY sor.orderDate DESC";
 			
 			List<Object> mapaEntity = session

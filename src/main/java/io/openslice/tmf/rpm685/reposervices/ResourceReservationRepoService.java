@@ -130,8 +130,8 @@ public class ResourceReservationRepoService {
 
 
 		
-		Set<Reservation> result1 = this.resourceReservationRepository.findAll();
-		Set<Reservation> result11 = this.resourceReservationRepository.findAll2( resourceId );
+		List<Reservation> result1 = this.findAll();
+		List<Reservation> result11 = this.resourceReservationRepository.findAll2( resourceId );
 //		Set<Reservation> result2 = this.resourceReservationRepository
 //				.findResourceReservationsThatIncludeFromDateTime(resourceId, fromDateTime);
 //		Set<Reservation> result3 = this.resourceReservationRepository

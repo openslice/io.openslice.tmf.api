@@ -1,6 +1,7 @@
 package io.openslice.tmf.rpm685.repo;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,7 +21,6 @@ public interface ResourceReservationRepository extends PagingAndSortingRepositor
 
 	Optional<Reservation> findByUuid(String id);
 
-	Set<Reservation> findAll();
 	
 	@Query("SELECT reserv FROM Reservation reserv "
 			+ "JOIN FETCH reserv.reservationItem ri "
@@ -29,7 +29,7 @@ public interface ResourceReservationRepository extends PagingAndSortingRepositor
 			+ "JOIN FETCH apcm.resourceCapacityDemand resCapacityDem "
 			+ "JOIN FETCH resCapacityDem.applicableTimePeriod timePeriod "
 			+ "WHERE resrc.id = ?1")
-	Set<Reservation> findAll2(String id);
+	List<Reservation> findAll2(String id);
 	
 //	@Query("SELECT reserv FROM Reservation reserv "
 //			+ "JOIN FETCH reserv.reservationItem ri "

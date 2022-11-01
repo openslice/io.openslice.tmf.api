@@ -144,15 +144,16 @@ public class ResourceReservationRepoService {
 		.findResourceReservationsForDates(resourceId, fromDateTime, endDateTime);
 
 		logger.info("reqFrom %s, reqEnd %s".formatted(fromDateTime, endDateTime));
-		if ( result1.size() >0 ) {
-			@Valid
-			ApplicableTimePeriod period = result1.stream().findFirst().get()
-					.getReservationItem().stream().findFirst().get()
-					.getAppliedCapacityAmount().getResourceCapacityDemand().getApplicableTimePeriod();
-			logger.info("reservationFROM %s, reservationEND %s".formatted(
-						period.getFromDateTime() , 
-						period.getEndDateTime()));			
-		}
+//		if ( result1.size() >0 ) {
+//			@Valid
+//			ApplicableTimePeriod period = result1.stream().findFirst().get()
+//					.getReservationItem().stream().findFirst().  get()
+//					.getAppliedCapacityAmount().getResourceCapacityDemand().getApplicableTimePeriod();
+//			
+//			logger.info("reservationFROM %s, reservationEND %s".formatted(
+//						period.getFromDateTime() , 
+//						period.getEndDateTime()));			
+//		}
 		
 		logger.info("result1 %s".formatted(result1.size()));
 		logger.info("result11 %s".formatted(result11.size()));

@@ -58,12 +58,6 @@ public class Reservation extends BaseEntity {
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	private Set<ReservationItem> reservationItem =  new HashSet<>();
 
-//	@JsonProperty("channelRef")
-//	private ChannelRef channelRef = null;
-
-//	@JsonProperty("requestedPeriod")
-//	@Column(name="reqPeriod")
-//	private TimePeriod requestedPeriod = null;
 
 	@Column(name="reqPeriodStartDate")
 	private OffsetDateTime requestedPeriodStartDateTime = null;
@@ -138,7 +132,10 @@ public class Reservation extends BaseEntity {
 	@Valid
 	@JsonProperty("requestedPeriodEndDateTime")
 	public String getRequestedPeriodEndDateTimeString() {
-		return requestedPeriodEndDateTime.toString();
+		if ( requestedPeriodEndDateTime != null) {
+			return requestedPeriodEndDateTime.toString();			
+		}
+		return null;
 	}
 	
 	public OffsetDateTime getRequestedPeriodEndDateTime() {
@@ -173,7 +170,11 @@ public class Reservation extends BaseEntity {
 	@Valid
 	@JsonProperty("requestedPeriodStartDateTime")
 	public String getRequestedPeriodStartDateTimeString() {
-		return requestedPeriodStartDateTime.toString();
+		if ( requestedPeriodStartDateTime != null) {
+			return requestedPeriodStartDateTime.toString();			
+		}
+		return null;			
+		
 	}
 	
 	public OffsetDateTime getRequestedPeriodStartDateTime() {

@@ -43,6 +43,11 @@ public class ReservationUpdate {
 
 	@JsonProperty("@type")
 	private String _atType = null;
+	
+
+
+	@JsonProperty("name")
+	private String name = null;
 
 	@JsonProperty("description")
 	private String description = null;
@@ -102,6 +107,22 @@ public class ReservationUpdate {
 		} else {
 			return null;
 		}
+	}
+	
+	
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

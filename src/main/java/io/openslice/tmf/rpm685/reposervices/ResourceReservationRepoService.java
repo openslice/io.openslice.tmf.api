@@ -110,6 +110,40 @@ public class ResourceReservationRepoService {
 
 		ReservationMapper mapper = Mappers.getMapper( ReservationMapper.class);
 		rp = mapper.updateReservation(rp, body) ;
+		
+		//re-calculate the reservation
+		for (ReservationItem ri : rp.getReservationItem()) {
+			AppliedCapacityAmount apCapAm = new AppliedCapacityAmount();
+			apCapAm.setAppliedDemandAmount( ri.getResourceCapacity().getCapacityDemandAmount());
+			apCapAm.getResource().addAll( ri.getResourceCapacity().getResourcePool().getResources() );
+
+			ResourceCapacityDemand resCap = new ResourceCapacityDemand();
+			ApplicableTimePeriod applicableTimePeriod = new ApplicableTimePeriod();
+			applicableTimePeriod.setFromDateTime( rp.getRequestedPeriodStartDateTime().minusSeconds(1)  );
+			applicableTimePeriod.setEndDateTime( rp.getRequestedPeriodEndDateTime().plusSeconds(1) );
+			resCap.applicableTimePeriod( applicableTimePeriod  );
+			apCapAm.setResourceCapacityDemand(resCap);
+			ri.appliedCapacityAmount( apCapAm );
+		
+			@Valid
+			AvailabilityCheckCreate acreq = new AvailabilityCheckCreate();
+			ResourceCapacityDemand rcd = resCap;
+			acreq.setResourceCapacityDemand(rcd);
+			rcd.setResourcePool(ri.getResourceCapacity().getResourcePool());
+			Set<ResourceRef> resourcesToReserve = new HashSet<>();
+			resourcesToReserve.addAll( ri.getResourceCapacity().getResourcePool().getResources() );
+			rcd.setResources( resourcesToReserve  );
+			
+
+			AvailabilityCheck respAvailabilityCheck = resourcePoolRepoService.availabilityCheck(acreq );
+			if ( respAvailabilityCheck.getAvailableResources().size() == 0 ) {
+				rp.setReservationState( ReservationStateType.REJECTED.toString() );
+				return rp;
+			}
+		
+		}
+		
+		
 		rp = this.resourceReservationRepository.save( rp );
 		return rp;
 	}

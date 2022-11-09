@@ -116,7 +116,9 @@ public abstract class ResourceSpecification extends BaseEntity {
 	@ApiModelProperty(value = "Unique identifier of this REST resource")
 
 	public String getId() {
-		id = uuid;
+		if ( uuid != null ) {
+			id = uuid;			
+		}
 		return uuid;
 	}
 

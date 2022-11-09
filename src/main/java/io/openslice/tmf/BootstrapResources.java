@@ -86,7 +86,7 @@ public class BootstrapResources {
 		
 		
 
-		ResourceCatalogUpdate catUpdate = new ResourceCatalogUpdate();
+		//ResourceCatalogUpdate catUpdate = new ResourceCatalogUpdate();
 
 		ResourceCatalog scatalog = this.resourceCatalogRepoService.findByName("Catalog");
 		if ( scatalog == null ){
@@ -115,9 +115,10 @@ public class BootstrapResources {
 				ResourceCategoryRef catref = new ResourceCategoryRef();
 				catref.setId( scategory.getId() );
 				catref.setName( scategory.getName());
-				catUpdate.addCategoryItem(catref);
+				//catUpdate.addCategoryItem(catref);
 				
-
+				scatalog.addCategory(scategory);
+				
 		}
 		
 		ResourceCategory scategoryNetw = this.resourceCategRepoService.findByName("Network Resources");
@@ -134,12 +135,15 @@ public class BootstrapResources {
 			ResourceCategoryRef catref = new ResourceCategoryRef();
 			catref.setId( scategoryNetw.getId() );
 			catref.setName( scategoryNetw.getName());
-			catUpdate.addCategoryItem(catref);
+			//catUpdate.addCategoryItem(catref);
+
+			scatalog.addCategory( scategoryNetw );
 		}
 		
 
+		scatalog = this.resourceCatalogRepoService.updateCatalog( scatalog );
 		
-		this.resourceCatalogRepoService.updateCatalog( scatalog.getId() , catUpdate );
+		//this.resourceCatalogRepoService.updateCatalog( scatalog.getId() , catUpdate );
 		
 		
 		List<ResourceSpecification> proexistingResSpecs = resourceSpecRepoService.findAll();

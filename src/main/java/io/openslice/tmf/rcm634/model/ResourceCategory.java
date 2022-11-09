@@ -55,7 +55,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class ResourceCategory extends BaseEntity {
 
 	@JsonProperty("id")
-	private String id = null;
+	protected String id = null;
 
 
 	@JsonProperty("parentId")
@@ -64,14 +64,14 @@ public class ResourceCategory extends BaseEntity {
 	@JsonProperty("isRoot")
 	private Boolean isRoot = null;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.DETACH })
+	@OneToMany( cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ResourceCategory> categoryObj = new HashSet<>();
 	
 	
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
+	@ManyToMany( cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ResourceCandidate> resourceCandidateObj = new HashSet<>();

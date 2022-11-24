@@ -58,6 +58,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.zip.Deflater;
+
 import io.openslice.model.ConstituentVxF;
 import io.openslice.model.ExperimentOnBoardDescriptor;
 import io.openslice.model.NetworkServiceDescriptor;
@@ -95,6 +100,7 @@ import io.openslice.tmf.stm653.model.ServiceTestSpecification;
 import io.openslice.tmf.stm653.model.ServiceTestSpecificationUpdate;
 import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
+import io.openslice.tmf.util.KrokiClient;
 
 /**
  * @author ctranoris
@@ -635,6 +641,16 @@ public class ServiceSpecificationRepoService {
 		{			
 			serviceSpec.setType("CustomerFacingServiceSpecification");
 		}
+		
+
+		String charvalue = createGraphNotation( serviceSpec );
+		ServiceSpecCharacteristic gnchar = serviceSpec.findSpecCharacteristicByName("SSPEC_GRAPH_NOTATION");
+		if ( gnchar == null ) {
+			gnchar = addServiceSpecCharacteristic(serviceSpec, "SSPEC_GRAPH_NOTATION", "SSPEC_GRAPH_NOTATION", new Any( charvalue ,  "SSPEC_GRAPH_NOTATION" ), EValueType.LONGTEXT);
+		} else {
+			gnchar.getServiceSpecCharacteristicValue().stream().findFirst().get().setValue(  new Any( charvalue ,  "SSPEC_GRAPH_NOTATION" ) );			
+		}
+		
 
 		return serviceSpec;
 	}
@@ -1180,8 +1196,9 @@ public class ServiceSpecificationRepoService {
 	/**
 	 * @param serviceSpec
 	 * @param name
+	 * @return 
 	 */
-	private void addServiceSpecCharacteristic(ServiceSpecification serviceSpec, String aName, String description, Any any, EValueType eValueType) {
+	private ServiceSpecCharacteristic addServiceSpecCharacteristic(ServiceSpecification serviceSpec, String aName, String description, Any any, EValueType eValueType) {
 		ServiceSpecCharacteristic serviceSpecCharacteristicItem = new ServiceSpecCharacteristic();
 		serviceSpecCharacteristicItem.setName( aName );
 		serviceSpecCharacteristicItem.setDescription(description);
@@ -1195,7 +1212,7 @@ public class ServiceSpecificationRepoService {
 		serviceSpecCharacteristicValueItem.setUnitOfMeasure("N/A");		
 		serviceSpecCharacteristicItem.addServiceSpecCharacteristicValueItem(serviceSpecCharacteristicValueItem );
 		serviceSpec.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );
-		
+		return serviceSpecCharacteristicItem;
 	}
 	
 	
@@ -1286,6 +1303,56 @@ public class ServiceSpecificationRepoService {
 		
 		return serviceSpec;
 	}
+	
+	private String createGraphNotation( ServiceSpecification serviceSpec ) {
+		String result = getSpecGraphNotation(serviceSpec, 0 );
+		result = "blockdiag {\r\n" + result + "}";
+		return result;
+	}
+	
+	private String getSpecGraphNotation( ServiceSpecification serviceSpec, int depth ) {
+		String result = "";
+		if (depth>10) {
+			return result;
+		}
+		for (ServiceSpecRelationship specRel : serviceSpec.getServiceSpecRelationship()) {
+			result += "\""+ serviceSpec.getName() + "\""+ " -> " + "\""+ specRel.getName() +"\" "+";\r\n";
+			ServiceSpecification aSpec= this.findByUuid( specRel.getId() );
+			if ( aSpec!= null) {
+				result += getSpecGraphNotation( aSpec, depth ++  );				
+			}
+		}
+		for (ResourceSpecificationRef resRel : serviceSpec.getResourceSpecification() ) {
+			result += "\""+ serviceSpec.getName() + "\""+ " -> " + "\""+ resRel.getName() + "\""+ ";\r\n";
+			result += "\""+ resRel.getName() + "\""+ " [color = \"orange\"]; ";
+			
+		}
+		result += "\""+ serviceSpec.getName() + "\""+ " [color = \"greenyellow\"]; ";
+		return result;
+	}
 
+	public String getImageSpecificationRelationshipGraph(String id) {
+		
+		//it is good to update the graph
+		//ServiceSpecification aSpec= this.findByUuid( id );
+		ServiceSpecificationUpdate serviceServiceSpecificationUpd = new ServiceSpecificationUpdate();
+		ServiceSpecification aSpec = this.updateServiceSpecification( id, serviceServiceSpecificationUpd );
+		
+		String graph = null;
+		if ( aSpec != null ) {
+			ServiceSpecCharacteristic gnchar = aSpec.findSpecCharacteristicByName("SSPEC_GRAPH_NOTATION");
+			if ( gnchar != null ) {
+				graph = gnchar.getServiceSpecCharacteristicValue().stream().findFirst().get().getValue().getValue();
+			
+			}
+		}
+		
+		return KrokiClient.encodedGraph(graph);
+		
+		
+	}
+	
+
+	
 
 }

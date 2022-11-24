@@ -72,7 +72,10 @@ swagger:
   authserver: http://localhost/auth/realms/openslice
   clientid: "osapiWebClientId"
   clientsecret: "secret"
-  
+
+kroki:
+  serverurl: http://localhost:8000
+
 oauthsign:
    key: "EK97Y7Y9WPGG1MEG"
 
@@ -148,7 +151,12 @@ CATALOG_ADD_SERVICETEST: "jms:queue:CATALOG.ADD.SERVICETEST"
 CATALOG_UPD_SERVICETEST: "jms:queue:CATALOG.UPD.SERVICETEST"
 CATALOG_GET_SERVICETEST_BY_ID: "jms:queue:CATALOG.GET.SERVICETEST"
 
-
 #NS ACTIONS
 NFV_CATALOG_NSACTIONS_SCALE: "jms:queue:NSACTIONS.SCALE"
 NFV_CATALOG_NS_LCMCHANGED: "jms:topic:NFV_CATALOG_NS_LCMCHANGED"
+
+#RESERVATION_API
+RESERVATION_CREATE: "jms:queue:RESERVATION.ADD"
+RESERVATION_AVAILABILITY_CHECK: "jms:queue:RESERVATION.AVAILABILITYCHECK"
+
+

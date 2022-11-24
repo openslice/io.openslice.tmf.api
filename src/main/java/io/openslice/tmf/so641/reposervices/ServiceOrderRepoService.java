@@ -68,6 +68,7 @@ import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import io.openslice.tmf.sim638.service.ServiceRepoService;
 import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderActionType;
@@ -84,6 +85,7 @@ import io.openslice.tmf.so641.model.ServiceOrderStateType;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
+import io.openslice.tmf.util.KrokiClient;
 
 @Service
 public class ServiceOrderRepoService {
@@ -101,6 +103,9 @@ public class ServiceOrderRepoService {
 
 	@Autowired
 	ServiceOrderApiRouteBuilder serviceOrderApiRouteBuilder;
+
+	@Autowired
+	ServiceRepoService serviceRepoService;
 
 	private SessionFactory  sessionFactory;
 
@@ -649,6 +654,11 @@ public class ServiceOrderRepoService {
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			so.addNoteItem(noteItem);				
 		}
+		
+		
+		
+
+		
 
 		so = this.serviceOrderRepo.save(so);
 		if (stateChanged) {
@@ -706,9 +716,13 @@ public class ServiceOrderRepoService {
 					}
 				}
 				
+				
 			}
 		}
 	}
+	
+	
+	
 
 	public ServiceOrder findByUuid(String id) {
 		Optional<ServiceOrder> optionalCat = this.serviceOrderRepo.findByUuid(id);
@@ -821,6 +835,92 @@ public class ServiceOrderRepoService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String getImageServiceOrderItemRelationshipGraph(String id, String itemid) {
+
+		ServiceOrder so = this.findByUuid(id);
+		String charvalue = null;
+		if ( so!=null) {
+			for (ServiceOrderItem soiOrigin :  so.getOrderItem()) {
+				if ( soiOrigin.getId().equals(itemid)) {
+					charvalue = createGraphNotation( soiOrigin );
+					
+//					Characteristic gnchar = soiOrigin.getService().findCharacteristicByName ( "SOITEM_GRAPH_NOTATION" );
+//					if ( gnchar == null ) {
+//						Characteristic serviceCharacteristicItem = new Characteristic();
+//						serviceCharacteristicItem.setName(  "SOITEM_GRAPH_NOTATION" );
+//						serviceCharacteristicItem.setValue(  new Any( charvalue ,  "SOITEM_GRAPH_NOTATION" ) );
+//						serviceCharacteristicItem.setValueType( EValueType.LONGTEXT.getValue() );
+//						soiOrigin.getService().addServiceCharacteristicItem( serviceCharacteristicItem );
+	//
+//					} else {
+//						gnchar.setValue(  new Any( charvalue ,  "SOITEM_GRAPH_NOTATION" ) );			
+//					}
+				}
+
+			}			
+		}
+
+		return KrokiClient.encodedGraph( charvalue );
+	}
+	
+	
+
+	private String createGraphNotation( ServiceOrderItem soiOrigin ) {
+		String result = getSOItemGraphNotation(soiOrigin, 0 );
+		result = "blockdiag {\r\n" + result + "}";
+		return result;
+	}
+	
+	
+
+	private String getSOItemGraphNotation(ServiceOrderItem soiOrigin, int depth) {
+		String result = "";
+		if (depth>10) {
+			return result;
+		}
+		for (ServiceRef specRel : soiOrigin.getService().getSupportingService() ) {
+			if ( !soiOrigin.getService().getName().equals( specRel.getName()) ) {
+				result += "\""+ soiOrigin.getService().getName() + "\""+ " -> " + "\""+ specRel.getName() +"\" "+";\r\n";
+				result += "\""+ specRel.getName() + "\""+ " [color = \"greenyellow\"]; \r\n";
+				io.openslice.tmf.sim638.model.Service aService= serviceRepoService.findByUuid( specRel.getId() );
+				if ( aService!= null) {
+					result += getServiceGraphNotation( aService,0 );				
+				}
+			}
+			
+		}
+		
+		for (ResourceRef resRel :soiOrigin.getService().getSupportingResource() ) {
+			result += "\""+ soiOrigin.getService().getName() + "\""+ " -> " + "\""+ resRel.getName() + "\""+ ";\r\n";
+			result += "\""+ resRel.getName() + "\""+ " [color = \"orange\"]; \r\n";
+			
+		}
+		
+		result += "\""+ soiOrigin.getService().getName() + "\""+ " [color = \"greenyellow\"]; \r\n";
+		return result;
+	}
+
+	private String getServiceGraphNotation(io.openslice.tmf.sim638.model.Service aService, int depth) {
+		String result = "";
+		if (depth>10) {
+			return result;
+		}
+		for (ServiceRef specRel : aService.getSupportingService() ) {
+			result += "\""+ aService.getName() + "\""+ " -> " + "\""+ specRel.getName()  +"\" "+";\r\n";
+			result += "\""+ specRel.getName() + "\""+ " [color = \"greenyellow\"];\r\n";
+			
+			for (ResourceRef resRel : aService.getSupportingResource()) {
+				result += "\""+ aService.getName() + "\""+ " -> " + "\""+ resRel.getName() + "\""+ ";\r\n";
+				result += "\""+ resRel.getName() + "\""+ " [color = \"orange\"]; \r\n";
+				
+			}
+			
+		}
+		
+		
+		return result;
 	}
 	
 

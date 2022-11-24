@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.so641.api;
 
+import java.net.URI;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -71,6 +73,11 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 
 	private final HttpServletRequest request;
 
+
+
+	@Value("${kroki.serverurl}")
+	private String KROKI_SERVERURL = "";
+	
 	@Autowired
 	ServiceOrderRepoService serviceOrderRepoService;
 
@@ -226,5 +233,17 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 			log.error("Couldn't serialize response for content type application/json", e);
 			return new ResponseEntity<ServiceOrder>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@Override
+	public ResponseEntity<Void> getImageServiceOrderItemRelationshipGraph(String id, String itemid) {
+		String encodedDiagram = serviceOrderRepoService.getImageServiceOrderItemRelationshipGraph(id, itemid);
+		
+		//consider redirect to kroki..id
+		return ResponseEntity
+				.status(HttpStatus.FOUND)
+				.location(URI.create(KROKI_SERVERURL + "/blockdiag/svg/" + encodedDiagram))
+				.build();
+		//return null;
 	}
 }

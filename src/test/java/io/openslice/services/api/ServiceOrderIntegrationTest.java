@@ -208,7 +208,7 @@ public class ServiceOrderIntegrationTest {
 		 * here 1+2 + the 2 characteristics of the service itself total 5
 		 */
 		
-		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 5 );
+		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 8 );
 
 		ServiceOrderCreate servOrder = new ServiceOrderCreate();
 		servOrder.setCategory("Experimentation");
@@ -260,9 +260,9 @@ public class ServiceOrderIntegrationTest {
 		assertThat(responseSO.getOrderItem().size()).isEqualTo(1);
 		
 
-		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo( 1 );
-		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo( 2 );
-		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 5 );
+		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo( 2 );
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo( 3 );
+		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 8 );
 	
 		
 		responseSO.getOrderItem().stream().forEach(soiElement -> {

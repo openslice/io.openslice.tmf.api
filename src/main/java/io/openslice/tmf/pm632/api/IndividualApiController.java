@@ -92,7 +92,7 @@ public class IndividualApiController implements IndividualApi {
     }
 	
 
-	@Secured({ "ROLE_USER" })
+	 @Secured({ "ROLE_USER" })
 	  public ResponseEntity<Individual> retrieveIndividual(
 				Principal principal,			
 				@ApiParam(value = "Identifier of the Individual",required=true) @PathVariable("id") String id,

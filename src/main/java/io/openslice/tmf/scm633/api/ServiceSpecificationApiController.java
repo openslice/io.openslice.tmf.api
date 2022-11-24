@@ -22,6 +22,7 @@ package io.openslice.tmf.scm633.api;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -91,6 +92,10 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	@Value("${spring.application.name}")
 	private String compname;
+	
+
+	@Value("${kroki.serverurl}")
+	private String KROKI_SERVERURL = "";
 
 	@Autowired
 	private CentralLogger centralLogger;
@@ -356,6 +361,19 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		 ServiceSpecification result = serviceSpecificationRepoService.specFromTestSpec(id);
 		
 		return new ResponseEntity<ServiceSpecification>( result, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Void> getImageSpecificationRelationshipGraph(String id) {
+	
+		String encodedDiagram = serviceSpecificationRepoService.getImageSpecificationRelationshipGraph(id);
+		
+		//consider redirect to kroki..id
+		return ResponseEntity
+				.status(HttpStatus.FOUND)
+				.location(URI.create(KROKI_SERVERURL + "/blockdiag/svg/" + encodedDiagram))
+				.build();
+		//return null;
 	}
 
 

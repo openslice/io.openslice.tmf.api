@@ -99,20 +99,15 @@ public class ResourceApiRouteBuilder extends RouteBuilder {
 		.log(LoggingLevel.INFO, log, CATALOG_GET_RESOURCE_BY_ID + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( resourceRepoService, "getResourceEagerAsString")
-		.convertBodyTo( String.class );
-		
-		
-		
+		.convertBodyTo( String.class );	
+				
 		from( CATALOG_UPD_RESOURCE )
 		.log(LoggingLevel.INFO, log, CATALOG_UPD_RESOURCE + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ResourceUpdate.class, true)
 		.bean( resourceRepoService, "updateResource(${header.serviceid}, ${body}, ${header.propagateToSO} )")
 		.marshal().json( JsonLibrary.Jackson)
-		.convertBodyTo( String.class );
-		
-		
-		
+		.convertBodyTo( String.class );		
 
 		from( CATALOG_RESOURCES_OF_PARTNERS )
 		.log(LoggingLevel.INFO, log, CATALOG_RESOURCES_OF_PARTNERS + " message received!")

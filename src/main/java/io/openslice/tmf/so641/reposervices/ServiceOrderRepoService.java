@@ -882,8 +882,8 @@ public class ServiceOrderRepoService {
 		}
 		for (ServiceRef specRel : soiOrigin.getService().getSupportingService() ) {
 			if ( !soiOrigin.getService().getName().equals( specRel.getName()) ) {
-				result += "\""+ soiOrigin.getService().getName() + "\""+ " -> " + "\""+ specRel.getName() +"\" "+";\r\n";
-				result += "\""+ specRel.getName() + "\""+ " [color = \"greenyellow\"]; \r\n";
+				result += "\""+ soiOrigin.getService().getId() + "\""+ " -> " + "\""+ specRel.getId() +"\" "+";\r\n";
+				result += "\""+ specRel.getId() + "\""+ " [label =\""+ specRel.getName() +"\", color = \"#f2f2f2\"]; \r\n";
 				io.openslice.tmf.sim638.model.Service aService= serviceRepoService.findByUuid( specRel.getId() );
 				if ( aService!= null) {
 					result += getServiceGraphNotation( aService,0 );				
@@ -893,12 +893,12 @@ public class ServiceOrderRepoService {
 		}
 		
 		for (ResourceRef resRel :soiOrigin.getService().getSupportingResource() ) {
-			result += "\""+ soiOrigin.getService().getName() + "\""+ " -> " + "\""+ resRel.getName() + "\""+ ";\r\n";
-			result += "\""+ resRel.getName() + "\""+ " [color = \"orange\"]; \r\n";
+			result += "\""+ soiOrigin.getService().getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
+			result += "\""+ resRel.getId() + "\""+ " [label = \"" + resRel.getName() + "\", shape = roundedbox, color = \"#e2e2e2\"]; \r\n";
 			
 		}
 		
-		result += "\""+ soiOrigin.getService().getName() + "\""+ " [color = \"greenyellow\"]; \r\n";
+		result += "\""+ soiOrigin.getService().getId() + "\""+ " [label = \""+ soiOrigin.getService().getName() +"\", color = \"#f2f2f2\"]; \r\n";
 		return result;
 	}
 
@@ -908,13 +908,13 @@ public class ServiceOrderRepoService {
 			return result;
 		}
 		for (ServiceRef specRel : aService.getSupportingService() ) {
-			result += "\""+ aService.getName() + "\""+ " -> " + "\""+ specRel.getName()  +"\" "+";\r\n";
-			result += "\""+ specRel.getName() + "\""+ " [color = \"greenyellow\"];\r\n";
+			result += "\""+ aService.getId() + "\""+ " -> " + "\""+ specRel.getId()  +"\" "+";\r\n";
+			result += "\""+ specRel.getId() + "\""+ " [label = \"" + specRel.getName()  + "\", color = \"#f2f2f2\"];\r\n";
 			
 			for (ResourceRef resRel : aService.getSupportingResource()) {
-				String resanme = "[RSPec]" + resRel.getName();
-				result += "\""+ aService.getName() + "\""+ " -> " + "\""+ resanme + "\""+ ";\r\n";
-				result += "\""+ resanme + "\""+ " [color = \"orange\"]; \r\n";
+				
+				result += "\""+ aService.getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
+				result += "\""+ resRel.getId() + "\""+ " [ label = \"" + resRel.getName() +"\",  shape = roundedbox, color = \"#e2e2e2\"]; \r\n";
 				
 			}
 			

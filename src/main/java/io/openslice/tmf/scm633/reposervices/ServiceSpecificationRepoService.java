@@ -1316,19 +1316,19 @@ public class ServiceSpecificationRepoService {
 			return result;
 		}
 		for (ServiceSpecRelationship specRel : serviceSpec.getServiceSpecRelationship()) {
-			result += "\""+ serviceSpec.getName() + "\""+ " -> " + "\""+ specRel.getName() +"\" "+";\r\n";
+			result += "\""+ serviceSpec.getId() + "\""+ " -> " + "\""+ specRel.getId() +"\" "+";\r\n";
 			ServiceSpecification aSpec= this.findByUuid( specRel.getId() );
 			if ( aSpec!= null) {
 				result += getSpecGraphNotation( aSpec, depth ++  );				
 			}
 		}
 		for (ResourceSpecificationRef resRel : serviceSpec.getResourceSpecification() ) {
-			String resanme = "[RSPec]" + resRel.getName();
-			result += "\""+ serviceSpec.getName() + "\""+ " -> " + "\" "+ resanme + "\""+ ";\r\n";
-			result += "\""+ resanme + "\""+ " [color = \"orange\"]; ";
+			
+			result += "\""+ serviceSpec.getName() + "\""+ " -> " + "\" "+ resRel.getId() + "\""+ ";\r\n";
+			result += "\""+ resRel.getId() + "\""+ " [ label = \""+ resRel.getName() +"\", shape = roundedbox, color = \"#e2e2e2\"]; ";
 			
 		}
-		result += "\""+ serviceSpec.getName() + "\""+ " [color = \"greenyellow\"]; ";
+		result += "\""+ serviceSpec.getId() + "\""+ " [ label = \""+ serviceSpec.getName() +"\", color = \"#f2f2f2\"]; ";
 		return result;
 	}
 

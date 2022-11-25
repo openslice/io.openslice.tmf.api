@@ -1324,7 +1324,7 @@ public class ServiceSpecificationRepoService {
 		}
 		for (ResourceSpecificationRef resRel : serviceSpec.getResourceSpecification() ) {
 			
-			result += "\""+ serviceSpec.getId() + "\""+ " -> " + "\" "+ resRel.getId() + "\""+ ";\r\n";
+			result += "\""+ serviceSpec.getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
 			result += "\""+ resRel.getId() + "\""+ " [ label = \""+ resRel.getName() +"\", shape = roundedbox, color = \"#e2e2e2\"]; ";
 			
 		}

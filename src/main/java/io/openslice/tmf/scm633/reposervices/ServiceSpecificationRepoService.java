@@ -1306,7 +1306,10 @@ public class ServiceSpecificationRepoService {
 	
 	private String createGraphNotation( ServiceSpecification serviceSpec ) {
 		String result = getSpecGraphNotation(serviceSpec, 0 );
-		result = "blockdiag {\r\n" + result + "}";
+		result = "blockdiag {"
+				+ "default_textcolor = white;\r\n"
+				+ "default_fontsize = 12;\r\n"
+				+ "\r\n" + result + "}";
 		return result;
 	}
 	
@@ -1325,10 +1328,10 @@ public class ServiceSpecificationRepoService {
 		for (ResourceSpecificationRef resRel : serviceSpec.getResourceSpecification() ) {
 			
 			result += "\""+ serviceSpec.getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
-			result += "\""+ resRel.getId() + "\""+ " [ label = \""+ resRel.getName() +"\", shape = roundedbox, color = \"#e2e2e2\"]; ";
+			result += "\""+ resRel.getId() + "\""+ " [ label = \""+ resRel.getName() +"\", shape = roundedbox, color = \"#e28743\"]; ";
 			
 		}
-		result += "\""+ serviceSpec.getId() + "\""+ " [ label = \""+ serviceSpec.getName() +"\", color = \"#f2f2f2\"]; ";
+		result += "\""+ serviceSpec.getId() + "\""+ " [ label = \""+ serviceSpec.getName() +"\", color = \"#2596be\"]; ";
 		return result;
 	}
 

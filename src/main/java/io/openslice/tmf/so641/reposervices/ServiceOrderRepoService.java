@@ -869,7 +869,10 @@ public class ServiceOrderRepoService {
 
 	private String createGraphNotation( ServiceOrderItem soiOrigin ) {
 		String result = getSOItemGraphNotation(soiOrigin, 0 );
-		result = "blockdiag {\r\n" + result + "}";
+		result = "blockdiag {"
+				+ "default_textcolor = white;\r\n"
+				+ "default_fontsize = 12;\r\n"
+				+ "\r\n" + result + "}";
 		return result;
 	}
 	
@@ -883,7 +886,7 @@ public class ServiceOrderRepoService {
 		for (ServiceRef specRel : soiOrigin.getService().getSupportingService() ) {
 			if ( !soiOrigin.getService().getName().equals( specRel.getName()) ) {
 				result += "\""+ soiOrigin.getService().getId() + "\""+ " -> " + "\""+ specRel.getId() +"\" "+";\r\n";
-				result += "\""+ specRel.getId() + "\""+ " [label =\""+ specRel.getName() +"\", color = \"#f2f2f2\"]; \r\n";
+				result += "\""+ specRel.getId() + "\""+ " [label =\""+ specRel.getName() +"\", color = \"#2596be\"]; \r\n";
 				io.openslice.tmf.sim638.model.Service aService= serviceRepoService.findByUuid( specRel.getId() );
 				if ( aService!= null) {
 					result += getServiceGraphNotation( aService,0 );				
@@ -894,11 +897,11 @@ public class ServiceOrderRepoService {
 		
 		for (ResourceRef resRel :soiOrigin.getService().getSupportingResource() ) {
 			result += "\""+ soiOrigin.getService().getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
-			result += "\""+ resRel.getId() + "\""+ " [label = \"" + resRel.getName() + "\", shape = roundedbox, color = \"#e2e2e2\"]; \r\n";
+			result += "\""+ resRel.getId() + "\""+ " [label = \"" + resRel.getName() + "\", shape = roundedbox, color = \"#e28743\"]; \r\n";
 			
 		}
 		
-		result += "\""+ soiOrigin.getService().getId() + "\""+ " [label = \""+ soiOrigin.getService().getName() +"\", color = \"#f2f2f2\"]; \r\n";
+		result += "\""+ soiOrigin.getService().getId() + "\""+ " [label = \""+ soiOrigin.getService().getName() +"\", color = \"#2596be\"]; \r\n";
 		return result;
 	}
 
@@ -909,12 +912,12 @@ public class ServiceOrderRepoService {
 		}
 		for (ServiceRef specRel : aService.getSupportingService() ) {
 			result += "\""+ aService.getId() + "\""+ " -> " + "\""+ specRel.getId()  +"\" "+";\r\n";
-			result += "\""+ specRel.getId() + "\""+ " [label = \"" + specRel.getName()  + "\", color = \"#f2f2f2\"];\r\n";
+			result += "\""+ specRel.getId() + "\""+ " [label = \"" + specRel.getName()  + "\", color = \"#2596be\"];\r\n";
 			
 			for (ResourceRef resRel : aService.getSupportingResource()) {
 				
 				result += "\""+ aService.getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
-				result += "\""+ resRel.getId() + "\""+ " [ label = \"" + resRel.getName() +"\",  shape = roundedbox, color = \"#e2e2e2\"]; \r\n";
+				result += "\""+ resRel.getId() + "\""+ " [ label = \"" + resRel.getName() +"\",  shape = roundedbox, color = \"#e28743\"]; \r\n";
 				
 			}
 			

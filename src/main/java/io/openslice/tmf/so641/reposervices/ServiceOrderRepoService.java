@@ -912,8 +912,9 @@ public class ServiceOrderRepoService {
 			result += "\""+ specRel.getName() + "\""+ " [color = \"greenyellow\"];\r\n";
 			
 			for (ResourceRef resRel : aService.getSupportingResource()) {
-				result += "\""+ aService.getName() + "\""+ " -> " + "\""+ resRel.getName() + "\""+ ";\r\n";
-				result += "\""+ resRel.getName() + "\""+ " [color = \"orange\"]; \r\n";
+				String resanme = "[RSPec]" + resRel.getName();
+				result += "\""+ aService.getName() + "\""+ " -> " + "\""+ resanme + "\""+ ";\r\n";
+				result += "\""+ resanme + "\""+ " [color = \"orange\"]; \r\n";
 				
 			}
 			

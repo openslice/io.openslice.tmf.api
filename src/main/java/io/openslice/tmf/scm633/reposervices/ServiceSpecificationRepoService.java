@@ -1323,8 +1323,9 @@ public class ServiceSpecificationRepoService {
 			}
 		}
 		for (ResourceSpecificationRef resRel : serviceSpec.getResourceSpecification() ) {
-			result += "\""+ serviceSpec.getName() + "\""+ " -> " + "\""+ resRel.getName() + "\""+ ";\r\n";
-			result += "\""+ resRel.getName() + "\""+ " [color = \"orange\"]; ";
+			String resanme = "[RSPec]" + resRel.getName();
+			result += "\""+ serviceSpec.getName() + "\""+ " -> " + "\" "+ resanme + "\""+ ";\r\n";
+			result += "\""+ resanme + "\""+ " [color = \"orange\"]; ";
 			
 		}
 		result += "\""+ serviceSpec.getName() + "\""+ " [color = \"greenyellow\"]; ";

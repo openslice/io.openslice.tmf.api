@@ -47,4 +47,10 @@ public interface ServiceOrderRepository extends PagingAndSortingRepository<Servi
 	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp ORDER BY sor.orderDate DESC")	
 	List<ServiceOrder> findAllOptimized();
 
+
+
+	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.note an "
+			+ "WHERE sor.uuid = ?1 "
+			+ "ORDER BY an.date ASC")	
+	Optional<ServiceOrder> findNotesOfServOrder(String id);
 }

@@ -26,6 +26,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
@@ -86,6 +88,7 @@ import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
 import io.openslice.tmf.util.KrokiClient;
+import lombok.Data;
 
 @Service
 public class ServiceOrderRepoService {
@@ -844,7 +847,7 @@ public class ServiceOrderRepoService {
 		if ( so!=null) {
 			for (ServiceOrderItem soiOrigin :  so.getOrderItem()) {
 				if ( soiOrigin.getId().equals(itemid)) {
-					charvalue = createGraphNotation( soiOrigin );
+					charvalue = createItemRelationshipGraphNotation( soiOrigin );
 					
 //					Characteristic gnchar = soiOrigin.getService().findCharacteristicByName ( "SOITEM_GRAPH_NOTATION" );
 //					if ( gnchar == null ) {
@@ -867,7 +870,7 @@ public class ServiceOrderRepoService {
 	
 	
 
-	private String createGraphNotation( ServiceOrderItem soiOrigin ) {
+	private String createItemRelationshipGraphNotation( ServiceOrderItem soiOrigin ) {
 		String result = getSOItemGraphNotation(soiOrigin, 0 );
 		result = "blockdiag {"
 				+ "default_textcolor = white;\r\n"
@@ -926,6 +929,64 @@ public class ServiceOrderRepoService {
 		
 		return result;
 	}
+	
+
+	public String getImageServiceOrderNotesGraph(String id) {
+		
+		@Data
+		class ALane{
+			public ALane(String author) {
+				this.name =author;
+			}
+			String name = "";
+			List<Note> boxes = new ArrayList<Note>();
+		}
+		
+		Map <String, ALane> lanes = new HashMap<>();
+		String charvalue = "";
+		Optional<ServiceOrder> optionalCat = this.serviceOrderRepo.findNotesOfServOrder(id);
+		if ( optionalCat.isPresent() ) {
+			
+			ServiceOrder so = optionalCat.get();
+			List<Note> notes = so.getNote()
+					.stream()
+					.sorted( (a, b) -> a.getDate().compareTo(b.getDate()) )
+					.collect(Collectors.toList());
+			
+			for (Note anote : notes ) {
+				if ( charvalue.length() > 0 ) {
+					charvalue += " -> ";
+				}
+				charvalue += "\""+ anote.getUuid() + "\""  ;
+				
+				if ( lanes.get( anote.getAuthor()) == null)  {
+					lanes.put( anote.getAuthor() , new ALane( anote.getAuthor() ));
+				}
+				
+				lanes.get( anote.getAuthor()).boxes.add( anote);
+				
+			}
+			
+		}
+
+		for (String lane : lanes.keySet()) {
+			charvalue += "lane " + lanes.get(lane).name  + " {\r\n";
+			for ( Note aNote : lanes.get(lane).boxes) {
+				charvalue += aNote.getUuid() +" [label = \"" + aNote.getText() + "\r\n "+ aNote.getDateString()  +"\", color = \"orange\"]\r\n";
+			}
+			charvalue += "}\r\n";
+		}
+		
+		charvalue = "actdiag  {"
+				+ "default_fontsize = 9;\r\n"
+				+ "\r\n" + charvalue + "}\r\n";
+		return KrokiClient.encodedGraph( charvalue );
+		
+		
+	}
+	
+
+	
 	
 
 }

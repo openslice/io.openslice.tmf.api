@@ -246,4 +246,15 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 				.build();
 		//return null;
 	}
+
+	@Override
+	public ResponseEntity<Void> getImageServiceOrderNotesGraph(String id) {
+			String encodedDiagram = serviceOrderRepoService.getImageServiceOrderNotesGraph(id);
+		
+		//consider redirect to kroki..id
+		return ResponseEntity
+				.status(HttpStatus.FOUND)
+				.location(URI.create(KROKI_SERVERURL + "/actdiag/svg/" + encodedDiagram))
+				.build();
+	}
 }

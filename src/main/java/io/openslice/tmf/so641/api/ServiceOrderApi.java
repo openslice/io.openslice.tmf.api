@@ -206,5 +206,25 @@ public interface ServiceOrderApi {
     ResponseEntity<Void> getImageServiceOrderItemRelationshipGraph(
     		@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,
     		@ApiParam(value = "Identifier of the ServiceOrderItem",required=true) @PathVariable("itemid") String itemid);
+    
+
+    @ApiOperation(value = "Get a SVG image with service order notes activity graph", nickname = "getImageServiceOrderNotesGraph", 
+    		notes = "This operation returns a SVG image with service order notes activity  graph", response = Attachment.class, tags={ "serviceOrder", })
+    @ApiResponses(value = { 
+
+        @ApiResponse(code = 302, message = "Success", response = Object.class),
+        //@ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
+        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
+        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
+        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
+        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
+        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
+        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
+        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+    @RequestMapping(value ="/serviceOrder/{id}/notes_graph",        
+    	produces = MediaType.ALL_VALUE ,
+        method = RequestMethod.GET)
+    ResponseEntity<Void> getImageServiceOrderNotesGraph(
+    		@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id);
 
 }

@@ -972,12 +972,13 @@ public class ServiceOrderRepoService {
 		for (String lane : lanes.keySet()) {
 			charvalue += "lane " + lanes.get(lane).name  + " {\r\n";
 			for ( Note aNote : lanes.get(lane).boxes) {
-				charvalue += aNote.getUuid() +" [label = \"" + aNote.getText() + "\r\n "+ aNote.getDateString()  +"\", color = \"orange\"]\r\n";
+				charvalue += aNote.getUuid() +" [label = \"" + aNote.getDateString() + "\r\n "+ aNote.getText()  +"\", color = \"#2596be\"]\r\n";
 			}
 			charvalue += "}\r\n";
 		}
 		
 		charvalue = "actdiag  {"
+				+ "default_textcolor = white;\r\n"
 				+ "default_fontsize = 9;\r\n"
 				+ "\r\n" + charvalue + "}\r\n";
 		return KrokiClient.encodedGraph( charvalue );

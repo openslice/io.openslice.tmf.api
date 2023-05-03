@@ -39,10 +39,7 @@ public interface ServiceRepository extends PagingAndSortingRepository<Service, L
 	@Query("SELECT srv FROM Service srv JOIN FETCH srv.relatedParty rp WHERE rp.name = ?1")	
 	Iterable<Service> findByRolename(String name);
 
-	@Query("SELECT srv FROM Service srv  WHERE srv.state = (io.openslice.tmf.common.model.service.ServiceStateType.ACTIVE "
-			+ "OR io.openslice.tmf.common.model.service.ServiceStateType.RESERVED "
-			+ "OR io.openslice.tmf.common.model.service.ServiceStateType.DESIGNED "
-			+ "OR io.openslice.tmf.common.model.service.ServiceStateType.FEASIBILITYCHECKED) AND srv.endDate < CURRENT_TIMESTAMP")	
+	@Query("SELECT srv FROM Service srv  WHERE ( srv.state != io.openslice.tmf.common.model.service.ServiceStateType.TERMINATED ) AND srv.endDate < CURRENT_TIMESTAMP")	
 	List<Service> findActiveToTerminate();
 
 	@Query("SELECT srv FROM Service srv "

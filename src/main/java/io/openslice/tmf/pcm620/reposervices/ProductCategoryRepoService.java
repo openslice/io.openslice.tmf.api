@@ -221,10 +221,19 @@ public class ProductCategoryRepoService {
 						idAddedUpdated.put( poref.getId(), true);
 						
 					}
-				}
-				
-				
+				}				
 			}
+			List<ProductOfferingRef> toRemove = new ArrayList<>();
+			for (ProductOfferingRef ss : acat.getProductOfferingRefs()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (ProductOfferingRef ar : toRemove) {
+				acat.getProductOfferingRefs().remove(ar);
+			}
+			
 		}
 				
 				

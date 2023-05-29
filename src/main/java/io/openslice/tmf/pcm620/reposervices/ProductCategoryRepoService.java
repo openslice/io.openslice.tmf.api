@@ -43,9 +43,11 @@ import io.openslice.tmf.pcm620.model.Category;
 import io.openslice.tmf.pcm620.model.CategoryCreate;
 import io.openslice.tmf.pcm620.model.CategoryRef;
 import io.openslice.tmf.pcm620.model.CategoryUpdate;
+import io.openslice.tmf.pcm620.model.ProductOffering;
 import io.openslice.tmf.pcm620.model.ProductOfferingRef;
 import io.openslice.tmf.pcm620.repo.ProductCatalogRepository;
 import io.openslice.tmf.pcm620.repo.ProductCategoriesRepository;
+import io.openslice.tmf.pcm620.repo.ProductOfferingRepository;
 
 @Service
 public class ProductCategoryRepoService {
@@ -55,6 +57,10 @@ public class ProductCategoryRepoService {
 
 	@Autowired
 	ProductCatalogRepository catalogRepo;
+	
+
+	@Autowired
+	ProductOfferingRepository prodsOfferingRepo;
 
 	private SessionFactory sessionFactory;
 
@@ -190,6 +196,38 @@ public class ProductCategoryRepoService {
 			acat.setValidFor( tp );
 		} 
 		
+		if ( prodCatUpd.getProductOffering() != null ) {
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			for (ProductOfferingRef por : prodCatUpd.getProductOffering()) {
+				//find  by id and reload it here.
+				boolean idexists = false;
+				for (ProductOfferingRef originalProfOffRef : acat.getProductOfferingRefs()) {
+					if ( originalProfOffRef.getId().equals( por.getId())) {
+						idexists = true;
+						idAddedUpdated.put( originalProfOffRef.getId(), true);
+						break;
+					}					
+				}
+				if (!idexists) {
+					Optional<ProductOffering> profOffToAdd = this.prodsOfferingRepo.findByUuid( por.getId() );
+					if ( profOffToAdd.isPresent() ) {
+						ProductOffering poffget = profOffToAdd.get();
+						
+						ProductOfferingRef poref = new ProductOfferingRef();
+						poref.setId( poffget.getId() );
+						poref.setName( poffget.getName() );
+						acat.getProductOfferingRefs().add( poref );						
+						idAddedUpdated.put( poref.getId(), true);
+						
+					}
+				}
+				
+				
+			}
+		}
+				
+				
 		if ( prodCatUpd.getSubCategory() !=null ) {
 			//reattach fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();

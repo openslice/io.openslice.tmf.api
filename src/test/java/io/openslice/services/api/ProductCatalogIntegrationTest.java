@@ -30,6 +30,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
@@ -80,6 +82,7 @@ import io.openslice.tmf.pcm620.reposervices.ProductCategoryRepoService;
 import io.openslice.tmf.pcm620.reposervices.ProductOfferingPriceRepoService;
 import io.openslice.tmf.pcm620.reposervices.ProductOfferingRepoService;
 import io.openslice.tmf.pcm620.reposervices.ProductSpecificationRepoService;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 @RunWith(SpringRunner.class)
 @Transactional
@@ -198,7 +201,7 @@ public class ProductCatalogIntegrationTest {
 		assertThat(responsesCatalog.getCategoryRefs().get(0).getName()).isEqualTo("Test Product Category 2");
 
 		/**
-		 * Prudct Offering
+		 * Product Offering
 		 */
 		File sspec = new File("src/test/resources/testProductOfferingSpec.json");
 		in = new FileInputStream(sspec);
@@ -258,11 +261,15 @@ public class ProductCatalogIntegrationTest {
 				.getResponse().getContentAsString();
 		assertThat(productOfferingRepoService.findAll().size()).isEqualTo(1);
 		ProductOffering responsesSpec = JsonUtils.toJsonObj(response, ProductOffering.class);
+		assertThat(responsesSpec.getUuid()).isNotNull();
+		assertThat(responsesSpec.getId()).isEqualTo( responsesSpec.getUuid() );
 		assertThat(responsesSpec.getName()).isEqualTo("Test Product offering Spec");
 		assertThat(responsesSpec.getProductOfferingPrice().size()).isEqualTo(1);
 		assertThat(responsesSpec.getProdSpecCharValueUse().size()).isEqualTo(1);
 		assertThat(responsesSpec.getProdSpecCharValueUse().toArray(new ProductSpecificationCharacteristicValueUse[0])[0]
 				.getProductSpecCharacteristicValue().size()).isEqualTo(1);
+		
+		
 
 	}
 	

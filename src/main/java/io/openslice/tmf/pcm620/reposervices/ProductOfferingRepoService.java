@@ -114,7 +114,6 @@ public class ProductOfferingRepoService {
 //			String sql = "SELECT s FROM ProductOffering s";
 			String sql = "SELECT "
 					+ "s.uuid as uuid,"
-					+ "s.id as id,"
 					+ "s.name as name,"
 					+ "s.description as description,"
 					+ "s.isBundle as isBundle,"
@@ -151,6 +150,9 @@ public class ProductOfferingRepoService {
 							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
 							        for (int i = 0; i < tuple.length; i++) {
 							            String alias = aliases[i];
+							            if (alias.equals("uuid")) {
+							            	result.put("id", tuple[i]);
+							            }
 							            if (alias.equals("type")) {
 							            	alias = "@type";
 							            }

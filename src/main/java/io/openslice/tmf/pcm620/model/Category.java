@@ -70,10 +70,10 @@ public class Category extends BaseEntity {
 //	private List<ProductOfferingRef> productOffering = null;
 
 
-	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
+	@OneToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
 	@JoinTable()	
 	@JsonIgnore
-	private Set<ProductOffering> productOfferingObj = new HashSet<>();
+	private Set<ProductOfferingRef> productOfferingObj = new HashSet<>();
 	
 	
 
@@ -162,22 +162,26 @@ public class Category extends BaseEntity {
 	@Valid
 	@JsonProperty("productOffering")
 
-	public List<ProductOfferingRef> getProductOfferingRefs() {
+	public Set<ProductOfferingRef> getProductOfferingRefs() {
 		
-		List<ProductOfferingRef> scref = new ArrayList<>();
-		
-		for (ProductOffering sc : productOfferingObj) {
-			ProductOfferingRef scr = new ProductOfferingRef();
-			scr.setId( sc.getId());
-			scr.setName( sc.getName());
-			scr.setBaseType( ProductOfferingRef.class.getName() );
-			scref.add(scr);
-		}
-		
-		
-		return scref;
+		return productOfferingObj;
+//		
+//		List<ProductOfferingRef> scref = new ArrayList<>();
+//		
+//		for (ProductOffering sc : productOfferingObj) {
+//			ProductOfferingRef scr = new ProductOfferingRef();
+//			scr.setId( sc.getId());
+//			scr.setName( sc.getName());
+//			scr.setBaseType( ProductOfferingRef.class.getName() );
+//			scref.add(scr);
+//		}
+//		
+//		
+//		return scref;
 	}
 
+	
+	
 	
 
 

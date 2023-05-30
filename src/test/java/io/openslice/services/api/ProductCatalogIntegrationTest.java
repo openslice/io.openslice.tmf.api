@@ -65,10 +65,12 @@ import io.openslice.tmf.pcm620.model.CatalogUpdate;
 import io.openslice.tmf.pcm620.model.Category;
 import io.openslice.tmf.pcm620.model.CategoryCreate;
 import io.openslice.tmf.pcm620.model.CategoryRef;
+import io.openslice.tmf.pcm620.model.CategoryUpdate;
 import io.openslice.tmf.pcm620.model.ProductOffering;
 import io.openslice.tmf.pcm620.model.ProductOfferingCreate;
 import io.openslice.tmf.pcm620.model.ProductOfferingPriceCreate;
 import io.openslice.tmf.pcm620.model.ProductOfferingPriceRef;
+import io.openslice.tmf.pcm620.model.ProductOfferingRef;
 import io.openslice.tmf.pcm620.model.ProductOfferingTerm;
 import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristicValue;
 import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristicValueUse;
@@ -171,6 +173,10 @@ public class ProductCatalogIntegrationTest {
 		Category responsesCateg = JsonUtils.toJsonObj(response, Category.class);
 		assertThat(responsesCateg.getName()).isEqualTo("Test Product Category 2");
 		assertThat(responsesCateg.getVersion()).isEqualTo("1.2");
+		
+		
+
+		
 
 		/**
 		 * update catalog with category
@@ -260,15 +266,39 @@ public class ProductCatalogIntegrationTest {
 				.andExpect(jsonPath("name", is("Test Product offering Spec"))).andExpect(status().isOk()).andReturn()
 				.getResponse().getContentAsString();
 		assertThat(productOfferingRepoService.findAll().size()).isEqualTo(1);
-		ProductOffering responsesSpec = JsonUtils.toJsonObj(response, ProductOffering.class);
-		assertThat(responsesSpec.getUuid()).isNotNull();
-		assertThat(responsesSpec.getId()).isEqualTo( responsesSpec.getUuid() );
-		assertThat(responsesSpec.getName()).isEqualTo("Test Product offering Spec");
-		assertThat(responsesSpec.getProductOfferingPrice().size()).isEqualTo(1);
-		assertThat(responsesSpec.getProdSpecCharValueUse().size()).isEqualTo(1);
-		assertThat(responsesSpec.getProdSpecCharValueUse().toArray(new ProductSpecificationCharacteristicValueUse[0])[0]
+		ProductOffering responsesProdOff = JsonUtils.toJsonObj(response, ProductOffering.class);
+		assertThat(responsesProdOff.getUuid()).isNotNull();
+		assertThat(responsesProdOff.getId()).isEqualTo( responsesProdOff.getUuid() );
+		assertThat(responsesProdOff.getName()).isEqualTo("Test Product offering Spec");
+		assertThat(responsesProdOff.getProductOfferingPrice().size()).isEqualTo(1);
+		assertThat(responsesProdOff.getProdSpecCharValueUse().size()).isEqualTo(1);
+		assertThat(responsesProdOff.getProdSpecCharValueUse().toArray(new ProductSpecificationCharacteristicValueUse[0])[0]
 				.getProductSpecCharacteristicValue().size()).isEqualTo(1);
 		
+		
+		
+		/**
+		 * patch category
+		 */
+		
+		CategoryUpdate scategupd = JsonUtils.toJsonObj(sc, CategoryCreate.class);
+		scategupd.setVersion("1.2");
+		scategupd.setName("Test Product Category UPD2");
+		ProductOfferingRef poref = new ProductOfferingRef();
+		poref.setId( responsesProdOff.getId() );
+		poref.setName( responsesProdOff.getName() );
+		scategupd.addProductOfferingItem (poref );
+		response = mvc
+				.perform(MockMvcRequestBuilders.patch("/productCatalogManagement/v4/category/" + responsesCateg.getId())
+						.with(SecurityMockMvcRequestPostProcessors.csrf()).contentType(MediaType.APPLICATION_JSON)
+						.content(JsonUtils.toJson( scategupd )))
+				.andExpect(status().isOk()).andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("name", is("Test Product Category UPD2"))).andExpect(status().isOk()).andReturn()
+				.getResponse().getContentAsString();
+
+		assertThat(categRepoService.findAll().size()).isEqualTo(1);
+		assertThat(categRepoService.findAll().get(0).getProductOfferingRefs().size() ).isEqualTo(1);
+
 		
 
 	}

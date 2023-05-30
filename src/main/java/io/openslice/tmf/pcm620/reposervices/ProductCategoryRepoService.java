@@ -23,6 +23,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -230,7 +231,11 @@ public class ProductCategoryRepoService {
 			}
 			
 			for (ProductOfferingRef ar : toRemove) {
-				acat.getProductOfferingRefs().remove(ar);
+				Optional<ProductOffering> profOffToDelete = this.prodsOfferingRepo.findByUuid( ar.getId() );
+				if ( profOffToDelete.isPresent() ) {
+					acat.getProductOfferingObj().remove(profOffToDelete.get());
+					
+				}
 			}
 			
 		}

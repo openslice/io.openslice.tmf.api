@@ -71,7 +71,7 @@ public class Category extends BaseEntity {
 //	private List<ProductOfferingRef> productOffering = null;
 
 
-	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
+	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.DETACH } )
 	@JoinTable()	
 	@JsonIgnore
 	private Set<ProductOffering> productOffObj = new HashSet<>();

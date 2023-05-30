@@ -19,6 +19,8 @@
  */
 package io.openslice.tmf.sim638.service;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -664,6 +666,23 @@ public class ServiceRepoService {
 			raiseServiceAttributeValueChangedNotification( service );
 		}
 		
+		
+		Characteristic schart = service.getServiceCharacteristicByName("long_string");
+		if ( schart!= null ) {
+			String teest = schart.getValue().getValue();
+			logger.info("schart size = " + teest.length() );
+			
+			logger.info("schart " + teest );
+			System.out.println("The value is : \n " + teest);
+//			try (PrintWriter out = new PrintWriter("C:\\tranoris\\ctranup\\personal\\Invoices\\filename.txt")) {
+//			    out.println( teest );
+//			} catch (FileNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			logger.info("======================================================================================================");			
+		}
+		
 		return service;
 	}
 
@@ -690,7 +709,16 @@ public class ServiceRepoService {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new Hibernate5Module());
 		String res = mapper.writeValueAsString(s);
-
+		
+		Characteristic schart = s.getServiceCharacteristicByName("long_string");
+		if ( schart!= null ) {
+			String teest = schart.getValue().getValue();
+			logger.info("schart size = " + teest.length() );
+			
+			logger.info("schart " + teest );
+			logger.info("======================================================================================================");			
+		}
+		
 		return res;
 	}
 	

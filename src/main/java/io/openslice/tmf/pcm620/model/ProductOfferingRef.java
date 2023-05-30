@@ -41,8 +41,6 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 @JsonIgnoreProperties( {"uuid"} )
-@Entity(name = "ProductOfferingRef")
-@Table(name = "ProductOfferingRef")
 public class ProductOfferingRef extends BaseRootNamedEntity {
 	
 	

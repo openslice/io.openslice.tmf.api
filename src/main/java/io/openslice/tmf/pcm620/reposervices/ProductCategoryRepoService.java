@@ -58,7 +58,6 @@ public class ProductCategoryRepoService {
 	@Autowired
 	ProductCatalogRepository catalogRepo;
 	
-
 	@Autowired
 	ProductOfferingRepository prodsOfferingRepo;
 
@@ -214,11 +213,11 @@ public class ProductCategoryRepoService {
 					if ( profOffToAdd.isPresent() ) {
 						ProductOffering poffget = profOffToAdd.get();
 						
-						ProductOfferingRef poref = new ProductOfferingRef();
-						poref.setId( poffget.getId() );
-						poref.setName( poffget.getName() );
-						acat.getProductOfferingRefs().add( poref );						
-						idAddedUpdated.put( poref.getId(), true);
+							
+						acat.getProductOfferingObj().add(poffget);						
+						idAddedUpdated.put( poffget.getId(), true);
+						
+						
 						
 					}
 				}				

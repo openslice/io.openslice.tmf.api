@@ -27,6 +27,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -70,10 +71,10 @@ public class Category extends BaseEntity {
 //	private List<ProductOfferingRef> productOffering = null;
 
 
-	@OneToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
+	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
 	@JoinTable()	
 	@JsonIgnore
-	private Set<ProductOfferingRef> productOfferingObj = new HashSet<>();
+	private Set<ProductOffering> productOffObj = new HashSet<>();
 	
 	
 
@@ -162,25 +163,28 @@ public class Category extends BaseEntity {
 	@Valid
 	@JsonProperty("productOffering")
 
-	public Set<ProductOfferingRef> getProductOfferingRefs() {
+	public List<ProductOfferingRef> getProductOfferingRefs() {
 		
-		return productOfferingObj;
-//		
-//		List<ProductOfferingRef> scref = new ArrayList<>();
-//		
-//		for (ProductOffering sc : productOfferingObj) {
-//			ProductOfferingRef scr = new ProductOfferingRef();
-//			scr.setId( sc.getId());
-//			scr.setName( sc.getName());
-//			scr.setBaseType( ProductOfferingRef.class.getName() );
-//			scref.add(scr);
-//		}
-//		
-//		
-//		return scref;
+		List<ProductOfferingRef> scref = new ArrayList<>();
+		
+		for (ProductOffering sc : productOffObj) {
+			ProductOfferingRef scr = new ProductOfferingRef();
+			scr.setId( sc.getId());
+			scr.setName( sc.getName());
+			scr.setBaseType( ProductOfferingRef.class.getName() );
+			scref.add(scr);
+		}
+		
+		
+		return scref;
 	}
 
 	
+
+	@JsonIgnore
+	public Set<ProductOffering> getProductOfferingObj(){
+		return this.productOffObj;
+	}
 	
 	
 
@@ -255,7 +259,7 @@ public class Category extends BaseEntity {
 				&& Objects.equals(this.lifecycleStatus, category.lifecycleStatus)
 				&& Objects.equals(this.name, category.name) && Objects.equals(this.parentId, category.parentId)
 				&& Objects.equals(this.version, category.version)
-				&& Objects.equals(this.productOfferingObj , category.productOfferingObj)
+				&& Objects.equals(this.productOffObj , category.productOffObj)
 				&& Objects.equals(this.subCategoryObj, category.subCategoryObj)
 				&& Objects.equals(this.validFor, category.validFor) && Objects.equals(this.baseType, category.baseType)
 				&& Objects.equals(this.schemaLocation, category.schemaLocation)
@@ -282,7 +286,7 @@ public class Category extends BaseEntity {
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
 		sb.append("    version: ").append(toIndentedString(version)).append("\n");
-		sb.append("    productOffering: ").append(toIndentedString(productOfferingObj)).append("\n");
+		sb.append("    productOffering: ").append(toIndentedString(productOffObj)).append("\n");
 		sb.append("    subCategory: ").append(toIndentedString(subCategoryObj)).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");

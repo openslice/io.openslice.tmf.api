@@ -668,6 +668,7 @@ public class ServiceRepoService {
 		
 		
 		Characteristic schart = service.getServiceCharacteristicByName("long_string");
+
 		if ( schart!= null ) {
 			String teest = schart.getValue().getValue();
 			logger.info("schart size = " + teest.length() );
@@ -709,8 +710,10 @@ public class ServiceRepoService {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new Hibernate5Module());
 		String res = mapper.writeValueAsString(s);
-		
+
+
 		Characteristic schart = s.getServiceCharacteristicByName("long_string");
+
 		if ( schart!= null ) {
 			String teest = schart.getValue().getValue();
 			logger.info("schart size = " + teest.length() );

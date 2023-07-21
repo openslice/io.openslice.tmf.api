@@ -100,7 +100,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	@JsonProperty("resourceSpecCharacteristicValue")
 	@Valid
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	private Set<ResourceSpecificationCharacteristicValue> ResourceSpecCharacteristicValue = new HashSet<>();;
+	private Set<ResourceSpecificationCharacteristicValue> resourceSpecCharacteristicValue = new HashSet<>();;
 
 	public ResourceSpecificationCharacteristic() {
 		super();
@@ -121,13 +121,14 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 		valueType = src.valueType;
 		validFor = new TimePeriod( src.validFor ) ;
 		
-		for (ResourceSpecCharRelationship r : src.resourceSpecCharRelationship) {
-			this.addResourceSpecCharRelationshipItem( new ResourceSpecCharRelationship( r ));
-		}
-		
-		for (ResourceSpecificationCharacteristicValue r : src.ResourceSpecCharacteristicValue) {
-			this.addResourceSpecCharacteristicValueItem( new ResourceSpecificationCharacteristicValue(r) );
-		}
+		if ( src.resourceSpecCharRelationship!=null )
+			for (ResourceSpecCharRelationship r : src.resourceSpecCharRelationship) {
+				this.addResourceSpecCharRelationshipItem( new ResourceSpecCharRelationship( r ));
+			}
+		if ( src.resourceSpecCharacteristicValue!=null )
+			for (ResourceSpecificationCharacteristicValue r : src.resourceSpecCharacteristicValue) {
+				this.addResourceSpecCharacteristicValueItem( new ResourceSpecificationCharacteristicValue(r) );
+			}
 
 	}
 
@@ -439,16 +440,16 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 
 	public ResourceSpecificationCharacteristic ResourceSpecCharacteristicValue(
 			Set<ResourceSpecificationCharacteristicValue> ResourceSpecificationCharacteristicValue) {
-		this.ResourceSpecCharacteristicValue = ResourceSpecificationCharacteristicValue;
+		this.resourceSpecCharacteristicValue = ResourceSpecificationCharacteristicValue;
 		return this;
 	}
 
 	public ResourceSpecificationCharacteristic addResourceSpecCharacteristicValueItem(
 			ResourceSpecificationCharacteristicValue ResourceSpecificationCharacteristicValueItem) {
-		if (this.ResourceSpecCharacteristicValue == null) {
-			this.ResourceSpecCharacteristicValue = new HashSet<>();
+		if (this.resourceSpecCharacteristicValue == null) {
+			this.resourceSpecCharacteristicValue = new HashSet<>();
 		}
-		this.ResourceSpecCharacteristicValue.add(ResourceSpecificationCharacteristicValueItem);
+		this.resourceSpecCharacteristicValue.add(ResourceSpecificationCharacteristicValueItem);
 		return this;
 	}
 
@@ -462,12 +463,12 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	@Valid
 
 	public Set<ResourceSpecificationCharacteristicValue> getResourceSpecCharacteristicValue() {
-		return ResourceSpecCharacteristicValue;
+		return resourceSpecCharacteristicValue;
 	}
 
 	public void setResourceSpecificationCharacteristicValue(
 			Set<ResourceSpecificationCharacteristicValue> ResourceSpecificationCharacteristicValue) {
-		this.ResourceSpecCharacteristicValue = ResourceSpecificationCharacteristicValue;
+		this.resourceSpecCharacteristicValue = ResourceSpecificationCharacteristicValue;
 	}
 
 	@Override
@@ -494,8 +495,8 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 				&& Objects.equals(this.extensible, ResourceSpecificationCharacteristic.extensible)
 				&& Objects.equals(this.resourceSpecCharRelationship,
 						ResourceSpecificationCharacteristic.resourceSpecCharRelationship)
-				&& Objects.equals(this.ResourceSpecCharacteristicValue,
-						ResourceSpecificationCharacteristic.ResourceSpecCharacteristicValue);
+				&& Objects.equals(this.resourceSpecCharacteristicValue,
+						ResourceSpecificationCharacteristic.resourceSpecCharacteristicValue);
 	}
 
 //	@Override
@@ -525,7 +526,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 		sb.append("    extensible: ").append(toIndentedString(extensible)).append("\n");
 		sb.append("    resourceSpecCharRelationship: ").append(toIndentedString(resourceSpecCharRelationship))
 				.append("\n");
-		sb.append("    ResourceSpecificationCharacteristicValue: ").append(toIndentedString(ResourceSpecCharacteristicValue))
+		sb.append("    ResourceSpecificationCharacteristicValue: ").append(toIndentedString(resourceSpecCharacteristicValue))
 				.append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -566,7 +567,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 		for (ResourceSpecificationCharacteristicValue r : srcSet) {
 
 			boolean valueExists = false;
-			for (ResourceSpecificationCharacteristicValue thisCharVal : this.ResourceSpecCharacteristicValue) {
+			for (ResourceSpecificationCharacteristicValue thisCharVal : this.resourceSpecCharacteristicValue) {
 				if (thisCharVal.hashCode() == r.hashCode()) {
 					valueExists = true;
 					idAddedUpdated.put(thisCharVal.hashCode(), true);
@@ -587,14 +588,14 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 		 */
 
 		List<ResourceSpecificationCharacteristicValue> toRemove = new ArrayList<>();
-		for (ResourceSpecificationCharacteristicValue ss : this.ResourceSpecCharacteristicValue) {
+		for (ResourceSpecificationCharacteristicValue ss : this.resourceSpecCharacteristicValue) {
 			if (idAddedUpdated.get(ss.hashCode()) == null) {
 				toRemove.add(ss);
 			}
 		}
 
 		for (ResourceSpecificationCharacteristicValue r : toRemove) {
-			this.ResourceSpecCharacteristicValue.remove(r);
+			this.resourceSpecCharacteristicValue.remove(r);
 		}
 
 	}

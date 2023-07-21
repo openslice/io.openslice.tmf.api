@@ -37,7 +37,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
+import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
+import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import io.openslice.tmf.sim638.model.ServiceCreate;
+import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
@@ -52,11 +56,20 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_SERVICESPEC_BY_ID}")
 	private String CATALOG_GET_SERVICESPEC_BY_ID = "";
 	
+
+	@Value("${CATALOG_ADD_SERVICESPEC}")
+	private String CATALOG_ADD_SERVICESPEC = "";
+	
+
+	@Value("${CATALOG_UPD_SERVICESPEC}")
+	private String CATALOG_UPD_SERVICESPEC = "";
+	
+	@Value("${CATALOG_UPDADD_SERVICESPEC}")
+	private String CATALOG_UPDADD_SERVICESPEC = "";
+	
 	@Value("${NFV_CATALOG_GET_NSD_BY_ID}")
 	private String NFV_CATALOG_GET_NSD_BY_ID = "";
 	
-	
-
 	@Value("${CATALOG_UPD_EXTERNAL_SERVICESPEC}")
 	private String CATALOG_UPD_EXTERNAL_SERVICESPEC = "";
 	
@@ -76,8 +89,6 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 		.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
 		
-		
-		
 		from( CATALOG_UPD_EXTERNAL_SERVICESPEC )
 		.log(LoggingLevel.INFO, log, CATALOG_UPD_EXTERNAL_SERVICESPEC + " message received!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
@@ -87,8 +98,29 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 		.marshal().json( JsonLibrary.Jackson, String.class)
 		.convertBodyTo( String.class );
 		
-		
-		
+		from( CATALOG_ADD_SERVICESPEC )
+		.log(LoggingLevel.INFO, log, CATALOG_ADD_SERVICESPEC + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceSpecificationCreate .class, true)
+		.bean( serviceSpecificationRepoService, "addServiceSpecification(${body})")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+				
+		from( CATALOG_UPD_SERVICESPEC )
+		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICESPEC + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceSpecificationUpdate.class, true)
+		.bean( serviceSpecificationRepoService, "updateServiceSpecification(${header.serviceSpecId},  ${body} )")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
+
+		from( CATALOG_UPDADD_SERVICESPEC )
+		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICESPEC + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ServiceSpecificationUpdate.class, true)
+		.bean( serviceSpecificationRepoService, "updateOrAddServiceSpecification(${header.serviceSpecId}, ${header.forceId}, ${body} )")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
 	}
 
 	

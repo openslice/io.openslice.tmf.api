@@ -51,6 +51,7 @@ import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.LogicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
@@ -69,6 +70,7 @@ import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
+import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
 
@@ -96,11 +98,29 @@ public class ResourceSpecificationRepoService {
 		return this.resourceSpecificationRepo.save(reSpec);		
 	}
 	
+	
+	/**
+	 * @param id
+	 * @param forceId
+	 * @param serviceServiceSpecificationCreate
+	 * @return
+	 */
+	public ResourceSpecification updateOrAddResourceSpecification(String id,
+			@Valid ResourceSpecificationCreate resourceSpecificationCreate) {
+		
+		ResourceSpecification rSpec = updateResourceSpecification(id, resourceSpecificationCreate );
+		if ( rSpec == null ) {			
+			rSpec = addResourceSpecification( resourceSpecificationCreate );
+		}
+		
+		return rSpec;
+	}
+	
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
 		ResourceSpecification reSpec ;
-		if ( resourceSpecification.getType().equals( "PhysicalResourceSpecification" )  || 
-				 resourceSpecification.getType().equals( "PhysicalResourceSpecificationCreate" )  ) {
+		if (resourceSpecification.getType() !=null && (  resourceSpecification.getType().equals( "PhysicalResourceSpecification" )  || 
+				 resourceSpecification.getType().equals( "PhysicalResourceSpecificationCreate" )  )) {
 			reSpec = new PhysicalResourceSpecification(); 
 		}else {
 			reSpec = new LogicalResourceSpecification();			
@@ -124,10 +144,10 @@ public class ResourceSpecificationRepoService {
 	
 	
 	
-	public PhysicalResourceSpecification addPhysicalResourceSpecification(@Valid PhysicalResourceSpecificationCreate logicalResourceSpec) {
+	public PhysicalResourceSpecification addPhysicalResourceSpecification(@Valid PhysicalResourceSpecificationCreate pResourceSpec) {
 		PhysicalResourceSpecification reSpec = new PhysicalResourceSpecification();
 
-		return (PhysicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
+		return (PhysicalResourceSpecification) addResourceSpecificationGeneric(reSpec, pResourceSpec);
 	}
 	
 	private ResourceSpecification addResourceSpecificationGeneric(ResourceSpecification reSpec, @Valid ResourceSpecificationUpdate  resourceSpecification) {
@@ -245,7 +265,10 @@ public class ResourceSpecificationRepoService {
 		}
 		if ( resSpecUpd.isIsBundle() != null ) {
 			resourceSpec.setIsBundle( resSpecUpd.isIsBundle() );			
-		}		
+		}	
+		if ( resSpecUpd.getCategory()!= null ) {
+			resourceSpec.setCategory( resSpecUpd.getCategory() );			
+		}
 		
 		resourceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		
@@ -480,11 +503,11 @@ public class ResourceSpecificationRepoService {
 	}
 
 	
-	private ResourceSpecification readFromLocalPhysicalResourceSpec(String rname) {
-		ResourceSpecification rc;
+	private PhysicalResourceSpecificationCreate readFromLocalPhysicalResourceSpec(String rname) {
+		PhysicalResourceSpecificationCreate rc;
 		try {
 			
-			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), PhysicalResourceSpecification.class);
+			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), PhysicalResourceSpecificationCreate.class);
 			
 			return rc;
 		} catch (IOException e) {
@@ -494,11 +517,11 @@ public class ResourceSpecificationRepoService {
 		return null;
 	}
 	
-	private ResourceSpecification readFromLocalLogicalResourceSpec(String rname) {
-		ResourceSpecification rc;
+	private ResourceSpecificationCreate readFromLocalLogicalResourceSpec(String rname) {
+		ResourceSpecificationCreate rc;
 		try {
 			
-			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), LogicalResourceSpecification.class);
+			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), ResourceSpecificationCreate.class);
 			
 			return rc;
 		} catch (IOException e) {
@@ -522,10 +545,10 @@ public class ResourceSpecificationRepoService {
 	
 	public ResourceSpecification clonePhysicalResourceSpec(String specName, String fileName) {
 
-		ResourceSpecification resourceSpecificationObj = readFromLocalPhysicalResourceSpec( fileName );
+		PhysicalResourceSpecificationCreate resourceSpecificationObj = readFromLocalPhysicalResourceSpec( fileName );
 		resourceSpecificationObj.setName(specName);
-		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
-		return resourceSpecificationObj;
+		ResourceSpecification rSpec = this.addPhysicalResourceSpecification(resourceSpecificationObj);
+		return rSpec;
 	}
 	
 	public ResourceSpecification cloneLogicalResourceSpec() {
@@ -540,10 +563,10 @@ public class ResourceSpecificationRepoService {
 	
 	public ResourceSpecification cloneLogicalResourceSpec(String specName, String fileName) {
 
-		ResourceSpecification resourceSpecificationObj = readFromLocalLogicalResourceSpec( fileName );
+		ResourceSpecificationCreate resourceSpecificationObj = readFromLocalLogicalResourceSpec( fileName );
 		resourceSpecificationObj.setName(specName);
-		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
-		return resourceSpecificationObj;
+		ResourceSpecification rSpec = this.addLogicalResourceSpecification(resourceSpecificationObj);
+		return rSpec;
 	}
 
 	public ResourceSpecification findByNameAndVersion(String aname, String aversion) {

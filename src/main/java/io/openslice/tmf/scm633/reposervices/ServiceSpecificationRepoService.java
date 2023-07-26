@@ -352,6 +352,7 @@ public class ServiceSpecificationRepoService {
 	 * @param serviceServiceSpecificationCreate
 	 * @return
 	 */
+	@Transactional
 	public ServiceSpecification updateOrAddServiceSpecification(String id,
 			@Valid ServiceSpecificationCreate serviceServiceSpecificationCreate) {
 		

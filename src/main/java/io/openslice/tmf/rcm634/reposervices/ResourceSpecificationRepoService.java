@@ -32,15 +32,22 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.persistence.EntityManagerFactory;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.Attachment;
@@ -66,9 +73,12 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
+import io.openslice.tmf.ri639.model.Resource;
+import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
+import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
@@ -91,30 +101,26 @@ public class ResourceSpecificationRepoService {
 	@Autowired
 	ResourceCandidateRepoService resCandidateRepoService;
 	
+
+	private SessionFactory sessionFactory;
+	
 	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
 			+ File.separator + "metadata" + File.separator;
 
+	@Autowired
+	public ResourceSpecificationRepoService(EntityManagerFactory factory) {
+		if (factory.unwrap(SessionFactory.class) == null) {
+			throw new NullPointerException("factory is not a hibernate factory");
+		}
+		this.sessionFactory = factory.unwrap(SessionFactory.class);
+	}
+	
 	public ResourceSpecification addResourceSpec(ResourceSpecification reSpec) {
 		return this.resourceSpecificationRepo.save(reSpec);		
 	}
 	
 	
-	/**
-	 * @param id
-	 * @param forceId
-	 * @param serviceServiceSpecificationCreate
-	 * @return
-	 */
-	public ResourceSpecification updateOrAddResourceSpecification(String id,
-			@Valid ResourceSpecificationCreate resourceSpecificationCreate) {
-		
-		ResourceSpecification rSpec = updateResourceSpecification(id, resourceSpecificationCreate );
-		if ( rSpec == null ) {			
-			rSpec = addResourceSpecification( resourceSpecificationCreate );
-		}
-		
-		return rSpec;
-	}
+	
 	
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
@@ -187,6 +193,98 @@ public class ResourceSpecificationRepoService {
 		return optionalCat
 				.orElse(null);
 	}
+	
+	@Transactional
+	public ResourceSpecification findByUuidEager(String id) {
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
+		try {
+			ResourceSpecification dd = null;
+			try {
+				dd = session.get(ResourceSpecification.class, id);
+				if (dd == null) {
+					return this.findByUuid(id);// last resort
+				}
+				Hibernate.initialize(dd.getAttachment());
+				Hibernate.initialize(dd.getRelatedParty());
+				Hibernate.initialize(dd.getFeatureSpecification());
+				Hibernate.initialize(dd.getResourceSpecCharacteristic());
+				for (ResourceSpecificationCharacteristic schar : dd.getResourceSpecCharacteristic()) {
+					Hibernate.initialize(schar.getResourceSpecCharacteristicValue());
+					Hibernate.initialize(schar.getResourceSpecCharRelationship());
+
+				}
+				Hibernate.initialize(dd.getResourceSpecRelationship());
+
+				tx.commit();
+			} finally {
+				session.close();
+			}
+			return dd;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		session.close();
+		return null;
+		
+		
+	}
+	
+	@Transactional
+	public ResourceSpecification findByNameAndCategoryEager(String aname, String acategory) {
+
+		List<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByNameAndCategory(aname, acategory);
+		
+		if ( optionalCat.size() >0 ) {
+			return findByUuidEager( optionalCat.get(0).getUuid() );
+		}
+		
+		return null;
+	}
+	
+	@Transactional
+	public ResourceSpecification findByNameAndCategoryAndVersionEager(String aname, String acategory, String aversion) {
+
+		List<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByNameAndCategoryAndVersion(aname, acategory, aversion);
+		
+		if ( optionalCat.size() >0 ) {
+			return findByUuidEager( optionalCat.get(0).getUuid() );
+		}
+		
+		return null;
+	}
+	
+
+	@Transactional
+	public ResourceSpecification addOrupdateResourceSpecificationByNameCategoryVersion(String aname, String acategory, String aversion, ResourceSpecificationCreate aesourceCreate) {
+
+		List<ResourceSpecification> rspecs = this.resourceSpecificationRepo.findByNameAndCategoryAndVersion(aname, acategory, aversion);
+		ResourceSpecification result = null;
+		
+		
+		if ( rspecs.size() >0 ) {
+			//perform update to the first one
+			String resID = rspecs.get(0).getUuid();
+			result = this.updateResourceSpecification(resID, aesourceCreate);
+		} else {
+			result =  this.addResourceSpecification(aesourceCreate);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String originaServiceAsJson = mapper.writeValueAsString( result );
+			logger.debug(originaServiceAsJson);
+		} catch (JsonProcessingException e) {
+			logger.error("cannot umarshall service: " + result.getName() );
+			e.printStackTrace();
+		}	
+		
+		return result;
+	}
+	
 
 	public Void deleteByUuid(String id) {
 		Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid(id);
@@ -517,7 +615,7 @@ public class ResourceSpecificationRepoService {
 		return null;
 	}
 	
-	private ResourceSpecificationCreate readFromLocalLogicalResourceSpec(String rname) {
+	public ResourceSpecificationCreate readFromLocalLogicalResourceSpec(String rname) {
 		ResourceSpecificationCreate rc;
 		try {
 			

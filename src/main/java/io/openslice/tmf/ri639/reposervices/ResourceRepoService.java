@@ -304,14 +304,14 @@ public class ResourceRepoService {
 		logger.info("Will update Resource: " + resource.getName() );
 		//logger.info("Will update service details: " + s.toString() );
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String originaServiceAsJson = null;
-		try {
-			originaServiceAsJson = mapper.writeValueAsString( resource );
-		} catch (JsonProcessingException e) {
-			logger.error("cannot umarshall service: " + resource.getName() );
-			e.printStackTrace();
-		}
+//		ObjectMapper mapper = new ObjectMapper();
+//		String originaServiceAsJson = null;
+//		try {
+//			originaServiceAsJson = mapper.writeValueAsString( resource );
+//		} catch (JsonProcessingException e) {
+//			logger.error("cannot umarshall service: " + resource.getName() );
+//			e.printStackTrace();
+//		}
 		
 
 		if ( resourceUpd.getResourceRelationship() != null) {
@@ -494,9 +494,9 @@ public class ResourceRepoService {
 	public List<String> findAllActiveAndReservedResourcesOfPartners(){
 
 		List<String> result = new ArrayList<>();
-		List<Service> srvs = this.resourceRepo.findActiveAndReservedResourcesOfPartners();
-		for (Service service : srvs) {
-			result.add(  service.getId());
+		List<Resource> srvs = this.resourceRepo.findActiveAndReservedResourcesOfPartners();
+		for (Resource r : srvs) {
+			result.add(  r.getId());
 		}
 		
 		return result;
@@ -512,6 +512,36 @@ public class ResourceRepoService {
 		
 		this.resourceRepo.delete( s );
 		return null;
+	}
+	
+
+	@Transactional
+	public Resource addOrUpdateResourceByNameCategoryVersion(String aName,String aCategory, String aVersion, ResourceCreate aesourceCreate){
+		
+		List<Resource> resources = this.resourceRepo.findByNameAndCategoryAndResourceVersion(aName, aCategory, aVersion);
+		Resource result = null;
+		
+		if ( resources.size()>0) {
+			//perform update to the first one
+			String resID = resources.get(0).getUuid();
+			result = this.updateResource(resID, aesourceCreate, false);
+			
+					
+			 
+		} else {
+			result =  this.addResource(aesourceCreate);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String originaServiceAsJson = mapper.writeValueAsString( result );
+			logger.debug(originaServiceAsJson);
+		} catch (JsonProcessingException e) {
+			logger.error("cannot umarshall service: " + result.getName() );
+			e.printStackTrace();
+		}	
+		
+		return result;
 	}
 	
 	

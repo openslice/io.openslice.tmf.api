@@ -43,8 +43,13 @@ public interface ResourceSpecificationRepository extends PagingAndSortingReposit
 	
 
 	List<ResourceSpecification> findByName(String aname );
-	
+
 	List<ResourceSpecification> findByNameAndVersion(String aname, String aversion);
+
+	List<ResourceSpecification> findByNameAndCategory(String aname, String acategory);
+	
+
+	List<ResourceSpecification> findByNameAndCategoryAndVersion(String aname, String acategory, String aversion);
 
 	@Query("SELECT sc FROM PhysicalRspec sc")
 	List<PhysicalResourceSpecification> findAllPhysical();

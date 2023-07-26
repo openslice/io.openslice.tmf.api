@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
@@ -442,6 +443,24 @@ public class ResourceUpdate {
 			this.resourceCharacteristic = new ArrayList<>();
 		}
 		this.resourceCharacteristic.add(resourceCharacteristicItem);
+		return this;
+	}
+	
+	
+	public ResourceUpdate addResourceCharacteristicItemShort(String aname,
+			String aValue,
+			String valueType) {
+
+		Characteristic resCharacteristicItem =  new Characteristic();
+		resCharacteristicItem.setName( aname );
+					
+		Any val = new Any();
+		val.setValue( aValue );
+		val.setAlias( null );
+		
+		resCharacteristicItem.setValue( val );
+		
+		this.addResourceCharacteristicItem( resCharacteristicItem );
 		return this;
 	}
 

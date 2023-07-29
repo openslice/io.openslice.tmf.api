@@ -19,33 +19,29 @@
  */
 package io.openslice.tmf.so641.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * ServiceOrderItem
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 @Entity(name = "ServiceOrderItem")
 public class ServiceOrderItem extends BaseRootEntity {
 
@@ -86,7 +82,7 @@ public class ServiceOrderItem extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "Identifier of the individual line item")
+	@Schema(description = "Identifier of the individual line item")
 	public String getId() {
 		return uuid;
 	}
@@ -104,7 +100,7 @@ public class ServiceOrderItem extends BaseRootEntity {
 	 * 
 	 * @return action
 	 **/
-	@ApiModelProperty(required = true, value = "The action to be carried out on the Service. Can be: add, modify, delete, noChange")
+	@Schema(description = "The action to be carried out on the Service. Can be: add, modify, delete, noChange")
 	@NotNull
 
 	@Valid
@@ -127,7 +123,7 @@ public class ServiceOrderItem extends BaseRootEntity {
 	 * 
 	 * @return appointment
 	 **/
-	@ApiModelProperty(value = "An appointment that was set up with a related party for this order item")
+	@Schema(description = "An appointment that was set up with a related party for this order item")
 
 	@Valid
 
@@ -157,7 +153,7 @@ public class ServiceOrderItem extends BaseRootEntity {
 	 * 
 	 * @return orderItemRelationship
 	 **/
-	@ApiModelProperty(value = "A list of order items related to this order item")
+	@Schema(description = "A list of order items related to this order item")
 
 	@Valid
 
@@ -179,7 +175,7 @@ public class ServiceOrderItem extends BaseRootEntity {
 	 * 
 	 * @return service
 	 **/
-	@ApiModelProperty(required = true, value = "The Service to be acted on by the order item")
+	@Schema(description = "The Service to be acted on by the order item")
 	@NotNull
 
 	@Valid
@@ -203,7 +199,7 @@ public class ServiceOrderItem extends BaseRootEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "State of the order item: described in the state machine diagram. This is the requested state.")
+	@Schema(description = "State of the order item: described in the state machine diagram. This is the requested state.")
 
 	@Valid
 

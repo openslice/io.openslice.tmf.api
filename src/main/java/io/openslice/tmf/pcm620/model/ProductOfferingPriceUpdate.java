@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.Quantity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment. Skipped properties: id,href,lastUpdate")
+@Schema(description = "Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class ProductOfferingPriceUpdate   {
   @JsonProperty("description")
@@ -128,7 +126,7 @@ public class ProductOfferingPriceUpdate   {
    * Description of the productOfferingPrice
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the productOfferingPrice")
+  @Schema(description = "Description of the productOfferingPrice")
 
 
   public String getDescription() {
@@ -148,7 +146,7 @@ public class ProductOfferingPriceUpdate   {
    * A flag indicating if this ProductOfferingPrice is composite (bundle) or not
    * @return isBundle
   **/
-  @ApiModelProperty(value = "A flag indicating if this ProductOfferingPrice is composite (bundle) or not")
+  @Schema(description = "A flag indicating if this ProductOfferingPrice is composite (bundle) or not")
 
 
   public Boolean isIsBundle() {
@@ -168,7 +166,7 @@ public class ProductOfferingPriceUpdate   {
    * the lifecycle status of this ProductOfferingPrice
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "the lifecycle status of this ProductOfferingPrice")
+  @Schema(description = "the lifecycle status of this ProductOfferingPrice")
 
 
   public String getLifecycleStatus() {
@@ -188,7 +186,7 @@ public class ProductOfferingPriceUpdate   {
    * Name of the productOfferingPrice
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the productOfferingPrice")
+  @Schema(description = "Name of the productOfferingPrice")
 
 
   public String getName() {
@@ -208,7 +206,7 @@ public class ProductOfferingPriceUpdate   {
    * Percentage to apply for ProductOfferPriceAlteration (Discount)
    * @return percentage
   **/
-  @ApiModelProperty(value = "Percentage to apply for ProductOfferPriceAlteration (Discount)")
+  @Schema(description = "Percentage to apply for ProductOfferPriceAlteration (Discount)")
 
 
   public Float getPercentage() {
@@ -228,7 +226,7 @@ public class ProductOfferingPriceUpdate   {
    * A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.
    * @return priceType
   **/
-  @ApiModelProperty(value = "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.")
+  @Schema(description = "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.")
 
 
   public String getPriceType() {
@@ -248,7 +246,7 @@ public class ProductOfferingPriceUpdate   {
    * the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable
    * @return recurringChargePeriodLength
   **/
-  @ApiModelProperty(value = "the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable")
+  @Schema(description = "the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable")
 
 
   public Integer getRecurringChargePeriodLength() {
@@ -268,7 +266,7 @@ public class ProductOfferingPriceUpdate   {
    * The period to repeat the application of the price Could be month, week...
    * @return recurringChargePeriodType
   **/
-  @ApiModelProperty(value = "The period to repeat the application of the price Could be month, week...")
+  @Schema(description = "The period to repeat the application of the price Could be month, week...")
 
 
   public String getRecurringChargePeriodType() {
@@ -288,7 +286,7 @@ public class ProductOfferingPriceUpdate   {
    * ProductOffering version
    * @return version
   **/
-  @ApiModelProperty(value = "ProductOffering version")
+  @Schema(description = "ProductOffering version")
 
 
   public String getVersion() {
@@ -316,7 +314,7 @@ public class ProductOfferingPriceUpdate   {
    * this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship.
    * @return bundledPopRelationship
   **/
-  @ApiModelProperty(value = "this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship.")
+  @Schema(description = "this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship.")
 
   @Valid
 
@@ -345,7 +343,7 @@ public class ProductOfferingPriceUpdate   {
    * The Constraint resource represents a policy/rule applied to ProductOfferingPrice.
    * @return constraint
   **/
-  @ApiModelProperty(value = "The Constraint resource represents a policy/rule applied to ProductOfferingPrice.")
+  @Schema(description = "The Constraint resource represents a policy/rule applied to ProductOfferingPrice.")
 
   @Valid
 
@@ -374,7 +372,7 @@ public class ProductOfferingPriceUpdate   {
    * Place defines the places where the products are sold or delivered.
    * @return place
   **/
-  @ApiModelProperty(value = "Place defines the places where the products are sold or delivered.")
+  @Schema(description = "Place defines the places where the products are sold or delivered.")
 
   @Valid
 
@@ -403,7 +401,7 @@ public class ProductOfferingPriceUpdate   {
    * Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount
    * @return popRelationship
   **/
-  @ApiModelProperty(value = "Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount")
+  @Schema(description = "Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount")
 
   @Valid
 
@@ -424,7 +422,7 @@ public class ProductOfferingPriceUpdate   {
    * The amount of money that characterizes the price.
    * @return price
   **/
-  @ApiModelProperty(value = "The amount of money that characterizes the price.")
+  @Schema(description = "The amount of money that characterizes the price.")
 
   @Valid
 
@@ -453,7 +451,7 @@ public class ProductOfferingPriceUpdate   {
    * The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth).
    * @return pricingLogicAlgorithm
   **/
-  @ApiModelProperty(value = "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth).")
+  @Schema(description = "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth).")
 
   @Valid
 
@@ -482,7 +480,7 @@ public class ProductOfferingPriceUpdate   {
    * A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics.
    * @return prodSpecCharValueUse
   **/
-  @ApiModelProperty(value = "A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
+  @Schema(description = "A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
 
   @Valid
 
@@ -511,7 +509,7 @@ public class ProductOfferingPriceUpdate   {
    * A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods.
    * @return productOfferingTerm
   **/
-  @ApiModelProperty(value = "A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods.")
+  @Schema(description = "A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods.")
 
   @Valid
 
@@ -540,7 +538,7 @@ public class ProductOfferingPriceUpdate   {
    * An amount of money levied on the price of a Product by a legislative body.
    * @return tax
   **/
-  @ApiModelProperty(value = "An amount of money levied on the price of a Product by a legislative body.")
+  @Schema(description = "An amount of money levied on the price of a Product by a legislative body.")
 
   @Valid
 
@@ -561,7 +559,7 @@ public class ProductOfferingPriceUpdate   {
    * A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount.
    * @return unitOfMeasure
   **/
-  @ApiModelProperty(value = "A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount.")
+  @Schema(description = "A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount.")
 
   @Valid
 
@@ -582,7 +580,7 @@ public class ProductOfferingPriceUpdate   {
    * The period for which the productOfferingPrice is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the productOfferingPrice is valid")
+  @Schema(description = "The period for which the productOfferingPrice is valid")
 
   @Valid
 
@@ -603,7 +601,7 @@ public class ProductOfferingPriceUpdate   {
    * the immediate base class type of this product offering
    * @return baseType
   **/
-  @ApiModelProperty(value = "the immediate base class type of this product offering")
+  @Schema(description = "the immediate base class type of this product offering")
 
 
   public String getBaseType() {
@@ -623,7 +621,7 @@ public class ProductOfferingPriceUpdate   {
    * hyperlink reference to the schema describing this resource
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "hyperlink reference to the schema describing this resource")
+  @Schema(description = "hyperlink reference to the schema describing this resource")
 
 
   public String getSchemaLocation() {
@@ -643,7 +641,7 @@ public class ProductOfferingPriceUpdate   {
    * The class type of this Product offering
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of this Product offering")
+  @Schema(description = "The class type of this Product offering")
 
 
   public String getType() {

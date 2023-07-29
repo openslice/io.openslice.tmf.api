@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +31,7 @@ import io.openslice.tmf.lcm.model.LCMRuleSpecification;
 
 
 @Repository(value = "lcmRuleSpecificationRepository")
-public interface LCMRuleSpecificationRepository  extends PagingAndSortingRepository<LCMRuleSpecification, Long> {
+public interface LCMRuleSpecificationRepository  extends CrudRepository<LCMRuleSpecification, Long>, PagingAndSortingRepository<LCMRuleSpecification, Long> {
 	
 	Optional<LCMRuleSpecification> findByUuid(String id);
 

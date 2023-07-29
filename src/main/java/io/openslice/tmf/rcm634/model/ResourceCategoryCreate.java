@@ -22,21 +22,19 @@ package io.openslice.tmf.rcm634.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href
  */
-@ApiModel(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href")
+@Schema(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 public class ResourceCategoryCreate  extends ResourceCategoryUpdate {
   
@@ -59,7 +57,7 @@ public class ResourceCategoryCreate  extends ResourceCategoryUpdate {
    * Date and time of the last update
    * @return lastUpdate
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+  @Schema(description = "Date and time of the last update")
 
   @Valid
 

@@ -19,10 +19,7 @@
  */
 package io.openslice.tmf.rcm634.api;
 
-import java.time.OffsetDateTime;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,14 +28,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
-import io.swagger.annotations.ApiParam;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 @Controller
 @RequestMapping("/resourceCatalogManagement/v4/")
 public class ResourceCategoryApiController implements ResourceCategoryApi {
@@ -48,7 +45,7 @@ public class ResourceCategoryApiController implements ResourceCategoryApi {
 
 	@Override
 	public ResponseEntity<ResourceCategory> createResourceCategory(
-			@ApiParam(value = "The ServiceCategory to be created", required = true) @Valid @RequestBody ResourceCategoryCreate resCategory) {
+			@Parameter(description = "The ServiceCategory to be created", required = true) @Valid @RequestBody ResourceCategoryCreate resCategory) {
 
 		try {
 
@@ -64,7 +61,7 @@ public class ResourceCategoryApiController implements ResourceCategoryApi {
 
 	@Override
 	public ResponseEntity<Void> deleteResourceCategory(
-			@ApiParam(value = "Identifier of the Resource Category", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the Resource Category", required = true) @PathVariable("id") String id) {
 		try {
 			if (categoryRepoService.deleteById(id)) {
 				return new ResponseEntity<Void>(HttpStatus.OK);

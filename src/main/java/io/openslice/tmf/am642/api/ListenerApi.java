@@ -27,8 +27,7 @@ package io.openslice.tmf.am642.api;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +36,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.am642.model.AckAlarmsCreateEvent;
 import io.openslice.tmf.am642.model.AckAlarmsStateChangeEvent;
@@ -50,7 +47,6 @@ import io.openslice.tmf.am642.model.ClearAlarmsCreateEvent;
 import io.openslice.tmf.am642.model.ClearAlarmsStateChangeEvent;
 import io.openslice.tmf.am642.model.CommentAlarmsCreateEvent;
 import io.openslice.tmf.am642.model.CommentAlarmsStateChangeEvent;
-import io.openslice.tmf.am642.model.Error;
 import io.openslice.tmf.am642.model.EventSubscription;
 import io.openslice.tmf.am642.model.GroupAlarmsCreateEvent;
 import io.openslice.tmf.am642.model.GroupAlarmsStateChangeEvent;
@@ -58,13 +54,15 @@ import io.openslice.tmf.am642.model.UnAckAlarmsCreateEvent;
 import io.openslice.tmf.am642.model.UnAckAlarmsStateChangeEvent;
 import io.openslice.tmf.am642.model.UnGroupAlarmsCreateEvent;
 import io.openslice.tmf.am642.model.UnGroupAlarmsStateChangeEvent;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
-@Api(value = "listener", description = "the listener API")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Tag(name = "listener", description = "the listener API")
 public interface ListenerApi {
 
     Logger log = LoggerFactory.getLogger(ListenerApi.class);
@@ -81,21 +79,21 @@ public interface ListenerApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Client listener for entity AckAlarmsCreateEvent", nickname = "listenToAckAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification AckAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity AckAlarmsCreateEvent", operationId = "listenToAckAlarmsCreateEvent", description = "Example of a client listener for receiving the notification AckAlarmsCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/ackAlarmsCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToAckAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AckAlarmsCreateEvent body
+    default ResponseEntity<EventSubscription> listenToAckAlarmsCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody AckAlarmsCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -113,21 +111,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity AckAlarmsStateChangeEvent", nickname = "listenToAckAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification AckAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity AckAlarmsStateChangeEvent", operationId = "listenToAckAlarmsStateChangeEvent", description = "Example of a client listener for receiving the notification AckAlarmsStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/ackAlarmsStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToAckAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AckAlarmsStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToAckAlarmsStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody AckAlarmsStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -145,21 +143,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity AlarmAttributeValueChangeEvent", nickname = "listenToAlarmAttributeValueChangeEvent", notes = "Example of a client listener for receiving the notification AlarmAttributeValueChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity AlarmAttributeValueChangeEvent", operationId = "listenToAlarmAttributeValueChangeEvent", description = "Example of a client listener for receiving the notification AlarmAttributeValueChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/alarmAttributeValueChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToAlarmAttributeValueChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmAttributeValueChangeEvent body
+    default ResponseEntity<EventSubscription> listenToAlarmAttributeValueChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody AlarmAttributeValueChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -177,21 +175,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity AlarmCreateEvent", nickname = "listenToAlarmCreateEvent", notes = "Example of a client listener for receiving the notification AlarmCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity AlarmCreateEvent", operationId = "listenToAlarmCreateEvent", description = "Example of a client listener for receiving the notification AlarmCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/alarmCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToAlarmCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmCreateEvent body
+    default ResponseEntity<EventSubscription> listenToAlarmCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody AlarmCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -209,21 +207,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity AlarmDeleteEvent", nickname = "listenToAlarmDeleteEvent", notes = "Example of a client listener for receiving the notification AlarmDeleteEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity AlarmDeleteEvent", operationId = "listenToAlarmDeleteEvent", description = "Example of a client listener for receiving the notification AlarmDeleteEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/alarmDeleteEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToAlarmDeleteEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmDeleteEvent body
+    default ResponseEntity<EventSubscription> listenToAlarmDeleteEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody AlarmDeleteEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -241,21 +239,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity AlarmStateChangeEvent", nickname = "listenToAlarmStateChangeEvent", notes = "Example of a client listener for receiving the notification AlarmStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity AlarmStateChangeEvent", operationId = "listenToAlarmStateChangeEvent", description = "Example of a client listener for receiving the notification AlarmStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/alarmStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToAlarmStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody AlarmStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToAlarmStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody AlarmStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -273,21 +271,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity ClearAlarmsCreateEvent", nickname = "listenToClearAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification ClearAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ClearAlarmsCreateEvent", operationId = "listenToClearAlarmsCreateEvent", description = "Example of a client listener for receiving the notification ClearAlarmsCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/clearAlarmsCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToClearAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ClearAlarmsCreateEvent body
+    default ResponseEntity<EventSubscription> listenToClearAlarmsCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ClearAlarmsCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -305,21 +303,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity ClearAlarmsStateChangeEvent", nickname = "listenToClearAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification ClearAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ClearAlarmsStateChangeEvent", operationId = "listenToClearAlarmsStateChangeEvent", description = "Example of a client listener for receiving the notification ClearAlarmsStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/clearAlarmsStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToClearAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ClearAlarmsStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToClearAlarmsStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ClearAlarmsStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -337,21 +335,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity CommentAlarmsCreateEvent", nickname = "listenToCommentAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification CommentAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity CommentAlarmsCreateEvent", operationId = "listenToCommentAlarmsCreateEvent", description = "Example of a client listener for receiving the notification CommentAlarmsCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/commentAlarmsCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToCommentAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody CommentAlarmsCreateEvent body
+    default ResponseEntity<EventSubscription> listenToCommentAlarmsCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody CommentAlarmsCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -369,21 +367,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity CommentAlarmsStateChangeEvent", nickname = "listenToCommentAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification CommentAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity CommentAlarmsStateChangeEvent", operationId = "listenToCommentAlarmsStateChangeEvent", description = "Example of a client listener for receiving the notification CommentAlarmsStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/commentAlarmsStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToCommentAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody CommentAlarmsStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToCommentAlarmsStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody CommentAlarmsStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -401,21 +399,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity GroupAlarmsCreateEvent", nickname = "listenToGroupAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification GroupAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity GroupAlarmsCreateEvent", operationId = "listenToGroupAlarmsCreateEvent", description = "Example of a client listener for receiving the notification GroupAlarmsCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/groupAlarmsCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToGroupAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody GroupAlarmsCreateEvent body
+    default ResponseEntity<EventSubscription> listenToGroupAlarmsCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody GroupAlarmsCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -433,21 +431,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity GroupAlarmsStateChangeEvent", nickname = "listenToGroupAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification GroupAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity GroupAlarmsStateChangeEvent", operationId = "listenToGroupAlarmsStateChangeEvent", description = "Example of a client listener for receiving the notification GroupAlarmsStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/groupAlarmsStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToGroupAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody GroupAlarmsStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToGroupAlarmsStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody GroupAlarmsStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -465,21 +463,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity UnAckAlarmsCreateEvent", nickname = "listenToUnAckAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification UnAckAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity UnAckAlarmsCreateEvent", operationId = "listenToUnAckAlarmsCreateEvent", description = "Example of a client listener for receiving the notification UnAckAlarmsCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/unAckAlarmsCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToUnAckAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnAckAlarmsCreateEvent body
+    default ResponseEntity<EventSubscription> listenToUnAckAlarmsCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody UnAckAlarmsCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -497,21 +495,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity UnAckAlarmsStateChangeEvent", nickname = "listenToUnAckAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification UnAckAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity UnAckAlarmsStateChangeEvent", operationId = "listenToUnAckAlarmsStateChangeEvent", description = "Example of a client listener for receiving the notification UnAckAlarmsStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/unAckAlarmsStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToUnAckAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnAckAlarmsStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToUnAckAlarmsStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody UnAckAlarmsStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -529,21 +527,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity UnGroupAlarmsCreateEvent", nickname = "listenToUnGroupAlarmsCreateEvent", notes = "Example of a client listener for receiving the notification UnGroupAlarmsCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity UnGroupAlarmsCreateEvent", operationId = "listenToUnGroupAlarmsCreateEvent", description = "Example of a client listener for receiving the notification UnGroupAlarmsCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/unGroupAlarmsCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToUnGroupAlarmsCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnGroupAlarmsCreateEvent body
+    default ResponseEntity<EventSubscription> listenToUnGroupAlarmsCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody UnGroupAlarmsCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -561,21 +559,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity UnGroupAlarmsStateChangeEvent", nickname = "listenToUnGroupAlarmsStateChangeEvent", notes = "Example of a client listener for receiving the notification UnGroupAlarmsStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity UnGroupAlarmsStateChangeEvent", operationId = "listenToUnGroupAlarmsStateChangeEvent", description = "Example of a client listener for receiving the notification UnGroupAlarmsStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/unGroupAlarmsStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToUnGroupAlarmsStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody UnGroupAlarmsStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToUnGroupAlarmsStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody UnGroupAlarmsStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

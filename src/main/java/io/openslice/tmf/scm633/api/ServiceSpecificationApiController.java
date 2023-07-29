@@ -23,33 +23,29 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,27 +53,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
 import io.openslice.sd.model.ServiceDescriptor;
 import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.common.model.UserPartRoleType;
-import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Controller
 @RequestMapping("/serviceCatalogManagement/v4/")
-@Api(value = "serviceSpecification", description = "the serviceSpecification API")
+@Tag(name = "serviceSpecification", description = "the serviceSpecification API")
 public class ServiceSpecificationApiController implements ServiceSpecificationApi {
 
 	private static final Logger log = LoggerFactory.getLogger(ServiceSpecificationApiController.class);
@@ -106,9 +101,9 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		this.request = request;
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	public ResponseEntity<ServiceSpecification> createServiceSpecification(
-			@ApiParam(value = "The ServiceSpecification to be created", required = true) @Valid @RequestBody ServiceSpecificationCreate serviceSpecification) {
+			@Parameter(description = "The ServiceSpecification to be created", required = true) @Valid @RequestBody ServiceSpecificationCreate serviceSpecification) {
 		try {
 
 			serviceSpecification.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
@@ -128,9 +123,9 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	public ResponseEntity<Void> deleteServiceSpecification(
-			@ApiParam(value = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id) {
 		try {
 
 			return new ResponseEntity<Void>(serviceSpecificationRepoService.deleteByUuid(id), HttpStatus.OK);
@@ -142,10 +137,10 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	
 	public ResponseEntity<List<ServiceSpecification>> listServiceSpecification(
-			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
-			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
+			@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+			@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+			@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+			@Parameter(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
 
 		try {
 			if (allParams != null) {
@@ -178,10 +173,10 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	public ResponseEntity<ServiceSpecification> patchServiceSpecification(
-			@ApiParam(value = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "The ServiceSpecification to be updated", required = true) @Valid @RequestBody ServiceSpecificationUpdate serviceSpecification) {
+			@Parameter(description = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id,
+			@Parameter(description = "The ServiceSpecification to be updated", required = true) @Valid @RequestBody ServiceSpecificationUpdate serviceSpecification) {
 
 		ServiceSpecification c = serviceSpecificationRepoService.updateServiceSpecification(id, serviceSpecification);
 
@@ -189,8 +184,8 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 	}
 
 	public ResponseEntity<ServiceSpecification> retrieveServiceSpecification(
-			@ApiParam(value = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+			@Parameter(description = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id,
+			@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 		try {
 
 			Object attr = request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
@@ -214,16 +209,16 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	public ResponseEntity<ServiceSpecification> cloneServiceSpecification(
-			@ApiParam(value = "Identifier of the ServiceSpecification to clone", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the ServiceSpecification to clone", required = true) @PathVariable("id") String id) {
 
 		ServiceSpecification c = serviceSpecificationRepoService.cloneServiceSpecification(id);
 
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<Attachment> addAttachmentToServiceSpecification(String specid,
 			//@Valid @ModelAttribute("attachment") Attachment att,
@@ -323,7 +318,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		}
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(String serviceName) {
 		ServiceSpecification c = serviceSpecificationRepoService.cloneGSTServiceSpecification( serviceName );
@@ -345,7 +340,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ServiceSpecification> specFromNSDID(String id) {
 		 List<ServiceSpecification> result = serviceSpecificationRepoService.specFromNSDID(id);

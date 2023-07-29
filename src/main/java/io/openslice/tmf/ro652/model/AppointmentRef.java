@@ -2,21 +2,19 @@ package io.openslice.tmf.ro652.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Refers an appointment, such as a Customer presentation or internal meeting or site visit
  */
-@ApiModel(description = "Refers an appointment, such as a Customer presentation or internal meeting or site visit")
+@Schema(description = "Refers an appointment, such as a Customer presentation or internal meeting or site visit")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class AppointmentRef   {
   @JsonProperty("id")
   private String id = null;
@@ -48,7 +46,7 @@ public class AppointmentRef   {
    * The identifier of the referred appointment
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The identifier of the referred appointment")
+  @Schema(description = "The identifier of the referred appointment")
       @NotNull
 
     public String getId() {
@@ -68,7 +66,7 @@ public class AppointmentRef   {
    * The reference of the appointment
    * @return href
   **/
-  @ApiModelProperty(value = "The reference of the appointment")
+  @Schema(description = "The reference of the appointment")
   
     public String getHref() {
     return href;
@@ -87,7 +85,7 @@ public class AppointmentRef   {
    * An explanatory text regarding the appointment made with a party
    * @return description
   **/
-  @ApiModelProperty(value = "An explanatory text regarding the appointment made with a party")
+  @Schema(description = "An explanatory text regarding the appointment made with a party")
   
     public String getDescription() {
     return description;
@@ -106,7 +104,7 @@ public class AppointmentRef   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -125,7 +123,7 @@ public class AppointmentRef   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -144,7 +142,7 @@ public class AppointmentRef   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;
@@ -163,7 +161,7 @@ public class AppointmentRef   {
    * The actual type of the target instance when needed for disambiguation
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation")
   
     public String getAtReferredType() {
     return _atReferredType;

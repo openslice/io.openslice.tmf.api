@@ -21,19 +21,18 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Error
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class Error   {
   @JsonProperty("code")
@@ -66,7 +65,7 @@ public class Error   {
    * Application related code.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "Application related code.")
+  @Schema(description = "Application related code.")
   @NotNull
 
 
@@ -87,7 +86,7 @@ public class Error   {
    * Text that explains the reason for error.
    * @return reason
   **/
-  @ApiModelProperty(required = true, value = "Text that explains the reason for error.")
+  @Schema(description = "Text that explains the reason for error.")
   @NotNull
 
 
@@ -108,7 +107,7 @@ public class Error   {
    * (optional) Text that provide more details and corrective actions related to the error.
    * @return message
   **/
-  @ApiModelProperty(value = "(optional) Text that provide more details and corrective actions related to the error.")
+  @Schema(description = "(optional) Text that provide more details and corrective actions related to the error.")
 
 
   public String getMessage() {
@@ -128,7 +127,7 @@ public class Error   {
    * (optional) http error code extension like 400-2
    * @return status
   **/
-  @ApiModelProperty(value = "(optional) http error code extension like 400-2")
+  @Schema(description = "(optional) http error code extension like 400-2")
 
 
   public Integer getStatus() {
@@ -148,7 +147,7 @@ public class Error   {
    * (optional) A URL to online documentation that provides more information about the error.
    * @return referenceError
   **/
-  @ApiModelProperty(value = "(optional) A URL to online documentation that provides more information about the error.")
+  @Schema(description = "(optional) A URL to online documentation that provides more information about the error.")
 
 
   public String getReferenceError() {
@@ -168,7 +167,7 @@ public class Error   {
    * (optional) The class type of a REST resource.
    * @return type
   **/
-  @ApiModelProperty(value = "(optional) The class type of a REST resource.")
+  @Schema(description = "(optional) The class type of a REST resource.")
 
 
   public String getType() {
@@ -188,7 +187,7 @@ public class Error   {
    * (optional) A link to the schema describing a REST resource.
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "(optional) A link to the schema describing a REST resource.")
+  @Schema(description = "(optional) A link to the schema describing a REST resource.")
 
 
   public String getSchemaLocation() {

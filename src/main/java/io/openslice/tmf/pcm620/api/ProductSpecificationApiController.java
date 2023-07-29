@@ -22,10 +22,8 @@ package io.openslice.tmf.pcm620.api;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,18 +39,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
-import io.openslice.tmf.pcm620.model.ProductOffering;
 import io.openslice.tmf.pcm620.model.ProductSpecification;
 import io.openslice.tmf.pcm620.model.ProductSpecificationCreate;
 import io.openslice.tmf.pcm620.model.ProductSpecificationUpdate;
 import io.openslice.tmf.pcm620.reposervices.ProductSpecificationRepoService;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Controller
 @RequestMapping("/productCatalogManagement/v4/")
@@ -79,7 +76,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 		this.request = request;
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ProductSpecification> createProductSpecification(
 			@Valid ProductSpecificationCreate productSpecification) {
@@ -94,7 +91,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 		}
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteProductSpecification(String id) {
 		try {
@@ -109,7 +106,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 	@Override
 	public ResponseEntity<List<ProductSpecification>> listProductSpecification(@Valid String fields,
 			@Valid Integer offset, @Valid Integer limit,
-			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
+			@Parameter(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
 		try {
 			if (allParams != null) {
 				allParams.remove("fields");
@@ -140,7 +137,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 		}
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ProductSpecification> patchProductSpecification(String id,
 			@Valid ProductSpecificationUpdate productSpecification) {

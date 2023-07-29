@@ -4,27 +4,25 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.service.ResourceRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * manages resource capacity with the resource state
  */
-@ApiModel(description = "manages resource capacity with the resource state")
+@Schema(description = "manages resource capacity with the resource state")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 @Entity(name = "ResourcePoolRef")
 @JsonIgnoreProperties({ "uuid" })
 public class ResourcePoolRef extends BaseRootEntity {
@@ -51,7 +49,7 @@ public class ResourcePoolRef extends BaseRootEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "A string. Indicates the type of the referred object. This attribute is to be used when the object is representing a reference to an existing object instead of the of the object itself.")
+	@Schema(description = "A string. Indicates the type of the referred object. This attribute is to be used when the object is representing a reference to an existing object instead of the of the object itself.")
 
 	public String getAtReferredType() {
 		return _atReferredType;
@@ -71,7 +69,7 @@ public class ResourcePoolRef extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "A string. Identifier of an instance of the Resource Pool.")
+	@Schema(description = "A string. Identifier of an instance of the Resource Pool.")
 
 	public String getId() {
 		return id;
@@ -99,7 +97,7 @@ public class ResourcePoolRef extends BaseRootEntity {
 	 * 
 	 * @return resourceCollection
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public Set<ResourceRef> getResources() {
 		return resources;

@@ -56,9 +56,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.Attachment;

@@ -19,22 +19,18 @@
  */
 package io.openslice.tmf.sim638.service;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,13 +40,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import io.openslice.model.DeploymentDescriptor;
 import io.openslice.model.DeploymentDescriptorVxFInstanceInfo;
@@ -65,7 +55,7 @@ import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
-import io.openslice.tmf.sim638.api.ServiceApiRouteBuilder;
+import io.openslice.tmf.sim638.api.ServiceApiRouteBuilderEvents;
 import io.openslice.tmf.sim638.model.Service;
 import io.openslice.tmf.sim638.model.ServiceActionQueueAction;
 import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
@@ -81,6 +71,8 @@ import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.sim638.repo.ServiceActionQueueRepository;
 import io.openslice.tmf.sim638.repo.ServiceRepository;
 import io.openslice.tmf.so641.model.ServiceOrder;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 
 
@@ -104,7 +96,7 @@ public class ServiceRepoService {
 	private SessionFactory  sessionFactory;
 
 	@Autowired
-	ServiceApiRouteBuilder serviceApiRouteBuilder;
+	ServiceApiRouteBuilderEvents serviceApiRouteBuilder;
 	
 	@Autowired
 	public ServiceRepoService(EntityManagerFactory factory) {

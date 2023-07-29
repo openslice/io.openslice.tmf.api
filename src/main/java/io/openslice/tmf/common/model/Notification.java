@@ -24,14 +24,12 @@ import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.UUID;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
@@ -39,7 +37,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author ctranoris
  *
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
 
 public class Notification {
@@ -79,7 +77,7 @@ public class Notification {
 	 * 
 	 * @return eventId
 	 **/
-	@ApiModelProperty(value = "The identifier of the notification")
+	@Schema(description = "The identifier of the notification")
 
 	public String getEventId() {
 		return eventId;
@@ -99,7 +97,7 @@ public class Notification {
 	 * 
 	 * @return eventTime
 	 **/
-	@ApiModelProperty(value = "Time of the event occurrence")
+	@Schema(description = "Time of the event occurrence")
 
 	@Valid
 
@@ -132,7 +130,7 @@ public class Notification {
 	 * 
 	 * @return eventType
 	 **/
-	@ApiModelProperty(value = "The type of the notification")
+	@Schema(description = "The type of the notification")
 
 	public String getEventType() {
 		return eventType;
@@ -152,7 +150,7 @@ public class Notification {
 	 * 
 	 * @return fieldPath
 	 **/
-	@ApiModelProperty(value = "The path identifying the object field concerned by this notification")
+	@Schema(description = "The path identifying the object field concerned by this notification")
 
 	public String getFieldPath() {
 		return fieldPath;
@@ -172,7 +170,7 @@ public class Notification {
 	 * 
 	 * @return resourcePath
 	 **/
-	@ApiModelProperty(value = "The path identifying the resource object concerned by this notification")
+	@Schema(description = "The path identifying the resource object concerned by this notification")
 
 	public String getResourcePath() {
 		return resourcePath;

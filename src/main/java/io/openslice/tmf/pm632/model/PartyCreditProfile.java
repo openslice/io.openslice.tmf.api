@@ -21,24 +21,22 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * An individual might be evaluated for its worthiness and this evaluation might be based on a credit rating given by a credit agency.
  */
-@ApiModel(description = "An individual might be evaluated for its worthiness and this evaluation might be based on a credit rating given by a credit agency.")
+@Schema(description = "An individual might be evaluated for its worthiness and this evaluation might be based on a credit rating given by a credit agency.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 
 @Entity
@@ -68,7 +66,7 @@ public class PartyCreditProfile extends BaseRootEntity  {
    * Name of the credit agency giving the score
    * @return creditAgencyName
   **/
-  @ApiModelProperty(value = "Name of the credit agency giving the score")
+  @Schema(description = "Name of the credit agency giving the score")
 
 
   public String getCreditAgencyName() {
@@ -88,7 +86,7 @@ public class PartyCreditProfile extends BaseRootEntity  {
    * Type of the credit agency giving the score
    * @return creditAgencyType
   **/
-  @ApiModelProperty(value = "Type of the credit agency giving the score")
+  @Schema(description = "Type of the credit agency giving the score")
 
 
   public String getCreditAgencyType() {
@@ -108,7 +106,7 @@ public class PartyCreditProfile extends BaseRootEntity  {
    * Reference corresponding to the credit rating
    * @return ratingReference
   **/
-  @ApiModelProperty(value = "Reference corresponding to the credit rating")
+  @Schema(description = "Reference corresponding to the credit rating")
 
 
   public String getRatingReference() {
@@ -128,7 +126,7 @@ public class PartyCreditProfile extends BaseRootEntity  {
    * A measure of a party’s creditworthiness calculated on the basis of a combination of factors such as their income and credit history
    * @return ratingScore
   **/
-  @ApiModelProperty(value = "A measure of a party’s creditworthiness calculated on the basis of a combination of factors such as their income and credit history")
+  @Schema(description = "A measure of a party’s creditworthiness calculated on the basis of a combination of factors such as their income and credit history")
 
 
   public Integer getRatingScore() {
@@ -148,7 +146,7 @@ public class PartyCreditProfile extends BaseRootEntity  {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

@@ -1,25 +1,20 @@
 package io.openslice.tmf.rpm685.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.service.ResourceRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * manages resource capacity with the resource state Skipped properties: id,href
  */
-@ApiModel(description = "manages resource capacity with the resource state Skipped properties: id,href")
+@Schema(description = "manages resource capacity with the resource state Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class ResourcePoolUpdate {
 	@JsonProperty("@baseType")
 	private String _atBaseType = null;
@@ -57,7 +52,7 @@ public class ResourcePoolUpdate {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "A string. Generic attribute indicating the base class type of the extension class of the current object. Useful only when the class type of the current  object is unknown to the implementation.")
+	@Schema(description = "A string. Generic attribute indicating the base class type of the extension class of the current object. Useful only when the class type of the current  object is unknown to the implementation.")
 
 	public String getAtBaseType() {
 		return _atBaseType;
@@ -78,7 +73,7 @@ public class ResourcePoolUpdate {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A string. Generic attribute containing the link to the schema that defines the structure of the class type of the current object.")
+	@Schema(description = "A string. Generic attribute containing the link to the schema that defines the structure of the class type of the current object.")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -98,7 +93,7 @@ public class ResourcePoolUpdate {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "A string. Generic attribute containing the name of the resource class type.")
+	@Schema(description = "A string. Generic attribute containing the name of the resource class type.")
 
 	public String getAtType() {
 		return _atType;
@@ -118,7 +113,7 @@ public class ResourcePoolUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A string. free-text description of the Resource Pool.")
+	@Schema(description = "A string. free-text description of the Resource Pool.")
 
 	public String getDescription() {
 		return description;
@@ -139,7 +134,7 @@ public class ResourcePoolUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A related party defines party or party role linked to a specific entity, who uses the resource of Resource Pool.")
+	@Schema(description = "A related party defines party or party role linked to a specific entity, who uses the resource of Resource Pool.")
 
 	public String getRelatedParty() {
 		return relatedParty;

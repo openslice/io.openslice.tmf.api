@@ -2,26 +2,20 @@ package io.openslice.tmf.rpm685.model;
 
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.service.ResourceRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.service.ResourceRef;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * the availabilityCheck task resource for resource pool management
  */
-@ApiModel(description = "the availabilityCheck task resource for resource pool management")
+@Schema(description = "the availabilityCheck task resource for resource pool management")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class AvailabilityCheck {
 	@JsonProperty("href")
 	private String href = null;
@@ -86,7 +80,7 @@ public class AvailabilityCheck {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "A string. Hyperlink to access the availabilityCheck task for resource pool Management")
+	@Schema(description = "A string. Hyperlink to access the availabilityCheck task for resource pool Management")
 
 	public String getHref() {
 		return href;
@@ -107,7 +101,7 @@ public class AvailabilityCheck {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "A string. Identifier of an instance of the availabilityCheck task for resource pool Management")
+	@Schema(description = "A string. Identifier of an instance of the availabilityCheck task for resource pool Management")
 
 	public String getId() {
 		return id;
@@ -127,7 +121,7 @@ public class AvailabilityCheck {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+	@Schema(description = "The class type of the actual resource (for type extension).")
 
 	public String getAtType() {
 		return _atType;
@@ -147,7 +141,7 @@ public class AvailabilityCheck {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+	@Schema(description = "A link to the schema describing a resource (for type extension).")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -167,7 +161,7 @@ public class AvailabilityCheck {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "The base type for use in polymorphic collections")
+	@Schema(description = "The base type for use in polymorphic collections")
 
 	public String getAtBaseType() {
 		return _atBaseType;

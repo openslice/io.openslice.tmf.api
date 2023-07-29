@@ -39,8 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,9 +59,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.BootstrapRepository;
 import io.openslice.tmf.OpenAPISpringBoot;
@@ -99,6 +94,7 @@ import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import jakarta.validation.Valid;
 import net.minidev.json.JSONObject;
 
 

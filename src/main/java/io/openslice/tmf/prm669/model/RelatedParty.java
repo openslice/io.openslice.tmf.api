@@ -21,16 +21,13 @@ package io.openslice.tmf.prm669.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * RelatedParty reference. A related party defines party or party role linked to
@@ -51,9 +48,9 @@ import io.swagger.annotations.ApiModelProperty;
     
     
  */
-@ApiModel(description = "RelatedParty reference. A related party defines party or party role linked to a specific entity.")
+@Schema(description = "RelatedParty reference. A related party defines party or party role linked to a specific entity.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "RelatedParty")
 public class RelatedParty extends BaseRootNamedEntity{
@@ -114,7 +111,7 @@ public class RelatedParty extends BaseRootNamedEntity{
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(value = "Role of the related party.")
+	@Schema(description = "Role of the related party.")
 
 	public String getRole() {
 		return role;
@@ -135,7 +132,7 @@ public class RelatedParty extends BaseRootNamedEntity{
 	 * 
 	 * @return referredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getReferredType() {
 		return referredType;

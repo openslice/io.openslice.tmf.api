@@ -20,8 +20,9 @@
 package io.openslice.tmf.sim638.api;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
@@ -34,25 +35,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.model.DeploymentDescriptor;
-import io.openslice.tmf.common.model.Notification;
 import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
-import io.openslice.tmf.sim638.model.ServiceAttributeValueChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceCreate;
-import io.openslice.tmf.sim638.model.ServiceCreateNotification;
-import io.openslice.tmf.sim638.model.ServiceDeleteNotification;
-import io.openslice.tmf.sim638.model.ServiceStateChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
-import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
-import io.openslice.tmf.so641.model.ServiceOrderCreateNotification;
-import io.openslice.tmf.so641.model.ServiceOrderDeleteNotification;
-import io.openslice.tmf.so641.model.ServiceOrderStateChangeNotification;
-import io.openslice.tmf.so641.model.ServiceOrderUpdate;
-import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 
 @Configuration
 //@RefreshScope
@@ -87,15 +74,6 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	@Value("${EVENT_SERVICE_CREATE}")
 	private String EVENT_SERVICE_CREATE = "";
 	
-	@Value("${EVENT_SERVICE_STATE_CHANGED}")
-	private String EVENT_SERVICE_STATE_CHANGED = "";
-	
-	@Value("${EVENT_SERVICE_DELETE}")
-	private String EVENT_SERVICE_DELETE = "";
-	
-	@Value("${EVENT_SERVICE_ATTRIBUTE_VALUE_CHANGED}")
-	private String EVENT_SERVICE_ATTRIBUTE_VALUE_CHANGED = "";
-
 
 	@Value("${CATALOG_SERVICES_TO_TERMINATE}")
 	private String CATALOG_SERVICES_TO_TERMINATE = "";
@@ -200,35 +178,6 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	}
 	
 	
-	/**
-	 * @param n
-	 */
-	public void publishEvent(final Notification n, final String objId) {
-		n.setEventType( n.getClass().getName());
-		logger.info("will send Event for type " + n.getEventType());
-		try {
-			String msgtopic="";
-			
-			if ( n instanceof ServiceCreateNotification) {
-				 msgtopic = EVENT_SERVICE_CREATE;
-			} else if ( n instanceof ServiceStateChangeNotification) {
-				 msgtopic = EVENT_SERVICE_STATE_CHANGED;				
-			} else if ( n instanceof ServiceDeleteNotification) {
-				 msgtopic = EVENT_SERVICE_DELETE;				
-			} else if ( n instanceof ServiceAttributeValueChangeNotification) {
-				 msgtopic = EVENT_SERVICE_ATTRIBUTE_VALUE_CHANGED;				
-			}
-			Map<String, Object> map = new HashMap<>();
-			map.put("eventid", n.getEventId() );
-			map.put("objId", objId );
-			
-			template.sendBodyAndHeaders(msgtopic, toJsonString(n), map);
-
-		} catch (Exception e) {
-			logger.error("Cannot send Event . " + e.getStackTrace() );
-		}
-	}
-
 	static String toJsonString(Object object) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

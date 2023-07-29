@@ -28,8 +28,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,20 +40,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.prm669.model.Error;
 import io.openslice.tmf.prm669.model.PartyRole;
 import io.openslice.tmf.prm669.model.PartyRoleCreate;
 import io.openslice.tmf.prm669.model.PartyRoleUpdate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:20:50.154+03:00")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:20:50.154+03:00")
 
-@Api(value = "partyRole", description = "the partyRole API")
+@Tag(name = "partyRole", description = "the partyRole API")
 public interface PartyRoleApi {
 
     Logger log = LoggerFactory.getLogger(PartyRoleApi.class);
@@ -71,20 +69,20 @@ public interface PartyRoleApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a PartyRole", nickname = "createPartyRole", notes = "This operation creates a PartyRole entity.", response = PartyRole.class, tags={ "partyRole", })
+    @Operation(summary = "Creates a PartyRole", operationId = "createPartyRole", description = "This operation creates a PartyRole entity.", tags={ "partyRole", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = PartyRole.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/partyRole",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<PartyRole> createPartyRole(@ApiParam(value = "The PartyRole to be created" ,required=true )  @Valid @RequestBody PartyRoleCreate partyRole) {
+    default ResponseEntity<PartyRole> createPartyRole(@Parameter(description = "The PartyRole to be created" ,required=true )  @Valid @RequestBody PartyRoleCreate partyRole) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -101,21 +99,21 @@ public interface PartyRoleApi {
     }
 
 
-    @ApiOperation(value = "Deletes a PartyRole", nickname = "deletePartyRole", notes = "This operation deletes a PartyRole entity.", tags={ "partyRole", })
+    @Operation(summary = "Deletes a PartyRole", operationId = "deletePartyRole", description = "This operation deletes a PartyRole entity.", tags={ "partyRole", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/partyRole/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deletePartyRole(@ApiParam(value = "Identifier of the PartyRole",required=true) @PathVariable("id") String id) {
+    default ResponseEntity<Void> deletePartyRole(@Parameter(description = "Identifier of the PartyRole",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default PartyRoleApi interface so no example is generated");
@@ -124,21 +122,21 @@ public interface PartyRoleApi {
     }
 
 
-    @ApiOperation(value = "List or find PartyRole objects", nickname = "listPartyRole", notes = "This operation list or find PartyRole entities", response = PartyRole.class, responseContainer = "List", tags={ "partyRole", })
+    @Operation(summary = "List or find PartyRole objects", operationId = "listPartyRole", description = "This operation list or find PartyRole entities" , tags={ "partyRole", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = PartyRole.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/partyRole",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    default ResponseEntity<List<PartyRole>> listPartyRole(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    default ResponseEntity<List<PartyRole>> listPartyRole(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -155,21 +153,21 @@ public interface PartyRoleApi {
     }
 
 
-    @ApiOperation(value = "Updates partially a PartyRole", nickname = "patchPartyRole", notes = "This operation updates partially a PartyRole entity.", response = PartyRole.class, tags={ "partyRole", })
+    @Operation(summary = "Updates partially a PartyRole", operationId = "patchPartyRole", description = "This operation updates partially a PartyRole entity.", tags={ "partyRole", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = PartyRole.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/partyRole/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<PartyRole> patchPartyRole(@ApiParam(value = "Identifier of the PartyRole",required=true) @PathVariable("id") String id,@ApiParam(value = "The PartyRole to be updated" ,required=true )  @Valid @RequestBody PartyRoleUpdate partyRole) {
+    default ResponseEntity<PartyRole> patchPartyRole(@Parameter(description = "Identifier of the PartyRole",required=true) @PathVariable("id") String id,@Parameter(description = "The PartyRole to be updated" ,required=true )  @Valid @RequestBody PartyRoleUpdate partyRole) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -186,21 +184,21 @@ public interface PartyRoleApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a PartyRole by ID", nickname = "retrievePartyRole", notes = "This operation retrieves a PartyRole entity. Attribute selection is enabled for all first level attributes.", response = PartyRole.class, tags={ "partyRole", })
+    @Operation(summary = "Retrieves a PartyRole by ID", operationId = "retrievePartyRole", description = "This operation retrieves a PartyRole entity. Attribute selection is enabled for all first level attributes.", tags={ "partyRole", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = PartyRole.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/partyRole/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    default ResponseEntity<PartyRole> retrievePartyRole(@ApiParam(value = "Identifier of the PartyRole",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<PartyRole> retrievePartyRole(@Parameter(description = "Identifier of the PartyRole",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

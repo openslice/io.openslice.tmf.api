@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Service Level Specification parameters can be one of two types. A Key Quality Indicator (KQI)  provides a measurement of a specific aspect of the performance of a Product (i.e., Product  Specification, Product Offering, or Product) or a Service (i.e., Service Specification or Service).
  */
-@ApiModel(description = "Service Level Specification parameters can be one of two types. A Key Quality Indicator (KQI)  provides a measurement of a specific aspect of the performance of a Product (i.e., Product  Specification, Product Offering, or Product) or a Service (i.e., Service Specification or Service).")
+@Schema(description = "Service Level Specification parameters can be one of two types. A Key Quality Indicator (KQI)  provides a measurement of a specific aspect of the performance of a Product (i.e., Product  Specification, Product Offering, or Product) or a Service (i.e., Service Specification or Service).")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class ServiceLevelSpecParameter   {
   @JsonProperty("name")
@@ -82,7 +80,7 @@ public class ServiceLevelSpecParameter   {
    * The name of parameter.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of parameter.")
+  @Schema(description = "The name of parameter.")
   @NotNull
 
 
@@ -103,7 +101,7 @@ public class ServiceLevelSpecParameter   {
    * A string that specifies whether the Service Level Specification Parameter is technology specific, service specific, or technology/service independent
    * @return serviceParmCategory
   **/
-  @ApiModelProperty(value = "A string that specifies whether the Service Level Specification Parameter is technology specific, service specific, or technology/service independent")
+  @Schema(description = "A string that specifies whether the Service Level Specification Parameter is technology specific, service specific, or technology/service independent")
 
 
   public String getServiceParmCategory() {
@@ -123,7 +121,7 @@ public class ServiceLevelSpecParameter   {
    * A string that specifies whether the Service Level Specification  Parameter represents a single user instance parameter or a parameter that represents an aggregation.
    * @return serviceParmPerspective
   **/
-  @ApiModelProperty(value = "A string that specifies whether the Service Level Specification  Parameter represents a single user instance parameter or a parameter that represents an aggregation.")
+  @Schema(description = "A string that specifies whether the Service Level Specification  Parameter represents a single user instance parameter or a parameter that represents an aggregation.")
 
 
   public String getServiceParmPerspective() {
@@ -143,7 +141,7 @@ public class ServiceLevelSpecParameter   {
    * The description of a logical step-by-step procedure used to  calculate the value of a KQI.
    * @return transformationAlgorithmOfKQI
   **/
-  @ApiModelProperty(value = "The description of a logical step-by-step procedure used to  calculate the value of a KQI.")
+  @Schema(description = "The description of a logical step-by-step procedure used to  calculate the value of a KQI.")
 
 
   public String getTransformationAlgorithmOfKQI() {
@@ -163,7 +161,7 @@ public class ServiceLevelSpecParameter   {
    * Types of Service Level Specification parameters are KQI or KPI.
    * @return type
   **/
-  @ApiModelProperty(value = "Types of Service Level Specification parameters are KQI or KPI.")
+  @Schema(description = "Types of Service Level Specification parameters are KQI or KPI.")
 
 
   public String getParamtype() {
@@ -183,7 +181,7 @@ public class ServiceLevelSpecParameter   {
    * A valid duration of a thing.
    * @return validFor
   **/
-  @ApiModelProperty(value = "A valid duration of a thing.")
+  @Schema(description = "A valid duration of a thing.")
 
   @Valid
 
@@ -209,7 +207,7 @@ public class ServiceLevelSpecParameter   {
    * Get relatedEntity
    * @return relatedEntity
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
   @NotNull
 
   @Valid
@@ -231,7 +229,7 @@ public class ServiceLevelSpecParameter   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -251,7 +249,7 @@ public class ServiceLevelSpecParameter   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -271,7 +269,7 @@ public class ServiceLevelSpecParameter   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

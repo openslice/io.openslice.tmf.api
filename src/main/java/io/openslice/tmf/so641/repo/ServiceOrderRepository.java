@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -32,12 +33,12 @@ import io.openslice.tmf.so641.model.ServiceOrderStateType;
 
 
 @Repository
-public interface ServiceOrderRepository extends PagingAndSortingRepository<ServiceOrder, Long> {
+public interface ServiceOrderRepository extends CrudRepository<ServiceOrder, Long>, PagingAndSortingRepository<ServiceOrder, Long> {
 
 
 	Optional<ServiceOrder> findByUuid(String id);
 	Iterable<ServiceOrder> findByState( ServiceOrderStateType state);
-	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp WHERE rp.name = ?1 AND  rp.role = ?2 ORDER BY OrderDate DESC")	
+	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp WHERE rp.name = ?1 AND  rp.role = ?2 ORDER BY sor.orderDate DESC")	
 	Iterable<ServiceOrder> findByRolenameAndRoleType(String rolename, UserPartRoleType requester);
 	@Query("SELECT sor FROM ServiceOrder sor JOIN FETCH sor.relatedParty rp WHERE rp.name = ?1")	
 	Iterable<ServiceOrder> findByRolename(String rolename);

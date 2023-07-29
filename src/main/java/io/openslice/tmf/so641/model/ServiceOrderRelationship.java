@@ -21,23 +21,21 @@ package io.openslice.tmf.so641.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Linked service order to the one containing this attribute
  */
-@ApiModel(description = "Linked service order to the one containing this attribute")
+@Schema(description = "Linked service order to the one containing this attribute")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 @Entity(name = "ServiceOrderRelationship")
 public class ServiceOrderRelationship  extends BaseRootEntity  {
@@ -61,7 +59,7 @@ public class ServiceOrderRelationship  extends BaseRootEntity  {
    * The id of the related order
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The id of the related order")
+  @Schema(description = "The id of the related order")
   @NotNull
 
 
@@ -82,7 +80,7 @@ public class ServiceOrderRelationship  extends BaseRootEntity  {
    * The type of related order, such as: [dependency] if the order needs to be [not started] until another order item is complete (a service order in this case) or [cross-ref] to keep track of the source order (a productOrder)
    * @return relationshipType
   **/
-  @ApiModelProperty(value = "The type of related order, such as: [dependency] if the order needs to be [not started] until another order item is complete (a service order in this case) or [cross-ref] to keep track of the source order (a productOrder)")
+  @Schema(description = "The type of related order, such as: [dependency] if the order needs to be [not started] until another order item is complete (a service order in this case) or [cross-ref] to keep track of the source order (a productOrder)")
 
 
   public String getRelationshipType() {
@@ -98,7 +96,7 @@ public class ServiceOrderRelationship  extends BaseRootEntity  {
    * The entity type of the related order
    * @return referredType
   **/
-  @ApiModelProperty(value = "The entity type of the related order")
+  @Schema(description = "The entity type of the related order")
 
 
   public String getReferredType() {

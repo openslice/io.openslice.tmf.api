@@ -25,8 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -36,11 +35,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,20 +46,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.model.PortalUser;
 import io.openslice.model.UserRoleType;
 import io.openslice.tmf.common.model.UserPartRoleType;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 @Controller
 @RequestMapping("/serviceOrdering/v4/")
@@ -90,11 +86,11 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		this.request = request;
 	}
 	
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<ServiceOrder> createServiceOrder(
 			Principal principal,			
-			@ApiParam(value = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder 
+			@Parameter(description = "The ServiceOrder to be created", required = true) @Valid @RequestBody ServiceOrderCreate serviceOrder 
 			) {
 
 		try {
@@ -154,11 +150,11 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		}
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<Void> deleteServiceOrder(
 			Principal principal,			
-			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id) {
 		
 		
 		try {
@@ -170,15 +166,15 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<List<ServiceOrder>> listServiceOrder(
 			Principal principal,			
-			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
-			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-    		@ApiParam(value = "Requested starttime for start of resources to be provided in response") @Valid @RequestParam(value = "starttime", required = false) Date starttime,
-    		@ApiParam(value = "Requested endtime for start of resources to be provided in response") @Valid @RequestParam(value = "endtime", required = false) Date endtime  ) {
+			@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+			@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+			@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+    		@Parameter(description = "Requested starttime for start of resources to be provided in response") @Valid @RequestParam(value = "starttime", required = false) Date starttime,
+    		@Parameter(description = "Requested endtime for start of resources to be provided in response") @Valid @RequestParam(value = "endtime", required = false) Date endtime  ) {
 
 		
 		try {
@@ -208,23 +204,23 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		}
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<ServiceOrder> patchServiceOrder(
 			Principal principal,			
-			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "The ServiceOrder to be updated", required = true) @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
+			@Parameter(description = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
+			@Parameter(description = "The ServiceOrder to be updated", required = true) @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
 		ServiceOrder c = serviceOrderRepoService.updateServiceOrder(id, serviceOrder);
 
 		return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<ServiceOrder> retrieveServiceOrder(
 			Principal principal,			
-			@ApiParam(value = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+			@Parameter(description = "Identifier of the ServiceOrder", required = true) @PathVariable("id") String id,
+			@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
 		try {
 

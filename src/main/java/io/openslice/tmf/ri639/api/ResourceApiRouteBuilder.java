@@ -20,8 +20,9 @@
 package io.openslice.tmf.ri639.api;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
@@ -34,12 +35,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.common.model.Notification;
 import io.openslice.tmf.ri639.model.ResourceCreate;
-import io.openslice.tmf.ri639.model.ResourceCreateNotification;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
 
@@ -60,18 +56,6 @@ public class ResourceApiRouteBuilder extends RouteBuilder {
 	@Value("${CATALOG_GET_RESOURCE_BY_ID}")
 	private String CATALOG_GET_RESOURCE_BY_ID = "";	
 
-	
-	@Value("${EVENT_RESOURCE_CREATE}")
-	private String EVENT_RESOURCE_CREATE = "";
-	
-	@Value("${EVENT_RESOURCE_STATE_CHANGED}")
-	private String EVENT_RESOURCE_STATE_CHANGED = "";
-	
-	@Value("${EVENT_RESOURCE_DELETE}")
-	private String EVENT_RESOURCE_DELETE = "";
-	
-	@Value("${EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED}")
-	private String EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED = "";
 
 
 	@Value("${CATALOG_RESOURCES_OF_PARTNERS}")
@@ -121,30 +105,6 @@ public class ResourceApiRouteBuilder extends RouteBuilder {
 		
 	}
 	
-	
-	/**
-	 * @param n
-	 */
-	public void publishEvent(final Notification n, final String objId) {
-		n.setEventType( n.getClass().getName());
-		logger.info("will send Event for type " + n.getEventType());
-		try {
-			String msgtopic="";
-			
-			if ( n instanceof ResourceCreateNotification) {
-				 msgtopic = EVENT_RESOURCE_CREATE;
-			}
-
-			Map<String, Object> map = new HashMap<>();
-			map.put("eventid", n.getEventId() );
-			map.put("objId", objId );
-			
-			template.sendBodyAndHeaders(msgtopic, toJsonString(n), map);
-
-		} catch (Exception e) {
-			logger.error("Cannot send Event . " + e.getStackTrace() );
-		}
-	}
 
 	static String toJsonString(Object object) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();

@@ -21,22 +21,20 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled bahavior in SID). Some of the parameters of the interface definiition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth)
  */
-@ApiModel(description = "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled bahavior in SID). Some of the parameters of the interface definiition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth)")
+@Schema(description = "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled bahavior in SID). Some of the parameters of the interface definiition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth)")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 
 @Entity
@@ -58,7 +56,7 @@ public class PricingLogicAlgorithm  extends BaseEntity {
    * unique id of the PricingLogicAlgorithm
    * @return id
   **/
-  @ApiModelProperty(value = "unique id of the PricingLogicAlgorithm")
+  @Schema(description = "unique id of the PricingLogicAlgorithm")
 
 
   public String getId() {
@@ -78,7 +76,7 @@ public class PricingLogicAlgorithm  extends BaseEntity {
    * id of corresponding PricingLogicAlgorithm specification
    * @return plaSpecId
   **/
-  @ApiModelProperty(value = "id of corresponding PricingLogicAlgorithm specification")
+  @Schema(description = "id of corresponding PricingLogicAlgorithm specification")
 
 
   public String getPlaSpecId() {

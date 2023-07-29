@@ -21,18 +21,16 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity
@@ -40,9 +38,9 @@ import io.swagger.annotations.ApiModelProperty;
  * characteristic is embedded within the specification whose ID and href are in
  * this entity, and identified by its ID.
  */
-@ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Characteristic specifications. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.")
+@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Characteristic specifications. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMCharacSpecRel")
 @Table(name = "STMCharacSpecRel")
 public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity {
@@ -83,7 +81,7 @@ public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity
 	 * 
 	 * @return characteristicSpecificationId
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the characteristic within the specification")
+	@Schema(description = "Unique identifier of the characteristic within the specification")
 
 	public String getCharacteristicSpecificationId() {
 		return characteristicSpecificationId;
@@ -104,7 +102,7 @@ public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity
 	 * 
 	 * @return parentSpecificationHref
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference to the parent specification containing the target characteristic")
+	@Schema(description = "Hyperlink reference to the parent specification containing the target characteristic")
 
 	public String getParentSpecificationHref() {
 		return parentSpecificationHref;
@@ -125,7 +123,7 @@ public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity
 	 * 
 	 * @return parentSpecificationId
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the parent specification containing the target characteristic")
+	@Schema(description = "Unique identifier of the parent specification containing the target characteristic")
 
 	public String getParentSpecificationId() {
 		return parentSpecificationId;
@@ -146,7 +144,7 @@ public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(value = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
+	@Schema(description = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
 
 	public String getRelationshipType() {
 		return relationshipType;
@@ -166,7 +164,7 @@ public class CharacteristicSpecificationRelationship extends BaseRootNamedEntity
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {

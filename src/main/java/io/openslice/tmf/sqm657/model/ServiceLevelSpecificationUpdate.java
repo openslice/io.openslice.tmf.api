@@ -23,21 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications. Skipped properties: id,href,id,href,validFor
  */
-@ApiModel(description = "A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications. Skipped properties: id,href,id,href,validFor")
+@Schema(description = "A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications. Skipped properties: id,href,id,href,validFor")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class ServiceLevelSpecificationUpdate   {
   @JsonProperty("description")
@@ -68,7 +66,7 @@ public class ServiceLevelSpecificationUpdate   {
    * A brief introduction of a service level specification.
    * @return description
   **/
-  @ApiModelProperty(value = "A brief introduction of a service level specification.")
+  @Schema(description = "A brief introduction of a service level specification.")
 
 
   public String getDescription() {
@@ -88,7 +86,7 @@ public class ServiceLevelSpecificationUpdate   {
    * The name of Service Level Specification
    * @return name
   **/
-  @ApiModelProperty(value = "The name of Service Level Specification")
+  @Schema(description = "The name of Service Level Specification")
 
 
   public String getName() {
@@ -116,7 +114,7 @@ public class ServiceLevelSpecificationUpdate   {
    * Get objective
    * @return objective
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -137,7 +135,7 @@ public class ServiceLevelSpecificationUpdate   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -157,7 +155,7 @@ public class ServiceLevelSpecificationUpdate   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -177,7 +175,7 @@ public class ServiceLevelSpecificationUpdate   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

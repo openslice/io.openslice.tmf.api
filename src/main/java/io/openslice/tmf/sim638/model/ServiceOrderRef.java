@@ -21,25 +21,23 @@ package io.openslice.tmf.sim638.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Service Order reference. Useful to understand the which was the Service order
  * through which the service was instantiated in the service inventory
  */
-@ApiModel(description = "Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory")
+@Schema(description = "Service Order reference. Useful to understand the which was the Service order through which the service was instantiated in the service inventory")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 @Entity(name = "ServiceOrderRef")
 @JsonIgnoreProperties({ "uuid" })
 public class ServiceOrderRef extends BaseRootEntity {
@@ -63,7 +61,7 @@ public class ServiceOrderRef extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "Unique identifier of the Service Order")
+	@Schema(description = "Unique identifier of the Service Order")
 	@NotNull
 
 	public String getId() {
@@ -87,7 +85,7 @@ public class ServiceOrderRef extends BaseRootEntity {
 	 * 
 	 * @return serviceOrderItemId
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the Service Order Item within a service order, not populated if this is a reference to a service order")
+	@Schema(description = "Unique identifier of the Service Order Item within a service order, not populated if this is a reference to a service order")
 
 	public String getServiceOrderItemId() {
 		return serviceOrderItemId;
@@ -111,7 +109,7 @@ public class ServiceOrderRef extends BaseRootEntity {
 	 * 
 	 * @return referredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getReferredType() {
 		return referredType;

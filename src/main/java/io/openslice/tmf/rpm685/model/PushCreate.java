@@ -1,26 +1,20 @@
 package io.openslice.tmf.rpm685.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * the push task resource for resource pool management Skipped properties:
  * id,href
  */
-@ApiModel(description = "the push task resource for resource pool management Skipped properties: id,href")
+@Schema(description = "the push task resource for resource pool management Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class PushCreate {
 	@JsonProperty("@type")
 	private String _atType = null;
@@ -78,7 +72,7 @@ public class PushCreate {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+	@Schema(description = "The class type of the actual resource (for type extension).")
 
 	public String getAtType() {
 		return _atType;
@@ -98,7 +92,7 @@ public class PushCreate {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+	@Schema(description = "A link to the schema describing a resource (for type extension).")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -118,7 +112,7 @@ public class PushCreate {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "The base type for use in polymorphic collections")
+	@Schema(description = "The base type for use in polymorphic collections")
 
 	public String getAtBaseType() {
 		return _atBaseType;

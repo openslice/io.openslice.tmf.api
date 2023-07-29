@@ -21,23 +21,21 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.
  */
-@ApiModel(description = "Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.")
+@Schema(description = "Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity
 public class ConstraintRef  extends BaseEntity {
@@ -58,7 +56,7 @@ public class ConstraintRef  extends BaseEntity {
    * reference id to the target constraint
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "reference id to the target constraint")
+  @Schema(description = "reference id to the target constraint")
   @NotNull
 
 
@@ -80,7 +78,7 @@ public class ConstraintRef  extends BaseEntity {
    * The (class) type of the referred constraint
    * @return referredType
   **/
-  @ApiModelProperty(value = "The (class) type of the referred constraint")
+  @Schema(description = "The (class) type of the referred constraint")
 
 
   public String getReferredType() {

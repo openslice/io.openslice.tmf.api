@@ -21,27 +21,25 @@ package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * An attachment by value or by reference. An attachment complements the
  * description of an element, for example through a document, a video, a
  * picture.
  */
-@ApiModel(description = "An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.")
+@Schema(description = "An attachment by value or by reference. An attachment complements the description of an element, for example through a document, a video, a picture.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "AttachmentRefOrValue")
 @Table(name = "AttachmentRefOrValue")
 public class AttachmentRefOrValue extends BaseRootNamedEntity {
@@ -79,7 +77,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(example = "4aafacbd-11ff-4dc8-b445-305f2215715f", value = "Unique identifier for this particular attachment")
+	@Schema(example = "4aafacbd-11ff-4dc8-b445-305f2215715f", description = "Unique identifier for this particular attachment")
 
 	public String getId() {
 		if (uuid != null) {
@@ -102,7 +100,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return attachmentType
 	 **/
-	@ApiModelProperty(example = "video", value = "Attachment type such as video, picture")
+	@Schema(example = "video", description = "Attachment type such as video, picture")
 
 	public String getAttachmentType() {
 		return attachmentType;
@@ -122,7 +120,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return content
 	 **/
-	@ApiModelProperty(value = "The actual contents of the attachment object, if embedded, encoded as base64")
+	@Schema(description = "The actual contents of the attachment object, if embedded, encoded as base64")
 
 	public String getContent() {
 		return content;
@@ -142,7 +140,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(example = "Photograph of the Product", value = "A narrative text describing the content of the attachment")
+	@Schema(example = "Photograph of the Product", description = "A narrative text describing the content of the attachment")
 
 	public String getDescription() {
 		return description;
@@ -162,7 +160,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return mimeType
 	 **/
-	@ApiModelProperty(value = "Attachment mime type such as extension file for video, picture and document")
+	@Schema(description = "Attachment mime type such as extension file for video, picture and document")
 
 	public String getMimeType() {
 		return mimeType;
@@ -182,7 +180,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return url
 	 **/
-	@ApiModelProperty(example = "http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f", value = "Uniform Resource Locator, is a web page address (a subset of URI)")
+	@Schema(example = "http://host/Content/4aafacbd-11ff-4dc8-b445-305f2215715f", description = "Uniform Resource Locator, is a web page address (a subset of URI)")
 
 	public String getUrl() {
 		return url;
@@ -202,7 +200,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return size
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public Quantity getSize() {
@@ -223,7 +221,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -244,7 +242,7 @@ public class AttachmentRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

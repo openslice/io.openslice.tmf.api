@@ -2,23 +2,21 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Entity reference schema to be use for all entityRef class.
  */
-@ApiModel(description = "Entity reference schema to be use for all entityRef class.")
+@Schema(description = "Entity reference schema to be use for all entityRef class.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIEntityRef")
 public class EntityRef extends BaseRootNamedEntity {
 	@JsonProperty("id")
@@ -33,7 +31,7 @@ public class EntityRef extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "unique identifier")
+	@Schema(description = "unique identifier")
 	@NotNull
 	public String getId() {
 		id = uuid;
@@ -56,7 +54,7 @@ public class EntityRef extends BaseRootNamedEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

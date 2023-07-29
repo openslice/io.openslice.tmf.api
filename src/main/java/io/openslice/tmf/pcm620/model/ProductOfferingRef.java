@@ -21,25 +21,21 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
  */
-@ApiModel(description = "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
+@Schema(description = "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 @JsonIgnoreProperties( {"uuid"} )
 public class ProductOfferingRef extends BaseRootNamedEntity {
 	
@@ -60,7 +56,7 @@ public class ProductOfferingRef extends BaseRootNamedEntity {
    * Unique identifier of a related entity.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of a related entity.")
+  @Schema(description = "Unique identifier of a related entity.")
   @NotNull
 
 
@@ -82,7 +78,7 @@ public class ProductOfferingRef extends BaseRootNamedEntity {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

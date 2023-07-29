@@ -21,22 +21,20 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Is an amount, usually of money, that modifies the price charged for an order item.
  */
-@ApiModel(description = "Is an amount, usually of money, that modifies the price charged for an order item.")
+@Schema(description = "Is an amount, usually of money, that modifies the price charged for an order item.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class PriceAlteration   {
   @JsonProperty("applicationDuration")
   private Integer applicationDuration = null;
@@ -83,7 +81,7 @@ public class PriceAlteration   {
    * Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge)
    * @return applicationDuration
   **/
-  @ApiModelProperty(value = "Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge)")
+  @Schema(description = "Duration during which the alteration applies on the order item price (for instance 2 months free of charge for the recurring charge)")
   
     public Integer getApplicationDuration() {
     return applicationDuration;
@@ -102,7 +100,7 @@ public class PriceAlteration   {
    * A narrative that explains in detail the semantics of this order item price alteration
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail the semantics of this order item price alteration")
+  @Schema(description = "A narrative that explains in detail the semantics of this order item price alteration")
   
     public String getDescription() {
     return description;
@@ -121,7 +119,7 @@ public class PriceAlteration   {
    * Name of the order item price alteration
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the order item price alteration")
+  @Schema(description = "Name of the order item price alteration")
   
     public String getName() {
     return name;
@@ -140,7 +138,7 @@ public class PriceAlteration   {
    * A category that describes the price such as recurring, one time and usage.
    * @return priceType
   **/
-  @ApiModelProperty(required = true, value = "A category that describes the price such as recurring, one time and usage.")
+  @Schema(description = "A category that describes the price such as recurring, one time and usage.")
       @NotNull
 
     public String getPriceType() {
@@ -160,7 +158,7 @@ public class PriceAlteration   {
    * Priority level for applying this alteration among all the defined alterations on the order item price
    * @return priority
   **/
-  @ApiModelProperty(value = "Priority level for applying this alteration among all the defined alterations on the order item price")
+  @Schema(description = "Priority level for applying this alteration among all the defined alterations on the order item price")
   
     public Integer getPriority() {
     return priority;
@@ -179,7 +177,7 @@ public class PriceAlteration   {
    * Could be month, week...
    * @return recurringChargePeriod
   **/
-  @ApiModelProperty(value = "Could be month, week...")
+  @Schema(description = "Could be month, week...")
   
     public String getRecurringChargePeriod() {
     return recurringChargePeriod;
@@ -198,7 +196,7 @@ public class PriceAlteration   {
    * Could be minutes, GB...
    * @return unitOfMeasure
   **/
-  @ApiModelProperty(value = "Could be minutes, GB...")
+  @Schema(description = "Could be minutes, GB...")
   
     public String getUnitOfMeasure() {
     return unitOfMeasure;
@@ -217,7 +215,7 @@ public class PriceAlteration   {
    * Get price
    * @return price
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     @Valid
@@ -238,7 +236,7 @@ public class PriceAlteration   {
    * Get productOfferingPrice
    * @return productOfferingPrice
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductOfferingPriceRef getProductOfferingPrice() {
@@ -258,7 +256,7 @@ public class PriceAlteration   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -277,7 +275,7 @@ public class PriceAlteration   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -296,7 +294,7 @@ public class PriceAlteration   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

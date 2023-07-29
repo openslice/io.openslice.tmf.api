@@ -21,24 +21,22 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * Keeps track of other names, for example the old name of an organization.
  */
-@ApiModel(description = "Keeps track of other names, for example the old name of an organization.")
+@Schema(description = "Keeps track of other names, for example the old name of an organization.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity
 public class OtherNameOrganization extends BaseRootNamedEntity  {
@@ -56,7 +54,7 @@ public class OtherNameOrganization extends BaseRootNamedEntity  {
    * Co. , Inc. , Ltd. , Pty Ltd. , Plc; , Gmbh
    * @return nameType
   **/
-  @ApiModelProperty(value = "Co. , Inc. , Ltd. , Pty Ltd. , Plc; , Gmbh")
+  @Schema(description = "Co. , Inc. , Ltd. , Pty Ltd. , Plc; , Gmbh")
 
 
   public String getNameType() {
@@ -76,7 +74,7 @@ public class OtherNameOrganization extends BaseRootNamedEntity  {
    * The name that the organization trades under
    * @return tradingName
   **/
-  @ApiModelProperty(value = "The name that the organization trades under")
+  @Schema(description = "The name that the organization trades under")
 
 
   public String getTradingName() {
@@ -96,7 +94,7 @@ public class OtherNameOrganization extends BaseRootNamedEntity  {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

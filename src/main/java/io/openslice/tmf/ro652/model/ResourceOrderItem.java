@@ -4,24 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceRefOrValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * An identified part of the order. A resource order is decomposed into one or more order items.
  */
-@ApiModel(description = "An identified part of the order. A resource order is decomposed into one or more order items.")
+@Schema(description = "An identified part of the order. A resource order is decomposed into one or more order items.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class ResourceOrderItem   {
   @JsonProperty("id")
   private String id = null;
@@ -66,7 +63,7 @@ public class ResourceOrderItem   {
    * Identifier of the line item (generally it is a sequence number 01, 02, 03, ...)
    * @return id
   **/
-  @ApiModelProperty(value = "Identifier of the line item (generally it is a sequence number 01, 02, 03, ...)")
+  @Schema(description = "Identifier of the line item (generally it is a sequence number 01, 02, 03, ...)")
   
     public String getId() {
     return id;
@@ -85,7 +82,7 @@ public class ResourceOrderItem   {
    * Can be \"add\" / \"modify\" / \"no_change\"/ \"delete\"
    * @return action
   **/
-  @ApiModelProperty(value = "Can be \"add\" / \"modify\" / \"no_change\"/ \"delete\"")
+  @Schema(description = "Can be \"add\" / \"modify\" / \"no_change\"/ \"delete\"")
   
     public String getAction() {
     return action;
@@ -104,7 +101,7 @@ public class ResourceOrderItem   {
    * Quantity ordered
    * @return quantity
   **/
-  @ApiModelProperty(value = "Quantity ordered")
+  @Schema(description = "Quantity ordered")
   
     public Integer getQuantity() {
     return quantity;
@@ -123,7 +120,7 @@ public class ResourceOrderItem   {
    * State of the order item : described in the state machine diagram
    * @return state
   **/
-  @ApiModelProperty(value = "State of the order item : described in the state machine diagram")
+  @Schema(description = "State of the order item : described in the state machine diagram")
   
     public ResourceOrderStateType getState() {
     return state;
@@ -142,7 +139,7 @@ public class ResourceOrderItem   {
    * Get appointment
    * @return appointment
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public AppointmentRef getAppointment() {
@@ -170,7 +167,7 @@ public class ResourceOrderItem   {
    * Get orderItemRelationship
    * @return orderItemRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ResourceOrderItemRelationship> getOrderItemRelationship() {
     return orderItemRelationship;
@@ -189,7 +186,7 @@ public class ResourceOrderItem   {
    * Get resource
    * @return resource
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ResourceRefOrValue getResource() {
@@ -209,7 +206,7 @@ public class ResourceOrderItem   {
    * Get resourceSpecification
    * @return resourceSpecification
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ResourceSpecificationRef getResourceSpecification() {
@@ -229,7 +226,7 @@ public class ResourceOrderItem   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -248,7 +245,7 @@ public class ResourceOrderItem   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -267,7 +264,7 @@ public class ResourceOrderItem   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;

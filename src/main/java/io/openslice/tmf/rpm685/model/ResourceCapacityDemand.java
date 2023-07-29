@@ -4,29 +4,27 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.pcm620.model.PlaceRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * the amount of capacity that is planned to be consumed or has been consumed.
  */
-@ApiModel(description = "the amount of capacity that is planned to be consumed or has been consumed.")
+@Schema(description = "the amount of capacity that is planned to be consumed or has been consumed.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 @Entity(name = "ResCapacityDemand")
 public class ResourceCapacityDemand extends BaseRootEntity {
 
@@ -81,7 +79,7 @@ public class ResourceCapacityDemand extends BaseRootEntity {
 	 * 
 	 * @return capacityDemandAmount
 	 **/
-	@ApiModelProperty(value = "A value and units that define the CapacityDemand, such as 10000 ea, 10B Mb.  Instance values are mutually exclusive with From and To capacityDemandAmounts and range interval.")
+	@Schema(description = "A value and units that define the CapacityDemand, such as 10000 ea, 10B Mb.  Instance values are mutually exclusive with From and To capacityDemandAmounts and range interval.")
 
 	public Integer getCapacityDemandAmount() {
 		return capacityDemandAmount;
@@ -101,7 +99,7 @@ public class ResourceCapacityDemand extends BaseRootEntity {
 	 * 
 	 * @return resourcePool
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourcePoolRef getResourcePool() {
@@ -122,7 +120,7 @@ public class ResourceCapacityDemand extends BaseRootEntity {
 	 * 
 	 * @return applicableTimePeriod
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ApplicableTimePeriod getApplicableTimePeriod() {
@@ -143,7 +141,7 @@ public class ResourceCapacityDemand extends BaseRootEntity {
 	 * 
 	 * @return place
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public PlaceRef getPlace() {

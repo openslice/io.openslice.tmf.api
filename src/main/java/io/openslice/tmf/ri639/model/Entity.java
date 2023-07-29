@@ -2,22 +2,21 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 /**
  * Base entity schema for use in TMForum Open-APIs
  */
-@ApiModel(description = "Base entity schema for use in TMForum Open-APIs")
+@Schema(description = "Base entity schema for use in TMForum Open-APIs")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
-@javax.persistence.Entity(name = "RIEntity")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.persistence.Entity(name = "RIEntity")
 public class Entity extends BaseRootEntity {
 	@JsonProperty("id")
 	private String id = null;
@@ -32,7 +31,7 @@ public class Entity extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "unique identifier")
+	@Schema(description = "unique identifier")
 	public String getId() {
 		id = uuid;
 		return uuid;

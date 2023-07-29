@@ -23,29 +23,27 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * A measureThresholdRuleViolation is a violation of a rule that defines the in
  * the MericDefMeasureThresholdRule.
  */
-@ApiModel(description = "A measureThresholdRuleViolation is a violation of a rule that defines the in the  MericDefMeasureThresholdRule.")
+@Schema(description = "A measureThresholdRuleViolation is a violation of a rule that defines the in the  MericDefMeasureThresholdRule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMMeasureThresholdRuleViolation")
 @Table(name = "STMMeasureThresholdRuleViolation")
 public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
@@ -96,7 +94,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return conformanceComparatorLower
 	 **/
-	@ApiModelProperty(value = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to compare with the conformanceTargetLower.")
+	@Schema(description = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to compare with the conformanceTargetLower.")
 
 	public String getConformanceComparatorLower() {
 		return conformanceComparatorLower;
@@ -118,7 +116,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return conformanceComparatorUpper
 	 **/
-	@ApiModelProperty(value = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to compare with the conformanceTargetUpper.")
+	@Schema(description = "An operator that when applied on a value specifies whether a  threshold is crossed or ceased to be crossed. This operator is used to compare with the conformanceTargetUpper.")
 
 	public String getConformanceComparatorUpper() {
 		return conformanceComparatorUpper;
@@ -140,7 +138,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return conformanceTargetExact
 	 **/
-	@ApiModelProperty(value = "to cater for values that are not numerical test metrics (e.g. a DSL line can be Synchronised or Unsynchronised. If the latter, the test should result in a rule violation).The allowed value can contain a REGEX string.")
+	@Schema(description = "to cater for values that are not numerical test metrics (e.g. a DSL line can be Synchronised or Unsynchronised. If the latter, the test should result in a rule violation).The allowed value can contain a REGEX string.")
 
 	public String getConformanceTargetExact() {
 		return conformanceTargetExact;
@@ -163,7 +161,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return conformanceTargetLower
 	 **/
-	@ApiModelProperty(value = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the lower limit. The value should be less than the conformanceTargetUpper. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
+	@Schema(description = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the lower limit. The value should be less than the conformanceTargetUpper. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
 
 	public String getConformanceTargetLower() {
 		return conformanceTargetLower;
@@ -186,7 +184,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return conformanceTargetUpper
 	 **/
-	@ApiModelProperty(value = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the Upper limit. The value should be greater than the conformanceTargetLower. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
+	@Schema(description = "A value used to determine if the threshold is crossed or ceases  to be crossed. It represents the Upper limit. The value should be greater than the conformanceTargetLower. The conformance comparators should also be logically defined so as to not lead to a logically impossible condition.")
 
 	public String getConformanceTargetUpper() {
 		return conformanceTargetUpper;
@@ -206,7 +204,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description for the MetricDefMeasureThresholdRule .")
+	@Schema(description = "Description for the MetricDefMeasureThresholdRule .")
 
 	public String getDescription() {
 		return description;
@@ -226,7 +224,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name for the MetricDefMeasureThresholdRule .")
+	@Schema(description = "Name for the MetricDefMeasureThresholdRule .")
 
 	public String getName() {
 		return name;
@@ -247,7 +245,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return numberOfAllowedCrossing
 	 **/
-	@ApiModelProperty(value = "The number of allowed crossing occurrences in reference to the  tolerancePeriod without a consequence being initiated.")
+	@Schema(description = "The number of allowed crossing occurrences in reference to the  tolerancePeriod without a consequence being initiated.")
 
 	public Integer getNumberOfAllowedCrossing() {
 		return numberOfAllowedCrossing;
@@ -269,7 +267,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return thresholdRuleSeverity
 	 **/
-	@ApiModelProperty(value = "A threshold can be generated in different severity levels. A  crossing for each level may require a different condition and possibly trigger a different consequence.")
+	@Schema(description = "A threshold can be generated in different severity levels. A  crossing for each level may require a different condition and possibly trigger a different consequence.")
 
 	public String getThresholdRuleSeverity() {
 		return thresholdRuleSeverity;
@@ -298,7 +296,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return appliedConsequence
 	 **/
-	@ApiModelProperty(value = "An Applied Consequence defines the action (prescribed action or notification) to take when a MeasureThresholdRuleViolation occurs.")
+	@Schema(description = "An Applied Consequence defines the action (prescribed action or notification) to take when a MeasureThresholdRuleViolation occurs.")
 	@Valid
 	public Set<AppliedConsequence> getAppliedConsequence() {
 		return appliedConsequence;
@@ -318,7 +316,7 @@ public class MeasureThresholdRuleViolation extends BaseRootNamedEntity {
 	 * 
 	 * @return tolerancePeriod
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public Duration getTolerancePeriod() {

@@ -27,21 +27,19 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * This class defines the characteristic features of a resource specification.
@@ -49,9 +47,9 @@ import io.swagger.annotations.ApiModelProperty;
  * constraints, and relationships, which distinguish a resource specification
  * from other resource specifications.
  */
-@ApiModel(description = "This class defines the characteristic features of a resource specification. Every ResourceSpecification has a variety of important attributes, methods, constraints, and relationships, which distinguish a resource specification from other resource specifications.")
+@Schema(description = "This class defines the characteristic features of a resource specification. Every ResourceSpecification has a variety of important attributes, methods, constraints, and relationships, which distinguish a resource specification from other resource specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "ResourceSpecCharacteristic")
 public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
@@ -142,7 +140,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
+	@Schema(description = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
 
 	public String getName() {
 		return name;
@@ -162,7 +160,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A narrative that explains the CharacteristicSpecification.")
+	@Schema(description = "A narrative that explains the CharacteristicSpecification.")
 
 	public String getDescription() {
 		return description;
@@ -183,7 +181,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+	@Schema(description = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
 
 	public String getValueType() {
 		return valueType;
@@ -204,7 +202,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return configurable
 	 **/
-	@ApiModelProperty(value = "If true, the Boolean indicates that the ResourceSpecificationCharacteristic is configurable")
+	@Schema(description = "If true, the Boolean indicates that the ResourceSpecificationCharacteristic is configurable")
 
 	public Boolean isConfigurable() {
 		return configurable;
@@ -224,7 +222,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period of time for which a characteristic is applicable.")
+	@Schema(description = "The period of time for which a characteristic is applicable.")
 
 	@Valid
 
@@ -246,7 +244,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "(Class) type of the ResourceSpecificationCharacteristic")
+	@Schema(description = "(Class) type of the ResourceSpecificationCharacteristic")
 
 	public String getType() {
 		return type;
@@ -266,7 +264,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A link to the schema describing this characteristic specification")
+	@Schema(description = "A link to the schema describing this characteristic specification")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -286,7 +284,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return valueSchemaLocation
 	 **/
-	@ApiModelProperty(value = "This (optional) field provides a link to the schema describing the value type")
+	@Schema(description = "This (optional) field provides a link to the schema describing the value type")
 
 	public String getValueSchemaLocation() {
 		return valueSchemaLocation;
@@ -308,7 +306,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return minCardinality
 	 **/
-	@ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
+	@Schema(description = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
 
 	public Integer getMinCardinality() {
 		return minCardinality;
@@ -330,7 +328,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return maxCardinality
 	 **/
-	@ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
+	@Schema(description = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
 
 	public Integer getMaxCardinality() {
 		return maxCardinality;
@@ -352,7 +350,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return isUnique
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
+	@Schema(description = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
 
 	public Boolean isIsUnique() {
 		return isUnique;
@@ -373,7 +371,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return regex
 	 **/
-	@ApiModelProperty(value = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
+	@Schema(description = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
 
 	public String getRegex() {
 		return regex;
@@ -395,7 +393,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return extensible
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.")
+	@Schema(description = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.")
 
 	public Boolean isExtensible() {
 		return extensible;
@@ -425,7 +423,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return resourceSpecCharRelationship
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -457,7 +455,7 @@ public class ResourceSpecificationCharacteristic  extends BaseRootNamedEntity {
 	 * 
 	 * @return ResourceSpecificationCharacteristicValue
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 

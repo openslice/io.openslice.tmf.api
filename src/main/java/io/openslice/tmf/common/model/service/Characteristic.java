@@ -21,25 +21,23 @@ package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Describes a given characteristic of an object or entity through a name/value pair.
  */
-@ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
+@Schema(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 @Entity(name = "ServiceRestrictionCharacteristic")
 public class Characteristic  extends BaseRootNamedEntity {
@@ -59,7 +57,7 @@ public class Characteristic  extends BaseRootNamedEntity {
    * Data type of the value of the characteristic
    * @return valueType
   **/
-  @ApiModelProperty(value = "Data type of the value of the characteristic")
+  @Schema(description = "Data type of the value of the characteristic")
 
 
   public String getValueType() {
@@ -79,7 +77,7 @@ public class Characteristic  extends BaseRootNamedEntity {
    * The value of the characteristic
    * @return value
   **/
-  @ApiModelProperty(required = true, value = "The value of the characteristic")
+  @Schema(description = "The value of the characteristic")
   @NotNull
 
   @Valid

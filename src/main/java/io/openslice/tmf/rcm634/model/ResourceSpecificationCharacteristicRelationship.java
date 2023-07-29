@@ -21,22 +21,20 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity relationship between/among ResourceSpecificationCharacteristics. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.
  */
-@ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among ResourceSpecificationCharacteristics. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.")
+@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among ResourceSpecificationCharacteristics. The specification characteristic is embedded within the specification whose ID and href are in this entity, and identified by its ID.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 public class ResourceSpecificationCharacteristicRelationship   {
   @JsonProperty("characteristicSpecificationId")
   private String characteristicSpecificationId = null;
@@ -74,7 +72,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * Unique identifier of the characteristic within the specification
    * @return characteristicSpecificationId
   **/
-  @ApiModelProperty(value = "Unique identifier of the characteristic within the specification")
+  @Schema(description = "Unique identifier of the characteristic within the specification")
   
     public String getCharacteristicSpecificationId() {
     return characteristicSpecificationId;
@@ -93,7 +91,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * Name of the target characteristic within the specification
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the target characteristic within the specification")
+  @Schema(description = "Name of the target characteristic within the specification")
   
     public String getName() {
     return name;
@@ -112,7 +110,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * Type of relationship such as aggregation, migration, substitution, dependency, exclusivity
    * @return relationshipType
   **/
-  @ApiModelProperty(value = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
+  @Schema(description = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
   
     public String getRelationshipType() {
     return relationshipType;
@@ -131,7 +129,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * Hyperlink reference to the resource specification containing the target characteristic
    * @return resourceSpecificationHref
   **/
-  @ApiModelProperty(value = "Hyperlink reference to the resource specification containing the target characteristic")
+  @Schema(description = "Hyperlink reference to the resource specification containing the target characteristic")
   
     public String getResourceSpecificationHref() {
     return resourceSpecificationHref;
@@ -150,7 +148,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * Unique identifier of the resource specification containing the target characteristic
    * @return resourceSpecificationId
   **/
-  @ApiModelProperty(value = "Unique identifier of the resource specification containing the target characteristic")
+  @Schema(description = "Unique identifier of the resource specification containing the target characteristic")
   
     public String getResourceSpecificationId() {
     return resourceSpecificationId;
@@ -169,7 +167,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {
@@ -189,7 +187,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -208,7 +206,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -227,7 +225,7 @@ public class ResourceSpecificationCharacteristicRelationship   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;

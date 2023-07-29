@@ -21,27 +21,25 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.validation.Valid;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity
  * relationship between/among Specification Characteristics.
  */
-@ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
+@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 @Entity(name = "ResourceSpecCharRelationship")
 public class ResourceSpecCharRelationship {
@@ -105,7 +103,7 @@ public class ResourceSpecCharRelationship {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the target characteristic")
+	@Schema(description = "Name of the target characteristic")
 
 	public String getName() {
 		return name;
@@ -135,7 +133,7 @@ public class ResourceSpecCharRelationship {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the target specification")
+	@Schema(description = "Unique identifier of the target specification")
 
 	/**
 	 * @return the id
@@ -162,7 +160,7 @@ public class ResourceSpecCharRelationship {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference to the target specification")
+	@Schema(description = "Hyperlink reference to the target specification")
 
 	public String getHref() {
 		return href;
@@ -182,7 +180,7 @@ public class ResourceSpecCharRelationship {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "class type of target specification")
+	@Schema(description = "class type of target specification")
 
 	public String getType() {
 		return type;
@@ -202,7 +200,7 @@ public class ResourceSpecCharRelationship {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the object is valid")
+	@Schema(description = "The period for which the object is valid")
 
 	@Valid
 

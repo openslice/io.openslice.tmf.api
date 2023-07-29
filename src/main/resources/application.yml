@@ -1,9 +1,47 @@
+origins: http://localhost,http://localhost:13082,http://127.0.0.1:13082,https://localhost, 
+permit-all: /tmf-api/**
+keycloak-issuer: http://localhost/auth/realms/openslice
+
 server:
   port: 13082
   servlet:
     context-path : /tmf-api
+  error:
+    include-message: always
+  ssl:
+    enabled: false
+    
+springdoc:
+  version: '@springdoc.version@'
+  writer-with-default-pretty-printer: true
+  swagger-ui:
+    display-request-duration: true
+    groups-order: ASC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+    oauth:
+      client-id: osapiWebClientId
+      clientsecret: "secret"
+      use-pkce-with-authorization-code-grant: false
+  oAuthFlow:
+    authorizationUrl: http://localhost/auth/realms/openslice/protocol/openid-connect/auth
+    tokenUrl: http://localhost/auth/realms/openslice/protocol/openid-connect/token
+  show-actuator: true
+
+spring-addons:
+  issuers:
+  - uri: ${keycloak-issuer}
+    username-json-path: $.preferred_username
+    claims:
+    - jsonPath: $.realm_access.roles
+    - jsonPath: $.resource_access.*.roles
+
+    
 spring:
-  profiles: default
+  config:
+    activate:
+      on-profile: "default"
   application:
     name: openslice-service-catalog-management-api
   datasource:
@@ -41,11 +79,18 @@ spring:
       max-connections: 100
     packages:
       trust-all: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak-issuer}
+  
 
 logging:
   level:
     root: INFO
     portal.api: INFO
+    io.openslice.tmf.*: DEBUG
     org.springframework: INFO
     org.apache.camel: INFO 
     com.zaxxer.hikari: INFO
@@ -53,20 +98,7 @@ logging:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d %p %c{1.} [%t] %m%n"
     
-keycloak:
-  realm: openslice
-  auth-server-url: http://localhost/auth
-  ssl-required: none
-  resource: admin-cli
-  credentials:
-    secret: none
-  public-client: false
-  bearer-only: true
-  principal-attribute: preferred_username
-
-keycloak-internal-auth-server-url: http://localhost/auth
-keycloak-admin-password: Pa55w0rd
-    
+  
     
 swagger:
   authserver: http://localhost/auth/realms/openslice
@@ -158,5 +190,7 @@ NFV_CATALOG_NS_LCMCHANGED: "jms:topic:NFV_CATALOG_NS_LCMCHANGED"
 #RESERVATION_API
 RESERVATION_CREATE: "jms:queue:RESERVATION.ADD"
 RESERVATION_AVAILABILITY_CHECK: "jms:queue:RESERVATION.AVAILABILITYCHECK"
+
+---
 
 

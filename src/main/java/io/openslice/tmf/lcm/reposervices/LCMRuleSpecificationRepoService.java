@@ -10,9 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,6 +25,8 @@ import io.openslice.tmf.lcm.model.LCMRuleSpecificationCreate;
 import io.openslice.tmf.lcm.model.LCMRuleSpecificationUpdate;
 import io.openslice.tmf.lcm.repo.LCMRuleSpecificationRepository;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 
 

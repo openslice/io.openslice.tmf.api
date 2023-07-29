@@ -27,33 +27,24 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
-import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.openslice.tmf.common.model.Attachment;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
@@ -62,8 +53,10 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
-import io.swagger.annotations.ApiParam;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 @Controller
 @RequestMapping("/resourceCatalogManagement/v4/")
@@ -104,7 +97,7 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 	ResourceSpecificationRepoService resourceSpecificationRepoService;
 	
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ResourceSpecification> createResourceSpecification(JsonNode jsonNode) {
 		try {
@@ -144,10 +137,10 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteResourceSpecification(
-			@ApiParam(value = "Identifier of the ResourceSpecification", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the ResourceSpecification", required = true) @PathVariable("id") String id) {
 		try {
 
 			return new ResponseEntity<Void>(resourceSpecificationRepoService.deleteByUuid(id), HttpStatus.OK);
@@ -159,9 +152,9 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 
 	@Override
 	public ResponseEntity<List<ResourceSpecification>> listResourceSpecification(
-			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
-			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+			@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+			@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+			@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
 		try {
 			return new ResponseEntity<List<ResourceSpecification>>(resourceSpecificationRepoService.findAll(),
@@ -175,7 +168,7 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 	}
 	
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ResourceSpecification> patchResourceSpecification(@Valid ResourceSpecificationUpdate serviceSpecification,
 			String id) {
@@ -189,8 +182,8 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 
 	@Override
 	public ResponseEntity<ResourceSpecification> retrieveResourceSpecification(
-			@ApiParam(value = "Identifier of the ResourceSpecification", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+			@Parameter(description = "Identifier of the ResourceSpecification", required = true) @PathVariable("id") String id,
+			@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 		try {
 
 			return new ResponseEntity<ResourceSpecification>( resourceSpecificationRepoService.findByUuid( id ), HttpStatus.OK);
@@ -201,12 +194,12 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ResourceSpecification>  addAttachmentToLogicalResourceSpec(
 			String id, 
-    		//@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
-    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile afile,
+    		//@Parameter(description = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") String attachment, 
+    		@Parameter(description = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile afile,
 			HttpServletRequest request){
 
 		try {

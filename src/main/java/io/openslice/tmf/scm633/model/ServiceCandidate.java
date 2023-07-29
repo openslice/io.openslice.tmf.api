@@ -25,25 +25,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 
 /**
  * ServiceCandidate is an entity that makes a service specification available to
@@ -51,9 +48,9 @@ import io.swagger.annotations.ApiModelProperty;
  * published - made visible - in any number of service catalogs, or in none. One
  * service specification can be composed of other service specifications.
  */
-@ApiModel(description = "ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications.")
+@Schema(description = "ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Entity(name = "ServiceCandidate" )
 @Table( name = "ServiceCandidate" )
 
@@ -117,7 +114,7 @@ public class ServiceCandidate extends BaseEntity {
 	 * 
 	 * @return serviceSpecification
 	 **/
-	@ApiModelProperty(value = "The service specification implied by this candidate")
+	@Schema(description = "The service specification implied by this candidate")
 
 	@Transient
 	@JsonProperty("serviceSpecification")
@@ -165,7 +162,7 @@ public class ServiceCandidate extends BaseEntity {
 	 * 
 	 * @return serviceSpecification
 	 **/
-	@ApiModelProperty(value = "The category specification implied by this candidate")
+	@Schema(description = "The category specification implied by this candidate")
 
 	@Transient
 	@JsonProperty("category")

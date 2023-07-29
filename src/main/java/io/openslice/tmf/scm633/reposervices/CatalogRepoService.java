@@ -23,26 +23,19 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.IntPredicate;
-
-import javax.annotation.PostConstruct;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCatalog;
 import io.openslice.tmf.scm633.model.ServiceCatalogCreate;
 import io.openslice.tmf.scm633.model.ServiceCatalogUpdate;
 import io.openslice.tmf.scm633.model.ServiceCategory;
-import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.repo.CatalogRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class CatalogRepoService {

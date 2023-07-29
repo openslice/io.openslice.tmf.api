@@ -19,23 +19,22 @@
  */
 package io.openslice.tmf.sac640.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.sac640.model.MonitorCreateEvent;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
 public class MonitorCreateNotification   {
   @JsonProperty("eventId")
   private String eventId = null;
@@ -64,7 +63,7 @@ public class MonitorCreateNotification   {
    * The identifier of the notification
    * @return eventId
   **/
-  @ApiModelProperty(value = "The identifier of the notification")
+  @Schema(description = "The identifier of the notification")
   
     public String getEventId() {
     return eventId;
@@ -83,7 +82,7 @@ public class MonitorCreateNotification   {
    * Time of the event occurrence
    * @return eventTime
   **/
-  @ApiModelProperty(value = "Time of the event occurrence")
+  @Schema(description = "Time of the event occurrence")
   
     @Valid
     public OffsetDateTime getEventTime() {
@@ -103,7 +102,7 @@ public class MonitorCreateNotification   {
    * The type of the notification
    * @return eventType
   **/
-  @ApiModelProperty(value = "The type of the notification")
+  @Schema(description = "The type of the notification")
   
     public String getEventType() {
     return eventType;
@@ -122,7 +121,7 @@ public class MonitorCreateNotification   {
    * The path identifying the object field concerned by this notification
    * @return fieldPath
   **/
-  @ApiModelProperty(value = "The path identifying the object field concerned by this notification")
+  @Schema(description = "The path identifying the object field concerned by this notification")
   
     public String getFieldPath() {
     return fieldPath;
@@ -141,7 +140,7 @@ public class MonitorCreateNotification   {
    * The path identifying the resource object concerned by this notification
    * @return resourcePath
   **/
-  @ApiModelProperty(value = "The path identifying the resource object concerned by this notification")
+  @Schema(description = "The path identifying the resource object concerned by this notification")
   
     public String getResourcePath() {
     return resourcePath;
@@ -160,7 +159,7 @@ public class MonitorCreateNotification   {
    * Get event
    * @return event
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public MonitorCreateEvent getEvent() {

@@ -27,9 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,6 +45,8 @@ import io.openslice.tmf.scm633.model.ServiceCategoryUpdate;
 import io.openslice.tmf.scm633.repo.CandidateRepository;
 import io.openslice.tmf.scm633.repo.CatalogRepository;
 import io.openslice.tmf.scm633.repo.CategoriesRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class CategoryRepoService {

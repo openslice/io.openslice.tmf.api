@@ -23,25 +23,23 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.validation.Valid;
 
 /**
  * Extra information about a given entity
  */
-@ApiModel(description = "Extra information about a given entity")
+@Schema(description = "Extra information about a given entity")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 @Entity(name = "Note")
 public class Note extends BaseRootEntity {
 	@JsonProperty("author")
@@ -67,7 +65,7 @@ public class Note extends BaseRootEntity {
 	 * 
 	 * @return author
 	 **/
-	@ApiModelProperty(value = "Author of the note")
+	@Schema(description = "Author of the note")
 
 	public String getAuthor() {
 		return author;
@@ -87,7 +85,7 @@ public class Note extends BaseRootEntity {
 	 * 
 	 * @return date
 	 **/
-	@ApiModelProperty(value = "Date of the note")
+	@Schema(description = "Date of the note")
 
 	@Valid
 
@@ -126,7 +124,7 @@ public class Note extends BaseRootEntity {
 	 * 
 	 * @return system
 	 **/
-	@ApiModelProperty(value = "Describes the system from which the action related to this note was done")
+	@Schema(description = "Describes the system from which the action related to this note was done")
 
 	public String getSystem() {
 		return system;
@@ -149,7 +147,7 @@ public class Note extends BaseRootEntity {
 	 * 
 	 * @return text
 	 **/
-	@ApiModelProperty(value = "Text of the note")
+	@Schema(description = "Text of the note")
 
 	public String getText() {
 		return text;

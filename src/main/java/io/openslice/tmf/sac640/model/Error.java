@@ -20,20 +20,20 @@
 package io.openslice.tmf.sac640.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
  */
-@ApiModel(description = "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)")
+@Schema(description = "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
 public class Error   {
   @JsonProperty("code")
   private Integer code = null;
@@ -68,7 +68,7 @@ public class Error   {
    * Application relevant detail, defined in the API or a common list.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "Application relevant detail, defined in the API or a common list.")
+  @Schema(description = "Application relevant detail, defined in the API or a common list.")
       @NotNull
 
     public Integer getCode() {
@@ -88,7 +88,7 @@ public class Error   {
    * Explanation of the reason for the error which can be shown to a client user.
    * @return reason
   **/
-  @ApiModelProperty(required = true, value = "Explanation of the reason for the error which can be shown to a client user.")
+  @Schema(description = "Explanation of the reason for the error which can be shown to a client user.")
       @NotNull
 
     public String getReason() {
@@ -108,7 +108,7 @@ public class Error   {
    * More details and corrective actions related to the error which can be shown to a client user.
    * @return message
   **/
-  @ApiModelProperty(value = "More details and corrective actions related to the error which can be shown to a client user.")
+  @Schema(description = "More details and corrective actions related to the error which can be shown to a client user.")
   
     public String getMessage() {
     return message;
@@ -127,7 +127,7 @@ public class Error   {
    * HTTP Error code extension
    * @return status
   **/
-  @ApiModelProperty(value = "HTTP Error code extension")
+  @Schema(description = "HTTP Error code extension")
   
     public Integer getStatus() {
     return status;
@@ -146,7 +146,7 @@ public class Error   {
    * URI of documentation describing the error.
    * @return referenceError
   **/
-  @ApiModelProperty(value = "URI of documentation describing the error.")
+  @Schema(description = "URI of documentation describing the error.")
   
     public String getReferenceError() {
     return referenceError;
@@ -165,7 +165,7 @@ public class Error   {
    * When sub-classing, this defines the super-class.
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class.")
+  @Schema(description = "When sub-classing, this defines the super-class.")
   
     public String getAtBaseType() {
     return baseType;
@@ -184,7 +184,7 @@ public class Error   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -203,7 +203,7 @@ public class Error   {
    * When sub-classing, this defines the sub-class entity name.
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name.")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name.")
   
     public String getAtType() {
     return type;

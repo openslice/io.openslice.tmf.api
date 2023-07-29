@@ -21,21 +21,19 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The event data structure
  */
-@ApiModel(description = "The event data structure")
+@Schema(description = "The event data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class ProductOrderAttributeValueChangeEventPayload   {
   @JsonProperty("productOrder")
   private ProductOrder productOrder = null;
@@ -49,7 +47,7 @@ public class ProductOrderAttributeValueChangeEventPayload   {
    * Get productOrder
    * @return productOrder
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductOrder getProductOrder() {

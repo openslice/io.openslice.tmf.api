@@ -19,19 +19,12 @@
  */
 package io.openslice.tmf.stm653.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-import io.openslice.centrallog.client.CLevel;
-import io.openslice.centrallog.client.CentralLogger;
-import io.openslice.tmf.common.model.UserPartRoleType;
-import io.openslice.tmf.stm653.model.ServiceTest;
-import io.openslice.tmf.stm653.model.ServiceTestCreate;
-import io.openslice.tmf.stm653.model.ServiceTestSpecification;
-import io.openslice.tmf.stm653.model.ServiceTestUpdate;
-import io.openslice.tmf.stm653.reposervices.ServiceTestRepoService;
-import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
-import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
-import io.swagger.annotations.ApiParam;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,14 +40,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+import io.openslice.centrallog.client.CLevel;
+import io.openslice.centrallog.client.CentralLogger;
+import io.openslice.tmf.common.model.UserPartRoleType;
+import io.openslice.tmf.stm653.model.ServiceTest;
+import io.openslice.tmf.stm653.model.ServiceTestCreate;
+import io.openslice.tmf.stm653.model.ServiceTestUpdate;
+import io.openslice.tmf.stm653.reposervices.ServiceTestRepoService;
+import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Controller
 @RequestMapping("/serviceTestManagement/v4/")
 public class ServiceTestApiController implements ServiceTestApi {
@@ -93,7 +90,7 @@ public class ServiceTestApiController implements ServiceTestApi {
         return Optional.ofNullable(request);
     }
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
     @Override
     public ResponseEntity<ServiceTest> createServiceTest(@Valid ServiceTestCreate serviceTest) {
     	try {
@@ -127,7 +124,7 @@ public class ServiceTestApiController implements ServiceTestApi {
     @Override
     public ResponseEntity<List<ServiceTest>> listServiceTest(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit,
-			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
+			@Parameter(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
     	
     	try {
 			if (allParams != null) {
@@ -155,7 +152,7 @@ public class ServiceTestApiController implements ServiceTestApi {
 		}
     }
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
     @Override
     public ResponseEntity<ServiceTest> patchServiceTest(@Valid ServiceTestUpdate serviceSpecification, String id) {
 		

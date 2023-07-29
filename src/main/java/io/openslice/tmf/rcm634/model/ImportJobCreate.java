@@ -22,22 +22,20 @@ package io.openslice.tmf.rcm634.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Represents a task used to import resources from a file Skipped properties: id,href
  */
-@ApiModel(description = "Represents a task used to import resources from a file Skipped properties: id,href")
+@Schema(description = "Represents a task used to import resources from a file Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 public class ImportJobCreate   {
   @JsonProperty("completionDate")
   private OffsetDateTime completionDate = null;
@@ -78,7 +76,7 @@ public class ImportJobCreate   {
    * Date at which the job was completed
    * @return completionDate
   **/
-  @ApiModelProperty(value = "Date at which the job was completed")
+  @Schema(description = "Date at which the job was completed")
   
     @Valid
     public OffsetDateTime getCompletionDate() {
@@ -98,7 +96,7 @@ public class ImportJobCreate   {
    * Indicates the format of the imported data
    * @return contentType
   **/
-  @ApiModelProperty(value = "Indicates the format of the imported data")
+  @Schema(description = "Indicates the format of the imported data")
   
     public String getContentType() {
     return contentType;
@@ -117,7 +115,7 @@ public class ImportJobCreate   {
    * Date at which the job was created
    * @return creationDate
   **/
-  @ApiModelProperty(value = "Date at which the job was created")
+  @Schema(description = "Date at which the job was created")
   
     @Valid
     public OffsetDateTime getCreationDate() {
@@ -137,7 +135,7 @@ public class ImportJobCreate   {
    * Reason for failure if status is failed
    * @return errorLog
   **/
-  @ApiModelProperty(value = "Reason for failure if status is failed")
+  @Schema(description = "Reason for failure if status is failed")
   
     public String getErrorLog() {
     return errorLog;
@@ -156,7 +154,7 @@ public class ImportJobCreate   {
    * URL of the root resource where the content of the file specified by the import job must be applied
    * @return path
   **/
-  @ApiModelProperty(value = "URL of the root resource where the content of the file specified by the import job must be applied")
+  @Schema(description = "URL of the root resource where the content of the file specified by the import job must be applied")
   
     public String getPath() {
     return path;
@@ -175,7 +173,7 @@ public class ImportJobCreate   {
    * URL of the file containing the data to be imported
    * @return url
   **/
-  @ApiModelProperty(required = true, value = "URL of the file containing the data to be imported")
+  @Schema(description = "URL of the file containing the data to be imported")
       @NotNull
 
     public String getUrl() {
@@ -195,7 +193,7 @@ public class ImportJobCreate   {
    * Get status
    * @return status
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public JobStateType getStatus() {
@@ -215,7 +213,7 @@ public class ImportJobCreate   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -234,7 +232,7 @@ public class ImportJobCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -253,7 +251,7 @@ public class ImportJobCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;

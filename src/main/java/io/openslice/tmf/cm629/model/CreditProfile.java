@@ -22,25 +22,23 @@ package io.openslice.tmf.cm629.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Credit profile for the party (containing credit scoring, ...). By default only the current credit profile  is retrieved. It can be used as a list to give the party credit profiles history, the first one in the list will be the current one.
  */
-@ApiModel(description = "Credit profile for the party (containing credit scoring, ...). By default only the current credit profile  is retrieved. It can be used as a list to give the party credit profiles history, the first one in the list will be the current one.")
+@Schema(description = "Credit profile for the party (containing credit scoring, ...). By default only the current credit profile  is retrieved. It can be used as a list to give the party credit profiles history, the first one in the list will be the current one.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 @Entity(name = "CreditProfile")
 public class CreditProfile   extends BaseRootEntity{
@@ -65,7 +63,7 @@ public class CreditProfile   extends BaseRootEntity{
    * The date the profile was established
    * @return creditProfileDate
   **/
-  @ApiModelProperty(required = true, value = "The date the profile was established")
+  @Schema(description = "The date the profile was established")
   @NotNull
 
   @Valid
@@ -87,7 +85,7 @@ public class CreditProfile   extends BaseRootEntity{
    * This is an integer whose value is used to rate the risk
    * @return creditRiskRating
   **/
-  @ApiModelProperty(value = "This is an integer whose value is used to rate the risk")
+  @Schema(description = "This is an integer whose value is used to rate the risk")
 
 
   public Integer getCreditRiskRating() {
@@ -107,7 +105,7 @@ public class CreditProfile   extends BaseRootEntity{
    * A measure of a person or organizations creditworthiness calculated on the basis of a combination of factors such as their income and credit history
    * @return creditScore
   **/
-  @ApiModelProperty(value = "A measure of a person or organizations creditworthiness calculated on the basis of a combination of factors such as their income and credit history")
+  @Schema(description = "A measure of a person or organizations creditworthiness calculated on the basis of a combination of factors such as their income and credit history")
 
 
   public Integer getCreditScore() {
@@ -127,7 +125,7 @@ public class CreditProfile   extends BaseRootEntity{
    * The period for which the profile is valid
    * @return validFor
   **/
-  @ApiModelProperty(required = true, value = "The period for which the profile is valid")
+  @Schema(description = "The period for which the profile is valid")
   @NotNull
 
   @Valid

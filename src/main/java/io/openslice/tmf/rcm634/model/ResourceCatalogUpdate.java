@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The root entity for resource catalog management. A resource catalog is a group of resource specifications made available through resource candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). Skipped properties: id,href
  */
-@ApiModel(description = "The root entity for resource catalog management. A resource catalog is a group of resource specifications made available through resource candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). Skipped properties: id,href")
+@Schema(description = "The root entity for resource catalog management. A resource catalog is a group of resource specifications made available through resource candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 
 public class ResourceCatalogUpdate   {
@@ -85,7 +83,7 @@ protected String name = null;
    * Name of the catalog
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the catalog")
+  @Schema(description = "Name of the catalog")
 
 
   public String getName() {
@@ -105,7 +103,7 @@ protected String name = null;
    * Description of this catalog
    * @return description
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+  @Schema(description = "Description of this catalog")
 
 
   public String getDescription() {
@@ -125,7 +123,7 @@ protected String name = null;
    * Indicates the (class) type of catalog. For resource catalogs, this will be 'ResourceCatalog'.
    * @return type
   **/
-  @ApiModelProperty(value = "Indicates the (class) type of catalog. For resource catalogs, this will be 'ResourceCatalog'.")
+  @Schema(description = "Indicates the (class) type of catalog. For resource catalogs, this will be 'ResourceCatalog'.")
 
 
   public String getType() {
@@ -145,7 +143,7 @@ protected String name = null;
    * This field provides a link to the schema describing this REST resource
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
+  @Schema(description = "This field provides a link to the schema describing this REST resource")
 
 
   public String getSchemaLocation() {
@@ -165,7 +163,7 @@ protected String name = null;
    * Indicates<b> </b>the base (class) type of this REST resource
    * @return baseType
   **/
-  @ApiModelProperty(value = "Indicates<b> </b>the base (class) type of this REST resource")
+  @Schema(description = "Indicates<b> </b>the base (class) type of this REST resource")
 
 
   public String getBaseType() {
@@ -185,7 +183,7 @@ protected String name = null;
    * Catalog version
    * @return version
   **/
-  @ApiModelProperty(value = "Catalog version")
+  @Schema(description = "Catalog version")
 
 
   public String getVersion() {
@@ -205,7 +203,7 @@ protected String name = null;
    * The period for which the catalog is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the catalog is valid")
+  @Schema(description = "The period for which the catalog is valid")
 
   @Valid
 
@@ -222,7 +220,7 @@ protected String name = null;
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -250,7 +248,7 @@ protected String name = null;
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -279,7 +277,7 @@ protected String name = null;
    * Get category
    * @return category
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

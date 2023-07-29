@@ -21,24 +21,22 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * Resource Specification reference: The ResourceSpecification is required to
  * realize a ProductSpecification.
  */
-@ApiModel(description = "Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.")
+@Schema(description = "Resource Specification reference: The ResourceSpecification is required to realize a ProductSpecification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Entity(name = "ResourceSpecificationRef")
 @JsonIgnoreProperties( {"uuid"} )
 public class ResourceSpecificationRef extends BaseRootNamedEntity {
@@ -94,7 +92,7 @@ public class ResourceSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Resource specification version")
+	@Schema(description = "Resource specification version")
 
 	public String getVersion() {
 		return version;
@@ -109,7 +107,7 @@ public class ResourceSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public ResourceSpecificationRef referredType(String referredType) {
 		this.referredType = referredType;
@@ -121,7 +119,7 @@ public class ResourceSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return referredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getReferredType() {
 		return referredType;

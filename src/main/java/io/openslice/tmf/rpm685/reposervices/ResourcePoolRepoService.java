@@ -1,12 +1,10 @@
 package io.openslice.tmf.rpm685.reposervices;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.common.model.service.ResourceRef;
-import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.rpm685.model.AvailabilityCheck;
 import io.openslice.tmf.rpm685.model.AvailabilityCheckCreate;
 import io.openslice.tmf.rpm685.model.ExtractCreate;
@@ -27,6 +24,9 @@ import io.openslice.tmf.rpm685.model.ResourcePoolCreate;
 import io.openslice.tmf.rpm685.model.ResourcePoolMapper;
 import io.openslice.tmf.rpm685.model.ResourcePoolUpdate;
 import io.openslice.tmf.rpm685.repo.ResourcePoolRepository;
+import io.openslice.tmf.rpm685.repo.ResourceReservationRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * @author ctranoris
@@ -39,9 +39,11 @@ public class ResourcePoolRepoService {
 
 	@Autowired
 	ResourcePoolRepository resourcePoolRepo;
+	
 
 	@Autowired
-	private ResourceReservationRepoService resourceReservationRepoService;
+	ResourceReservationRepository resourceReservationRepository;
+
 
 	public ResourcePool addResourcePool(@Valid ResourcePoolCreate body) {
 		logger.info("Will add Resource Pool: " + body.getName());
@@ -90,7 +92,7 @@ public class ResourcePoolRepoService {
 		if (  acReq.getResourceCapacityDemand().getResources() != null && acReq.getResourceCapacityDemand().getResources().size()>0) {
 			for (ResourceRef rRef : acReq.getResourceCapacityDemand().getResources()) {
 				
-				Reservation aReservation = resourceReservationRepoService.reserveResource( rRef.getId(), 
+				Reservation aReservation = reserveResource( rRef.getId(), 
 						acReq.getResourceCapacityDemand().getApplicableTimePeriod().getFromDateTime(),
 						acReq.getResourceCapacityDemand().getApplicableTimePeriod().getEndDateTime()
 						);
@@ -103,7 +105,7 @@ public class ResourcePoolRepoService {
 			
 			for (ResourceRef rRef : rp.getCapacity().getResources() ) {
 				
-				Reservation aReservation = resourceReservationRepoService.reserveResource( rRef.getId(), 
+				Reservation aReservation = reserveResource( rRef.getId(), 
 						acReq.getResourceCapacityDemand().getApplicableTimePeriod().getFromDateTime(),
 						acReq.getResourceCapacityDemand().getApplicableTimePeriod().getEndDateTime()
 						);
@@ -182,5 +184,73 @@ public class ResourcePoolRepoService {
 		this.resourcePoolRepo.delete( s );
 		return null;
 	}
+	
+	/**
+	 * @param resourceId
+	 * @param fromDateTime
+	 * @param endDateTime
+	 * @return a nre reservation if it is OK with dates otherwise returns one that is rejected
+	 */
+	public Reservation reserveResource(@NotNull String resourceId, @Valid OffsetDateTime fromDateTime,
+			@Valid OffsetDateTime endDateTime) {
 
+		//find any reservations of that resource in the specific period
+		//we must not find any reservation that its fromDateTime is between requestedFromDateTime and requested EndDateTime
+		//we must not find any reservation that its endDateTime is is between requestedFromDateTime and requested EndDateTime
+		//find any reservations that include the fromDateTime
+
+
+		
+		List<Reservation> result1 = this.findAllReservations();
+		List<Reservation> result11 = this.resourceReservationRepository.findAll2( resourceId );
+//		Set<Reservation> result2 = this.resourceReservationRepository
+//				.findResourceReservationsThatIncludeFromDateTime(resourceId, fromDateTime);
+//		Set<Reservation> result3 = this.resourceReservationRepository
+//				.findResourceReservationsThatIncludeEndDateTime(resourceId,  endDateTime);
+//		Set<Reservation> result4 = this.resourceReservationRepository
+//				.findResourceReservationsThatIncludeDates(resourceId, fromDateTime, endDateTime);
+//		Set<Reservation> result5 = this.resourceReservationRepository
+//		.findResourceReservationsThatIncludeDates(resourceId, fromDateTime, endDateTime);
+		Set<Reservation> result = this.resourceReservationRepository
+		.findResourceReservationsForDates(resourceId, fromDateTime, endDateTime);
+
+		logger.info("reqFrom %s, reqEnd %s".formatted(fromDateTime, endDateTime));
+//		if ( result1.size() >0 ) {
+//			@Valid
+//			ApplicableTimePeriod period = result1.stream().findFirst().get()
+//					.getReservationItem().stream().findFirst().  get()
+//					.getAppliedCapacityAmount().getResourceCapacityDemand().getApplicableTimePeriod();
+//			
+//			logger.info("reservationFROM %s, reservationEND %s".formatted(
+//						period.getFromDateTime() , 
+//						period.getEndDateTime()));			
+//		}
+		
+		logger.info("result1 %s".formatted(result1.size()));
+		logger.info("result11 %s".formatted(result11.size()));
+//		logger.info("result2 %s".formatted(result2.size()));
+//		logger.info("result3 %s".formatted(result3.size()));
+//		logger.info("result4 %s".formatted(result4.size()));
+//		logger.info("result5 %s".formatted(result5.size()));
+		logger.info("result %s".formatted(result.size()));
+		
+		
+		//if result is 0 then create a new reservation for that specific dates
+		
+		Reservation aReservation = new Reservation();
+		//if ( result2.size() == 0 && result3.size() == 0 && result4.size() == 0 && result5.size() == 0) {
+		if ( result.size() == 0) {
+			aReservation.setReservationState( ReservationStateType.COMPLETED.toString());			
+		}  else {
+			aReservation.setReservationState( ReservationStateType.REJECTED.toString());
+		}
+		
+		
+		
+		return aReservation;
+	}
+
+	public List<Reservation> findAllReservations() {
+		return (List<Reservation>) this.resourceReservationRepository.findAll();
+	}
 }

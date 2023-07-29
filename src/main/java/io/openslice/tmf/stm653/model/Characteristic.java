@@ -19,38 +19,31 @@
  */
 package io.openslice.tmf.stm653.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Describes a given characteristic of an object or entity through a name/value
  * pair.
  */
-@ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
+@Schema(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMCharacteristic")
 @Table(name = "STMCharacteristic")
 public class Characteristic extends BaseRootNamedEntity {
@@ -97,7 +90,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(required = true, value = "Name of the characteristic")
+	@Schema(description = "Name of the characteristic")
 	@NotNull
 
 	public String getName() {
@@ -118,7 +111,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "Data type of the value of the characteristic")
+	@Schema(description = "Data type of the value of the characteristic")
 
 	public String getValueType() {
 		return valueType;
@@ -146,7 +139,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return characteristicRelationship
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public Set<CharacteristicRelationship> getCharacteristicRelationship() {
 		return characteristicRelationship;
@@ -166,7 +159,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return value
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@Schema(description = "")
 	@NotNull
 
 	@Valid

@@ -4,32 +4,26 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.common.model.UserPartRoleType;
-import io.openslice.tmf.rcm634.model.ResourceCategory;
-import io.openslice.tmf.ri639.model.Resource;
-import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
 import io.openslice.tmf.rpm685.model.ResourcePool;
 import io.openslice.tmf.rpm685.model.ResourcePoolCreate;
 import io.openslice.tmf.rpm685.model.ResourcePoolUpdate;
 import io.openslice.tmf.rpm685.reposervices.ResourcePoolRepoService;
-import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 @Controller("ResourcePoolApiController685")
 @RequestMapping("/resourcePoolManagement/v1/")
 public class ResourcePoolApiController implements ResourcePoolApi {
@@ -61,7 +55,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 	}
 	
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ResourcePool> createResourcePool(Principal principal, @Valid ResourcePoolCreate body) {
 		try {
@@ -82,7 +76,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 		}
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteResourcePool(
 			Principal principal,String id) {
@@ -100,7 +94,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 	}
 	
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ResourcePool> patchResourcePool(
 			Principal principal,@Valid ResourcePoolUpdate body, String id) {
@@ -112,7 +106,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 	}
 	
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ResourcePool> retrieveResourcePool(Principal principal, String id, @Valid String fields) {
 		try {
@@ -124,7 +118,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 		}
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<List<ResourcePool>> listResourcePool(Principal principal, @Valid String fields,
 			@Valid Integer offset, @Valid Integer limit) {

@@ -5,37 +5,30 @@
  */
 package io.openslice.tmf.rpm685.api;
 
-import io.openslice.tmf.rpm685.model.Error;
-import io.openslice.tmf.rpm685.model.Extract;
-import io.openslice.tmf.rpm685.model.ExtractCreate;
-import io.openslice.tmf.rpm685.model.ResourcePool;
+import java.io.IOException;
+import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
-@Api(value = "extract", description = "the extract API")
+import io.openslice.tmf.rpm685.model.ExtractCreate;
+import io.openslice.tmf.rpm685.model.ResourcePool;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@Tag(name = "extract", description = "the extract API")
 public interface ExtractApi {
 
     Logger log = LoggerFactory.getLogger(ExtractApi.class);
@@ -52,21 +45,21 @@ public interface ExtractApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates an 'Extract' action and modifies a pool", nickname = "createExtract", notes = "In this operation, TASK is executed to extract the capacity of the resource from the resource pool to another pool.", response = ResourcePool.class, tags={ "extract", })
+    @Operation(summary = "Creates an 'Extract' action and modifies a pool", operationId = "createExtract", description = "In this operation, TASK is executed to extract the capacity of the resource from the resource pool to another pool.", tags={ "extract", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = ResourcePool.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/extract",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    default ResponseEntity<ResourcePool> createExtract(@ApiParam(value = "The Extract to be performed" ,required=true )  @Valid @RequestBody ExtractCreate body
+    default ResponseEntity<ResourcePool> createExtract(@Parameter(description = "The Extract to be performed" ,required=true )  @Valid @RequestBody ExtractCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

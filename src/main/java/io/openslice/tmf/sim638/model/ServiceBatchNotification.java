@@ -19,25 +19,22 @@
  */
 package io.openslice.tmf.sim638.model;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
-
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.Notification;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
 public class ServiceBatchNotification extends Notification  {
  
@@ -59,7 +56,7 @@ public class ServiceBatchNotification extends Notification  {
    * The event linked to the involved resource object
    * @return event
   **/
-  @ApiModelProperty(value = "The event linked to the involved resource object")
+  @Schema(description = "The event linked to the involved resource object")
 
   @Valid
 

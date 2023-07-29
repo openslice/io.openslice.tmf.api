@@ -21,21 +21,19 @@ package io.openslice.tmf.sqm657.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A set of Service Level Objectives that are contained in the Service Level Specification.
  */
-@ApiModel(description = "A set of Service Level Objectives that are contained in the Service Level Specification.")
+@Schema(description = "A set of Service Level Objectives that are contained in the Service Level Specification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class ServiceLevelObjectiveRef   {
   @JsonProperty("href")
@@ -56,7 +54,7 @@ public class ServiceLevelObjectiveRef   {
    * The hyperlink to access a service level object.
    * @return href
   **/
-  @ApiModelProperty(required = true, value = "The hyperlink to access a service level object.")
+  @Schema(description = "The hyperlink to access a service level object.")
   @NotNull
 
 
@@ -77,7 +75,7 @@ public class ServiceLevelObjectiveRef   {
    * The identifier of a service level object.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The identifier of a service level object.")
+  @Schema(description = "The identifier of a service level object.")
   @NotNull
 
 
@@ -98,7 +96,7 @@ public class ServiceLevelObjectiveRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

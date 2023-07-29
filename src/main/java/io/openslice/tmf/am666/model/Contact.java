@@ -23,24 +23,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * An individual or an organization used as a contact point for a given account and accessed via some contact medium.
  */
-@ApiModel(description = "An individual or an organization used as a contact point for a given account and accessed via some contact medium.")
+@Schema(description = "An individual or an organization used as a contact point for a given account and accessed via some contact medium.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class Contact   {
   @JsonProperty("contactName")
@@ -80,7 +78,7 @@ public class Contact   {
    * A displayable name for that contact
    * @return contactName
   **/
-  @ApiModelProperty(value = "A displayable name for that contact")
+  @Schema(description = "A displayable name for that contact")
 
 
   public String getContactName() {
@@ -100,7 +98,7 @@ public class Contact   {
    * Type of contact (primary, secondary...)
    * @return contactType
   **/
-  @ApiModelProperty(required = true, value = "Type of contact (primary, secondary...)")
+  @Schema(description = "Type of contact (primary, secondary...)")
   @NotNull
 
 
@@ -121,7 +119,7 @@ public class Contact   {
    * Identifies what kind of party role type is linked to the contact (a account manager...)
    * @return partyRoleType
   **/
-  @ApiModelProperty(value = "Identifies what kind of party role type is linked to the contact (a account manager...)")
+  @Schema(description = "Identifies what kind of party role type is linked to the contact (a account manager...)")
 
 
   public String getPartyRoleType() {
@@ -149,7 +147,7 @@ public class Contact   {
    * Get contactMedium
    * @return contactMedium
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -170,7 +168,7 @@ public class Contact   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -191,7 +189,7 @@ public class Contact   {
    * Validity period of that contact
    * @return validFor
   **/
-  @ApiModelProperty(required = true, value = "Validity period of that contact")
+  @Schema(description = "Validity period of that contact")
   @NotNull
 
   @Valid
@@ -213,7 +211,7 @@ public class Contact   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -233,7 +231,7 @@ public class Contact   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -253,7 +251,7 @@ public class Contact   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

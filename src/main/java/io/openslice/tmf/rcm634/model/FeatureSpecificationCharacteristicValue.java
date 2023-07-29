@@ -21,26 +21,24 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A number or text that can be assigned to a FeatureSpecificationCharacteristic.
  */
-@ApiModel(description = "A number or text that can be assigned to a FeatureSpecificationCharacteristic.")
+@Schema(description = "A number or text that can be assigned to a FeatureSpecificationCharacteristic.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "RCMFeatureSpecCharVal")
 public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
@@ -82,7 +80,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * True if the value is the default value for a characteristic.
    * @return isDefault
   **/
-  @ApiModelProperty(value = "True if the value is the default value for a characteristic.")
+  @Schema(description = "True if the value is the default value for a characteristic.")
   
     public Boolean isIsDefault() {
     return isDefault;
@@ -101,7 +99,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * Specifies the inclusion or exclusion of the valueFrom and valueTo attributes.
    * @return rangeInterval
   **/
-  @ApiModelProperty(value = "Specifies the inclusion or exclusion of the valueFrom and valueTo attributes.")
+  @Schema(description = "Specifies the inclusion or exclusion of the valueFrom and valueTo attributes.")
   
     public String getRangeInterval() {
     return rangeInterval;
@@ -120,7 +118,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * A regular expression constraint for given value.
    * @return regex
   **/
-  @ApiModelProperty(value = "A regular expression constraint for given value.")
+  @Schema(description = "A regular expression constraint for given value.")
   
     public String getRegex() {
     return regex;
@@ -139,7 +137,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * A determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values.
    * @return unitOfMeasure
   **/
-  @ApiModelProperty(value = "A determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values.")
+  @Schema(description = "A determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values.")
   
     public String getUnitOfMeasure() {
     return unitOfMeasure;
@@ -158,7 +156,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * The low range value that a characteristic can take on.
    * @return valueFrom
   **/
-  @ApiModelProperty(value = "The low range value that a characteristic can take on.")
+  @Schema(description = "The low range value that a characteristic can take on.")
   
     public Integer getValueFrom() {
     return valueFrom;
@@ -177,7 +175,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * The upper range value that a characteristic can take on.
    * @return valueTo
   **/
-  @ApiModelProperty(value = "The upper range value that a characteristic can take on.")
+  @Schema(description = "The upper range value that a characteristic can take on.")
   
     public Integer getValueTo() {
     return valueTo;
@@ -196,7 +194,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * A kind of value that the characteristic value can take on.
    * @return valueType
   **/
-  @ApiModelProperty(required = true, value = "A kind of value that the characteristic value can take on.")
+  @Schema(description = "A kind of value that the characteristic value can take on.")
       @NotNull
 
     public String getValueType() {
@@ -216,7 +214,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {
@@ -236,7 +234,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * Get value
    * @return value
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Any getValue() {
@@ -256,7 +254,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -275,7 +273,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -294,7 +292,7 @@ public class FeatureSpecificationCharacteristicValue  extends BaseRootEntity {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

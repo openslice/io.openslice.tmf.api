@@ -21,28 +21,26 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Indicates the contact medium that could be used to contact the party.
  */
-@ApiModel(description = "Indicates the contact medium that could be used to contact the party.")
+@Schema(description = "Indicates the contact medium that could be used to contact the party.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 @Entity(name = "ContactMedium")
 public class ContactMedium extends BaseRootEntity {
 	@JsonProperty("mediumType")
@@ -70,7 +68,7 @@ public class ContactMedium extends BaseRootEntity {
 	 * 
 	 * @return mediumType
 	 **/
-	@ApiModelProperty(required = true, value = "Type of the contact medium, such as: email address, telephone number, postal address")
+	@Schema(description = "Type of the contact medium, such as: email address, telephone number, postal address")
 	@NotNull
 
 	public String getMediumType() {
@@ -91,7 +89,7 @@ public class ContactMedium extends BaseRootEntity {
 	 * 
 	 * @return preferred
 	 **/
-	@ApiModelProperty(value = "If true, indicates that is the preferred contact medium")
+	@Schema(description = "If true, indicates that is the preferred contact medium")
 
 	public Boolean isPreferred() {
 		return preferred;
@@ -111,7 +109,7 @@ public class ContactMedium extends BaseRootEntity {
 	 * 
 	 * @return characteristic
 	 **/
-	@ApiModelProperty(required = true, value = "Any additional characteristic(s) of this contact medium")
+	@Schema(description = "Any additional characteristic(s) of this contact medium")
 	@NotNull
 
 	@Valid
@@ -134,7 +132,7 @@ public class ContactMedium extends BaseRootEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The time period that the contact medium is valid for")
+	@Schema(description = "The time period that the contact medium is valid for")
 
 	@Valid
 

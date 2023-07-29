@@ -1,29 +1,24 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.rcm634.model.ResourceGraphSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * Describes link between resource graph specifications.
  */
-@ApiModel(description = "Describes link between resource graph specifications.")
+@Schema(description = "Describes link between resource graph specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
 @Entity(name = "ResourceGraphSpecRel")
 public class ResourceGraphSpecificationRelationship extends BaseRootEntity {
 	@JsonProperty("id")
@@ -49,7 +44,7 @@ public class ResourceGraphSpecificationRelationship extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "unique identifier")
+	@Schema(description = "unique identifier")
 
 
 	public String getId() {
@@ -68,7 +63,7 @@ public class ResourceGraphSpecificationRelationship extends BaseRootEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -88,7 +83,7 @@ public class ResourceGraphSpecificationRelationship extends BaseRootEntity {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(value = "Semantic of the relationship.")
+	@Schema(description = "Semantic of the relationship.")
 
 	public String getRelationshipType() {
 		return relationshipType;
@@ -108,7 +103,7 @@ public class ResourceGraphSpecificationRelationship extends BaseRootEntity {
 	 * 
 	 * @return resourceGraph
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceGraphSpecificationRef getResourceGraph() {

@@ -1,32 +1,23 @@
 package io.openslice.tmf.lcm.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.openslice.tmf.scm633.model.ServiceCategory;
-import io.openslice.tmf.scm633.model.ServiceCategoryRef;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -36,7 +27,7 @@ import lombok.EqualsAndHashCode;
  * A LCM RuleSpecification is an entity that describes a LCM rule to apply during the LCM of a service
  *
  */
-@ApiModel(description = "A LCM RuleSpecification is an entity that describes a LCM rule to apply during the LCM of a service.")
+@Schema(description = "A LCM RuleSpecification is an entity that describes a LCM rule to apply during the LCM of a service.")
 @Validated
 @Entity(name = "LCMRuleSpec")
 @EqualsAndHashCode(callSuper=true)
@@ -112,7 +103,7 @@ public class LCMRuleSpecification extends BaseEntity{
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "List of service specs associated with this rule")
+	@Schema(description = "List of service specs associated with this rule")
 	@Transient
 	@JsonProperty("serviceSpecs")
 	@Valid

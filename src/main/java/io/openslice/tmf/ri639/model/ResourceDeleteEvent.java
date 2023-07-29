@@ -3,21 +3,19 @@ package io.openslice.tmf.ri639.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 public class ResourceDeleteEvent   {
   @JsonProperty("event")
   private ResourceDeleteEventPayload event = null;
@@ -58,7 +56,7 @@ public class ResourceDeleteEvent   {
    * Get event
    * @return event
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ResourceDeleteEventPayload getEvent() {
@@ -78,7 +76,7 @@ public class ResourceDeleteEvent   {
    * The identifier of the notification.
    * @return eventId
   **/
-  @ApiModelProperty(value = "The identifier of the notification.")
+  @Schema(description = "The identifier of the notification.")
   
     public String getEventId() {
     return eventId;
@@ -97,7 +95,7 @@ public class ResourceDeleteEvent   {
    * Time of the event occurrence.
    * @return eventTime
   **/
-  @ApiModelProperty(value = "Time of the event occurrence.")
+  @Schema(description = "Time of the event occurrence.")
   
     @Valid
     public OffsetDateTime getEventTime() {
@@ -117,7 +115,7 @@ public class ResourceDeleteEvent   {
    * The type of the notification.
    * @return eventType
   **/
-  @ApiModelProperty(value = "The type of the notification.")
+  @Schema(description = "The type of the notification.")
   
     public String getEventType() {
     return eventType;
@@ -136,7 +134,7 @@ public class ResourceDeleteEvent   {
    * The correlation id for this event.
    * @return correlationId
   **/
-  @ApiModelProperty(value = "The correlation id for this event.")
+  @Schema(description = "The correlation id for this event.")
   
     public String getCorrelationId() {
     return correlationId;
@@ -155,7 +153,7 @@ public class ResourceDeleteEvent   {
    * The domain of the event.
    * @return domain
   **/
-  @ApiModelProperty(value = "The domain of the event.")
+  @Schema(description = "The domain of the event.")
   
     public String getDomain() {
     return domain;
@@ -174,7 +172,7 @@ public class ResourceDeleteEvent   {
    * The title of the event.
    * @return title
   **/
-  @ApiModelProperty(value = "The title of the event.")
+  @Schema(description = "The title of the event.")
   
     public String getTitle() {
     return title;
@@ -193,7 +191,7 @@ public class ResourceDeleteEvent   {
    * An explnatory of the event.
    * @return description
   **/
-  @ApiModelProperty(value = "An explnatory of the event.")
+  @Schema(description = "An explnatory of the event.")
   
     public String getDescription() {
     return description;
@@ -212,7 +210,7 @@ public class ResourceDeleteEvent   {
    * A priority.
    * @return priority
   **/
-  @ApiModelProperty(value = "A priority.")
+  @Schema(description = "A priority.")
   
     public String getPriority() {
     return priority;
@@ -231,7 +229,7 @@ public class ResourceDeleteEvent   {
    * The time the event occured.
    * @return timeOcurred
   **/
-  @ApiModelProperty(value = "The time the event occured.")
+  @Schema(description = "The time the event occured.")
   
     @Valid
     public OffsetDateTime getTimeOcurred() {

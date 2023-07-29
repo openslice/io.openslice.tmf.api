@@ -2,22 +2,20 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * Base schema for adressable entities
  */
-@ApiModel(description = "Base schema for adressable entities")
+@Schema(description = "Base schema for adressable entities")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIAddressable")
 public class Addressable extends BaseRootEntity {
 	@JsonProperty("id")
@@ -33,7 +31,7 @@ public class Addressable extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "unique identifier")
+	@Schema(description = "unique identifier")
 	public String getId() {
 		id = uuid;
 		return uuid;

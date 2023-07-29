@@ -24,30 +24,28 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Individual represents a single human being (a man, woman or child). The
  * individual can be a customer, an employee or any other person that the
  * organization needs to store information about.
  */
-@ApiModel(description = "Individual represents a single human being (a man, woman or child). The individual can be a customer, an employee or any other person that the organization needs to store information about.")
+@Schema(description = "Individual represents a single human being (a man, woman or child). The individual can be a customer, an employee or any other person that the organization needs to store information about.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 @Entity
 @Table(indexes = { @Index(name = "IX_FAMILYNAME", columnList = "familyName") })
 public class Individual extends BaseRootEntity {
@@ -184,7 +182,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "Unique identifier of the organization")
+	@Schema(description = "Unique identifier of the organization")
 	
 	public String getId() {
 		return uuid;
@@ -201,7 +199,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return aristocraticTitle
 	 **/
-	@ApiModelProperty(value = "e.g. Baron, Graf, Earl,…")
+	@Schema(description = "e.g. Baron, Graf, Earl,…")
 
 	public String getAristocraticTitle() {
 		return aristocraticTitle;
@@ -221,7 +219,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return birthDate
 	 **/
-	@ApiModelProperty(value = "Birth date")
+	@Schema(description = "Birth date")
 
 	@Valid
 
@@ -252,7 +250,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return countryOfBirth
 	 **/
-	@ApiModelProperty(value = "Country where the individual was born")
+	@Schema(description = "Country where the individual was born")
 
 	public String getCountryOfBirth() {
 		return countryOfBirth;
@@ -272,7 +270,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return deathDate
 	 **/
-	@ApiModelProperty(value = "Date of death")
+	@Schema(description = "Date of death")
 
 	@Valid
 
@@ -304,7 +302,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return familyName
 	 **/
-	@ApiModelProperty(value = "Contains the non-chosen or inherited name. Also known as last name in the Western context")
+	@Schema(description = "Contains the non-chosen or inherited name. Also known as last name in the Western context")
 
 	public String getFamilyName() {
 		return familyName;
@@ -324,7 +322,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return familyNamePrefix
 	 **/
-	@ApiModelProperty(value = "Family name prefix")
+	@Schema(description = "Family name prefix")
 
 	public String getFamilyNamePrefix() {
 		return familyNamePrefix;
@@ -346,7 +344,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return formattedName
 	 **/
-	@ApiModelProperty(value = "A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,…)")
+	@Schema(description = "A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,…)")
 
 	public String getFormattedName() {
 		return formattedName;
@@ -366,7 +364,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return fullName
 	 **/
-	@ApiModelProperty(value = "Full name flatten (first, middle, and last names)")
+	@Schema(description = "Full name flatten (first, middle, and last names)")
 
 	public String getFullName() {
 		return fullName;
@@ -386,7 +384,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return gender
 	 **/
-	@ApiModelProperty(value = "Gender")
+	@Schema(description = "Gender")
 
 	public String getGender() {
 		return gender;
@@ -406,7 +404,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return generation
 	 **/
-	@ApiModelProperty(value = "e.g.. Sr, Jr, III (the third),…")
+	@Schema(description = "e.g.. Sr, Jr, III (the third),…")
 
 	public String getGeneration() {
 		return generation;
@@ -426,7 +424,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return givenName
 	 **/
-	@ApiModelProperty(value = "First name of the individual")
+	@Schema(description = "First name of the individual")
 
 	public String getGivenName() {
 		return givenName;
@@ -446,7 +444,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return legalName
 	 **/
-	@ApiModelProperty(value = "Legal name or birth name (name one has for official purposes)")
+	@Schema(description = "Legal name or birth name (name one has for official purposes)")
 
 	public String getLegalName() {
 		return legalName;
@@ -467,7 +465,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return location
 	 **/
-	@ApiModelProperty(value = "Temporary current location od the individual (may be used if the individual has approved its sharing)")
+	@Schema(description = "Temporary current location od the individual (may be used if the individual has approved its sharing)")
 
 	public String getLocation() {
 		return location;
@@ -487,7 +485,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return maritalStatus
 	 **/
-	@ApiModelProperty(value = "Marital status (married, divorced, widow ...)")
+	@Schema(description = "Marital status (married, divorced, widow ...)")
 
 	public String getMaritalStatus() {
 		return maritalStatus;
@@ -507,7 +505,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return middleName
 	 **/
-	@ApiModelProperty(value = "Middles name or initial")
+	@Schema(description = "Middles name or initial")
 
 	public String getMiddleName() {
 		return middleName;
@@ -527,7 +525,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return nationality
 	 **/
-	@ApiModelProperty(value = "Nationality")
+	@Schema(description = "Nationality")
 
 	public String getNationality() {
 		return nationality;
@@ -547,7 +545,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return placeOfBirth
 	 **/
-	@ApiModelProperty(value = "Reference to the place where the individual was born")
+	@Schema(description = "Reference to the place where the individual was born")
 
 	public String getPlaceOfBirth() {
 		return placeOfBirth;
@@ -568,7 +566,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return preferredGivenName
 	 **/
-	@ApiModelProperty(value = "Contains the chosen name by which the individual prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname")
+	@Schema(description = "Contains the chosen name by which the individual prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname")
 
 	public String getPreferredGivenName() {
 		return preferredGivenName;
@@ -588,7 +586,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return title
 	 **/
-	@ApiModelProperty(value = "Useful for titles (aristocratic, social,...) Pr, Dr, Sir, ...")
+	@Schema(description = "Useful for titles (aristocratic, social,...) Pr, Dr, Sir, ...")
 
 	public String getTitle() {
 		return title;
@@ -616,7 +614,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return contactMedium
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -646,7 +644,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return creditRating
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -676,7 +674,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return disability
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -706,7 +704,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return externalReference
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -736,7 +734,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return individualIdentification
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -766,7 +764,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return languageAbility
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -796,7 +794,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return otherName
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -826,7 +824,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return partyCharacteristic
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -856,7 +854,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -886,7 +884,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return skill
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -908,7 +906,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return status
 	 **/
-	@ApiModelProperty(value = "Status of the individual")
+	@Schema(description = "Status of the individual")
 
 	@Valid
 
@@ -938,7 +936,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return taxExemptionCertificate
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -960,7 +958,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -981,7 +979,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -1001,7 +999,7 @@ public class Individual extends BaseRootEntity {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;

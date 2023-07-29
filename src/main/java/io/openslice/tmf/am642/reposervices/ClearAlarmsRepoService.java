@@ -29,9 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -43,6 +40,8 @@ import io.openslice.tmf.am642.model.AlarmStateType;
 import io.openslice.tmf.am642.model.ClearAlarms;
 import io.openslice.tmf.am642.model.ClearAlarmsCreate;
 import io.openslice.tmf.am642.repo.ClearAlarmsRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ClearAlarmsRepoService {

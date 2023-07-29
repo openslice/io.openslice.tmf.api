@@ -21,23 +21,21 @@ package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Service reference, for when Service is used by other entities
  */
-@ApiModel(description = "Service reference, for when Service is used by other entities")
+@Schema(description = "Service reference, for when Service is used by other entities")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 @Entity(name = "ServiceRef")
 public class ServiceRef extends BaseRootNamedEntity {
@@ -58,7 +56,7 @@ public class ServiceRef extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "Id of the service")
+	@Schema(description = "Id of the service")
 	@NotNull
 
 	public String getId() {
@@ -79,7 +77,7 @@ public class ServiceRef extends BaseRootNamedEntity {
 	 * 
 	 * @return referredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getReferredType() {
 		return referredType;

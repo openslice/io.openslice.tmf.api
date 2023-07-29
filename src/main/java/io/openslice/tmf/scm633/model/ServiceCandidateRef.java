@@ -21,22 +21,20 @@ package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * ServiceCandidate reference. ServiceCandidate is an entity that makes a
  * ServiceSpecification available to a catalog.
  */
-@ApiModel(description = "ServiceCandidate reference. ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.")
+@Schema(description = "ServiceCandidate reference. ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 public class ServiceCandidateRef extends BaseRootNamedEntity {
 
@@ -79,7 +77,7 @@ public class ServiceCandidateRef extends BaseRootNamedEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Version of the service candidate")
+	@Schema(description = "Version of the service candidate")
 
 	public String getVersion() {
 		return version;
@@ -99,7 +97,7 @@ public class ServiceCandidateRef extends BaseRootNamedEntity {
 	 * 
 	 * @return referredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getReferredType() {
 		return referredType;

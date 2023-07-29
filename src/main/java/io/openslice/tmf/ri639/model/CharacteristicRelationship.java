@@ -2,22 +2,20 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * Another Characteristic that is related to the current Characteristic;
  */
-@ApiModel(description = "Another Characteristic that is related to the current Characteristic;")
+@Schema(description = "Another Characteristic that is related to the current Characteristic;")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RICharacteristicRel")
 public class CharacteristicRelationship extends BaseRootNamedEntity {
 	@JsonProperty("id")
@@ -36,7 +34,7 @@ public class CharacteristicRelationship extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the characteristic")
+	@Schema(description = "Unique identifier of the characteristic")
 	public String getId() {
 		id = uuid;
 		return uuid;
@@ -53,7 +51,7 @@ public class CharacteristicRelationship extends BaseRootNamedEntity {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(value = "The type of relationship")
+	@Schema(description = "The type of relationship")
 
 	public String getRelationshipType() {
 		return relationshipType;

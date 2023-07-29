@@ -24,24 +24,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the product entity and not the RelatedProductRefOrValue class itself
  */
-@ApiModel(description = "A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the product entity and not the RelatedProductRefOrValue class itself")
+@Schema(description = "A product to be created defined by value or existing defined by reference. The polymorphic attributes @type, @schemaLocation & @referredType are related to the product entity and not the RelatedProductRefOrValue class itself")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class ProductRefOrValue   {
   @JsonProperty("id")
   private String id = null;
@@ -150,7 +148,7 @@ public class ProductRefOrValue   {
    * Unique identifier of the product
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the product")
+  @Schema(description = "Unique identifier of the product")
   
     public String getId() {
     return id;
@@ -169,7 +167,7 @@ public class ProductRefOrValue   {
    * Reference of the product
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the product")
+  @Schema(description = "Reference of the product")
   
     public String getHref() {
     return href;
@@ -188,7 +186,7 @@ public class ProductRefOrValue   {
    * Is the description of the product. It could be copied from the description of the Product Offering.
    * @return description
   **/
-  @ApiModelProperty(value = "Is the description of the product. It could be copied from the description of the Product Offering.")
+  @Schema(description = "Is the description of the product. It could be copied from the description of the Product Offering.")
   
     public String getDescription() {
     return description;
@@ -207,7 +205,7 @@ public class ProductRefOrValue   {
    * If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering.
    * @return isBundle
   **/
-  @ApiModelProperty(value = "If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering.")
+  @Schema(description = "If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering.")
   
     public Boolean isIsBundle() {
     return isBundle;
@@ -226,7 +224,7 @@ public class ProductRefOrValue   {
    * If true, the product is visible by the customer.
    * @return isCustomerVisible
   **/
-  @ApiModelProperty(value = "If true, the product is visible by the customer.")
+  @Schema(description = "If true, the product is visible by the customer.")
   
     public Boolean isIsCustomerVisible() {
     return isCustomerVisible;
@@ -245,7 +243,7 @@ public class ProductRefOrValue   {
    * Name of the product. It could be the same as the name of the product offering
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the product. It could be the same as the name of the product offering")
+  @Schema(description = "Name of the product. It could be the same as the name of the product offering")
   
     public String getName() {
     return name;
@@ -264,7 +262,7 @@ public class ProductRefOrValue   {
    * Is the date when the product was ordered
    * @return orderDate
   **/
-  @ApiModelProperty(value = "Is the date when the product was ordered")
+  @Schema(description = "Is the date when the product was ordered")
   
     @Valid
     public OffsetDateTime getOrderDate() {
@@ -284,7 +282,7 @@ public class ProductRefOrValue   {
    * Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.
    * @return productSerialNumber
   **/
-  @ApiModelProperty(value = "Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.")
+  @Schema(description = "Is the serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.")
   
     public String getProductSerialNumber() {
     return productSerialNumber;
@@ -303,7 +301,7 @@ public class ProductRefOrValue   {
    * Is the date from which the product starts
    * @return startDate
   **/
-  @ApiModelProperty(value = "Is the date from which the product starts")
+  @Schema(description = "Is the date from which the product starts")
   
     @Valid
     public OffsetDateTime getStartDate() {
@@ -323,7 +321,7 @@ public class ProductRefOrValue   {
    * Is the date when the product was terminated
    * @return terminationDate
   **/
-  @ApiModelProperty(value = "Is the date when the product was terminated")
+  @Schema(description = "Is the date when the product was terminated")
   
     @Valid
     public OffsetDateTime getTerminationDate() {
@@ -351,7 +349,7 @@ public class ProductRefOrValue   {
    * Get agreement
    * @return agreement
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<AgreementItemRef> getAgreement() {
     return agreement;
@@ -370,7 +368,7 @@ public class ProductRefOrValue   {
    * Get billingAccount
    * @return billingAccount
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public BillingAccountRef getBillingAccount() {
@@ -398,7 +396,7 @@ public class ProductRefOrValue   {
    * Get place
    * @return place
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<RelatedPlaceRefOrValue> getPlace() {
     return place;
@@ -425,7 +423,7 @@ public class ProductRefOrValue   {
    * Get product
    * @return product
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ProductRefOrValue> getProduct() {
     return product;
@@ -452,7 +450,7 @@ public class ProductRefOrValue   {
    * Get productCharacteristic
    * @return productCharacteristic
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<Characteristic> getProductCharacteristic() {
     return productCharacteristic;
@@ -471,7 +469,7 @@ public class ProductRefOrValue   {
    * Get productOffering
    * @return productOffering
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductOfferingRef getProductOffering() {
@@ -499,7 +497,7 @@ public class ProductRefOrValue   {
    * Get productOrderItem
    * @return productOrderItem
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<RelatedProductOrderItem> getProductOrderItem() {
     return productOrderItem;
@@ -526,7 +524,7 @@ public class ProductRefOrValue   {
    * Get productPrice
    * @return productPrice
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ProductPrice> getProductPrice() {
     return productPrice;
@@ -553,7 +551,7 @@ public class ProductRefOrValue   {
    * Get productRelationship
    * @return productRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ProductRelationship> getProductRelationship() {
     return productRelationship;
@@ -572,7 +570,7 @@ public class ProductRefOrValue   {
    * Get productSpecification
    * @return productSpecification
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductSpecificationRef getProductSpecification() {
@@ -600,7 +598,7 @@ public class ProductRefOrValue   {
    * Get productTerm
    * @return productTerm
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ProductTerm> getProductTerm() {
     return productTerm;
@@ -627,7 +625,7 @@ public class ProductRefOrValue   {
    * Get realizingResource
    * @return realizingResource
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ResourceRef> getRealizingResource() {
     return realizingResource;
@@ -654,7 +652,7 @@ public class ProductRefOrValue   {
    * Get realizingService
    * @return realizingService
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ServiceRef> getRealizingService() {
     return realizingService;
@@ -681,7 +679,7 @@ public class ProductRefOrValue   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -700,7 +698,7 @@ public class ProductRefOrValue   {
    * Get status
    * @return status
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductStatusType getStatus() {
@@ -720,7 +718,7 @@ public class ProductRefOrValue   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -739,7 +737,7 @@ public class ProductRefOrValue   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -758,7 +756,7 @@ public class ProductRefOrValue   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;
@@ -777,7 +775,7 @@ public class ProductRefOrValue   {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

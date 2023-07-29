@@ -24,32 +24,31 @@
  */
 package io.openslice.tmf.fi691.api;
 
-import io.openslice.tmf.fi691.model.UserInfoType;
+import java.io.IOException;
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+import io.openslice.tmf.fi691.model.UserInfoType;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
-@Api(value = "userinfo", description = "the userinfo API")
+@Tag(name = "userinfo", description = "the userinfo API")
 public interface UserinfoApi {
 
     Logger log = LoggerFactory.getLogger(UserinfoApi.class);
@@ -66,20 +65,20 @@ public interface UserinfoApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Retrieve user identity information", nickname = "retrieveUserIdentity", notes = "", response = UserInfoType.class, tags={ "userinfo", })
+    @Operation(summary = "Retrieve user identity information", operationId = "retrieveUserIdentity", description = "", tags={ "userinfo", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "User identity information provided", response = UserInfoType.class),
-        @ApiResponse(code = 400, message = "Invalid Token"),
-        @ApiResponse(code = 401, message = "Invalid Token"),
-        @ApiResponse(code = 403, message = "Forbidden"),
-        @ApiResponse(code = 404, message = "Not Found"),
-        @ApiResponse(code = 405, message = "Method not Allowed"),
-        @ApiResponse(code = 500, message = "Internal Server Error") })
+        @ApiResponse(responseCode ="200", description = "User identity information provided" ),
+        @ApiResponse(responseCode = "400", description = "Invalid Token"),
+        @ApiResponse(responseCode = "401", description = "Invalid Token"),
+        @ApiResponse(responseCode = "403", description = "Forbidden"),
+        @ApiResponse(responseCode = "404", description = "Not Found"),
+        @ApiResponse(responseCode = "405", description = "Method not Allowed"),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error") })
     @RequestMapping(value = "/userinfo",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.GET)
-    default ResponseEntity<UserInfoType> retrieveUserIdentity(@ApiParam(value = "token to be passed as a header linked to the user whose identity is requested" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@ApiParam(value = "To apply specific filter in the response ") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<UserInfoType> retrieveUserIdentity(@Parameter(description = "token to be passed as a header linked to the user whose identity is requested" ,required=true) @RequestHeader(value="Authorization", required=true) String authorization,@Parameter(description = "To apply specific filter in the response ") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

@@ -19,36 +19,29 @@
  */
 package io.openslice.tmf.fi691.model;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.fi691.model.GeographicAddressType;
-import io.openslice.tmf.fi691.model.IdentificationType;
-import io.openslice.tmf.fi691.model.UserAssetType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * UserInfoType
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "UserInfoType")
 public class UserInfoType extends BaseRootNamedEntity {
@@ -123,7 +116,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return sub
 	 **/
-	@ApiModelProperty(required = true, value = "Subject - Unique Identifier for the End-User")
+	@Schema(description = "Subject - Unique Identifier for the End-User")
 	@NotNull
 
 	public String getSub() {
@@ -146,7 +139,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return givenName
 	 **/
-	@ApiModelProperty(value = "Given name(s) or first name(s) of the End-User. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters")
+	@Schema(description = "Given name(s) or first name(s) of the End-User. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters")
 
 	public String getGivenName() {
 		return givenName;
@@ -168,7 +161,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return familyName
 	 **/
-	@ApiModelProperty(value = "Surname(s) or last name(s) of the End-User. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters")
+	@Schema(description = "Surname(s) or last name(s) of the End-User. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters")
 
 	public String getFamilyName() {
 		return familyName;
@@ -190,7 +183,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return middleName
 	 **/
-	@ApiModelProperty(value = "Middle name(s) of the End-User. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used")
+	@Schema(description = "Middle name(s) of the End-User. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used")
 
 	public String getMiddleName() {
 		return middleName;
@@ -212,7 +205,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return nickname
 	 **/
-	@ApiModelProperty(value = "Casual name of the End-User that may or may not be the same as the given_name. For instance, a nickname value of Mike might be returned alongside a given_name value of Michael")
+	@Schema(description = "Casual name of the End-User that may or may not be the same as the given_name. For instance, a nickname value of Mike might be returned alongside a given_name value of Michael")
 
 	public String getNickname() {
 		return nickname;
@@ -234,7 +227,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return preferredUsername
 	 **/
-	@ApiModelProperty(value = "Shorthand name by which the End-User wishes to be referred to at the RP, such as janedoe or j.doe. This value MAY be any valid JSON string including special characters such as @, /, or whitespace")
+	@Schema(description = "Shorthand name by which the End-User wishes to be referred to at the RP, such as janedoe or j.doe. This value MAY be any valid JSON string including special characters such as @, /, or whitespace")
 
 	public String getPreferredUsername() {
 		return preferredUsername;
@@ -255,7 +248,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return email
 	 **/
-	@ApiModelProperty(value = "End-User's preferred e-mail address. Its value MUST conform to the [RFC5322] addr-spec syntax")
+	@Schema(description = "End-User's preferred e-mail address. Its value MUST conform to the [RFC5322] addr-spec syntax")
 
 	public String getEmail() {
 		return email;
@@ -279,7 +272,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return phoneNumber
 	 **/
-	@ApiModelProperty(value = "End-User's preferred telephone number. [E.164] is RECOMMENDED as the format of this Claim, for example, +1 (425) 555-1212 or +56 82) 687 2400. If the phone number contains an extension, it is RECOMMENDED that the extension be represented using the [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678")
+	@Schema(description = "End-User's preferred telephone number. [E.164] is RECOMMENDED as the format of this Claim, for example, +1 (425) 555-1212 or +56 82) 687 2400. If the phone number contains an extension, it is RECOMMENDED that the extension be represented using the [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678")
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -300,7 +293,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return gender
 	 **/
-	@ApiModelProperty(value = "End-User's gender. Values defined by this specification are female and male. Other values MAY be used when neither of the defined values are applicable")
+	@Schema(description = "End-User's gender. Values defined by this specification are female and male. Other values MAY be used when neither of the defined values are applicable")
 
 	public String getGender() {
 		return gender;
@@ -325,7 +318,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return birthdate
 	 **/
-	@ApiModelProperty(value = "End-User's birthday, represented as an [ISO8601-2004] YYYY-MM-DD format. The year MAY be 0000, indicating that it is omitted. To represent only the year, YYYY format is allowed. Note that depending on the underlying platform's date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates")
+	@Schema(description = "End-User's birthday, represented as an [ISO8601-2004] YYYY-MM-DD format. The year MAY be 0000, indicating that it is omitted. To represent only the year, YYYY format is allowed. Note that depending on the underlying platform's date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates")
 
 	public String getBirthdate() {
 		return birthdate;
@@ -349,7 +342,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return locale
 	 **/
-	@ApiModelProperty(value = "End-User's locale, represented as a [RFC5646] language tag. This is typically an [ISO639-1] language code in lowercase and an [ISO3166-1] country code in uppercase, separated by a dash. For example, en-US or fr-CA. As a compatibility note, some implementations have used an underscore as the separator rather than a dash, for example, en_US")
+	@Schema(description = "End-User's locale, represented as a [RFC5646] language tag. This is typically an [ISO639-1] language code in lowercase and an [ISO3166-1] country code in uppercase, separated by a dash. For example, en-US or fr-CA. As a compatibility note, some implementations have used an underscore as the separator rather than a dash, for example, en_US")
 
 	public String getLocale() {
 		return locale;
@@ -370,7 +363,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return zoneinfo
 	 **/
-	@ApiModelProperty(value = "String from zoneinfo time zone database representing the End-User's time zone. For example, Europe/Paris or America/Los_Angeles")
+	@Schema(description = "String from zoneinfo time zone database representing the End-User's time zone. For example, Europe/Paris or America/Los_Angeles")
 
 	public String getZoneinfo() {
 		return zoneinfo;
@@ -391,7 +384,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return profile
 	 **/
-	@ApiModelProperty(value = "URL of the End-User's profile page. The contents of this Web page SHOULD be about the End-User")
+	@Schema(description = "URL of the End-User's profile page. The contents of this Web page SHOULD be about the End-User")
 
 	public String getProfile() {
 		return profile;
@@ -415,7 +408,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return picture
 	 **/
-	@ApiModelProperty(value = "URL of the End-User's profile picture. This URL MUST refer to an image file (for example, a PNG, JPEG, or GIF image file), rather than to a Web page containing an image. Note that this URL SHOULD specifically reference a profile photo of the End-User suitable for displaying when describing the End-User, rather than an arbitrary photo taken by the End-User")
+	@Schema(description = "URL of the End-User's profile picture. This URL MUST refer to an image file (for example, a PNG, JPEG, or GIF image file), rather than to a Web page containing an image. Note that this URL SHOULD specifically reference a profile photo of the End-User suitable for displaying when describing the End-User, rather than an arbitrary photo taken by the End-User")
 
 	public String getPicture() {
 		return picture;
@@ -437,7 +430,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return website
 	 **/
-	@ApiModelProperty(value = "URL of the End-User's Web page or blog. This Web page SHOULD contain information published by the End-User or an organization that the End-User is affiliated with")
+	@Schema(description = "URL of the End-User's Web page or blog. This Web page SHOULD contain information published by the End-User or an organization that the End-User is affiliated with")
 
 	public String getWebsite() {
 		return website;
@@ -457,7 +450,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return address
 	 **/
-	@ApiModelProperty(value = "Structure including the End-User's preferred postal address")
+	@Schema(description = "Structure including the End-User's preferred postal address")
 
 	@Valid
 
@@ -487,7 +480,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return legalId
 	 **/
-	@ApiModelProperty(value = "Identification documentation of the contact")
+	@Schema(description = "Identification documentation of the contact")
 
 	@Valid
 
@@ -517,7 +510,7 @@ public class UserInfoType extends BaseRootNamedEntity {
 	 * 
 	 * @return userAssets
 	 **/
-	@ApiModelProperty(value = "List of additional profile information")
+	@Schema(description = "List of additional profile information")
 
 	@Valid
 

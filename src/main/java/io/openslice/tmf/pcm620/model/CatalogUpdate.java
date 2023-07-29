@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details Skipped properties: id,href,lastUpdate")
+@Schema(description = "A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class CatalogUpdate   {
   @JsonProperty("catalogType")
@@ -86,7 +84,7 @@ public class CatalogUpdate   {
    * Indicates if the catalog is a product, service or resource catalog
    * @return catalogType
   **/
-  @ApiModelProperty(value = "Indicates if the catalog is a product, service or resource catalog")
+  @Schema(description = "Indicates if the catalog is a product, service or resource catalog")
 
 
   public String getCatalogType() {
@@ -106,7 +104,7 @@ public class CatalogUpdate   {
    * Description of this catalog
    * @return description
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+  @Schema(description = "Description of this catalog")
 
 
   public String getDescription() {
@@ -126,7 +124,7 @@ public class CatalogUpdate   {
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -146,7 +144,7 @@ public class CatalogUpdate   {
    * Name of the catalog
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the catalog")
+  @Schema(description = "Name of the catalog")
 
 
   public String getName() {
@@ -166,7 +164,7 @@ public class CatalogUpdate   {
    * Catalog version
    * @return version
   **/
-  @ApiModelProperty(value = "Catalog version")
+  @Schema(description = "Catalog version")
 
 
   public String getVersion() {
@@ -194,7 +192,7 @@ public class CatalogUpdate   {
    * List of root categories contained in this catalog
    * @return category
   **/
-  @ApiModelProperty(value = "List of root categories contained in this catalog")
+  @Schema(description = "List of root categories contained in this catalog")
 
   @Valid
 
@@ -223,7 +221,7 @@ public class CatalogUpdate   {
    * List of parties involved in this catalog
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "List of parties involved in this catalog")
+  @Schema(description = "List of parties involved in this catalog")
 
   @Valid
 
@@ -244,7 +242,7 @@ public class CatalogUpdate   {
    * The period for which the catalog is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the catalog is valid")
+  @Schema(description = "The period for which the catalog is valid")
 
   @Valid
 
@@ -265,7 +263,7 @@ public class CatalogUpdate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -285,7 +283,7 @@ public class CatalogUpdate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -305,7 +303,7 @@ public class CatalogUpdate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

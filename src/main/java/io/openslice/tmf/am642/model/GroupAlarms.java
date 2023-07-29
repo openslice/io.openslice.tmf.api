@@ -24,27 +24,25 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Task resource for group alarms operation
  */
-@ApiModel(description = "Task resource for group alarms operation")
+@Schema(description = "Task resource for group alarms operation")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Entity(name = "AMGroupAlarms")
 @Table(name = "AMGroupAlarms")
 public class GroupAlarms  extends BaseRootEntity {
@@ -97,7 +95,7 @@ public class GroupAlarms  extends BaseRootEntity {
 	 * 
 	 * @return alarmChangedTime
 	 **/
-	@ApiModelProperty(value = "Time of the correlation")
+	@Schema(description = "Time of the correlation")
 
 	@Valid
 	public OffsetDateTime getAlarmChangedTime() {
@@ -127,7 +125,7 @@ public class GroupAlarms  extends BaseRootEntity {
 	 * 
 	 * @return sourceSystemId
 	 **/
-	@ApiModelProperty(value = "Source system identifier")
+	@Schema(description = "Source system identifier")
 
 	public String getSourceSystemId() {
 		return sourceSystemId;
@@ -147,7 +145,7 @@ public class GroupAlarms  extends BaseRootEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "Current state of the operation task")
+	@Schema(description = "Current state of the operation task")
 
 	public String getState() {
 		return state;
@@ -175,7 +173,7 @@ public class GroupAlarms  extends BaseRootEntity {
 	 * 
 	 * @return correlatedAlarm
 	 **/
-	@ApiModelProperty(value = "Correlated alarms")
+	@Schema(description = "Correlated alarms")
 	@Valid
 	public Set<AlarmRefOrValue> getCorrelatedAlarm() {
 		return correlatedAlarm;
@@ -203,7 +201,7 @@ public class GroupAlarms  extends BaseRootEntity {
 	 * 
 	 * @return groupedAlarm
 	 **/
-	@ApiModelProperty(value = "The successfully correlated alarms")
+	@Schema(description = "The successfully correlated alarms")
 	@Valid
 	public Set<AlarmRefOrValue> getGroupedAlarm() {
 		return groupedAlarm;
@@ -223,7 +221,7 @@ public class GroupAlarms  extends BaseRootEntity {
 	 * 
 	 * @return parentAlarm
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public AlarmRefOrValue getParentAlarm() {

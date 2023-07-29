@@ -21,28 +21,26 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A type of ProductOffering that belongs to a grouping of ProductOfferings made
  * available to the market. It inherits of all attributes of ProductOffering.
  */
-@ApiModel(description = "A type of ProductOffering that belongs to a grouping of ProductOfferings made available to the market. It inherits of all attributes of ProductOffering.")
+@Schema(description = "A type of ProductOffering that belongs to a grouping of ProductOfferings made available to the market. It inherits of all attributes of ProductOffering.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 @Entity(name = "BundledProductOffering")
 public class BundledProductOffering extends BaseEntity {
 	@JsonProperty("id")
@@ -58,7 +56,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "Unique identifier of a related entity.")
+	@Schema(description = "Unique identifier of a related entity.")
 	@NotNull
 
 	/**
@@ -80,7 +78,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Unique reference of the BundledProductOffering")
+	@Schema(description = "Unique reference of the BundledProductOffering")
 
 	public String getHref() {
 		return href;
@@ -100,7 +98,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status")
+	@Schema(description = "Used to indicate the current lifecycle status")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -120,7 +118,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the BundledProductOffering")
+	@Schema(description = "Name of the BundledProductOffering")
 
 	public String getName() {
 		return name;
@@ -143,7 +141,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return bundledProductOfferingOption
 	 **/
-	@ApiModelProperty(value = "A set of numbers that specifies the lower and upper limits for a ProductOffering that can be procured as part of the related BundledProductOffering. Values can range from 0 to unbounded.")
+	@Schema(description = "A set of numbers that specifies the lower and upper limits for a ProductOffering that can be procured as part of the related BundledProductOffering. Values can range from 0 to unbounded.")
 
 	@Valid
 
@@ -165,7 +163,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -186,7 +184,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -206,7 +204,7 @@ public class BundledProductOffering extends BaseEntity {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;

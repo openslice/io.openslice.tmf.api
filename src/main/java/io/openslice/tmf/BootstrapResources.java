@@ -19,25 +19,19 @@
  */
 package io.openslice.tmf;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.rcm634.model.ResourceCandidate;
 import io.openslice.tmf.rcm634.model.ResourceCandidateCreate;
-import io.openslice.tmf.rcm634.model.ResourceCandidateUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCatalog;
 import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
-import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
@@ -52,6 +46,7 @@ import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class BootstrapResources {

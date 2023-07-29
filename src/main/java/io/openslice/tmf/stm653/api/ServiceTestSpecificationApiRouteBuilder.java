@@ -21,6 +21,9 @@ package io.openslice.tmf.stm653.api;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -32,11 +35,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.sim638.model.ServiceCreate;
-import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.stm653.model.ServiceTestCreate;
 import io.openslice.tmf.stm653.model.ServiceTestUpdate;
 import io.openslice.tmf.stm653.reposervices.ServiceTestRepoService;

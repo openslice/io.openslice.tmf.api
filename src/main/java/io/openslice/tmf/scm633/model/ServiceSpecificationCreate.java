@@ -22,14 +22,12 @@ package io.openslice.tmf.scm633.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * ServiceSpecification is a class that offers characteristics to describe a
@@ -37,9 +35,9 @@ import io.swagger.annotations.ApiModelProperty;
  * instantiated. By sharing the same specification, these services would
  * therefore share the same set of characteristics. Skipped properties: id,href
  */
-@ApiModel(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics. Skipped properties: id,href")
+@Schema(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 public class ServiceSpecificationCreate extends ServiceSpecificationUpdate {
 
@@ -56,7 +54,7 @@ public class ServiceSpecificationCreate extends ServiceSpecificationUpdate {
 	 * 
 	 * @return lastUpdate
 	 **/
-	@ApiModelProperty(value = "Date and time of the last update of the service specification")
+	@Schema(description = "Date and time of the last update of the service specification")
 
 	@Valid
 

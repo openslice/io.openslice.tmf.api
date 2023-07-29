@@ -23,21 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * An amount, usually of money, that represents the actual price paid by the Customer for this item or this order
  */
-@ApiModel(description = "An amount, usually of money, that represents the actual price paid by the Customer for this item or this order")
+@Schema(description = "An amount, usually of money, that represents the actual price paid by the Customer for this item or this order")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class OrderPrice   {
   @JsonProperty("description")
   private String description = null;
@@ -85,7 +83,7 @@ public class OrderPrice   {
    * A narrative that explains in detail the semantics of this order item price.
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail the semantics of this order item price.")
+  @Schema(description = "A narrative that explains in detail the semantics of this order item price.")
   
     public String getDescription() {
     return description;
@@ -104,7 +102,7 @@ public class OrderPrice   {
    * A short descriptive name such as \"Subscription price\".
    * @return name
   **/
-  @ApiModelProperty(value = "A short descriptive name such as \"Subscription price\".")
+  @Schema(description = "A short descriptive name such as \"Subscription price\".")
   
     public String getName() {
     return name;
@@ -123,7 +121,7 @@ public class OrderPrice   {
    * A category that describes the price, such as recurring, discount, allowance, penalty, and so forth
    * @return priceType
   **/
-  @ApiModelProperty(value = "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth")
+  @Schema(description = "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth")
   
     public String getPriceType() {
     return priceType;
@@ -142,7 +140,7 @@ public class OrderPrice   {
    * Could be month, week...
    * @return recurringChargePeriod
   **/
-  @ApiModelProperty(value = "Could be month, week...")
+  @Schema(description = "Could be month, week...")
   
     public String getRecurringChargePeriod() {
     return recurringChargePeriod;
@@ -161,7 +159,7 @@ public class OrderPrice   {
    * Could be minutes, GB...
    * @return unitOfMeasure
   **/
-  @ApiModelProperty(value = "Could be minutes, GB...")
+  @Schema(description = "Could be minutes, GB...")
   
     public String getUnitOfMeasure() {
     return unitOfMeasure;
@@ -180,7 +178,7 @@ public class OrderPrice   {
    * Get billingAccount
    * @return billingAccount
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public BillingAccountRef getBillingAccount() {
@@ -200,7 +198,7 @@ public class OrderPrice   {
    * Get price
    * @return price
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Price getPrice() {
@@ -228,7 +226,7 @@ public class OrderPrice   {
    * a strucuture used to describe a price alteration
    * @return priceAlteration
   **/
-  @ApiModelProperty(value = "a strucuture used to describe a price alteration")
+  @Schema(description = "a strucuture used to describe a price alteration")
       @Valid
     public List<PriceAlteration> getPriceAlteration() {
     return priceAlteration;
@@ -247,7 +245,7 @@ public class OrderPrice   {
    * Get productOfferingPrice
    * @return productOfferingPrice
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductOfferingPriceRef getProductOfferingPrice() {
@@ -267,7 +265,7 @@ public class OrderPrice   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -286,7 +284,7 @@ public class OrderPrice   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -305,7 +303,7 @@ public class OrderPrice   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

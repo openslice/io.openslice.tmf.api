@@ -23,8 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,25 +31,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
-import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.pcm620.model.ProductOffering;
 import io.openslice.tmf.pcm620.model.ProductOfferingCreate;
 import io.openslice.tmf.pcm620.model.ProductOfferingUpdate;
 import io.openslice.tmf.pcm620.reposervices.ProductOfferingRepoService;
-import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
-import io.swagger.annotations.ApiParam;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Controller
 @RequestMapping("/productCatalogManagement/v4/")
@@ -79,7 +75,7 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 		this.request = request;
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ProductOffering> createProductOffering(@Valid ProductOfferingCreate productOffering) {
 		try {
@@ -93,7 +89,7 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 		}
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteProductOffering(String id) {
 		try {
@@ -140,7 +136,7 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 
 	}
 
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
 	@Override
 	public ResponseEntity<ProductOffering> patchProductOffering(String id,
 			@Valid ProductOfferingUpdate productOffering) {

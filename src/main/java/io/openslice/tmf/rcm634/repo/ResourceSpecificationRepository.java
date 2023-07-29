@@ -23,17 +23,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 
 @Repository
-public interface ResourceSpecificationRepository extends PagingAndSortingRepository<ResourceSpecification, Long> {
+public interface ResourceSpecificationRepository extends CrudRepository<ResourceSpecification, Long>, PagingAndSortingRepository<ResourceSpecification, Long> {
 
 	
 	Optional<ResourceSpecification> findByUuid(String id);

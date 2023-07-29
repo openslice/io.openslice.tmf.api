@@ -19,13 +19,12 @@
  */
 package io.openslice.sd.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 import org.hibernate.annotations.GenericGenerator;
 
 import io.openslice.tmf.scm633.model.ServiceSpecification;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 /**
  * This model will hold information that will help later on service

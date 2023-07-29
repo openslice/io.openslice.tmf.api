@@ -3,21 +3,19 @@ package io.openslice.tmf.ro652.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A Order cancel is a type of task which  can  be used to place a request to cancel an order
  */
-@ApiModel(description = "A Order cancel is a type of task which  can  be used to place a request to cancel an order")
+@Schema(description = "A Order cancel is a type of task which  can  be used to place a request to cancel an order")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class CancelOrder   {
   @JsonProperty("id")
   private String id = null;
@@ -55,7 +53,7 @@ public class CancelOrder   {
    * id of the cancellation request (this is not an order id)
    * @return id
   **/
-  @ApiModelProperty(value = "id of the cancellation request (this is not an order id)")
+  @Schema(description = "id of the cancellation request (this is not an order id)")
   
     public String getId() {
     return id;
@@ -74,7 +72,7 @@ public class CancelOrder   {
    * Hyperlink to access the cancellation request
    * @return href
   **/
-  @ApiModelProperty(value = "Hyperlink to access the cancellation request")
+  @Schema(description = "Hyperlink to access the cancellation request")
   
     public String getHref() {
     return href;
@@ -93,7 +91,7 @@ public class CancelOrder   {
    * Reason why the order is cancelled.
    * @return cancellationReason
   **/
-  @ApiModelProperty(value = "Reason why the order is cancelled.")
+  @Schema(description = "Reason why the order is cancelled.")
   
     public String getCancellationReason() {
     return cancellationReason;
@@ -112,7 +110,7 @@ public class CancelOrder   {
    * Date when the order is cancelled.
    * @return effectiveCancellationDate
   **/
-  @ApiModelProperty(value = "Date when the order is cancelled.")
+  @Schema(description = "Date when the order is cancelled.")
   
     @Valid
     public OffsetDateTime getEffectiveCancellationDate() {
@@ -132,7 +130,7 @@ public class CancelOrder   {
    * Date when the submitter wants the order to be cancelled
    * @return requestedCancellationDate
   **/
-  @ApiModelProperty(value = "Date when the submitter wants the order to be cancelled")
+  @Schema(description = "Date when the submitter wants the order to be cancelled")
   
     @Valid
     public OffsetDateTime getRequestedCancellationDate() {
@@ -152,7 +150,7 @@ public class CancelOrder   {
    * Get state
    * @return state
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TaskStateType getState() {
@@ -172,7 +170,7 @@ public class CancelOrder   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -191,7 +189,7 @@ public class CancelOrder   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -210,7 +208,7 @@ public class CancelOrder   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;

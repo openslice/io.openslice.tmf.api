@@ -21,19 +21,18 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * AgreementSpecification reference. An AgreementSpecification represents a template of an agreement that can be used when establishing partnerships.
  */
-@ApiModel(description = "AgreementSpecification reference. An AgreementSpecification represents a template of an agreement that can be used when establishing partnerships.")
+@Schema(description = "AgreementSpecification reference. An AgreementSpecification represents a template of an agreement that can be used when establishing partnerships.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementSpecificationRef   {
   @JsonProperty("description")
@@ -60,7 +59,7 @@ public class AgreementSpecificationRef   {
    * A narrative that explains in detail what the agreement specification is about.
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail what the agreement specification is about.")
+  @Schema(description = "A narrative that explains in detail what the agreement specification is about.")
 
 
   public String getDescription() {
@@ -80,7 +79,7 @@ public class AgreementSpecificationRef   {
    * Reference URL of the agreement specification
    * @return href
   **/
-  @ApiModelProperty(value = "Reference URL of the agreement specification")
+  @Schema(description = "Reference URL of the agreement specification")
 
 
   public String getHref() {
@@ -100,7 +99,7 @@ public class AgreementSpecificationRef   {
    * Unique identifier of the agreement specification
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the agreement specification")
+  @Schema(description = "Unique identifier of the agreement specification")
 
 
   public String getId() {
@@ -120,7 +119,7 @@ public class AgreementSpecificationRef   {
    * Name of the agreement specification
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the agreement specification")
+  @Schema(description = "Name of the agreement specification")
 
 
   public String getName() {
@@ -140,7 +139,7 @@ public class AgreementSpecificationRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

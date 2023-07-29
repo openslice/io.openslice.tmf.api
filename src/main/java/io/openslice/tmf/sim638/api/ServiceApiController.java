@@ -22,45 +22,32 @@ package io.openslice.tmf.sim638.api;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.model.DeploymentDescriptor;
 import io.openslice.model.UserRoleType;
 import io.openslice.tmf.common.model.UserPartRoleType;
-import io.openslice.tmf.sim638.model.Error;
 import io.openslice.tmf.sim638.model.Service;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
-import io.openslice.tmf.so641.model.ServiceOrder;
-import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 import io.openslice.tmf.util.AddUserAsOwnerToRelatedParties;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
 @Controller("ServiceApiController638")
 @RequestMapping("/serviceInventory/v4/")
@@ -81,7 +68,7 @@ public class ServiceApiController implements ServiceApi {
 		this.request = request;
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<Service> createService(Principal principal, @Valid ServiceCreate service) {
 		try {
@@ -103,14 +90,14 @@ public class ServiceApiController implements ServiceApi {
 		}
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<Void> deleteService(String id) {
 		return ServiceApi.super.deleteService(id);
 	}
 
 	@Override
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	public ResponseEntity<List<Service>> listService(Principal principal, @Valid String fields, @Valid Integer offset,
 			@Valid Integer limit) {
 		try {
@@ -133,7 +120,7 @@ public class ServiceApiController implements ServiceApi {
 		}
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<Service> patchService(Principal principal, String id, @Valid ServiceUpdate service) {
 		Service c = serviceRepoService.updateService(id, service, true, null, null);
@@ -141,7 +128,7 @@ public class ServiceApiController implements ServiceApi {
 		return new ResponseEntity<Service>(c, HttpStatus.OK);
 	}
 
-	@Secured({ "ROLE_USER" })
+	@PreAuthorize("hasAnyAuthority('USER')" )
 	@Override
 	public ResponseEntity<Service> retrieveService(Principal principal, String id, @Valid String fields) {
 		try {
@@ -154,13 +141,13 @@ public class ServiceApiController implements ServiceApi {
 	}
 	
 
-//	@Secured({ "ROLE_USER" })   
+//	@PreAuthorize("hasAnyAuthority('USER')" )   
 //    @RequestMapping(value = "/service/updateServiceDeploymentDescriptor/{id}",
 //        produces = { "application/json;charset=utf-8" }, 
 //        method = RequestMethod.GET)
 //    public ResponseEntity<Service> updateServiceDeploymentDescriptor(
 //			Principal principal,			
-//			@ApiParam(value = "Identifier of the Service",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+//			@Parameter(description = "Identifier of the Service",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 //    
 //		try {
 //

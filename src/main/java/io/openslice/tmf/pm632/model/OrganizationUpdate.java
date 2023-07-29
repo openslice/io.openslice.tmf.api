@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data. Skipped properties: id,href
  */
-@ApiModel(description = "Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data. Skipped properties: id,href")
+@Schema(description = "Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 public class OrganizationUpdate   {
   @JsonProperty("isHeadOffice")
@@ -123,7 +121,7 @@ public class OrganizationUpdate   {
    * If value is true, the organization is the head office
    * @return isHeadOffice
   **/
-  @ApiModelProperty(value = "If value is true, the organization is the head office")
+  @Schema(description = "If value is true, the organization is the head office")
 
 
   public Boolean isIsHeadOffice() {
@@ -143,7 +141,7 @@ public class OrganizationUpdate   {
    * If value is true, the organization is a legal entity known by a national referential.
    * @return isLegalEntity
   **/
-  @ApiModelProperty(value = "If value is true, the organization is a legal entity known by a national referential.")
+  @Schema(description = "If value is true, the organization is a legal entity known by a national referential.")
 
 
   public Boolean isIsLegalEntity() {
@@ -163,7 +161,7 @@ public class OrganizationUpdate   {
    * Organization name (department name for example)
    * @return name
   **/
-  @ApiModelProperty(value = "Organization name (department name for example)")
+  @Schema(description = "Organization name (department name for example)")
 
 
   public String getName() {
@@ -183,7 +181,7 @@ public class OrganizationUpdate   {
    * Type of the name : Co, Inc, Ltd,…
    * @return nameType
   **/
-  @ApiModelProperty(value = "Type of the name : Co, Inc, Ltd,…")
+  @Schema(description = "Type of the name : Co, Inc, Ltd,…")
 
 
   public String getNameType() {
@@ -203,7 +201,7 @@ public class OrganizationUpdate   {
    * Type of Organization (company, department...)
    * @return organizationType
   **/
-  @ApiModelProperty(value = "Type of Organization (company, department...)")
+  @Schema(description = "Type of Organization (company, department...)")
 
 
   public String getOrganizationType() {
@@ -223,7 +221,7 @@ public class OrganizationUpdate   {
    * Name that the organization (unit) trades under
    * @return tradingName
   **/
-  @ApiModelProperty(value = "Name that the organization (unit) trades under")
+  @Schema(description = "Name that the organization (unit) trades under")
 
 
   public String getTradingName() {
@@ -251,7 +249,7 @@ public class OrganizationUpdate   {
    * Get contactMedium
    * @return contactMedium
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -280,7 +278,7 @@ public class OrganizationUpdate   {
    * Get creditRating
    * @return creditRating
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -301,7 +299,7 @@ public class OrganizationUpdate   {
    * Get existsDuring
    * @return existsDuring
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -330,7 +328,7 @@ public class OrganizationUpdate   {
    * Get externalReference
    * @return externalReference
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -359,7 +357,7 @@ public class OrganizationUpdate   {
    * Get organizationChildRelationship
    * @return organizationChildRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -388,7 +386,7 @@ public class OrganizationUpdate   {
    * Get organizationIdentification
    * @return organizationIdentification
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -409,7 +407,7 @@ public class OrganizationUpdate   {
    * Get organizationParentRelationship
    * @return organizationParentRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -438,7 +436,7 @@ public class OrganizationUpdate   {
    * Get otherName
    * @return otherName
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -467,7 +465,7 @@ public class OrganizationUpdate   {
    * Get partyCharacteristic
    * @return partyCharacteristic
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -496,7 +494,7 @@ public class OrganizationUpdate   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -517,7 +515,7 @@ public class OrganizationUpdate   {
    * Status of the organization
    * @return status
   **/
-  @ApiModelProperty(value = "Status of the organization")
+  @Schema(description = "Status of the organization")
 
   @Valid
 
@@ -546,7 +544,7 @@ public class OrganizationUpdate   {
    * Get taxExemptionCertificate
    * @return taxExemptionCertificate
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -567,7 +565,7 @@ public class OrganizationUpdate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -587,7 +585,7 @@ public class OrganizationUpdate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -607,7 +605,7 @@ public class OrganizationUpdate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

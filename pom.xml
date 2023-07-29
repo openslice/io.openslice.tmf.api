@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.openslice</groupId>
 		<artifactId>io.openslice.main</artifactId>
-		<version>1.1.0-SNAPSHOT</version>
+		<version>1.2.0-SNAPSHOT</version>
 		<relativePath>../io.openslice.main</relativePath>
 	</parent>
 
@@ -20,6 +20,9 @@
 		<spring.boot-version>${spring-boot-version}</spring.boot-version>
 		<spring.cloud-consul-version>${spring-cloud-consul-version}</spring.cloud-consul-version>
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
+		<springdoc.version>${springdoc-version}</springdoc.version>
+		<springdoc.security.version>1.7.0</springdoc.security.version>
+		<springdoc.openapiui.version>1.7.0</springdoc.openapiui.version>
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
 	</properties>
 
@@ -78,8 +81,20 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-
-
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		
+				<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+		</dependency>
+		
+		
+		<!--  
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -103,7 +118,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+-->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -127,13 +142,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
+			<version>8.0.33</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -219,22 +231,21 @@
 		</dependency>
 
 		<!-- swagger -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>${swagger.version}</version>
+	 	<dependency>
+	      <groupId>org.springdoc</groupId>
+	      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
+	    </dependency>
+	    <dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.openapiui.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
+	 	<dependency>
+	      <groupId>org.springdoc</groupId>
+	      <artifactId>springdoc-openapi-security</artifactId>
+			<version>${springdoc.security.version}</version>
+	    </dependency>
 
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -257,6 +268,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
@@ -276,10 +292,6 @@
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
 
 	</dependencies>
 
@@ -290,8 +302,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>11</source>
-						<target>11</target>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<compilerArgs>
+			              <arg>-parameters</arg>
+			            </compilerArgs>
 						<annotationProcessorPaths>
 							<path>
 								<groupId>org.mapstruct</groupId>

@@ -23,21 +23,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A part of the agreement expressed in terms of a product offering and possibly including specific terms and conditions.
  */
-@ApiModel(description = "A part of the agreement expressed in terms of a product offering and possibly including specific terms and conditions.")
+@Schema(description = "A part of the agreement expressed in terms of a product offering and possibly including specific terms and conditions.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementItem   {
   @JsonProperty("productOffering")
@@ -68,7 +66,7 @@ public class AgreementItem   {
    * Get productOffering
    * @return productOffering
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -97,7 +95,7 @@ public class AgreementItem   {
    * Get termOrCondition
    * @return termOrCondition
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -118,7 +116,7 @@ public class AgreementItem   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {

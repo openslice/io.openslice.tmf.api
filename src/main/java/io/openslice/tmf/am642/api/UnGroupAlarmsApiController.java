@@ -24,25 +24,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.am642.model.UnGroupAlarms;
 import io.openslice.tmf.am642.model.UnGroupAlarms;
 import io.openslice.tmf.am642.model.UnGroupAlarmsCreate;
 import io.openslice.tmf.am642.reposervices.UnGroupAlarmsRepoService;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Controller
 @RequestMapping("/alarmManagement/v4/")
 public class UnGroupAlarmsApiController implements UnGroupAlarmsApi {
@@ -76,7 +74,7 @@ public class UnGroupAlarmsApiController implements UnGroupAlarmsApi {
     
     
     @Override
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
     public ResponseEntity<UnGroupAlarms> createUnGroupAlarms(@Valid UnGroupAlarmsCreate body) {
     	try {
 
@@ -91,7 +89,7 @@ public class UnGroupAlarmsApiController implements UnGroupAlarmsApi {
     
     
     @Override
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
     public ResponseEntity<UnGroupAlarms> retrieveUnGroupAlarms(String id, @Valid String fields) {
     	try {
 
@@ -104,7 +102,7 @@ public class UnGroupAlarmsApiController implements UnGroupAlarmsApi {
     
     
     @Override
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ADMIN')" )
     public ResponseEntity<List<UnGroupAlarms>> listUnGroupAlarms(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit, Map<String, String> allParams) {
 		try {

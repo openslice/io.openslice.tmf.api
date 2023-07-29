@@ -21,23 +21,21 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity relationship between/among productSpecificationCharacteristics.
  */
-@ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among productSpecificationCharacteristics.")
+@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among productSpecificationCharacteristics.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 
 @Entity(name = "ProdSpecCharRelationship")
@@ -63,7 +61,7 @@ public class ProductSpecificationCharacteristicRelationship   extends BaseEntity
    * the identifier of the associated product specification
    * @return id
   **/
-  @ApiModelProperty(value = "the identifier of the associated product specification")
+  @Schema(description = "the identifier of the associated product specification")
 
 
   public String getId() {
@@ -84,7 +82,7 @@ public class ProductSpecificationCharacteristicRelationship   extends BaseEntity
    * The order in which a CharacteristicSpecification appears within another CharacteristicSpecification that defines a grouping of CharacteristicSpecifications.  For example, a grouping may represent the name of an individual. The given name is first, the middle name is second, and the last name is third.
    * @return charSpecSeq
   **/
-  @ApiModelProperty(value = "The order in which a CharacteristicSpecification appears within another CharacteristicSpecification that defines a grouping of CharacteristicSpecifications.  For example, a grouping may represent the name of an individual. The given name is first, the middle name is second, and the last name is third.")
+  @Schema(description = "The order in which a CharacteristicSpecification appears within another CharacteristicSpecification that defines a grouping of CharacteristicSpecifications.  For example, a grouping may represent the name of an individual. The given name is first, the middle name is second, and the last name is third.")
 
 
   public Integer getCharSpecSeq() {
@@ -105,7 +103,7 @@ public class ProductSpecificationCharacteristicRelationship   extends BaseEntity
    * Type of relationship such as aggregation, migration, substitution, dependency, exclusivity
    * @return relationshipType
   **/
-  @ApiModelProperty(value = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
+  @Schema(description = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
 
 
   public String getRelationshipType() {

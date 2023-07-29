@@ -5,25 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A Resource Order is a request to provision a set of Resources (logical and
  * physical) triggered by the request to provision a Service through a Service
  * Order Skipped properties: id,href
  */
-@ApiModel(description = "A Resource Order is a request to provision a set of Resources (logical and physical) triggered by the request to provision a Service through a Service Order Skipped properties: id,href")
+@Schema(description = "A Resource Order is a request to provision a set of Resources (logical and physical) triggered by the request to provision a Service through a Service Order Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class ResourceOrderCreate {
 	@JsonProperty("category")
 	private String category = null;
@@ -98,7 +96,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Used to categorize the order from a business perspective that can be useful for the OM system.")
+	@Schema(description = "Used to categorize the order from a business perspective that can be useful for the OM system.")
 
 	public String getCategory() {
 		return category;
@@ -118,7 +116,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return completionDate
 	 **/
-	@ApiModelProperty(value = "Date when the order was completed")
+	@Schema(description = "Date when the order was completed")
 
 	@Valid
 	public OffsetDateTime getCompletionDate() {
@@ -139,7 +137,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "free-text description of the Resource Order")
+	@Schema(description = "free-text description of the Resource Order")
 
 	public String getDescription() {
 		return description;
@@ -159,7 +157,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return expectedCompletionDate
 	 **/
-	@ApiModelProperty(value = "Date when the order was completed")
+	@Schema(description = "Date when the order was completed")
 
 	@Valid
 	public OffsetDateTime getExpectedCompletionDate() {
@@ -181,7 +179,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return externalId
 	 **/
-	@ApiModelProperty(value = "DEPRECATED: Use externalReference Instead. ID given by the consumer (to facilitate searches afterwards)")
+	@Schema(description = "DEPRECATED: Use externalReference Instead. ID given by the consumer (to facilitate searches afterwards)")
 
 	public String getExternalId() {
 		return externalId;
@@ -201,7 +199,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "A string used to give a name to the Resource Order")
+	@Schema(description = "A string used to give a name to the Resource Order")
 
 	public String getName() {
 		return name;
@@ -221,7 +219,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return orderDate
 	 **/
-	@ApiModelProperty(value = "Date when the order was created")
+	@Schema(description = "Date when the order was created")
 
 	@Valid
 	public OffsetDateTime getOrderDate() {
@@ -242,7 +240,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return orderType
 	 **/
-	@ApiModelProperty(value = "Name of the Resource Order type")
+	@Schema(description = "Name of the Resource Order type")
 
 	public String getOrderType() {
 		return orderType;
@@ -263,7 +261,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return priority
 	 **/
-	@ApiModelProperty(value = "A way that can be used by consumers to prioritize orders in OM system (from 0 to 4 : 0 is the highest priority, and 4 the lowest)")
+	@Schema(description = "A way that can be used by consumers to prioritize orders in OM system (from 0 to 4 : 0 is the highest priority, and 4 the lowest)")
 
 	public Integer getPriority() {
 		return priority;
@@ -292,7 +290,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return requestedCompletionDate
 	 **/
-	@ApiModelProperty(value = "Requested delivery date from the requestor perspective")
+	@Schema(description = "Requested delivery date from the requestor perspective")
 
 	@Valid
 	public OffsetDateTime getRequestedCompletionDate() {
@@ -344,7 +342,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return requestedStartDate
 	 **/
-	@ApiModelProperty(value = "Order start date wished by the requestor")
+	@Schema(description = "Order start date wished by the requestor")
 
 	@Valid
 	public OffsetDateTime getRequestedStartDate() {
@@ -384,7 +382,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return startDate
 	 **/
-	@ApiModelProperty(value = "Date when the order was actually started")
+	@Schema(description = "Date when the order was actually started")
 
 	@Valid
 	public OffsetDateTime getStartDate() {
@@ -405,7 +403,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "The life cycle state of the resource.")
+	@Schema(description = "The life cycle state of the resource.")
 
 	public String getState() {
 		return state;
@@ -433,7 +431,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return externalReference
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<ExternalId> getExternalReference() {
 		return externalReference;
@@ -461,7 +459,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return note
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<Note> getNote() {
 		return note;
@@ -489,7 +487,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return orderItem
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<ResourceOrderItem> getOrderItem() {
 		return orderItem;
@@ -517,7 +515,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -537,7 +535,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return _atBaseType;
@@ -558,7 +556,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -578,7 +576,7 @@ public class ResourceOrderCreate {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getAtType() {
 		return _atType;

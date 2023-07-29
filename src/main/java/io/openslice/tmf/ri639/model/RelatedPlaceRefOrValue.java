@@ -2,23 +2,21 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
  */
-@ApiModel(description = "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself")
+@Schema(description = "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIRelPlaceRefVal")
 public class RelatedPlaceRefOrValue  extends BaseRootNamedEntity {
   @JsonProperty("id")
@@ -40,7 +38,7 @@ public class RelatedPlaceRefOrValue  extends BaseRootNamedEntity {
    * Unique identifier of the place
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the place")
+  @Schema(description = "Unique identifier of the place")
   
     public String getId() {
     return id;
@@ -60,7 +58,7 @@ public class RelatedPlaceRefOrValue  extends BaseRootNamedEntity {
    * Get role
    * @return role
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     public String getRole() {
@@ -80,7 +78,7 @@ public class RelatedPlaceRefOrValue  extends BaseRootNamedEntity {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -99,7 +97,7 @@ public class RelatedPlaceRefOrValue  extends BaseRootNamedEntity {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -118,7 +116,7 @@ public class RelatedPlaceRefOrValue  extends BaseRootNamedEntity {
    * When sub-classing, this defines the sub-class Extensible name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+  @Schema(description = "When sub-classing, this defines the sub-class Extensible name")
   
     public String getAtType() {
     return type;
@@ -137,7 +135,7 @@ public class RelatedPlaceRefOrValue  extends BaseRootNamedEntity {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

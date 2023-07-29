@@ -25,33 +25,30 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 
 /**
  * The category resource is used to group product offerings, service and
  * resource candidates in logical containers. Categories can contain other
  * categories and/or product offerings, resource or service candidates.
  */
-@ApiModel(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
+@Schema(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity(name = "ProductCategory")
 @Table(name = "ProductCategory")
@@ -100,7 +97,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the category")
+	@Schema(description = "Unique identifier of the category")
 
 	/**
 	 * @return the id
@@ -120,7 +117,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return isRoot
 	 **/
-	@ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+	@Schema(description = "If true, this Boolean indicates that the category is a root of categories")
 
 	public Boolean isIsRoot() {
 		return isRoot;
@@ -140,7 +137,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return parentId
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the parent category")
+	@Schema(description = "Unique identifier of the parent category")
 
 	public String getParentId() {
 		return parentId;
@@ -158,7 +155,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return productOffering
 	 **/
-	@ApiModelProperty(value = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
+	@Schema(description = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
 
 	@Valid
 	@JsonProperty("productOffering")
@@ -194,7 +191,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "List of child categories in the tree for in this category")
+	@Schema(description = "List of child categories in the tree for in this category")
 	@Transient
 	@JsonProperty("subCategory")
 	@Valid

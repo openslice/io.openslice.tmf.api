@@ -21,22 +21,20 @@ package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * Place reference. Place defines the places where the products are sold or delivered.
  */
-@ApiModel(description = "Place reference. Place defines the places where the products are sold or delivered.")
+@Schema(description = "Place reference. Place defines the places where the products are sold or delivered.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 @Entity(name = "Place")
 public class Place extends BaseRootNamedEntity  {
 	
@@ -52,7 +50,7 @@ public class Place extends BaseRootNamedEntity  {
    * Unique identifier of the place
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the place")
+  @Schema(description = "Unique identifier of the place")
 
 
   public String getId() {
@@ -63,7 +61,7 @@ public class Place extends BaseRootNamedEntity  {
    * Role of the place, such as: [home delivery], [shop retrieval])
    * @return role
   **/
-  @ApiModelProperty(value = "Role of the place, such as: [home delivery], [shop retrieval])")
+  @Schema(description = "Role of the place, such as: [home delivery], [shop retrieval])")
 
 
   public String getRole() {

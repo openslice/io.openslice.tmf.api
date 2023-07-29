@@ -24,8 +24,6 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +35,7 @@ import io.openslice.tmf.pcm620.model.CatalogUpdate;
 import io.openslice.tmf.pcm620.model.Category;
 import io.openslice.tmf.pcm620.model.CategoryRef;
 import io.openslice.tmf.pcm620.repo.ProductCatalogRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class ProductCatalogRepoService {

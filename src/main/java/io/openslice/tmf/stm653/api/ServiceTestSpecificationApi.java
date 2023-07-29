@@ -24,41 +24,39 @@
  */
 package io.openslice.tmf.stm653.api;
 
-import io.openslice.tmf.common.model.Attachment;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
-import io.openslice.tmf.stm653.model.Error;
-import io.openslice.tmf.stm653.model.ServiceTestSpecification;
-import io.openslice.tmf.stm653.model.ServiceTestSpecificationCreate;
-import io.openslice.tmf.stm653.model.ServiceTestSpecificationUpdate;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
-@Api(value = "serviceTestSpecification", description = "the serviceTestSpecification API")
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import io.openslice.tmf.common.model.Attachment;
+import io.openslice.tmf.stm653.model.ServiceTestSpecification;
+import io.openslice.tmf.stm653.model.ServiceTestSpecificationCreate;
+import io.openslice.tmf.stm653.model.ServiceTestSpecificationUpdate;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@Tag(name = "serviceTestSpecification", description = "the serviceTestSpecification API")
 public interface ServiceTestSpecificationApi {
 
 	Logger log = LoggerFactory.getLogger(ServiceTestSpecificationApi.class);
@@ -75,37 +73,37 @@ public interface ServiceTestSpecificationApi {
 		return getRequest().map(r -> r.getHeader("Accept"));
 	}
 
-	@ApiOperation(value = "Creates a ServiceTestSpecification", nickname = "createServiceTestSpecification", notes = "This operation creates a ServiceTestSpecification entity.", response = ServiceTestSpecification.class, tags = {
+	@Operation(summary = "Creates a ServiceTestSpecification", operationId = "createServiceTestSpecification", description = "This operation creates a ServiceTestSpecification entity." , tags = {
 			"serviceTestSpecification", })
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created", response = ServiceTestSpecification.class),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode = "400", description = "Created" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/serviceTestSpecification", produces = { "application/json;charset=utf-8" }, consumes = {
 			"application/json;charset=utf-8" }, method = RequestMethod.POST)
 	default ResponseEntity<ServiceTestSpecification> createServiceTestSpecification(
-			@ApiParam(value = "The ServiceTestSpecification to be created", required = true) @Valid @RequestBody ServiceTestSpecificationCreate body) {
+			@Parameter(description = "The ServiceTestSpecification to be created", required = true) @Valid @RequestBody ServiceTestSpecificationCreate body) {
 
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "Deletes a ServiceTestSpecification", nickname = "deleteServiceTestSpecification", notes = "This operation deletes a ServiceTestSpecification entity.", tags = {
+	@Operation(summary = "Deletes a ServiceTestSpecification", operationId = "deleteServiceTestSpecification", description = "This operation deletes a ServiceTestSpecification entity.", tags = {
 			"serviceTestSpecification", })
-	@ApiResponses(value = { @ApiResponse(code = 204, message = "Deleted", response = Object.class),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Deleted" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/serviceTestSpecification/{id}", produces = {
 			"application/json;charset=utf-8" }, method = RequestMethod.DELETE)
 	default ResponseEntity<Void> deleteServiceTestSpecification(
-			@ApiParam(value = "Identifier of the ServiceTestSpecification", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the ServiceTestSpecification", required = true) @PathVariable("id") String id) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 		} else {
 			log.warn(
@@ -114,24 +112,24 @@ public interface ServiceTestSpecificationApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "List or find ServiceTestSpecification objects", nickname = "listServiceTestSpecification", notes = "This operation list or find ServiceTestSpecification entities", response = ServiceTestSpecification.class, responseContainer = "List", tags = {
+	@Operation(summary = "List or find ServiceTestSpecification objects", operationId = "listServiceTestSpecification", description = "This operation list or find ServiceTestSpecification entities" , tags = {
 			"serviceTestSpecification", })
 	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Success", response = ServiceTestSpecification.class, responseContainer = "List"),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+			@ApiResponse(responseCode ="200", description = "Success" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/serviceTestSpecification", produces = {
 			"application/json;charset=utf-8" }, method = RequestMethod.GET)
 	default ResponseEntity<List<ServiceTestSpecification>> listServiceTestSpecification(
-			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
-			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
+			@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+			@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+			@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+			@Parameter(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 			if (getAcceptHeader().get().contains("application/json")) {
 				try {
@@ -150,22 +148,22 @@ public interface ServiceTestSpecificationApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "Updates partially a ServiceTestSpecification", nickname = "patchServiceTestSpecification", notes = "This operation updates partially a ServiceTestSpecification entity.", response = ServiceTestSpecification.class, tags = {
+	@Operation(summary = "Updates partially a ServiceTestSpecification", operationId = "patchServiceTestSpecification", description = "This operation updates partially a ServiceTestSpecification entity." , tags = {
 			"serviceTestSpecification", })
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Updated", response = ServiceTestSpecification.class),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode ="200", description = "Updated" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/serviceTestSpecification/{id}", produces = {
 			"application/json;charset=utf-8" }, consumes = {
 					"application/json;charset=utf-8" }, method = RequestMethod.PATCH)
 	default ResponseEntity<ServiceTestSpecification> patchServiceTestSpecification(
-			@ApiParam(value = "The ServiceTestSpecification to be updated", required = true) @Valid @RequestBody ServiceTestSpecificationUpdate body,
-			@ApiParam(value = "Identifier of the ServiceTestSpecification", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "The ServiceTestSpecification to be updated", required = true) @Valid @RequestBody ServiceTestSpecificationUpdate body,
+			@Parameter(description = "Identifier of the ServiceTestSpecification", required = true) @PathVariable("id") String id) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 			if (getAcceptHeader().get().contains("application/json")) {
 				try {
@@ -184,21 +182,21 @@ public interface ServiceTestSpecificationApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "Retrieves a ServiceTestSpecification by ID", nickname = "retrieveServiceTestSpecification", notes = "This operation retrieves a ServiceTestSpecification entity. Attribute selection is enabled for all first level attributes.", response = ServiceTestSpecification.class, tags = {
+	@Operation(summary = "Retrieves a ServiceTestSpecification by ID", operationId = "retrieveServiceTestSpecification", description = "This operation retrieves a ServiceTestSpecification entity. Attribute selection is enabled for all first level attributes." , tags = {
 			"serviceTestSpecification", })
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = ServiceTestSpecification.class),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode ="200", description = "Success" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/serviceTestSpecification/{id}", produces = {
 			"application/json;charset=utf-8" }, method = RequestMethod.GET)
 	default ResponseEntity<ServiceTestSpecification> retrieveServiceTestSpecification(
-			@ApiParam(value = "Identifier of the ServiceTestSpecification", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+			@Parameter(description = "Identifier of the ServiceTestSpecification", required = true) @PathVariable("id") String id,
+			@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 			if (getAcceptHeader().get().contains("application/json")) {
 				try {
@@ -218,65 +216,65 @@ public interface ServiceTestSpecificationApi {
 	}
 	
 	
-	  @ApiOperation(value = "Adds an attachment to a ServiceTestSpecification", nickname = "addAttachmentToServiceTestSpecification", 
-	    		notes = "This operation adds an attachment to a ServiceTestSpecification and updates partially a ServiceTestSpecification entity", response = Attachment.class, tags={ "serviceTestSpecification", })
+	  @Operation(summary = "Adds an attachment to a ServiceTestSpecification", operationId = "addAttachmentToServiceTestSpecification", 
+			  description = "This operation adds an attachment to a ServiceTestSpecification and updates partially a ServiceTestSpecification entity", tags={ "serviceTestSpecification", })
 	    @ApiResponses(value = { 
-	        @ApiResponse(code = 200, message = "Success", response = Attachment.class),
-	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-	        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-	        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-	        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-	        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-	        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-	        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	        @ApiResponse(responseCode ="200", description = "Success" ),
+	        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+	        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+	        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+	        @ApiResponse(responseCode = "404", description = "Not Found" ),
+	        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+	        @ApiResponse(responseCode = "409", description = "Conflict" ),
+	        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	    @RequestMapping(value = "/serviceTestSpecification/{id}/attachment",
 	        produces = { "application/json;charset=utf-8" }, 
 	        consumes = { "multipart/form-data" },
 	        method = RequestMethod.POST)
 	    ResponseEntity<Attachment> addAttachmentToServiceTestSpecification(
-	    		@ApiParam(value = "Identifier of the ServiceTestSpecification",required=true) @PathVariable("id") String id, 
-	    		//@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") Attachment attachment, 
-	    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file,
+	    		@Parameter(description = "Identifier of the ServiceTestSpecification",required=true) @PathVariable("id") String id, 
+	    		//@Parameter(description = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") Attachment attachment, 
+	    		@Parameter(description = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file,
 				HttpServletRequest request);
 
-	    @ApiOperation(value = "Get an attachment", nickname = "getAttachment", 
-	    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceTestSpecification", })
+	    @Operation(summary = "Get an attachment", operationId = "getAttachment", 
+	    		description = "This operation gets an attachment", tags={ "serviceTestSpecification", })
 	    @ApiResponses(value = { 
-	        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
-	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-	        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-	        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-	        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-	        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-	        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-	        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	        @ApiResponse(responseCode ="200", description = "Success" ),
+	        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+	        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+	        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+	        @ApiResponse(responseCode = "404", description = "Not Found" ),
+	        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+	        @ApiResponse(responseCode = "409", description = "Conflict" ),
+	        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	    @RequestMapping(value = "/serviceTestSpecification/{id}/attachment/{attid}",        
 	    	produces = MediaType.ALL_VALUE,
 	        method = RequestMethod.GET)
 	    ResponseEntity<byte[]> getAttachment(
-	    		@ApiParam(value = "Identifier of the serviceTestSpecification",required=true) @PathVariable("id") String id, 
-	    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
+	    		@Parameter(description = "Identifier of the serviceTestSpecification",required=true) @PathVariable("id") String id, 
+	    		@Parameter(description = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
 
 	    
 	    
-	    @ApiOperation(value = "Get an attachment with filename", nickname = "getAttachmentWithFilename", 
-	    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceTestSpecification", })
+	    @Operation(summary = "Get an attachment with filename", operationId = "getAttachmentWithFilename", 
+	    		description = "This operation gets an attachment", tags={ "serviceTestSpecification", })
 	    @ApiResponses(value = { 
-	        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
-	        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-	        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-	        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-	        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-	        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-	        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-	        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	        @ApiResponse(responseCode ="200", description = "Success" ),
+	        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+	        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+	        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+	        @ApiResponse(responseCode = "404", description = "Not Found" ),
+	        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+	        @ApiResponse(responseCode = "409", description = "Conflict" ),
+	        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	    @RequestMapping(value = "/serviceTestSpecification/{id}/attachment/{attid}/{afilename}",        
 	    	produces = MediaType.ALL_VALUE ,
 	        method = RequestMethod.GET)
 	    ResponseEntity<byte[]> getAttachmentWithFilename(
-	    		@ApiParam(value = "Identifier of the serviceTestSpecification",required=true) @PathVariable("id") String id, 
-	    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid, 
-	    		@ApiParam(value = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
+	    		@Parameter(description = "Identifier of the serviceTestSpecification",required=true) @PathVariable("id") String id, 
+	    		@Parameter(description = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid, 
+	    		@Parameter(description = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
 	
 	
 	  

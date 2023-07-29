@@ -22,18 +22,17 @@ package io.openslice.sd.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
 import io.openslice.tmf.scm633.model.ServiceSpecification;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * This model will hold information that will help later on service orchestration.
@@ -42,7 +41,7 @@ import io.swagger.annotations.ApiModel;
  * @author ctranoris
  *
  */
-@ApiModel(description = "This model will hold information that will help later on service orchestration.")
+@Schema(description = "This model will hold information that will help later on service orchestration.")
 @Validated
 @Entity(name = "ServiceDescriptor")
 public class ServiceDescriptor {

@@ -27,13 +27,8 @@ package io.openslice.tmf.scm633.api;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,290 +38,290 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.openslice.sd.model.ServiceDescriptor;
 import io.openslice.tmf.common.model.Attachment;
-import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 public interface ServiceSpecificationApi {
 
-    @ApiOperation(value = "Creates a ServiceSpecification", nickname = "createServiceSpecification", notes = "This operation creates a ServiceSpecification entity.", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Creates a ServiceSpecification", operationId = "createServiceSpecification", description = "This operation creates a ServiceSpecification entity.", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<ServiceSpecification> createServiceSpecification(@ApiParam(value = "The ServiceSpecification to be created" ,required=true )  @Valid @RequestBody ServiceSpecificationCreate serviceSpecification);
+    ResponseEntity<ServiceSpecification> createServiceSpecification(@Parameter(description = "The ServiceSpecification to be created" ,required=true )  @Valid @RequestBody ServiceSpecificationCreate serviceSpecification);
 
 
-    @ApiOperation(value = "Deletes a ServiceSpecification", nickname = "deleteServiceSpecification", notes = "This operation deletes a ServiceSpecification entity.", tags={ "serviceSpecification", })
+    @Operation(summary = "Deletes a ServiceSpecification", operationId = "deleteServiceSpecification", description = "This operation deletes a ServiceSpecification entity.", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
+    ResponseEntity<Void> deleteServiceSpecification(@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
 
 
-    @ApiOperation(value = "List or find ServiceSpecification objects", nickname = "listServiceSpecification", notes = "This operation list or find ServiceSpecification entities", response = ServiceSpecification.class, responseContainer = "List", tags={ "serviceSpecification", })
+    @Operation(summary = "List or find ServiceSpecification objects", operationId = "listServiceSpecification", description = "This operation list or find ServiceSpecification entities" , tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ServiceSpecification.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<ServiceSpecification>> listServiceSpecification(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
-    		@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-    		@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-			@ApiParam( hidden = true) @Valid @RequestParam Map<String,String> allParams);
+    ResponseEntity<List<ServiceSpecification>> listServiceSpecification(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+    		@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+    		@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+    		@Parameter( hidden = true) @Valid @RequestParam Map<String,String> allParams);
 
 
-    @ApiOperation(value = "Updates partially a ServiceSpecification", nickname = "patchServiceSpecification", notes = "This operation updates partially a ServiceSpecification entity.", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Updates partially a ServiceSpecification", operationId = "patchServiceSpecification", description = "This operation updates partially a ServiceSpecification entity.", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    ResponseEntity<ServiceSpecification> patchServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceSpecification to be updated" ,required=true )  @Valid @RequestBody ServiceSpecificationUpdate serviceSpecification);
+    ResponseEntity<ServiceSpecification> patchServiceSpecification(@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id,@Parameter(description = "The ServiceSpecification to be updated" ,required=true )  @Valid @RequestBody ServiceSpecificationUpdate serviceSpecification);
 
 
-    @ApiOperation(value = "Retrieves a ServiceSpecification by ID", nickname = "retrieveServiceSpecification", notes = "This operation retrieves a ServiceSpecification entity. Attribute selection is enabled for all first level attributes.", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Retrieves a ServiceSpecification by ID", operationId = "retrieveServiceSpecification", description = "This operation retrieves a ServiceSpecification entity. Attribute selection is enabled for all first level attributes.", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    ResponseEntity<ServiceSpecification> retrieveServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
+    ResponseEntity<ServiceSpecification> retrieveServiceSpecification(@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
 
-    @ApiOperation(value = "Clones a ServiceSpecification", nickname = "cloneServiceSpecification", notes = "This operation clones a ServiceSpecification entity. The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Clones a ServiceSpecification", operationId = "cloneServiceSpecification", description = "This operation clones a ServiceSpecification entity. The response is the cloned spec", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Cloned", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Cloned" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}/clone",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    ResponseEntity<ServiceSpecification> cloneServiceSpecification(@ApiParam(value = "Identifier of the ServiceSpecification to clone",required=true) @PathVariable("id") String id );
+    ResponseEntity<ServiceSpecification> cloneServiceSpecification(@Parameter(description = "Identifier of the ServiceSpecification to clone",required=true) @PathVariable("id") String id );
     
-    @ApiOperation(value = "Clones a GST ServiceSpecification", nickname = "cloneGSTServiceSpecification", 
-    		notes = "This operation clones a ServiceSpecification GST entity. The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Clones a GST ServiceSpecification", operationId = "cloneGSTServiceSpecification", 
+    		description = "This operation clones a ServiceSpecification GST entity. The response is the cloned spec", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Cloned", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Cloned" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/cloneGST",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(
-    		@ApiParam(value = "A name of the cloned GST") @RequestParam(value="serviceName", required=true) String serviceName);
+    		@Parameter(description = "A name of the cloned GST") @RequestParam(value="serviceName", required=true) String serviceName);
     
-    @ApiOperation(value = "Clones a VINNI ServiceSpecification", nickname = "cloneVINNIServiceSpecification", 
-    		notes = "This operation clones a ServiceSpecification 5G-VINNI entity. The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Clones a VINNI ServiceSpecification", operationId = "cloneVINNIServiceSpecification", 
+    		description = "This operation clones a ServiceSpecification 5G-VINNI entity. The response is the cloned spec", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Cloned", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Cloned" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/cloneVINNI",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
     ResponseEntity<ServiceSpecification> cloneVINNIServiceSpecification(
-    		@ApiParam(value = "A name of the cloned VINNI Template") @RequestParam( value="serviceName",required=true) String serviceName,
-    		@ApiParam(value = "If true adds a Service Topology Spec in the Bundle") @RequestParam( value="addServiceTopology",required=true) Boolean addServiceTopology,
-    		@ApiParam(value = "If true adds a Service Requirements Spec in the Bundle") @RequestParam( value="addServiceRequirements",required=true) Boolean addServiceRequirements,
-    		@ApiParam(value = "If true adds a Service Exposure Level1 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel1",required=true) Boolean addServiceExposureLevel1,
-    		@ApiParam(value = "If true adds a Service Exposure Level2 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel2",required=true) Boolean addServiceExposureLevel2,
-    		@ApiParam(value = "If true adds a Service Exposure Level3 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel3",required=true) Boolean addServiceExposureLevel3,
-    		@ApiParam(value = "If true adds a Service Exposure Level4 Spec in the Bundle" ) @RequestParam( value="addServiceExposureLevel4",required=true) Boolean addServiceExposureLevel4,
-    		@ApiParam(value = "If true adds a Service Monitoring Spec in the Bundle" ) @RequestParam( value="addServiceMonitoring",required=true) Boolean addServiceMonitoring,
-    		@ApiParam(value = "If true adds a Service Testing Spec in the Bundle" ) @RequestParam( value="addServiceTesting",required=true) Boolean addServiceTesting,
-    		@ApiParam(value = "If true adds a Service 3rd party VNF Spec in the Bundle" ) @RequestParam( value="addServiceVNF",required=true) Boolean addServiceVNF,
-    		@ApiParam(value = "If true adds a Service 3rd party NSD Spec in the Bundle" ) @RequestParam( value="addServiceNSD",required=true) Boolean addServiceNSD);
+    		@Parameter(description = "A name of the cloned VINNI Template") @RequestParam( value="serviceName",required=true) String serviceName,
+    		@Parameter(description = "If true adds a Service Topology Spec in the Bundle") @RequestParam( value="addServiceTopology",required=true) Boolean addServiceTopology,
+    		@Parameter(description = "If true adds a Service Requirements Spec in the Bundle") @RequestParam( value="addServiceRequirements",required=true) Boolean addServiceRequirements,
+    		@Parameter(description = "If true adds a Service Exposure Level1 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel1",required=true) Boolean addServiceExposureLevel1,
+    		@Parameter(description = "If true adds a Service Exposure Level2 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel2",required=true) Boolean addServiceExposureLevel2,
+    		@Parameter(description = "If true adds a Service Exposure Level3 Spec in the Bundle") @RequestParam( value="addServiceExposureLevel3",required=true) Boolean addServiceExposureLevel3,
+    		@Parameter(description = "If true adds a Service Exposure Level4 Spec in the Bundle" ) @RequestParam( value="addServiceExposureLevel4",required=true) Boolean addServiceExposureLevel4,
+    		@Parameter(description = "If true adds a Service Monitoring Spec in the Bundle" ) @RequestParam( value="addServiceMonitoring",required=true) Boolean addServiceMonitoring,
+    		@Parameter(description = "If true adds a Service Testing Spec in the Bundle" ) @RequestParam( value="addServiceTesting",required=true) Boolean addServiceTesting,
+    		@Parameter(description = "If true adds a Service 3rd party VNF Spec in the Bundle" ) @RequestParam( value="addServiceVNF",required=true) Boolean addServiceVNF,
+    		@Parameter(description = "If true adds a Service 3rd party NSD Spec in the Bundle" ) @RequestParam( value="addServiceNSD",required=true) Boolean addServiceNSD);
     
     
-    @ApiOperation(value = "Creates a ServiceSpecification from an NSD id. It retreives the NSD from  the NSD/VNF catalog", nickname = "createServiceSpecificationFromNSDID", 
-    		notes = "This operation creates a ServiceSpecification from an NSD id. It retreives the NSD from  the NSD/VNF catalog. "
-    				+ "The response is the cloned spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Creates a ServiceSpecification from an NSD id. It retreives the NSD from  the NSD/VNF catalog", operationId = "createServiceSpecificationFromNSDID", 
+    		description = "This operation creates a ServiceSpecification from an NSD id. It retreives the NSD from  the NSD/VNF catalog. "
+    				+ "The response is the cloned spec", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Created", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/specFromNSDID/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    ResponseEntity<ServiceSpecification> specFromNSDID( @ApiParam(value = "Identifier of the NSD id from the NSD/VNF catalog",required=true) @PathVariable("id") String id );
+    ResponseEntity<ServiceSpecification> specFromNSDID( @Parameter(description = "Identifier of the NSD id from the NSD/VNF catalog",required=true) @PathVariable("id") String id );
     
-    @ApiOperation(value = "Adds an attachment to a ServiceSpecification", nickname = "addAttachmentToServiceSpecification", 
-    		notes = "This operation adds an attachment to a ServiceSpecification and updates partially a ServiceSpecification entity", response = Attachment.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Adds an attachment to a ServiceSpecification", operationId = "addAttachmentToServiceSpecification", 
+    		description = "This operation adds an attachment to a ServiceSpecification and updates partially a ServiceSpecification entity", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = Attachment.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}/attachment",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "multipart/form-data" },
         method = RequestMethod.POST)
     ResponseEntity<Attachment> addAttachmentToServiceSpecification(
-    		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
-    		//@ApiParam(value = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") Attachment attachment, 
-    		@ApiParam(value = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file,
+    		@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
+    		//@Parameter(description = "The Attachment object to be added" ,required=false )  @Valid @ModelAttribute("attachment") Attachment attachment, 
+    		@Parameter(description = "The Attachment file to be added" ,required=false, name = "afile" )  @Valid MultipartFile file,
 			HttpServletRequest request);
 
-    @ApiOperation(value = "Get an attachment", nickname = "getAttachment", 
-    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Get an attachment", operationId = "getAttachment", 
+    		description = "This operation gets an attachment", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}/attachment/{attid}",        
     	produces = MediaType.ALL_VALUE,
         method = RequestMethod.GET)
     ResponseEntity<byte[]> getAttachment(
-    		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
-    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
+    		@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
+    		@Parameter(description = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid);
 
     
     
-    @ApiOperation(value = "Get an attachment with filename", nickname = "getAttachmentWithFilename", 
-    		notes = "This operation gets an attachment", response = Attachment.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Get an attachment with filename", operationId = "getAttachmentWithFilename", 
+    		description = "This operation gets an attachment", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}/attachment/{attid}/{afilename}",        
     	produces = MediaType.ALL_VALUE ,
         method = RequestMethod.GET)
     ResponseEntity<byte[]> getAttachmentWithFilename(
-    		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
-    		@ApiParam(value = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid, 
-    		@ApiParam(value = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
+    		@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id, 
+    		@Parameter(description = "Identifier of the Attachment",required=true) @PathVariable("attid") String attid, 
+    		@Parameter(description = "Identifier of the Filename",required=true) @PathVariable("afilename") String afilename);
 
     
     
-    @ApiOperation(value = "Retrieves a ServiceDescriptor by ServiceSpecification  ID", nickname = "retrieveServiceSpecificationDescriptor", notes = "This operation retrieves a Service Descriptor entity. Attribute selection is enabled for all first level attributes.", response = ServiceDescriptor.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Retrieves a ServiceDescriptor by ServiceSpecification  ID", operationId = "retrieveServiceSpecificationDescriptor", description = "This operation retrieves a Service Descriptor entity. Attribute selection is enabled for all first level attributes.", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}/sd",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    ResponseEntity<ServiceDescriptor> retrieveServiceSpecificationDescriptor(@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
+    ResponseEntity<ServiceDescriptor> retrieveServiceSpecificationDescriptor(@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
 
-    @ApiOperation(value = "Creates a ServiceSpecification from an ServiceTestSpecification id. It retreives the ServicTestSpecification from  the ServiceTestSpecification catalog", nickname = "createServiceSpecificationFromServiceTestSpecification", 
-    		notes = "This operation creates a ServiceSpecification from a ServiceTestSpecification id. It retreives the ServiceTestSpecification from  the ServiceTestSpecification catalog. "
-    				+ "The response is the Service Spec", response = ServiceSpecification.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Creates a ServiceSpecification from an ServiceTestSpecification id. It retreives the ServicTestSpecification from  the ServiceTestSpecification catalog", operationId = "createServiceSpecificationFromServiceTestSpecification", 
+    		description = "This operation creates a ServiceSpecification from a ServiceTestSpecification id. It retreives the ServiceTestSpecification from  the ServiceTestSpecification catalog. "
+    				+ "The response is the Service Spec", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Created", response = ServiceSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/specFromTestSpec/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    ResponseEntity<ServiceSpecification> specFromTestSpec( @ApiParam(value = "Identifier of the ServiceTestSpecification id from the ServiceTestSpecification catalog",required=true) @PathVariable("id") String id );
+    ResponseEntity<ServiceSpecification> specFromTestSpec( @Parameter(description = "Identifier of the ServiceTestSpecification id from the ServiceTestSpecification catalog",required=true) @PathVariable("id") String id );
     
 
-    @ApiOperation(value = "Get a SVG image with specification relationship graph", nickname = "getImageSpecificationRelationshipGraph", 
-    		notes = "This operation returns a SVG image with specification relationship graph", response = Attachment.class, tags={ "serviceSpecification", })
+    @Operation(summary = "Get a SVG image with specification relationship graph", operationId = "getImageSpecificationRelationshipGraph", 
+    		description = "This operation returns a SVG image with specification relationship graph", tags={ "serviceSpecification", })
     @ApiResponses(value = { 
 
-        @ApiResponse(code = 302, message = "Success", response = Object.class),
-        //@ApiResponse(code = 200, message = "Success", response = ByteArrayResource.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "302", description = "Success" ),
+        //@ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceSpecification/{id}/relationship_graph",        
     	produces = MediaType.ALL_VALUE ,
         method = RequestMethod.GET)
     ResponseEntity<Void> getImageSpecificationRelationshipGraph(
-    		@ApiParam(value = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
+    		@Parameter(description = "Identifier of the ServiceSpecification",required=true) @PathVariable("id") String id);
 }

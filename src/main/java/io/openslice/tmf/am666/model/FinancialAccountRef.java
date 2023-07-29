@@ -21,22 +21,20 @@ package io.openslice.tmf.am666.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * AccountReceivable reference. An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. An account receivable aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party.
  */
-@ApiModel(description = "AccountReceivable reference. An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. An account receivable aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party.")
+@Schema(description = "AccountReceivable reference. An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. An account receivable aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class FinancialAccountRef   {
   @JsonProperty("id")
@@ -72,7 +70,7 @@ public class FinancialAccountRef   {
    * Unique identifier of the account
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of the account")
+  @Schema(description = "Unique identifier of the account")
   @NotNull
 
 
@@ -93,7 +91,7 @@ public class FinancialAccountRef   {
    * Unique reference of the account
    * @return href
   **/
-  @ApiModelProperty(value = "Unique reference of the account")
+  @Schema(description = "Unique reference of the account")
 
 
   public String getHref() {
@@ -113,7 +111,7 @@ public class FinancialAccountRef   {
    * Name of the account
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the account")
+  @Schema(description = "Name of the account")
 
 
   public String getName() {
@@ -133,7 +131,7 @@ public class FinancialAccountRef   {
    * Get accountBalance
    * @return accountBalance
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -154,7 +152,7 @@ public class FinancialAccountRef   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -174,7 +172,7 @@ public class FinancialAccountRef   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -194,7 +192,7 @@ public class FinancialAccountRef   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {
@@ -214,7 +212,7 @@ public class FinancialAccountRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

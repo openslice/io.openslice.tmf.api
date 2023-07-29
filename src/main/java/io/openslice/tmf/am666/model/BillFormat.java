@@ -21,21 +21,19 @@ package io.openslice.tmf.am666.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A detailed description of the way in which a bill is presented.
  */
-@ApiModel(description = "A detailed description of the way in which a bill is presented.")
+@Schema(description = "A detailed description of the way in which a bill is presented.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class BillFormat   {
   @JsonProperty("id")
@@ -68,7 +66,7 @@ public class BillFormat   {
    * Unique identifier of the bill format
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the bill format")
+  @Schema(description = "Unique identifier of the bill format")
 
 
   public String getId() {
@@ -88,7 +86,7 @@ public class BillFormat   {
    * Reference of the bill format
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the bill format")
+  @Schema(description = "Reference of the bill format")
 
 
   public String getHref() {
@@ -108,7 +106,7 @@ public class BillFormat   {
    * An explanatory text for this bill format
    * @return description
   **/
-  @ApiModelProperty(value = "An explanatory text for this bill format")
+  @Schema(description = "An explanatory text for this bill format")
 
 
   public String getDescription() {
@@ -128,7 +126,7 @@ public class BillFormat   {
    * A short descriptive name
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "A short descriptive name")
+  @Schema(description = "A short descriptive name")
   @NotNull
 
 
@@ -149,7 +147,7 @@ public class BillFormat   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -169,7 +167,7 @@ public class BillFormat   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -189,7 +187,7 @@ public class BillFormat   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

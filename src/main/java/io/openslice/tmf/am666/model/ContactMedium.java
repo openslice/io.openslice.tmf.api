@@ -21,22 +21,20 @@ package io.openslice.tmf.am666.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Indicates the contact medium that could be used to contact the party.
  */
-@ApiModel(description = "Indicates the contact medium that could be used to contact the party.")
+@Schema(description = "Indicates the contact medium that could be used to contact the party.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class ContactMedium   {
   @JsonProperty("mediumType")
@@ -69,7 +67,7 @@ public class ContactMedium   {
    * Type of the contact medium, such as: email address, telephone number, postal address
    * @return mediumType
   **/
-  @ApiModelProperty(value = "Type of the contact medium, such as: email address, telephone number, postal address")
+  @Schema(description = "Type of the contact medium, such as: email address, telephone number, postal address")
 
 
   public String getMediumType() {
@@ -89,7 +87,7 @@ public class ContactMedium   {
    * If true, indicates that is the preferred contact medium
    * @return preferred
   **/
-  @ApiModelProperty(value = "If true, indicates that is the preferred contact medium")
+  @Schema(description = "If true, indicates that is the preferred contact medium")
 
 
   public Boolean isPreferred() {
@@ -109,7 +107,7 @@ public class ContactMedium   {
    * Any additional characteristic(s) of this contact medium
    * @return characteristic
   **/
-  @ApiModelProperty(value = "Any additional characteristic(s) of this contact medium")
+  @Schema(description = "Any additional characteristic(s) of this contact medium")
 
   @Valid
 
@@ -130,7 +128,7 @@ public class ContactMedium   {
    * The time period that the contact medium is valid for
    * @return validFor
   **/
-  @ApiModelProperty(value = "The time period that the contact medium is valid for")
+  @Schema(description = "The time period that the contact medium is valid for")
 
   @Valid
 
@@ -151,7 +149,7 @@ public class ContactMedium   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -171,7 +169,7 @@ public class ContactMedium   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -191,7 +189,7 @@ public class ContactMedium   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

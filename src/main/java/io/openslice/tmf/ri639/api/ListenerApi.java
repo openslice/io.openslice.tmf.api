@@ -5,38 +5,33 @@
  */
 package io.openslice.tmf.ri639.api;
 
-import io.openslice.tmf.ri639.model.Error;
+import java.io.IOException;
+import java.util.Optional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import io.openslice.tmf.ri639.model.EventSubscription;
 import io.openslice.tmf.ri639.model.ResourceAttributeValueChangeEvent;
 import io.openslice.tmf.ri639.model.ResourceCreateEvent;
 import io.openslice.tmf.ri639.model.ResourceDeleteEvent;
 import io.openslice.tmf.ri639.model.ResourceStateChangeEvent;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
-@Api(value = "listener", description = "the listener API")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@Tag(name = "listener", description = "the listener API")
 public interface ListenerApi {
 
     Logger log = LoggerFactory.getLogger(ListenerApi.class);
@@ -53,21 +48,21 @@ public interface ListenerApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Client listener for entity ResourceAttributeValueChangeEvent", nickname = "listenToResourceAttributeValueChangeEvent", notes = "Example of a client listener for receiving the notification ResourceAttributeValueChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ResourceAttributeValueChangeEvent", operationId = "listenToResourceAttributeValueChangeEvent", description = "Example of a client listener for receiving the notification ResourceAttributeValueChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/resourceAttributeValueChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToResourceAttributeValueChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ResourceAttributeValueChangeEvent body
+    default ResponseEntity<EventSubscription> listenToResourceAttributeValueChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ResourceAttributeValueChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -85,21 +80,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity ResourceCreateEvent", nickname = "listenToResourceCreateEvent", notes = "Example of a client listener for receiving the notification ResourceCreateEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ResourceCreateEvent", operationId = "listenToResourceCreateEvent", description = "Example of a client listener for receiving the notification ResourceCreateEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/resourceCreateEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToResourceCreateEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ResourceCreateEvent body
+    default ResponseEntity<EventSubscription> listenToResourceCreateEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ResourceCreateEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -117,21 +112,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity ResourceDeleteEvent", nickname = "listenToResourceDeleteEvent", notes = "Example of a client listener for receiving the notification ResourceDeleteEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ResourceDeleteEvent", operationId = "listenToResourceDeleteEvent", description = "Example of a client listener for receiving the notification ResourceDeleteEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/resourceDeleteEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToResourceDeleteEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ResourceDeleteEvent body
+    default ResponseEntity<EventSubscription> listenToResourceDeleteEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ResourceDeleteEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -149,21 +144,21 @@ public interface ListenerApi {
     }
 
 
-    @ApiOperation(value = "Client listener for entity ResourceStateChangeEvent", nickname = "listenToResourceStateChangeEvent", notes = "Example of a client listener for receiving the notification ResourceStateChangeEvent", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ResourceStateChangeEvent", operationId = "listenToResourceStateChangeEvent", description = "Example of a client listener for receiving the notification ResourceStateChangeEvent", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/resourceStateChangeEvent",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<EventSubscription> listenToResourceStateChangeEvent(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ResourceStateChangeEvent body
+    default ResponseEntity<EventSubscription> listenToResourceStateChangeEvent(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ResourceStateChangeEvent body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

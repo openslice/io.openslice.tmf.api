@@ -1,28 +1,19 @@
 package io.openslice.tmf.rpm685.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rpm685.model.ChannelRef;
-import io.openslice.tmf.rpm685.model.ProductOfferingRef;
-import io.openslice.tmf.rpm685.model.RequestedPeriod;
-import io.openslice.tmf.rpm685.model.ReservationItem;
-import io.openslice.tmf.sim638.model.ServiceOrderRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.TimePeriod;
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.sim638.model.ServiceOrderRef;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * reservation api resource Skipped properties: id,href
@@ -31,9 +22,9 @@ import javax.validation.constraints.*;
  * @author ctranoris
  *
  */
-@ApiModel(description = "reservation api resource Skipped properties: id,href")
+@Schema(description = "reservation api resource Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class ReservationUpdate {
 	@JsonProperty("@baseType")
 	private String _atBaseType = null;
@@ -199,7 +190,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	public String getAtBaseType() {
 		return _atBaseType;
@@ -220,7 +211,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A string. Generic attribute containing the link to the schema that defines the structure of the class type of the current object.")
+	@Schema(description = "A string. Generic attribute containing the link to the schema that defines the structure of the class type of the current object.")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -241,7 +232,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "A string. Indicates the (class) type of reservation. Ex. serviceItemReservation, resourceItemReservation")
+	@Schema(description = "A string. Indicates the (class) type of reservation. Ex. serviceItemReservation, resourceItemReservation")
 
 	public String getAtType() {
 		return _atType;
@@ -261,7 +252,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A string. free-text description of the reservation.")
+	@Schema(description = "A string. free-text description of the reservation.")
 
 	public String getDescription() {
 		return description;
@@ -281,7 +272,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public RelatedParty getRelatedParty() {
@@ -302,7 +293,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return reservationState
 	 **/
-	@ApiModelProperty(value = "A string. The life cycle state of the reservation.")
+	@Schema(description = "A string. The life cycle state of the reservation.")
 
 	public String getReservationState() {
 		return reservationState;
@@ -322,7 +313,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period of time for which the reservation is applicable.")
+	@Schema(description = "The period of time for which the reservation is applicable.")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -351,7 +342,7 @@ public class ReservationUpdate {
 	 * 
 	 * @return reservationItem
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<ReservationItem> getReservationItem() {
 		return reservationItem;
@@ -371,7 +362,7 @@ public class ReservationUpdate {
 //	 * 
 //	 * @return channelRef
 //	 **/
-//	@ApiModelProperty(value = "")
+//	@Schema(description = "")
 //
 //	@Valid
 //	public ChannelRef getChannelRef() {
@@ -392,7 +383,7 @@ public class ReservationUpdate {
 //	 * 
 //	 * @return requestedPeriod
 //	 **/
-//	@ApiModelProperty(value = "")
+//	@Schema(description = "")
 //
 //	@Valid
 //	public RequestedPeriod getRequestedPeriod() {
@@ -413,7 +404,7 @@ public class ReservationUpdate {
 //	 * 
 //	 * @return productOfferingRef
 //	 **/
-//	@ApiModelProperty(value = "")
+//	@Schema(description = "")
 //
 //	@Valid
 //	public ProductOfferingRef getProductOfferingRef() {

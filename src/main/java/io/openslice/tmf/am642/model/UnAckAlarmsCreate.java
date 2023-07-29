@@ -19,26 +19,26 @@
  */
 package io.openslice.tmf.am642.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.am642.model.Alarm;
-import io.openslice.tmf.am642.model.AlarmRefOrValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Task resource for unacknowledge alarms operation Skipped properties: id,href
  */
-@ApiModel(description = "Task resource for unacknowledge alarms operation Skipped properties: id,href")
+@Schema(description = "Task resource for unacknowledge alarms operation Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 public class UnAckAlarmsCreate   {
   @JsonProperty("ackSystemId")
   private String ackSystemId = null;
@@ -78,7 +78,7 @@ public class UnAckAlarmsCreate   {
    * Name of the unacknowledging system
    * @return ackSystemId
   **/
-  @ApiModelProperty(required = true, value = "Name of the unacknowledging system")
+  @Schema(description = "Name of the unacknowledging system")
       @NotNull
 
     public String getAckSystemId() {
@@ -98,7 +98,7 @@ public class UnAckAlarmsCreate   {
    * Time of the unacknowledgement
    * @return ackTime
   **/
-  @ApiModelProperty(value = "Time of the unacknowledgement")
+  @Schema(description = "Time of the unacknowledgement")
   
     @Valid
     public OffsetDateTime getAckTime() {
@@ -118,7 +118,7 @@ public class UnAckAlarmsCreate   {
    * Name of the unacknowledging user
    * @return ackUserId
   **/
-  @ApiModelProperty(required = true, value = "Name of the unacknowledging user")
+  @Schema(description = "Name of the unacknowledging user")
       @NotNull
 
     public String getAckUserId() {
@@ -138,7 +138,7 @@ public class UnAckAlarmsCreate   {
    * Current state of the operation task
    * @return state
   **/
-  @ApiModelProperty(value = "Current state of the operation task")
+  @Schema(description = "Current state of the operation task")
   
     public String getState() {
     return state;
@@ -162,7 +162,7 @@ public class UnAckAlarmsCreate   {
    * Alarm patterns to match target alarms. An alarm will match if all of the sttributes in any of the patterns compare equal to those attributes of the alarm.
    * @return alarmPattern
   **/
-  @ApiModelProperty(required = true, value = "Alarm patterns to match target alarms. An alarm will match if all of the sttributes in any of the patterns compare equal to those attributes of the alarm.")
+  @Schema(description = "Alarm patterns to match target alarms. An alarm will match if all of the sttributes in any of the patterns compare equal to those attributes of the alarm.")
       @NotNull
     @Valid
   @Size(min=1)   public List<Alarm> getAlarmPattern() {
@@ -190,7 +190,7 @@ public class UnAckAlarmsCreate   {
    * The successfully unacknowledged alarms
    * @return unAckedAlarm
   **/
-  @ApiModelProperty(value = "The successfully unacknowledged alarms")
+  @Schema(description = "The successfully unacknowledged alarms")
       @Valid
     public List<AlarmRefOrValue> getUnAckedAlarm() {
     return unAckedAlarm;
@@ -209,7 +209,7 @@ public class UnAckAlarmsCreate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -228,7 +228,7 @@ public class UnAckAlarmsCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -247,7 +247,7 @@ public class UnAckAlarmsCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

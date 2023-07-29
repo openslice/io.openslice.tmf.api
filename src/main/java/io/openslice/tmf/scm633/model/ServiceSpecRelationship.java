@@ -21,30 +21,23 @@ package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.Valid;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.BaseRootEntity;
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * A migration, substitution, dependency or exclusivity relationship
  * between/among service specifications.
  */
-@ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among service specifications.")
+@Schema(description = "A migration, substitution, dependency or exclusivity relationship between/among service specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceSpecRelationship")
 public class ServiceSpecRelationship extends BaseRootNamedEntity {
@@ -92,7 +85,7 @@ public class ServiceSpecRelationship extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the target serviceSpecification")
+	@Schema(description = "Unique identifier of the target serviceSpecification")
 
 	public ServiceSpecRelationship relationshipType(String relationshipType) {
 		this.relationshipType = relationshipType;
@@ -104,7 +97,7 @@ public class ServiceSpecRelationship extends BaseRootNamedEntity {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(value = "Type of relationship such as migration, substitution, dependency, exclusivity")
+	@Schema(description = "Type of relationship such as migration, substitution, dependency, exclusivity")
 
 	public String getRelationshipType() {
 		return relationshipType;
@@ -124,7 +117,7 @@ public class ServiceSpecRelationship extends BaseRootNamedEntity {
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(value = "The association role for this service specification")
+	@Schema(description = "The association role for this service specification")
 
 	public String getRole() {
 		return role;
@@ -144,7 +137,7 @@ public class ServiceSpecRelationship extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the serviceSpecRelationship is valid")
+	@Schema(description = "The period for which the serviceSpecRelationship is valid")
 
 	@Valid
 

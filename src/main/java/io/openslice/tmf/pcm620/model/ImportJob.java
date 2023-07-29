@@ -22,21 +22,19 @@ package io.openslice.tmf.pcm620.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Represents a task used to import resources from a file
  */
-@ApiModel(description = "Represents a task used to import resources from a file")
+@Schema(description = "Represents a task used to import resources from a file")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class ImportJob   {
   @JsonProperty("id")
@@ -84,7 +82,7 @@ public class ImportJob   {
    * Identifier of the import job
    * @return id
   **/
-  @ApiModelProperty(value = "Identifier of the import job")
+  @Schema(description = "Identifier of the import job")
 
 
   public String getId() {
@@ -104,7 +102,7 @@ public class ImportJob   {
    * Reference of the import job
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the import job")
+  @Schema(description = "Reference of the import job")
 
 
   public String getHref() {
@@ -124,7 +122,7 @@ public class ImportJob   {
    * Date at which the job was completed
    * @return completionDate
   **/
-  @ApiModelProperty(value = "Date at which the job was completed")
+  @Schema(description = "Date at which the job was completed")
 
   @Valid
 
@@ -145,7 +143,7 @@ public class ImportJob   {
    * Indicates the format of the imported data
    * @return contentType
   **/
-  @ApiModelProperty(value = "Indicates the format of the imported data")
+  @Schema(description = "Indicates the format of the imported data")
 
 
   public String getContentType() {
@@ -165,7 +163,7 @@ public class ImportJob   {
    * Date at which the job was created
    * @return creationDate
   **/
-  @ApiModelProperty(value = "Date at which the job was created")
+  @Schema(description = "Date at which the job was created")
 
   @Valid
 
@@ -186,7 +184,7 @@ public class ImportJob   {
    * Reason for failure if status is failed
    * @return errorLog
   **/
-  @ApiModelProperty(value = "Reason for failure if status is failed")
+  @Schema(description = "Reason for failure if status is failed")
 
 
   public String getErrorLog() {
@@ -206,7 +204,7 @@ public class ImportJob   {
    * URL of the root resource where the content of the file specified by the import job must be applied
    * @return path
   **/
-  @ApiModelProperty(value = "URL of the root resource where the content of the file specified by the import job must be applied")
+  @Schema(description = "URL of the root resource where the content of the file specified by the import job must be applied")
 
 
   public String getPath() {
@@ -226,7 +224,7 @@ public class ImportJob   {
    * URL of the file containing the data to be imported
    * @return url
   **/
-  @ApiModelProperty(value = "URL of the file containing the data to be imported")
+  @Schema(description = "URL of the file containing the data to be imported")
 
 
   public String getUrl() {
@@ -246,7 +244,7 @@ public class ImportJob   {
    * Status of the import job (not started, running, succeeded, failed)
    * @return status
   **/
-  @ApiModelProperty(value = "Status of the import job (not started, running, succeeded, failed)")
+  @Schema(description = "Status of the import job (not started, running, succeeded, failed)")
 
   @Valid
 
@@ -267,7 +265,7 @@ public class ImportJob   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -287,7 +285,7 @@ public class ImportJob   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -307,7 +305,7 @@ public class ImportJob   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

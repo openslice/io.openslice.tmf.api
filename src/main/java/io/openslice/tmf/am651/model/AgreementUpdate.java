@@ -24,22 +24,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications. Skipped properties: id,href,id,href,completionDate
  */
-@ApiModel(description = "An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications. Skipped properties: id,href,id,href,completionDate")
+@Schema(description = "An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications. Skipped properties: id,href,id,href,completionDate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementUpdate   {
   @JsonProperty("agreementPeriod")
@@ -110,7 +108,7 @@ public class AgreementUpdate   {
    * The time period during which the Agreement is in effect.
    * @return agreementPeriod
   **/
-  @ApiModelProperty(value = "The time period during which the Agreement is in effect.")
+  @Schema(description = "The time period during which the Agreement is in effect.")
 
   @Valid
 
@@ -131,7 +129,7 @@ public class AgreementUpdate   {
    * Narrative that explains the agreement and details about the it , such as why the agreement is taking place.
    * @return description
   **/
-  @ApiModelProperty(value = "Narrative that explains the agreement and details about the it , such as why the agreement is taking place.")
+  @Schema(description = "Narrative that explains the agreement and details about the it , such as why the agreement is taking place.")
 
 
   public String getDescription() {
@@ -151,7 +149,7 @@ public class AgreementUpdate   {
    * A reference number assigned to an Agreement that follows a prescribed numbering system.
    * @return documentNumber
   **/
-  @ApiModelProperty(value = "A reference number assigned to an Agreement that follows a prescribed numbering system.")
+  @Schema(description = "A reference number assigned to an Agreement that follows a prescribed numbering system.")
 
 
   public Integer getDocumentNumber() {
@@ -171,7 +169,7 @@ public class AgreementUpdate   {
    * Date at which the agreement was initialized
    * @return initialDate
   **/
-  @ApiModelProperty(value = "Date at which the agreement was initialized")
+  @Schema(description = "Date at which the agreement was initialized")
 
   @Valid
 
@@ -192,7 +190,7 @@ public class AgreementUpdate   {
    * A human-readable name for the agreement
    * @return name
   **/
-  @ApiModelProperty(value = "A human-readable name for the agreement")
+  @Schema(description = "A human-readable name for the agreement")
 
 
   public String getName() {
@@ -212,7 +210,7 @@ public class AgreementUpdate   {
    * An overview and goals of the Agreement.
    * @return statementOfIntent
   **/
-  @ApiModelProperty(value = "An overview and goals of the Agreement.")
+  @Schema(description = "An overview and goals of the Agreement.")
 
 
   public String getStatementOfIntent() {
@@ -232,7 +230,7 @@ public class AgreementUpdate   {
    * The current status of the agreement. Typical values are: in process, approved and rejected.
    * @return status
   **/
-  @ApiModelProperty(value = "The current status of the agreement. Typical values are: in process, approved and rejected.")
+  @Schema(description = "The current status of the agreement. Typical values are: in process, approved and rejected.")
 
 
   public String getStatus() {
@@ -252,7 +250,7 @@ public class AgreementUpdate   {
    * The type of the agreement. For example \"commercial\".
    * @return type
   **/
-  @ApiModelProperty(value = "The type of the agreement. For example \"commercial\".")
+  @Schema(description = "The type of the agreement. For example \"commercial\".")
 
 
   public String getTypeAgreementUpdate() {
@@ -272,7 +270,7 @@ public class AgreementUpdate   {
    * A string identifying the version of the agreement.
    * @return version
   **/
-  @ApiModelProperty(value = "A string identifying the version of the agreement.")
+  @Schema(description = "A string identifying the version of the agreement.")
 
 
   public String getVersion() {
@@ -292,7 +290,7 @@ public class AgreementUpdate   {
    * Get agreementSpecification
    * @return agreementSpecification
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -321,7 +319,7 @@ public class AgreementUpdate   {
    * Get agreementItem
    * @return agreementItem
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -350,7 +348,7 @@ public class AgreementUpdate   {
    * Get engagedPartyRole
    * @return engagedPartyRole
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -379,7 +377,7 @@ public class AgreementUpdate   {
    * Get agreementAuthorization
    * @return agreementAuthorization
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -408,7 +406,7 @@ public class AgreementUpdate   {
    * Get characteristic
    * @return characteristic
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -437,7 +435,7 @@ public class AgreementUpdate   {
    * Get associatedAgreement
    * @return associatedAgreement
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -458,7 +456,7 @@ public class AgreementUpdate   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -478,7 +476,7 @@ public class AgreementUpdate   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -498,7 +496,7 @@ public class AgreementUpdate   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

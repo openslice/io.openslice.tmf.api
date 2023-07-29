@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import io.openslice.tmf.rpm685.model.Reservation;
+import jakarta.validation.Valid;
 
 
 /**
  * @author ctranoris
  *
  */
-public interface ResourceReservationRepository extends PagingAndSortingRepository<Reservation, Long> {
+public interface ResourceReservationRepository extends CrudRepository<Reservation, Long>, PagingAndSortingRepository<Reservation, Long> {
 
 	Optional<Reservation> findByUuid(String id);
 

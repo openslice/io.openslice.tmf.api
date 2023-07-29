@@ -29,8 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,20 +41,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.pcm620.model.Error;
 import io.openslice.tmf.pcm620.model.ProductOfferingPrice;
 import io.openslice.tmf.pcm620.model.ProductOfferingPriceCreate;
 import io.openslice.tmf.pcm620.model.ProductOfferingPriceUpdate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-@Api(value = "productOfferingPrice", description = "the productOfferingPrice API")
+@Tag(name = "productOfferingPrice", description = "the productOfferingPrice API")
 public interface ProductOfferingPriceApi {
 
     Logger log = LoggerFactory.getLogger(ProductOfferingPriceApi.class);
@@ -72,20 +70,20 @@ public interface ProductOfferingPriceApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a ProductOfferingPrice", nickname = "createProductOfferingPrice", notes = "This operation creates a ProductOfferingPrice entity.", response = ProductOfferingPrice.class, tags={ "productOfferingPrice", })
+    @Operation(summary = "Creates a ProductOfferingPrice", operationId = "createProductOfferingPrice", description = "This operation creates a ProductOfferingPrice entity.", tags={ "productOfferingPrice", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = ProductOfferingPrice.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/productOfferingPrice",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<ProductOfferingPrice> createProductOfferingPrice(@ApiParam(value = "The ProductOfferingPrice to be created" ,required=true )  @Valid @RequestBody ProductOfferingPriceCreate productOfferingPrice) {
+    default ResponseEntity<ProductOfferingPrice> createProductOfferingPrice(@Parameter(description = "The ProductOfferingPrice to be created" ,required=true )  @Valid @RequestBody ProductOfferingPriceCreate productOfferingPrice) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -102,20 +100,20 @@ public interface ProductOfferingPriceApi {
     }
 
 
-    @ApiOperation(value = "Deletes a ProductOfferingPrice", nickname = "deleteProductOfferingPrice", notes = "This operation deletes a ProductOfferingPrice entity.", tags={ "productOfferingPrice", })
+    @Operation(summary = "Deletes a ProductOfferingPrice", operationId = "deleteProductOfferingPrice", description = "This operation deletes a ProductOfferingPrice entity.", tags={ "productOfferingPrice", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/productOfferingPrice/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteProductOfferingPrice(@ApiParam(value = "Identifier of the ProductOfferingPrice",required=true) @PathVariable("id") String id) {
+    default ResponseEntity<Void> deleteProductOfferingPrice(@Parameter(description = "Identifier of the ProductOfferingPrice",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default ProductOfferingPriceApi interface so no example is generated");
@@ -124,20 +122,20 @@ public interface ProductOfferingPriceApi {
     }
 
 
-    @ApiOperation(value = "List or find ProductOfferingPrice objects", nickname = "listProductOfferingPrice", notes = "This operation list or find ProductOfferingPrice entities", response = ProductOfferingPrice.class, responseContainer = "List", tags={ "productOfferingPrice", })
+    @Operation(summary = "List or find ProductOfferingPrice objects", operationId = "listProductOfferingPrice", description = "This operation list or find ProductOfferingPrice entities" , tags={ "productOfferingPrice", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ProductOfferingPrice.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/productOfferingPrice",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<ProductOfferingPrice>> listProductOfferingPrice(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+    default ResponseEntity<List<ProductOfferingPrice>> listProductOfferingPrice(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
 			 @Valid Map<String, String> allParams) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -155,21 +153,21 @@ public interface ProductOfferingPriceApi {
     }
 
 
-    @ApiOperation(value = "Updates partially a ProductOfferingPrice", nickname = "patchProductOfferingPrice", notes = "This operation updates partially a ProductOfferingPrice entity.", response = ProductOfferingPrice.class, tags={ "productOfferingPrice", })
+    @Operation(summary = "Updates partially a ProductOfferingPrice", operationId = "patchProductOfferingPrice", description = "This operation updates partially a ProductOfferingPrice entity.", tags={ "productOfferingPrice", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = ProductOfferingPrice.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/productOfferingPrice/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<ProductOfferingPrice> patchProductOfferingPrice(@ApiParam(value = "Identifier of the ProductOfferingPrice",required=true) @PathVariable("id") String id,@ApiParam(value = "The ProductOfferingPrice to be updated" ,required=true )  @Valid @RequestBody ProductOfferingPriceUpdate productOfferingPrice) {
+    default ResponseEntity<ProductOfferingPrice> patchProductOfferingPrice(@Parameter(description = "Identifier of the ProductOfferingPrice",required=true) @PathVariable("id") String id,@Parameter(description = "The ProductOfferingPrice to be updated" ,required=true )  @Valid @RequestBody ProductOfferingPriceUpdate productOfferingPrice) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -186,20 +184,20 @@ public interface ProductOfferingPriceApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a ProductOfferingPrice by ID", nickname = "retrieveProductOfferingPrice", notes = "This operation retrieves a ProductOfferingPrice entity. Attribute selection is enabled for all first level attributes.", response = ProductOfferingPrice.class, tags={ "productOfferingPrice", })
+    @Operation(summary = "Retrieves a ProductOfferingPrice by ID", operationId = "retrieveProductOfferingPrice", description = "This operation retrieves a ProductOfferingPrice entity. Attribute selection is enabled for all first level attributes.", tags={ "productOfferingPrice", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ProductOfferingPrice.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/productOfferingPrice/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<ProductOfferingPrice> retrieveProductOfferingPrice(@ApiParam(value = "Identifier of the ProductOfferingPrice",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<ProductOfferingPrice> retrieveProductOfferingPrice(@Parameter(description = "Identifier of the ProductOfferingPrice",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

@@ -21,27 +21,24 @@ package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.scm633.model.TargetServiceSchema;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * Service specification reference: ServiceSpecification(s) required to realize
  * a ProductSpecification.
  */
-@ApiModel(description = "Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.")
+@Schema(description = "Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Entity(name = "ServiceSpecificationRef")
 @JsonIgnoreProperties( {"uuid"} )
 public class ServiceSpecificationRef extends BaseRootNamedEntity {
@@ -82,7 +79,7 @@ public class ServiceSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Service specification version")
+	@Schema(description = "Service specification version")
 
 	public String getVersion() {
 		return version;
@@ -104,7 +101,7 @@ public class ServiceSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return targetServiceSchema
 	 **/
-	@ApiModelProperty(value = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
+	@Schema(description = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
 
 	@Valid
 
@@ -126,7 +123,7 @@ public class ServiceSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return referredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getReferredType() {
 		return referredType;

@@ -20,20 +20,19 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Base schema for adressable entities
  */
-@ApiModel(description = "Base schema for adressable entities")
+@Schema(description = "Base schema for adressable entities")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 public class Addressable   {
   @JsonProperty("id")
   private String id = null;
@@ -50,7 +49,7 @@ public class Addressable   {
    * unique identifier
    * @return id
   **/
-  @ApiModelProperty(value = "unique identifier")
+  @Schema(description = "unique identifier")
   
     public String getId() {
     return id;
@@ -69,7 +68,7 @@ public class Addressable   {
    * Hyperlink reference
    * @return href
   **/
-  @ApiModelProperty(value = "Hyperlink reference")
+  @Schema(description = "Hyperlink reference")
   
     public String getHref() {
     return href;

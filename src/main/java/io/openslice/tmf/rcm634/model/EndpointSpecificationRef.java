@@ -1,28 +1,25 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.rcm634.model.ConnectionPointSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A specification for a vertex in a resource graph.
  */
-@ApiModel(description = "A specification for a vertex in a resource graph.")
+@Schema(description = "A specification for a vertex in a resource graph.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
 @Entity(name = "EndpointSpecRef")
 public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	@JsonProperty("id")
@@ -54,7 +51,7 @@ public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "unique identifier")
+	@Schema(description = "unique identifier")
 	@NotNull
 
 	public String getId() {
@@ -72,7 +69,7 @@ public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -93,7 +90,7 @@ public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return isRoot
 	 **/
-	@ApiModelProperty(value = "Directionality: true when endpoint is a source, false when a sink. If true for all endpoints connectivity is bidirectional. Default is true.")
+	@Schema(description = "Directionality: true when endpoint is a source, false when a sink. If true for all endpoints connectivity is bidirectional. Default is true.")
 
 	public Boolean isIsRoot() {
 		return isRoot;
@@ -113,7 +110,7 @@ public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the related entity.")
+	@Schema(description = "Name of the related entity.")
 
 	public String getName() {
 		return name;
@@ -133,7 +130,7 @@ public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(value = "Role of the Resource Function.")
+	@Schema(description = "Role of the Resource Function.")
 
 	public String getRole() {
 		return role;
@@ -154,7 +151,7 @@ public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return connectionPointSpecification
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ConnectionPointSpecificationRef getConnectionPointSpecification() {
@@ -176,7 +173,7 @@ public class EndpointSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

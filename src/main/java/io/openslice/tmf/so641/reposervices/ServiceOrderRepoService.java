@@ -26,7 +26,6 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -36,8 +35,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,13 +47,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jms.JmsProperties.AcknowledgeMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.EValueType;
@@ -62,16 +57,13 @@ import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.common.model.service.ServiceRef;
-import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
-import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
-import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
+import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilderEvents;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderActionType;
 import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeEvent;
@@ -85,9 +77,10 @@ import io.openslice.tmf.so641.model.ServiceOrderStateChangeEvent;
 import io.openslice.tmf.so641.model.ServiceOrderStateChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderStateType;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
-import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
 import io.openslice.tmf.util.KrokiClient;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 import lombok.Data;
 
 @Service
@@ -105,7 +98,7 @@ public class ServiceOrderRepoService {
 	ServiceSpecificationRepoService serviceSpecRepoService;
 
 	@Autowired
-	ServiceOrderApiRouteBuilder serviceOrderApiRouteBuilder;
+	ServiceOrderApiRouteBuilderEvents serviceOrderApiRouteBuilder;
 
 	@Autowired
 	ServiceRepoService serviceRepoService;

@@ -20,8 +20,9 @@
 package io.openslice.tmf.am642.api;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
@@ -34,16 +35,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
 import io.openslice.tmf.am642.model.AlarmCreate;
-import io.openslice.tmf.am642.model.AlarmCreateEvent;
 import io.openslice.tmf.am642.model.AlarmUpdate;
 import io.openslice.tmf.am642.reposervices.AlarmRepoService;
-import io.openslice.tmf.common.model.OpensliceEvent;
 
 @Configuration
 @Component
@@ -61,8 +56,6 @@ public class AlarmApiRouteBuilder extends RouteBuilder {
 	@Value("${ALARMS_GET_ALARM}")
 	private String ALARMS_GET_ALARM ="";
 
-	@Value("${EVENT_ALARM_CREATE}")
-	private String EVENT_ALARM_CREATE ="";
 	
 
 	@Value("${spring.application.name}")
@@ -110,33 +103,6 @@ public class AlarmApiRouteBuilder extends RouteBuilder {
 		
 	}
 	
-	/**
-	 * @param n
-	 */
-	public void publishEvent(final OpensliceEvent n, final String objId) {
-		n.setEventType( n.getClass().getName());
-		logger.info("will send Event for type " + n.getEventType());
-		try {
-			String msgtopic="";
-			
-			if ( n instanceof AlarmCreateEvent) {
-				 msgtopic = EVENT_ALARM_CREATE;
-			} 
-			Map<String, Object> map = new HashMap<>();
-			map.put("eventid", n.getEventId() );
-			map.put("objId", objId );
-			
-			String apayload = toJsonString(n);
-			template.sendBodyAndHeaders(msgtopic, apayload , map);
-			
-
-			centralLogger.log( CLevel.INFO, apayload, compname );	
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("Cannot send Event . " + e.getMessage()  );
-		}
-	}
 	
 	static String toJsonString(Object object) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();

@@ -21,21 +21,19 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.
  */
-@ApiModel(description = "Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.")
+@Schema(description = "Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply for Price Alteration.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class Price   {
   @JsonProperty("percentage")
   private Float percentage = null;
@@ -67,7 +65,7 @@ public class Price   {
    * Percentage to apply for ProdOfferPriceAlteration
    * @return percentage
   **/
-  @ApiModelProperty(value = "Percentage to apply for ProdOfferPriceAlteration")
+  @Schema(description = "Percentage to apply for ProdOfferPriceAlteration")
   
     public Float getPercentage() {
     return percentage;
@@ -86,7 +84,7 @@ public class Price   {
    * Tax rate
    * @return taxRate
   **/
-  @ApiModelProperty(value = "Tax rate")
+  @Schema(description = "Tax rate")
   
     public Float getTaxRate() {
     return taxRate;
@@ -105,7 +103,7 @@ public class Price   {
    * Get dutyFreeAmount
    * @return dutyFreeAmount
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Money getDutyFreeAmount() {
@@ -125,7 +123,7 @@ public class Price   {
    * Get taxIncludedAmount
    * @return taxIncludedAmount
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Money getTaxIncludedAmount() {
@@ -145,7 +143,7 @@ public class Price   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -164,7 +162,7 @@ public class Price   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -183,7 +181,7 @@ public class Price   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

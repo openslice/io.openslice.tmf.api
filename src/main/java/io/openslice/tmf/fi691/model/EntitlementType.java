@@ -20,23 +20,21 @@
 package io.openslice.tmf.fi691.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * EntitlementType
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "EntitlementType")
 public class EntitlementType  extends BaseRootEntity {
@@ -55,7 +53,7 @@ public class EntitlementType  extends BaseRootEntity {
    * Get function
    * @return function
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
   @NotNull
 
 
@@ -76,7 +74,7 @@ public class EntitlementType  extends BaseRootEntity {
    * Get action
    * @return action
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
   @NotNull
 
 

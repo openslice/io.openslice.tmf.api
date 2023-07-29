@@ -21,29 +21,26 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A migration, substitution, dependency or exclusivity relationship
  * between/among entity specifications.
  */
-@ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among entity specifications.")
+@Schema(description = "A migration, substitution, dependency or exclusivity relationship between/among entity specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMEntitySpecRel")
 @Table(name = "STMEntitySpecRel")
 public class EntitySpecificationRelationship extends BaseEntity {
@@ -73,7 +70,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "unique identifier")
+	@Schema(description = "unique identifier")
 	/**
 	 * @return the id
 	 */
@@ -94,7 +91,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -114,7 +111,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the related entity.")
+	@Schema(description = "Name of the related entity.")
 
 	public String getName() {
 		return name;
@@ -134,7 +131,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(required = true, value = "Type of relationship such as migration, substitution, dependency, exclusivity")
+	@Schema(description = "Type of relationship such as migration, substitution, dependency, exclusivity")
 	@NotNull
 
 	public String getRelationshipType() {
@@ -155,7 +152,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(value = "The association role for this entity specification")
+	@Schema(description = "The association role for this entity specification")
 
 	public String getRole() {
 		return role;
@@ -175,7 +172,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	 * 
 	 * @return associationSpec
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public AssociationSpecificationRef getAssociationSpec() {
@@ -199,7 +196,7 @@ public class EntitySpecificationRelationship extends BaseEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

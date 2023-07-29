@@ -21,23 +21,21 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * A tax item is created for each tax rate and tax type used in the bill.
  */
-@ApiModel(description = "A tax item is created for each tax rate and tax type used in the bill.")
+@Schema(description = "A tax item is created for each tax rate and tax type used in the bill.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity
 public class TaxItem  extends BaseRootEntity{
@@ -60,7 +58,7 @@ public class TaxItem  extends BaseRootEntity{
    * Tax category
    * @return taxCategory
   **/
-  @ApiModelProperty(value = "Tax category")
+  @Schema(description = "Tax category")
 
 
   public String getTaxCategory() {
@@ -80,7 +78,7 @@ public class TaxItem  extends BaseRootEntity{
    * Applied rate of the tax
    * @return taxRate
   **/
-  @ApiModelProperty(value = "Applied rate of the tax")
+  @Schema(description = "Applied rate of the tax")
 
 
   public Float getTaxRate() {
@@ -100,7 +98,7 @@ public class TaxItem  extends BaseRootEntity{
    * Amount of tax expressed in the given currency
    * @return taxAmount
   **/
-  @ApiModelProperty(value = "Amount of tax expressed in the given currency")
+  @Schema(description = "Amount of tax expressed in the given currency")
 
   @Valid
 

@@ -21,22 +21,20 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * Reference of a tax definition. A tax is levied by an authorized tax jurisdiction. There are many different types of tax (Federal Tax levied by the US Government, State Tax levied by the State of California,…).
  */
-@ApiModel(description = "Reference of a tax definition. A tax is levied by an authorized tax jurisdiction. There are many different types of tax (Federal Tax levied by the US Government, State Tax levied by the State of California,…).")
+@Schema(description = "Reference of a tax definition. A tax is levied by an authorized tax jurisdiction. There are many different types of tax (Federal Tax levied by the US Government, State Tax levied by the State of California,…).")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity
 public class TaxDefinition  extends BaseRootNamedEntity { 
@@ -54,7 +52,7 @@ public class TaxDefinition  extends BaseRootNamedEntity {
    * Unique identifier of the tax.
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the tax.")
+  @Schema(description = "Unique identifier of the tax.")
 
 
   @JsonProperty("id")
@@ -73,7 +71,7 @@ public class TaxDefinition  extends BaseRootNamedEntity {
    * Type of  the tax.
    * @return taxType
   **/
-  @ApiModelProperty(value = "Type of  the tax.")
+  @Schema(description = "Type of  the tax.")
 
 
   public String getTaxType() {
@@ -94,7 +92,7 @@ public class TaxDefinition  extends BaseRootNamedEntity {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

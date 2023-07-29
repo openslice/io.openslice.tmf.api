@@ -22,6 +22,7 @@ package io.openslice.tmf.sim638.repo;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +31,7 @@ import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
 
 
 @Repository
-public interface ServiceActionQueueRepository extends PagingAndSortingRepository<ServiceActionQueueItem, Long> {
+public interface ServiceActionQueueRepository extends CrudRepository<ServiceActionQueueItem, Long>, PagingAndSortingRepository<ServiceActionQueueItem, Long> {
 
 	
 	Optional<ServiceActionQueueItem> findByUuid(String id);

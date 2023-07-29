@@ -24,8 +24,6 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +36,9 @@ import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
+import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
+import jakarta.validation.Valid;
 
 @Service
 public class ResourceCandidateRepoService {
@@ -51,7 +51,7 @@ public class ResourceCandidateRepoService {
 	ResourceCategoryRepoService categsRepoService;
 
 	@Autowired
-	ResourceSpecificationRepoService specRepo;
+	ResourceSpecificationRepository resourceSpecificationRepo;
 	
 	public ResourceCandidate addCatalog( ResourceCandidate c) {
 
@@ -112,7 +112,8 @@ public class ResourceCandidateRepoService {
 		ResourceSpecification specObj = null;
 		
 		if ( serviceCandidateUpd.getResourceSpecification()!=null) {
-			specObj = this.specRepo.findByUuid( serviceCandidateUpd.getResourceSpecification().getId() );			
+			Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid( serviceCandidateUpd.getResourceSpecification().getId() );
+			specObj = optionalCat.orElse(null);
 		}
 		
 		if ( specObj != null ) {

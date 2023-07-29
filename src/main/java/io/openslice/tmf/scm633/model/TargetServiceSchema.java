@@ -21,19 +21,18 @@ package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
-
 import org.springframework.validation.annotation.Validated;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embeddable;
 
 /**
  * The reference object to the schema and type of target service which is described by service specification
  */
-@ApiModel(description = "The reference object to the schema and type of target service which is described by service specification")
+@Schema(description = "The reference object to the schema and type of target service which is described by service specification")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Embeddable
 public class TargetServiceSchema extends BaseRootEntity  {

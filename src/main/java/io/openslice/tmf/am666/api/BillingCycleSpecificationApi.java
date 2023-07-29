@@ -28,8 +28,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,20 +40,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.am666.model.BillingCycleSpecification;
 import io.openslice.tmf.am666.model.BillingCycleSpecificationCreate;
 import io.openslice.tmf.am666.model.BillingCycleSpecificationUpdate;
-import io.openslice.tmf.am666.model.Error;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
-@Api(value = "billingCycleSpecification", description = "the billingCycleSpecification API")
+@Tag(name = "billingCycleSpecification", description = "the billingCycleSpecification API")
 public interface BillingCycleSpecificationApi {
 
     Logger log = LoggerFactory.getLogger(BillingCycleSpecificationApi.class);
@@ -71,20 +69,20 @@ public interface BillingCycleSpecificationApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a BillingCycleSpecification", nickname = "createBillingCycleSpecification", notes = "This operation creates a BillingCycleSpecification entity.", response = BillingCycleSpecification.class, tags={ "billingCycleSpecification", })
+    @Operation(summary = "Creates a BillingCycleSpecification", operationId = "createBillingCycleSpecification", description = "This operation creates a BillingCycleSpecification entity.", tags={ "billingCycleSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = BillingCycleSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/billingCycleSpecification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<BillingCycleSpecification> createBillingCycleSpecification(@ApiParam(value = "The BillingCycleSpecification to be created" ,required=true )  @Valid @RequestBody BillingCycleSpecificationCreate billingCycleSpecification) {
+    default ResponseEntity<BillingCycleSpecification> createBillingCycleSpecification(@Parameter(description = "The BillingCycleSpecification to be created" ,required=true )  @Valid @RequestBody BillingCycleSpecificationCreate billingCycleSpecification) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -101,21 +99,21 @@ public interface BillingCycleSpecificationApi {
     }
 
 
-    @ApiOperation(value = "Deletes a BillingCycleSpecification", nickname = "deleteBillingCycleSpecification", notes = "This operation deletes a BillingCycleSpecification entity.", tags={ "billingCycleSpecification", })
+    @Operation(summary = "Deletes a BillingCycleSpecification", operationId = "deleteBillingCycleSpecification", description = "This operation deletes a BillingCycleSpecification entity.", tags={ "billingCycleSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted"),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/billingCycleSpecification/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteBillingCycleSpecification(@ApiParam(value = "Identifier of the BillingCycleSpecification",required=true) @PathVariable("id") String id) {
+    default ResponseEntity<Void> deleteBillingCycleSpecification(@Parameter(description = "Identifier of the BillingCycleSpecification",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default BillingCycleSpecificationApi interface so no example is generated");
@@ -124,21 +122,21 @@ public interface BillingCycleSpecificationApi {
     }
 
 
-    @ApiOperation(value = "List or find BillingCycleSpecification objects", nickname = "listBillingCycleSpecification", notes = "This operation list or find BillingCycleSpecification entities", response = BillingCycleSpecification.class, responseContainer = "List", tags={ "billingCycleSpecification", })
+    @Operation(summary = "List or find BillingCycleSpecification objects", operationId = "listBillingCycleSpecification", description = "This operation list or find BillingCycleSpecification entities" , tags={ "billingCycleSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = BillingCycleSpecification.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/billingCycleSpecification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    default ResponseEntity<List<BillingCycleSpecification>> listBillingCycleSpecification(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    default ResponseEntity<List<BillingCycleSpecification>> listBillingCycleSpecification(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -155,21 +153,21 @@ public interface BillingCycleSpecificationApi {
     }
 
 
-    @ApiOperation(value = "Updates partially a BillingCycleSpecification", nickname = "patchBillingCycleSpecification", notes = "This operation updates partially a BillingCycleSpecification entity.", response = BillingCycleSpecification.class, tags={ "billingCycleSpecification", })
+    @Operation(summary = "Updates partially a BillingCycleSpecification", operationId = "patchBillingCycleSpecification", description = "This operation updates partially a BillingCycleSpecification entity.", tags={ "billingCycleSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = BillingCycleSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/billingCycleSpecification/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<BillingCycleSpecification> patchBillingCycleSpecification(@ApiParam(value = "Identifier of the BillingCycleSpecification",required=true) @PathVariable("id") String id,@ApiParam(value = "The BillingCycleSpecification to be updated" ,required=true )  @Valid @RequestBody BillingCycleSpecificationUpdate billingCycleSpecification) {
+    default ResponseEntity<BillingCycleSpecification> patchBillingCycleSpecification(@Parameter(description = "Identifier of the BillingCycleSpecification",required=true) @PathVariable("id") String id,@Parameter(description = "The BillingCycleSpecification to be updated" ,required=true )  @Valid @RequestBody BillingCycleSpecificationUpdate billingCycleSpecification) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -186,21 +184,21 @@ public interface BillingCycleSpecificationApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a BillingCycleSpecification by ID", nickname = "retrieveBillingCycleSpecification", notes = "This operation retrieves a BillingCycleSpecification entity. Attribute selection is enabled for all first level attributes.", response = BillingCycleSpecification.class, tags={ "billingCycleSpecification", })
+    @Operation(summary = "Retrieves a BillingCycleSpecification by ID", operationId = "retrieveBillingCycleSpecification", description = "This operation retrieves a BillingCycleSpecification entity. Attribute selection is enabled for all first level attributes.", tags={ "billingCycleSpecification", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = BillingCycleSpecification.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/billingCycleSpecification/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    default ResponseEntity<BillingCycleSpecification> retrieveBillingCycleSpecification(@ApiParam(value = "Identifier of the BillingCycleSpecification",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<BillingCycleSpecification> retrieveBillingCycleSpecification(@Parameter(description = "Identifier of the BillingCycleSpecification",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

@@ -1,33 +1,29 @@
 package io.openslice.tmf.rpm685.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.service.ResourceRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * The amount of CapcityDemand applied to a CapacityAmount.
  */
-@ApiModel(description = "The amount of CapcityDemand applied to a CapacityAmount.")
+@Schema(description = "The amount of CapcityDemand applied to a CapacityAmount.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 @Entity(name = "ApplCapacityAmnt")
 public class AppliedCapacityAmount extends BaseRootEntity {
 
@@ -55,7 +51,7 @@ public class AppliedCapacityAmount extends BaseRootEntity {
 	 * 
 	 * @return appliedDemandAmount
 	 **/
-	@ApiModelProperty(value = "An amount of demand applied to a CapacityAmount. Note that this is a composite attribute defined by CapacityAmount.")
+	@Schema(description = "An amount of demand applied to a CapacityAmount. Note that this is a composite attribute defined by CapacityAmount.")
 
 	public Integer getAppliedDemandAmount() {
 		return appliedDemandAmount;
@@ -75,7 +71,7 @@ public class AppliedCapacityAmount extends BaseRootEntity {
 	 * 
 	 * @return resourceCapacityDemand
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceCapacityDemand getResourceCapacityDemand() {
@@ -101,7 +97,7 @@ public class AppliedCapacityAmount extends BaseRootEntity {
 	 * 
 	 * @return resource
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public Set<ResourceRef> getResource() {
 		return resources;

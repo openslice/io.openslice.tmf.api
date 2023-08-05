@@ -1,8 +1,5 @@
-FROM adoptopenjdk/openjdk13-openj9:latest
+FROM ibm-semeru-runtimes:open-17.0.7_7-jdk
 MAINTAINER openslice.io
-ENV SPRING_APPLICATION_JSON='{ \
-	"spring.datasource.url": "dbc:mysql://10.0.2.15/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",  \
-	"spring.activemq.broker-url": "tcp://10.0.2.15:61616"  }'
 RUN mkdir /opt/shareclasses
 RUN mkdir -p /opt/openslice/lib/
 COPY target/io.openslice.tmf.api-1.2.0-SNAPSHOT-exec.jar /opt/openslice/lib/

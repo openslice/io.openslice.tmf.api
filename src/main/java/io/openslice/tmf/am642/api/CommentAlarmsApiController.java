@@ -72,7 +72,7 @@ public class CommentAlarmsApiController implements CommentAlarmsApi {
 
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<CommentAlarms> createCommentAlarms(@Valid CommentAlarmsCreate body) {
     	try {
 
@@ -87,7 +87,7 @@ public class CommentAlarmsApiController implements CommentAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<CommentAlarms> retrieveCommentAlarms(String id, @Valid String fields) {
     	try {
 
@@ -100,7 +100,7 @@ public class CommentAlarmsApiController implements CommentAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<List<CommentAlarms>> listCommentAlarms(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit, Map<String, String> allParams) {
     	try {

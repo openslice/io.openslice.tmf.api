@@ -952,14 +952,14 @@ public class ServiceCatalogIntegrationTest {
 		
 		assertThat(userPartyRoleOwnerexists  ).isTrue() ;
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
-		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong in Testing ONLY 
+		assertThat( specRepoService.findAll( null, new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong in Testing ONLY 
 		
 		
 		/**
 		 * 
 		 */
 		
-		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name")
+		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=serviceCandidateObjId")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -970,7 +970,7 @@ public class ServiceCatalogIntegrationTest {
 
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
-		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong it should be 2..anyway to investigate in future
+		assertThat( specRepoService.findAll(null , new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong it should be 2..anyway to investigate in future
 		assertThat(specs.size()  ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ) ;
 		
 		
@@ -979,7 +979,7 @@ public class ServiceCatalogIntegrationTest {
 		 * 
 		 */
 		
-		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=A%20GST(NEST)%20Service%20Example")
+		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=serviceCandidateObjId&name=A%20GST(NEST)%20Service%20Example")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -1056,14 +1056,14 @@ public class ServiceCatalogIntegrationTest {
 		
 		assertThat(userPartyRoleOwnerexists  ).isTrue() ;
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
-		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong in Testing ONLY it should be 2..anyway to investigate in future..something is happening with Session factory
+		assertThat( specRepoService.findAll( null, new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong in Testing ONLY it should be 2..anyway to investigate in future..something is happening with Session factory
 		
 		
 		/**
 		 * 
 		 */
 		
-		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name")
+		String responseSpecs = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=serviceCandidateObjId")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())
@@ -1074,7 +1074,7 @@ public class ServiceCatalogIntegrationTest {
 
 
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS +1 );
-		assertThat( specRepoService.findAll("uuid,name", new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong it should be 2..anyway to investigate in future
+		assertThat( specRepoService.findAll( null, new HashMap<>()).size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ); //this is somehow wrong it should be 2..anyway to investigate in future
 		assertThat(specs.size()  ).isEqualTo( FIXED_BOOTSTRAPS_SPECS ) ;
 		
 		
@@ -1083,7 +1083,7 @@ public class ServiceCatalogIntegrationTest {
 		 * 
 		 */
 		
-		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=id,name&name=A%20VINNI%20Service%20Example")
+		String responseSpecsFilter = mvc.perform(MockMvcRequestBuilders.get("/serviceCatalogManagement/v4/serviceSpecification?fields=serviceCandidateObjId&name=A%20VINNI%20Service%20Example")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( JsonUtils.toJson( sspeccr1 ) ))
 			    .andExpect(status().isOk())

@@ -197,7 +197,7 @@ public class LCMRuleSpecificationRepoService {
 			if ( ls == null) {
 				return this.findByUuid(id);// last resort
 			}
-			Hibernate.initialize(ls.getServiceSpecificationRefs() );
+			Hibernate.initialize(ls.getServiceSpecs() );
 			tx.commit();
 		} finally {
 			session.close();
@@ -318,7 +318,7 @@ public class LCMRuleSpecificationRepoService {
 				// find by id and reload it here.
 
 				boolean idexists = false;
-				for (ServiceSpecificationRef orinalCom : as.getServiceSpecificationRefs()) {
+				for (ServiceSpecificationRef orinalCom : as.getServiceSpecs()) {
 					if (ar.getId()!=null && orinalCom.getId().equals(ar.getId())) {
 						idexists = true;
 						idAddedUpdated.put(orinalCom.getId(), true);
@@ -327,20 +327,20 @@ public class LCMRuleSpecificationRepoService {
 				}
 
 				if (!idexists) {
-					as.getServiceSpecificationRefs().add(ar);
+					as.getServiceSpecs().add(ar);
 					idAddedUpdated.put(ar.getId(), true);
 				}
 			}
 
 			List<ServiceSpecificationRef> toRemove = new ArrayList<>();
-			for (ServiceSpecificationRef ss : as.getServiceSpecificationRefs()) {
+			for (ServiceSpecificationRef ss : as.getServiceSpecs()) {
 				if (idAddedUpdated.get(ss.getId()) == null) {
 					toRemove.add(ss);
 				}
 			}
 
 			for (ServiceSpecificationRef ar : toRemove) {
-				as.getServiceSpecificationRefs().remove(ar);
+				as.getServiceSpecs().remove(ar);
 			}
 
 		}

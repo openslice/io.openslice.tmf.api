@@ -28,5 +28,5 @@
     <root level="error">
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="root" level="debug"/>
+    <logger name="root" level="info"/>
 </configuration>

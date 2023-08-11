@@ -101,7 +101,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		this.request = request;
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<ServiceSpecification> createServiceSpecification(
 			@Parameter(description = "The ServiceSpecification to be created", required = true) @Valid @RequestBody ServiceSpecificationCreate serviceSpecification) {
 		try {
@@ -123,7 +123,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Void> deleteServiceSpecification(
 			@Parameter(description = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id) {
 		try {
@@ -173,7 +173,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<ServiceSpecification> patchServiceSpecification(
 			@Parameter(description = "Identifier of the ServiceSpecification", required = true) @PathVariable("id") String id,
 			@Parameter(description = "The ServiceSpecification to be updated", required = true) @Valid @RequestBody ServiceSpecificationUpdate serviceSpecification) {
@@ -209,7 +209,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<ServiceSpecification> cloneServiceSpecification(
 			@Parameter(description = "Identifier of the ServiceSpecification to clone", required = true) @PathVariable("id") String id) {
 
@@ -218,7 +218,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<Attachment> addAttachmentToServiceSpecification(String specid,
 			//@Valid @ModelAttribute("attachment") Attachment att,
@@ -318,7 +318,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ServiceSpecification> cloneGSTServiceSpecification(String serviceName) {
 		ServiceSpecification c = serviceSpecificationRepoService.cloneGSTServiceSpecification( serviceName );
@@ -340,7 +340,7 @@ public class ServiceSpecificationApiController implements ServiceSpecificationAp
 		return new ResponseEntity<ServiceSpecification>(c, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ServiceSpecification> specFromNSDID(String id) {
 		 List<ServiceSpecification> result = serviceSpecificationRepoService.specFromNSDID(id);

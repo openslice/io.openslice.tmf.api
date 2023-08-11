@@ -75,6 +75,7 @@ public class ResourcePoolRepoService {
 		return (List<ResourcePool>) this.resourcePoolRepo.findAll();
 	}
 
+	@Transactional
 	public AvailabilityCheck availabilityCheck(@Valid AvailabilityCheckCreate acReq) {
 		AvailabilityCheck ac = new AvailabilityCheck();
 		if ( acReq.getResourceCapacityDemand() == null ) {
@@ -169,6 +170,7 @@ public class ResourcePoolRepoService {
 		return updateResourcePool(resourcePool.getId(), ru);
 	}
 
+	@Transactional
 	public Set<ResourcePool> findResourceRefinPools(@NotNull String resourceRefId) {
 		return this.resourcePoolRepo.findByResourceId( resourceRefId ) ;
 		
@@ -191,6 +193,7 @@ public class ResourcePoolRepoService {
 	 * @param endDateTime
 	 * @return a nre reservation if it is OK with dates otherwise returns one that is rejected
 	 */
+	@Transactional
 	public Reservation reserveResource(@NotNull String resourceId, @Valid OffsetDateTime fromDateTime,
 			@Valid OffsetDateTime endDateTime) {
 
@@ -250,6 +253,7 @@ public class ResourcePoolRepoService {
 		return aReservation;
 	}
 
+	@Transactional
 	public List<Reservation> findAllReservations() {
 		return (List<Reservation>) this.resourceReservationRepository.findAll();
 	}

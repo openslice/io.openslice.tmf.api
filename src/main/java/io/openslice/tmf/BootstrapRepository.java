@@ -79,6 +79,7 @@ public class BootstrapRepository {
 	ObjectMapper objectMapper;
 	
 	@PostConstruct
+	@Transactional
 	public void initRepo() {
 		if (this.catalogRepoService.findAll().size() == 0) {
 			ServiceCatalogCreate sc = new ServiceCatalogCreate();

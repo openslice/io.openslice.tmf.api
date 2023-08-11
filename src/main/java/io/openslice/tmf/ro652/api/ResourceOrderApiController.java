@@ -57,7 +57,7 @@ public class ResourceOrderApiController implements ResourceOrderApi {
     }
 
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
     @Override
     public ResponseEntity<ResourceOrder> createResourceOrder(Principal principal, @Valid ResourceOrderCreate roCreate) {
     	

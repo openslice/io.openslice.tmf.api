@@ -68,7 +68,7 @@ public class GroupAlarmsApiController implements GroupAlarmsApi {
 	}
 
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<GroupAlarms> createGroupAlarms(@Valid GroupAlarmsCreate body) {
 		try {
 
@@ -82,7 +82,7 @@ public class GroupAlarmsApiController implements GroupAlarmsApi {
 	}
 
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<GroupAlarms> retrieveGroupAlarms(String id, @Valid String fields) {
 		try {
 
@@ -94,7 +94,7 @@ public class GroupAlarmsApiController implements GroupAlarmsApi {
 	}
 
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<List<GroupAlarms>> listGroupAlarms(@Valid String fields, @Valid Integer offset,
 			@Valid Integer limit, Map<String, String> allParams) {
 		try {

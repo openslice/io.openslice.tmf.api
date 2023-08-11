@@ -159,6 +159,7 @@ public class CustomerIntegrationTest {
 		assertThat( respc.getContactMedium().size()  ).isEqualTo(2);
 
 		String responseGet = mvc.perform(MockMvcRequestBuilders.get("/customerManagement/v4/customer")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( JsonUtils.toJson( cc ) ))
 			    .andExpect(status().isOk())

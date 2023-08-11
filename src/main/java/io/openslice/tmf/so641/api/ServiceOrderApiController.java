@@ -86,7 +86,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		this.request = request;
 	}
 	
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<ServiceOrder> createServiceOrder(
 			Principal principal,			
@@ -150,7 +150,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<Void> deleteServiceOrder(
 			Principal principal,			
@@ -166,7 +166,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<List<ServiceOrder>> listServiceOrder(
 			Principal principal,			
@@ -204,7 +204,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<ServiceOrder> patchServiceOrder(
 			Principal principal,			
@@ -215,7 +215,7 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 		return new ResponseEntity<ServiceOrder>(c, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<ServiceOrder> retrieveServiceOrder(
 			Principal principal,			

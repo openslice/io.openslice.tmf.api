@@ -71,7 +71,7 @@ public class AckAlarmsApiController implements AckAlarmsApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<AckAlarms> createAckAlarms(@Valid AckAlarmsCreate body) {
     	try {
 
@@ -86,7 +86,7 @@ public class AckAlarmsApiController implements AckAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<List<AckAlarms>> listAckAlarms(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit, Map<String, String> allParams) {
     	try {
@@ -118,7 +118,7 @@ public class AckAlarmsApiController implements AckAlarmsApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<AckAlarms> retrieveAckAlarms(String id, @Valid String fields) {
     	try {
 

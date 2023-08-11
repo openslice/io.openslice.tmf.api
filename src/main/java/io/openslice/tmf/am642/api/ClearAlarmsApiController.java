@@ -72,7 +72,7 @@ public class ClearAlarmsApiController implements ClearAlarmsApi {
 
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<ClearAlarms> createClearAlarms(@Valid ClearAlarmsCreate body) {
     	try {
 
@@ -87,7 +87,7 @@ public class ClearAlarmsApiController implements ClearAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<List<ClearAlarms>> listClearAlarms(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit, Map<String, String> allParams) {
     	try {
@@ -119,7 +119,7 @@ public class ClearAlarmsApiController implements ClearAlarmsApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<ClearAlarms> retrieveClearAlarms(String id, @Valid String fields) {
     	try {
 

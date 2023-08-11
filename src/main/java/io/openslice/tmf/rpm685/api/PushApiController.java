@@ -50,7 +50,7 @@ public class PushApiController implements PushApi {
         return Optional.ofNullable(request);
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<ResourcePool> createPush(@Valid PushCreate body) {
     	try {

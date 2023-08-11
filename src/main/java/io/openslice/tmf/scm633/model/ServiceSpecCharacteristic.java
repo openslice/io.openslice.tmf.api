@@ -443,8 +443,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 				&& Objects.equals(this.name, serviceSpecCharacteristic.name)
 				&& Objects.equals(this.regex, serviceSpecCharacteristic.regex)
 				&& Objects.equals(this.valueType, serviceSpecCharacteristic.valueType)
-				&& Objects.equals(this.serviceSpecCharRelationship,
-						serviceSpecCharacteristic.serviceSpecCharRelationship)
+				&& Objects.equals(this.serviceSpecCharRelationship, serviceSpecCharacteristic.serviceSpecCharRelationship)
 				&& Objects.equals(this.serviceSpecCharacteristicValue,
 						serviceSpecCharacteristic.serviceSpecCharacteristicValue)
 				&& Objects.equals(this.validFor, serviceSpecCharacteristic.validFor)

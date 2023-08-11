@@ -38,6 +38,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -58,6 +59,7 @@ public class ResourceCandidateRepoService {
 		return this.candidateRepo.save( c );
 	}
 
+	@Transactional
 	public ResourceCandidate addResourceCandidate(@Valid ResourceCandidateCreate resCand) {	
 		
 
@@ -106,13 +108,14 @@ public class ResourceCandidateRepoService {
 		return this.candidateRepo.save( sc );
 	}
 	
-	
-	public ResourceCandidate updateResourceCandidateDataFromAPI(ResourceCandidate sc, @Valid ResourceCandidateUpdate serviceCandidateUpd) {	
+
+	@Transactional
+	public ResourceCandidate updateResourceCandidateDataFromAPI(ResourceCandidate sc, @Valid ResourceCandidateUpdate resourceCandidateUpd) {	
 
 		ResourceSpecification specObj = null;
 		
-		if ( serviceCandidateUpd.getResourceSpecification()!=null) {
-			Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid( serviceCandidateUpd.getResourceSpecification().getId() );
+		if ( resourceCandidateUpd.getResourceSpecification()!=null) {
+			Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid( resourceCandidateUpd.getResourceSpecification().getId() );
 			specObj = optionalCat.orElse(null);
 		}
 		
@@ -122,17 +125,17 @@ public class ResourceCandidateRepoService {
 			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( specObj.getLifecycleStatus() ) );
 			sc.setVersion( specObj.getVersion() );
 		} else {
-			sc.setName( serviceCandidateUpd.getName() );
-			sc.setDescription( serviceCandidateUpd.getDescription() );	
+			sc.setName( resourceCandidateUpd.getName() );
+			sc.setDescription( resourceCandidateUpd.getDescription() );	
 			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-			sc.setVersion( serviceCandidateUpd.getVersion());
+			sc.setVersion( resourceCandidateUpd.getVersion());
 		}
 		
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
-		if ( serviceCandidateUpd.getLifecycleStatus() == null ) {
+		if ( resourceCandidateUpd.getLifecycleStatus() == null ) {
 			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
 		} else {
-			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCandidateUpd.getLifecycleStatus() ) );
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( resourceCandidateUpd.getLifecycleStatus() ) );
 		}
 		TimePeriod tp = new TimePeriod();
 
@@ -150,8 +153,8 @@ public class ResourceCandidateRepoService {
 		ResourceCandidate savedCand = this.candidateRepo.save( sc );
 		
 
-		if ( serviceCandidateUpd.getCategory() !=null ){
-			for (ResourceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
+		if ( resourceCandidateUpd.getCategory() !=null ){
+			for (ResourceCategoryRef sCategD : resourceCandidateUpd.getCategory()) {			
 				ResourceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());
 	
 				if ( catObj!=null){

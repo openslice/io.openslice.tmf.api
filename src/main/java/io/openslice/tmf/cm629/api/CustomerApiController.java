@@ -69,7 +69,7 @@ public class CustomerApiController implements CustomerApi {
 	@Autowired
 	CustomerRepoService customerRepoService;
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<List<Customer>> listCustomer(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 	
 		
@@ -101,7 +101,7 @@ public class CustomerApiController implements CustomerApi {
     }
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	  public ResponseEntity<Customer> retrieveCustomer(@Parameter(description = "Identifier of the Customer",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
 
@@ -130,7 +130,7 @@ public class CustomerApiController implements CustomerApi {
 			}
 	    }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Customer> createCustomer(
 			@Parameter(description = "The Customer to be created", required = true) @Valid @RequestBody CustomerCreate customer) {
 
@@ -146,7 +146,7 @@ public class CustomerApiController implements CustomerApi {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Customer> patchCustomer(@Parameter(description = "Identifier of the Customer",required=true) @PathVariable("id") String id,@Parameter(description = "The Customer to be updated" ,required=true )  @Valid @RequestBody CustomerUpdate customer) {
 
 		try {
@@ -160,7 +160,7 @@ public class CustomerApiController implements CustomerApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Void> deleteCustomer(@Parameter(description = "Identifier of the Customer",required=true) @PathVariable("id") String id) {
 		try {
 

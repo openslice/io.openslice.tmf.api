@@ -74,7 +74,7 @@ public class UnGroupAlarmsApiController implements UnGroupAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<UnGroupAlarms> createUnGroupAlarms(@Valid UnGroupAlarmsCreate body) {
     	try {
 
@@ -89,7 +89,7 @@ public class UnGroupAlarmsApiController implements UnGroupAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<UnGroupAlarms> retrieveUnGroupAlarms(String id, @Valid String fields) {
     	try {
 
@@ -102,7 +102,7 @@ public class UnGroupAlarmsApiController implements UnGroupAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<List<UnGroupAlarms>> listUnGroupAlarms(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit, Map<String, String> allParams) {
 		try {

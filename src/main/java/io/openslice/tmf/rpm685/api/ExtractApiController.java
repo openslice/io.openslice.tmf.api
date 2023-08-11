@@ -50,7 +50,7 @@ public class ExtractApiController implements ExtractApi {
         return Optional.ofNullable(request);
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<ResourcePool> createExtract(@Valid ExtractCreate body) {
     	try {

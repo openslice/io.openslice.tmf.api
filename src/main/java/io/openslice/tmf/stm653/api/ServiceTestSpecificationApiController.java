@@ -99,7 +99,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 		return Optional.ofNullable(request);
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<ServiceTestSpecification> createServiceTestSpecification(
 			@Valid ServiceTestSpecificationCreate serviceSpecification) {
@@ -122,7 +122,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<Void> deleteServiceTestSpecification(String id) {
 
@@ -167,7 +167,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<ServiceTestSpecification> patchServiceTestSpecification(
 			@Valid ServiceTestSpecificationUpdate serviceSpecification, String id) {
@@ -203,7 +203,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<Attachment> addAttachmentToServiceTestSpecification(String specid,
 			//@Valid @ModelAttribute("attachment") Attachment att,
@@ -227,7 +227,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<byte[]> getAttachment(String id, String attid) {
 		try {
@@ -267,7 +267,7 @@ public class ServiceTestSpecificationApiController implements ServiceTestSpecifi
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<byte[]> getAttachmentWithFilename(String id, String attid, String afilename) {
 

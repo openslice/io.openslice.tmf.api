@@ -53,7 +53,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 	CatalogRepoService catalogRepoService;
 
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<ServiceCatalog> createServiceCatalog(
     		@Parameter(description = "The ServiceCatalog to be created" ,required=true )  @Valid @RequestBody ServiceCatalogCreate serviceCatalog) {
     	try {
@@ -67,7 +67,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<Void> deleteServiceCatalog(@Parameter(description = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id) {
     	try {
 
@@ -89,7 +89,7 @@ public class ServiceCatalogApiController implements ServiceCatalogApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<ServiceCatalog> patchServiceCatalog(@Parameter(description = "Identifier of the ServiceCatalog",required=true) @PathVariable("id") String id,@Parameter(description = "The ServiceCatalog to be updated" ,required=true )  @Valid @RequestBody ServiceCatalogUpdate serviceCatalog) {
 
 		ServiceCatalog c = catalogRepoService.updateCatalog( id, serviceCatalog );

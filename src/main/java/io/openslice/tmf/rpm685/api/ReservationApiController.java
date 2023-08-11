@@ -55,7 +55,7 @@ public class ReservationApiController implements ReservationApi {
     }
 
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<Reservation> createReservation(Principal principal, @Valid ReservationCreate body) {
     	try {
@@ -76,7 +76,7 @@ public class ReservationApiController implements ReservationApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<List<Reservation>> listReservation(Principal principal, @Valid String fields,
     		@Valid Integer offset, @Valid Integer limit) {
@@ -89,7 +89,7 @@ public class ReservationApiController implements ReservationApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<Reservation> patchReservation(Principal principal, @Valid ReservationUpdate body, String id) {
 		
@@ -99,7 +99,7 @@ public class ReservationApiController implements ReservationApi {
 		return new ResponseEntity<Reservation>(c, HttpStatus.OK);
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<Reservation> retrieveReservation(Principal principal, String id) {
 		try {

@@ -75,7 +75,7 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 		this.request = request;
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ProductOffering> createProductOffering(@Valid ProductOfferingCreate productOffering) {
 		try {
@@ -89,7 +89,7 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteProductOffering(String id) {
 		try {
@@ -136,7 +136,7 @@ public class ProductOfferingApiController implements ProductOfferingApi {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ProductOffering> patchProductOffering(String id,
 			@Valid ProductOfferingUpdate productOffering) {

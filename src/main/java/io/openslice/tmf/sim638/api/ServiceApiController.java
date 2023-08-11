@@ -68,7 +68,7 @@ public class ServiceApiController implements ServiceApi {
 		this.request = request;
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<Service> createService(Principal principal, @Valid ServiceCreate service) {
 		try {
@@ -90,14 +90,14 @@ public class ServiceApiController implements ServiceApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<Void> deleteService(String id) {
 		return ServiceApi.super.deleteService(id);
 	}
 
 	@Override
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	public ResponseEntity<List<Service>> listService(Principal principal, @Valid String fields, @Valid Integer offset,
 			@Valid Integer limit) {
 		try {
@@ -120,7 +120,7 @@ public class ServiceApiController implements ServiceApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<Service> patchService(Principal principal, String id, @Valid ServiceUpdate service) {
 		Service c = serviceRepoService.updateService(id, service, true, null, null);
@@ -128,7 +128,7 @@ public class ServiceApiController implements ServiceApi {
 		return new ResponseEntity<Service>(c, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
 	@Override
 	public ResponseEntity<Service> retrieveService(Principal principal, String id, @Valid String fields) {
 		try {
@@ -141,7 +141,7 @@ public class ServiceApiController implements ServiceApi {
 	}
 	
 
-//	@PreAuthorize("hasAnyAuthority('USER')" )   
+//	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )   
 //    @RequestMapping(value = "/service/updateServiceDeploymentDescriptor/{id}",
 //        produces = { "application/json;charset=utf-8" }, 
 //        method = RequestMethod.GET)

@@ -97,7 +97,7 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 	ResourceSpecificationRepoService resourceSpecificationRepoService;
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ResourceSpecification> createResourceSpecification(JsonNode jsonNode) {
 		try {
@@ -137,7 +137,7 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteResourceSpecification(
 			@Parameter(description = "Identifier of the ResourceSpecification", required = true) @PathVariable("id") String id) {
@@ -168,7 +168,7 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 	}
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ResourceSpecification> patchResourceSpecification(@Valid ResourceSpecificationUpdate serviceSpecification,
 			String id) {
@@ -194,7 +194,7 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ResourceSpecification>  addAttachmentToLogicalResourceSpec(
 			String id, 

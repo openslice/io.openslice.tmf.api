@@ -90,7 +90,7 @@ public class ServiceTestApiController implements ServiceTestApi {
         return Optional.ofNullable(request);
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<ServiceTest> createServiceTest(@Valid ServiceTestCreate serviceTest) {
     	try {
@@ -152,7 +152,7 @@ public class ServiceTestApiController implements ServiceTestApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<ServiceTest> patchServiceTest(@Valid ServiceTestUpdate serviceSpecification, String id) {
 		

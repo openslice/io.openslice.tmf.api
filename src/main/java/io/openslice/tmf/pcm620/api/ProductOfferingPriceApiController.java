@@ -90,7 +90,7 @@ public class ProductOfferingPriceApiController implements ProductOfferingPriceAp
         return Optional.ofNullable(request);
     }
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ProductOfferingPrice> createProductOfferingPrice(
 			@Valid ProductOfferingPriceCreate productOfferingPrice) {
@@ -105,7 +105,7 @@ public class ProductOfferingPriceApiController implements ProductOfferingPriceAp
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteProductOfferingPrice(String id) {
 		try {
@@ -152,7 +152,7 @@ public class ProductOfferingPriceApiController implements ProductOfferingPriceAp
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ProductOfferingPrice> patchProductOfferingPrice(String id,
 			@Valid ProductOfferingPriceUpdate productOfferingPrice) {

@@ -62,6 +62,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
 import io.openslice.tmf.util.AttachmentUtil;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -107,7 +108,7 @@ public class ResourceSpecificationRepoService {
 		return (LogicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
 	}
 	
-	
+
 	public LogicalResourceSpecification addResourceFunctionSpecification(@Valid ResourceFunctionSpecificationCreate serviceSpecification) {
 		ResourceFunctionSpecification reSpec = new ResourceFunctionSpecification();
 		
@@ -115,13 +116,12 @@ public class ResourceSpecificationRepoService {
 	}
 	
 	
-	
 	public PhysicalResourceSpecification addPhysicalResourceSpecification(@Valid PhysicalResourceSpecificationCreate logicalResourceSpec) {
 		PhysicalResourceSpecification reSpec = new PhysicalResourceSpecification();
 
 		return (PhysicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
 	}
-	
+
 	private ResourceSpecification addResourceSpecificationGeneric(ResourceSpecification reSpec, @Valid ResourceSpecificationUpdate  resourceSpecification) {
 
 		reSpec = this.updateResourceSpecDataFromAPIcall(reSpec, resourceSpecification);

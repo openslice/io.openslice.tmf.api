@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
@@ -95,6 +96,7 @@ public class CandidateRepoService {
 		
 	}
 
+	@Transactional
 	public ServiceCandidate updateCandidate(String id, @Valid ServiceCandidateUpdate serviceCandidate) {
 		Optional<ServiceCandidate> scopt = this.candidateRepo.findByUuid(id);
 		if ( scopt == null ) {
@@ -107,7 +109,8 @@ public class CandidateRepoService {
 		return this.candidateRepo.save( sc );
 	}
 	
-	
+
+	@Transactional
 	public ServiceCandidate updateServiceCandidateDataFromAPI(ServiceCandidate sc, @Valid ServiceCandidateUpdate serviceCandidateUpd) {	
 
 		ServiceSpecification specObj =  null;

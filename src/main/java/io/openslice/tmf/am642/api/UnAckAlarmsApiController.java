@@ -75,7 +75,7 @@ public class UnAckAlarmsApiController implements UnAckAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<UnAckAlarms> createUnAckAlarms(@Valid UnAckAlarmsCreate body) {
     	try {
 
@@ -90,7 +90,7 @@ public class UnAckAlarmsApiController implements UnAckAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<List<UnAckAlarms>> listUnAckAlarms(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit, Map<String, String> allParams) {
     	try {
@@ -123,7 +123,7 @@ public class UnAckAlarmsApiController implements UnAckAlarmsApi {
     
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<UnAckAlarms> retrieveUnAckAlarms(String id, @Valid String fields) {
     	try {
 

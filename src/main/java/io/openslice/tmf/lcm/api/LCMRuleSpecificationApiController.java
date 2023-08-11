@@ -59,7 +59,7 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 	
 	
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<LCMRuleSpecification> createLCMRuleSpecification(@Valid LCMRuleSpecificationCreate body) {
 		try {
 
@@ -74,7 +74,7 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 	
 
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Void> deleteLCMRuleSpecification(String id) {
 		try {
 
@@ -86,7 +86,7 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 	}
 	
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<LCMRuleSpecification> retrieveLCMRuleSpecification(String id, @Valid String fields) {
 		try {
 
@@ -101,7 +101,7 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 
 	
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<LCMRuleSpecification> patchLCMRuleSpecification(@Valid LCMRuleSpecificationUpdate body, String id) {
 		LCMRuleSpecification c = lcmRuleSpecificationRepoService.updateLCMRuleSpecification( id, body );
 
@@ -110,7 +110,7 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 	
 	
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<List<LCMRuleSpecification>> listLCMRuleSpecification(@Valid String fields,
 			@Valid Integer offset, @Valid Integer limit, @Valid Map<String, String> allParams) {
 		try {
@@ -143,7 +143,7 @@ public class LCMRuleSpecificationApiController  implements LCMRuleSpecificationA
 	
 
 	@Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<List<LCMRuleSpecification>> listLCMRuleSpecificationBySpecID(String id, @Valid String fields,
 			@Valid Integer offset, @Valid Integer limit, @Valid Map<String, String> allParams) {
 		try {

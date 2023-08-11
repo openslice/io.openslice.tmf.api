@@ -55,7 +55,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 	}
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ResourcePool> createResourcePool(Principal principal, @Valid ResourcePoolCreate body) {
 		try {
@@ -76,7 +76,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteResourcePool(
 			Principal principal,String id) {
@@ -94,7 +94,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 	}
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ResourcePool> patchResourcePool(
 			Principal principal,@Valid ResourcePoolUpdate body, String id) {
@@ -106,7 +106,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 	}
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ResourcePool> retrieveResourcePool(Principal principal, String id, @Valid String fields) {
 		try {
@@ -118,7 +118,7 @@ public class ResourcePoolApiController implements ResourcePoolApi {
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<List<ResourcePool>> listResourcePool(Principal principal, @Valid String fields,
 			@Valid Integer offset, @Valid Integer limit) {

@@ -76,7 +76,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 		this.request = request;
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ProductSpecification> createProductSpecification(
 			@Valid ProductSpecificationCreate productSpecification) {
@@ -91,7 +91,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<Void> deleteProductSpecification(String id) {
 		try {
@@ -137,7 +137,7 @@ public class ProductSpecificationApiController implements ProductSpecificationAp
 		}
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	@Override
 	public ResponseEntity<ProductSpecification> patchProductSpecification(String id,
 			@Valid ProductSpecificationUpdate productSpecification) {

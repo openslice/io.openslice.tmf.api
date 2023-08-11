@@ -64,7 +64,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 		this.request = request;
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<ServiceCategory> createServiceCategory(
 			@Parameter(description = "The ServiceCategory to be created", required = true) @Valid @RequestBody ServiceCategoryCreate serviceCategory) {
 
@@ -80,7 +80,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Void> deleteServiceCategory(
 			@Parameter(description = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id) {
 
@@ -113,7 +113,7 @@ public class ServiceCategoryApiController implements ServiceCategoryApi {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<ServiceCategory> patchServiceCategory(
 			@Parameter(description = "Identifier of the ServiceCategory", required = true) @PathVariable("id") String id,
 			@Parameter(description = "The ServiceCategory to be updated", required = true) @Valid @RequestBody ServiceCategoryUpdate serviceCategory) {

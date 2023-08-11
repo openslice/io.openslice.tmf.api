@@ -25,6 +25,7 @@
 package io.openslice.tmf.pm632.api;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,7 +83,9 @@ public interface OrganizationApi {
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<Organization> createOrganization(@Parameter(description = "The Organization to be created" ,required=true )  @Valid @RequestBody OrganizationCreate organization) {
+    default ResponseEntity<Organization> createOrganization(
+			Principal principal,
+			@Parameter(description = "The Organization to be created" ,required=true )  @Valid @RequestBody OrganizationCreate organization) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

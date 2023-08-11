@@ -19,6 +19,7 @@
  */
 package io.openslice.tmf.pm632.api;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,7 +70,7 @@ public class OrganizationApiController implements OrganizationApi {
     @Autowired
 	OrganizationRepoService organizationRepoService;
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<List<Organization>> listOrganization(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 	
 		
@@ -101,7 +102,7 @@ public class OrganizationApiController implements OrganizationApi {
     }
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	  public ResponseEntity<Organization> retrieveOrganization(@Parameter(description = "Identifier of the Organization",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
 
@@ -133,11 +134,12 @@ public class OrganizationApiController implements OrganizationApi {
 	    }
     
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
-	public ResponseEntity<Organization> createOrganization(
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
+	public ResponseEntity<Organization> createOrganization( Principal principal,	
 			@Parameter(description = "The Organization to be created", required = true) @Valid @RequestBody OrganizationCreate organization) {
 
 		try {
+			log.info("principal=  " + principal.toString());
 			Organization c = organizationRepoService.addOrganization(organization);
 
 			return new ResponseEntity<Organization>(c, HttpStatus.OK);
@@ -150,7 +152,7 @@ public class OrganizationApiController implements OrganizationApi {
 	}
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Organization> patchOrganization(@Parameter(description = "Identifier of the Organization",required=true) @PathVariable("id") String id,@Parameter(description = "The Organization to be updated" ,required=true )  @Valid @RequestBody OrganizationUpdate organization) {
 
 		try {
@@ -165,7 +167,7 @@ public class OrganizationApiController implements OrganizationApi {
     }
 	
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Void> deleteOrganization(@Parameter(description = "Identifier of the Organization",required=true) @PathVariable("id") String id) {
 		try {
 

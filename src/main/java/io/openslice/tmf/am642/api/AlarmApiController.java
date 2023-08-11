@@ -74,7 +74,7 @@ public class AlarmApiController implements AlarmApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<Alarm> createAlarm(@Valid AlarmCreate body) {
     	try {
 
@@ -88,7 +88,7 @@ public class AlarmApiController implements AlarmApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<Void> deleteAlarm(String id) {
     	try {
 
@@ -100,7 +100,7 @@ public class AlarmApiController implements AlarmApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<List<Alarm>> listAlarm(@Valid String fields, @Valid Integer offset, @Valid Integer limit,
     		Map<String, String> allParams) {
     	try {
@@ -132,7 +132,7 @@ public class AlarmApiController implements AlarmApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<Alarm> patchAlarm(@Valid AlarmUpdate body, String id) {
     	Alarm c = alarmRepoService.updateAlarm( id, body );
 
@@ -140,7 +140,7 @@ public class AlarmApiController implements AlarmApi {
     }
     
     @Override
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<Alarm> retrieveAlarm(String id, @Valid String fields) {
     	try {
 

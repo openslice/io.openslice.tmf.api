@@ -52,7 +52,7 @@ public class AvailabilityCheckApiController implements AvailabilityCheckApi {
 
     
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     @Override
     public ResponseEntity<AvailabilityCheck> createAvailabilityCheck(@Valid AvailabilityCheckCreate body) {
     	try {

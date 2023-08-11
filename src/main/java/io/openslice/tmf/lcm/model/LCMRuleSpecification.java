@@ -31,7 +31,6 @@ import lombok.EqualsAndHashCode;
 @Validated
 @Entity(name = "LCMRuleSpec")
 @EqualsAndHashCode(callSuper=true)
-@Data
 public class LCMRuleSpecification extends BaseEntity{	
 
 
@@ -107,7 +106,7 @@ public class LCMRuleSpecification extends BaseEntity{
 	@Transient
 	@JsonProperty("serviceSpecs")
 	@Valid
-	public Set<ServiceSpecificationRef> getServiceSpecificationRefs() {
+	public Set<ServiceSpecificationRef> getServiceSpecs() {
 
 		return this.serviceSpecs;		
 	}
@@ -118,12 +117,21 @@ public class LCMRuleSpecification extends BaseEntity{
 		}
 		
 	}
+
+
 	
-	
+	/**
+	 * @param serviceSpecs the serviceSpecs to set
+	 */
+	public void setServiceSpecs(Set<ServiceSpecificationRef> serviceSpecs) {
+		this.serviceSpecs = serviceSpecs;
+	}
 
 	public void copyFromObj(BaseEntity be) {
 		super.copyFromObj(be);
 	}
+	
+	
 
 
 	/**
@@ -156,4 +164,49 @@ public class LCMRuleSpecification extends BaseEntity{
 	public void setLcmrulephase(ELCMRulePhase lcmrulephase) {
 		this.lcmrulephase = lcmrulephase.getValue();
 	}
+
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code the code to set
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * @return the priority
+	 */
+	public int getPriority() {
+		return priority;
+	}
+
+	/**
+	 * @param priority the priority to set
+	 */
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+
+
 }

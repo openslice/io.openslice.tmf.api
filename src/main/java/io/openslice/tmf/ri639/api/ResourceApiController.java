@@ -46,7 +46,7 @@ public class ResourceApiController implements ResourceApi {
 
   
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
     @Override
     public ResponseEntity<Resource> createResource(Principal principal, @Valid ResourceCreate resource) {
 		try {
@@ -68,7 +68,7 @@ public class ResourceApiController implements ResourceApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
     @Override
     public ResponseEntity<Void> deleteResource(String id) {
 		try {
@@ -80,7 +80,7 @@ public class ResourceApiController implements ResourceApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
     @Override
     public ResponseEntity<List<Resource>> listResource(Principal principal, @Valid String fields, @Valid Integer offset,
     		@Valid Integer limit,
@@ -105,7 +105,7 @@ public class ResourceApiController implements ResourceApi {
 		}
     }
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
     @Override
     public ResponseEntity<Resource> patchResource(Principal principal, @Valid ResourceUpdate resource, String id) {
 		Resource c = resourceRepoService.updateResource(id, resource, true);
@@ -113,7 +113,7 @@ public class ResourceApiController implements ResourceApi {
 		return new ResponseEntity< Resource >(c, HttpStatus.OK);
     }
 
-	@PreAuthorize("hasAnyAuthority('USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_USER')" )
     @Override
     public ResponseEntity<Resource> retrieveResource(Principal principal, String id, @Valid String fields) {
 		try {

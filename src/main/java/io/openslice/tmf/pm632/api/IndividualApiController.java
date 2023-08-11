@@ -69,7 +69,7 @@ public class IndividualApiController implements IndividualApi {
 	IndividualRepoService individualRepoService;
 
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<List<Individual>> listIndividual(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 	
 		
@@ -90,7 +90,7 @@ public class IndividualApiController implements IndividualApi {
 	
 
 //	 @PreAuthorize("hasAnyAuthority('USER" })
-	 @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+	 @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
 	  public ResponseEntity<Individual> retrieveIndividual(
 				Principal principal,			
 				@Parameter(description = "Identifier of the Individual",required=true) @PathVariable("id") String id,
@@ -156,7 +156,7 @@ public class IndividualApiController implements IndividualApi {
 	    }
     
 
-	@PreAuthorize("hasAnyAuthority('ADMIN')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
 	public ResponseEntity<Individual> createIndividual(
 			@Parameter(description = "The Individual to be created", required = true) @Valid @RequestBody IndividualCreate individual) {
 
@@ -172,7 +172,7 @@ public class IndividualApiController implements IndividualApi {
 
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN' , 'USER')" )
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN' , 'ROLE_USER')" )
 	public ResponseEntity<Individual> patchIndividual(@Parameter(description = "Identifier of the Individual",required=true) @PathVariable("id") String id,@Parameter(description = "The Individual to be updated" ,required=true )  @Valid @RequestBody IndividualUpdate individual) {
 
 		try {

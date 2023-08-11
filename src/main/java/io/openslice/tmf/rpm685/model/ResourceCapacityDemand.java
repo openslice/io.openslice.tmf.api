@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
@@ -32,7 +33,7 @@ public class ResourceCapacityDemand extends BaseRootEntity {
 	private Integer capacityDemandAmount = null;
 
 	@JsonProperty("resourcePool")
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "rescapcitydem_resPooluuid", referencedColumnName = "uuid")
 	private ResourcePoolRef resourcePool = null;
 

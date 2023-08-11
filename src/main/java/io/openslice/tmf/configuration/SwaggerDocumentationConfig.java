@@ -56,18 +56,6 @@ flows = @OAuthFlows(authorizationCode = @OAuthFlow(
 		@OAuthScope(name = "read", description = "read scope"),
 		@OAuthScope(name = "write", description = "write scope") })))
 public class SwaggerDocumentationConfig {
-
-
-	@Value("${swagger.authserver}")
-	private String AUTH_SERVER;
-	@Value("${swagger.clientid}")
-	private String CLIENT_ID;
-	@Value("${swagger.clientsecret}")
-	private String CLIENT_SECRET;
-
-  
-	
-	
 	
 	/**
 	 * TMF 633 Service Catalog Management

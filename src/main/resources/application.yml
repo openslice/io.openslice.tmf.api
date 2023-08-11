@@ -100,10 +100,6 @@ logging:
     
   
     
-swagger:
-  authserver: http://localhost/auth/realms/openslice
-  clientid: "osapiWebClientId"
-  clientsecret: "secret"
 
 kroki:
   serverurl: http://localhost:8000

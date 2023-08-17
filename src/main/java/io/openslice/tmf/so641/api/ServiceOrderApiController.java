@@ -27,8 +27,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +38,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -103,13 +103,13 @@ public class ServiceOrderApiController implements ServiceOrderApi {
 				try {
 					
 
-					if ( principal instanceof KeycloakAuthenticationToken) {
+					if ( principal instanceof JwtAuthenticationToken) {
 
-						KeycloakAuthenticationToken pr = ( KeycloakAuthenticationToken ) principal;
-						
-						KeycloakPrincipal lp = (KeycloakPrincipal) pr.getPrincipal();
-						extInfo = lp.getKeycloakSecurityContext().getToken().getEmail();	
-						log.info("extInfo=  " + extInfo);	
+						JwtAuthenticationToken pr = ( JwtAuthenticationToken ) principal;
+
+						Jwt lp = (Jwt) pr.getPrincipal();
+						extInfo = lp.getClaimAsString("email");	
+						log.debug("extInfo=  " + extInfo);	
 
 						serviceOrder.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
 								principal.getName(), 

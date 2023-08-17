@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -72,13 +72,13 @@ public class ResourceOrderApiController implements ResourceOrderApi {
 				try {
 					
 
-					if ( principal instanceof KeycloakAuthenticationToken) {
+					if ( principal instanceof JwtAuthenticationToken) {
 
-						KeycloakAuthenticationToken pr = ( KeycloakAuthenticationToken ) principal;
-						
-						KeycloakPrincipal lp = (KeycloakPrincipal) pr.getPrincipal();
-						extInfo = lp.getKeycloakSecurityContext().getToken().getEmail();	
-						log.info("extInfo=  " + extInfo);	
+						JwtAuthenticationToken pr = ( JwtAuthenticationToken ) principal;
+
+						Jwt lp = (Jwt) pr.getPrincipal();
+						extInfo = lp.getClaimAsString("email");	
+						log.debug("extInfo=  " + extInfo);	
 
 						roCreate.setRelatedParty(AddUserAsOwnerToRelatedParties.addUser(
 								principal.getName(), 

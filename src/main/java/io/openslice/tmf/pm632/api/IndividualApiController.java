@@ -33,6 +33,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -117,23 +119,27 @@ public class IndividualApiController implements IndividualApi {
 						@Valid
 						IndividualCreate individualnew  = new IndividualCreate();
 						individualnew.setPreferredGivenName(  principal.getName() );
-						if ( principal instanceof KeycloakAuthenticationToken) {
-							KeycloakAuthenticationToken pr = ( KeycloakAuthenticationToken ) principal;
+						individualnew.setFamilyName("N/A");
+						individualnew.setGivenName("N/A");
+						ContactMedium contactMediumItem = new ContactMedium();
+						contactMediumItem.setPreferred(true);
+						contactMediumItem.setMediumType("main");
+						MediumCharacteristic mc = new MediumCharacteristic();
+						contactMediumItem.setCharacteristic(mc );
+						individualnew.addContactMediumItem(contactMediumItem );
+						mc.setEmailAddress( "na@example.com" );		
+						
+						if ( principal instanceof JwtAuthenticationToken) {
+							JwtAuthenticationToken pr = ( JwtAuthenticationToken ) principal;
 							
 							
-							KeycloakPrincipal lp = (KeycloakPrincipal) pr.getPrincipal();
+							Jwt lp = (Jwt) pr.getPrincipal();
+							individualnew.setPreferredGivenName(  lp.getClaimAsString("preferred_username") );							
+							individualnew.setFamilyName( lp.getClaimAsString("name") );
+							individualnew.setGivenName( lp.getClaimAsString("given_name")  );
 							
-							individualnew.setPreferredGivenName(  lp.getKeycloakSecurityContext().getToken().getPreferredUsername() );
+							mc.setEmailAddress( lp.getClaimAsString("email") );							
 							
-							individualnew.setFamilyName( lp.getKeycloakSecurityContext().getToken().getFamilyName() );
-							individualnew.setGivenName( lp.getKeycloakSecurityContext().getToken().getGivenName()  );
-							ContactMedium contactMediumItem = new ContactMedium();
-							contactMediumItem.setPreferred(true);
-							contactMediumItem.setMediumType("main");
-							MediumCharacteristic mc = new MediumCharacteristic();
-							mc.setEmailAddress( lp.getKeycloakSecurityContext().getToken().getEmail() );							
-							contactMediumItem.setCharacteristic(mc );
-							individualnew.addContactMediumItem(contactMediumItem );
 							
 						}
 						return new ResponseEntity< Individual > ( individualRepoService.addIndividual(individualnew)   , HttpStatus.OK);

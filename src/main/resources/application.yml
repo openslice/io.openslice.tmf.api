@@ -1,6 +1,6 @@
 origins: http://localhost,http://localhost:13082,http://127.0.0.1:13082,https://localhost, 
 permit-all: /tmf-api/**
-keycloak-issuer: http://localhost/auth/realms/openslice
+
 
 server:
   port: 13082
@@ -25,19 +25,18 @@ springdoc:
       clientsecret: "secret"
       use-pkce-with-authorization-code-grant: false
   oAuthFlow:
-    authorizationUrl: http://localhost/auth/realms/openslice/protocol/openid-connect/auth
-    tokenUrl: http://localhost/auth/realms/openslice/protocol/openid-connect/token
+    authorizationUrl: http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth
+    tokenUrl: http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token
   show-actuator: true
 
 spring-addons:
   issuers:
-  - uri: ${keycloak-issuer}
+  - uri: http://keycloak:8080/auth/realms/openslice
     username-json-path: $.preferred_username
     claims:
     - jsonPath: $.realm_access.roles
     - jsonPath: $.resource_access.*.roles
 
-    
 spring:
   config:
     activate:
@@ -45,7 +44,7 @@ spring:
   application:
     name: openslice-service-catalog-management-api
   datasource:
-    url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:13306/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     password: letmein
     username: root
     hikari:
@@ -83,7 +82,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${keycloak-issuer}
+          issuer-uri: http://keycloak:8080/auth/realms/openslice
   
 
 logging:

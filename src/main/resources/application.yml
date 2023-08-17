@@ -70,7 +70,7 @@ spring:
     multipart.max-file-size: 10MB
     multipart.max-request-size: 10MB
   activemq:
-    brokerUrl: tcp://localhost:61616
+    brokerUrl: tcp://localhost:61616?jms.watchTopicAdvisories=false
     user: artemis
     password: artemis
     pool:

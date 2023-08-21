@@ -24,6 +24,7 @@
 		<springdoc.openapiui.version>${springdoc-openapiui-version}</springdoc.openapiui.version>
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
 		<mysql-connector.version>${mysql.connector.version}</mysql-connector.version>
+		<lombok-version>1.18.28</lombok-version>
 	</properties>
 
 
@@ -91,6 +92,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+			<version>${lombok-version}</version>			
 		</dependency>
 
 		<dependency>
@@ -293,7 +295,7 @@
 							    <path>
 						        <groupId>org.projectlombok</groupId>
 						        <artifactId>lombok</artifactId>
-						        <version>1.18.28</version>
+								<version>${lombok-version}</version>	
 						    </path>
 						</annotationProcessorPaths>
 					</configuration>

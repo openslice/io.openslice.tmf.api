@@ -290,6 +290,10 @@
 								<artifactId>mapstruct-processor</artifactId>
 								<version>${mapstruct.version}</version>
 							</path>
+							    <path>
+						        <groupId>org.projectlombok</groupId>
+						        <artifactId>lombok</artifactId>
+						    </path>
 						</annotationProcessorPaths>
 					</configuration>
 				</plugin>

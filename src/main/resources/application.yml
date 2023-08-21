@@ -25,13 +25,13 @@ springdoc:
       clientsecret: "secret"
       use-pkce-with-authorization-code-grant: false
   oAuthFlow:
-    authorizationUrl: http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth
-    tokenUrl: http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token
+    authorizationUrl: http://keycloak:8080/realms/openslice/protocol/openid-connect/auth
+    tokenUrl: http://keycloak:8080/realms/openslice/protocol/openid-connect/token
   show-actuator: true
 
 spring-addons:
   issuers:
-  - uri: http://keycloak:8080/auth/realms/openslice
+  - uri: http://keycloak:8080/realms/openslice
     username-json-path: $.preferred_username
     claims:
     - jsonPath: $.realm_access.roles
@@ -47,6 +47,7 @@ spring:
     url: jdbc:mysql://localhost:13306/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     password: letmein
     username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
        minimumIdle: 2
        maximumPoolSize: 40
@@ -54,7 +55,6 @@ spring:
        connectionTimeout: 400000
        leakDetectionThreshold: 100000
   jpa:
-    database-platform: io.openslice.tmf.LocalMysqlDialect
     hibernate:
       ddl-auto: update
     show-sql: false
@@ -82,7 +82,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:8080/auth/realms/openslice
+          issuer-uri: http://keycloak:8080/realms/openslice
   
 
 logging:

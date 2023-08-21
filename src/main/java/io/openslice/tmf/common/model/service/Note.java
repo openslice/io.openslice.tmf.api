@@ -48,6 +48,7 @@ public class Note extends BaseRootEntity {
 	private OffsetDateTime date = null;
 
 	@JsonProperty("system")
+	@Column(name = "etsystem")
 	private String system = null;
 
 	@Lob

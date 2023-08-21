@@ -27,6 +27,7 @@ import org.springframework.validation.annotation.Validated;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 
@@ -39,6 +40,7 @@ import jakarta.validation.constraints.NotNull;
 @Entity(name = "EntitlementType")
 public class EntitlementType  extends BaseRootEntity {
   @JsonProperty("function")
+  @Column(name = "etfunction")
   private String function = null;
 
   @JsonProperty("action")

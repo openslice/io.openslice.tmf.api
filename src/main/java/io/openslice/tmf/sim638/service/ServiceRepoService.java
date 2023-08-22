@@ -124,7 +124,6 @@ public class ServiceRepoService {
 					+ "srv.name as name,"
 					+ "srv.startDate as startDate,"
 					+ "srv.category as category,"
-					+ "srv.category as category,"
 					+ "srv.state as state,"
 					+ "srv.startMode as startMode,"
 					+ "srv.serviceType as serviceType,"

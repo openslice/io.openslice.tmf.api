@@ -46,6 +46,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,6 +82,7 @@ import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
 import io.openslice.tmf.util.KrokiClient;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.Valid;
 import lombok.Data;
 
@@ -166,23 +168,24 @@ public class ServiceOrderRepoService {
 			}
 			
 			if ( starttime != null ) {
-				DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss" );
-				String sd = europeanDateFormatter.format( starttime.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime() );
-				
-				sql += " AND sor.startDate >= '"+ sd +"' ";		
+				sql += " AND sor.startDate >= :param1";		
 				
 			}
 			if ( endtime != null ) {
-
-				DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern( "yyyy-MM-dd'T'HH:mm:ss" );
-				String sd = europeanDateFormatter.format( starttime.toInstant().atOffset(ZoneOffset.UTC).toLocalDateTime() );
-				sql += " AND sor.expectedCompletionDate <= '"+ sd +"' ";		
+				sql += " AND sor.expectedCompletionDate <= :param2";	
 			}
 			
 			sql += "  ORDER BY sor.orderDate DESC";
 			
-			List<Object> mapaEntity = session
-				    .createQuery(sql )
+			Query query = session.createQuery( sql );
+			if ( starttime != null ) {
+				query.setParameter("param1", starttime.toInstant().atOffset(ZoneOffset.UTC)  );
+			}
+			if ( endtime != null ) {
+				query.setParameter("param2", endtime.toInstant().atOffset(ZoneOffset.UTC)  );				
+			}
+			
+			List<Object> mapaEntity = query
 				    .setResultTransformer( new ResultTransformer() {
 						
 						@Override

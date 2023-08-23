@@ -52,6 +52,9 @@ public class ResourceApiRouteBuilder extends RouteBuilder {
 
 	@Value("${CATALOG_UPD_RESOURCE}")
 	private String CATALOG_UPD_RESOURCE = "";
+	
+	@Value("${CATALOG_UPDADD_RESOURCE}")
+	private String CATALOG_UPDADD_RESOURCE = "";
 
 	@Value("${CATALOG_GET_RESOURCE_BY_ID}")
 	private String CATALOG_GET_RESOURCE_BY_ID = "";	
@@ -100,9 +103,13 @@ public class ResourceApiRouteBuilder extends RouteBuilder {
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
 		
-
-		
-		
+		from( CATALOG_UPDADD_RESOURCE )
+		.log(LoggingLevel.INFO, log, CATALOG_UPDADD_RESOURCE + " message received!")
+		.to("log:DEBUG?showBody=true&showHeaders=true")
+		.unmarshal().json( JsonLibrary.Jackson, ResourceCreate.class, true)
+		.bean( resourceRepoService, "addOrUpdateResourceByNameCategoryVersion(${header.aname},${header.acategory}, ${header.aversion}, ${body})")
+		.marshal().json( JsonLibrary.Jackson)
+		.convertBodyTo( String.class );
 	}
 	
 

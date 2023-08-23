@@ -141,10 +141,13 @@ public class ServiceSpecificationRepoService {
 		}
 		this.sessionFactory = factory.unwrap(SessionFactory.class);
 	}
-
+	
+	
+	
 	public ServiceSpecification addServiceSpecification(@Valid ServiceSpecificationCreate serviceServiceSpecification) {
 
 		ServiceSpecification serviceSpec = new ServiceSpecification();
+				
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
 		serviceSpec.fixSpecCharRelationhsipIDs();
@@ -332,6 +335,25 @@ public class ServiceSpecificationRepoService {
 		return null;
 	}
 
+	
+	/**
+	 * @param id
+	 * @param forceId
+	 * @param serviceServiceSpecificationCreate
+	 * @return
+	 */
+	@Transactional
+	public ServiceSpecification updateOrAddServiceSpecification(String id,
+			@Valid ServiceSpecificationCreate serviceServiceSpecificationCreate) {
+		
+		ServiceSpecification serviceSpec = updateServiceSpecification(id, serviceServiceSpecificationCreate );
+		if ( serviceSpec == null ) {			
+				serviceSpec = addServiceSpecification( serviceServiceSpecificationCreate );
+		}
+		
+		return serviceSpec;
+	}
+	
 
 	@Transactional
 	public ServiceSpecification updateServiceSpecification(String id,

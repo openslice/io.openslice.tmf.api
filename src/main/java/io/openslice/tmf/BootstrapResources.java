@@ -19,19 +19,27 @@
  */
 package io.openslice.tmf;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.openslice.domain.model.kubernetes.KubernetesCRDV1;
+import io.openslice.domain.model.kubernetes.KubernetesCRV1;
+import io.openslice.domain.model.kubernetes.KubernetesContextDefinition;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.rcm634.model.ResourceCandidate;
 import io.openslice.tmf.rcm634.model.ResourceCandidateCreate;
+import io.openslice.tmf.rcm634.model.ResourceCandidateUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCatalog;
 import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
+import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
@@ -46,7 +54,9 @@ import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BootstrapResources {
@@ -75,188 +85,194 @@ public class BootstrapResources {
 	@Autowired
 	ObjectMapper objectMapper;
 
+
+	private static final String OSM_TENANT = "osm-tenant.openslice.io"; 
+	
+	private static final String VIM_ACCOUNT = "vim-account.openslice.io.json";
+	
+	private static final String GNB_TENANT = "gnodeb.openslice.io";
+	
+	
+	private static final String INFRA_RESOURCES = "Infrastructure Resources";
+	
+	private static final String NETWORK_RESOURCES = "Network Resources";
+	
+	
 	
 	@PostConstruct
+	@Transactional
 	public void initRepo() {
 		
-		
-
-		//ResourceCatalogUpdate catUpdate = new ResourceCatalogUpdate();
-
-		ResourceCatalog scatalog = this.resourceCatalogRepoService.findByName("Catalog");
-		if ( scatalog == null ){
+		ResourceCatalog scatalog = this.resourceCatalogRepoService.findByName( "Catalog" );
+		if ( scatalog == null) { 
+			
 			//Create a new ResourceCatalogCreate named Catalog 
 			ResourceCatalogCreate sc = new ResourceCatalogCreate();
 			sc.setName("Catalog");
 			sc.setDescription("Primary Resource Catalog");
 			sc.setVersion("1.0");
 			//Turns ResourceCatalogCreate to a ResourceCatalog with the same attributes set at the ResourceCatalogCreate
-			scatalog = this.resourceCatalogRepoService.addCatalog(sc);			
-		}
-		
-
-		ResourceCategory scategory = this.resourceCategRepoService.findByName("Generic Resources");
-		if ( scategory == null ){
+			scatalog = this.resourceCatalogRepoService.addCatalog(sc);				
+			
 			// Create a new ResourceCategoryCreate named Generic Resources 
-				ResourceCategoryCreate scatCreate = new ResourceCategoryCreate();
-				scatCreate.setName("Generic Resources");
-				scatCreate.setDescription("Generic Resources of this catalog");
-				scatCreate.setVersion("1.0");
-				scatCreate.setIsRoot(true);
+			ResourceCategoryCreate scatCreate = new ResourceCategoryCreate();
+			scatCreate.setName("Generic Resources");
+			scatCreate.setDescription("Generic Resources of this catalog");
+			scatCreate.setVersion("1.0");
+			scatCreate.setIsRoot(true);
 
-				scategory = this.resourceCategRepoService.addCategory(scatCreate);
-				//Adds the ResourceCategory to the Primary Resource Catalog and then saves it to the resourceCatalogRepository
-				//scatalog.getCategoryObj().add(scategory);
-				ResourceCategoryRef catref = new ResourceCategoryRef();
-				catref.setId( scategory.getId() );
-				catref.setName( scategory.getName());
-				//catUpdate.addCategoryItem(catref);
-				
-				scatalog.addCategory(scategory);
-				
+			ResourceCategory scategory = this.resourceCategRepoService.addCategory(scatCreate);
+			//Adds the ResourceCategory to the Primary Resource Catalog and then saves it to the resourceCatalogRepository
+			//scatalog.getCategoryObj().add(scategory);
+//			ResourceCategoryRef catref = new ResourceCategoryRef();
+//			catref.setId( scategory.getId() );
+//			catref.setName( scategory.getName());			
+			scatalog.addCategory(scategory);			
 		}
 		
-		ResourceCategory scategoryNetw = this.resourceCategRepoService.findByName("Network Resources");
+		ResourceCategory scategoryNetw = this.resourceCategRepoService.findByName(NETWORK_RESOURCES );
 		if ( scategoryNetw == null ){
 			ResourceCategoryCreate scategoryNetwCreate = new ResourceCategoryCreate();
-			scategoryNetwCreate.setName("Network Resources");
+			scategoryNetwCreate.setName(NETWORK_RESOURCES);
 			scategoryNetwCreate.setDescription("Network Resources on this catalog");
 			scategoryNetwCreate.setVersion("1.0");
 			scategoryNetwCreate.setIsRoot(true);
 			// Turns ResourceCategoryCreate to a ResourceCategory with the same attributes set at the ResourceCategoryCreate
 			scategoryNetw = this.resourceCategRepoService.addCategory( scategoryNetwCreate );
-			//Adds the ResourceCategory to the Primary Resource Catalog and then saves it to the resourceCatalogRepository
-			
-			ResourceCategoryRef catref = new ResourceCategoryRef();
-			catref.setId( scategoryNetw.getId() );
-			catref.setName( scategoryNetw.getName());
-			//catUpdate.addCategoryItem(catref);
-
+			//Adds the ResourceCategory to the Primary Resource Catalog and then saves it to the resourceCatalogRepository			
+//			ResourceCategoryRef catref = new ResourceCategoryRef();
+//			catref.setId( scategoryNetw.getId() );
+//			catref.setName( scategoryNetw.getName());
 			scatalog.addCategory( scategoryNetw );
+		}		
+
+		ResourceCategory scategoryInfra = this.resourceCategRepoService.findByName(INFRA_RESOURCES );
+		if ( scategoryInfra == null ){
+			ResourceCategoryCreate scategoryInfraCreate = new ResourceCategoryCreate();
+			scategoryInfraCreate.setName( INFRA_RESOURCES );
+			scategoryInfraCreate.setDescription("Infrastructure Resources on this catalog");
+			scategoryInfraCreate.setVersion("1.0");
+			scategoryInfraCreate.setIsRoot(true);
+			scategoryInfra = this.resourceCategRepoService.addCategory( scategoryInfraCreate );
+//			ResourceCategoryRef catref = new ResourceCategoryRef();
+//			catref.setId( scategoryInfra.getId() );
+//			catref.setName( scategoryInfra.getName());
+			scatalog.addCategory( scategoryInfra );
 		}
 		
-
 		scatalog = this.resourceCatalogRepoService.updateCatalog( scatalog );
-		
-		//this.resourceCatalogRepoService.updateCatalog( scatalog.getId() , catUpdate );
-		
-		
-		List<ResourceSpecification> proexistingResSpecs = resourceSpecRepoService.findAll();
-		
-		boolean MANO_PROVIDER_EXISTS = false;
-		boolean VIM_ACCOUNT_EXISTS = false;
-		boolean GNB_EXISTS = false;
-		String OSM_TENANT = "OSM Tenant";
-		String VIM_ACCOUNT = "OSM VIM";
-		String GNB_TENANT = "gNodeB";
-		
-		//Check if the resources we want to bootstrap already exist
-		for(int i=0; i<proexistingResSpecs.size(); i++) {
-			if ( proexistingResSpecs.get(i).getName() != null ) {
-				if(proexistingResSpecs.get(i).getName().equals( VIM_ACCOUNT )) {
-					VIM_ACCOUNT_EXISTS = true;
-				}
-				else if (proexistingResSpecs.get(i).getName().equals( OSM_TENANT )) {
-					MANO_PROVIDER_EXISTS = true;
-				}
-				else if (proexistingResSpecs.get(i).getName().equals( GNB_TENANT )) {
-					GNB_EXISTS = true;
-				}
-				
-			}
-			
+
+
+		ResourceSpecification resourceSpecificationObj = this.resourceSpecRepoService.findByNameAndVersion( VIM_ACCOUNT , "0.2.0");
+		if (  ( resourceSpecificationObj == null ))
+		{
+			this.createBootResourceSpec( scategoryNetw, VIM_ACCOUNT , "vim-account.openslice.io.json" );
 		}
 		
-		if( !MANO_PROVIDER_EXISTS ) {
-			//We already have a category to add it under
-			scatalog = this.resourceCatalogRepoService.findByName("Catalog");
-			scategory = this.resourceCategRepoService.findByName("Network Resources");
-
-			//Reads a JSON and turns it to a ResourceSpecification					
-			ResourceSpecification resourceSpecificationObj = this.addLogicalResourceSpecFromJSON( OSM_TENANT , "OSMTenantResourceSpecification.json");
-			//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
-			ResourceCandidateCreate scand = new ResourceCandidateCreate();
-			scand.setName( resourceSpecificationObj.getName());
-			ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
-			resSpecificationRef.setId(resourceSpecificationObj.getId());
-			resSpecificationRef.setName(resourceSpecificationObj.getName());
-			scand.resourceSpecification(resSpecificationRef);
-			ResourceCategoryRef categoryItem = new ResourceCategoryRef();
-			categoryItem.setId(scategory.getId());
-			scand.addCategoryItem(categoryItem);
-			this.resourceCandidateRepoService.addResourceCandidate(scand);
-			this.resourceCatalogRepository.save(scatalog);
+		resourceSpecificationObj = this.resourceSpecRepoService.findByNameAndVersion( OSM_TENANT , "0.2.0");
+		if (  ( resourceSpecificationObj == null ))
+		{
+			this.createBootResourceSpec( scategoryNetw, OSM_TENANT , "osm-tenant.openslice.io.json" );
 		}
-		if( !VIM_ACCOUNT_EXISTS ) {
-			//Find the MANO Provider Spec, get its href and use it to create a dependency with the VIM 
+		resourceSpecificationObj = this.resourceSpecRepoService.findByNameAndVersion( GNB_TENANT , "0.2.0");
+		if (   ( resourceSpecificationObj == null ))
+		{
+			this.createBootPhysicalResourceSpec( scategoryNetw,GNB_TENANT,  "gnodeb.openslice.io.json");
+		}
 
-			List<ResourceCandidate> proexistingResCandidates = resourceCandidateRepoService.findAll();
-			ResourceCandidate MANOProvider = new ResourceCandidate();
-			for(int i=0; i<proexistingResCandidates.size(); i++) {
-				if(proexistingResCandidates.get(i).getName()!= null) {
-					if(proexistingResCandidates.get(i).getName().equals( OSM_TENANT )) {
-						MANOProvider = proexistingResCandidates.get(i);
-					}
-				}
-			}
-			String MANOProviderResourceCandidateId = MANOProvider.getId();
-			ResourceSpecificationRelationship vimToManoRelationship= new ResourceSpecificationRelationship();
-			vimToManoRelationship.setId(MANOProviderResourceCandidateId);
-			vimToManoRelationship.setRelationshipType("dependency");
-						
-			Set<ResourceSpecificationRelationship> setOfVimToManoRelationships = new HashSet<ResourceSpecificationRelationship>();
-			setOfVimToManoRelationships.add(vimToManoRelationship);
 	
-			//As it is not the first resource spec we add, we already have a category to add it under
-			scatalog = this.resourceCatalogRepoService.findByName("Catalog");
-			scategory = this.resourceCategRepoService.findByName("Network Resources");
-			//Reads a JSON and turns it to a ResourceSpecification					
-			ResourceSpecification resourceSpecificationObj = this.addLogicalResourceSpecFromJSON( VIM_ACCOUNT , "vimAccount.json");
-			
-			
-			//Add the relationship that was created above
-	
-			resourceSpecificationRepo.delete(resourceSpecificationObj);
-			resourceSpecificationObj.setResourceSpecRelationship(setOfVimToManoRelationships);
-			resourceSpecificationRepo.save(resourceSpecificationObj);
-
-			
-			//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
-			ResourceCandidateCreate scand = new ResourceCandidateCreate();
-			scand.setName( resourceSpecificationObj.getName());
-			ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
-			resSpecificationRef.setId(resourceSpecificationObj.getId());
-			resSpecificationRef.setName(resourceSpecificationObj.getName());
-			scand.resourceSpecification(resSpecificationRef);
-			ResourceCategoryRef categoryItem = new ResourceCategoryRef();
-			categoryItem.setId(scategory.getId());
-			scand.addCategoryItem(categoryItem);
-			this.resourceCandidateRepoService.addResourceCandidate(scand);
-			this.resourceCatalogRepository.save(scatalog);
-		}	
-		if(!GNB_EXISTS) {
-			//As it is not the first resource spec we add, we already have a category to add it under
-			scatalog = this.resourceCatalogRepoService.findByName("Catalog");
-			scategory = this.resourceCategRepoService.findByName("Network Resources");
-			//Reads a JSON and turns it to a ResourceSpecification					
-			ResourceSpecification resourceSpecificationObj = this.addPhysicalResourceSpecFromJSON( GNB_TENANT , "gNodeBResourceSpec.json");
-			//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
-			ResourceCandidateCreate scand = new ResourceCandidateCreate();
-			scand.setName( resourceSpecificationObj.getName());
-			ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
-			resSpecificationRef.setId(resourceSpecificationObj.getId());
-			resSpecificationRef.setName(resourceSpecificationObj.getName());
-			resSpecificationRef.setHref(null);
-			scand.resourceSpecification(resSpecificationRef);
-			ResourceCategoryRef categoryItem = new ResourceCategoryRef();
-			categoryItem.setId(scategory.getId());
-			scand.addCategoryItem(categoryItem);
-			this.resourceCandidateRepoService.addResourceCandidate(scand);
-			this.resourceCatalogRepository.save(scatalog);
+		
+		
+		resourceSpecificationObj = this.resourceSpecRepoService.findByNameAndVersion( 
+				KubernetesContextDefinition.OSL_KUBD_RSPEC_NAME , 
+				KubernetesContextDefinition.OSL_KUBD_RSPEC_VERSION);
+		
+		if ( ( scategoryInfra != null ) &&  ( resourceSpecificationObj == null ))
+		{
+			ResourceSpecification resourceSpecificationKubernetes =
+					this.resourceSpecRepoService.addResourceSpecification( KubernetesContextDefinition.builder().build().toRSpecCreate() );
+			KubernetesContextDefinition.builder().build().fromRSpec(resourceSpecificationKubernetes);//to update any details
+			this.addToCategory( scategoryInfra, resourceSpecificationKubernetes );
 		}
+		
+		resourceSpecificationObj = this.resourceSpecRepoService.findByNameAndVersion( 
+				KubernetesCRDV1.OSL_KUBCRD_RSPEC_NAME , 
+				KubernetesCRDV1.OSL_KUBCRD_RSPEC_VERSION);
+		
+		if ( ( scategoryInfra != null ) &&  ( resourceSpecificationObj == null ))
+		{
+			ResourceSpecification resourceSpecificationKubernetesCRD =
+					this.resourceSpecRepoService.addResourceSpecification( KubernetesCRDV1.builder().build().toRSpecCreate() );
+			KubernetesCRDV1.builder().build().fromRSpec(resourceSpecificationKubernetesCRD);//to update any details
+			this.addToCategory( scategoryInfra, resourceSpecificationKubernetesCRD );
+		}
+
+		
+		resourceSpecificationObj = this.resourceSpecRepoService.findByNameAndVersion( 
+				KubernetesCRV1.OSL_KUBCRV1_RSPEC_NAME , 
+				KubernetesCRV1.OSL_KUBCRV1_RSPEC_VERSION);
+		
+		if ( ( scategoryInfra != null ) &&  ( resourceSpecificationObj == null ))
+		{
+			ResourceSpecification rspecKubCRV1 =
+					this.resourceSpecRepoService.addResourceSpecification( KubernetesCRV1.builder().build().toRSpecCreate() );
+			KubernetesCRV1.builder().build().fromRSpec(rspecKubCRV1);//to update any details
+			this.addToCategory( scategoryInfra, rspecKubCRV1 );
+		}
+
+		
+		
 		
 	}
 	
+	
+	private void createBootResourceSpec( ResourceCategory scategory, String aname, String afile) {		 
+		
+		ResourceSpecificationCreate rsc = this.resourceSpecRepoService.readFromLocalLogicalResourceSpec( afile );
+		rsc.setName( aname );
+		ResourceSpecification resourceSpecificationObj = this.resourceSpecRepoService.addResourceSpecification( rsc );
+		
+		addToCategory(scategory, resourceSpecificationObj);
+		
+	}
+	
+	private void addToCategory(ResourceCategory scategory,  ResourceSpecification resourceSpecificationObj) {	
+		
+		//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
+		ResourceCandidateUpdate scand = new ResourceCandidateUpdate();
+		scand.setName( resourceSpecificationObj.getName());
+		ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
+		resSpecificationRef.setId(resourceSpecificationObj.getId());
+		resSpecificationRef.setName(resourceSpecificationObj.getName());
+		scand.resourceSpecification(resSpecificationRef);
+		ResourceCategoryRef categoryItem = new ResourceCategoryRef();
+		categoryItem.setId(scategory.getId());
+		scand.addCategoryItem(categoryItem);
+		
+		this.resourceCandidateRepoService.updateCandidate(resourceSpecificationObj.getResourceCandidateObjId() , scand);
+	}
+	
+	private void createBootPhysicalResourceSpec( ResourceCategory scategory, String aname, String afile) {
+		//Find the MANO Provider Spec, get its href and use it to create a dependency with the VIM 
+
+		ResourceSpecification resourceSpecificationObj = this.resourceSpecRepoService.clonePhysicalResourceSpec( aname , afile);
+		resourceSpecificationObj = resourceSpecificationRepo.save(resourceSpecificationObj);
+		
+		//Turn the ResourceSpecification to a ResourceCanditate to save it to the ResourceCatalogRepo			
+		ResourceCandidateUpdate scand = new ResourceCandidateUpdate();
+		scand.setName( resourceSpecificationObj.getName());
+		ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
+		resSpecificationRef.setId(resourceSpecificationObj.getId());
+		resSpecificationRef.setName(resourceSpecificationObj.getName());
+		scand.resourceSpecification(resSpecificationRef);
+		ResourceCategoryRef categoryItem = new ResourceCategoryRef();
+		categoryItem.setId(scategory.getId());
+		scand.addCategoryItem(categoryItem);
+		
+		this.resourceCandidateRepoService.updateCandidate(resourceSpecificationObj.getResourceCandidateObjId() , scand);
+	}
+	
+
 	
 	public ResourceSpecification demoResourceSpecification() {
 		
@@ -267,15 +283,7 @@ public class BootstrapResources {
 		return this.resourceSpecRepoService.addLogicalResourceSpecification(spec);
 	}
 	
-	public ResourceSpecification addPhysicalResourceSpecFromJSON(String resourceSpecName , String fileName) {
-		ResourceSpecification resourceSpecificationObj = this.resourceSpecRepoService.clonePhysicalResourceSpec(resourceSpecName, fileName);
-		return this.resourceSpecRepoService.addResourceSpec(resourceSpecificationObj);
-	}
 	
-	public ResourceSpecification addLogicalResourceSpecFromJSON(String resourceSpecName , String fileName) {
-		ResourceSpecification resourceSpecificationObj = this.resourceSpecRepoService.cloneLogicalResourceSpec(resourceSpecName, fileName);
-		return this.resourceSpecRepoService.addResourceSpec(resourceSpecificationObj);
-	}
 	
 }
 	

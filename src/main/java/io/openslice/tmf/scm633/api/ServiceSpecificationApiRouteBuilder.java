@@ -53,6 +53,19 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 	private String CATALOG_GET_SERVICESPEC_BY_ID = "";
 	
 
+	@Value("${CATALOG_ADD_SERVICESPEC}")
+	private String CATALOG_ADD_SERVICESPEC = "";
+	
+
+	@Value("${CATALOG_UPD_SERVICESPEC}")
+	private String CATALOG_UPD_SERVICESPEC = "";
+	
+	@Value("${CATALOG_UPDADD_SERVICESPEC}")
+	private String CATALOG_UPDADD_SERVICESPEC = "";
+	
+	@Value("${NFV_CATALOG_GET_NSD_BY_ID}")
+	private String NFV_CATALOG_GET_NSD_BY_ID = "";
+	
 	@Value("${CATALOG_UPD_EXTERNAL_SERVICESPEC}")
 	private String CATALOG_UPD_EXTERNAL_SERVICESPEC = "";
 	

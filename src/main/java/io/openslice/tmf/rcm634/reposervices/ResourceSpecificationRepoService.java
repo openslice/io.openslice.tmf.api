@@ -32,19 +32,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.openslice.tmf.common.model.Attachment;
@@ -68,7 +62,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
 import io.openslice.tmf.util.AttachmentUtil;
-import jakarta.persistence.EntityManagerFactory;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -88,32 +82,18 @@ public class ResourceSpecificationRepoService {
 	@Autowired
 	ResourceCandidateRepoService resCandidateRepoService;
 	
-
-	private SessionFactory sessionFactory;
-	
 	private static final String METADATADIR = System.getProperty("user.home") + File.separator + ".attachments"
 			+ File.separator + "metadata" + File.separator;
 
-	@Autowired
-	public ResourceSpecificationRepoService(EntityManagerFactory factory) {
-		if (factory.unwrap(SessionFactory.class) == null) {
-			throw new NullPointerException("factory is not a hibernate factory");
-		}
-		this.sessionFactory = factory.unwrap(SessionFactory.class);
-	}
-	
 	public ResourceSpecification addResourceSpec(ResourceSpecification reSpec) {
 		return this.resourceSpecificationRepo.save(reSpec);		
 	}
 	
-	
-	
-	
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
 		ResourceSpecification reSpec ;
-		if (resourceSpecification.getType() !=null && (  resourceSpecification.getType().equals( "PhysicalResourceSpecification" )  || 
-				 resourceSpecification.getType().equals( "PhysicalResourceSpecificationCreate" )  )) {
+		if ( resourceSpecification.getType().equals( "PhysicalResourceSpecification" )  || 
+				 resourceSpecification.getType().equals( "PhysicalResourceSpecificationCreate" )  ) {
 			reSpec = new PhysicalResourceSpecification(); 
 		}else {
 			reSpec = new LogicalResourceSpecification();			
@@ -136,11 +116,10 @@ public class ResourceSpecificationRepoService {
 	}
 	
 	
-	
-	public PhysicalResourceSpecification addPhysicalResourceSpecification(@Valid PhysicalResourceSpecificationCreate pResourceSpec) {
+	public PhysicalResourceSpecification addPhysicalResourceSpecification(@Valid PhysicalResourceSpecificationCreate logicalResourceSpec) {
 		PhysicalResourceSpecification reSpec = new PhysicalResourceSpecification();
 
-		return (PhysicalResourceSpecification) addResourceSpecificationGeneric(reSpec, pResourceSpec);
+		return (PhysicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
 	}
 
 	private ResourceSpecification addResourceSpecificationGeneric(ResourceSpecification reSpec, @Valid ResourceSpecificationUpdate  resourceSpecification) {
@@ -180,98 +159,6 @@ public class ResourceSpecificationRepoService {
 		return optionalCat
 				.orElse(null);
 	}
-	
-	@Transactional
-	public ResourceSpecification findByUuidEager(String id) {
-
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
-		try {
-			ResourceSpecification dd = null;
-			try {
-				dd = session.get(ResourceSpecification.class, id);
-				if (dd == null) {
-					return this.findByUuid(id);// last resort
-				}
-				Hibernate.initialize(dd.getAttachment());
-				Hibernate.initialize(dd.getRelatedParty());
-				Hibernate.initialize(dd.getFeatureSpecification());
-				Hibernate.initialize(dd.getResourceSpecCharacteristic());
-				for (ResourceSpecificationCharacteristic schar : dd.getResourceSpecCharacteristic()) {
-					Hibernate.initialize(schar.getResourceSpecCharacteristicValue());
-					Hibernate.initialize(schar.getResourceSpecCharRelationship());
-
-				}
-				Hibernate.initialize(dd.getResourceSpecRelationship());
-
-				tx.commit();
-			} finally {
-				session.close();
-			}
-			return dd;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		session.close();
-		return null;
-		
-		
-	}
-	
-	@Transactional
-	public ResourceSpecification findByNameAndCategoryEager(String aname, String acategory) {
-
-		List<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByNameAndCategory(aname, acategory);
-		
-		if ( optionalCat.size() >0 ) {
-			return findByUuidEager( optionalCat.get(0).getUuid() );
-		}
-		
-		return null;
-	}
-	
-	@Transactional
-	public ResourceSpecification findByNameAndCategoryAndVersionEager(String aname, String acategory, String aversion) {
-
-		List<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByNameAndCategoryAndVersion(aname, acategory, aversion);
-		
-		if ( optionalCat.size() >0 ) {
-			return findByUuidEager( optionalCat.get(0).getUuid() );
-		}
-		
-		return null;
-	}
-	
-
-	@Transactional
-	public ResourceSpecification addOrupdateResourceSpecificationByNameCategoryVersion(String aname, String acategory, String aversion, ResourceSpecificationCreate aesourceCreate) {
-
-		List<ResourceSpecification> rspecs = this.resourceSpecificationRepo.findByNameAndCategoryAndVersion(aname, acategory, aversion);
-		ResourceSpecification result = null;
-		
-		
-		if ( rspecs.size() >0 ) {
-			//perform update to the first one
-			String resID = rspecs.get(0).getUuid();
-			result = this.updateResourceSpecification(resID, aesourceCreate);
-		} else {
-			result =  this.addResourceSpecification(aesourceCreate);
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			String originaServiceAsJson = mapper.writeValueAsString( result );
-			logger.debug(originaServiceAsJson);
-		} catch (JsonProcessingException e) {
-			logger.error("cannot umarshall service: " + result.getName() );
-			e.printStackTrace();
-		}	
-		
-		return result;
-	}
-	
 
 	public Void deleteByUuid(String id) {
 		Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid(id);
@@ -350,10 +237,7 @@ public class ResourceSpecificationRepoService {
 		}
 		if ( resSpecUpd.isIsBundle() != null ) {
 			resourceSpec.setIsBundle( resSpecUpd.isIsBundle() );			
-		}	
-		if ( resSpecUpd.getCategory()!= null ) {
-			resourceSpec.setCategory( resSpecUpd.getCategory() );			
-		}
+		}		
 		
 		resourceSpec.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
 		
@@ -588,11 +472,11 @@ public class ResourceSpecificationRepoService {
 	}
 
 	
-	private PhysicalResourceSpecificationCreate readFromLocalPhysicalResourceSpec(String rname) {
-		PhysicalResourceSpecificationCreate rc;
+	private ResourceSpecification readFromLocalPhysicalResourceSpec(String rname) {
+		ResourceSpecification rc;
 		try {
 			
-			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), PhysicalResourceSpecificationCreate.class);
+			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), PhysicalResourceSpecification.class);
 			
 			return rc;
 		} catch (IOException e) {
@@ -602,11 +486,11 @@ public class ResourceSpecificationRepoService {
 		return null;
 	}
 	
-	public ResourceSpecificationCreate readFromLocalLogicalResourceSpec(String rname) {
-		ResourceSpecificationCreate rc;
+	private ResourceSpecification readFromLocalLogicalResourceSpec(String rname) {
+		ResourceSpecification rc;
 		try {
 			
-			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), ResourceSpecificationCreate.class);
+			rc = objectMapper.readValue(new ClassPathResource( "/resourceSpecifications/"+rname ).getInputStream(), LogicalResourceSpecification.class);
 			
 			return rc;
 		} catch (IOException e) {
@@ -630,10 +514,10 @@ public class ResourceSpecificationRepoService {
 	
 	public ResourceSpecification clonePhysicalResourceSpec(String specName, String fileName) {
 
-		PhysicalResourceSpecificationCreate resourceSpecificationObj = readFromLocalPhysicalResourceSpec( fileName );
+		ResourceSpecification resourceSpecificationObj = readFromLocalPhysicalResourceSpec( fileName );
 		resourceSpecificationObj.setName(specName);
-		ResourceSpecification rSpec = this.addPhysicalResourceSpecification(resourceSpecificationObj);
-		return rSpec;
+		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		return resourceSpecificationObj;
 	}
 	
 	public ResourceSpecification cloneLogicalResourceSpec() {
@@ -648,10 +532,10 @@ public class ResourceSpecificationRepoService {
 	
 	public ResourceSpecification cloneLogicalResourceSpec(String specName, String fileName) {
 
-		ResourceSpecificationCreate resourceSpecificationObj = readFromLocalLogicalResourceSpec( fileName );
+		ResourceSpecification resourceSpecificationObj = readFromLocalLogicalResourceSpec( fileName );
 		resourceSpecificationObj.setName(specName);
-		ResourceSpecification rSpec = this.addLogicalResourceSpecification(resourceSpecificationObj);
-		return rSpec;
+		resourceSpecificationObj = this.addResourceSpec(resourceSpecificationObj);
+		return resourceSpecificationObj;
 	}
 
 	public ResourceSpecification findByNameAndVersion(String aname, String aversion) {

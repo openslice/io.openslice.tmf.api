@@ -83,9 +83,7 @@ public class ResourceSpecificationCharacteristicValue  extends BaseRootEntity {
 		valueTo = r.valueTo;
 		valueType = r.valueType;
 		validFor = new TimePeriod( r.validFor );
-		if (r.value !=null ) {
-			value = new Any( r.value.getValue(), r.value.getAlias()) ;
-		}
+		value = new Any( r.value.getValue(), r.value.getAlias()) ;
 //		type = r.type;
 		baseType = r.baseType;
 		

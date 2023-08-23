@@ -93,7 +93,6 @@ public class ResourceCatalogRepoService {
 	}
 	
 	public ResourceCatalog updateCatalog(ResourceCatalog serviceCatalog) {
-		
 		return this.catalogRepo.save(serviceCatalog);
 	}
 

@@ -28,6 +28,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import io.openslice.tmf.ri639.model.Resource;
+import io.openslice.tmf.sim638.model.Service;
 
 
 
@@ -53,10 +54,5 @@ public interface ResourceRepository extends  CrudRepository<Resource, Long>, Pag
 			+ "	srv.resourceStatus = io.openslice.tmf.ri639.model.ResourceStatusType.STANDBY) AND "
 			+ "char.name = 'externalPartnerServiceId'"
 			 )
-	
-	List<Resource> findActiveAndReservedResourcesOfPartners();
-	
-
-	List<Resource> findByNameAndResourceVersion(String aname, String aversion);
-	List<Resource> findByNameAndCategoryAndResourceVersion(String aname, String acategory, String aversion);
+	List<Service> findActiveAndReservedResourcesOfPartners();
 }

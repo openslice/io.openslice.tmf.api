@@ -732,9 +732,10 @@ public class ServiceCatalogIntegrationTest {
 		assertThat( idspec1Exists ).isFalse();
 		assertThat( idspec2Exists ).isTrue();
 		assertThat( idspec4Exists ).isTrue();
+		
+
+
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 4 );
-		
-		
 		
 	}
 	

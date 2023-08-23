@@ -328,6 +328,35 @@ public class ResourceSpecificationUpdate {
 		this.resourceSpecificationCharacteristic.add(ResourceSpecificationCharacteristicItem);
 		return this;
 	}
+	
+	
+	/**
+	 * 
+	 * just a quick add of an item with minimal configuration
+	 * @param name
+	 * @param defaultValue
+	 * @param valueType
+	 * @return
+	 */
+	public ResourceSpecificationUpdate addResourceSpecificationCharacteristicItemShort(
+			String name,
+			String defaultValue,
+			String valueType ) {
+		
+		
+		ResourceSpecificationCharacteristic ci = new ResourceSpecificationCharacteristic();
+		ci
+		.name( name )
+		.valueType(valueType);
+		if (defaultValue!=null) {
+			ResourceSpecificationCharacteristicValue val = new ResourceSpecificationCharacteristicValue();
+			val.setValue( new Any( defaultValue, null) );
+			val.isDefault(true);
+			ci.getResourceSpecCharacteristicValue().add( val );			
+		}	
+		return addResourceSpecificationCharacteristicItem(ci);
+	}
+	
 
 	/**
 	 * A characteristic quality or distinctive feature of a ResourceSpecification.

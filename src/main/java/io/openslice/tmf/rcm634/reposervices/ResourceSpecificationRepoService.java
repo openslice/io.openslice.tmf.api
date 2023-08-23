@@ -108,7 +108,7 @@ public class ResourceSpecificationRepoService {
 	
 	
 	
-	
+	@Transactional
 	public ResourceSpecification addResourceSpecification(@Valid ResourceSpecificationCreate resourceSpecification) {
 
 		ResourceSpecification reSpec ;

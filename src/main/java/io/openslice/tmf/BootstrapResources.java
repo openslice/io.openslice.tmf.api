@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -56,7 +57,6 @@ import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
 
 @Service
 public class BootstrapResources {
@@ -191,7 +191,7 @@ public class BootstrapResources {
 		{
 			ResourceSpecification resourceSpecificationKubernetes =
 					this.resourceSpecRepoService.addResourceSpecification( KubernetesContextDefinition.builder().build().toRSpecCreate() );
-			KubernetesContextDefinition.builder().build().fromRSpec(resourceSpecificationKubernetes);//to update any details
+			//KubernetesContextDefinition.builder().build().fromRSpec(resourceSpecificationKubernetes);//to update any details
 			this.addToCategory( scategoryInfra, resourceSpecificationKubernetes );
 		}
 		

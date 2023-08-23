@@ -23,27 +23,25 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * Generic Party structure used to define commonalities between sub concepts of
  * Individual and Organization.
  */
-@ApiModel(description = "Generic Party structure used to define commonalities between sub concepts of Individual and Organization.")
+@Schema(description = "Generic Party structure used to define commonalities between sub concepts of Individual and Organization.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 @Entity
 public class Party extends BaseRootEntity {
 
@@ -82,7 +80,7 @@ public class Party extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the organization")
+	@Schema(description = "Unique identifier of the organization")
 
 	@JsonProperty("id")
 	public String getId() {
@@ -107,7 +105,7 @@ public class Party extends BaseRootEntity {
 	 * 
 	 * @return contactMedium
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -137,7 +135,7 @@ public class Party extends BaseRootEntity {
 	 * 
 	 * @return creditRating
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -167,7 +165,7 @@ public class Party extends BaseRootEntity {
 	 * 
 	 * @return externalReference
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -197,7 +195,7 @@ public class Party extends BaseRootEntity {
 	 * 
 	 * @return partyCharacteristic
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -227,7 +225,7 @@ public class Party extends BaseRootEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -257,7 +255,7 @@ public class Party extends BaseRootEntity {
 	 * 
 	 * @return taxExemptionCertificate
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 

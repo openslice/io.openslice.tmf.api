@@ -4,28 +4,26 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Describes a given characteristic of an object or entity through a name/value
  * pair.
  */
-@ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
+@Schema(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RICharacteristic")
 public class Characteristic extends BaseRootNamedEntity {
 	@JsonProperty("id")
@@ -49,7 +47,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the characteristic")
+	@Schema(description = "Unique identifier of the characteristic")
 	public String getId() {
 		id = uuid;
 		return uuid;
@@ -65,7 +63,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(required = true, value = "Name of the characteristic")
+	@Schema(description = "Name of the characteristic")
 	@NotNull
 
 	public String getName() {
@@ -86,7 +84,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "Data type of the value of the characteristic")
+	@Schema(description = "Data type of the value of the characteristic")
 
 	public String getValueType() {
 		return valueType;
@@ -114,7 +112,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return characteristicRelationship
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public Set<CharacteristicRelationship> getCharacteristicRelationship() {
 		return characteristicRelationship;
@@ -134,7 +132,7 @@ public class Characteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return value
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@Schema(description = "")
 	@NotNull
 
 	@Valid

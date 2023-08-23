@@ -24,11 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
@@ -39,8 +37,8 @@ import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Service is a base class for defining the Service hierarchy. All Services are
@@ -48,9 +46,9 @@ import io.swagger.annotations.ApiModelProperty;
  * not. This gives rise to the two subclasses of Service: CustomerFacingService
  * and ResourceFacingService. Skipped properties: id,href,serviceRelationship
  */
-@ApiModel(description = "Service is a base class for defining the Service hierarchy. All Services are characterized as either being possibly visible and usable by a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService and ResourceFacingService. Skipped properties: id,href,serviceRelationship")
+@Schema(description = "Service is a base class for defining the Service hierarchy. All Services are characterized as either being possibly visible and usable by a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService and ResourceFacingService. Skipped properties: id,href,serviceRelationship")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
 public class ServiceUpdate {
 	@JsonProperty("category")
@@ -142,7 +140,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Is it a customer facing or resource facing service")
+	@Schema(description = "Is it a customer facing or resource facing service")
 
 	public String getCategory() {
 		return category;
@@ -162,7 +160,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Free-text description of the service")
+	@Schema(description = "Free-text description of the service")
 
 	public String getDescription() {
 		return description;
@@ -191,7 +189,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return endDate
 	 **/
-	@ApiModelProperty(value = "Date when the service ends")
+	@Schema(description = "Date when the service ends")
 
 	@Valid
 
@@ -221,7 +219,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return hasStarted
 	 **/
-	@ApiModelProperty(value = "If TRUE, this Service has already been started")
+	@Schema(description = "If TRUE, this Service has already been started")
 
 	public Boolean isHasStarted() {
 		return hasStarted;
@@ -241,7 +239,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return isServiceEnabled
 	 **/
-	@ApiModelProperty(value = "If FALSE, this particular Service has NOT been enabled for use")
+	@Schema(description = "If FALSE, this particular Service has NOT been enabled for use")
 
 	public Boolean isIsServiceEnabled() {
 		return isServiceEnabled;
@@ -261,7 +259,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return isStateful
 	 **/
-	@ApiModelProperty(value = "If TRUE, this Service can be changed without affecting any other services")
+	@Schema(description = "If TRUE, this Service can be changed without affecting any other services")
 
 	public Boolean isIsStateful() {
 		return isStateful;
@@ -281,7 +279,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the service")
+	@Schema(description = "Name of the service")
 
 	public String getName() {
 		return name;
@@ -301,7 +299,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return serviceDate
 	 **/
-	@ApiModelProperty(value = "Date when the service was created (whatever its status).")
+	@Schema(description = "Date when the service was created (whatever its status).")
 
 	public String getServiceDate() {
 		return serviceDate;
@@ -321,7 +319,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return serviceType
 	 **/
-	@ApiModelProperty(value = "Business type of the service")
+	@Schema(description = "Business type of the service")
 
 	public String getServiceType() {
 		return serviceType;
@@ -341,7 +339,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return startDate
 	 **/
-	@ApiModelProperty(value = "Date when the service starts")
+	@Schema(description = "Date when the service starts")
 
 	@Valid
 
@@ -383,7 +381,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return startMode
 	 **/
-	@ApiModelProperty(value = "This attribute is an enumerated integer that indicates how the Service is started, such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a Customer of the Provider; 5: Any of the above")
+	@Schema(description = "This attribute is an enumerated integer that indicates how the Service is started, such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a Customer of the Provider; 5: Any of the above")
 
 	public String getStartMode() {
 		return startMode;
@@ -411,7 +409,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return note
 	 **/
-	@ApiModelProperty(value = "A list of notes made on this service")
+	@Schema(description = "A list of notes made on this service")
 
 	@Valid
 
@@ -442,7 +440,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return place
 	 **/
-	@ApiModelProperty(value = "A list of places related to this service, e.g. where the service is installed, a delivery address for equipment, etc.")
+	@Schema(description = "A list of places related to this service, e.g. where the service is installed, a delivery address for equipment, etc.")
 
 	@Valid
 
@@ -473,7 +471,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of related party references (RelatedParty [1..*]). A related party defines party or party role linked to a specific entity.")
+	@Schema(description = "A list of related party references (RelatedParty [1..*]). A related party defines party or party role linked to a specific entity.")
 
 	@Valid
 
@@ -504,7 +502,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return serviceCharacteristic
 	 **/
-	@ApiModelProperty(value = "A list of characteristics that characterize this service (ServiceCharacteristic [*]) ")
+	@Schema(description = "A list of characteristics that characterize this service (ServiceCharacteristic [*]) ")
 
 	@Valid
 
@@ -534,7 +532,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return serviceOrder
 	 **/
-	@ApiModelProperty(value = "A list of service orders related to this service")
+	@Schema(description = "A list of service orders related to this service")
 
 	@Valid
 
@@ -556,7 +554,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return serviceSpecification
 	 **/
-	@ApiModelProperty(value = "The specification from which this service was instantiated")
+	@Schema(description = "The specification from which this service was instantiated")
 
 	@Valid
 
@@ -579,7 +577,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "The life cycle state of the service, such as: feasibilityChecked, designed, reserved, active, inactive, terminated")
+	@Schema(description = "The life cycle state of the service, such as: feasibilityChecked, designed, reserved, active, inactive, terminated")
 
 	@Valid
 
@@ -610,7 +608,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return supportingResource
 	 **/
-	@ApiModelProperty(value = "A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources.")
+	@Schema(description = "A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources.")
 
 	@Valid
 
@@ -641,7 +639,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return supportingService
 	 **/
-	@ApiModelProperty(value = "A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS).")
+	@Schema(description = "A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS).")
 
 	@Valid
 
@@ -663,7 +661,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -684,7 +682,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -704,7 +702,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;
@@ -731,7 +729,7 @@ public class ServiceUpdate {
 	 * 
 	 * @return serviceRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
+	@Schema(description = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
 
 	@Valid
 

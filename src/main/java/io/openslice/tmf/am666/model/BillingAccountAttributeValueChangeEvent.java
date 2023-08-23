@@ -22,21 +22,19 @@ package io.openslice.tmf.am666.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class BillingAccountAttributeValueChangeEvent   {
   @JsonProperty("eventId")
@@ -81,7 +79,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The identifier of the notification.
    * @return eventId
   **/
-  @ApiModelProperty(value = "The identifier of the notification.")
+  @Schema(description = "The identifier of the notification.")
 
 
   public String getEventId() {
@@ -101,7 +99,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * Time of the event occurrence.
    * @return eventTime
   **/
-  @ApiModelProperty(value = "Time of the event occurrence.")
+  @Schema(description = "Time of the event occurrence.")
 
   @Valid
 
@@ -122,7 +120,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The type of the notification.
    * @return eventType
   **/
-  @ApiModelProperty(value = "The type of the notification.")
+  @Schema(description = "The type of the notification.")
 
 
   public String getEventType() {
@@ -142,7 +140,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The correlation id for this event.
    * @return correlationId
   **/
-  @ApiModelProperty(value = "The correlation id for this event.")
+  @Schema(description = "The correlation id for this event.")
 
 
   public String getCorrelationId() {
@@ -162,7 +160,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The domain of the event.
    * @return domain
   **/
-  @ApiModelProperty(value = "The domain of the event.")
+  @Schema(description = "The domain of the event.")
 
 
   public String getDomain() {
@@ -182,7 +180,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The title of the event.
    * @return title
   **/
-  @ApiModelProperty(value = "The title of the event.")
+  @Schema(description = "The title of the event.")
 
 
   public String getTitle() {
@@ -202,7 +200,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * An explanatory of the event.
    * @return description
   **/
-  @ApiModelProperty(value = "An explanatory of the event.")
+  @Schema(description = "An explanatory of the event.")
 
 
   public String getDescription() {
@@ -222,7 +220,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * A priority.
    * @return priority
   **/
-  @ApiModelProperty(value = "A priority.")
+  @Schema(description = "A priority.")
 
 
   public String getPriority() {
@@ -242,7 +240,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The time the event occured.
    * @return timeOcurred
   **/
-  @ApiModelProperty(value = "The time the event occured.")
+  @Schema(description = "The time the event occured.")
 
   @Valid
 
@@ -263,7 +261,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The path identifying the object field concerned by this notification.
    * @return fieldPath
   **/
-  @ApiModelProperty(value = "The path identifying the object field concerned by this notification.")
+  @Schema(description = "The path identifying the object field concerned by this notification.")
 
 
   public String getFieldPath() {
@@ -283,7 +281,7 @@ public class BillingAccountAttributeValueChangeEvent   {
    * The event payload linked to the involved resource object
    * @return event
   **/
-  @ApiModelProperty(value = "The event payload linked to the involved resource object")
+  @Schema(description = "The event payload linked to the involved resource object")
 
   @Valid
 

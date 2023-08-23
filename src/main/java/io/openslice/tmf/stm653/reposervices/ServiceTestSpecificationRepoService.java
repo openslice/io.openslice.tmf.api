@@ -31,8 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,23 +43,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.common.model.Attachment;
-import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
-import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.scm633.model.ServiceCandidate;
-import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
-import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.stm653.model.CharacteristicSpecification;
 import io.openslice.tmf.stm653.model.ServiceTestSpecRelationship;
 import io.openslice.tmf.stm653.model.ServiceTestSpecification;
@@ -68,6 +57,8 @@ import io.openslice.tmf.stm653.model.ServiceTestSpecificationCreate;
 import io.openslice.tmf.stm653.model.ServiceTestSpecificationUpdate;
 import io.openslice.tmf.stm653.repo.ServiceTestSpecificationRepository;
 import io.openslice.tmf.util.AttachmentUtil;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 /**
  * @author ctranoris

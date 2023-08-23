@@ -20,22 +20,20 @@
 package io.openslice.tmf.common.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Embeddable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embeddable;
 
 /**
  * An amount in a given unit
  */
-@ApiModel(description = "An amount in a given unit")
+@Schema(description = "An amount in a given unit")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Embeddable 
 public class Quantity   {
   @JsonProperty("amount")
@@ -53,7 +51,7 @@ public class Quantity   {
    * Numeric value in a given unit
    * @return amount
   **/
-  @ApiModelProperty(value = "Numeric value in a given unit")
+  @Schema(description = "Numeric value in a given unit")
   
     public Float getAmount() {
     return amount;
@@ -72,7 +70,7 @@ public class Quantity   {
    * Unit
    * @return units
   **/
-  @ApiModelProperty(value = "Unit")
+  @Schema(description = "Unit")
   
     public String getUnits() {
     return units;

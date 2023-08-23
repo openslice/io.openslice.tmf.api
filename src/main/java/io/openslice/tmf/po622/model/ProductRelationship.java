@@ -21,22 +21,20 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
  */
-@ApiModel(description = "Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
+@Schema(description = "Linked products to the one instantiate, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class ProductRelationship   {
   @JsonProperty("relationshipType")
   private String relationshipType = null;
@@ -62,7 +60,7 @@ public class ProductRelationship   {
    * Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful
    * @return relationshipType
   **/
-  @ApiModelProperty(required = true, value = "Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
+  @Schema(description = "Type of the product relationship, such as [bundled] if the product is a bundle and you want to describe the bundled products inside this bundle; [reliesOn] if the product needs another already owned product to rely on (e.g. an option on an already owned mobile access product) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
       @NotNull
 
     public String getRelationshipType() {
@@ -82,7 +80,7 @@ public class ProductRelationship   {
    * Get product
    * @return product
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     @Valid
@@ -103,7 +101,7 @@ public class ProductRelationship   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -122,7 +120,7 @@ public class ProductRelationship   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -141,7 +139,7 @@ public class ProductRelationship   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

@@ -21,25 +21,22 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity relationship between/among FeatureSpecificationCharacteristics.
  */
-@ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among FeatureSpecificationCharacteristics.")
+@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among FeatureSpecificationCharacteristics.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "RCMFeatureSpecCharRel")
 public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNamedEntity {
@@ -70,7 +67,7 @@ public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNa
    * Unique identifier of the characteristic within the the target feature specification
    * @return characteristicId
   **/
-  @ApiModelProperty(value = "Unique identifier of the characteristic within the the target feature specification")
+  @Schema(description = "Unique identifier of the characteristic within the the target feature specification")
   
     public String getCharacteristicId() {
     return characteristicId;
@@ -89,7 +86,7 @@ public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNa
    * Unique identifier of the target feature specification within the resource specification.
    * @return featureId
   **/
-  @ApiModelProperty(value = "Unique identifier of the target feature specification within the resource specification.")
+  @Schema(description = "Unique identifier of the target feature specification within the resource specification.")
   
     public String getFeatureId() {
     return featureId;
@@ -108,7 +105,7 @@ public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNa
    * Name of the target characteristic
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the target characteristic")
+  @Schema(description = "Name of the target characteristic")
   
     public String getName() {
     return name;
@@ -127,7 +124,7 @@ public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNa
    * Type of relationship such as aggregation, migration, substitution, dependency, exclusivity
    * @return relationshipType
   **/
-  @ApiModelProperty(value = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
+  @Schema(description = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
   
     public String getRelationshipType() {
     return relationshipType;
@@ -146,7 +143,7 @@ public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNa
    * Hyperlink reference to the resource specification containing the target feature and feature characteristic
    * @return resourceSpecificationHref
   **/
-  @ApiModelProperty(value = "Hyperlink reference to the resource specification containing the target feature and feature characteristic")
+  @Schema(description = "Hyperlink reference to the resource specification containing the target feature and feature characteristic")
   
     public String getResourceSpecificationHref() {
     return resourceSpecificationHref;
@@ -165,7 +162,7 @@ public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNa
    * Unique identifier of the resource specification containing the target feature and feature characteristic
    * @return resourceSpecificationId
   **/
-  @ApiModelProperty(value = "Unique identifier of the resource specification containing the target feature and feature characteristic")
+  @Schema(description = "Unique identifier of the resource specification containing the target feature and feature characteristic")
   
     public String getResourceSpecificationId() {
     return resourceSpecificationId;
@@ -184,7 +181,7 @@ public class FeatureSpecificationCharacteristicRelationship   extends BaseRootNa
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {

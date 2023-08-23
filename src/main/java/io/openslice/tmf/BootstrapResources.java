@@ -24,8 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +55,8 @@ import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BootstrapResources {

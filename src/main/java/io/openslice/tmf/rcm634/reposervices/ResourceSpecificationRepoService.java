@@ -32,8 +32,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,18 +47,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.common.model.Attachment;
-import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.pcm620.reposervices.AttachmentRepoService;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
-import io.openslice.tmf.rcm634.model.LogicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
@@ -67,22 +61,15 @@ import io.openslice.tmf.rcm634.model.ResourceCandidateCreate;
 import io.openslice.tmf.rcm634.model.ResourceCandidateUpdate;
 import io.openslice.tmf.rcm634.model.ResourceFunctionSpecification;
 import io.openslice.tmf.rcm634.model.ResourceFunctionSpecificationCreate;
-import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
-import io.openslice.tmf.ri639.model.Resource;
-import io.openslice.tmf.ri639.model.ResourceCreate;
-import io.openslice.tmf.scm633.model.ServiceCandidate;
-import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
-import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
-import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
-import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ResourceSpecificationRepoService {
@@ -141,7 +128,7 @@ public class ResourceSpecificationRepoService {
 		return (LogicalResourceSpecification) addResourceSpecificationGeneric(reSpec, logicalResourceSpec);
 	}
 	
-	
+
 	public LogicalResourceSpecification addResourceFunctionSpecification(@Valid ResourceFunctionSpecificationCreate serviceSpecification) {
 		ResourceFunctionSpecification reSpec = new ResourceFunctionSpecification();
 		
@@ -155,7 +142,7 @@ public class ResourceSpecificationRepoService {
 
 		return (PhysicalResourceSpecification) addResourceSpecificationGeneric(reSpec, pResourceSpec);
 	}
-	
+
 	private ResourceSpecification addResourceSpecificationGeneric(ResourceSpecification reSpec, @Valid ResourceSpecificationUpdate  resourceSpecification) {
 
 		reSpec = this.updateResourceSpecDataFromAPIcall(reSpec, resourceSpecification);

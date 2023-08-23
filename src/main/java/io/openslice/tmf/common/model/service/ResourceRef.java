@@ -21,21 +21,20 @@ package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * ResourceRef
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 @Entity(name = "ResourceRef")
 public class ResourceRef  extends BaseRootNamedEntity{
@@ -55,7 +54,7 @@ public class ResourceRef  extends BaseRootNamedEntity{
    * Unique identifier of the supporting resource
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of the supporting resource")
+  @Schema(description = "Unique identifier of the supporting resource")
   @NotNull
 
 
@@ -72,7 +71,7 @@ public class ResourceRef  extends BaseRootNamedEntity{
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

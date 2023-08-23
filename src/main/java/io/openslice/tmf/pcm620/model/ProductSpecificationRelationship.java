@@ -21,24 +21,22 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * A migration, substitution, dependency or exclusivity relationship between/among product specifications.
  */
-@ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
+@Schema(description = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity
 public class ProductSpecificationRelationship  extends BaseRootEntity {
@@ -62,7 +60,7 @@ public class ProductSpecificationRelationship  extends BaseRootEntity {
    * Unique identifier of the productSpecification
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the productSpecification")
+  @Schema(description = "Unique identifier of the productSpecification")
 
 
   public String getId() {
@@ -84,7 +82,7 @@ public class ProductSpecificationRelationship  extends BaseRootEntity {
    * Type of relationship such as migration, substitution, dependency, exclusivity
    * @return relationshipType
   **/
-  @ApiModelProperty(value = "Type of relationship such as migration, substitution, dependency, exclusivity")
+  @Schema(description = "Type of relationship such as migration, substitution, dependency, exclusivity")
 
 
   public String getRelationshipType() {
@@ -104,7 +102,7 @@ public class ProductSpecificationRelationship  extends BaseRootEntity {
    * The period for which the productSpecificationRelationship is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the productSpecificationRelationship is valid")
+  @Schema(description = "The period for which the productSpecificationRelationship is valid")
 
   @Valid
 

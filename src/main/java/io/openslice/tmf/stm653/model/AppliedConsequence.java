@@ -21,26 +21,24 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 
 /**
  * An Applied Consequence defines the action (prescribed action or notification)
  * to take when a MeasureThresholdRuleViolation occurs.
  */
-@ApiModel(description = "An Applied Consequence defines the action (prescribed action or notification) to take when a  MeasureThresholdRuleViolation occurs.")
+@Schema(description = "An Applied Consequence defines the action (prescribed action or notification) to take when a  MeasureThresholdRuleViolation occurs.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Entity(name = "STMAppliedConsequence")
 @Table(name = "STMAppliedConsequence")
@@ -68,7 +66,7 @@ public class AppliedConsequence extends BaseRootNamedEntity {
 	 * 
 	 * @return appliedAction
 	 **/
-	@ApiModelProperty(value = "The action for a violated threshold. This could be a hyperlink to  the action.")
+	@Schema(description = "The action for a violated threshold. This could be a hyperlink to  the action.")
 
 	public String getAppliedAction() {
 		return appliedAction;
@@ -88,7 +86,7 @@ public class AppliedConsequence extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A narrative that explains in detail what the consequence is.")
+	@Schema(description = "A narrative that explains in detail what the consequence is.")
 
 	public String getDescription() {
 		return description;
@@ -109,7 +107,7 @@ public class AppliedConsequence extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "A word, term, or phrase by which Consequence is known and  distinguished from other MetricDefMeasureConsequences.")
+	@Schema(description = "A word, term, or phrase by which Consequence is known and  distinguished from other MetricDefMeasureConsequences.")
 
 	public String getName() {
 		return name;
@@ -135,7 +133,7 @@ public class AppliedConsequence extends BaseRootNamedEntity {
 	 * 
 	 * @return repeatAction
 	 **/
-	@ApiModelProperty(value = "An indicator used to specify that a consequence should cease  being applied if a value is in the same range as the previous value or continue being applied if a value is in the same range as the previous value.   If the repeatAction is True, if the consequence is always applied as soon as the MetricMeasure value is in the range of values and if the repeatAction is False, the consequence is applied only if the previous MetricMeasure value was not in the same range.")
+	@Schema(description = "An indicator used to specify that a consequence should cease  being applied if a value is in the same range as the previous value or continue being applied if a value is in the same range as the previous value.   If the repeatAction is True, if the consequence is always applied as soon as the MetricMeasure value is in the range of values and if the repeatAction is False, the consequence is applied only if the previous MetricMeasure value was not in the same range.")
 
 	public Boolean isRepeatAction() {
 		return repeatAction;

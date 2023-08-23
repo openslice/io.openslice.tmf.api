@@ -24,26 +24,24 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Task resource for the acknowledge alarms operation
  */
-@ApiModel(description = "Task resource for the acknowledge alarms operation")
+@Schema(description = "Task resource for the acknowledge alarms operation")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Entity(name = "AMAckAlarms")
 @Table(name = "AMAckAlarms")
 public class AckAlarms extends BaseRootEntity {
@@ -96,7 +94,7 @@ public class AckAlarms extends BaseRootEntity {
 	 * 
 	 * @return ackSystemId
 	 **/
-	@ApiModelProperty(value = "Name of the acknowledging system")
+	@Schema(description = "Name of the acknowledging system")
 
 	public String getAckSystemId() {
 		return ackSystemId;
@@ -116,7 +114,7 @@ public class AckAlarms extends BaseRootEntity {
 	 * 
 	 * @return ackTime
 	 **/
-	@ApiModelProperty(value = "Time of the acknowledgement")
+	@Schema(description = "Time of the acknowledgement")
 
 	@Valid
 	public OffsetDateTime getAckTime() {
@@ -147,7 +145,7 @@ public class AckAlarms extends BaseRootEntity {
 	 * 
 	 * @return ackUserId
 	 **/
-	@ApiModelProperty(value = "Name of the acknowledging user")
+	@Schema(description = "Name of the acknowledging user")
 
 	public String getAckUserId() {
 		return ackUserId;
@@ -167,7 +165,7 @@ public class AckAlarms extends BaseRootEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "Current state of the operation task")
+	@Schema(description = "Current state of the operation task")
 
 	public String getState() {
 		return state;
@@ -195,7 +193,7 @@ public class AckAlarms extends BaseRootEntity {
 	 * 
 	 * @return ackedAlarm
 	 **/
-	@ApiModelProperty(value = "The successfully acknowledged alarms")
+	@Schema(description = "The successfully acknowledged alarms")
 	@Valid
 	public Set<AlarmRefOrValue> getAckedAlarm() {
 		return ackedAlarm;
@@ -225,7 +223,7 @@ public class AckAlarms extends BaseRootEntity {
 	 * 
 	 * @return alarmPattern
 	 **/
-	@ApiModelProperty(value = "Alarm patterns to match target alarms. An alarm will match if all of the sttributes in any of the patterns compare equal to those attributes of the alarm.")
+	@Schema(description = "Alarm patterns to match target alarms. An alarm will match if all of the sttributes in any of the patterns compare equal to those attributes of the alarm.")
 	@Valid
 	public Set<Alarm> getAlarmPattern() {
 		return alarmPattern;

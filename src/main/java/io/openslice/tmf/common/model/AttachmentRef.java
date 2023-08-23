@@ -21,25 +21,20 @@ package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * Attachment reference. An attachment complements the description of an element
  * (for instance a product) through video, pictures
  */
-@ApiModel(description = "Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures")
+@Schema(description = "Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "AttachmentRef")
 public class AttachmentRef   extends BaseRootNamedEntity {
@@ -81,7 +76,7 @@ public class AttachmentRef   extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A narrative text describing the content of the attachment")
+	@Schema(description = "A narrative text describing the content of the attachment")
 
 	public String getDescription() {
 		return description;
@@ -101,7 +96,7 @@ public class AttachmentRef   extends BaseRootNamedEntity {
 	 * 
 	 * @return url
 	 **/
-	@ApiModelProperty(value = "Link to the attachment media/content")
+	@Schema(description = "Link to the attachment media/content")
 
 	public String getUrl() {
 		return url;
@@ -121,7 +116,7 @@ public class AttachmentRef   extends BaseRootNamedEntity {
 	 * 
 	 * @return referredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getReferredType() {
 		return referredType;

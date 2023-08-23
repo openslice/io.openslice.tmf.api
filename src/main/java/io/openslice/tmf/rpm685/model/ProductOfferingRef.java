@@ -1,22 +1,19 @@
 package io.openslice.tmf.rpm685.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
  */
-@ApiModel(description = "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
+@Schema(description = "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class ProductOfferingRef   {
   @JsonProperty("href")
   private String href = null;
@@ -43,7 +40,7 @@ public class ProductOfferingRef   {
    * Reference of the product offering
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the product offering")
+  @Schema(description = "Reference of the product offering")
   
     public String getHref() {
     return href;
@@ -62,7 +59,7 @@ public class ProductOfferingRef   {
    * Unique identifier of the product offering
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the product offering")
+  @Schema(description = "Unique identifier of the product offering")
   
     public String getId() {
     return id;
@@ -81,7 +78,7 @@ public class ProductOfferingRef   {
    * Name of the product offering
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the product offering")
+  @Schema(description = "Name of the product offering")
   
     public String getName() {
     return name;
@@ -108,7 +105,7 @@ public class ProductOfferingRef   {
 //   * Get bundledProductOffering
 //   * @return bundledProductOffering
 //  **/
-//  @ApiModelProperty(value = "")
+//  @Schema(description = "")
 //      @Valid
 //    public List<BundledProductOfferingRef> getBundledProductOffering() {
 //    return bundledProductOffering;
@@ -127,7 +124,7 @@ public class ProductOfferingRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

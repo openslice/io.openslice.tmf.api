@@ -31,8 +31,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,19 +45,13 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
-import io.openslice.tmf.common.model.service.Place;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
-import io.openslice.tmf.ri639.api.ResourceApiRouteBuilder;
+import io.openslice.tmf.ri639.api.ResourceApiRouteBuilderEvents;
 import io.openslice.tmf.ri639.model.Characteristic;
 import io.openslice.tmf.ri639.model.Feature;
 import io.openslice.tmf.ri639.model.LogicalResource;
@@ -68,8 +63,9 @@ import io.openslice.tmf.ri639.model.ResourceCreateNotification;
 import io.openslice.tmf.ri639.model.ResourceRelationship;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
 import io.openslice.tmf.ri639.repo.ResourceRepository;
-import io.openslice.tmf.rpm685.model.ReservationItem;
 import io.openslice.tmf.sim638.model.Service;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 
 
@@ -91,7 +87,7 @@ public class ResourceRepoService {
 	private SessionFactory  sessionFactory;
 
 	@Autowired
-	ResourceApiRouteBuilder resourceApiRouteBuilder;
+	ResourceApiRouteBuilderEvents resourceApiRouteBuilder;
 	
 	@Autowired
 	public ResourceRepoService(EntityManagerFactory factory) {
@@ -432,7 +428,7 @@ public class ResourceRepoService {
 	public String getResourceEagerAsString(String id) throws JsonProcessingException {
 		Resource s = this.getResourceEager(id);
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new Hibernate5Module());
+		mapper.registerModule(new Hibernate5JakartaModule());
 		String res = mapper.writeValueAsString(s);
 
 		return res;

@@ -21,20 +21,19 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Category reference. The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
  */
-@ApiModel(description = "Category reference. The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
+@Schema(description = "Category reference. The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 public class ResourceCategoryRef   extends BaseRootNamedEntity {
   @JsonProperty("id")
@@ -53,7 +52,7 @@ public class ResourceCategoryRef   extends BaseRootNamedEntity {
    * Unique reference of the category
    * @return id
   **/
-  @ApiModelProperty(value = "Unique reference of the category")
+  @Schema(description = "Unique reference of the category")
 
 
   public String getId() {
@@ -75,7 +74,7 @@ public class ResourceCategoryRef   extends BaseRootNamedEntity {
    * Category version
    * @return version
   **/
-  @ApiModelProperty(value = "Category version")
+  @Schema(description = "Category version")
 
 
   public String getVersion() {

@@ -19,7 +19,7 @@
  */
 package io.openslice.tmf.fi691.api;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 public class ApiException extends Exception{
     private int code;

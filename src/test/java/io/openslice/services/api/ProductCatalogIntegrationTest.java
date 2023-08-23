@@ -28,10 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
@@ -53,9 +50,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.pcm620.model.BundledProductOffering;
@@ -84,7 +78,6 @@ import io.openslice.tmf.pcm620.reposervices.ProductCategoryRepoService;
 import io.openslice.tmf.pcm620.reposervices.ProductOfferingPriceRepoService;
 import io.openslice.tmf.pcm620.reposervices.ProductOfferingRepoService;
 import io.openslice.tmf.pcm620.reposervices.ProductSpecificationRepoService;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
 
 @RunWith(SpringRunner.class)
 @Transactional

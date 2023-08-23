@@ -22,6 +22,7 @@ package io.openslice.tmf.cm629.repo;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,7 @@ import io.openslice.tmf.cm629.model.Customer;
 
 
 @Repository
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long> {
+public interface CustomerRepository extends CrudRepository<Customer, Long>, PagingAndSortingRepository<Customer, Long> {
 
 
 	Optional<Customer> findByUuid(String id);

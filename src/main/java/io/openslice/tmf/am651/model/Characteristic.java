@@ -21,19 +21,18 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Describes a given characteristic of an object or entity through a name/value pair.
  */
-@ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
+@Schema(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class Characteristic   {
   @JsonProperty("name")
@@ -57,7 +56,7 @@ public class Characteristic   {
    * Name of the characteristic
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the characteristic")
+  @Schema(description = "Name of the characteristic")
 
 
   public String getName() {
@@ -77,7 +76,7 @@ public class Characteristic   {
    * Value of the characteristic
    * @return value
   **/
-  @ApiModelProperty(value = "Value of the characteristic")
+  @Schema(description = "Value of the characteristic")
 
 
   public String getValue() {
@@ -97,7 +96,7 @@ public class Characteristic   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -117,7 +116,7 @@ public class Characteristic   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {

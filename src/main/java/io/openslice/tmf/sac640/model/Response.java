@@ -19,24 +19,25 @@
  */
 package io.openslice.tmf.sac640.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.sac640.model.HeaderItem;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * A response to a request
  */
-@ApiModel(description = "A response to a request")
+@Schema(description = "A response to a request")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
 public class Response   {
   @JsonProperty("body")
   private String body = null;
@@ -66,7 +67,7 @@ public class Response   {
    * The body of the response. For example for an HTTP response might contain HTML for rendering.
    * @return body
   **/
-  @ApiModelProperty(required = true, value = "The body of the response. For example for an HTTP response might contain HTML for rendering.")
+  @Schema(description = "The body of the response. For example for an HTTP response might contain HTML for rendering.")
       @NotNull
 
     public String getBody() {
@@ -86,7 +87,7 @@ public class Response   {
    * The status of the response. For example for an HTTP response would be codes such as 200, 400, etc.
    * @return statusCode
   **/
-  @ApiModelProperty(value = "The status of the response. For example for an HTTP response would be codes such as 200, 400, etc.")
+  @Schema(description = "The status of the response. For example for an HTTP response would be codes such as 200, 400, etc.")
   
     public String getStatusCode() {
     return statusCode;
@@ -110,7 +111,7 @@ public class Response   {
    * Items included in the header of the response. For example for an HTTP response might contain negotiated locale.
    * @return header
   **/
-  @ApiModelProperty(required = true, value = "Items included in the header of the response. For example for an HTTP response might contain negotiated locale.")
+  @Schema(description = "Items included in the header of the response. For example for an HTTP response might contain negotiated locale.")
       @NotNull
     @Valid
   @Size(min=1)   public List<HeaderItem> getHeader() {
@@ -130,7 +131,7 @@ public class Response   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -149,7 +150,7 @@ public class Response   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -168,7 +169,7 @@ public class Response   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

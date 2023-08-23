@@ -25,22 +25,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 
 /**
  * ResourceCandidate is an entity that makes a resource specification available
@@ -48,9 +46,9 @@ import io.swagger.annotations.ApiModelProperty;
  * may be published - made visible - in any number of resource catalogs, or in
  * none.
  */
-@ApiModel(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.")
+@Schema(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 @Entity(name = "ResourceCandidate")
 public class ResourceCandidate extends BaseEntity {
 	@JsonProperty("id")
@@ -78,7 +76,7 @@ public class ResourceCandidate extends BaseEntity {
 	 * 
 	 * @return resourceSpecification
 	 **/
-	@ApiModelProperty(value = "The resource specification implied by this candidate")
+	@Schema(description = "The resource specification implied by this candidate")
 
 	@Transient
 	@JsonProperty("resourceSpecification")
@@ -124,7 +122,7 @@ public class ResourceCandidate extends BaseEntity {
 	 * 
 	 * @return resourceSpecification
 	 **/
-	@ApiModelProperty(value = "The category specification implied by this candidate")
+	@Schema(description = "The category specification implied by this candidate")
 
 	@Transient
 	@JsonProperty("category")
@@ -150,7 +148,7 @@ public class ResourceCandidate extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of this REST resource")
+	@Schema(description = "Unique identifier of this REST resource")
 
 	public String getId() {
 		return uuid;

@@ -2,13 +2,13 @@ package io.openslice.tmf.lcm.model;
 
 import java.util.List;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.springframework.validation.annotation.Validated;
 
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -18,7 +18,7 @@ import lombok.Data;
  *         apply during the LCM of a service
  *
  */
-@ApiModel(description = "A LCM RuleSpecification is an entity that describes a LCM rule to apply during the LCM of a service.")
+@Schema(description = "A LCM RuleSpecification is an entity that describes a LCM rule to apply during the LCM of a service.")
 @Validated
 @Data
 public class LCMRuleSpecificationUpdate {

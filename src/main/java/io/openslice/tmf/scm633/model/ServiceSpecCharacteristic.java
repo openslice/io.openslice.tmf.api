@@ -27,23 +27,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * This class represents the key features of this service specification. For
@@ -52,9 +49,9 @@ import io.swagger.annotations.ApiModelProperty;
  * Customer obtaining this Service via a Product) then bandwidth would be a
  * ServiceSpecCharacteristic for that particular Service.
  */
-@ApiModel(description = "This class represents the key features of this service specification. For example, bandwidth is a characteristic of many different types of services; if bandwidth is a relevant characteristic (e.g., from the point-of-view of a Customer obtaining this Service via a Product) then bandwidth would be a ServiceSpecCharacteristic for that particular Service.")
+@Schema(description = "This class represents the key features of this service specification. For example, bandwidth is a characteristic of many different types of services; if bandwidth is a relevant characteristic (e.g., from the point-of-view of a Customer obtaining this Service via a Product) then bandwidth would be a ServiceSpecCharacteristic for that particular Service.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceSpecCharacteristic")
 public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
@@ -152,7 +149,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return configurable
 	 **/
-	@ApiModelProperty(value = "If true, the Boolean indicates that the serviceSpecCharacteristic is configurable")
+	@Schema(description = "If true, the Boolean indicates that the serviceSpecCharacteristic is configurable")
 
 	public Boolean isConfigurable() {
 		return configurable;
@@ -172,7 +169,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A narrative that explains in detail what the serviceSpecCharacteristic is")
+	@Schema(description = "A narrative that explains in detail what the serviceSpecCharacteristic is")
 
 	public String getDescription() {
 		return description;
@@ -194,7 +191,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return extensible
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for an Entity.")
+	@Schema(description = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for an Entity.")
 
 	public Boolean isExtensible() {
 		return extensible;
@@ -216,7 +213,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return isUnique
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
+	@Schema(description = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
 
 	public Boolean isIsUnique() {
 		return isUnique;
@@ -238,7 +235,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return maxCardinality
 	 **/
-	@ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
+	@Schema(description = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
 
 	public Integer getMaxCardinality() {
 		return maxCardinality;
@@ -260,7 +257,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return minCardinality
 	 **/
-	@ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
+	@Schema(description = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
 
 	public Integer getMinCardinality() {
 		return minCardinality;
@@ -281,7 +278,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return regex
 	 **/
-	@ApiModelProperty(value = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
+	@Schema(description = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
 
 	public String getRegex() {
 		return regex;
@@ -302,7 +299,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+	@Schema(description = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
 
 	public String getValueType() {
 		return valueType;
@@ -334,7 +331,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceSpecCharRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service spec char relationships (ServiceSpecCharRelationship [*]). An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
+	@Schema(description = "A list of service spec char relationships (ServiceSpecCharRelationship [*]). An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
 
 	@Valid
 
@@ -373,7 +370,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceSpecCharacteristicValue
 	 **/
-	@ApiModelProperty(value = "A list of service spec characteristic values (ServiceSpecCharacteristicValue [*]). A ServiceSpecCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ServiceSpecCharacteristic object. The values of the attributes in the ServiceSpecCharacteristicValue object describe the values of the attributes that a corresponding ServiceSpecCharacteristic object can take on.")
+	@Schema(description = "A list of service spec characteristic values (ServiceSpecCharacteristicValue [*]). A ServiceSpecCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ServiceSpecCharacteristic object. The values of the attributes in the ServiceSpecCharacteristicValue object describe the values of the attributes that a corresponding ServiceSpecCharacteristic object can take on.")
 
 	@Valid
 
@@ -395,7 +392,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the serviceSpecCharacteristic is valid")
+	@Schema(description = "The period for which the serviceSpecCharacteristic is valid")
 
 	@Valid
 
@@ -418,7 +415,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 	 * 
 	 * @return valueSchemaLocation
 	 **/
-	@ApiModelProperty(value = "This (optional) field provides a link to the schema describing the value type.")
+	@Schema(description = "This (optional) field provides a link to the schema describing the value type.")
 
 	public String getValueSchemaLocation() {
 		return valueSchemaLocation;
@@ -446,8 +443,7 @@ public class ServiceSpecCharacteristic extends BaseRootNamedEntity {
 				&& Objects.equals(this.name, serviceSpecCharacteristic.name)
 				&& Objects.equals(this.regex, serviceSpecCharacteristic.regex)
 				&& Objects.equals(this.valueType, serviceSpecCharacteristic.valueType)
-				&& Objects.equals(this.serviceSpecCharRelationship,
-						serviceSpecCharacteristic.serviceSpecCharRelationship)
+				&& Objects.equals(this.serviceSpecCharRelationship, serviceSpecCharacteristic.serviceSpecCharRelationship)
 				&& Objects.equals(this.serviceSpecCharacteristicValue,
 						serviceSpecCharacteristic.serviceSpecCharacteristicValue)
 				&& Objects.equals(this.validFor, serviceSpecCharacteristic.validFor)

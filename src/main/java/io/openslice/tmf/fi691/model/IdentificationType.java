@@ -19,26 +19,25 @@
  */
 package io.openslice.tmf.fi691.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Somebody&#39;s national ID
  */
-@ApiModel(description = "Somebody's national ID")
+@Schema(description = "Somebody's national ID")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "IdentificationType")
 public class IdentificationType  extends BaseRootEntity  {
@@ -66,7 +65,7 @@ public class IdentificationType  extends BaseRootEntity  {
    * Identification number of the document
    * @return identificationId
   **/
-  @ApiModelProperty(required = true, value = "Identification number of the document")
+  @Schema(description = "Identification number of the document")
   @NotNull
 
 
@@ -87,7 +86,7 @@ public class IdentificationType  extends BaseRootEntity  {
    * Country that issued the document
    * @return country
   **/
-  @ApiModelProperty(required = true, value = "Country that issued the document")
+  @Schema(description = "Country that issued the document")
   @NotNull
 
 
@@ -108,7 +107,7 @@ public class IdentificationType  extends BaseRootEntity  {
    * Authority that issued the legal identification (e.g.: social security, town hall, ...)
    * @return issuingAuthority
   **/
-  @ApiModelProperty(value = "Authority that issued the legal identification (e.g.: social security, town hall, ...)")
+  @Schema(description = "Authority that issued the legal identification (e.g.: social security, town hall, ...)")
 
 
   public String getIssuingAuthority() {
@@ -128,7 +127,7 @@ public class IdentificationType  extends BaseRootEntity  {
    * Date when identification was issued
    * @return issuingDate
   **/
-  @ApiModelProperty(value = "Date when identification was issued")
+  @Schema(description = "Date when identification was issued")
 
   @Valid
 

@@ -21,21 +21,19 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * RelatedProductOrderItem (ProductOrder item) .The product order item which triggered product creation/change/termination.
  */
-@ApiModel(description = "RelatedProductOrderItem (ProductOrder item) .The product order item which triggered product creation/change/termination.")
+@Schema(description = "RelatedProductOrderItem (ProductOrder item) .The product order item which triggered product creation/change/termination.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class RelatedProductOrderItem   {
   @JsonProperty("orderItemAction")
   private String orderItemAction = null;
@@ -73,7 +71,7 @@ public class RelatedProductOrderItem   {
    * Action of the order item for this product
    * @return orderItemAction
   **/
-  @ApiModelProperty(value = "Action of the order item for this product")
+  @Schema(description = "Action of the order item for this product")
   
     public String getOrderItemAction() {
     return orderItemAction;
@@ -92,7 +90,7 @@ public class RelatedProductOrderItem   {
    * Identifier of the order item where the product was managed
    * @return orderItemId
   **/
-  @ApiModelProperty(required = true, value = "Identifier of the order item where the product was managed")
+  @Schema(description = "Identifier of the order item where the product was managed")
       @NotNull
 
     public String getOrderItemId() {
@@ -112,7 +110,7 @@ public class RelatedProductOrderItem   {
    * Reference of the related entity.
    * @return productOrderHref
   **/
-  @ApiModelProperty(value = "Reference of the related entity.")
+  @Schema(description = "Reference of the related entity.")
   
     public String getProductOrderHref() {
     return productOrderHref;
@@ -131,7 +129,7 @@ public class RelatedProductOrderItem   {
    * Unique identifier of a related entity.
    * @return productOrderId
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of a related entity.")
+  @Schema(description = "Unique identifier of a related entity.")
       @NotNull
 
     public String getProductOrderId() {
@@ -151,7 +149,7 @@ public class RelatedProductOrderItem   {
    * role of the product order item for this product
    * @return role
   **/
-  @ApiModelProperty(value = "role of the product order item for this product")
+  @Schema(description = "role of the product order item for this product")
   
     public String getRole() {
     return role;
@@ -170,7 +168,7 @@ public class RelatedProductOrderItem   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -189,7 +187,7 @@ public class RelatedProductOrderItem   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -208,7 +206,7 @@ public class RelatedProductOrderItem   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;
@@ -227,7 +225,7 @@ public class RelatedProductOrderItem   {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

@@ -1,20 +1,19 @@
 package io.openslice.tmf.rpm685.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Channel reference. The channel defines the channel for selling product offerings.
  */
-@ApiModel(description = "Channel reference. The channel defines the channel for selling product offerings.")
+@Schema(description = "Channel reference. The channel defines the channel for selling product offerings.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class ChannelRef   {
   @JsonProperty("href")
   private String href = null;
@@ -37,7 +36,7 @@ public class ChannelRef   {
    * Reference of the channel
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the channel")
+  @Schema(description = "Reference of the channel")
   
     public String getHref() {
     return href;
@@ -56,7 +55,7 @@ public class ChannelRef   {
    * Unique identifier of the channel
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the channel")
+  @Schema(description = "Unique identifier of the channel")
   
     public String getId() {
     return id;
@@ -75,7 +74,7 @@ public class ChannelRef   {
    * Name of the channel
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the channel")
+  @Schema(description = "Name of the channel")
   
     public String getName() {
     return name;
@@ -94,7 +93,7 @@ public class ChannelRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

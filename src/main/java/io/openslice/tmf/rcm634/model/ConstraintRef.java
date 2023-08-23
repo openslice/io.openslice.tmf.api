@@ -21,24 +21,22 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.
  */
-@ApiModel(description = "Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.")
+@Schema(description = "Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "RCMConstraintRef")
 @Table(name = "RCMConstraintRef")
@@ -63,7 +61,7 @@ public class ConstraintRef extends BaseRootNamedEntity  {
    * reference id to the target constraint
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "reference id to the target constraint")
+  @Schema(description = "reference id to the target constraint")
       @NotNull
 
     public String getId() {
@@ -83,7 +81,7 @@ public class ConstraintRef extends BaseRootNamedEntity  {
    * Hyperlink reference to the target constraint
    * @return href
   **/
-  @ApiModelProperty(value = "Hyperlink reference to the target constraint")
+  @Schema(description = "Hyperlink reference to the target constraint")
   
     public String getHref() {
     return href;
@@ -102,7 +100,7 @@ public class ConstraintRef extends BaseRootNamedEntity  {
    * Name given to the constraint
    * @return name
   **/
-  @ApiModelProperty(value = "Name given to the constraint")
+  @Schema(description = "Name given to the constraint")
   
     public String getName() {
     return name;
@@ -121,7 +119,7 @@ public class ConstraintRef extends BaseRootNamedEntity  {
    * constraint version
    * @return version
   **/
-  @ApiModelProperty(value = "constraint version")
+  @Schema(description = "constraint version")
   
     public String getVersion() {
     return version;
@@ -142,7 +140,7 @@ public class ConstraintRef extends BaseRootNamedEntity  {
    * The (class) type of the referred constraint
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The (class) type of the referred constraint")
+  @Schema(description = "The (class) type of the referred constraint")
   
     public String getAtReferredType() {
     return _atReferredType;

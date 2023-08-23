@@ -21,19 +21,17 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * A ProductSpecificationCharacteristicValue object is used to define a set of
@@ -43,9 +41,9 @@ import io.swagger.annotations.ApiModelProperty;
  * values of the attributes that a corresponding
  * ProductSpecificationCharacteristic object can take on.
  */
-@ApiModel(description = "A ProductSpecificationCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ProductSpecificationCharacteristic object. The values of the attributes in the ProductSpecificationCharacteristicValue object describe the values of the attributes that a corresponding ProductSpecificationCharacteristic object can take on.")
+@Schema(description = "A ProductSpecificationCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ProductSpecificationCharacteristic object. The values of the attributes in the ProductSpecificationCharacteristicValue object describe the values of the attributes that a corresponding ProductSpecificationCharacteristic object can take on.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity(name = "ProdSpecCharValue")
 @Table(name = "ProdSpecCharValue")
@@ -109,7 +107,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return isDefault
 	 **/
-	@ApiModelProperty(value = "Indicates if the value is the default value for a characteristic")
+	@Schema(description = "Indicates if the value is the default value for a characteristic")
 
 	public Boolean isIsDefault() {
 		return isDefault;
@@ -131,7 +129,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return rangeInterval
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
+	@Schema(description = "An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
 
 	public String getRangeInterval() {
 		return rangeInterval;
@@ -151,7 +149,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return regex
 	 **/
-	@ApiModelProperty(value = "Regular expression to define constraint on the allowed value")
+	@Schema(description = "Regular expression to define constraint on the allowed value")
 
 	public String getRegex() {
 		return regex;
@@ -174,7 +172,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return unitOfMeasure
 	 **/
-	@ApiModelProperty(value = "A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.")
+	@Schema(description = "A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.")
 
 	public String getUnitOfMeasure() {
 		return unitOfMeasure;
@@ -194,7 +192,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return valueFrom
 	 **/
-	@ApiModelProperty(value = "The low range value that a characteristic can take on")
+	@Schema(description = "The low range value that a characteristic can take on")
 
 	public String getValueFrom() {
 		return valueFrom;
@@ -215,7 +213,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the entity is valid")
+	@Schema(description = "The period for which the entity is valid")
 
 	@Valid
 
@@ -234,7 +232,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return valueTo
 	 **/
-	@ApiModelProperty(value = "The upper range value that a characteristic can take on")
+	@Schema(description = "The upper range value that a characteristic can take on")
 
 	public String getValueTo() {
 		return valueTo;
@@ -255,7 +253,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text, and so forth")
+	@Schema(description = "A kind of value that the characteristic can take on, such as numeric, text, and so forth")
 
 	public String getValueType() {
 		return valueType;
@@ -278,7 +276,7 @@ public class ProductSpecificationCharacteristicValue extends BaseRootEntity {
 	 * 
 	 * @return value
 	 **/
-	@ApiModelProperty(value = "A discrete value that the characteristic can take on, or the actual value of the characteristic")
+	@Schema(description = "A discrete value that the characteristic can take on, or the actual value of the characteristic")
 
 	@Valid
 

@@ -19,11 +19,14 @@
  */
 package io.openslice.tmf.rcm634.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Controller;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.stereotype.Controller;
+
+import jakarta.servlet.http.HttpServletRequest;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 @Controller
 public class ImportJobApiController implements ImportJobApi {
 

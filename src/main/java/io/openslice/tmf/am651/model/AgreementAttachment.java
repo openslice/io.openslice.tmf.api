@@ -21,19 +21,18 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Represents a complementary piece of information to describe the agreement. Could be a document, picture, a video or any kind of multimedia content.
  */
-@ApiModel(description = "Represents a complementary piece of information to describe the agreement. Could be a document, picture, a video or any kind of multimedia content.")
+@Schema(description = "Represents a complementary piece of information to describe the agreement. Could be a document, picture, a video or any kind of multimedia content.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementAttachment   {
   @JsonProperty("href")
@@ -60,7 +59,7 @@ public class AgreementAttachment   {
    * Reference of the attachment
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the attachment")
+  @Schema(description = "Reference of the attachment")
 
 
   public String getHref() {
@@ -80,7 +79,7 @@ public class AgreementAttachment   {
    * Unique identifier of the attachment
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the attachment")
+  @Schema(description = "Unique identifier of the attachment")
 
 
   public String getId() {
@@ -100,7 +99,7 @@ public class AgreementAttachment   {
    * Attachment type such as video, picture
    * @return type
   **/
-  @ApiModelProperty(value = "Attachment type such as video, picture")
+  @Schema(description = "Attachment type such as video, picture")
 
 
   public String getTypeAgreementAttachment() {
@@ -120,7 +119,7 @@ public class AgreementAttachment   {
    * Uniform Resource Locator, is a web page address (a subset of URI)
    * @return url
   **/
-  @ApiModelProperty(value = "Uniform Resource Locator, is a web page address (a subset of URI)")
+  @Schema(description = "Uniform Resource Locator, is a web page address (a subset of URI)")
 
 
   public String getUrl() {
@@ -140,7 +139,7 @@ public class AgreementAttachment   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {

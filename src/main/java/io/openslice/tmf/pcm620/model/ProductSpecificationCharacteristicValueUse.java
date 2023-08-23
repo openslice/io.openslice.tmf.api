@@ -27,21 +27,19 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * A use of the ProductSpecificationCharacteristicValue by a ProductOffering to
@@ -58,9 +56,9 @@ import io.swagger.annotations.ApiModelProperty;
  * the list of values as defined in the corresponding product specification
  * characteristics.
  */
-@ApiModel(description = "A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
+@Schema(description = "A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity(name = "ProdSpecCharValueUse")
 @Table(name = "ProdSpecCharValueUse")
@@ -113,7 +111,7 @@ public class ProductSpecificationCharacteristicValueUse extends BaseEntity {
 	 * 
 	 * @return maxCardinality
 	 **/
-	@ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
+	@Schema(description = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
 
 	public Integer getMaxCardinality() {
 		return maxCardinality;
@@ -135,7 +133,7 @@ public class ProductSpecificationCharacteristicValueUse extends BaseEntity {
 	 * 
 	 * @return minCardinality
 	 **/
-	@ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
+	@Schema(description = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
 
 	public Integer getMinCardinality() {
 		return minCardinality;
@@ -157,7 +155,7 @@ public class ProductSpecificationCharacteristicValueUse extends BaseEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+	@Schema(description = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
 
 	public String getValueType() {
 		return valueType;
@@ -188,7 +186,7 @@ public class ProductSpecificationCharacteristicValueUse extends BaseEntity {
 	 * 
 	 * @return productSpecCharacteristicValue
 	 **/
-	@ApiModelProperty(value = "A number or text that can be assigned to a ProductSpecificationCharacteristic.")
+	@Schema(description = "A number or text that can be assigned to a ProductSpecificationCharacteristic.")
 
 	@Valid
 
@@ -214,7 +212,7 @@ public class ProductSpecificationCharacteristicValueUse extends BaseEntity {
 	 * 
 	 * @return productSpecification
 	 **/
-	@ApiModelProperty(value = "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
+	@Schema(description = "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
 
 	@Valid
 

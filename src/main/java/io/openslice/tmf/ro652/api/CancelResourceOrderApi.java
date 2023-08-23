@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,17 +21,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.ro652.model.CancelResourceOrder;
 import io.openslice.tmf.ro652.model.CancelResourceOrderCreate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
-@Api(value = "cancelResourceOrder", description = "the cancelResourceOrder API")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@Tag(name = "cancelResourceOrder", description = "the cancelResourceOrder API")
 public interface CancelResourceOrderApi {
 
     Logger log = LoggerFactory.getLogger(CancelResourceOrderApi.class);
@@ -49,20 +48,20 @@ public interface CancelResourceOrderApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a CancelResourceOrder", nickname = "createCancelResourceOrder", notes = "This operation creates a CancelResourceOrder entity.", response = CancelResourceOrder.class, tags={ "cancelResourceOrder", })
+    @Operation(summary = "Creates a CancelResourceOrder", operationId = "createCancelResourceOrder", description = "This operation creates a CancelResourceOrder entity.", tags={ "cancelResourceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = CancelResourceOrder.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/cancelResourceOrder",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<CancelResourceOrder> createCancelResourceOrder(@ApiParam(value = "The CancelResourceOrder to be created" ,required=true )  @Valid @RequestBody CancelResourceOrderCreate body
+    default ResponseEntity<CancelResourceOrder> createCancelResourceOrder(@Parameter(description = "The CancelResourceOrder to be created" ,required=true )  @Valid @RequestBody CancelResourceOrderCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -80,22 +79,22 @@ public interface CancelResourceOrderApi {
     }
 
 
-    @ApiOperation(value = "List or find CancelResourceOrder objects", nickname = "listCancelResourceOrder", notes = "This operation list or find CancelResourceOrder entities", response = CancelResourceOrder.class, responseContainer = "List", tags={ "cancelResourceOrder", })
+    @Operation(summary = "List or find CancelResourceOrder objects", operationId = "listCancelResourceOrder", description = "This operation list or find CancelResourceOrder entities" , tags={ "cancelResourceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = CancelResourceOrder.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/cancelResourceOrder",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<CancelResourceOrder>> listCancelResourceOrder(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
-,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
-,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    default ResponseEntity<List<CancelResourceOrder>> listCancelResourceOrder(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
+,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
+,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -113,21 +112,21 @@ public interface CancelResourceOrderApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a CancelResourceOrder by ID", nickname = "retrieveCancelResourceOrder", notes = "This operation retrieves a CancelResourceOrder entity. Attribute selection is enabled for all first level attributes.", response = CancelResourceOrder.class, tags={ "cancelResourceOrder", })
+    @Operation(summary = "Retrieves a CancelResourceOrder by ID", operationId = "retrieveCancelResourceOrder", description = "This operation retrieves a CancelResourceOrder entity. Attribute selection is enabled for all first level attributes.", tags={ "cancelResourceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = CancelResourceOrder.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/cancelResourceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<CancelResourceOrder> retrieveCancelResourceOrder(@ApiParam(value = "Identifier of the CancelResourceOrder",required=true) @PathVariable("id") String id
-,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<CancelResourceOrder> retrieveCancelResourceOrder(@Parameter(description = "Identifier of the CancelResourceOrder",required=true) @PathVariable("id") String id
+,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

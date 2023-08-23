@@ -22,30 +22,28 @@ package io.openslice.tmf.pm632.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * Represents our registration of information used as proof of identity by an
  * individual (passport, national identity card, drivers license, social
  * security number, birth certificate)
  */
-@ApiModel(description = "Represents our registration of information used as proof of identity by an individual (passport, national identity card, drivers license, social security number, birth certificate)")
+@Schema(description = "Represents our registration of information used as proof of identity by an individual (passport, national identity card, drivers license, social security number, birth certificate)")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity
 public class IndividualIdentification extends BaseRootEntity {
@@ -78,7 +76,7 @@ public class IndividualIdentification extends BaseRootEntity {
 	 * 
 	 * @return identificationId
 	 **/
-	@ApiModelProperty(value = "Identifier")
+	@Schema(description = "Identifier")
 
 	public String getIdentificationId() {
 		return identificationId;
@@ -99,7 +97,7 @@ public class IndividualIdentification extends BaseRootEntity {
 	 * 
 	 * @return identificationType
 	 **/
-	@ApiModelProperty(value = "Identification type (passport, national identity card, drivers license, social security number, birth certificate)")
+	@Schema(description = "Identification type (passport, national identity card, drivers license, social security number, birth certificate)")
 
 	public String getIdentificationType() {
 		return identificationType;
@@ -120,7 +118,7 @@ public class IndividualIdentification extends BaseRootEntity {
 	 * 
 	 * @return issuingAuthority
 	 **/
-	@ApiModelProperty(value = "Authority which has issued the identifier, such as: social security, town hall")
+	@Schema(description = "Authority which has issued the identifier, such as: social security, town hall")
 
 	public String getIssuingAuthority() {
 		return issuingAuthority;
@@ -140,7 +138,7 @@ public class IndividualIdentification extends BaseRootEntity {
 	 * 
 	 * @return issuingDate
 	 **/
-	@ApiModelProperty(value = "Date at which the identifier was issued")
+	@Schema(description = "Date at which the identifier was issued")
 
 	@Valid
 
@@ -167,7 +165,7 @@ public class IndividualIdentification extends BaseRootEntity {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -189,7 +187,7 @@ public class IndividualIdentification extends BaseRootEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the identification information is valid.")
+	@Schema(description = "The period for which the identification information is valid.")
 
 	@Valid
 

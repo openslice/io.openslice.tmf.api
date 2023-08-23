@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications. Skipped properties: id,href
  */
-@ApiModel(description = "A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications. Skipped properties: id,href")
+@Schema(description = "A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class ServiceLevelSpecificationCreate   {
   @JsonProperty("description")
@@ -73,7 +71,7 @@ public class ServiceLevelSpecificationCreate   {
    * A brief introduction of a service level specification.
    * @return description
   **/
-  @ApiModelProperty(value = "A brief introduction of a service level specification.")
+  @Schema(description = "A brief introduction of a service level specification.")
 
 
   public String getDescription() {
@@ -93,7 +91,7 @@ public class ServiceLevelSpecificationCreate   {
    * The name of Service Level Specification
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of Service Level Specification")
+  @Schema(description = "The name of Service Level Specification")
   @NotNull
 
 
@@ -114,7 +112,7 @@ public class ServiceLevelSpecificationCreate   {
    * A valid duration of a thing.
    * @return validFor
   **/
-  @ApiModelProperty(value = "A valid duration of a thing.")
+  @Schema(description = "A valid duration of a thing.")
 
   @Valid
 
@@ -140,7 +138,7 @@ public class ServiceLevelSpecificationCreate   {
    * Get objective
    * @return objective
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
   @NotNull
 
   @Valid
@@ -162,7 +160,7 @@ public class ServiceLevelSpecificationCreate   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -182,7 +180,7 @@ public class ServiceLevelSpecificationCreate   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -202,7 +200,7 @@ public class ServiceLevelSpecificationCreate   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

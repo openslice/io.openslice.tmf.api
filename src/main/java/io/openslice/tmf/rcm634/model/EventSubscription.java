@@ -21,21 +21,19 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Sets the communication endpoint address the service instance must use to deliver notification information
  */
-@ApiModel(description = "Sets the communication endpoint address the service instance must use to deliver notification information")
+@Schema(description = "Sets the communication endpoint address the service instance must use to deliver notification information")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 public class EventSubscription   {
   @JsonProperty("id")
   private String id = null;
@@ -55,7 +53,7 @@ public class EventSubscription   {
    * Id of the listener
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Id of the listener")
+  @Schema(description = "Id of the listener")
       @NotNull
 
     public String getId() {
@@ -75,7 +73,7 @@ public class EventSubscription   {
    * The callback being registered.
    * @return callback
   **/
-  @ApiModelProperty(required = true, value = "The callback being registered.")
+  @Schema(description = "The callback being registered.")
       @NotNull
 
     public String getCallback() {
@@ -95,7 +93,7 @@ public class EventSubscription   {
    * additional data to be passed
    * @return query
   **/
-  @ApiModelProperty(value = "additional data to be passed")
+  @Schema(description = "additional data to be passed")
   
     public String getQuery() {
     return query;

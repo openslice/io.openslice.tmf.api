@@ -24,34 +24,31 @@
  */
 package io.openslice.tmf.sac640.api;
 
-import io.openslice.tmf.sac640.model.Error;
-import io.openslice.tmf.sac640.model.Monitor;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
-@Api(value = "monitor", description = "the monitor API")
+import io.openslice.tmf.sac640.model.Monitor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
+@Tag(name = "monitor", description = "the monitor API")
 public interface MonitorApi {
 
     Logger log = LoggerFactory.getLogger(MonitorApi.class);
@@ -68,22 +65,22 @@ public interface MonitorApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "List or find Monitor objects", nickname = "listMonitor", notes = "This operation list or find Monitor entities", response = Monitor.class, responseContainer = "List", tags={ "monitor", })
+    @Operation(summary = "List or find Monitor objects", operationId = "listMonitor", description = "This operation list or find Monitor entities" , tags={ "monitor", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = Monitor.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/monitor",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<Monitor>> listMonitor(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
-,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
-,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    default ResponseEntity<List<Monitor>> listMonitor(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
+,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
+,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -101,21 +98,21 @@ public interface MonitorApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a Monitor by ID", nickname = "retrieveMonitor", notes = "This operation retrieves a Monitor entity. Attribute selection is enabled for all first level attributes.", response = Monitor.class, tags={ "monitor", })
+    @Operation(summary = "Retrieves a Monitor by ID", operationId = "retrieveMonitor", description = "This operation retrieves a Monitor entity. Attribute selection is enabled for all first level attributes.", tags={ "monitor", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = Monitor.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/monitor/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<Monitor> retrieveMonitor(@ApiParam(value = "Identifier of the Monitor",required=true) @PathVariable("id") String id
-,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<Monitor> retrieveMonitor(@Parameter(description = "Identifier of the Monitor",required=true) @PathVariable("id") String id
+,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

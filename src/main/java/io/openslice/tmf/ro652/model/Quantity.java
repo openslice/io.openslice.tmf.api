@@ -2,19 +2,18 @@ package io.openslice.tmf.ro652.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * An amount in a given unit
  */
-@ApiModel(description = "An amount in a given unit")
+@Schema(description = "An amount in a given unit")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class Quantity   {
   @JsonProperty("amount")
   private Float amount = 1.0f;
@@ -31,7 +30,7 @@ public class Quantity   {
    * Numeric value in a given unit
    * @return amount
   **/
-  @ApiModelProperty(value = "Numeric value in a given unit")
+  @Schema(description = "Numeric value in a given unit")
   
     public Float getAmount() {
     return amount;
@@ -50,7 +49,7 @@ public class Quantity   {
    * Unit
    * @return units
   **/
-  @ApiModelProperty(value = "Unit")
+  @Schema(description = "Unit")
   
     public String getUnits() {
     return units;

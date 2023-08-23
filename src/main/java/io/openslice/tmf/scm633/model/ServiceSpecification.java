@@ -23,18 +23,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.springframework.validation.annotation.Validated;
 
 import io.openslice.sd.model.ServiceDescriptor;
 import io.openslice.tmf.common.model.AttachmentRef;
@@ -42,8 +34,14 @@ import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * ServiceSpecification is a class that offers characteristics to describe a
@@ -55,9 +53,9 @@ import io.swagger.annotations.ApiModelProperty;
  * @author ctranoris
  *
  */
-@ApiModel(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics.")
+@Schema(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Entity(name = "ServiceSpecification")
 public class ServiceSpecification extends BaseEntity {
 
@@ -217,7 +215,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).")
+	@Schema(description = "isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).")
 
 	public Boolean isIsBundle() {
 		if ( isBundle == null) {
@@ -249,7 +247,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...")
+	@Schema(description = "A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...")
 
 	@Valid
 
@@ -280,7 +278,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.")
+	@Schema(description = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.")
 
 	@Valid
 
@@ -312,7 +310,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return resourceSpecification
 	 **/
-	@ApiModelProperty(value = "A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).")
+	@Schema(description = "A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).")
 
 	@Valid
 
@@ -345,7 +343,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return serviceLevelSpecification
 	 **/
-	@ApiModelProperty(value = "A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum")
+	@Schema(description = "A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum")
 
 	@Valid
 
@@ -377,7 +375,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return serviceSpecCharacteristic
 	 **/
-	@ApiModelProperty(value = "A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.")
+	@Schema(description = "A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.")
 
 	@Valid
 
@@ -408,7 +406,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return serviceSpecRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship")
+	@Schema(description = "A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship")
 
 	@Valid
 
@@ -432,7 +430,7 @@ public class ServiceSpecification extends BaseEntity {
 	 * 
 	 * @return targetServiceSchema
 	 **/
-	@ApiModelProperty(value = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
+	@Schema(description = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
 
 	@Valid
 

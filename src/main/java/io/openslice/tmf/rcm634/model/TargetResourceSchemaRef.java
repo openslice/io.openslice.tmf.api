@@ -21,19 +21,18 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
-
 import org.springframework.validation.annotation.Validated;
 
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embeddable;
 
 /**
  * The reference object to the schema and type of target resource which is described by resource specification
  */
-@ApiModel(description = "The reference object to the schema and type of target resource which is described by resource specification")
+@Schema(description = "The reference object to the schema and type of target resource which is described by resource specification")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 @Embeddable
 public class TargetResourceSchemaRef   extends BaseRootEntity  {

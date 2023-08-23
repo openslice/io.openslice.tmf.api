@@ -23,12 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.am651.model.AgreementRef;
 import io.openslice.tmf.am666.model.AccountRef;
@@ -37,15 +34,16 @@ import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.pm632.model.Characteristic;
 import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  *  Skipped properties: id,href
  */
-@ApiModel(description = " Skipped properties: id,href")
+@Schema(description = " Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 public class CustomerUpdate   {
   @JsonProperty("name")
@@ -109,7 +107,7 @@ public class CustomerUpdate   {
    * A word, term, or phrase by which the Customer is known and distinguished from other Customers.
    * @return name
   **/
-  @ApiModelProperty(value = "A word, term, or phrase by which the Customer is known and distinguished from other Customers.")
+  @Schema(description = "A word, term, or phrase by which the Customer is known and distinguished from other Customers.")
 
 
   public String getName() {
@@ -129,7 +127,7 @@ public class CustomerUpdate   {
    * Used to track the lifecycle status of the customer.
    * @return status
   **/
-  @ApiModelProperty(value = "Used to track the lifecycle status of the customer.")
+  @Schema(description = "Used to track the lifecycle status of the customer.")
 
 
   public String getStatus() {
@@ -149,7 +147,7 @@ public class CustomerUpdate   {
    * A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.
    * @return statusReason
   **/
-  @ApiModelProperty(value = "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.")
+  @Schema(description = "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.")
 
 
   public String getStatusReason() {
@@ -177,7 +175,7 @@ public class CustomerUpdate   {
    * Get account
    * @return account
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -206,7 +204,7 @@ public class CustomerUpdate   {
    * Get agreement
    * @return agreement
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -235,7 +233,7 @@ public class CustomerUpdate   {
    * Describes the characteristic of a customer.
    * @return characteristic
   **/
-  @ApiModelProperty(value = "Describes the characteristic of a customer.")
+  @Schema(description = "Describes the characteristic of a customer.")
 
   @Valid
 
@@ -264,7 +262,7 @@ public class CustomerUpdate   {
    * Get contactMedium
    * @return contactMedium
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -293,7 +291,7 @@ public class CustomerUpdate   {
    * Get creditProfile
    * @return creditProfile
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -314,7 +312,7 @@ public class CustomerUpdate   {
    * The party - an organization or an individual - that is engaged as a customer.
    * @return engagedParty
   **/
-  @ApiModelProperty(required = true, value = "The party - an organization or an individual - that is engaged as a customer.")
+  @Schema(description = "The party - an organization or an individual - that is engaged as a customer.")
   @NotNull
 
   @Valid
@@ -344,7 +342,7 @@ public class CustomerUpdate   {
    * Get paymentMethod
    * @return paymentMethod
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -373,7 +371,7 @@ public class CustomerUpdate   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -394,7 +392,7 @@ public class CustomerUpdate   {
    * The time period that the Customer is valid for.
    * @return validFor
   **/
-  @ApiModelProperty(value = "The time period that the Customer is valid for.")
+  @Schema(description = "The time period that the Customer is valid for.")
 
   @Valid
 
@@ -415,7 +413,7 @@ public class CustomerUpdate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -435,7 +433,7 @@ public class CustomerUpdate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -455,7 +453,7 @@ public class CustomerUpdate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

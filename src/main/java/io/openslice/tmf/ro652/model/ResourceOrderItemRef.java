@@ -2,17 +2,17 @@ package io.openslice.tmf.ro652.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * ResourceOrderItemRef
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class ResourceOrderItemRef   {
   @JsonProperty("itemId")
   private String itemId = null;
@@ -44,7 +44,7 @@ public class ResourceOrderItemRef   {
    * Identifier of the line item
    * @return itemId
   **/
-  @ApiModelProperty(value = "Identifier of the line item")
+  @Schema(description = "Identifier of the line item")
   
     public String getItemId() {
     return itemId;
@@ -63,7 +63,7 @@ public class ResourceOrderItemRef   {
    * Link to the order to which this item belongs to
    * @return resourceOrderHref
   **/
-  @ApiModelProperty(value = "Link to the order to which this item belongs to")
+  @Schema(description = "Link to the order to which this item belongs to")
   
     public String getResourceOrderHref() {
     return resourceOrderHref;
@@ -82,7 +82,7 @@ public class ResourceOrderItemRef   {
    * Identifier of the order that this item belongs to
    * @return resourceOrderId
   **/
-  @ApiModelProperty(value = "Identifier of the order that this item belongs to")
+  @Schema(description = "Identifier of the order that this item belongs to")
   
     public String getResourceOrderId() {
     return resourceOrderId;
@@ -101,7 +101,7 @@ public class ResourceOrderItemRef   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -120,7 +120,7 @@ public class ResourceOrderItemRef   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -139,7 +139,7 @@ public class ResourceOrderItemRef   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;
@@ -158,7 +158,7 @@ public class ResourceOrderItemRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

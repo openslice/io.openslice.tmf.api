@@ -23,29 +23,27 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * A TestMeasureDefinition specifies a measure of a specific aspect of a
  * product, service, or resource test, such as lost packets or connectivity
  * status
  */
-@ApiModel(description = "A TestMeasureDefinition specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status")
+@Schema(description = "A TestMeasureDefinition specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Entity(name = "STMTestMeasureDefinition")
 @Table(name = "STMTestMeasureDefinition")
@@ -93,7 +91,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return captureFrequency
 	 **/
-	@ApiModelProperty(value = "The frequency of capture for the metric. Note: This may be replaced by a set of entities similar to the Performance Monitoring")
+	@Schema(description = "The frequency of capture for the metric. Note: This may be replaced by a set of entities similar to the Performance Monitoring")
 
 	public String getCaptureFrequency() {
 		return captureFrequency;
@@ -114,7 +112,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return captureMethod
 	 **/
-	@ApiModelProperty(value = "The method used to capture the Metric. Note: This may be replaced by a set of entities similar to the Performance Monitoring")
+	@Schema(description = "The method used to capture the Metric. Note: This may be replaced by a set of entities similar to the Performance Monitoring")
 
 	public String getCaptureMethod() {
 		return captureMethod;
@@ -134,7 +132,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return metricDescription
 	 **/
-	@ApiModelProperty(value = "Brief description of the metric")
+	@Schema(description = "Brief description of the metric")
 
 	public String getMetricDescription() {
 		return metricDescription;
@@ -154,7 +152,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return metricHref
 	 **/
-	@ApiModelProperty(value = "Hyperlink to access a metric for detail information")
+	@Schema(description = "Hyperlink to access a metric for detail information")
 
 	public String getMetricHref() {
 		return metricHref;
@@ -174,7 +172,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return metricName
 	 **/
-	@ApiModelProperty(value = "The name of a metric that in the test measure")
+	@Schema(description = "The name of a metric that in the test measure")
 
 	public String getMetricName() {
 		return metricName;
@@ -194,7 +192,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "The name of the TestMeasureDefinition")
+	@Schema(description = "The name of the TestMeasureDefinition")
 
 	public String getName() {
 		return name;
@@ -214,7 +212,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return unitOfMeasure
 	 **/
-	@ApiModelProperty(value = "Name of a service test specification")
+	@Schema(description = "Name of a service test specification")
 
 	public String getUnitOfMeasure() {
 		return unitOfMeasure;
@@ -235,7 +233,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the Metric value can take on, such as numeric, text, and so forth")
+	@Schema(description = "A kind of value that the Metric value can take on, such as numeric, text, and so forth")
 
 	public String getValueType() {
 		return valueType;
@@ -255,7 +253,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return capturePeriod
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public Duration getCapturePeriod() {
@@ -284,7 +282,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return thresholdRule
 	 **/
-	@ApiModelProperty(value = "The rule(s) associated with the measure threshold")
+	@Schema(description = "The rule(s) associated with the measure threshold")
 	@Valid
 	public Set<MetricDefMeasureThresholdRule> getThresholdRule() {
 		return thresholdRule;
@@ -304,7 +302,7 @@ public class TestMeasureDefinition extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {

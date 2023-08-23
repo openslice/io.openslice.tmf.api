@@ -19,33 +19,29 @@
  */
 package io.openslice.tmf.rcm634.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Configuration feature characteristic specification.
  */
-@ApiModel(description = "Configuration feature characteristic specification.")
+@Schema(description = "Configuration feature characteristic specification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "RCMFeatureSpecChar")
 public class FeatureSpecificationCharacteristic  extends BaseEntity {
@@ -94,7 +90,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return configurable
 	 **/
-	@ApiModelProperty(value = "True is the feature is configurable.")
+	@Schema(description = "True is the feature is configurable.")
 
 	public Boolean isConfigurable() {
 		return configurable;
@@ -116,7 +112,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return extensible
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a feature.")
+	@Schema(description = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a feature.")
 
 	public Boolean isExtensible() {
 		return extensible;
@@ -136,7 +132,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return isUnique
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies if a value is unique for the specification.")
+	@Schema(description = "An indicator that specifies if a value is unique for the specification.")
 
 	public Boolean isIsUnique() {
 		return isUnique;
@@ -156,7 +152,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return maxCardinality
 	 **/
-	@ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on.")
+	@Schema(description = "The maximum number of instances a CharacteristicValue can take on.")
 
 	public Integer getMaxCardinality() {
 		return maxCardinality;
@@ -176,7 +172,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return minCardinality
 	 **/
-	@ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on.")
+	@Schema(description = "The minimum number of instances a CharacteristicValue can take on.")
 
 	public Integer getMinCardinality() {
 		return minCardinality;
@@ -196,7 +192,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(required = true, value = "This is the name for the feature charateristic.")
+	@Schema(description = "This is the name for the feature charateristic.")
 	@NotNull
 
 	public String getName() {
@@ -218,7 +214,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return regex
 	 **/
-	@ApiModelProperty(value = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
+	@Schema(description = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
 
 	public String getRegex() {
 		return regex;
@@ -238,7 +234,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the characteristic can take on.")
+	@Schema(description = "A kind of value that the characteristic can take on.")
 
 	public String getValueType() {
 		return valueType;
@@ -269,7 +265,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return featureSpecCharRelationship
 	 **/
-	@ApiModelProperty(value = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among feature characteristics.")
+	@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among feature characteristics.")
 	@Valid
 	public Set<FeatureSpecificationCharacteristicRelationship> getFeatureSpecCharRelationship() {
 		return featureSpecCharRelationship;
@@ -301,7 +297,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return featureSpecCharacteristicValue
 	 **/
-	@ApiModelProperty(value = "Used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a FeatureCharacteristic object.")
+	@Schema(description = "Used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a FeatureCharacteristic object.")
 	@Valid
 	public Set<FeatureSpecificationCharacteristicValue> getFeatureSpecCharacteristicValue() {
 		return featureSpecCharacteristicValue;
@@ -322,7 +318,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -346,7 +342,7 @@ public class FeatureSpecificationCharacteristic  extends BaseEntity {
 	 * 
 	 * @return _atValueSchemaLocation
 	 **/
-	@ApiModelProperty(value = "This (optional) field provides a link to the schema describing the value type.")
+	@Schema(description = "This (optional) field provides a link to the schema describing the value type.")
 
 	public String getAtValueSchemaLocation() {
 		return schemaLocation;

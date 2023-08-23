@@ -23,22 +23,20 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * Organization represents a group of people identified by shared interests or
@@ -46,9 +44,9 @@ import io.swagger.annotations.ApiModelProperty;
  * complex nature of many businesses, both organizations and organization units
  * are represented by the same data.
  */
-@ApiModel(description = "Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data.")
+@Schema(description = "Organization represents a group of people identified by shared interests or purpose. Examples include business, department and enterprise. Because of the complex nature of many businesses, both organizations and organization units are represented by the same data.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 @Entity
 public class Organization extends BaseRootNamedEntity {
 
@@ -131,7 +129,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "Unique identifier of the organization")
+	@Schema(description = "Unique identifier of the organization")
 	
 	public String getId() {
 		return uuid;
@@ -147,7 +145,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return isHeadOffice
 	 **/
-	@ApiModelProperty(value = "If value is true, the organization is the head office")
+	@Schema(description = "If value is true, the organization is the head office")
 
 	public Boolean isIsHeadOffice() {
 		return isHeadOffice;
@@ -168,7 +166,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return isLegalEntity
 	 **/
-	@ApiModelProperty(value = "If value is true, the organization is a legal entity known by a national referential.")
+	@Schema(description = "If value is true, the organization is a legal entity known by a national referential.")
 
 	public Boolean isIsLegalEntity() {
 		return isLegalEntity;
@@ -188,7 +186,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return nameType
 	 **/
-	@ApiModelProperty(value = "Type of the name : Co, Inc, Ltd,…")
+	@Schema(description = "Type of the name : Co, Inc, Ltd,…")
 
 	public String getNameType() {
 		return nameType;
@@ -208,7 +206,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return organizationType
 	 **/
-	@ApiModelProperty(value = "Type of Organization (company, department...)")
+	@Schema(description = "Type of Organization (company, department...)")
 
 	public String getOrganizationType() {
 		return organizationType;
@@ -228,7 +226,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return tradingName
 	 **/
-	@ApiModelProperty(value = "Name that the organization (unit) trades under")
+	@Schema(description = "Name that the organization (unit) trades under")
 
 	public String getTradingName() {
 		return tradingName;
@@ -256,7 +254,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return contactMedium
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -286,7 +284,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return creditRating
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -308,7 +306,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return existsDuring
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -338,7 +336,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return externalReference
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -370,7 +368,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return organizationChildRelationship
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -400,7 +398,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return organizationIdentification
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -422,7 +420,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return organizationParentRelationship
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -452,7 +450,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return otherName
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -482,7 +480,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return partyCharacteristic
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -512,7 +510,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -534,7 +532,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return status
 	 **/
-	@ApiModelProperty(value = "Status of the organization")
+	@Schema(description = "Status of the organization")
 
 	@Valid
 
@@ -564,7 +562,7 @@ public class Organization extends BaseRootNamedEntity {
 	 * 
 	 * @return taxExemptionCertificate
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 

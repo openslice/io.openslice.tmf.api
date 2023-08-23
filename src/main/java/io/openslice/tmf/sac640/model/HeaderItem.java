@@ -20,20 +20,20 @@
 package io.openslice.tmf.sac640.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * An item typically included in a request or response
  */
-@ApiModel(description = "An item typically included in a request or response")
+@Schema(description = "An item typically included in a request or response")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
 public class HeaderItem   {
   @JsonProperty("name")
   private String name = null;
@@ -59,7 +59,7 @@ public class HeaderItem   {
    * The name of the header item, e.g. locale
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the header item, e.g. locale")
+  @Schema(description = "The name of the header item, e.g. locale")
       @NotNull
 
     public String getName() {
@@ -79,7 +79,7 @@ public class HeaderItem   {
    * The value of the header item, e.g. en-us
    * @return value
   **/
-  @ApiModelProperty(required = true, value = "The value of the header item, e.g. en-us")
+  @Schema(description = "The value of the header item, e.g. en-us")
       @NotNull
 
     public String getValue() {
@@ -99,7 +99,7 @@ public class HeaderItem   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -118,7 +118,7 @@ public class HeaderItem   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -137,7 +137,7 @@ public class HeaderItem   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

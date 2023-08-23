@@ -19,11 +19,11 @@
  */
 package io.openslice.tmf.configuration;
 
-import javax.jms.ConnectionFactory;
-
 import org.apache.camel.component.activemq.ActiveMQComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import jakarta.jms.ConnectionFactory;
 
 /**
  * @author ctranoris

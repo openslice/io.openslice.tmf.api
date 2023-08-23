@@ -1,42 +1,32 @@
 package io.openslice.tmf.rpm685.model;
 
+import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rpm685.model.ChannelRef;
-import io.openslice.tmf.rpm685.model.ProductOfferingRef;
-import io.openslice.tmf.rpm685.model.RequestedPeriod;
-import io.openslice.tmf.rpm685.model.ReservationItem;
-import io.openslice.tmf.sim638.model.ServiceOrderRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseEntity;
+import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.sim638.model.ServiceOrderRef;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * reservation api resource
  */
-@ApiModel(description = "reservation api resource")
+@Schema(description = "reservation api resource")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 
 @Entity(name = "Reservation")
 public class Reservation extends BaseEntity {
@@ -83,7 +73,7 @@ public class Reservation extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "A string. Identifier of an instance of the Reservation.")
+	@Schema(description = "A string. Identifier of an instance of the Reservation.")
 
 	public String getId() {
 		id = uuid;
@@ -128,7 +118,7 @@ public class Reservation extends BaseEntity {
 	 * 
 	 * @return endDateTime
 	 **/
-	@ApiModelProperty(value = "End of the time period, using IETC-RFC-3339 format")
+	@Schema(description = "End of the time period, using IETC-RFC-3339 format")
 	@Valid
 	@JsonProperty("requestedPeriodEndDateTime")
 	public String getRequestedPeriodEndDateTimeString() {
@@ -166,7 +156,7 @@ public class Reservation extends BaseEntity {
 	 * 
 	 * @return startDateTime
 	 **/
-	@ApiModelProperty(value = "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end")
+	@Schema(description = "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end")
 	@Valid
 	@JsonProperty("requestedPeriodStartDateTime")
 	public String getRequestedPeriodStartDateTimeString() {
@@ -205,7 +195,7 @@ public class Reservation extends BaseEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public RelatedParty getRelatedParty() {
@@ -226,7 +216,7 @@ public class Reservation extends BaseEntity {
 	 * 
 	 * @return reservationState
 	 **/
-	@ApiModelProperty(value = "A string. The life cycle state of the reservation.")
+	@Schema(description = "A string. The life cycle state of the reservation.")
 
 	public String getReservationState() {
 		return reservationState;
@@ -254,7 +244,7 @@ public class Reservation extends BaseEntity {
 	 * 
 	 * @return reservationItem
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public Set<ReservationItem> getReservationItem() {
 		return reservationItem;
@@ -276,7 +266,7 @@ public class Reservation extends BaseEntity {
 //	 * 
 //	 * @return requestedPeriod
 //	 **/
-//	@ApiModelProperty(value = "")
+//	@Schema(description = "")
 //
 //	@Valid
 //	public TimePeriod getRequestedPeriod() {
@@ -297,7 +287,7 @@ public class Reservation extends BaseEntity {
 //	 * 
 //	 * @return productOfferingRef
 //	 **/
-//	@ApiModelProperty(value = "")
+//	@Schema(description = "")
 //
 //	@Valid
 //	public ProductOfferingRef getProductOfferingRef() {

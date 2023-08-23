@@ -24,26 +24,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The service test specification describes the service test in terms of
  * parameters to be configured and measures to be taken. Skipped properties:
  * id,href,validFor
  */
-@ApiModel(description = "The service test specification describes the service test in terms of parameters to be configured and  measures to be taken. Skipped properties: id,href,validFor")
+@Schema(description = "The service test specification describes the service test in terms of parameters to be configured and  measures to be taken. Skipped properties: id,href,validFor")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 public class ServiceTestSpecificationUpdate {
 	@JsonProperty("description")
 	protected String description = null;
@@ -116,7 +114,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of a service test specification.")
+	@Schema(description = "Description of a service test specification.")
 
 	public String getDescription() {
 		return description;
@@ -137,7 +135,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "isBundle determines whether an EntitySpecification represents a single EntitySpecification (false), or a bundle of EntitySpecifications (true).")
+	@Schema(description = "isBundle determines whether an EntitySpecification represents a single EntitySpecification (false), or a bundle of EntitySpecifications (true).")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -157,7 +155,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return lastUpdate
 	 **/
-	@ApiModelProperty(value = "Date and time of the last update of this REST resource")
+	@Schema(description = "Date and time of the last update of this REST resource")
 
 	@Valid
 	public OffsetDateTime getLastUpdate() {
@@ -187,7 +185,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status of this catalog item")
+	@Schema(description = "Used to indicate the current lifecycle status of this catalog item")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -207,7 +205,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name given to this REST resource")
+	@Schema(description = "Name given to this REST resource")
 
 	public String getName() {
 		return name;
@@ -227,7 +225,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Entity specification version")
+	@Schema(description = "Entity specification version")
 
 	public String getVersion() {
 		return version;
@@ -256,7 +254,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "Attachments that may be of relevance to this specification, such as picture, document, media")
+	@Schema(description = "Attachments that may be of relevance to this specification, such as picture, document, media")
 	@Valid
 	public List<AttachmentRefOrValue> getAttachment() {
 		return attachment;
@@ -284,7 +282,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return constraint
 	 **/
-	@ApiModelProperty(value = "This is a list of constraint references applied to this specification")
+	@Schema(description = "This is a list of constraint references applied to this specification")
 	@Valid
 	public List<ConstraintRef> getConstraint() {
 		return constraint;
@@ -315,7 +313,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return entitySpecRelationship
 	 **/
-	@ApiModelProperty(value = "Relationship to another entity specification, might be dependency, substitution, etc.")
+	@Schema(description = "Relationship to another entity specification, might be dependency, substitution, etc.")
 	@Valid
 	public List<EntitySpecificationRelationship> getEntitySpecRelationship() {
 		return entitySpecRelationship;
@@ -343,7 +341,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "Parties who manage or otherwise have an interest in this entity specification")
+	@Schema(description = "Parties who manage or otherwise have an interest in this entity specification")
 	@Valid
 	public List<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -374,7 +372,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return relatedServiceSpecification
 	 **/
-	@ApiModelProperty(value = "The related service specification may relate to more than one service specification.")
+	@Schema(description = "The related service specification may relate to more than one service specification.")
 	@Valid
 	public List<ServiceSpecificationRef> getRelatedServiceSpecification() {
 		return relatedServiceSpecification;
@@ -405,7 +403,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return serviceTestSpecRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service test specifications related to this specification e.g. dependency, substitution")
+	@Schema(description = "A list of service test specifications related to this specification e.g. dependency, substitution")
 	@Valid
 	public List<ServiceTestSpecRelationship> getServiceTestSpecRelationship() {
 		return serviceTestSpecRelationship;
@@ -434,7 +432,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return specCharacteristic
 	 **/
-	@ApiModelProperty(value = "List of characteristics that the entity can take")
+	@Schema(description = "List of characteristics that the entity can take")
 	@Valid
 	public List<CharacteristicSpecification> getSpecCharacteristic() {
 		return specCharacteristic;
@@ -454,7 +452,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return targetEntitySchema
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TargetEntitySchema getTargetEntitySchema() {
@@ -485,7 +483,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return testMeasureDefinition
 	 **/
-	@ApiModelProperty(value = "A list of definitions for the measurements for the test defined by this specification")
+	@Schema(description = "A list of definitions for the measurements for the test defined by this specification")
 	@Valid
 	public List<TestMeasureDefinition> getTestMeasureDefinition() {
 		return testMeasureDefinition;
@@ -505,7 +503,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return baseType;
@@ -526,7 +524,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return schemaLocation;
@@ -546,7 +544,7 @@ public class ServiceTestSpecificationUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+	@Schema(description = "When sub-classing, this defines the sub-class Extensible name")
 
 	public String getAtType() {
 		return type;

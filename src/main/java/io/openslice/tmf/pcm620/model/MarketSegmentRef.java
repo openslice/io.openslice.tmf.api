@@ -21,23 +21,21 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.
  */
-@ApiModel(description = "provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.")
+@Schema(description = "provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 @Entity(name = "MarketSegmentRef")
 public class MarketSegmentRef  extends BaseRootNamedEntity {
   @JsonProperty("id")
@@ -56,7 +54,7 @@ public class MarketSegmentRef  extends BaseRootNamedEntity {
    * Unique identifier of the market segment
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of the market segment")
+  @Schema(description = "Unique identifier of the market segment")
   @NotNull
 
 
@@ -78,7 +76,7 @@ public class MarketSegmentRef  extends BaseRootNamedEntity {
    * (Class) type of the referred market segment
    * @return referredType
   **/
-  @ApiModelProperty(value = "(Class) type of the referred market segment")
+  @Schema(description = "(Class) type of the referred market segment")
 
 
   public String getReferredType() {

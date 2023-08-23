@@ -1,27 +1,19 @@
 package io.openslice.tmf.rpm685.model;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * the push task resource for resource pool management
  */
-@ApiModel(description = "the push task resource for resource pool management")
+@Schema(description = "the push task resource for resource pool management")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class Push {
 	@JsonProperty("href")
 	private String href = null;
@@ -86,7 +78,7 @@ public class Push {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "A string. Hyperlink to access the push task for resource pool Management")
+	@Schema(description = "A string. Hyperlink to access the push task for resource pool Management")
 
 	public String getHref() {
 		return href;
@@ -106,7 +98,7 @@ public class Push {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "A string. Identifier of an instance of the push task resource")
+	@Schema(description = "A string. Identifier of an instance of the push task resource")
 
 	public String getId() {
 		return id;
@@ -126,7 +118,7 @@ public class Push {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+	@Schema(description = "The class type of the actual resource (for type extension).")
 
 	public String getAtType() {
 		return _atType;
@@ -146,7 +138,7 @@ public class Push {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+	@Schema(description = "A link to the schema describing a resource (for type extension).")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -166,7 +158,7 @@ public class Push {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "The base type for use in polymorphic collections")
+	@Schema(description = "The base type for use in polymorphic collections")
 
 	public String getAtBaseType() {
 		return _atBaseType;

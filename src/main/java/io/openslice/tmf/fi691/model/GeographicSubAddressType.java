@@ -20,24 +20,20 @@
 package io.openslice.tmf.fi691.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * GeographicSubAddressType
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "GeographicSubAddressType")
 public class GeographicSubAddressType extends BaseRootNamedEntity {
@@ -75,7 +71,7 @@ public class GeographicSubAddressType extends BaseRootNamedEntity {
    * the type of subunit (e.g.: BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF)
    * @return subUnitType
   **/
-  @ApiModelProperty(value = "the type of subunit (e.g.: BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF)")
+  @Schema(description = "the type of subunit (e.g.: BERTH, FLAT, PIER, SUITE, SHOP, TOWER, UNIT, WHARF)")
 
 
   public String getSubUnitType() {
@@ -95,7 +91,7 @@ public class GeographicSubAddressType extends BaseRootNamedEntity {
    * the discriminator used for the subunit often just a simple number (e.g.: 5 for FLAT 5), may also be a range
    * @return subUnitNumber
   **/
-  @ApiModelProperty(value = "the discriminator used for the subunit often just a simple number (e.g.: 5 for FLAT 5), may also be a range")
+  @Schema(description = "the discriminator used for the subunit often just a simple number (e.g.: 5 for FLAT 5), may also be a range")
 
 
   public String getSubUnitNumber() {
@@ -115,7 +111,7 @@ public class GeographicSubAddressType extends BaseRootNamedEntity {
    * Describes level types within a building (e.g.: BASEMENT) 
    * @return levelType
   **/
-  @ApiModelProperty(value = "Describes level types within a building (e.g.: BASEMENT) ")
+  @Schema(description = "Describes level types within a building (e.g.: BASEMENT) ")
 
 
   public String getLevelType() {
@@ -135,7 +131,7 @@ public class GeographicSubAddressType extends BaseRootNamedEntity {
    * used where a level type may be repeated (e.g.: BASEMENT 1, BASEMENT 2)
    * @return levelNumber
   **/
-  @ApiModelProperty(value = "used where a level type may be repeated (e.g.: BASEMENT 1, BASEMENT 2)")
+  @Schema(description = "used where a level type may be repeated (e.g.: BASEMENT 1, BASEMENT 2)")
 
 
   public String getLevelNumber() {
@@ -155,7 +151,7 @@ public class GeographicSubAddressType extends BaseRootNamedEntity {
    * Allows for buildings that have well-known names
    * @return buildingName
   **/
-  @ApiModelProperty(value = "Allows for buildings that have well-known names")
+  @Schema(description = "Allows for buildings that have well-known names")
 
 
   public String getBuildingName() {
@@ -175,7 +171,7 @@ public class GeographicSubAddressType extends BaseRootNamedEntity {
    * private streets internal to a property (e.g. a university) may have internal names that are not recorded by the land title office
    * @return privateStreetName
   **/
-  @ApiModelProperty(value = "private streets internal to a property (e.g. a university) may have internal names that are not recorded by the land title office")
+  @Schema(description = "private streets internal to a property (e.g. a university) may have internal names that are not recorded by the land title office")
 
 
   public String getPrivateStreetName() {
@@ -195,7 +191,7 @@ public class GeographicSubAddressType extends BaseRootNamedEntity {
    * Private streets numbers internal to a private street
    * @return privateStreetNumber
   **/
-  @ApiModelProperty(value = "Private streets numbers internal to a private street")
+  @Schema(description = "Private streets numbers internal to a private street")
 
 
   public String getPrivateStreetNumber() {

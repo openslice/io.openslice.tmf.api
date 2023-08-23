@@ -21,21 +21,19 @@ package io.openslice.tmf.prm669.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The event data structure
  */
-@ApiModel(description = "The event data structure")
+@Schema(description = "The event data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:20:50.154+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:20:50.154+03:00")
 
 public class PartyRoleStateChangeEventPayload   {
   @JsonProperty("partyRole")
@@ -50,7 +48,7 @@ public class PartyRoleStateChangeEventPayload   {
    * The involved resource data for the event
    * @return partyRole
   **/
-  @ApiModelProperty(value = "The involved resource data for the event")
+  @Schema(description = "The involved resource data for the event")
 
   @Valid
 

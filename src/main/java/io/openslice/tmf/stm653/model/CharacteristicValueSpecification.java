@@ -21,26 +21,24 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * specification of a value (number or text or an object) that can be assigned to a Characteristic.
  */
-@ApiModel(description = "specification of a value (number or text or an object) that can be assigned to a Characteristic.")
+@Schema(description = "specification of a value (number or text or an object) that can be assigned to a Characteristic.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMCharacValSpec")
 @Table(name = "STMCharacValSpec")
 public class CharacteristicValueSpecification  extends BaseRootEntity {
@@ -102,7 +100,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * If true, the Boolean Indicates if the value is the default value for a characteristic
    * @return isDefault
   **/
-  @ApiModelProperty(value = "If true, the Boolean Indicates if the value is the default value for a characteristic")
+  @Schema(description = "If true, the Boolean Indicates if the value is the default value for a characteristic")
   
     public Boolean isIsDefault() {
     return isDefault;
@@ -121,7 +119,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".
    * @return rangeInterval
   **/
-  @ApiModelProperty(value = "An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
+  @Schema(description = "An indicator that specifies the inclusion or exclusion of the valueFrom and valueTo attributes. If applicable, possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
   
     public String getRangeInterval() {
     return rangeInterval;
@@ -140,7 +138,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * A regular expression constraint for given value
    * @return regex
   **/
-  @ApiModelProperty(value = "A regular expression constraint for given value")
+  @Schema(description = "A regular expression constraint for given value")
   
     public String getRegex() {
     return regex;
@@ -159,7 +157,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.
    * @return unitOfMeasure
   **/
-  @ApiModelProperty(value = "A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.")
+  @Schema(description = "A length, surface, volume, dry measure, liquid measure, money, weight, time, and the like. In general, a determinate quantity or magnitude of the kind designated, taken as a standard of comparison for others of the same kind, in assigning to them numerical values, as 1 foot, 1 yard, 1 mile, 1 square foot.")
   
     public String getUnitOfMeasure() {
     return unitOfMeasure;
@@ -178,7 +176,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * The low range value that a characteristic can take on
    * @return valueFrom
   **/
-  @ApiModelProperty(value = "The low range value that a characteristic can take on")
+  @Schema(description = "The low range value that a characteristic can take on")
   
     public Integer getValueFrom() {
     return valueFrom;
@@ -197,7 +195,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * The upper range value that a characteristic can take on
    * @return valueTo
   **/
-  @ApiModelProperty(value = "The upper range value that a characteristic can take on")
+  @Schema(description = "The upper range value that a characteristic can take on")
   
     public Integer getValueTo() {
     return valueTo;
@@ -216,7 +214,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * A kind of value that the characteristic value can take on, such as numeric, text and so forth
    * @return valueType
   **/
-  @ApiModelProperty(value = "A kind of value that the characteristic value can take on, such as numeric, text and so forth")
+  @Schema(description = "A kind of value that the characteristic value can take on, such as numeric, text and so forth")
   
     public String getValueType() {
     return valueType;
@@ -235,7 +233,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {
@@ -255,7 +253,7 @@ public class CharacteristicValueSpecification  extends BaseRootEntity {
    * Get value
    * @return value
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Any getValue() {

@@ -24,24 +24,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * A party account used for billing purposes. It includes a description of the bill structure (frequency, presentation media, format and so on). It is a specialization of entity PartyAccount. Skipped properties: id,href
  */
-@ApiModel(description = "A party account used for billing purposes. It includes a description of the bill structure (frequency, presentation media, format and so on). It is a specialization of entity PartyAccount. Skipped properties: id,href")
+@Schema(description = "A party account used for billing purposes. It includes a description of the bill structure (frequency, presentation media, format and so on). It is a specialization of entity PartyAccount. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class BillingAccountCreate   {
   @JsonProperty("accountType")
@@ -119,7 +117,7 @@ public class BillingAccountCreate   {
    * A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.
    * @return accountType
   **/
-  @ApiModelProperty(value = "A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.")
+  @Schema(description = "A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.")
 
 
   public String getAccountType() {
@@ -139,7 +137,7 @@ public class BillingAccountCreate   {
    * Detailed description of the party account
    * @return description
   **/
-  @ApiModelProperty(value = "Detailed description of the party account")
+  @Schema(description = "Detailed description of the party account")
 
 
   public String getDescription() {
@@ -159,7 +157,7 @@ public class BillingAccountCreate   {
    * Date of last modification of the account
    * @return lastModified
   **/
-  @ApiModelProperty(value = "Date of last modification of the account")
+  @Schema(description = "Date of last modification of the account")
 
   @Valid
 
@@ -180,7 +178,7 @@ public class BillingAccountCreate   {
    * Name of the account
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "Name of the account")
+  @Schema(description = "Name of the account")
   @NotNull
 
 
@@ -201,7 +199,7 @@ public class BillingAccountCreate   {
    * The condition of the account, such as due, paid, in arrears.
    * @return paymentStatus
   **/
-  @ApiModelProperty(value = "The condition of the account, such as due, paid, in arrears.")
+  @Schema(description = "The condition of the account, such as due, paid, in arrears.")
 
 
   public String getPaymentStatus() {
@@ -221,7 +219,7 @@ public class BillingAccountCreate   {
    * Indicates whether the account follows a specific payment option such as prepaid or postpaid
    * @return ratingType
   **/
-  @ApiModelProperty(value = "Indicates whether the account follows a specific payment option such as prepaid or postpaid")
+  @Schema(description = "Indicates whether the account follows a specific payment option such as prepaid or postpaid")
 
 
   public String getRatingType() {
@@ -241,7 +239,7 @@ public class BillingAccountCreate   {
    * Contains the lifecycle state such as: Active, Closed, Suspended and so on.
    * @return state
   **/
-  @ApiModelProperty(value = "Contains the lifecycle state such as: Active, Closed, Suspended and so on.")
+  @Schema(description = "Contains the lifecycle state such as: Active, Closed, Suspended and so on.")
 
 
   public String getState() {
@@ -269,7 +267,7 @@ public class BillingAccountCreate   {
    * Get accountBalance
    * @return accountBalance
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -298,7 +296,7 @@ public class BillingAccountCreate   {
    * Get accountRelationship
    * @return accountRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -319,7 +317,7 @@ public class BillingAccountCreate   {
    * Get billStructure
    * @return billStructure
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -348,7 +346,7 @@ public class BillingAccountCreate   {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -369,7 +367,7 @@ public class BillingAccountCreate   {
    * The maximum amount of money that may be charged on an account
    * @return creditLimit
   **/
-  @ApiModelProperty(value = "The maximum amount of money that may be charged on an account")
+  @Schema(description = "The maximum amount of money that may be charged on an account")
 
   @Valid
 
@@ -390,7 +388,7 @@ public class BillingAccountCreate   {
    * Get defaultPaymentMethod
    * @return defaultPaymentMethod
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -411,7 +409,7 @@ public class BillingAccountCreate   {
    * Get financialAccount
    * @return financialAccount
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -440,7 +438,7 @@ public class BillingAccountCreate   {
    * Get paymentPlan
    * @return paymentPlan
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -466,7 +464,7 @@ public class BillingAccountCreate   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
   @NotNull
 
   @Valid
@@ -496,7 +494,7 @@ public class BillingAccountCreate   {
    * Get taxExemption
    * @return taxExemption
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -517,7 +515,7 @@ public class BillingAccountCreate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -537,7 +535,7 @@ public class BillingAccountCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -557,7 +555,7 @@ public class BillingAccountCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

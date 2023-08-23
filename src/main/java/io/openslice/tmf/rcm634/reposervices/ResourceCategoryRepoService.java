@@ -20,17 +20,12 @@
 package io.openslice.tmf.rcm634.reposervices;
 
 import java.time.OffsetDateTime;
-
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.IntPredicate;
-
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -50,11 +45,8 @@ import io.openslice.tmf.rcm634.model.ResourceCategoryUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
 import io.openslice.tmf.rcm634.repo.ResourceCatalogRepository;
 import io.openslice.tmf.rcm634.repo.ResourceCategoriesRepository;
-import io.openslice.tmf.scm633.model.ServiceCandidate;
-import io.openslice.tmf.scm633.model.ServiceCandidateRef;
-import io.openslice.tmf.scm633.model.ServiceCatalog;
-import io.openslice.tmf.scm633.model.ServiceCategory;
-import io.openslice.tmf.scm633.model.ServiceCategoryRef;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ResourceCategoryRepoService {

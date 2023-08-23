@@ -21,24 +21,22 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * A set of numbers that specifies the lower and upper limits for a
  * ProductOffering that can be procured as part of the related
  * BundledProductOffering. Values can range from 0 to unbounded
  */
-@ApiModel(description = "A set of numbers that specifies the lower and upper limits for a ProductOffering that can be procured as part of the related BundledProductOffering. Values can range from 0 to unbounded")
+@Schema(description = "A set of numbers that specifies the lower and upper limits for a ProductOffering that can be procured as part of the related BundledProductOffering. Values can range from 0 to unbounded")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity(name = "BundledProductOfferingOption")
 public class BundledProductOfferingOption extends BaseRootEntity {
@@ -62,7 +60,7 @@ public class BundledProductOfferingOption extends BaseRootEntity {
 	 * 
 	 * @return numberRelOfferDefault
 	 **/
-	@ApiModelProperty(value = "Default number of produc offereings that should be procured as part of the related BundledProductOffering")
+	@Schema(description = "Default number of produc offereings that should be procured as part of the related BundledProductOffering")
 
 	public Integer getNumberRelOfferDefault() {
 		return numberRelOfferDefault;
@@ -83,7 +81,7 @@ public class BundledProductOfferingOption extends BaseRootEntity {
 	 * 
 	 * @return numberRelOfferLowerLimit
 	 **/
-	@ApiModelProperty(value = "lower limit for a product offering that can be procured as part of the related BundledProductOffering")
+	@Schema(description = "lower limit for a product offering that can be procured as part of the related BundledProductOffering")
 
 	public Integer getNumberRelOfferLowerLimit() {
 		return numberRelOfferLowerLimit;
@@ -104,7 +102,7 @@ public class BundledProductOfferingOption extends BaseRootEntity {
 	 * 
 	 * @return numberRelOfferUpperLimit
 	 **/
-	@ApiModelProperty(value = "upper limit for a product offering that can be procured as part of the related BundledProductOffering")
+	@Schema(description = "upper limit for a product offering that can be procured as part of the related BundledProductOffering")
 
 	public Integer getNumberRelOfferUpperLimit() {
 		return numberRelOfferUpperLimit;

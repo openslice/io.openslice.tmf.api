@@ -19,15 +19,15 @@
  */
 package io.openslice.tmf.pm632.reposervices;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,15 +36,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.common.model.Any;
-import io.openslice.tmf.pm632.api.OrganizationApiRouteBuilder;
+import io.openslice.tmf.pm632.api.OrganizationApiRouteBuilderEvents;
 import io.openslice.tmf.pm632.model.Characteristic;
 import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.pm632.model.Organization;
@@ -55,9 +50,8 @@ import io.openslice.tmf.pm632.model.OrganizationCreateEvent;
 import io.openslice.tmf.pm632.model.OrganizationCreateEventPayload;
 import io.openslice.tmf.pm632.model.OrganizationUpdate;
 import io.openslice.tmf.pm632.repo.OrganizationRepository;
-import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
-import io.openslice.tmf.scm633.model.ServiceSpecification;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 
 @Service
@@ -68,7 +62,7 @@ public class OrganizationRepoService {
 	OrganizationRepository organizationRepository;
 
 	@Autowired
-	OrganizationApiRouteBuilder organizationApiRouteBuilder;
+	OrganizationApiRouteBuilderEvents organizationApiRouteBuilder;
 
 	private SessionFactory  sessionFactory;
 	

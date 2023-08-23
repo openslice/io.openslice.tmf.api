@@ -21,25 +21,23 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Configuration feature
  */
-@ApiModel(description = "Configuration feature")
+@Schema(description = "Configuration feature")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "RCMFeatureSpecRel")
 public class FeatureSpecificationRelationship  extends BaseEntity {
@@ -65,7 +63,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * Unique identifier of the target feature specification.
    * @return featureId
   **/
-  @ApiModelProperty(value = "Unique identifier of the target feature specification.")
+  @Schema(description = "Unique identifier of the target feature specification.")
   
     public String getFeatureId() {
     return featureId;
@@ -84,7 +82,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * This is the name of the target feature specification.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "This is the name of the target feature specification.")
+  @Schema(description = "This is the name of the target feature specification.")
       @NotNull
 
     public String getName() {
@@ -104,7 +102,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * This is the type of the feature specification relationship.
    * @return relationshipType
   **/
-  @ApiModelProperty(required = true, value = "This is the type of the feature specification relationship.")
+  @Schema(description = "This is the type of the feature specification relationship.")
       @NotNull
 
     public String getRelationshipType() {
@@ -124,7 +122,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * Hyperlink reference to the resource specification containing the target feature
    * @return resourceSpecificationHref
   **/
-  @ApiModelProperty(value = "Hyperlink reference to the resource specification containing the target feature")
+  @Schema(description = "Hyperlink reference to the resource specification containing the target feature")
   
     public String getResourceSpecificationHref() {
     return resourceSpecificationHref;
@@ -143,7 +141,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * Unique identifier of the resource specification containing the target feature
    * @return resourceSpecificationId
   **/
-  @ApiModelProperty(value = "Unique identifier of the resource specification containing the target feature")
+  @Schema(description = "Unique identifier of the resource specification containing the target feature")
   
     public String getResourceSpecificationId() {
     return resourceSpecificationId;
@@ -162,7 +160,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {
@@ -182,7 +180,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -201,7 +199,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -220,7 +218,7 @@ public class FeatureSpecificationRelationship  extends BaseEntity {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

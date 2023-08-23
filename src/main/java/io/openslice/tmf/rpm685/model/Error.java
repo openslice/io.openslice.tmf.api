@@ -1,19 +1,19 @@
 package io.openslice.tmf.rpm685.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Error
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class Error   {
   @JsonProperty("code")
   private Integer code = null;
@@ -45,7 +45,7 @@ public class Error   {
    * Application related code.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "Application related code.")
+  @Schema(description = "Application related code.")
       @NotNull
 
     public Integer getCode() {
@@ -65,7 +65,7 @@ public class Error   {
    * Text that explains the reason for error.
    * @return reason
   **/
-  @ApiModelProperty(required = true, value = "Text that explains the reason for error.")
+  @Schema(description = "Text that explains the reason for error.")
       @NotNull
 
     public Integer getReason() {
@@ -85,7 +85,7 @@ public class Error   {
    * (optional) Text that provide more details and corrective actions related to the error.
    * @return message
   **/
-  @ApiModelProperty(value = "(optional) Text that provide more details and corrective actions related to the error.")
+  @Schema(description = "(optional) Text that provide more details and corrective actions related to the error.")
   
     public String getMessage() {
     return message;
@@ -104,7 +104,7 @@ public class Error   {
    * (optional) http error code extension like 400-2
    * @return status
   **/
-  @ApiModelProperty(value = "(optional) http error code extension like 400-2")
+  @Schema(description = "(optional) http error code extension like 400-2")
   
     public Integer getStatus() {
     return status;
@@ -123,7 +123,7 @@ public class Error   {
    * (optional) A URL to online documentation that provides more information about the error.
    * @return referenceError
   **/
-  @ApiModelProperty(value = "(optional) A URL to online documentation that provides more information about the error.")
+  @Schema(description = "(optional) A URL to online documentation that provides more information about the error.")
   
     public String getReferenceError() {
     return referenceError;
@@ -142,7 +142,7 @@ public class Error   {
    * (optional) The class type of a REST resource.
    * @return _atType
   **/
-  @ApiModelProperty(value = "(optional) The class type of a REST resource.")
+  @Schema(description = "(optional) The class type of a REST resource.")
   
     public String getAtType() {
     return _atType;
@@ -161,7 +161,7 @@ public class Error   {
    * (optional) A link to the schema describing a REST resource.
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "(optional) A link to the schema describing a REST resource.")
+  @Schema(description = "(optional) A link to the schema describing a REST resource.")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;

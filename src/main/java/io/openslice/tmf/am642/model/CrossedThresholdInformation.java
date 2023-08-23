@@ -20,27 +20,25 @@
 package io.openslice.tmf.am642.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.am642.model.ThresholdRef;
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Identifies the details of the threshold that has been crossed.
  */
-@ApiModel(description = "Identifies the details of the threshold that has been crossed.")
+@Schema(description = "Identifies the details of the threshold that has been crossed.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Entity(name = "AMCrossedThreshInfo")
 @Table(name = "AMCrossedThreshInfo")
 public class CrossedThresholdInformation extends BaseRootEntity {
@@ -76,7 +74,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return direction
 	 **/
-	@ApiModelProperty(value = "Indicates the threshold crossing direction: up or down.")
+	@Schema(description = "Indicates the threshold crossing direction: up or down.")
 
 	public String getDirection() {
 		return direction;
@@ -97,7 +95,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return granularity
 	 **/
-	@ApiModelProperty(value = "Indicates the granularity at which the indicator is evaluated for threshold crossing")
+	@Schema(description = "Indicates the granularity at which the indicator is evaluated for threshold crossing")
 
 	public String getGranularity() {
 		return granularity;
@@ -117,7 +115,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return indicatorName
 	 **/
-	@ApiModelProperty(value = "Indicates the name of indicator which crossed the threshold.")
+	@Schema(description = "Indicates the name of indicator which crossed the threshold.")
 
 	public String getIndicatorName() {
 		return indicatorName;
@@ -138,7 +136,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return indicatorUnit
 	 **/
-	@ApiModelProperty(value = "Indicates the unit of the measurement of the indicator corresponding to the threshold that has been crossed.")
+	@Schema(description = "Indicates the unit of the measurement of the indicator corresponding to the threshold that has been crossed.")
 
 	public String getIndicatorUnit() {
 		return indicatorUnit;
@@ -158,7 +156,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return observedValue
 	 **/
-	@ApiModelProperty(value = "Indicates the value of the indicator which crossed the threshold.")
+	@Schema(description = "Indicates the value of the indicator which crossed the threshold.")
 
 	public String getObservedValue() {
 		return observedValue;
@@ -178,7 +176,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return thresholdCrossingDescription
 	 **/
-	@ApiModelProperty(value = "Indicates further information on the threshold crossing alarm.")
+	@Schema(description = "Indicates further information on the threshold crossing alarm.")
 
 	public String getThresholdCrossingDescription() {
 		return thresholdCrossingDescription;
@@ -198,7 +196,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return threshold
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ThresholdRef getThreshold() {
@@ -214,7 +212,7 @@ public class CrossedThresholdInformation extends BaseRootEntity {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getAtType() {
 		return type;

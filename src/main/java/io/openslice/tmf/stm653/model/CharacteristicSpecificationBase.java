@@ -21,22 +21,20 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * This class defines a characteristic specification.
  */
-@ApiModel(description = "This class defines a characteristic specification.")
+@Schema(description = "This class defines a characteristic specification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 public class CharacteristicSpecificationBase   {
   @JsonProperty("id")
   private String id = null;
@@ -92,7 +90,7 @@ public class CharacteristicSpecificationBase   {
    * Unique ID for the characteristic
    * @return id
   **/
-  @ApiModelProperty(value = "Unique ID for the characteristic")
+  @Schema(description = "Unique ID for the characteristic")
   
     public String getId() {
     return id;
@@ -111,7 +109,7 @@ public class CharacteristicSpecificationBase   {
    * If true, the Boolean indicates that the target Characteristic is configurable
    * @return configurable
   **/
-  @ApiModelProperty(value = "If true, the Boolean indicates that the target Characteristic is configurable")
+  @Schema(description = "If true, the Boolean indicates that the target Characteristic is configurable")
   
     public Boolean isConfigurable() {
     return configurable;
@@ -130,7 +128,7 @@ public class CharacteristicSpecificationBase   {
    * A narrative that explains the CharacteristicSpecification.
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains the CharacteristicSpecification.")
+  @Schema(description = "A narrative that explains the CharacteristicSpecification.")
   
     public String getDescription() {
     return description;
@@ -149,7 +147,7 @@ public class CharacteristicSpecificationBase   {
    * An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.
    * @return extensible
   **/
-  @ApiModelProperty(value = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.")
+  @Schema(description = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.")
   
     public Boolean isExtensible() {
     return extensible;
@@ -168,7 +166,7 @@ public class CharacteristicSpecificationBase   {
    * An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"
    * @return isUnique
   **/
-  @ApiModelProperty(value = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
+  @Schema(description = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
   
     public Boolean isIsUnique() {
     return isUnique;
@@ -187,7 +185,7 @@ public class CharacteristicSpecificationBase   {
    * The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.
    * @return maxCardinality
   **/
-  @ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
+  @Schema(description = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
   
     public Integer getMaxCardinality() {
     return maxCardinality;
@@ -206,7 +204,7 @@ public class CharacteristicSpecificationBase   {
    * The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.
    * @return minCardinality
   **/
-  @ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
+  @Schema(description = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
   
     public Integer getMinCardinality() {
     return minCardinality;
@@ -225,7 +223,7 @@ public class CharacteristicSpecificationBase   {
    * A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.
    * @return name
   **/
-  @ApiModelProperty(value = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
+  @Schema(description = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
   
     public String getName() {
     return name;
@@ -244,7 +242,7 @@ public class CharacteristicSpecificationBase   {
    * A rule or principle represented in regular expression used to derive the value of a characteristic value.
    * @return regex
   **/
-  @ApiModelProperty(value = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
+  @Schema(description = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
   
     public String getRegex() {
     return regex;
@@ -263,7 +261,7 @@ public class CharacteristicSpecificationBase   {
    * A kind of value that the characteristic can take on, such as numeric, text and so forth
    * @return valueType
   **/
-  @ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+  @Schema(description = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
   
     public String getValueType() {
     return valueType;
@@ -282,7 +280,7 @@ public class CharacteristicSpecificationBase   {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {
@@ -302,7 +300,7 @@ public class CharacteristicSpecificationBase   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -321,7 +319,7 @@ public class CharacteristicSpecificationBase   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -340,7 +338,7 @@ public class CharacteristicSpecificationBase   {
    * When sub-classing, this defines the sub-class Extensible name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+  @Schema(description = "When sub-classing, this defines the sub-class Extensible name")
   
     public String getAtType() {
     return type;
@@ -359,7 +357,7 @@ public class CharacteristicSpecificationBase   {
    * This (optional) field provides a link to the schema describing the value type.
    * @return _atValueSchemaLocation
   **/
-  @ApiModelProperty(value = "This (optional) field provides a link to the schema describing the value type.")
+  @Schema(description = "This (optional) field provides a link to the schema describing the value type.")
   
     public String getAtValueSchemaLocation() {
     return _atValueSchemaLocation;

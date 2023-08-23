@@ -5,37 +5,35 @@
  */
 package io.openslice.tmf.rpm685.api;
 
-import io.openslice.tmf.rpm685.model.Error;
-import io.openslice.tmf.rpm685.model.Reservation;
-import io.openslice.tmf.rpm685.model.ReservationCreate;
-import io.openslice.tmf.rpm685.model.ReservationUpdate;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.security.Principal;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
-@Api(value = "reservation", description = "the reservation API")
+import io.openslice.tmf.rpm685.model.Reservation;
+import io.openslice.tmf.rpm685.model.ReservationCreate;
+import io.openslice.tmf.rpm685.model.ReservationUpdate;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@Tag(name = "reservation", description = "the reservation API")
 public interface ReservationApi {
 
     Logger log = LoggerFactory.getLogger(ReservationApi.class);
@@ -52,21 +50,21 @@ public interface ReservationApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a 'Reservation'", nickname = "createReservation", notes = "", response = Reservation.class, tags={ "reservation", })
+    @Operation(summary = "Creates a 'Reservation'", operationId = "createReservation", description = "", tags={ "reservation", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = Reservation.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/reservation",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    default ResponseEntity<Reservation> createReservation(Principal principal,@ApiParam(value = "The Reservation to be created" ,required=true )  @Valid @RequestBody ReservationCreate body
+    default ResponseEntity<Reservation> createReservation(Principal principal,@Parameter(description = "The Reservation to be created" ,required=true )  @Valid @RequestBody ReservationCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -84,22 +82,22 @@ public interface ReservationApi {
     }
 
 
-    @ApiOperation(value = "List or find 'Reservation' objects", nickname = "listReservation", notes = "", response = Reservation.class, responseContainer = "List", tags={ "reservation", })
+    @Operation(summary = "List or find 'Reservation' objects", operationId = "listReservation", description = "" , tags={ "reservation", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Ok", response = Reservation.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Ok" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/reservation",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<Reservation>> listReservation(Principal principal,@ApiParam(value = "Comma separated properties to display in response") @Valid @RequestParam(value = "fields", required = false) String fields
-,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
-,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    default ResponseEntity<List<Reservation>> listReservation(Principal principal,@Parameter(description = "Comma separated properties to display in response") @Valid @RequestParam(value = "fields", required = false) String fields
+,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
+,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -117,22 +115,22 @@ public interface ReservationApi {
     }
 
 
-    @ApiOperation(value = "Updates partially a 'Reservation' by Id", nickname = "patchReservation", notes = "", response = Reservation.class, tags={ "reservation", })
+    @Operation(summary = "Updates partially a 'Reservation' by Id", operationId = "patchReservation", description = "", tags={ "reservation", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = Reservation.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/reservation/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<Reservation> patchReservation(Principal principal,@ApiParam(value = "The Reservation to be updated" ,required=true )  @Valid @RequestBody ReservationUpdate body
-,@ApiParam(value = "Identifier of the Reservation",required=true) @PathVariable("id") String id
+    default ResponseEntity<Reservation> patchReservation(Principal principal,@Parameter(description = "The Reservation to be updated" ,required=true )  @Valid @RequestBody ReservationUpdate body
+,@Parameter(description = "Identifier of the Reservation",required=true) @PathVariable("id") String id
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -150,20 +148,20 @@ public interface ReservationApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a 'Reservation' by Id", nickname = "retrieveReservation", notes = "", response = Reservation.class, responseContainer = "List", tags={ "reservation", })
+    @Operation(summary = "Retrieves a 'Reservation' by Id", operationId = "retrieveReservation", description = "" , tags={ "reservation", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Ok", response = Reservation.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Ok" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/reservation/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity< Reservation> retrieveReservation(Principal principal,@ApiParam(value = "Identifier of the Reservation",required=true) @PathVariable("id") String id
+    default ResponseEntity< Reservation> retrieveReservation(Principal principal,@Parameter(description = "Identifier of the Reservation",required=true) @PathVariable("id") String id
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -182,20 +180,20 @@ public interface ReservationApi {
     
     
     
-	@ApiOperation(value = "Deletes a 'Reservation' by Id", nickname = "deleteReservation", notes = "", tags = {
+	@Operation(summary = "Deletes a 'Reservation' by Id", operationId = "deleteReservation", description = "", tags = {
 			"resourcePool", })
-	@ApiResponses(value = { @ApiResponse(code = 204, message = "Deleted"),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Deleted"),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/reservation/{id}", produces = { "application/json" }, method = RequestMethod.DELETE)
 	default ResponseEntity<Void> deleteReservation(
 			Principal principal,
-			@ApiParam(value = "Identifier of the Reservation", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the Reservation", required = true) @PathVariable("id") String id) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 		} else {
 			log.warn(

@@ -20,19 +20,16 @@
 package io.openslice.tmf.am642.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Related Entity reference. A related place defines a place described by
@@ -40,9 +37,9 @@ import javax.validation.constraints.*;
  * attributes @type, @schemaLocation &amp; @referredType are related to the
  * place entity and not the RelatedPlaceRefOrValue class itself
  */
-@ApiModel(description = "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself")
+@Schema(description = "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Entity(name = "AMRelPlaceRefOrVal")
 @Table(name = "AMRelPlaceRefOrVal")
 public class RelatedPlaceRefOrValue extends BaseRootNamedEntity {
@@ -84,7 +81,7 @@ public class RelatedPlaceRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@Schema(description = "")
 	@NotNull
 
 	public String getRole() {
@@ -107,7 +104,7 @@ public class RelatedPlaceRefOrValue extends BaseRootNamedEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

@@ -21,20 +21,19 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.
  */
-@ApiModel(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.")
+@Schema(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 public class ResourceCandidateRef  extends BaseRootNamedEntity {
 	  @JsonProperty("id")
@@ -56,7 +55,7 @@ public class ResourceCandidateRef  extends BaseRootNamedEntity {
 	   * Unique identifier of the resource candidate
 	   * @return id
 	  **/
-	  @ApiModelProperty(value = "Unique identifier of the resource candidate")
+	  @Schema(description = "Unique identifier of the resource candidate")
 
 
 	  public String getId() {
@@ -76,7 +75,7 @@ public class ResourceCandidateRef  extends BaseRootNamedEntity {
 	   * Reference of the resource candidate
 	   * @return href
 	  **/
-	  @ApiModelProperty(value = "Reference of the resource candidate")
+	  @Schema(description = "Reference of the resource candidate")
 
 
 	  public String getHref() {
@@ -96,7 +95,7 @@ public class ResourceCandidateRef  extends BaseRootNamedEntity {
 	   * Version of the resource candidate
 	   * @return version
 	  **/
-	  @ApiModelProperty(value = "Version of the resource candidate")
+	  @Schema(description = "Version of the resource candidate")
 
 
 	  public String getVersion() {

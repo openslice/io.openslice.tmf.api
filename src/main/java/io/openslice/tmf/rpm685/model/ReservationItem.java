@@ -2,27 +2,25 @@ package io.openslice.tmf.rpm685.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * An identified part of the reservation. A reservation is decomposed into one
  * or more reservation items.
  */
-@ApiModel(description = "An identified part of the reservation. A reservation is decomposed into one or more reservation items.")
+@Schema(description = "An identified part of the reservation. A reservation is decomposed into one or more reservation items.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 
 @Entity(name = "ReservationItem")
 public class ReservationItem extends BaseRootEntity {
@@ -53,7 +51,7 @@ public class ReservationItem extends BaseRootEntity {
 	 * 
 	 * @return quantity
 	 **/
-	@ApiModelProperty(value = "Represents the number of reservationItems that make up the reservation.")
+	@Schema(description = "Represents the number of reservationItems that make up the reservation.")
 
 	public Integer getQuantity() {
 		return quantity;
@@ -73,7 +71,7 @@ public class ReservationItem extends BaseRootEntity {
 	 * 
 	 * @return subReservationState
 	 **/
-	@ApiModelProperty(value = "A string. The life cycle state of the each reservation item.")
+	@Schema(description = "A string. The life cycle state of the each reservation item.")
 
 	public String getSubReservationState() {
 		return subReservationState;
@@ -93,7 +91,7 @@ public class ReservationItem extends BaseRootEntity {
 	 * 
 	 * @return resourceCapacity
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceCapacityDemand getResourceCapacity() {
@@ -114,7 +112,7 @@ public class ReservationItem extends BaseRootEntity {
 	 * 
 	 * @return appliedCapacityAmount
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public AppliedCapacityAmount getAppliedCapacityAmount() {

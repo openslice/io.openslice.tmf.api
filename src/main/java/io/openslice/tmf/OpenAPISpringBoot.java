@@ -27,7 +27,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * For implementing the callback and events, it might be useful to check the DDD pattern: https://www.baeldung.com/spring-data-ddd
@@ -37,7 +36,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *
  */
 @SpringBootApplication
-@EnableSwagger2
 @ComponentScan( basePackages = {
 		"io.openslice",
 		"io.openslice.centrallog"

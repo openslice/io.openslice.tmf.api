@@ -21,21 +21,19 @@ package io.openslice.tmf.cm629.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Entity reference schema to be use for all entityRef class.
  */
-@ApiModel(description = "Entity reference schema to be use for all entityRef class.")
+@Schema(description = "Entity reference schema to be use for all entityRef class.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 public class EntityRef   {
   @JsonProperty("id")
@@ -68,7 +66,7 @@ public class EntityRef   {
    * Unique identifier of a related entity.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of a related entity.")
+  @Schema(description = "Unique identifier of a related entity.")
   @NotNull
 
 
@@ -89,7 +87,7 @@ public class EntityRef   {
    * Reference of the related entity.
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the related entity.")
+  @Schema(description = "Reference of the related entity.")
 
 
   public String getHref() {
@@ -109,7 +107,7 @@ public class EntityRef   {
    * Name of the related entity.
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the related entity.")
+  @Schema(description = "Name of the related entity.")
 
 
   public String getName() {
@@ -129,7 +127,7 @@ public class EntityRef   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -149,7 +147,7 @@ public class EntityRef   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -169,7 +167,7 @@ public class EntityRef   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {
@@ -189,7 +187,7 @@ public class EntityRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

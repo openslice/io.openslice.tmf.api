@@ -22,21 +22,19 @@ package io.openslice.tmf.pcm620.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Represents a task used to export resources to a file
  */
-@ApiModel(description = "Represents a task used to export resources to a file")
+@Schema(description = "Represents a task used to export resources to a file")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class ExportJob   {
   @JsonProperty("id")
@@ -87,7 +85,7 @@ public class ExportJob   {
    * Identifier of the export job
    * @return id
   **/
-  @ApiModelProperty(value = "Identifier of the export job")
+  @Schema(description = "Identifier of the export job")
 
 
   public String getId() {
@@ -107,7 +105,7 @@ public class ExportJob   {
    * Reference of the export job
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the export job")
+  @Schema(description = "Reference of the export job")
 
 
   public String getHref() {
@@ -127,7 +125,7 @@ public class ExportJob   {
    * Data at which the job was completed
    * @return completionDate
   **/
-  @ApiModelProperty(value = "Data at which the job was completed")
+  @Schema(description = "Data at which the job was completed")
 
   @Valid
 
@@ -148,7 +146,7 @@ public class ExportJob   {
    * The format of the exported data
    * @return contentType
   **/
-  @ApiModelProperty(value = "The format of the exported data")
+  @Schema(description = "The format of the exported data")
 
 
   public String getContentType() {
@@ -168,7 +166,7 @@ public class ExportJob   {
    * Date at which the job was created
    * @return creationDate
   **/
-  @ApiModelProperty(value = "Date at which the job was created")
+  @Schema(description = "Date at which the job was created")
 
   @Valid
 
@@ -189,7 +187,7 @@ public class ExportJob   {
    * Reason for failure
    * @return errorLog
   **/
-  @ApiModelProperty(value = "Reason for failure")
+  @Schema(description = "Reason for failure")
 
 
   public String getErrorLog() {
@@ -209,7 +207,7 @@ public class ExportJob   {
    * URL of the root resource acting as the source for streaming content to the file specified by the export job
    * @return path
   **/
-  @ApiModelProperty(value = "URL of the root resource acting as the source for streaming content to the file specified by the export job")
+  @Schema(description = "URL of the root resource acting as the source for streaming content to the file specified by the export job")
 
 
   public String getPath() {
@@ -229,7 +227,7 @@ public class ExportJob   {
    * Used to scope the exported data
    * @return query
   **/
-  @ApiModelProperty(value = "Used to scope the exported data")
+  @Schema(description = "Used to scope the exported data")
 
 
   public String getQuery() {
@@ -249,7 +247,7 @@ public class ExportJob   {
    * URL of the file containing the data to be exported
    * @return url
   **/
-  @ApiModelProperty(value = "URL of the file containing the data to be exported")
+  @Schema(description = "URL of the file containing the data to be exported")
 
 
   public String getUrl() {
@@ -269,7 +267,7 @@ public class ExportJob   {
    * Status of the export job (not started, running, succeeded, failed)
    * @return status
   **/
-  @ApiModelProperty(value = "Status of the export job (not started, running, succeeded, failed)")
+  @Schema(description = "Status of the export job (not started, running, succeeded, failed)")
 
   @Valid
 
@@ -290,7 +288,7 @@ public class ExportJob   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -310,7 +308,7 @@ public class ExportJob   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -330,7 +328,7 @@ public class ExportJob   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

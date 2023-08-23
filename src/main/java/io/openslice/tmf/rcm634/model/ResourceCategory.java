@@ -25,31 +25,28 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 
 
 /**
  * The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories.
  */
-@ApiModel(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories.")
+@Schema(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "ResourceCategory")
 public class ResourceCategory extends BaseEntity {
@@ -81,7 +78,7 @@ public class ResourceCategory extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the category")
+	@Schema(description = "Unique identifier of the category")
 
 	/**
 	 * @return the id
@@ -104,7 +101,7 @@ public class ResourceCategory extends BaseEntity {
 	 * 
 	 * @return parentId
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the parent category")
+	@Schema(description = "Unique identifier of the parent category")
 
 	public String getParentId() {
 		return parentId;
@@ -124,7 +121,7 @@ public class ResourceCategory extends BaseEntity {
 	 * 
 	 * @return isRoot
 	 **/
-	@ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+	@Schema(description = "If true, this Boolean indicates that the category is a root of categories")
 
 	public Boolean isIsRoot() {
 		return isRoot;
@@ -142,7 +139,7 @@ public class ResourceCategory extends BaseEntity {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "List of child categories in the tree for in this category")
+	@Schema(description = "List of child categories in the tree for in this category")
 	@Transient
 	@JsonProperty("category")
 	@Valid
@@ -200,7 +197,7 @@ public class ResourceCategory extends BaseEntity {
 	 * 
 	 * @return resourceCandidate
 	 **/
-	@ApiModelProperty(value = "List of resource candidates associated with this category")
+	@Schema(description = "List of resource candidates associated with this category")
 
 	@Valid
 	@JsonProperty("resourceCandidate")

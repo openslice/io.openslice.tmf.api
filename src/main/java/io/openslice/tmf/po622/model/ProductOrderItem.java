@@ -23,22 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * An identified part of the order. A product order is decomposed into one or more order items.
  */
-@ApiModel(description = "An identified part of the order. A product order is decomposed into one or more order items.")
+@Schema(description = "An identified part of the order. A product order is decomposed into one or more order items.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class ProductOrderItem   {
   @JsonProperty("id")
   private String id = null;
@@ -116,7 +114,7 @@ public class ProductOrderItem   {
    * Identifier of the line item (generally it is a sequence number 01, 02, 03, ...)
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Identifier of the line item (generally it is a sequence number 01, 02, 03, ...)")
+  @Schema(description = "Identifier of the line item (generally it is a sequence number 01, 02, 03, ...)")
       @NotNull
 
     public String getId() {
@@ -136,7 +134,7 @@ public class ProductOrderItem   {
    * Quantity ordered
    * @return quantity
   **/
-  @ApiModelProperty(value = "Quantity ordered")
+  @Schema(description = "Quantity ordered")
   
     public Integer getQuantity() {
     return quantity;
@@ -155,7 +153,7 @@ public class ProductOrderItem   {
    * Get action
    * @return action
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     @Valid
@@ -176,7 +174,7 @@ public class ProductOrderItem   {
    * Get appointment
    * @return appointment
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public AppointmentRef getAppointment() {
@@ -196,7 +194,7 @@ public class ProductOrderItem   {
    * Get billingAccount
    * @return billingAccount
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public BillingAccountRef getBillingAccount() {
@@ -224,7 +222,7 @@ public class ProductOrderItem   {
    * Get itemPrice
    * @return itemPrice
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<OrderPrice> getItemPrice() {
     return itemPrice;
@@ -251,7 +249,7 @@ public class ProductOrderItem   {
    * Get itemTerm
    * @return itemTerm
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<OrderTerm> getItemTerm() {
     return itemTerm;
@@ -278,7 +276,7 @@ public class ProductOrderItem   {
    * Get itemTotalPrice
    * @return itemTotalPrice
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<OrderPrice> getItemTotalPrice() {
     return itemTotalPrice;
@@ -305,7 +303,7 @@ public class ProductOrderItem   {
    * Get payment
    * @return payment
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<PaymentRef> getPayment() {
     return payment;
@@ -324,7 +322,7 @@ public class ProductOrderItem   {
    * Get product
    * @return product
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductRefOrValue getProduct() {
@@ -344,7 +342,7 @@ public class ProductOrderItem   {
    * Get productOffering
    * @return productOffering
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductOfferingRef getProductOffering() {
@@ -364,7 +362,7 @@ public class ProductOrderItem   {
    * Get productOfferingQualificationItem
    * @return productOfferingQualificationItem
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductOfferingQualificationItemRef getProductOfferingQualificationItem() {
@@ -392,7 +390,7 @@ public class ProductOrderItem   {
    * Get productOrderItem
    * @return productOrderItem
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ProductOrderItem> getProductOrderItem() {
     return productOrderItem;
@@ -419,7 +417,7 @@ public class ProductOrderItem   {
    * Get productOrderItemRelationship
    * @return productOrderItemRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<OrderItemRelationship> getProductOrderItemRelationship() {
     return productOrderItemRelationship;
@@ -446,7 +444,7 @@ public class ProductOrderItem   {
    * Get qualification
    * @return qualification
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ProductOfferingQualificationRef> getQualification() {
     return qualification;
@@ -465,7 +463,7 @@ public class ProductOrderItem   {
    * Get quoteItem
    * @return quoteItem
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public QuoteItemRef getQuoteItem() {
@@ -485,7 +483,7 @@ public class ProductOrderItem   {
    * Get state
    * @return state
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ProductOrderItemStateType getState() {
@@ -505,7 +503,7 @@ public class ProductOrderItem   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -524,7 +522,7 @@ public class ProductOrderItem   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -543,7 +541,7 @@ public class ProductOrderItem   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

@@ -20,22 +20,20 @@
 package io.openslice.tmf.sac640.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.sac640.model.Request;
-import io.openslice.tmf.sac640.model.Response;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Monitoring of resources
  */
-@ApiModel(description = "Monitoring of resources")
+@Schema(description = "Monitoring of resources")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-04-29T12:42:32.118457300+03:00[Europe/Athens]")
 public class Monitor   {
   @JsonProperty("id")
   private String id = null;
@@ -73,7 +71,7 @@ public class Monitor   {
    * Identifier of an instance of the monitor. Required to be unique within the resource type.  Used in URIs as the identifier for specific instances of a type
    * @return id
   **/
-  @ApiModelProperty(value = "Identifier of an instance of the monitor. Required to be unique within the resource type.  Used in URIs as the identifier for specific instances of a type")
+  @Schema(description = "Identifier of an instance of the monitor. Required to be unique within the resource type.  Used in URIs as the identifier for specific instances of a type")
   
     public String getId() {
     return id;
@@ -92,7 +90,7 @@ public class Monitor   {
    * reference to this monitor
    * @return href
   **/
-  @ApiModelProperty(value = "reference to this monitor")
+  @Schema(description = "reference to this monitor")
   
     public String getHref() {
     return href;
@@ -111,7 +109,7 @@ public class Monitor   {
    * The monitored resource href
    * @return sourceHref
   **/
-  @ApiModelProperty(value = "The monitored resource href")
+  @Schema(description = "The monitored resource href")
   
     public String getSourceHref() {
     return sourceHref;
@@ -130,7 +128,7 @@ public class Monitor   {
    * The Monitor state of the resource.  InProgress, InError, Completed
    * @return state
   **/
-  @ApiModelProperty(value = "The Monitor state of the resource.  InProgress, InError, Completed")
+  @Schema(description = "The Monitor state of the resource.  InProgress, InError, Completed")
   
     public String getState() {
     return state;
@@ -149,7 +147,7 @@ public class Monitor   {
    * Get request
    * @return request
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Request getRequest() {
@@ -169,7 +167,7 @@ public class Monitor   {
    * Get response
    * @return response
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Response getResponse() {
@@ -189,7 +187,7 @@ public class Monitor   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -208,7 +206,7 @@ public class Monitor   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -227,7 +225,7 @@ public class Monitor   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

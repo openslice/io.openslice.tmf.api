@@ -23,12 +23,10 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -45,9 +43,14 @@ import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryCreate;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceCategoryUpdate;
+import io.openslice.tmf.scm633.model.ServiceSpecCharRelationship;
+import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
+import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
 import io.openslice.tmf.scm633.repo.CandidateRepository;
 import io.openslice.tmf.scm633.repo.CatalogRepository;
 import io.openslice.tmf.scm633.repo.CategoriesRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class CategoryRepoService {
@@ -120,6 +123,19 @@ public class CategoryRepoService {
 		        for (ServiceCandidate sc : dd.getServiceCandidateObj()) {
 			        Hibernate.initialize(sc );
 			        Hibernate.initialize(sc.getCategoryObj() );
+			        Hibernate.initialize(sc.getServiceSpecificationObj() );
+			        Hibernate.initialize(sc.getServiceSpecificationObj().getServiceSpecCharacteristic() );
+			        for (ServiceSpecCharacteristic ssc : sc.getServiceSpecificationObj().getServiceSpecCharacteristic() ) {
+				        Hibernate.initialize(ssc.getServiceSpecCharRelationship() );
+				        for (ServiceSpecCharRelationship srel : ssc.getServiceSpecCharRelationship() ) {
+					        Hibernate.initialize( srel );					        	
+				        }
+				        Hibernate.initialize(ssc.getServiceSpecCharacteristicValue() );				
+				        for (ServiceSpecCharacteristicValue srel : ssc.getServiceSpecCharacteristicValue() ) {
+					        Hibernate.initialize( srel );					        	
+				        }		
+					}
+			        Hibernate.initialize(sc.getServiceSpecificationObj().getServiceSpecRelationship() );
 				}
 		        
 		        tx.commit();

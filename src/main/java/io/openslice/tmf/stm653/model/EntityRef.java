@@ -20,25 +20,22 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * Entity reference schema to be use for all entityRef class.
  */
-@ApiModel(description = "Entity reference schema to be use for all entityRef class.")
+@Schema(description = "Entity reference schema to be use for all entityRef class.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMEntityRef")
 @Table(name = "STMEntityRef")
 public class EntityRef extends BaseEntity {
@@ -68,7 +65,7 @@ public class EntityRef extends BaseEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

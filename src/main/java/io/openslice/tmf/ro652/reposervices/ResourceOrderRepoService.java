@@ -26,7 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,9 +35,6 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.EValueType;
@@ -56,6 +54,7 @@ import io.openslice.tmf.ro652.model.ResourceOrderCreate;
 import io.openslice.tmf.ro652.model.ResourceOrderItem;
 import io.openslice.tmf.ro652.model.ResourceOrderStateType;
 import io.openslice.tmf.ro652.model.ResourceOrderUpdate;
+import jakarta.validation.Valid;
 
 @Service
 public class ResourceOrderRepoService {

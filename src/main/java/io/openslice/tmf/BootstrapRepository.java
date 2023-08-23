@@ -19,15 +19,13 @@
  */
 package io.openslice.tmf;
 
-import javax.annotation.PostConstruct;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
@@ -42,6 +40,7 @@ import io.openslice.tmf.scm633.reposervices.CandidateRepoService;
 import io.openslice.tmf.scm633.reposervices.CatalogRepoService;
 import io.openslice.tmf.scm633.reposervices.CategoryRepoService;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
+import jakarta.annotation.PostConstruct;
 
 /**
  * @author ctranoris
@@ -80,6 +79,7 @@ public class BootstrapRepository {
 	ObjectMapper objectMapper;
 	
 	@PostConstruct
+	@Transactional
 	public void initRepo() {
 		if (this.catalogRepoService.findAll().size() == 0) {
 			ServiceCatalogCreate sc = new ServiceCatalogCreate();

@@ -3,22 +3,20 @@ package io.openslice.tmf.ro652.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Request for cancellation an existing resource order Skipped properties: id,href,state,effectiveCancellationDate
  */
-@ApiModel(description = "Request for cancellation an existing resource order Skipped properties: id,href,state,effectiveCancellationDate")
+@Schema(description = "Request for cancellation an existing resource order Skipped properties: id,href,state,effectiveCancellationDate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class CancelResourceOrderCreate   {
   @JsonProperty("cancellationReason")
   private String cancellationReason = null;
@@ -47,7 +45,7 @@ public class CancelResourceOrderCreate   {
    * Reason why the order is cancelled.
    * @return cancellationReason
   **/
-  @ApiModelProperty(value = "Reason why the order is cancelled.")
+  @Schema(description = "Reason why the order is cancelled.")
   
     public String getCancellationReason() {
     return cancellationReason;
@@ -66,7 +64,7 @@ public class CancelResourceOrderCreate   {
    * Date when the submitter wants the order to be cancelled
    * @return requestedCancellationDate
   **/
-  @ApiModelProperty(value = "Date when the submitter wants the order to be cancelled")
+  @Schema(description = "Date when the submitter wants the order to be cancelled")
   
     @Valid
     public OffsetDateTime getRequestedCancellationDate() {
@@ -86,7 +84,7 @@ public class CancelResourceOrderCreate   {
    * Get resourceOrder
    * @return resourceOrder
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     @Valid
@@ -107,7 +105,7 @@ public class CancelResourceOrderCreate   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -126,7 +124,7 @@ public class CancelResourceOrderCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -145,7 +143,7 @@ public class CancelResourceOrderCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;

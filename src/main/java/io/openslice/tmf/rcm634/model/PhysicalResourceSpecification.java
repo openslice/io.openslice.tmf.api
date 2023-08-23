@@ -21,23 +21,21 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * This is a concrete class that is used to define the invariant characteristics
  * and behavior (attributes, methods, constraints, and relationships) of a
  * PhysicalResource.
  */
-@ApiModel(description = "This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource.")
+@Schema(description = "This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 @Entity(name = "PhysicalRspec")
 public class PhysicalResourceSpecification extends ResourceSpecification {
 
@@ -77,7 +75,7 @@ public class PhysicalResourceSpecification extends ResourceSpecification {
 	 * 
 	 * @return model
 	 **/
-	@ApiModelProperty(value = "This is a string that represents a manufacturer-allocated number used to identify the general type and/or category of the hardware item. This, in combination with the Part and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is an optional attribute.")
+	@Schema(description = "This is a string that represents a manufacturer-allocated number used to identify the general type and/or category of the hardware item. This, in combination with the Part and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is an optional attribute.")
 
 	public String getModel() {
 		return model;
@@ -102,7 +100,7 @@ public class PhysicalResourceSpecification extends ResourceSpecification {
 	 * 
 	 * @return part
 	 **/
-	@ApiModelProperty(value = "This is a string that defines a manufacturer-allocated part number assigned by the organization that manufactures the hardware item. This, in combination with the Model and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute.")
+	@Schema(description = "This is a string that defines a manufacturer-allocated part number assigned by the organization that manufactures the hardware item. This, in combination with the Model and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute.")
 
 	public String getPart() {
 		return part;
@@ -123,7 +121,7 @@ public class PhysicalResourceSpecification extends ResourceSpecification {
 	 * 
 	 * @return sku
 	 **/
-	@ApiModelProperty(value = "This is a string that defines the manufacturer-allocated Stock Keeping Unit (SKU) number of the hardware item. This is an optional attribute.")
+	@Schema(description = "This is a string that defines the manufacturer-allocated Stock Keeping Unit (SKU) number of the hardware item. This is an optional attribute.")
 
 	public String getSku() {
 		return sku;
@@ -147,7 +145,7 @@ public class PhysicalResourceSpecification extends ResourceSpecification {
 	 * 
 	 * @return vendor
 	 **/
-	@ApiModelProperty(value = "This is a string that defines the name of the manufacturer. This, in combination with the Model and the Part, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute for a physical resource.")
+	@Schema(description = "This is a string that defines the name of the manufacturer. This, in combination with the Model and the Part, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute for a physical resource.")
 
 	public String getVendor() {
 		return vendor;

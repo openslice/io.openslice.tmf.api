@@ -1,21 +1,21 @@
 package io.openslice.tmf.rpm685.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The period of time for which user requested to use the resources. The user can request on the start date without the end date.
  */
-@ApiModel(description = "The period of time for which user requested to use the resources. The user can request on the start date without the end date.")
+@Schema(description = "The period of time for which user requested to use the resources. The user can request on the start date without the end date.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 public class RequestedPeriod   {
   @JsonProperty("@baseType")
   private String _atBaseType = null;
@@ -47,7 +47,7 @@ public class RequestedPeriod   {
    * A string. Generic attribute indicating the base class type of the extension class of the current object. Useful only when the class type of the current  object is unknown to the implementation.
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "A string. Generic attribute indicating the base class type of the extension class of the current object. Useful only when the class type of the current  object is unknown to the implementation.")
+  @Schema(description = "A string. Generic attribute indicating the base class type of the extension class of the current object. Useful only when the class type of the current  object is unknown to the implementation.")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -66,7 +66,7 @@ public class RequestedPeriod   {
    * A string. Generic attribute containing the link to the schema that defines the structure of the class type of the current object.
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A string. Generic attribute containing the link to the schema that defines the structure of the class type of the current object.")
+  @Schema(description = "A string. Generic attribute containing the link to the schema that defines the structure of the class type of the current object.")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -85,7 +85,7 @@ public class RequestedPeriod   {
    * A string. Generic attribute containing the name of the resource class type.
    * @return _atType
   **/
-  @ApiModelProperty(value = "A string. Generic attribute containing the name of the resource class type.")
+  @Schema(description = "A string. Generic attribute containing the name of the resource class type.")
   
     public String getAtType() {
     return _atType;
@@ -104,7 +104,7 @@ public class RequestedPeriod   {
    * A day or days representing when the schedule is applicable. For example 2, 3 represent Monday and Tuesday.
    * @return daysOfWeek
   **/
-  @ApiModelProperty(value = "A day or days representing when the schedule is applicable. For example 2, 3 represent Monday and Tuesday.")
+  @Schema(description = "A day or days representing when the schedule is applicable. For example 2, 3 represent Monday and Tuesday.")
   
     public String getDaysOfWeek() {
     return daysOfWeek;
@@ -123,7 +123,7 @@ public class RequestedPeriod   {
    * The period of time for which the schedule is applicable.  Instance values are mutually exclusive with daysOfWeek values.
    * @return fromToDateTime
   **/
-  @ApiModelProperty(value = "The period of time for which the schedule is applicable.  Instance values are mutually exclusive with daysOfWeek values.")
+  @Schema(description = "The period of time for which the schedule is applicable.  Instance values are mutually exclusive with daysOfWeek values.")
   
     @Valid
     public OffsetDateTime getFromToDateTime() {
@@ -143,7 +143,7 @@ public class RequestedPeriod   {
    * An indicator that specifies the inclusion or exclusion of the from and to DateTime attributes.  Possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".
    * @return rangeInterval
   **/
-  @ApiModelProperty(value = "An indicator that specifies the inclusion or exclusion of the from and to DateTime attributes.  Possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
+  @Schema(description = "An indicator that specifies the inclusion or exclusion of the from and to DateTime attributes.  Possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
   
     public String getRangeInterval() {
     return rangeInterval;
@@ -162,7 +162,7 @@ public class RequestedPeriod   {
    * The period of time during which the schedule is considered of interest to the business.
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period of time during which the schedule is considered of interest to the business.")
+  @Schema(description = "The period of time during which the schedule is considered of interest to the business.")
   
     public String getValidFor() {
     return validFor;

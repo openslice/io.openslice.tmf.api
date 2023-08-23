@@ -29,9 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -42,6 +39,8 @@ import org.springframework.stereotype.Service;
 import io.openslice.tmf.am642.model.GroupAlarms;
 import io.openslice.tmf.am642.model.GroupAlarmsCreate;
 import io.openslice.tmf.am642.repo.GroupAlarmsRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class GroupAlarmsRepoService {

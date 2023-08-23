@@ -20,8 +20,10 @@
 package io.openslice.tmf.so641.api;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.ProducerTemplate;
@@ -34,20 +36,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
-import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.model.PortalUser;
-import io.openslice.tmf.common.model.Notification;
-import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
-import io.openslice.tmf.so641.model.ServiceOrderCreateNotification;
-import io.openslice.tmf.so641.model.ServiceOrderDeleteEvent;
-import io.openslice.tmf.so641.model.ServiceOrderDeleteNotification;
-import io.openslice.tmf.so641.model.ServiceOrderStateChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 import io.openslice.tmf.so641.reposervices.ServiceOrderRepoService;
 
@@ -77,17 +68,6 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 	private String CATALOG_ADD_SERVICEORDER = "";
 	
 
-	@Value("${EVENT_SERVICE_ORDER_CREATE}")
-	private String EVENT_SERVICE_ORDER_CREATE = "";
-	
-	@Value("${EVENT_SERVICE_ORDER_STATE_CHANGED}")
-	private String EVENT_SERVICE_ORDER_STATE_CHANGED = "";
-	
-	@Value("${EVENT_SERVICE_ORDER_DELETE}")
-	private String EVENT_SERVICE_ORDER_DELETE = "";
-	
-	@Value("${EVENT_SERVICE_ORDER_ATTRIBUTE_VALUE_CHANGED}")
-	private String EVENT_SERVICE_ORDER_ATTRIBUTE_VALUE_CHANGED = "";
 
 	@Value("${GET_USER_BY_USERNAME}")
 	private String GET_USER_BY_USERNAME = "";
@@ -148,40 +128,6 @@ public class ServiceOrderApiRouteBuilder extends RouteBuilder {
 				.convertBodyTo(String.class); //creates back a response
 		
 
-	}
-
-	/**
-	 * @param n
-	 */
-	public void publishEvent(final Notification n, final String objId) {
-		n.setEventType( n.getClass().getName());
-		logger.info("will send Event for type " + n.getEventType());
-		try {
-			String msgtopic="";
-			
-			if ( n instanceof ServiceOrderCreateNotification) {
-				 msgtopic = EVENT_SERVICE_ORDER_CREATE;
-			} else if ( n instanceof ServiceOrderStateChangeNotification) {
-				 msgtopic = EVENT_SERVICE_ORDER_STATE_CHANGED;				
-			} else if ( n instanceof ServiceOrderDeleteNotification) {
-				 msgtopic = EVENT_SERVICE_ORDER_DELETE;				
-			} else if ( n instanceof ServiceOrderAttributeValueChangeNotification) {
-				 msgtopic = EVENT_SERVICE_ORDER_ATTRIBUTE_VALUE_CHANGED;				
-			}
-			Map<String, Object> map = new HashMap<>();
-			map.put("eventid", n.getEventId() );
-			map.put("objId", objId );
-			
-			String apayload = toJsonString(n);
-			template.sendBodyAndHeaders(msgtopic, apayload , map);
-			
-
-			centralLogger.log( CLevel.INFO, apayload, compname );	
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("Cannot send Event . " + e.getMessage()  );
-		}
 	}
 
 	static String toJsonString(Object object) throws IOException {

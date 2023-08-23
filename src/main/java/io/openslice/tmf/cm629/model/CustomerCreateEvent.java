@@ -23,21 +23,19 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 public class CustomerCreateEvent   {
   @JsonProperty("id")
@@ -84,7 +82,7 @@ public class CustomerCreateEvent   {
    * Identifier of the resource involved in the event
    * @return id
   **/
-  @ApiModelProperty(value = "Identifier of the resource involved in the event")
+  @Schema(description = "Identifier of the resource involved in the event")
 
 
   public String getId() {
@@ -104,7 +102,7 @@ public class CustomerCreateEvent   {
    * Reference of the resource involved in the event
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the resource involved in the event")
+  @Schema(description = "Reference of the resource involved in the event")
 
 
   public String getHref() {
@@ -124,7 +122,7 @@ public class CustomerCreateEvent   {
    * The identifier of the notification.
    * @return eventId
   **/
-  @ApiModelProperty(value = "The identifier of the notification.")
+  @Schema(description = "The identifier of the notification.")
 
 
   public String getEventId() {
@@ -144,7 +142,7 @@ public class CustomerCreateEvent   {
    * Time of the event occurrence.
    * @return eventTime
   **/
-  @ApiModelProperty(value = "Time of the event occurrence.")
+  @Schema(description = "Time of the event occurrence.")
 
   @Valid
   
@@ -173,7 +171,7 @@ public class CustomerCreateEvent   {
    * The type of the notification.
    * @return eventType
   **/
-  @ApiModelProperty(value = "The type of the notification.")
+  @Schema(description = "The type of the notification.")
 
 
   public String getEventType() {
@@ -193,7 +191,7 @@ public class CustomerCreateEvent   {
    * The correlation id for this event.
    * @return correlationId
   **/
-  @ApiModelProperty(value = "The correlation id for this event.")
+  @Schema(description = "The correlation id for this event.")
 
 
   public String getCorrelationId() {
@@ -213,7 +211,7 @@ public class CustomerCreateEvent   {
    * The domain of the event.
    * @return domain
   **/
-  @ApiModelProperty(value = "The domain of the event.")
+  @Schema(description = "The domain of the event.")
 
 
   public String getDomain() {
@@ -233,7 +231,7 @@ public class CustomerCreateEvent   {
    * The title of the event.
    * @return title
   **/
-  @ApiModelProperty(value = "The title of the event.")
+  @Schema(description = "The title of the event.")
 
 
   public String getTitle() {
@@ -253,7 +251,7 @@ public class CustomerCreateEvent   {
    * An explanatory of the event.
    * @return description
   **/
-  @ApiModelProperty(value = "An explanatory of the event.")
+  @Schema(description = "An explanatory of the event.")
 
 
   public String getDescription() {
@@ -273,7 +271,7 @@ public class CustomerCreateEvent   {
    * A priority.
    * @return priority
   **/
-  @ApiModelProperty(value = "A priority.")
+  @Schema(description = "A priority.")
 
 
   public String getPriority() {
@@ -293,7 +291,7 @@ public class CustomerCreateEvent   {
    * The time the event occured.
    * @return timeOcurred
   **/
-  @ApiModelProperty(value = "The time the event occured.")
+  @Schema(description = "The time the event occured.")
 
   @Valid
 
@@ -314,7 +312,7 @@ public class CustomerCreateEvent   {
    * The event payload linked to the involved resource object
    * @return event
   **/
-  @ApiModelProperty(value = "The event payload linked to the involved resource object")
+  @Schema(description = "The event payload linked to the involved resource object")
 
   @Valid
 

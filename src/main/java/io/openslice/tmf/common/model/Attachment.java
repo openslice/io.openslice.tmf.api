@@ -21,25 +21,23 @@ package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.validation.Valid;
 
 /**
  * Complements the description of an element (for instance a product) through
  * video, pictures...
  */
-@ApiModel(description = "Complements the description of an element (for instance a product) through video, pictures...")
+@Schema(description = "Complements the description of an element (for instance a product) through video, pictures...")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity(name = "Attachment")
 public class Attachment extends BaseRootNamedEntity {
@@ -76,7 +74,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier for this particular attachment")
+	@Schema(description = "Unique identifier for this particular attachment")
 
 	/**
 	 * @return the id
@@ -98,7 +96,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return attachmentType
 	 **/
-	@ApiModelProperty(value = "Attachment type such as video, picture")
+	@Schema(description = "Attachment type such as video, picture")
 
 	public String getAttachmentType() {
 		return attachmentType;
@@ -118,7 +116,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return content
 	 **/
-	@ApiModelProperty(value = "The actual contents of the attachment object, if embedded, encoded as base64")
+	@Schema(description = "The actual contents of the attachment object, if embedded, encoded as base64")
 
 	public String getContent() {
 		return content;
@@ -138,7 +136,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A narrative text describing the content of the attachment")
+	@Schema(description = "A narrative text describing the content of the attachment")
 
 	public String getDescription() {
 		return description;
@@ -158,7 +156,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return mimeType
 	 **/
-	@ApiModelProperty(value = "Attachment mime type such as extension file for video, picture and document")
+	@Schema(description = "Attachment mime type such as extension file for video, picture and document")
 
 	public String getMimeType() {
 		return mimeType;
@@ -178,7 +176,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return url
 	 **/
-	@ApiModelProperty(value = "Uniform Resource Locator, is a web page address (a subset of URI)")
+	@Schema(description = "Uniform Resource Locator, is a web page address (a subset of URI)")
 
 	public String getUrl() {
 		return url;
@@ -198,7 +196,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return size
 	 **/
-	@ApiModelProperty(value = "The size of the attachment.")
+	@Schema(description = "The size of the attachment.")
 
 	@Valid
 
@@ -220,7 +218,7 @@ public class Attachment extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period of time for which the attachment is valid")
+	@Schema(description = "The period of time for which the attachment is valid")
 
 	@Valid
 

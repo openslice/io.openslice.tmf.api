@@ -19,23 +19,20 @@
  */
 package io.openslice.tmf.rcm634.model;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Resources are physical or non-physical components (or some combination of
@@ -53,9 +50,9 @@ import io.swagger.annotations.ApiModelProperty;
  * 
  * add lastUpdate
  */
-@ApiModel(description = "Resources are physical or non-physical components (or some combination of these) within an enterprise's infrastructure or inventory. They are typically consumed or used by services (for example a physical port assigned to a service) or contribute to the realization of a Product (for example, a SIM card). They can be drawn from the Application, Computing and Network domains, and include, for example, Network Elements, software, IT systems, content and information, and technology components. A ResourceSpecification is an abstract base class for representing a generic means for implementing a particular type of Resource. In essence, a ResourceSpecification defines the common attributes and relationships of a set of related Resources, while Resource defines a specific instance that is based on a particular ResourceSpecification. Skipped properties: id,href")
+@Schema(description = "Resources are physical or non-physical components (or some combination of these) within an enterprise's infrastructure or inventory. They are typically consumed or used by services (for example a physical port assigned to a service) or contribute to the realization of a Product (for example, a SIM card). They can be drawn from the Application, Computing and Network domains, and include, for example, Network Elements, software, IT systems, content and information, and technology components. A ResourceSpecification is an abstract base class for representing a generic means for implementing a particular type of Resource. In essence, a ResourceSpecification defines the common attributes and relationships of a set of related Resources, while Resource defines a specific instance that is based on a particular ResourceSpecification. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 public class ResourceSpecificationUpdate {
 	@JsonProperty("category")
 	protected String category = null;
@@ -121,7 +118,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.")
+	@Schema(description = "Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.")
 
 	public String getCategory() {
 		return category;
@@ -141,7 +138,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of this REST resource")
+	@Schema(description = "Description of this REST resource")
 
 	public String getDescription() {
 		return description;
@@ -162,7 +159,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "A flag indicates that if this resource specification is a bundled specification (true) or single (false).")
+	@Schema(description = "A flag indicates that if this resource specification is a bundled specification (true) or single (false).")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -183,7 +180,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status of the resource specification")
+	@Schema(description = "Used to indicate the current lifecycle status of the resource specification")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -203,7 +200,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name given to this REST resource")
+	@Schema(description = "Name given to this REST resource")
 
 	public String getName() {
 		return name;
@@ -223,7 +220,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Resource Specification version")
+	@Schema(description = "Resource Specification version")
 
 	public String getVersion() {
 		return version;
@@ -252,7 +249,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "Complements the description of an element (for instance a resource) through video, pictures ...")
+	@Schema(description = "Complements the description of an element (for instance a resource) through video, pictures ...")
 	@Valid
 	public List<AttachmentRefOrValue> getAttachment() {
 		return attachment;
@@ -280,7 +277,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return featureSpecification
 	 **/
-	@ApiModelProperty(value = "A list of Features for this specification.")
+	@Schema(description = "A list of Features for this specification.")
 	@Valid
 	public List<FeatureSpecification> getFeatureSpecification() {
 		return featureSpecification;
@@ -308,7 +305,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A related party defines party or party role linked to a specific entity.")
+	@Schema(description = "A related party defines party or party role linked to a specific entity.")
 	@Valid
 	public List<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -372,7 +369,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return ResourceSpecificationCharacteristic
 	 **/
-	@ApiModelProperty(value = "A characteristic quality or distinctive feature of a ResourceSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
+	@Schema(description = "A characteristic quality or distinctive feature of a ResourceSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
 	@Valid
 	public List<ResourceSpecificationCharacteristic> getResourceSpecificationCharacteristic() {
 		return resourceSpecificationCharacteristic;
@@ -403,7 +400,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return resourceSpecRelationship
 	 **/
-	@ApiModelProperty(value = "A migration, substitution, dependency or exclusivity relationship between/among resource specifications.")
+	@Schema(description = "A migration, substitution, dependency or exclusivity relationship between/among resource specifications.")
 	@Valid
 	public List<ResourceSpecificationRelationship> getResourceSpecificationRelationship() {
 		return resourceSpecificationRelationship;
@@ -423,7 +420,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return targetResourceSchema
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TargetResourceSchema getTargetResourceSchema() {
@@ -444,7 +441,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -465,7 +462,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -486,7 +483,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -506,7 +503,7 @@ public class ResourceSpecificationUpdate {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;

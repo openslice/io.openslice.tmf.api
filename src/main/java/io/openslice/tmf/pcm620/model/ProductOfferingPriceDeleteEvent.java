@@ -22,21 +22,19 @@ package io.openslice.tmf.pcm620.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class ProductOfferingPriceDeleteEvent   {
   @JsonProperty("id")
@@ -84,7 +82,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * Identifier of the Process flow
    * @return id
   **/
-  @ApiModelProperty(value = "Identifier of the Process flow")
+  @Schema(description = "Identifier of the Process flow")
 
 
   public String getId() {
@@ -104,7 +102,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * Reference of the ProcessFlow
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the ProcessFlow")
+  @Schema(description = "Reference of the ProcessFlow")
 
 
   public String getHref() {
@@ -124,7 +122,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * The identifier of the notification.
    * @return eventId
   **/
-  @ApiModelProperty(value = "The identifier of the notification.")
+  @Schema(description = "The identifier of the notification.")
 
 
   public String getEventId() {
@@ -144,7 +142,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * Time of the event occurrence.
    * @return eventTime
   **/
-  @ApiModelProperty(value = "Time of the event occurrence.")
+  @Schema(description = "Time of the event occurrence.")
 
   @Valid
 
@@ -165,7 +163,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * The type of the notification.
    * @return eventType
   **/
-  @ApiModelProperty(value = "The type of the notification.")
+  @Schema(description = "The type of the notification.")
 
 
   public String getEventType() {
@@ -185,7 +183,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * The correlation id for this event.
    * @return correlationId
   **/
-  @ApiModelProperty(value = "The correlation id for this event.")
+  @Schema(description = "The correlation id for this event.")
 
 
   public String getCorrelationId() {
@@ -205,7 +203,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * The domain of the event.
    * @return domain
   **/
-  @ApiModelProperty(value = "The domain of the event.")
+  @Schema(description = "The domain of the event.")
 
 
   public String getDomain() {
@@ -225,7 +223,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * The title of the event.
    * @return title
   **/
-  @ApiModelProperty(value = "The title of the event.")
+  @Schema(description = "The title of the event.")
 
 
   public String getTitle() {
@@ -245,7 +243,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * An explnatory of the event.
    * @return description
   **/
-  @ApiModelProperty(value = "An explnatory of the event.")
+  @Schema(description = "An explnatory of the event.")
 
 
   public String getDescription() {
@@ -265,7 +263,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * A priority.
    * @return priority
   **/
-  @ApiModelProperty(value = "A priority.")
+  @Schema(description = "A priority.")
 
 
   public String getPriority() {
@@ -285,7 +283,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * The time the event occured.
    * @return timeOcurred
   **/
-  @ApiModelProperty(value = "The time the event occured.")
+  @Schema(description = "The time the event occured.")
 
   @Valid
 
@@ -306,7 +304,7 @@ public class ProductOfferingPriceDeleteEvent   {
    * The event payload linked to the involved resource object
    * @return event
   **/
-  @ApiModelProperty(value = "The event payload linked to the involved resource object")
+  @Schema(description = "The event payload linked to the involved resource object")
 
   @Valid
 

@@ -21,24 +21,22 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)
  */
-@ApiModel(description = "Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)")
+@Schema(description = "Describes the contact medium characteristics that could be used to contact a party (an individual or an organization)")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity(name = "MediumCharacteristic")
 public class MediumCharacteristic extends BaseRootEntity {
@@ -103,7 +101,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return city
 	 **/
-	@ApiModelProperty(value = "The city")
+	@Schema(description = "The city")
 
 	public String getCity() {
 		return city;
@@ -124,7 +122,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return contactType
 	 **/
-	@ApiModelProperty(value = "The type of contact, for example: phone number such as mobile, fixed home, fixed office. postal address such as shipping instalation…")
+	@Schema(description = "The type of contact, for example: phone number such as mobile, fixed home, fixed office. postal address such as shipping instalation…")
 
 	public String getContactType() {
 		return contactType;
@@ -144,7 +142,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return country
 	 **/
-	@ApiModelProperty(value = "The country")
+	@Schema(description = "The country")
 
 	public String getCountry() {
 		return country;
@@ -164,7 +162,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return emailAddress
 	 **/
-	@ApiModelProperty(value = "Full email address in standard format")
+	@Schema(description = "Full email address in standard format")
 
 	public String getEmailAddress() {
 		return emailAddress;
@@ -184,7 +182,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return faxNumber
 	 **/
-	@ApiModelProperty(value = "The fax number of the contact")
+	@Schema(description = "The fax number of the contact")
 
 	public String getFaxNumber() {
 		return faxNumber;
@@ -204,7 +202,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return phoneNumber
 	 **/
-	@ApiModelProperty(value = "The primary phone number of the contact")
+	@Schema(description = "The primary phone number of the contact")
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -224,7 +222,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return postCode
 	 **/
-	@ApiModelProperty(value = "Postcode")
+	@Schema(description = "Postcode")
 
 	public String getPostCode() {
 		return postCode;
@@ -244,7 +242,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return socialNetworkId
 	 **/
-	@ApiModelProperty(value = "Identifier as a member of a social network")
+	@Schema(description = "Identifier as a member of a social network")
 
 	public String getSocialNetworkId() {
 		return socialNetworkId;
@@ -264,7 +262,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return stateOrProvince
 	 **/
-	@ApiModelProperty(value = "State or province")
+	@Schema(description = "State or province")
 
 	public String getStateOrProvince() {
 		return stateOrProvince;
@@ -284,7 +282,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return street1
 	 **/
-	@ApiModelProperty(value = "Describes the street")
+	@Schema(description = "Describes the street")
 
 	public String getStreet1() {
 		return street1;
@@ -304,7 +302,7 @@ public class MediumCharacteristic extends BaseRootEntity {
 	 * 
 	 * @return street2
 	 **/
-	@ApiModelProperty(value = "Complementary street description")
+	@Schema(description = "Complementary street description")
 
 	public String getStreet2() {
 		return street2;

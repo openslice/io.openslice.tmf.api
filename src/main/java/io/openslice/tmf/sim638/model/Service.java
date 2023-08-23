@@ -20,24 +20,13 @@
 package io.openslice.tmf.sim638.model;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.IntPredicate;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.springframework.validation.annotation.Validated;
 
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.service.Characteristic;
@@ -49,8 +38,14 @@ import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * Service is a base class for defining the Service hierarchy. All Services are
@@ -58,9 +53,9 @@ import io.swagger.annotations.ApiModelProperty;
  * not. This gives rise to the two subclasses of Service: CustomerFacingService
  * and ResourceFacingService.
  */
-@ApiModel(description = "Service is a base class for defining the Service hierarchy. All Services are characterized as either being possibly visible and usable by a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService and ResourceFacingService.")
+@Schema(description = "Service is a base class for defining the Service hierarchy. All Services are characterized as either being possibly visible and usable by a Customer or not. This gives rise to the two subclasses of Service: CustomerFacingService and ResourceFacingService.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:12:41.682+03:00")
 
 @Entity
 public class Service extends BaseRootNamedEntity {
@@ -160,7 +155,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the service")
+	@Schema(description = "Unique identifier of the service")
 
 	public String getId() {
 		id = uuid;
@@ -172,7 +167,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Is it a customer facing or resource facing service")
+	@Schema(description = "Is it a customer facing or resource facing service")
 
 	public String getCategory() {
 		return category;
@@ -192,7 +187,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Free-text description of the service")
+	@Schema(description = "Free-text description of the service")
 
 	public String getDescription() {
 		return descriptionL;
@@ -212,7 +207,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return endDate
 	 **/
-	@ApiModelProperty(value = "Date when the service ends")
+	@Schema(description = "Date when the service ends")
 
 	@Valid
 
@@ -250,7 +245,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return hasStarted
 	 **/
-	@ApiModelProperty(value = "If TRUE, this Service has already been started")
+	@Schema(description = "If TRUE, this Service has already been started")
 
 	public Boolean isHasStarted() {
 		return hasStarted;
@@ -270,7 +265,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return isServiceEnabled
 	 **/
-	@ApiModelProperty(value = "If FALSE, this particular Service has NOT been enabled for use")
+	@Schema(description = "If FALSE, this particular Service has NOT been enabled for use")
 
 	public Boolean isIsServiceEnabled() {
 		return isServiceEnabled;
@@ -290,7 +285,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return isStateful
 	 **/
-	@ApiModelProperty(value = "If TRUE, this Service can be changed without affecting any other services")
+	@Schema(description = "If TRUE, this Service can be changed without affecting any other services")
 
 	public Boolean isIsStateful() {
 		return isStateful;
@@ -310,7 +305,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceDate
 	 **/
-	@ApiModelProperty(value = "Date when the service was created (whatever its status).")
+	@Schema(description = "Date when the service was created (whatever its status).")
 
 	public String getServiceDate() {
 		return serviceDate;
@@ -330,7 +325,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceType
 	 **/
-	@ApiModelProperty(value = "Business type of the service")
+	@Schema(description = "Business type of the service")
 
 	public String getServiceType() {
 		return serviceType;
@@ -350,7 +345,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return startDate
 	 **/
-	@ApiModelProperty(value = "Date when the service starts")
+	@Schema(description = "Date when the service starts")
 
 	@Valid
 
@@ -391,7 +386,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return startMode
 	 **/
-	@ApiModelProperty(value = "This attribute is an enumerated integer that indicates how the Service is started, such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a Customer of the Provider; 5: Any of the above")
+	@Schema(description = "This attribute is an enumerated integer that indicates how the Service is started, such as: 0: Unknown; 1: Automatically by the managed environment; 2: Automatically by the owning device; 3: Manually by the Provider of the Service; 4: Manually by a Customer of the Provider; 5: Any of the above")
 
 	public String getStartMode() {
 		return startMode;
@@ -419,7 +414,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return note
 	 **/
-	@ApiModelProperty(value = "A list of notes made on this service")
+	@Schema(description = "A list of notes made on this service")
 
 	@Valid
 
@@ -450,7 +445,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return place
 	 **/
-	@ApiModelProperty(value = "A list of places related to this service, e.g. where the service is installed, a delivery address for equipment, etc.")
+	@Schema(description = "A list of places related to this service, e.g. where the service is installed, a delivery address for equipment, etc.")
 
 	@Valid
 
@@ -481,7 +476,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of related party references (RelatedParty [1..*]). A related party defines party or party role linked to a specific entity.")
+	@Schema(description = "A list of related party references (RelatedParty [1..*]). A related party defines party or party role linked to a specific entity.")
 
 	@Valid
 
@@ -512,7 +507,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceCharacteristic
 	 **/
-	@ApiModelProperty(value = "A list of characteristics that characterize this service (ServiceCharacteristic [*]) ")
+	@Schema(description = "A list of characteristics that characterize this service (ServiceCharacteristic [*]) ")
 
 	@Valid
 
@@ -542,7 +537,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceOrder
 	 **/
-	@ApiModelProperty(value = "A list of service orders related to this service")
+	@Schema(description = "A list of service orders related to this service")
 
 	@Valid
 
@@ -574,7 +569,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
+	@Schema(description = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
 
 	@Valid
 
@@ -596,7 +591,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceSpecification
 	 **/
-	@ApiModelProperty(value = "The specification from which this service was instantiated")
+	@Schema(description = "The specification from which this service was instantiated")
 
 	@Valid
 
@@ -619,7 +614,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "The life cycle state of the service, such as: feasibilityChecked, designed, reserved, active, inactive, terminated")
+	@Schema(description = "The life cycle state of the service, such as: feasibilityChecked, designed, reserved, active, inactive, terminated")
 
 	@Valid
 
@@ -650,7 +645,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return supportingResource
 	 **/
-	@ApiModelProperty(value = "A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources.")
+	@Schema(description = "A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources.")
 
 	@Valid
 
@@ -681,7 +676,7 @@ public class Service extends BaseRootNamedEntity {
 	 * 
 	 * @return supportingService
 	 **/
-	@ApiModelProperty(value = "A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS).")
+	@Schema(description = "A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS).")
 
 	@Valid
 

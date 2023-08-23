@@ -34,13 +34,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,20 +44,12 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Base64;
-import java.util.zip.Deflater;
 
 import io.openslice.model.ConstituentVxF;
 import io.openslice.model.ExperimentOnBoardDescriptor;
@@ -79,12 +67,12 @@ import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristicValue;
-import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
-import io.openslice.tmf.scm633.api.ServiceSpecificationApiRouteBuilder;
+import io.openslice.tmf.scm633.api.ServiceSpecificationApiRouteBuilderNSD;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
@@ -101,6 +89,8 @@ import io.openslice.tmf.stm653.model.ServiceTestSpecificationUpdate;
 import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
 import io.openslice.tmf.util.KrokiClient;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 /**
  * @author ctranoris
@@ -129,7 +119,7 @@ public class ServiceSpecificationRepoService {
 	ResourceSpecificationRepoService resourceSpecRepoService;
 
 	@Autowired
-	ServiceSpecificationApiRouteBuilder serviceSpecificationApiRouteBuilder;
+	ServiceSpecificationApiRouteBuilderNSD serviceSpecificationApiRouteBuilder;
 
 
 	@Autowired

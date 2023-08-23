@@ -21,8 +21,10 @@ package io.openslice.tmf.scm633.api;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.commons.logging.Log;
@@ -32,10 +34,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.model.NetworkServiceDescriptor;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
@@ -43,8 +41,6 @@ import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
-import io.openslice.tmf.so641.model.ServiceOrder;
-import io.openslice.tmf.so641.model.ServiceOrderUpdate;
 
 @Configuration
 //@RefreshScope
@@ -57,27 +53,12 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 	private String CATALOG_GET_SERVICESPEC_BY_ID = "";
 	
 
-	@Value("${CATALOG_ADD_SERVICESPEC}")
-	private String CATALOG_ADD_SERVICESPEC = "";
-	
-
-	@Value("${CATALOG_UPD_SERVICESPEC}")
-	private String CATALOG_UPD_SERVICESPEC = "";
-	
-	@Value("${CATALOG_UPDADD_SERVICESPEC}")
-	private String CATALOG_UPDADD_SERVICESPEC = "";
-	
-	@Value("${NFV_CATALOG_GET_NSD_BY_ID}")
-	private String NFV_CATALOG_GET_NSD_BY_ID = "";
-	
 	@Value("${CATALOG_UPD_EXTERNAL_SERVICESPEC}")
 	private String CATALOG_UPD_EXTERNAL_SERVICESPEC = "";
 	
 	@Autowired
 	ServiceSpecificationRepoService serviceSpecificationRepoService;
 	
-    @Autowired
-    private ProducerTemplate template;
 	
 	@Override
 	public void configure() throws Exception {
@@ -124,31 +105,6 @@ public class ServiceSpecificationApiRouteBuilder extends RouteBuilder {
 	}
 
 	
-	/**
-	 * get  service order by id from model via bus
-	 * @param id
-	 * @return
-	 * @throws IOException
-	 */
-	public NetworkServiceDescriptor retrieveNSD( String nsdID) {
-		logger.info("will retrieve NetworkServiceDescriptor from NSD/VNF catalog nsdID=" + nsdID   );
-		try {
-			Object response = template.
-					requestBody( NFV_CATALOG_GET_NSD_BY_ID, nsdID);
-
-			if ( !(response instanceof String)) {
-				logger.error("NetworkServiceDescriptor object is wrong.");
-				return null;
-			}
-			NetworkServiceDescriptor sor = toJsonObj( (String)response, NetworkServiceDescriptor.class); 
-			//logger.debug("retrieveServiceOrder response is: " + response);
-			return sor;
-			
-		}catch (Exception e) {
-			logger.error("Cannot retrieve NetworkServiceDescriptor details from catalog. " + e.toString());
-		}
-		return null;
-	}
 	
 
 	

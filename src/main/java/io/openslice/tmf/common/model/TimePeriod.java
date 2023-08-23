@@ -23,23 +23,21 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.Valid;
 
 /**
  * A period of time, either as a deadline (endDateTime only) a startDateTime
  * only, or both
  */
-@ApiModel(description = "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both")
+@Schema(description = "A period of time, either as a deadline (endDateTime only) a startDateTime only, or both")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Embeddable
 public class TimePeriod {
 	private OffsetDateTime endDateTime = null;
@@ -69,7 +67,7 @@ public class TimePeriod {
 	 * 
 	 * @return endDateTime
 	 **/
-	@ApiModelProperty(value = "End of the time period, using IETC-RFC-3339 format")
+	@Schema(description = "End of the time period, using IETC-RFC-3339 format")
 	@Valid
 	@JsonProperty("endDateTime")
 	public String getEndDateTimeString() {
@@ -104,7 +102,7 @@ public class TimePeriod {
 	 * 
 	 * @return startDateTime
 	 **/
-	@ApiModelProperty(value = "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end")
+	@Schema(description = "Start of the time period, using IETC-RFC-3339 format. If you define a start, you must also define an end")
 	@Valid
 	@JsonProperty("startDateTime")
 	public String getStartDateTimeString() {

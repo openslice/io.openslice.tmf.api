@@ -20,28 +20,25 @@
 package io.openslice.tmf.fi691.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.fi691.model.GeographicLocationRefOrValueType;
-import io.openslice.tmf.fi691.model.GeographicSubAddressType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * GeographicAddressType
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "GeographicAddressType")
 public class GeographicAddressType extends BaseRootEntity {
@@ -102,7 +99,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return streetNr
 	 **/
-	@ApiModelProperty(required = true, value = "Required if href not included. Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses")
+	@Schema(description = "Required if href not included. Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses")
 	@NotNull
 
 	public String getStreetNr() {
@@ -123,7 +120,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return streetNrSuffix
 	 **/
-	@ApiModelProperty(value = "The street number suffix (or suffix of first number for  aranged address)")
+	@Schema(description = "The street number suffix (or suffix of first number for  aranged address)")
 
 	public String getStreetNrSuffix() {
 		return streetNrSuffix;
@@ -143,7 +140,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return streetNrLast
 	 **/
-	@ApiModelProperty(value = "Last number in a range of street numbers allocated to a property")
+	@Schema(description = "Last number in a range of street numbers allocated to a property")
 
 	public String getStreetNrLast() {
 		return streetNrLast;
@@ -163,7 +160,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return streetNrLastSuffix
 	 **/
-	@ApiModelProperty(value = "Last street number suffix for a ranged address")
+	@Schema(description = "Last street number suffix for a ranged address")
 
 	public String getStreetNrLastSuffix() {
 		return streetNrLastSuffix;
@@ -183,7 +180,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return streetName
 	 **/
-	@ApiModelProperty(required = true, value = "Required if href not included. Name of the street or other street type")
+	@Schema(description = "Required if href not included. Name of the street or other street type")
 	@NotNull
 
 	public String getStreetName() {
@@ -205,7 +202,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return streetType
 	 **/
-	@ApiModelProperty(required = true, value = "Required if href not included. Alley, avenue, street, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf")
+	@Schema(description = "Required if href not included. Alley, avenue, street, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf")
 	@NotNull
 
 	public String getStreetType() {
@@ -226,7 +223,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return streetSuffix
 	 **/
-	@ApiModelProperty(value = "A modifier denoting a relative direction (E, W, S, N)")
+	@Schema(description = "A modifier denoting a relative direction (E, W, S, N)")
 
 	public String getStreetSuffix() {
 		return streetSuffix;
@@ -247,7 +244,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return postcode
 	 **/
-	@ApiModelProperty(required = true, value = "Required if href not included. Descriptor for a postal delivery area (also known as zipcode)")
+	@Schema(description = "Required if href not included. Descriptor for a postal delivery area (also known as zipcode)")
 	@NotNull
 
 	public String getPostcode() {
@@ -271,7 +268,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return locality
 	 **/
-	@ApiModelProperty(required = true, value = "Required if href not included. An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi-rural in nature, or a suburb, a bounded locality within a city, town or shire principally of urban character ")
+	@Schema(description = "Required if href not included. An area of defined or undefined boundaries within a local authority or other legislatively defined area, usually rural or semi-rural in nature, or a suburb, a bounded locality within a city, town or shire principally of urban character ")
 	@NotNull
 
 	public String getLocality() {
@@ -292,7 +289,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return city
 	 **/
-	@ApiModelProperty(value = "City that the address is in")
+	@Schema(description = "City that the address is in")
 
 	public String getCity() {
 		return city;
@@ -312,7 +309,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return stateOrProvince
 	 **/
-	@ApiModelProperty(required = true, value = "Required if href not included. the State or Province that the address is in")
+	@Schema(description = "Required if href not included. the State or Province that the address is in")
 	@NotNull
 
 	public String getStateOrProvince() {
@@ -333,7 +330,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return country
 	 **/
-	@ApiModelProperty(required = true, value = "Required if href not included. Country that the address is in")
+	@Schema(description = "Required if href not included. Country that the address is in")
 	@NotNull
 
 	public String getCountry() {
@@ -355,7 +352,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return geographicLocation
 	 **/
-	@ApiModelProperty(value = "A geo location reference, allows describing through coordinate(s) a point, a line or a space")
+	@Schema(description = "A geo location reference, allows describing through coordinate(s) a point, a line or a space")
 
 	@Valid
 
@@ -379,7 +376,7 @@ public class GeographicAddressType extends BaseRootEntity {
 	 * 
 	 * @return geographicSubAddress
 	 **/
-	@ApiModelProperty(value = "A list of sub addresses. It is used for addressing within a property in an urban area (country properties are often defined differently). It may refer to a building, a building cluster, or a floor of a multistory building.")
+	@Schema(description = "A list of sub addresses. It is used for addressing within a property in an urban area (country properties are often defined differently). It may refer to a building, a building cluster, or a floor of a multistory building.")
 
 	@Valid
 

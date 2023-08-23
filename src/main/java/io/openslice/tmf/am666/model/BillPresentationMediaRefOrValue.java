@@ -21,21 +21,19 @@ package io.openslice.tmf.am666.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * An attachment by value or by reference.
  */
-@ApiModel(description = "An attachment by value or by reference.")
+@Schema(description = "An attachment by value or by reference.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class BillPresentationMediaRefOrValue   {
   @JsonProperty("id")
@@ -71,7 +69,7 @@ public class BillPresentationMediaRefOrValue   {
    * Unique identifier of the bill presentation media
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the bill presentation media")
+  @Schema(description = "Unique identifier of the bill presentation media")
 
 
   public String getId() {
@@ -91,7 +89,7 @@ public class BillPresentationMediaRefOrValue   {
    * Reference of the bill presentation media
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the bill presentation media")
+  @Schema(description = "Reference of the bill presentation media")
 
 
   public String getHref() {
@@ -111,7 +109,7 @@ public class BillPresentationMediaRefOrValue   {
    * An explanatory text describing this bill presentation media
    * @return description
   **/
-  @ApiModelProperty(value = "An explanatory text describing this bill presentation media")
+  @Schema(description = "An explanatory text describing this bill presentation media")
 
 
   public String getDescription() {
@@ -131,7 +129,7 @@ public class BillPresentationMediaRefOrValue   {
    * A short descriptive name
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "A short descriptive name")
+  @Schema(description = "A short descriptive name")
   @NotNull
 
 
@@ -152,7 +150,7 @@ public class BillPresentationMediaRefOrValue   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -172,7 +170,7 @@ public class BillPresentationMediaRefOrValue   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -192,7 +190,7 @@ public class BillPresentationMediaRefOrValue   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {
@@ -212,7 +210,7 @@ public class BillPresentationMediaRefOrValue   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

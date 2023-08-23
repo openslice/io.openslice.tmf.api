@@ -21,26 +21,24 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * Child references of an organization in a structure of organizations.
  */
-@ApiModel(description = "Child references of an organization in a structure of organizations.")
+@Schema(description = "Child references of an organization in a structure of organizations.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity
 public class OrganizationChildRelationship extends BaseRootEntity {
@@ -63,7 +61,7 @@ public class OrganizationChildRelationship extends BaseRootEntity {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(value = "Type of the relationship. Could be juridical, hierarchical, geographical, functional for example.")
+	@Schema(description = "Type of the relationship. Could be juridical, hierarchical, geographical, functional for example.")
 
 	public String getRelationshipType() {
 		return relationshipType;
@@ -83,7 +81,7 @@ public class OrganizationChildRelationship extends BaseRootEntity {
 	 * 
 	 * @return organization
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 

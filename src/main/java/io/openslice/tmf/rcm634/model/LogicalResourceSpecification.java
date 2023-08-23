@@ -19,20 +19,19 @@
  */
 package io.openslice.tmf.rcm634.model;
 
-import javax.persistence.Entity;
-
 import org.springframework.validation.annotation.Validated;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * This is a base class that is used to define the invariant characteristics and
  * behavior (attributes, methods, constraints, and relationships) of a
  * LogicalResource.
  */
-@ApiModel(description = "This is a base class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a LogicalResource.")
+@Schema(description = "This is a base class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a LogicalResource.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 @Entity(name = "LogicalRspec")
 public class LogicalResourceSpecification extends ResourceSpecification {
 

@@ -19,33 +19,29 @@
  */
 package io.openslice.tmf.rcm634.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * Specification for applicable configuration features for a resource
  * specification.
  */
-@ApiModel(description = "Specification for applicable configuration features for a resource specification.")
+@Schema(description = "Specification for applicable configuration features for a resource specification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "RCMFeatureSpec")
 public class FeatureSpecification extends BaseRootNamedEntity {
@@ -91,7 +87,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Identifier of the feature specification. Must be locally unique within the containing resource specification, thus allowing direct access to the feature spec.")
+	@Schema(description = "Identifier of the feature specification. Must be locally unique within the containing resource specification, thus allowing direct access to the feature spec.")
 
 	public String getId() {
 		return id;
@@ -111,7 +107,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "A flag indicating if this is a feature group (true) or not (false)")
+	@Schema(description = "A flag indicating if this is a feature group (true) or not (false)")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -131,7 +127,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return isEnabled
 	 **/
-	@ApiModelProperty(value = "A flag indicating if the feature is enabled (true) or not (false)")
+	@Schema(description = "A flag indicating if the feature is enabled (true) or not (false)")
 
 	public Boolean isIsEnabled() {
 		return isEnabled;
@@ -151,7 +147,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Unique name given to the feature specification")
+	@Schema(description = "Unique name given to the feature specification")
 
 	public String getName() {
 		return name;
@@ -171,7 +167,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Version of the feature specification")
+	@Schema(description = "Version of the feature specification")
 
 	public String getVersion() {
 		return version;
@@ -199,7 +195,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return constraint
 	 **/
-	@ApiModelProperty(value = "This is a list of feature constraints")
+	@Schema(description = "This is a list of feature constraints")
 	@Valid
 	public Set<ConstraintRef> getConstraint() {
 		return constraint;
@@ -229,7 +225,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return featureSpecCharacteristic
 	 **/
-	@ApiModelProperty(value = "This is a list of characteristics for a particular feature")
+	@Schema(description = "This is a list of characteristics for a particular feature")
 	@Valid
 	public Set<FeatureSpecificationCharacteristic> getFeatureSpecCharacteristic() {
 		return featureSpecCharacteristic;
@@ -260,7 +256,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return featureSpecRelationship
 	 **/
-	@ApiModelProperty(value = "A dependency, exclusivity or aggratation relationship between/among feature specifications.")
+	@Schema(description = "A dependency, exclusivity or aggratation relationship between/among feature specifications.")
 	@Valid
 	public Set<FeatureSpecificationRelationship> getFeatureSpecRelationship() {
 		return featureSpecRelationship;
@@ -280,7 +276,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -301,7 +297,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return baseType;
@@ -322,7 +318,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return schemaLocation;
@@ -342,7 +338,7 @@ public class FeatureSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getAtType() {
 		return type;

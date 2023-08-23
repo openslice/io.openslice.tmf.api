@@ -31,9 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -56,6 +53,8 @@ import io.openslice.tmf.pcm620.model.ProductSpecificationUpdate;
 import io.openslice.tmf.pcm620.repo.ProductSpecificationRepository;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ProductSpecificationRepoService {

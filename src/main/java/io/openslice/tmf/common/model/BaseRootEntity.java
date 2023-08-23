@@ -21,17 +21,16 @@ package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 /**
  * 
@@ -92,7 +91,7 @@ public class BaseRootEntity {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -110,7 +109,7 @@ public class BaseRootEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Unique reference of the entity")
+	@Schema(description = "Unique reference of the entity")
 
 	public String getHref() {
 		return href;
@@ -131,7 +130,7 @@ public class BaseRootEntity {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;

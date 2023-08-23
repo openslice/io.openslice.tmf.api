@@ -21,22 +21,20 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embeddable;
 
 /**
  * A time interval in a given unit of time
  */
-@ApiModel(description = "A time interval in a given unit of time")
+@Schema(description = "A time interval in a given unit of time")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Embeddable
 public class Duration   extends BaseRootEntity {
@@ -55,7 +53,7 @@ public class Duration   extends BaseRootEntity {
    * Time interval (number of seconds, minutes, hours, etc.)
    * @return amount
   **/
-  @ApiModelProperty(value = "Time interval (number of seconds, minutes, hours, etc.)")
+  @Schema(description = "Time interval (number of seconds, minutes, hours, etc.)")
   
     public Integer getAmount() {
     return amount;
@@ -74,7 +72,7 @@ public class Duration   extends BaseRootEntity {
    * Unit of time (seconds, minutes, hours, etc.)
    * @return units
   **/
-  @ApiModelProperty(value = "Unit of time (seconds, minutes, hours, etc.)")
+  @Schema(description = "Unit of time (seconds, minutes, hours, etc.)")
   
     public String getUnits() {
     return units;

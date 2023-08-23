@@ -2,19 +2,18 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Base Extensible schema for use in TMForum Open-APIs
  */
-@ApiModel(description = "Base Extensible schema for use in TMForum Open-APIs")
+@Schema(description = "Base Extensible schema for use in TMForum Open-APIs")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 public class Extensible   {
   @JsonProperty("@baseType")
   private String _atBaseType = null;
@@ -34,7 +33,7 @@ public class Extensible   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -53,7 +52,7 @@ public class Extensible   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -72,7 +71,7 @@ public class Extensible   {
    * When sub-classing, this defines the sub-class Extensible name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+  @Schema(description = "When sub-classing, this defines the sub-class Extensible name")
   
     public String getAtType() {
     return _atType;

@@ -29,8 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,21 +41,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.pcm620.model.Error;
 import io.openslice.tmf.pcm620.model.ProductOffering;
 import io.openslice.tmf.pcm620.model.ProductOfferingCreate;
 import io.openslice.tmf.pcm620.model.ProductOfferingUpdate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
-@Api(value = "productOffering", description = "the productOffering API")
+@Tag(name = "productOffering", description = "the productOffering API")
 public interface ProductOfferingApi {
 
 	Logger log = LoggerFactory.getLogger(ProductOfferingApi.class);
@@ -73,19 +71,19 @@ public interface ProductOfferingApi {
 		return getRequest().map(r -> r.getHeader("Accept"));
 	}
 
-	@ApiOperation(value = "Creates a ProductOffering", nickname = "createProductOffering", notes = "This operation creates a ProductOffering entity.", response = ProductOffering.class, tags = {
+	@Operation(summary = "Creates a ProductOffering", operationId = "createProductOffering", description = "This operation creates a ProductOffering entity." , tags = {
 			"productOffering", })
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created", response = ProductOffering.class),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode = "400", description = "Created" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/productOffering", produces = { "application/json;charset=utf-8" }, consumes = {
 			"application/json;charset=utf-8" }, method = RequestMethod.POST)
 	default ResponseEntity<ProductOffering> createProductOffering(
-			@ApiParam(value = "The ProductOffering to be created", required = true) @Valid @RequestBody ProductOfferingCreate productOffering) {
+			@Parameter(description = "The ProductOffering to be created", required = true) @Valid @RequestBody ProductOfferingCreate productOffering) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 			if (getAcceptHeader().get().contains("application/json")) {
 				try {
@@ -104,20 +102,20 @@ public interface ProductOfferingApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "Deletes a ProductOffering", nickname = "deleteProductOffering", notes = "This operation deletes a ProductOffering entity.", tags = {
+	@Operation(summary = "Deletes a ProductOffering", operationId = "deleteProductOffering", description = "This operation deletes a ProductOffering entity.", tags = {
 			"productOffering", })
-	@ApiResponses(value = { @ApiResponse(code = 204, message = "Deleted"),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Deleted"),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/productOffering/{id}", produces = {
 			"application/json;charset=utf-8" }, method = RequestMethod.DELETE)
 	default ResponseEntity<Void> deleteProductOffering(
-			@ApiParam(value = "Identifier of the ProductOffering", required = true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the ProductOffering", required = true) @PathVariable("id") String id) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 		} else {
 			log.warn(
@@ -126,24 +124,24 @@ public interface ProductOfferingApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "List or find ProductOffering objects", nickname = "listProductOffering", notes = "This operation list or find ProductOffering entities", response = ProductOffering.class, responseContainer = "List", tags = {
+	@Operation(summary = "List or find ProductOffering objects", operationId = "listProductOffering", description = "This operation list or find ProductOffering entities" , tags = {
 			"productOffering", })
 	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Success", response = ProductOffering.class, responseContainer = "List"),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+			@ApiResponse(responseCode ="200", description = "Success" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/productOffering", produces = {
 			"application/json;charset=utf-8" }, method = RequestMethod.GET)
 	default ResponseEntity<List<ProductOffering>> listProductOffering(
-			@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
-			@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-			@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
-			@ApiParam(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
+			@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+			@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+			@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+			@Parameter(hidden = true) @Valid @RequestParam Map<String, String> allParams) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 			if (getAcceptHeader().get().contains("application/json")) {
 				try {
@@ -162,21 +160,21 @@ public interface ProductOfferingApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "Updates partially a ProductOffering", nickname = "patchProductOffering", notes = "This operation updates partially a ProductOffering entity.", response = ProductOffering.class, tags = {
+	@Operation(summary = "Updates partially a ProductOffering", operationId = "patchProductOffering", description = "This operation updates partially a ProductOffering entity." , tags = {
 			"productOffering", })
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Updated", response = ProductOffering.class),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode ="200", description = "Updated" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/productOffering/{id}", produces = { "application/json;charset=utf-8" }, consumes = {
 			"application/json;charset=utf-8" }, method = RequestMethod.PATCH)
 	default ResponseEntity<ProductOffering> patchProductOffering(
-			@ApiParam(value = "Identifier of the ProductOffering", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "The ProductOffering to be updated", required = true) @Valid @RequestBody ProductOfferingUpdate productOffering) {
+			@Parameter(description = "Identifier of the ProductOffering", required = true) @PathVariable("id") String id,
+			@Parameter(description = "The ProductOffering to be updated", required = true) @Valid @RequestBody ProductOfferingUpdate productOffering) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 			if (getAcceptHeader().get().contains("application/json")) {
 				try {
@@ -195,21 +193,21 @@ public interface ProductOfferingApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
-	@ApiOperation(value = "Retrieves a ProductOffering by ID", nickname = "retrieveProductOffering", notes = "This operation retrieves a ProductOffering entity. Attribute selection is enabled for all first level attributes.", response = ProductOffering.class, tags = {
+	@Operation(summary = "Retrieves a ProductOffering by ID", operationId = "retrieveProductOffering", description = "This operation retrieves a ProductOffering entity. Attribute selection is enabled for all first level attributes." , tags = {
 			"productOffering", })
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = ProductOffering.class),
-			@ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-			@ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-			@ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-			@ApiResponse(code = 404, message = "Not Found", response = Error.class),
-			@ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-			@ApiResponse(code = 409, message = "Conflict", response = Error.class),
-			@ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+	@ApiResponses(value = { @ApiResponse(responseCode ="200", description = "Success" ),
+			@ApiResponse(responseCode = "400", description = "Bad Request" ),
+			@ApiResponse(responseCode = "401", description = "Unauthorized" ),
+			@ApiResponse(responseCode = "403", description = "Forbidden" ),
+			@ApiResponse(responseCode = "404", description = "Not Found" ),
+			@ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+			@ApiResponse(responseCode = "409", description = "Conflict" ),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
 	@RequestMapping(value = "/productOffering/{id}", produces = {
 			"application/json;charset=utf-8" }, method = RequestMethod.GET)
 	default ResponseEntity<ProductOffering> retrieveProductOffering(
-			@ApiParam(value = "Identifier of the ProductOffering", required = true) @PathVariable("id") String id,
-			@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+			@Parameter(description = "Identifier of the ProductOffering", required = true) @PathVariable("id") String id,
+			@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 		if (getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
 			if (getAcceptHeader().get().contains("application/json")) {
 				try {

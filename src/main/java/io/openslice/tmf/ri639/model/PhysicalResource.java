@@ -3,24 +3,22 @@ package io.openslice.tmf.ri639.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * Physical resource is a type of resource that describes the common set of
  * attributes shared by all concrete physical resources (e.g. EQUIPMENT) in the
  * inventory.
  */
-@ApiModel(description = "Physical resource is a type of resource that describes the common set of attributes shared by all concrete physical resources (e.g. EQUIPMENT) in the inventory.")
+@Schema(description = "Physical resource is a type of resource that describes the common set of attributes shared by all concrete physical resources (e.g. EQUIPMENT) in the inventory.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIPhysicalRes")
 public class PhysicalResource extends Resource {
 
@@ -46,7 +44,7 @@ public class PhysicalResource extends Resource {
 	 * 
 	 * @return manufactureDate
 	 **/
-	@ApiModelProperty(value = "This is a string attribute that defines the date of manufacture of this item in the fixed format \"dd/mm/yyyy\". This is an optional attribute.")
+	@Schema(description = "This is a string attribute that defines the date of manufacture of this item in the fixed format \"dd/mm/yyyy\". This is an optional attribute.")
 
 	@Valid
 	public OffsetDateTime getManufactureDate() {
@@ -86,7 +84,7 @@ public class PhysicalResource extends Resource {
 	 * 
 	 * @return powerState
 	 **/
-	@ApiModelProperty(value = "This defines the current power status of the hardware item. Values include:    0:  Unknown   1:  Not Applicable   2:  No Power Applied   3: Full Power Applied   4:  Power Save - Normal   5:  Power Save - Degraded   6:  Power Save - Standby   7:  Power Save - Critical   8:  Power Save - Low Power Mode   9:  Power Save - Unknown  10: Power Cycle  11: Power Warning  12: Power Off")
+	@Schema(description = "This defines the current power status of the hardware item. Values include:    0:  Unknown   1:  Not Applicable   2:  No Power Applied   3: Full Power Applied   4:  Power Save - Normal   5:  Power Save - Degraded   6:  Power Save - Standby   7:  Power Save - Critical   8:  Power Save - Low Power Mode   9:  Power Save - Unknown  10: Power Cycle  11: Power Warning  12: Power Off")
 
 	public String getPowerState() {
 		return powerState;
@@ -106,7 +104,7 @@ public class PhysicalResource extends Resource {
 	 * 
 	 * @return resourceVersion
 	 **/
-	@ApiModelProperty(value = "A field that identifies the specific version of an instance of a resource.")
+	@Schema(description = "A field that identifies the specific version of an instance of a resource.")
 
 	public String getResourceVersion() {
 		return resourceVersion;
@@ -129,7 +127,7 @@ public class PhysicalResource extends Resource {
 	 * 
 	 * @return serialNumber
 	 **/
-	@ApiModelProperty(value = "This is a string that represents a manufacturer-allocated number used to identify different instances of the same hardware item. The ModelNumber and PartNumber attributes are used to identify different types of hardware items. This is a REQUIRED attribute.")
+	@Schema(description = "This is a string that represents a manufacturer-allocated number used to identify different instances of the same hardware item. The ModelNumber and PartNumber attributes are used to identify different types of hardware items. This is a REQUIRED attribute.")
 
 	public String getSerialNumber() {
 		return serialNumber;
@@ -149,7 +147,7 @@ public class PhysicalResource extends Resource {
 	 * 
 	 * @return startOperatingDate
 	 **/
-	@ApiModelProperty(value = "A date time( DateTime). The date from which the resource is operating")
+	@Schema(description = "A date time( DateTime). The date from which the resource is operating")
 
 	@Valid
 	public OffsetDateTime getStartOperatingDate() {
@@ -171,7 +169,7 @@ public class PhysicalResource extends Resource {
 	 * 
 	 * @return versionNumber
 	 **/
-	@ApiModelProperty(value = "This is a string that identifies the version of this physical resource. This is an optional attribute.")
+	@Schema(description = "This is a string that identifies the version of this physical resource. This is an optional attribute.")
 
 	public String getVersionNumber() {
 		return versionNumber;

@@ -19,31 +19,25 @@
  */
 package io.openslice.tmf.am642.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.am642.model.AffectedService;
-import io.openslice.tmf.am642.model.AlarmRef;
-import io.openslice.tmf.am642.model.AlarmedObject;
-import io.openslice.tmf.am642.model.Comment;
-import io.openslice.tmf.am642.model.CrossedThresholdInformation;
-import io.openslice.tmf.am642.model.RelatedPlaceRefOrValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * This resource represents an alarm supporting the information model defined in
  * ITU-T X.733. Skipped properties: id,href,alarmRaisedTime,sourceSystemId
  */
-@ApiModel(description = "This resource represents an alarm supporting the information model defined in ITU-T X.733. Skipped properties: id,href,alarmRaisedTime,sourceSystemId")
+@Schema(description = "This resource represents an alarm supporting the information model defined in ITU-T X.733. Skipped properties: id,href,alarmRaisedTime,sourceSystemId")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 public class AlarmUpdate {
 	@JsonProperty("ackState")
 	protected String ackState = null;
@@ -153,7 +147,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return ackState
 	 **/
-	@ApiModelProperty(value = "Provides the Acknowledgement State of the alarm")
+	@Schema(description = "Provides the Acknowledgement State of the alarm")
 
 	public String getAckState() {
 		return ackState;
@@ -174,7 +168,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return ackSystemId
 	 **/
-	@ApiModelProperty(value = "Provides the name of the system that last changed the ackState of an alarm, i.e. acknowledged or unacknowledged the alarm.")
+	@Schema(description = "Provides the name of the system that last changed the ackState of an alarm, i.e. acknowledged or unacknowledged the alarm.")
 
 	public String getAckSystemId() {
 		return ackSystemId;
@@ -195,7 +189,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return ackUserId
 	 **/
-	@ApiModelProperty(value = "Provides the id of the user who has last changed the ack state of the alarm, i.e. acknowledged or unacknowledged the alarm.")
+	@Schema(description = "Provides the id of the user who has last changed the ack state of the alarm, i.e. acknowledged or unacknowledged the alarm.")
 
 	public String getAckUserId() {
 		return ackUserId;
@@ -217,7 +211,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmChangedTime
 	 **/
-	@ApiModelProperty(value = "Indicates the last date and time when the alarm is changed on the alarm-owning system. Any change to the alarm whether coming from the alarmed resource, or triggered by a change from the client is changing this time.")
+	@Schema(description = "Indicates the last date and time when the alarm is changed on the alarm-owning system. Any change to the alarm whether coming from the alarmed resource, or triggered by a change from the client is changing this time.")
 
 	@Valid
 	public OffsetDateTime getAlarmChangedTime() {
@@ -256,7 +250,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmClearedTime
 	 **/
-	@ApiModelProperty(value = "Indicates the time (as a date + time) at which the alarm is cleared at the source. ")
+	@Schema(description = "Indicates the time (as a date + time) at which the alarm is cleared at the source. ")
 
 	@Valid
 	public OffsetDateTime getAlarmClearedTime() {
@@ -293,7 +287,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmDetails
 	 **/
-	@ApiModelProperty(value = "Contains further information on the alarm.")
+	@Schema(description = "Contains further information on the alarm.")
 
 	public String getAlarmDetails() {
 		return alarmDetails;
@@ -313,7 +307,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmEscalation
 	 **/
-	@ApiModelProperty(value = "Indicates if this alarm has been escalated or not. ")
+	@Schema(description = "Indicates if this alarm has been escalated or not. ")
 
 	public Boolean isAlarmEscalation() {
 		return alarmEscalation;
@@ -337,7 +331,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmReportingTime
 	 **/
-	@ApiModelProperty(value = "Indicates the time (as a date + time) at which the alarm was reported by the owning OSS. It might be different from the alarmRaisedTime. For instance, if the alarm list is maintained by an EMS, the alarmRaisedtime would be the time the alarm   was detected by the NE, while the alarmReportingTime would be the time this alarm was stored in the alarm list of the EMS.")
+	@Schema(description = "Indicates the time (as a date + time) at which the alarm was reported by the owning OSS. It might be different from the alarmRaisedTime. For instance, if the alarm list is maintained by an EMS, the alarmRaisedtime would be the time the alarm   was detected by the NE, while the alarmReportingTime would be the time this alarm was stored in the alarm list of the EMS.")
 
 	@Valid
 	public OffsetDateTime getAlarmReportingTime() {
@@ -379,7 +373,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmType
 	 **/
-	@ApiModelProperty(value = "Categorize the alarm. Should be one of the values defined in X.733 8.1.1 or 3GPP TS 32.111-2 Annex A:  Communications Alarm  Processing Error Alarm  Environmental Alarm  Quality of Service Alarm  Equipment Alarm  Integrity Violation  Operational Violation  Physical Violation  Security Service or Mechanism Violation  Time Domain Violation")
+	@Schema(description = "Categorize the alarm. Should be one of the values defined in X.733 8.1.1 or 3GPP TS 32.111-2 Annex A:  Communications Alarm  Processing Error Alarm  Environmental Alarm  Quality of Service Alarm  Equipment Alarm  Integrity Violation  Operational Violation  Physical Violation  Security Service or Mechanism Violation  Time Domain Violation")
 
 	public String getAlarmType() {
 		return alarmType;
@@ -399,7 +393,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmedObjectType
 	 **/
-	@ApiModelProperty(value = "The type (class) of the managed object associated with the event.")
+	@Schema(description = "The type (class) of the managed object associated with the event.")
 
 	public String getAlarmedObjectType() {
 		return alarmedObjectType;
@@ -420,7 +414,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return clearSystemId
 	 **/
-	@ApiModelProperty(value = "Provides the id of the system where the user who invoked the alarmCleared operation is located. ")
+	@Schema(description = "Provides the id of the system where the user who invoked the alarmCleared operation is located. ")
 
 	public String getClearSystemId() {
 		return clearSystemId;
@@ -440,7 +434,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return clearUserId
 	 **/
-	@ApiModelProperty(value = "Provides the id of the user who invoked the alarmCleared operation")
+	@Schema(description = "Provides the id of the user who invoked the alarmCleared operation")
 
 	public String getClearUserId() {
 		return clearUserId;
@@ -460,7 +454,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return externalAlarmId
 	 **/
-	@ApiModelProperty(value = "An identifier of the alarm in the source system.")
+	@Schema(description = "An identifier of the alarm in the source system.")
 
 	public String getExternalAlarmId() {
 		return externalAlarmId;
@@ -480,7 +474,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return isRootCause
 	 **/
-	@ApiModelProperty(value = "Indicates whether the alarm is a root cause alarm.. ")
+	@Schema(description = "Indicates whether the alarm is a root cause alarm.. ")
 
 	public Boolean isIsRootCause() {
 		return isRootCause;
@@ -502,7 +496,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return perceivedSeverity
 	 **/
-	@ApiModelProperty(value = "Lists the possible severities that can be allocated to an Alarm. The values are consistent with ITU-T Recommendation X.733. Once an alarm has been cleared, its perceived severity is set to 'cleared' and can no longer be set.")
+	@Schema(description = "Lists the possible severities that can be allocated to an Alarm. The values are consistent with ITU-T Recommendation X.733. Once an alarm has been cleared, its perceived severity is set to 'cleared' and can no longer be set.")
 
 	public String getPerceivedSeverity() {
 		return perceivedSeverity;
@@ -523,7 +517,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return plannedOutageIndicator
 	 **/
-	@ApiModelProperty(value = "Indicates that the Managed Object (related to this alarm) is in planned outage (in planned maintenance, or out-of-service). ")
+	@Schema(description = "Indicates that the Managed Object (related to this alarm) is in planned outage (in planned maintenance, or out-of-service). ")
 
 	public String getPlannedOutageIndicator() {
 		return plannedOutageIndicator;
@@ -544,7 +538,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return probableCause
 	 **/
-	@ApiModelProperty(value = "Provides the probable cause of the alarm. The values are consistent with ITU-T Recommendation X.733 or 3GPP TS 32.111-2 Annex B.")
+	@Schema(description = "Provides the probable cause of the alarm. The values are consistent with ITU-T Recommendation X.733 or 3GPP TS 32.111-2 Annex B.")
 
 	public String getProbableCause() {
 		return probableCause;
@@ -564,7 +558,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return proposedRepairedActions
 	 **/
-	@ApiModelProperty(value = "Indicates proposed repair actions, if known to the system emitting the alarm.")
+	@Schema(description = "Indicates proposed repair actions, if known to the system emitting the alarm.")
 
 	public String getProposedRepairedActions() {
 		return proposedRepairedActions;
@@ -584,7 +578,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return reportingSystemId
 	 **/
-	@ApiModelProperty(value = "Reporting system identity.")
+	@Schema(description = "Reporting system identity.")
 
 	public String getReportingSystemId() {
 		return reportingSystemId;
@@ -604,7 +598,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return serviceAffecting
 	 **/
-	@ApiModelProperty(value = "Indicates whether the alarm affects service or not.")
+	@Schema(description = "Indicates whether the alarm affects service or not.")
 
 	public Boolean isServiceAffecting() {
 		return serviceAffecting;
@@ -624,7 +618,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return specificProblem
 	 **/
-	@ApiModelProperty(value = "Provides more specific information about the alarm.")
+	@Schema(description = "Provides more specific information about the alarm.")
 
 	public String getSpecificProblem() {
 		return specificProblem;
@@ -644,7 +638,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "Defines the alarm state during its life cycle")
+	@Schema(description = "Defines the alarm state during its life cycle")
 
 	public String getState() {
 		return state;
@@ -672,7 +666,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return affectedService
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<AffectedService> getAffectedService() {
 		return affectedService;
@@ -692,7 +686,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return alarmedObject
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public AlarmedObject getAlarmedObject() {
@@ -721,7 +715,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return comment
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<Comment> getComment() {
 		return comment;
@@ -749,7 +743,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return correlatedAlarm
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<AlarmRef> getCorrelatedAlarm() {
 		return correlatedAlarm;
@@ -769,7 +763,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return crossedThresholdInformation
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public CrossedThresholdInformation getCrossedThresholdInformation() {
@@ -798,7 +792,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return parentAlarm
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<AlarmRef> getParentAlarm() {
 		return parentAlarm;
@@ -826,7 +820,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return place
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<RelatedPlaceRefOrValue> getPlace() {
 		return place;
@@ -846,7 +840,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "The base type of this alarm.")
+	@Schema(description = "The base type of this alarm.")
 
 	public String getAtBaseType() {
 		return baseType;
@@ -866,7 +860,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A reference to the schema describing this alarm.")
+	@Schema(description = "A reference to the schema describing this alarm.")
 
 	public String getAtSchemaLocation() {
 		return schemaLocation;
@@ -886,7 +880,7 @@ public class AlarmUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "The type for this alarm.")
+	@Schema(description = "The type for this alarm.")
 
 	public String getAtType() {
 		return type;

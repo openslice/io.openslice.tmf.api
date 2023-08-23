@@ -21,22 +21,20 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A number or text that can be assigned to an agreement specification characteristic.
  */
-@ApiModel(description = "A number or text that can be assigned to an agreement specification characteristic.")
+@Schema(description = "A number or text that can be assigned to an agreement specification characteristic.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementSpecCharacteristicValue   {
   @JsonProperty("default")
@@ -72,7 +70,7 @@ public class AgreementSpecCharacteristicValue   {
    * Indicates if the value is the default value for a characteristic
    * @return _default
   **/
-  @ApiModelProperty(value = "Indicates if the value is the default value for a characteristic")
+  @Schema(description = "Indicates if the value is the default value for a characteristic")
 
 
   public Boolean isDefault() {
@@ -92,7 +90,7 @@ public class AgreementSpecCharacteristicValue   {
    * Unit of measure for the characteristic, such as minutes, gigabytes (GB) and so on.
    * @return unitOfMeasure
   **/
-  @ApiModelProperty(value = "Unit of measure for the characteristic, such as minutes, gigabytes (GB) and so on.")
+  @Schema(description = "Unit of measure for the characteristic, such as minutes, gigabytes (GB) and so on.")
 
 
   public String getUnitOfMeasure() {
@@ -112,7 +110,7 @@ public class AgreementSpecCharacteristicValue   {
    * The period of time for which a value is applicable
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period of time for which a value is applicable")
+  @Schema(description = "The period of time for which a value is applicable")
 
   @Valid
 
@@ -133,7 +131,7 @@ public class AgreementSpecCharacteristicValue   {
    * A discrete value that the characteristic can take on
    * @return value
   **/
-  @ApiModelProperty(value = "A discrete value that the characteristic can take on")
+  @Schema(description = "A discrete value that the characteristic can take on")
 
 
   public String getValue() {
@@ -153,7 +151,7 @@ public class AgreementSpecCharacteristicValue   {
    * The low range value that a characteristic can take on
    * @return valueFrom
   **/
-  @ApiModelProperty(value = "The low range value that a characteristic can take on")
+  @Schema(description = "The low range value that a characteristic can take on")
 
 
   public String getValueFrom() {
@@ -173,7 +171,7 @@ public class AgreementSpecCharacteristicValue   {
    * The upper range value that a characteristic can take on
    * @return valueTo
   **/
-  @ApiModelProperty(value = "The upper range value that a characteristic can take on")
+  @Schema(description = "The upper range value that a characteristic can take on")
 
 
   public String getValueTo() {
@@ -193,7 +191,7 @@ public class AgreementSpecCharacteristicValue   {
    * A kind of value that the characteristic can take on, such as numeric, text, and so forth
    * @return valueType
   **/
-  @ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text, and so forth")
+  @Schema(description = "A kind of value that the characteristic can take on, such as numeric, text, and so forth")
 
 
   public String getValueType() {
@@ -213,7 +211,7 @@ public class AgreementSpecCharacteristicValue   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {

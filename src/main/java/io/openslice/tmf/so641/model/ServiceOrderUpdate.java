@@ -24,24 +24,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Skipped properties:
  * id,href,externalId,priority,state,orderDate,completionDate,orderItem
  */
-@ApiModel(description = " Skipped properties: id,href,externalId,priority,state,orderDate,completionDate,orderItem")
+@Schema(description = " Skipped properties: id,href,externalId,priority,state,orderDate,completionDate,orderItem")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 public class ServiceOrderUpdate {
 	@JsonProperty("category")
@@ -106,7 +104,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Used to categorize the order, useful for the OM system, such as: Broadband, TVOption")
+	@Schema(description = "Used to categorize the order, useful for the OM system, such as: Broadband, TVOption")
 
 	public String getCategory() {
 		return category;
@@ -126,7 +124,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A free-text description of the service order")
+	@Schema(description = "A free-text description of the service order")
 
 	public String getDescription() {
 		return description;
@@ -154,7 +152,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return expectedCompletionDate
 	 **/
-	@ApiModelProperty(value = "Expected delivery date amended by the provider")
+	@Schema(description = "Expected delivery date amended by the provider")
 
 	@Valid
 
@@ -184,7 +182,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return notificationContact
 	 **/
-	@ApiModelProperty(value = "Contact attached to the order to send back information regarding this order")
+	@Schema(description = "Contact attached to the order to send back information regarding this order")
 
 	public String getNotificationContact() {
 		return notificationContact;
@@ -204,7 +202,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return requestedCompletionDate
 	 **/
-	@ApiModelProperty(value = "Requested delivery date from the requestors perspective")
+	@Schema(description = "Requested delivery date from the requestors perspective")
 
 	@Valid
 
@@ -243,7 +241,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return requestedStartDate
 	 **/
-	@ApiModelProperty(value = "Order start date wished by the requestor")
+	@Schema(description = "Order start date wished by the requestor")
 
 	@Valid
 
@@ -283,7 +281,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return startDate
 	 **/
-	@ApiModelProperty(value = "Date when the order was started for processing")
+	@Schema(description = "Date when the order was started for processing")
 
 	@Valid
 
@@ -331,7 +329,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return note
 	 **/
-	@ApiModelProperty(value = "Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process")
+	@Schema(description = "Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process")
 
 	@Valid
 
@@ -362,7 +360,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return orderRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service orders related to this order (e.g. prerequisite, dependent on)")
+	@Schema(description = "A list of service orders related to this order (e.g. prerequisite, dependent on)")
 
 	@Valid
 
@@ -393,7 +391,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of parties which are involved in this order and the role they are playing")
+	@Schema(description = "A list of parties which are involved in this order and the role they are playing")
 
 	@Valid
 
@@ -415,7 +413,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -436,7 +434,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -456,7 +454,7 @@ public class ServiceOrderUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;

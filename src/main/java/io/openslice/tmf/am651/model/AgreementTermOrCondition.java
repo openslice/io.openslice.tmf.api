@@ -21,22 +21,20 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Aspects of the agreement not formally specified elsewhere in the agreement and that cannot be captured elsewhere in a formal notation, or automatically monitored and require a more human level of management.
  */
-@ApiModel(description = "Aspects of the agreement not formally specified elsewhere in the agreement and that cannot be captured elsewhere in a formal notation, or automatically monitored and require a more human level of management.")
+@Schema(description = "Aspects of the agreement not formally specified elsewhere in the agreement and that cannot be captured elsewhere in a formal notation, or automatically monitored and require a more human level of management.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementTermOrCondition   {
   @JsonProperty("description")
@@ -60,7 +58,7 @@ public class AgreementTermOrCondition   {
    * Text that explains the term or condition of the agreement.
    * @return description
   **/
-  @ApiModelProperty(value = "Text that explains the term or condition of the agreement.")
+  @Schema(description = "Text that explains the term or condition of the agreement.")
 
 
   public String getDescription() {
@@ -80,7 +78,7 @@ public class AgreementTermOrCondition   {
    * Unique number assigned for reference.
    * @return id
   **/
-  @ApiModelProperty(value = "Unique number assigned for reference.")
+  @Schema(description = "Unique number assigned for reference.")
 
 
   public String getId() {
@@ -100,7 +98,7 @@ public class AgreementTermOrCondition   {
    * The period of time during which the term or condition of the agreement applies.
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period of time during which the term or condition of the agreement applies.")
+  @Schema(description = "The period of time during which the term or condition of the agreement applies.")
 
   @Valid
 
@@ -121,7 +119,7 @@ public class AgreementTermOrCondition   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {

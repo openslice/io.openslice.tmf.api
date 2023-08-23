@@ -23,18 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRef;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * ServiceSpecification is a class that offers characteristics to describe a
@@ -43,9 +41,9 @@ import io.swagger.annotations.ApiModelProperty;
  * therefore share the same set of characteristics. Skipped properties:
  * id,href,lastUpdate
  */
-@ApiModel(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics. Skipped properties: id,href,lastUpdate")
+@Schema(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 public class ServiceSpecificationUpdate {
 	@JsonProperty("description")
@@ -112,7 +110,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A narrative that explains in detail what the service specification is")
+	@Schema(description = "A narrative that explains in detail what the service specification is")
 
 	public String getDescription() {
 		return description;
@@ -133,7 +131,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).")
+	@Schema(description = "isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -153,7 +151,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status of the service specification")
+	@Schema(description = "Used to indicate the current lifecycle status of the service specification")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -173,7 +171,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the service specification")
+	@Schema(description = "Name of the service specification")
 
 	public String getName() {
 		return name;
@@ -193,7 +191,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Service specification version")
+	@Schema(description = "Service specification version")
 
 	public String getVersion() {
 		return version;
@@ -222,7 +220,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...")
+	@Schema(description = "A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...")
 
 	@Valid
 
@@ -253,7 +251,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.")
+	@Schema(description = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.")
 
 	@Valid
 
@@ -285,7 +283,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return resourceSpecification
 	 **/
-	@ApiModelProperty(value = "A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).")
+	@Schema(description = "A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).")
 
 	@Valid
 
@@ -319,7 +317,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return serviceLevelSpecification
 	 **/
-	@ApiModelProperty(value = "A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum")
+	@Schema(description = "A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum")
 
 	@Valid
 
@@ -352,7 +350,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return serviceSpecCharacteristic
 	 **/
-	@ApiModelProperty(value = "A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.")
+	@Schema(description = "A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.")
 
 	@Valid
 
@@ -384,7 +382,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return serviceSpecRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship")
+	@Schema(description = "A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship")
 
 	@Valid
 
@@ -408,7 +406,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return targetServiceSchema
 	 **/
-	@ApiModelProperty(value = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
+	@Schema(description = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
 
 	@Valid
 
@@ -430,7 +428,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the service specification is valid")
+	@Schema(description = "The period for which the service specification is valid")
 
 	@Valid
 
@@ -452,7 +450,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -473,7 +471,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -493,7 +491,7 @@ public class ServiceSpecificationUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;

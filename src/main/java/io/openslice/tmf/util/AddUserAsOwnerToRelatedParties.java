@@ -22,10 +22,9 @@ package io.openslice.tmf.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import jakarta.validation.Valid;
 
 /**
  * 

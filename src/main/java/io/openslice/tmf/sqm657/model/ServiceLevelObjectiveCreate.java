@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Service level objectives are defined in terms of parameters and metrics, thresholds, and tolerances  associated with the parameters. Skipped properties: id,href
  */
-@ApiModel(description = "Service level objectives are defined in terms of parameters and metrics, thresholds, and tolerances  associated with the parameters. Skipped properties: id,href")
+@Schema(description = "Service level objectives are defined in terms of parameters and metrics, thresholds, and tolerances  associated with the parameters. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class ServiceLevelObjectiveCreate   {
   @JsonProperty("conformanceComparator")
@@ -94,7 +92,7 @@ public class ServiceLevelObjectiveCreate   {
    * An operator that specifies whether a Service Level Objective is  violated above or below the conformanceTarget.
    * @return conformanceComparator
   **/
-  @ApiModelProperty(required = true, value = "An operator that specifies whether a Service Level Objective is  violated above or below the conformanceTarget.")
+  @Schema(description = "An operator that specifies whether a Service Level Objective is  violated above or below the conformanceTarget.")
   @NotNull
 
 
@@ -115,7 +113,7 @@ public class ServiceLevelObjectiveCreate   {
    * An interval of time during which the Conformance Target must be measured.
    * @return conformancePeriod
   **/
-  @ApiModelProperty(value = "An interval of time during which the Conformance Target must be measured.")
+  @Schema(description = "An interval of time during which the Conformance Target must be measured.")
 
   @Valid
 
@@ -136,7 +134,7 @@ public class ServiceLevelObjectiveCreate   {
    * A value used to determine if Service Level Objective is met.  The data type should be adjusted case by case.
    * @return conformanceTarget
   **/
-  @ApiModelProperty(required = true, value = "A value used to determine if Service Level Objective is met.  The data type should be adjusted case by case.")
+  @Schema(description = "A value used to determine if Service Level Objective is met.  The data type should be adjusted case by case.")
   @NotNull
 
 
@@ -157,7 +155,7 @@ public class ServiceLevelObjectiveCreate   {
    * The number of times an objective can remain un-updated without  a violation of a Service Level Agreement in reference to a measurement period and/or Service Level Agreement reporting period.
    * @return graceTimes
   **/
-  @ApiModelProperty(value = "The number of times an objective can remain un-updated without  a violation of a Service Level Agreement in reference to a measurement period and/or Service Level Agreement reporting period.")
+  @Schema(description = "The number of times an objective can remain un-updated without  a violation of a Service Level Agreement in reference to a measurement period and/or Service Level Agreement reporting period.")
 
 
   public String getGraceTimes() {
@@ -177,7 +175,7 @@ public class ServiceLevelObjectiveCreate   {
    * The name of the service level objectives.
    * @return name
   **/
-  @ApiModelProperty(value = "The name of the service level objectives.")
+  @Schema(description = "The name of the service level objectives.")
 
 
   public String getName() {
@@ -197,7 +195,7 @@ public class ServiceLevelObjectiveCreate   {
    * A value that used to specify when a warning should be used  that indicates an objective is danger of not being met. Notice, the data type should be adjusted case by case.
    * @return thresholdTarget
   **/
-  @ApiModelProperty(value = "A value that used to specify when a warning should be used  that indicates an objective is danger of not being met. Notice, the data type should be adjusted case by case.")
+  @Schema(description = "A value that used to specify when a warning should be used  that indicates an objective is danger of not being met. Notice, the data type should be adjusted case by case.")
 
 
   public String getThresholdTarget() {
@@ -217,7 +215,7 @@ public class ServiceLevelObjectiveCreate   {
    * Get tolerancePeriod
    * @return tolerancePeriod
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -238,7 +236,7 @@ public class ServiceLevelObjectiveCreate   {
    * A value that specifies the allowable variation of a conformance  Target. The data type should be adjusted case by case.
    * @return toleranceTarget
   **/
-  @ApiModelProperty(value = "A value that specifies the allowable variation of a conformance  Target. The data type should be adjusted case by case.")
+  @Schema(description = "A value that specifies the allowable variation of a conformance  Target. The data type should be adjusted case by case.")
 
 
   public String getToleranceTarget() {
@@ -258,7 +256,7 @@ public class ServiceLevelObjectiveCreate   {
    * A valid duration of a thing.
    * @return validFor
   **/
-  @ApiModelProperty(value = "A valid duration of a thing.")
+  @Schema(description = "A valid duration of a thing.")
 
   @Valid
 
@@ -279,7 +277,7 @@ public class ServiceLevelObjectiveCreate   {
    * Get specParameter
    * @return specParameter
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
   @NotNull
 
   @Valid
@@ -309,7 +307,7 @@ public class ServiceLevelObjectiveCreate   {
    * Get specConsequence
    * @return specConsequence
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -330,7 +328,7 @@ public class ServiceLevelObjectiveCreate   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -350,7 +348,7 @@ public class ServiceLevelObjectiveCreate   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -370,7 +368,7 @@ public class ServiceLevelObjectiveCreate   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

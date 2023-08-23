@@ -1,25 +1,23 @@
 package io.openslice.tmf.rpm685.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * The period of time for which Capacity or CapacityDemand applies.
  */
-@ApiModel(description = "The period of time for which Capacity or CapacityDemand applies.")
+@Schema(description = "The period of time for which Capacity or CapacityDemand applies.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 @Entity(name = "ApplcbleTPer")
 public class ApplicableTimePeriod extends BaseRootEntity {
 
@@ -44,7 +42,7 @@ public class ApplicableTimePeriod extends BaseRootEntity {
 	 * 
 	 * @return dayOfWeek
 	 **/
-	@ApiModelProperty(value = "A day or days representing when the schedule is applicable. For example 2, 3 represent Monday and Tuesday.")
+	@Schema(description = "A day or days representing when the schedule is applicable. For example 2, 3 represent Monday and Tuesday.")
 
 	public String getDayOfWeek() {
 		return dayOfWeek;
@@ -74,7 +72,7 @@ public class ApplicableTimePeriod extends BaseRootEntity {
 	 * 
 	 * @return fromToDateTime
 	 **/
-	@ApiModelProperty(value = "The period of time for which the schedule is applicable.  Instance values are mutually exclusive with daysOfWeek values.")
+	@Schema(description = "The period of time for which the schedule is applicable.  Instance values are mutually exclusive with daysOfWeek values.")
 
 	@Valid
 	public OffsetDateTime getFromDateTime() {
@@ -109,7 +107,7 @@ public class ApplicableTimePeriod extends BaseRootEntity {
 	 * 
 	 * @return fromToDateTime
 	 **/
-	@ApiModelProperty(value = "The period of time for which the schedule is applicable.  Instance values are mutually exclusive with daysOfWeek values.")
+	@Schema(description = "The period of time for which the schedule is applicable.  Instance values are mutually exclusive with daysOfWeek values.")
 
 	@Valid
 	public OffsetDateTime getEndDateTime() {
@@ -136,7 +134,7 @@ public class ApplicableTimePeriod extends BaseRootEntity {
 	 * 
 	 * @return rangeInterval
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies the inclusion or exclusion of the from and to DateTime attributes.  Possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
+	@Schema(description = "An indicator that specifies the inclusion or exclusion of the from and to DateTime attributes.  Possible values are \"open\", \"closed\", \"closedBottom\" and \"closedTop\".")
 
 	public String getRangeInterval() {
 		return rangeInterval;

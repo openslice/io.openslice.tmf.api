@@ -22,16 +22,15 @@ package io.openslice.tmf.common.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Lob;
-import javax.validation.Valid;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Lob;
+import jakarta.validation.Valid;
 
 
 
@@ -81,7 +80,7 @@ public class BaseEntity extends BaseRootNamedEntity{
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of this catalog")
+	@Schema(description = "Description of this catalog")
 
 	public String getDescription() {
 		return description;
@@ -102,7 +101,7 @@ public class BaseEntity extends BaseRootNamedEntity{
 	 * 
 	 * @return lastUpdate
 	 **/
-	@ApiModelProperty(value = "Date and time of the last update")
+	@Schema(description = "Date and time of the last update")
 
 	@Valid
 
@@ -143,7 +142,7 @@ public class BaseEntity extends BaseRootNamedEntity{
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status")
+	@Schema(description = "Used to indicate the current lifecycle status")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -168,7 +167,7 @@ public class BaseEntity extends BaseRootNamedEntity{
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Entity version")
+	@Schema(description = "Entity version")
 
 	public String getVersion() {
 		return version;
@@ -184,7 +183,7 @@ public class BaseEntity extends BaseRootNamedEntity{
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the entity is valid")
+	@Schema(description = "The period for which the entity is valid")
 
 	@Valid
 

@@ -21,21 +21,19 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * The reference object to the schema and type of target product which is described by product specification
  */
-@ApiModel(description = "The reference object to the schema and type of target product which is described by product specification")
+@Schema(description = "The reference object to the schema and type of target product which is described by product specification")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class TargetProductSchema   {
   @JsonProperty("@baseType")
   private String baseType = null;
@@ -55,7 +53,7 @@ public class TargetProductSchema   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -74,7 +72,7 @@ public class TargetProductSchema   {
    * This field provides a link to the schema describing the target product
    * @return schemaLocation
   **/
-  @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target product")
+  @Schema(description = "This field provides a link to the schema describing the target product")
       @NotNull
 
     public String getAtSchemaLocation() {
@@ -94,7 +92,7 @@ public class TargetProductSchema   {
    * Class type of the target product
    * @return type
   **/
-  @ApiModelProperty(required = true, value = "Class type of the target product")
+  @Schema(description = "Class type of the target product")
       @NotNull
 
     public String getAtType() {

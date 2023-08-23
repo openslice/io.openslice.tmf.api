@@ -21,23 +21,21 @@ package io.openslice.tmf.so641.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Linked service order item to the one containing this attribute
  */
-@ApiModel(description = "Linked service order item to the one containing this attribute")
+@Schema(description = "Linked service order item to the one containing this attribute")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 @Entity(name = "ServiceOrderItemRelationship")
 public class ServiceOrderItemRelationship  extends BaseRootEntity {
 	
@@ -57,7 +55,7 @@ public class ServiceOrderItemRelationship  extends BaseRootEntity {
    * Unique identifier of a service order item
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of a service order item")
+  @Schema(description = "Unique identifier of a service order item")
   @NotNull
 
 
@@ -78,7 +76,7 @@ public class ServiceOrderItemRelationship  extends BaseRootEntity {
    * The type of related order item, can be: dependency if the order item needs to be not started until another order item is complete
    * @return relationshipType
   **/
-  @ApiModelProperty(required = true, value = "The type of related order item, can be: dependency if the order item needs to be not started until another order item is complete")
+  @Schema(description = "The type of related order item, can be: dependency if the order item needs to be not started until another order item is complete")
   @NotNull
 
 

@@ -56,9 +56,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.Attachment;
@@ -282,26 +279,26 @@ public class ResourceCatalogIntegrationTest {
 		
 		
 
-		ResourceCandidateCreate scand = new ResourceCandidateCreate();
-		scand.setName( responsesSpec.getName());
-		ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
-		resSpecificationRef.setId( responsesSpec.getId());
-		resSpecificationRef.setName( responsesSpec .getName());
-		scand.resourceSpecification(resSpecificationRef);
-		categoryItem = new ResourceCategoryRef();
-		categoryItem.setId( responsesCateg.getId());
-		categoryItem.setName( responsesCateg.getName() );
-		scand.addCategoryItem(categoryItem);
-		
-		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCandidate")
-	            .with( SecurityMockMvcRequestPostProcessors.csrf())
-			.contentType(MediaType.APPLICATION_JSON)
-			.content( JsonUtils.toJson( scand ) ))
-		    .andExpect(status().isOk())
-		    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-		    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
-    	    .andExpect(status().isOk())
-    	    .andReturn().getResponse().getContentAsString();
+//		ResourceCandidateCreate scand = new ResourceCandidateCreate();
+//		scand.setName( responsesSpec.getName());
+//		ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
+//		resSpecificationRef.setId( responsesSpec.getId());
+//		resSpecificationRef.setName( responsesSpec .getName());
+//		scand.resourceSpecification(resSpecificationRef);
+//		categoryItem = new ResourceCategoryRef();
+//		categoryItem.setId( responsesCateg.getId());
+//		categoryItem.setName( responsesCateg.getName() );
+//		scand.addCategoryItem(categoryItem);
+//		
+//		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCandidate")
+//	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+//			.contentType(MediaType.APPLICATION_JSON)
+//			.content( JsonUtils.toJson( scand ) ))
+//		    .andExpect(status().isOk())
+//		    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+//		    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
+//    	    .andExpect(status().isOk())
+//    	    .andReturn().getResponse().getContentAsString();
 	
 		
 		

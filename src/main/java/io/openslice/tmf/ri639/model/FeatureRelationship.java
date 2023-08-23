@@ -2,26 +2,23 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Configuration feature
  */
-@ApiModel(description = "Configuration feature")
+@Schema(description = "Configuration feature")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIFeatureRel")
 public class FeatureRelationship  extends BaseRootNamedEntity {
   @JsonProperty("id")
@@ -42,7 +39,7 @@ public class FeatureRelationship  extends BaseRootNamedEntity {
    * Unique identifier of the target feature.
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the target feature.")
+  @Schema(description = "Unique identifier of the target feature.")
   
     public String getId() {
     return id;
@@ -63,7 +60,7 @@ public class FeatureRelationship  extends BaseRootNamedEntity {
    * This is the type of the feature relationship.
    * @return relationshipType
   **/
-  @ApiModelProperty(required = true, value = "This is the type of the feature relationship.")
+  @Schema(description = "This is the type of the feature relationship.")
       @NotNull
 
     public String getRelationshipType() {
@@ -83,7 +80,7 @@ public class FeatureRelationship  extends BaseRootNamedEntity {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {

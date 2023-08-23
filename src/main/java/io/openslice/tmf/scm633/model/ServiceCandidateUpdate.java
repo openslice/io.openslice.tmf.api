@@ -23,16 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * ServiceCandidate is an entity that makes a service specification available to
@@ -41,9 +39,9 @@ import io.swagger.annotations.ApiModelProperty;
  * service specification can be composed of other service specifications.
  * Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications. Skipped properties: id,href,lastUpdate")
+@Schema(description = "ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 public class ServiceCandidateUpdate {
 	@JsonProperty("description")
@@ -87,7 +85,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of this REST resource")
+	@Schema(description = "Description of this REST resource")
 
 	public String getDescription() {
 		return description;
@@ -107,7 +105,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status of the service candidate.")
+	@Schema(description = "Used to indicate the current lifecycle status of the service candidate.")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -127,7 +125,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name given to this REST resource")
+	@Schema(description = "Name given to this REST resource")
 
 	public String getName() {
 		return name;
@@ -147,7 +145,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "the version of service candidate")
+	@Schema(description = "the version of service candidate")
 
 	public String getVersion() {
 		return version;
@@ -175,7 +173,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "List of categories for this candidate")
+	@Schema(description = "List of categories for this candidate")
 
 	@Valid
 
@@ -197,7 +195,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return serviceSpecification
 	 **/
-	@ApiModelProperty(value = "The service specification implied by this candidate")
+	@Schema(description = "The service specification implied by this candidate")
 
 	@Valid
 
@@ -219,7 +217,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which this REST resource is valid")
+	@Schema(description = "The period for which this REST resource is valid")
 
 	@Valid
 
@@ -241,7 +239,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -262,7 +260,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -282,7 +280,7 @@ public class ServiceCandidateUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;

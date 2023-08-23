@@ -20,27 +20,24 @@
 package io.openslice.tmf.fi691.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.fi691.model.GeographicPointType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * GeographicLocationRefOrValueType
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "GeographicLocationRefOrValueType")
 public class GeographicLocationRefOrValueType extends BaseRootNamedEntity {
@@ -65,7 +62,7 @@ public class GeographicLocationRefOrValueType extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the location entity within the server")
+	@Schema(description = "Unique identifier of the location entity within the server")
 
 	public String getId() {
 		return uuid;
@@ -82,7 +79,7 @@ public class GeographicLocationRefOrValueType extends BaseRootNamedEntity {
 	 * 
 	 * @return geographicPoint
 	 **/
-	@ApiModelProperty(value = "A list of geo points. A GeoPoint defines a geographic point through coordinates")
+	@Schema(description = "A list of geo points. A GeoPoint defines a geographic point through coordinates")
 
 	@Valid
 
@@ -104,7 +101,7 @@ public class GeographicLocationRefOrValueType extends BaseRootNamedEntity {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A Link to the schema describing this REST Resource")
+	@Schema(description = "A Link to the schema describing this REST Resource")
 
 	public String getSchemaLocation() {
 		return schemaLocation;

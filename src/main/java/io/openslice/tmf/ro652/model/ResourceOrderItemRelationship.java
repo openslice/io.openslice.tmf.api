@@ -2,19 +2,18 @@ package io.openslice.tmf.ro652.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * ResourceOrderItemRelationship
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-09-28T23:39:08.914219800+03:00[Europe/Athens]")
 public class ResourceOrderItemRelationship   {
   @JsonProperty("relationshipType")
   private String relationshipType = null;
@@ -40,7 +39,7 @@ public class ResourceOrderItemRelationship   {
    * Type of the order item relationship
    * @return relationshipType
   **/
-  @ApiModelProperty(value = "Type of the order item relationship")
+  @Schema(description = "Type of the order item relationship")
   
     public String getRelationshipType() {
     return relationshipType;
@@ -59,7 +58,7 @@ public class ResourceOrderItemRelationship   {
    * Get orderItem
    * @return orderItem
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ResourceOrderItemRef getOrderItem() {
@@ -79,7 +78,7 @@ public class ResourceOrderItemRelationship   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -98,7 +97,7 @@ public class ResourceOrderItemRelationship   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -117,7 +116,7 @@ public class ResourceOrderItemRelationship   {
    * When sub-classing, this defines the sub-class entity name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return _atType;

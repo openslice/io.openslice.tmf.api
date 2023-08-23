@@ -12,9 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
@@ -46,7 +44,6 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.model.Characteristic;
-import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceRefOrValue;
 import io.openslice.tmf.ri639.model.ResourceRelationship;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;

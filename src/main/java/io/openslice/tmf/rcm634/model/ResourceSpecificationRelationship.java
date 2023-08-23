@@ -23,29 +23,27 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * A migration, substitution, dependency or exclusivity relationship
  * between/among resource specifications.
  */
-@ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among resource specifications.")
+@Schema(description = "A migration, substitution, dependency or exclusivity relationship between/among resource specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Entity(name = "ResourceSpecRelationship")
 public class ResourceSpecificationRelationship {
@@ -122,7 +120,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of target ResourceSpecification")
+	@Schema(description = "Unique identifier of target ResourceSpecification")
 
 	public String getId() {
 		return id;
@@ -142,7 +140,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Reference of the target ResourceSpecification")
+	@Schema(description = "Reference of the target ResourceSpecification")
 
 	public String getHref() {
 		return href;
@@ -163,7 +161,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return defaultQuantity
 	 **/
-	@ApiModelProperty(value = "The default number of the related resource that should be instantiated, for example a rack would typically have 4 cards, although it could support more.")
+	@Schema(description = "The default number of the related resource that should be instantiated, for example a rack would typically have 4 cards, although it could support more.")
 
 	public Integer getDefaultQuantity() {
 		return defaultQuantity;
@@ -184,7 +182,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return maximumQuantity
 	 **/
-	@ApiModelProperty(value = "The maximum number of the related resource that should be instantiated, for example a rack supports a maximum of 16 cards")
+	@Schema(description = "The maximum number of the related resource that should be instantiated, for example a rack supports a maximum of 16 cards")
 
 	public Integer getMaximumQuantity() {
 		return maximumQuantity;
@@ -205,7 +203,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return minimumQuantity
 	 **/
-	@ApiModelProperty(value = "The minimum number of the related resource that should be instantiated, for example a rack must have at least 1 card")
+	@Schema(description = "The minimum number of the related resource that should be instantiated, for example a rack must have at least 1 card")
 
 	public Integer getMinimumQuantity() {
 		return minimumQuantity;
@@ -225,7 +223,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "The name given to the target resource specification instance")
+	@Schema(description = "The name given to the target resource specification instance")
 
 	public String getName() {
 		return name;
@@ -245,7 +243,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(value = "Type of relationship such as migration, substitution, dependency, exclusivity")
+	@Schema(description = "Type of relationship such as migration, substitution, dependency, exclusivity")
 
 	public String getRelationshipType() {
 		return relationshipType;
@@ -265,7 +263,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(value = "The association role for this resource specification")
+	@Schema(description = "The association role for this resource specification")
 
 	public String getRole() {
 		return role;
@@ -298,7 +296,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return characteristic
 	 **/
-	@ApiModelProperty(value = "A characteristic that refines the relationship. For example, consider the relationship between a slot and a card. For a half-height card it is important to know the position at which the card is inserted, so a characteristic Position might be defined on the relationship to allow capturing of this in the inventory")
+	@Schema(description = "A characteristic that refines the relationship. For example, consider the relationship between a slot and a card. For a half-height card it is important to know the position at which the card is inserted, so a characteristic Position might be defined on the relationship to allow capturing of this in the inventory")
 	@Valid
 	public Set<ResourceSpecificationCharacteristic> getCharacteristic() {
 		return characteristic;
@@ -318,7 +316,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -339,7 +337,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return _atBaseType;
@@ -360,7 +358,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -380,7 +378,7 @@ public class ResourceSpecificationRelationship {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getAtType() {
 		return _atType;

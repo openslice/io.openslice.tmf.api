@@ -23,22 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,lastUpdate")
+@Schema(description = "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 public class ServiceCategoryUpdate   {
   @JsonProperty("description")
@@ -88,7 +86,7 @@ public class ServiceCategoryUpdate   {
    * Description of the category
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the category")
+  @Schema(description = "Description of the category")
 
 
   public String getDescription() {
@@ -108,7 +106,7 @@ public class ServiceCategoryUpdate   {
    * If true, this Boolean indicates that the category is a root of categories
    * @return isRoot
   **/
-  @ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+  @Schema(description = "If true, this Boolean indicates that the category is a root of categories")
 
 
   public Boolean isIsRoot() {
@@ -128,7 +126,7 @@ public class ServiceCategoryUpdate   {
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -148,7 +146,7 @@ public class ServiceCategoryUpdate   {
    * Name of the category
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the category")
+  @Schema(description = "Name of the category")
 
 
   public String getName() {
@@ -168,7 +166,7 @@ public class ServiceCategoryUpdate   {
    * Unique identifier of the parent category
    * @return parentId
   **/
-  @ApiModelProperty(value = "Unique identifier of the parent category")
+  @Schema(description = "Unique identifier of the parent category")
 
 
   public String getParentId() {
@@ -188,7 +186,7 @@ public class ServiceCategoryUpdate   {
    * ServiceCategory version
    * @return version
   **/
-  @ApiModelProperty(value = "ServiceCategory version")
+  @Schema(description = "ServiceCategory version")
 
 
   public String getVersion() {
@@ -216,7 +214,7 @@ public class ServiceCategoryUpdate   {
    * List of child categories in the tree for in this category
    * @return category
   **/
-  @ApiModelProperty(value = "List of child categories in the tree for in this category")
+  @Schema(description = "List of child categories in the tree for in this category")
 
   @Valid
 
@@ -245,7 +243,7 @@ public class ServiceCategoryUpdate   {
    * List of service candidates associated with this category
    * @return serviceCandidate
   **/
-  @ApiModelProperty(value = "List of service candidates associated with this category")
+  @Schema(description = "List of service candidates associated with this category")
 
   @Valid
 
@@ -266,7 +264,7 @@ public class ServiceCategoryUpdate   {
    * The period for which the category is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the category is valid")
+  @Schema(description = "The period for which the category is valid")
 
   @Valid
 
@@ -287,7 +285,7 @@ public class ServiceCategoryUpdate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -307,7 +305,7 @@ public class ServiceCategoryUpdate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -327,7 +325,7 @@ public class ServiceCategoryUpdate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

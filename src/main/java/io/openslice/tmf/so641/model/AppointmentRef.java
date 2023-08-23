@@ -21,23 +21,21 @@ package io.openslice.tmf.so641.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Refers an appointment, such as a Customer presentation or internal meeting or site visit
  */
-@ApiModel(description = "Refers an appointment, such as a Customer presentation or internal meeting or site visit")
+@Schema(description = "Refers an appointment, such as a Customer presentation or internal meeting or site visit")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 @Entity(name = "AppointmentRef")
 public class AppointmentRef extends BaseRootEntity  {
   @JsonProperty("id")
@@ -54,7 +52,7 @@ public class AppointmentRef extends BaseRootEntity  {
    * The identifier of the referred appointment
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The identifier of the referred appointment")
+  @Schema(description = "The identifier of the referred appointment")
   @NotNull
 
 
@@ -76,7 +74,7 @@ public class AppointmentRef extends BaseRootEntity  {
    * An explanatory text regarding the appointment made with a party
    * @return description
   **/
-  @ApiModelProperty(value = "An explanatory text regarding the appointment made with a party")
+  @Schema(description = "An explanatory text regarding the appointment made with a party")
 
 
   public String getDescription() {
@@ -92,7 +90,7 @@ public class AppointmentRef extends BaseRootEntity  {
    * The actual type of the target instance when needed for disambiguation
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation")
 
 
   public String getReferredType() {

@@ -31,9 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -54,6 +51,8 @@ import io.openslice.tmf.pcm620.model.ProductOfferingPriceRef;
 import io.openslice.tmf.pcm620.model.ProductOfferingUpdate;
 import io.openslice.tmf.pcm620.model.ProductSpecificationCharacteristicValueUse;
 import io.openslice.tmf.pcm620.repo.ProductOfferingRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ProductOfferingRepoService {

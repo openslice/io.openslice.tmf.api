@@ -100,8 +100,8 @@ public class LCMRulesIntegrationTest {
 
 		LCMRuleSpecification resp = JsonUtils.toJsonObj(response,  LCMRuleSpecification.class);
 		assertThat( resp.getContent() ).isEqualTo( "CONTENT" );
-		assertThat( resp.getServiceSpecificationRefs().size()  ).isEqualTo( 1 );
-		assertThat( resp.getServiceSpecificationRefs().stream().findFirst().get().getName()  ).isEqualTo( "SPECREF" );
+		assertThat( resp.getServiceSpecs().size()  ).isEqualTo( 1 );
+		assertThat( resp.getServiceSpecs().stream().findFirst().get().getName()  ).isEqualTo( "SPECREF" );
 		
 		
 		//we will add now a new rule to service
@@ -143,7 +143,7 @@ public class LCMRulesIntegrationTest {
 		LCMRuleSpecificationUpdate cu1 = new LCMRuleSpecificationUpdate();
 		cu1.setServiceSpecs( new ArrayList<>());
 		cu1.setLcmrulephase( resp.getLcmrulephase() );
-		cu1.getServiceSpecs().addAll(resp.getServiceSpecificationRefs());
+		cu1.getServiceSpecs().addAll(resp.getServiceSpecs());
 		ServiceSpecificationRef specref2 = new ServiceSpecificationRef();
 		specref2.setId("0x0x2");
 		specref2.setName("SPECREF2");
@@ -184,7 +184,7 @@ public class LCMRulesIntegrationTest {
 
 		LCMRuleSpecificationUpdate cu2 = new LCMRuleSpecificationUpdate();
 		cu2.setServiceSpecs( new ArrayList<>());
-		cu2.getServiceSpecs().addAll( resp.getServiceSpecificationRefs());
+		cu2.getServiceSpecs().addAll( resp.getServiceSpecs());
 		assertThat( cu2.getServiceSpecs().size() ).isEqualTo( 2 );
 		cu2.getServiceSpecs().remove(0);				
 
@@ -199,7 +199,7 @@ public class LCMRulesIntegrationTest {
 	    	    .andReturn().getResponse().getContentAsString();
 
 		resp = JsonUtils.toJsonObj(response4,  LCMRuleSpecification.class);
-		assertThat( resp.getServiceSpecificationRefs().size() ).isEqualTo( 1 );
+		assertThat( resp.getServiceSpecs().size() ).isEqualTo( 1 );
 
 		assertThat( lcmRuleSpecificationRepoService.findAll().size() ).isEqualTo( 2 );
 

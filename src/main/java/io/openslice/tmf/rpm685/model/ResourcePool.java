@@ -1,36 +1,24 @@
 package io.openslice.tmf.rpm685.model;
 
 import java.util.Objects;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 /**
  * manages resource capacity with the resource state
  */
-@ApiModel(description = "manages resource capacity with the resource state")
+@Schema(description = "manages resource capacity with the resource state")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-05T08:56:49.602231700+03:00[Europe/Athens]")
 
 @Entity(name = "ResourcePool")
 public class ResourcePool extends BaseEntity {
@@ -62,7 +50,7 @@ public class ResourcePool extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of this REST resource")
+	@Schema(description = "Unique identifier of this REST resource")
 
 	public String getId() {
 		id = uuid;
@@ -110,7 +98,7 @@ public class ResourcePool extends BaseEntity {
 //	 * 
 //	 * @return resourceCollection
 //	 **/
-//	@ApiModelProperty(value = "")
+//	@Schema(description = "")
 //	@Valid
 //	public Set<ResourceCollectionRef> getResourceCollection() {
 //		return resourceCollection;

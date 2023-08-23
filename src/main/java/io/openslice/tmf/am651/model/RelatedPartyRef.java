@@ -21,19 +21,18 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * RelatedParty reference. A related party defines party or party role linked to a specific entity.
  */
-@ApiModel(description = "RelatedParty reference. A related party defines party or party role linked to a specific entity.")
+@Schema(description = "RelatedParty reference. A related party defines party or party role linked to a specific entity.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class RelatedPartyRef   {
   @JsonProperty("href")
@@ -60,7 +59,7 @@ public class RelatedPartyRef   {
    * Reference of the related party, could be a party reference or a party role reference
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the related party, could be a party reference or a party role reference")
+  @Schema(description = "Reference of the related party, could be a party reference or a party role reference")
 
 
   public String getHref() {
@@ -80,7 +79,7 @@ public class RelatedPartyRef   {
    * Unique identifier of a related party
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of a related party")
+  @Schema(description = "Unique identifier of a related party")
 
 
   public String getId() {
@@ -100,7 +99,7 @@ public class RelatedPartyRef   {
    * Name of the related party
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the related party")
+  @Schema(description = "Name of the related party")
 
 
   public String getName() {
@@ -120,7 +119,7 @@ public class RelatedPartyRef   {
    * Role of the related party.
    * @return role
   **/
-  @ApiModelProperty(value = "Role of the related party.")
+  @Schema(description = "Role of the related party.")
 
 
   public String getRole() {
@@ -140,7 +139,7 @@ public class RelatedPartyRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

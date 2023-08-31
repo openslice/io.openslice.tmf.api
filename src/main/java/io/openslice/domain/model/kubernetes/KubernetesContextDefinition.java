@@ -28,7 +28,7 @@ public class KubernetesContextDefinition
 
 	
 	public static final String OSL_KUBD_RSPEC_NAME = "kubernetes-context-definition.openslice.io";
-	public static final String OSL_KUBD_RSPEC_VERSION = "0.0.0";
+	public static final String OSL_KUBD_RSPEC_VERSION = "0.0.1";
 	public static final String OSL_KUBD_RSPEC_CATEGORY = "KubernetesContextDefinition";
 	public static final String OSL_KUBD_RESOURCE_CATEGORY = "KubernetesContextDefinition";
 	public static final String OSL_KUBD_RSPEC_TYPE = "LogicalResourceSpecification";
@@ -59,20 +59,34 @@ public class KubernetesContextDefinition
 
 	
 	@Override
-	public ResourceSpecificationCreate toRSpecCreate() {
-		ResourceSpecificationCreate rsc = new ResourceSpecificationCreate();
+	public ResourceSpecificationCreate toRSpecCreate_InitRepo() {
+		ResourceSpecificationCreate rsc = this.toRSpecCreate();
 		rsc.setName( OSL_KUBD_RSPEC_NAME );
 		rsc.setVersion( OSL_KUBD_RSPEC_VERSION );
 		rsc.setCategory( OSL_KUBD_RSPEC_CATEGORY );
 		rsc.setDescription( OSL_KUBD_RSPEC_DESCRIPTION );
 		rsc.setType( OSL_KUBD_RSPEC_TYPE );
 		rsc.setLifecycleStatus( ELifecycle.ACTIVE.getValue() );
-		rsc.addResourceSpecificationCharacteristicItemShort( "masterURL", "", EValueType.TEXT.getValue());
-		rsc.addResourceSpecificationCharacteristicItemShort( "resourceVersion", "", EValueType.TEXT.getValue());
-		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextName", "", EValueType.TEXT.getValue());
-		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextCluster", "", EValueType.TEXT.getValue());
-		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextUser", "", EValueType.TEXT.getValue());
-		rsc.addResourceSpecificationCharacteristicItemShort( "clusterVersion", "", EValueType.TEXT.getValue());		
+
+		return rsc;
+		
+	}
+	
+	@Override
+	public ResourceSpecificationCreate toRSpecCreate() {
+		ResourceSpecificationCreate rsc = new ResourceSpecificationCreate();
+		rsc.setName( this.name );
+		rsc.setVersion( this.version );
+		rsc.setCategory( OSL_KUBD_RSPEC_CATEGORY );
+		rsc.setDescription( this.description );
+		rsc.setType( OSL_KUBD_RSPEC_TYPE );
+		rsc.setLifecycleStatus( ELifecycle.ACTIVE.getValue() );
+		rsc.addResourceSpecificationCharacteristicItemShort( "masterURL", "", EValueType.TEXT.getValue(), false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "resourceVersion", "", EValueType.TEXT.getValue(), false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextName", "", EValueType.TEXT.getValue(), false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextCluster", "", EValueType.TEXT.getValue(), false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextUser", "", EValueType.TEXT.getValue(), false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "clusterVersion", "", EValueType.TEXT.getValue(), false);		
 		return rsc;
 		
 	}

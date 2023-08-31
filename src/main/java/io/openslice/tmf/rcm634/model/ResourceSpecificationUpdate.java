@@ -342,7 +342,8 @@ public class ResourceSpecificationUpdate {
 	public ResourceSpecificationUpdate addResourceSpecificationCharacteristicItemShort(
 			String name,
 			String defaultValue,
-			String valueType ) {
+			String valueType,
+			Boolean isConfigurable) {
 		
 		
 		ResourceSpecificationCharacteristic ci = new ResourceSpecificationCharacteristic();
@@ -355,6 +356,7 @@ public class ResourceSpecificationUpdate {
 			val.isDefault(true);
 			ci.getResourceSpecCharacteristicValue().add( val );			
 		}	
+		ci.configurable( isConfigurable );
 		return addResourceSpecificationCharacteristicItem(ci);
 	}
 	

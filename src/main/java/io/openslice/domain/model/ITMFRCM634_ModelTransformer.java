@@ -12,10 +12,8 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 public interface ITMFRCM634_ModelTransformer {
 	
 	
-
-	default ResourceSpecification toRSpec() {
-		return null;
-	}
+	ResourceSpecificationCreate toRSpecCreate_InitRepo();
+	
 	
 	default ResourceSpecificationCreate toRSpecCreate() {
 		return null;

@@ -306,6 +306,26 @@ public interface ServiceSpecificationApi {
     ResponseEntity<ServiceSpecification> specFromTestSpec( @Parameter(description = "Identifier of the ServiceTestSpecification id from the ServiceTestSpecification catalog",required=true) @PathVariable("id") String id );
     
 
+    @Operation(summary = "Creates a Resource Facing ServiceSpecification from a ResourceSpecification id. It retreives the ResourceSpecification from  the ResourceSpecification catalog", 
+    		operationId = "createServiceSpecificationFromResourceSpecification", 
+    		description = "This operation creates a Resource Facing ServiceSpecification from a ResourceSpecification id. It retreives the ResourceSpecification from  the ResourceSpecification catalog. "
+    				+ "The response is the Service Spec", tags={ "serviceSpecification", })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode ="200", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
+    @RequestMapping(value = "/serviceSpecification/specFromResourceSpec/{id}",
+        produces = { "application/json;charset=utf-8" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<ServiceSpecification> specFromResourceSpec( @Parameter(description = "Identifier of the ResourceSpecification id from the ResourceSpecification catalog",required=true) @PathVariable("id") String id );
+ 
+    
+    
     @Operation(summary = "Get a SVG image with specification relationship graph", operationId = "getImageSpecificationRelationshipGraph", 
     		description = "This operation returns a SVG image with specification relationship graph", tags={ "serviceSpecification", })
     @ApiResponses(value = { 

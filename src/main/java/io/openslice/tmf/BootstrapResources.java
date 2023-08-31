@@ -190,7 +190,7 @@ public class BootstrapResources {
 		if ( ( scategoryInfra != null ) &&  ( resourceSpecificationObj == null ))
 		{
 			ResourceSpecification resourceSpecificationKubernetes =
-					this.resourceSpecRepoService.addResourceSpecification( KubernetesContextDefinition.builder().build().toRSpecCreate() );
+					this.resourceSpecRepoService.addResourceSpecification( KubernetesContextDefinition.builder().build().toRSpecCreate_InitRepo() );
 			//KubernetesContextDefinition.builder().build().fromRSpec(resourceSpecificationKubernetes);//to update any details
 			this.addToCategory( scategoryInfra, resourceSpecificationKubernetes );
 		}
@@ -202,7 +202,7 @@ public class BootstrapResources {
 		if ( ( scategoryInfra != null ) &&  ( resourceSpecificationObj == null ))
 		{
 			ResourceSpecification resourceSpecificationKubernetesCRD =
-					this.resourceSpecRepoService.addResourceSpecification( KubernetesCRDV1.builder().build().toRSpecCreate() );
+					this.resourceSpecRepoService.addResourceSpecification( KubernetesCRDV1.builder().build().toRSpecCreate_InitRepo() );
 			KubernetesCRDV1.builder().build().fromRSpec(resourceSpecificationKubernetesCRD);//to update any details
 			this.addToCategory( scategoryInfra, resourceSpecificationKubernetesCRD );
 		}
@@ -215,7 +215,7 @@ public class BootstrapResources {
 		if ( ( scategoryInfra != null ) &&  ( resourceSpecificationObj == null ))
 		{
 			ResourceSpecification rspecKubCRV1 =
-					this.resourceSpecRepoService.addResourceSpecification( KubernetesCRV1.builder().build().toRSpecCreate() );
+					this.resourceSpecRepoService.addResourceSpecification( KubernetesCRV1.builder().build().toRSpecCreate_InitRepo() );
 			KubernetesCRV1.builder().build().fromRSpec(rspecKubCRV1);//to update any details
 			this.addToCategory( scategoryInfra, rspecKubCRV1 );
 		}

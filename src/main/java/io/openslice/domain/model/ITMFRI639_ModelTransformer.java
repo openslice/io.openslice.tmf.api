@@ -1,6 +1,5 @@
 package io.openslice.domain.model;
 
-import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
@@ -31,6 +30,5 @@ public interface ITMFRI639_ModelTransformer {
 		
 	}
 
-	ResourceSpecificationCreate toRSpecCreate();
 	
 }

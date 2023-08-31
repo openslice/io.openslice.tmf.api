@@ -34,7 +34,8 @@ public enum EValueType {
 	LONGTEXT("LONGTEXT"),
 	ENUM("ENUM"),
 	TIMESTAMP("TIMESTAMP"),
-	MAP("MAP");
+	MAP("MAP"),
+	OBJECT("OBJECT");
 	
 	
 	private String value;

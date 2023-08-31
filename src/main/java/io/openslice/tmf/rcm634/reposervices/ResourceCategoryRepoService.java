@@ -189,7 +189,10 @@ public class ResourceCategoryRepoService {
 		if ( resCatUpd.getLifecycleStatus() != null ) {
 			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( resCatUpd.getLifecycleStatus() ) );
 		}
-		
+
+		if ( resCatUpd.getParentId() != null ){
+			sc.setParentId( resCatUpd.getParentId());			
+		}
 
 		if ( resCatUpd.getVersion() != null ) {
 			sc.setVersion( resCatUpd.getVersion() );		

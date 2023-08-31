@@ -1,8 +1,8 @@
 {
-	"name": "gNodeB",
+	"name": "gnodeb.openslice.io",
 	"category": "gNB",
 	"description": "The resource specification which describes a gNodeB",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"isBundle": false,
 	"@type": "PhysicalResourceSpecification",
 	"attachment": [],

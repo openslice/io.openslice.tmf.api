@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
@@ -38,7 +39,6 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
@@ -59,7 +59,6 @@ public class ResourceCandidateRepoService {
 		return this.candidateRepo.save( c );
 	}
 
-	@Transactional
 	public ResourceCandidate addResourceCandidate(@Valid ResourceCandidateCreate resCand) {	
 		
 
@@ -96,6 +95,7 @@ public class ResourceCandidateRepoService {
 		
 	}
 
+	@Transactional
 	public ResourceCandidate updateCandidate(String id, @Valid ResourceCandidateUpdate serviceCandidate) {
 		Optional<ResourceCandidate> scopt = this.candidateRepo.findByUuid(id);
 		if ( scopt == null ) {

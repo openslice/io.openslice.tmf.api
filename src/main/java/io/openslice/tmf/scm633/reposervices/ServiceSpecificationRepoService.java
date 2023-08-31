@@ -141,10 +141,13 @@ public class ServiceSpecificationRepoService {
 		}
 		this.sessionFactory = factory.unwrap(SessionFactory.class);
 	}
-
+	
+	
+	
 	public ServiceSpecification addServiceSpecification(@Valid ServiceSpecificationCreate serviceServiceSpecification) {
 
 		ServiceSpecification serviceSpec = new ServiceSpecification();
+				
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
 		serviceSpec.fixSpecCharRelationhsipIDs();
@@ -332,6 +335,25 @@ public class ServiceSpecificationRepoService {
 		return null;
 	}
 
+	
+	/**
+	 * @param id
+	 * @param forceId
+	 * @param serviceServiceSpecificationCreate
+	 * @return
+	 */
+	@Transactional
+	public ServiceSpecification updateOrAddServiceSpecification(String id,
+			@Valid ServiceSpecificationCreate serviceServiceSpecificationCreate) {
+		
+		ServiceSpecification serviceSpec = updateServiceSpecification(id, serviceServiceSpecificationCreate );
+		if ( serviceSpec == null ) {			
+				serviceSpec = addServiceSpecification( serviceServiceSpecificationCreate );
+		}
+		
+		return serviceSpec;
+	}
+	
 
 	@Transactional
 	public ServiceSpecification updateServiceSpecification(String id,
@@ -592,6 +614,12 @@ public class ServiceSpecificationRepoService {
 				if (!idexists) {
 					serviceSpec.getResourceSpecification().add(ar);
 					idAddedUpdated.put(ar.getId(), true);
+
+					/**
+					 * Also,
+					 * we will add by default all the characteristics of this rSpec to the related bundle parent service 
+					 */
+					serviceSpec = copyCharacteristicsOfResourceSpecId(  ar.getId(), serviceSpec);
 				}
 			}
 
@@ -668,8 +696,23 @@ public class ServiceSpecificationRepoService {
 		return targetServiceSpec;
 	}
 	
-	
-	
+	private ServiceSpecification copyCharacteristicsOfResourceSpecId(String sourceResourceSpecid, ServiceSpecification targetServiceSpec) {
+
+		ResourceSpecification rSpec = resourceSpecRepoService.findByUuid( sourceResourceSpecid );
+		
+		if ( rSpec != null ) {
+			for (ResourceSpecificationCharacteristic sourceChar : rSpec.getResourceSpecCharacteristic()) {
+				ServiceSpecCharacteristic serviceSpecCharacteristicItem = copyResourceCharacteristic( sourceChar );
+				serviceSpecCharacteristicItem.setName( rSpec.getName() + "::" +sourceChar.getName() );	
+
+				if ( targetServiceSpec.findSpecCharacteristicByName( serviceSpecCharacteristicItem.getName() ) == null ) {
+					targetServiceSpec.getServiceSpecCharacteristic().add( serviceSpecCharacteristicItem );					
+				}
+			}			
+		}
+		
+		return targetServiceSpec;
+	}	
 
 	public ServiceSpecification cloneServiceSpecification(String uuid) {
 		ServiceSpecification source = this.findByUuid(uuid);
@@ -1344,6 +1387,61 @@ public class ServiceSpecificationRepoService {
 		return KrokiClient.encodedGraph(graph);
 		
 		
+	}
+
+
+
+	public ServiceSpecification specFromResourceSpec(String id) {
+		ResourceSpecification rSpec = resourceSpecRepoService.findByUuid(id);
+		if (rSpec == null) {
+			logger.error("specFromResourceSpec return null");
+			return null;
+		}
+		
+
+		/**
+		 * 1: Create Service Spec related to ResourceSpecification
+		 */
+		ServiceSpecification serviceSpec = new ServiceSpecification();
+		serviceSpec.setName( rSpec.getName()  );
+		serviceSpec.setVersion( rSpec.getVersion() );
+		serviceSpec.setDescription( rSpec.getDescription() );		
+		serviceSpec.setType("ResourceFacingServiceSpecification");
+
+		
+		for (ResourceSpecificationCharacteristic sourceChar : rSpec.getResourceSpecCharacteristic()) {
+			ServiceSpecCharacteristic serviceSpecCharacteristicItem = copyResourceCharacteristic( sourceChar );
+			serviceSpecCharacteristicItem.setName( rSpec.getName() + "::" +sourceChar.getName() );			
+			serviceSpec.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );		
+		}
+
+		
+		ResourceSpecificationRef resourceSpecRef = new ResourceSpecificationRef();
+		resourceSpecRef.setId( rSpec.getId());
+
+		serviceSpec = this.addServiceSpecification( serviceSpec );
+		
+		
+		
+		return serviceSpec;
+	}
+	
+	private ServiceSpecCharacteristic copyResourceCharacteristic( ResourceSpecificationCharacteristic sourceChar ) {
+		
+		ServiceSpecCharacteristic serviceSpecCharacteristicItem = new ServiceSpecCharacteristic();
+		serviceSpecCharacteristicItem.setDescription( sourceChar.getDescription());
+		serviceSpecCharacteristicItem.valueType( sourceChar.getValueType() );
+		serviceSpecCharacteristicItem.configurable(sourceChar.isConfigurable());
+		serviceSpecCharacteristicItem.setMinCardinality( sourceChar.getMinCardinality() );
+		serviceSpecCharacteristicItem.setMaxCardinality( sourceChar.getMaxCardinality()  );
+		for (ResourceSpecificationCharacteristicValue cv : sourceChar.getResourceSpecCharacteristicValue()) {
+			ServiceSpecCharacteristicValue serviceSpecCharacteristicValueItem = new ServiceSpecCharacteristicValue();
+			serviceSpecCharacteristicValueItem.setValue( new Any( cv.getValue().getValue(), cv.getValue().getAlias()));
+			serviceSpecCharacteristicValueItem.isDefault( cv.isIsDefault() );
+			serviceSpecCharacteristicValueItem.setUnitOfMeasure( cv.getUnitOfMeasure() );		
+			serviceSpecCharacteristicItem.addServiceSpecCharacteristicValueItem(serviceSpecCharacteristicValueItem );
+		}
+		return serviceSpecCharacteristicItem;
 	}
 	
 

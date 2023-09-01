@@ -157,8 +157,17 @@ public class ResourceSpecificationApiController implements ResourceSpecification
 			@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
 		try {
-			return new ResponseEntity<List<ResourceSpecification>>(resourceSpecificationRepoService.findAll(),
-					HttpStatus.OK);
+			if ((fields == null) ) {
+
+				String myfields = "lastUpdate,lifecycleStatus";
+				return new ResponseEntity<List<ResourceSpecification>>(resourceSpecificationRepoService.findAll(myfields),
+						HttpStatus.OK);
+			} else {
+
+				return new ResponseEntity<List<ResourceSpecification>>(resourceSpecificationRepoService.findAll(fields),
+						HttpStatus.OK);
+			}
+			
 
 		} catch (Exception e) {
 			log.error("Couldn't serialize response for content type application/json", e);

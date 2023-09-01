@@ -21,12 +21,15 @@ package io.openslice.tmf.rcm634.reposervices;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,6 +44,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -67,6 +71,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
+import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.util.AttachmentUtil;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.validation.Valid;
@@ -162,6 +167,79 @@ public class ResourceSpecificationRepoService {
 		
 		return this.resourceSpecificationRepo.save(reSpec);
 	}
+	
+	
+	public List findAll(@Valid String fields) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		List<ResourceSpecification> alist = null;
+		try {
+
+			String sql = "SELECT "
+					+ "s.uuid as uuid,"
+					+ "s.id as id,"
+					+ "s.name as name,"
+					+ "s.description as description,"
+					+ "s.category as category,"
+					+ "s.version as version,"
+					+ "s.type as type";
+			
+			if (fields != null) {
+				String[] field = fields.split(",");
+				for (String f : field) {
+					sql += ", s." + f + " as " + f ;
+				}
+				
+			}			
+			sql += " FROM ResSpec s";
+
+
+			sql += " ORDER BY s.name";
+			
+	
+			
+			List<Object> mapaEntity = session
+				    .createQuery(sql )
+				    .setResultTransformer( new ResultTransformer() {
+						
+						@Override
+						public Object transformTuple(Object[] tuple, String[] aliases) {
+							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
+							        for (int i = 0; i < tuple.length; i++) {
+							            String alias = aliases[i];
+							            if (alias.equals("type")) {
+							            	alias = "@type";
+							            }
+							            if (alias != null) {
+							                result.put(alias, tuple[i]);
+							            }
+							        }
+
+							        return result;
+						}
+						
+						@Override
+						public List transformList(List collection) {
+							return collection;
+						}
+					} )
+				    .list();
+			
+
+			
+			
+			
+			return mapaEntity;
+		
+			
+			
+			
+		} finally {
+			tx.commit();
+			session.close();
+		}
+	}
+	
 	
 	public List<ResourceSpecification> findAll() {
 		return (List<ResourceSpecification>) this.resourceSpecificationRepo.findAll();
@@ -673,7 +751,8 @@ public class ResourceSpecificationRepoService {
 			return null;
 		}
 	}
-	
+
+
 
 	
 }

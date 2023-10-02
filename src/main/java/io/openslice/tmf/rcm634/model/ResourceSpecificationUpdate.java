@@ -332,23 +332,25 @@ public class ResourceSpecificationUpdate {
 	
 	
 	/**
-	 * 
-	 * just a quick add of an item with minimal configuration
 	 * @param name
 	 * @param defaultValue
 	 * @param valueType
+	 * @param description
+	 * @param isConfigurable
 	 * @return
 	 */
 	public ResourceSpecificationUpdate addResourceSpecificationCharacteristicItemShort(
 			String name,
 			String defaultValue,
 			String valueType,
+			String description,
 			Boolean isConfigurable) {
 		
 		
 		ResourceSpecificationCharacteristic ci = new ResourceSpecificationCharacteristic();
 		ci
 		.name( name )
+		.description(description)
 		.valueType(valueType);
 		if (defaultValue!=null) {
 			ResourceSpecificationCharacteristicValue val = new ResourceSpecificationCharacteristicValue();

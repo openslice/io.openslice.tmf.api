@@ -36,73 +36,75 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import io.openslice.tmf.common.model.Notification;
+import io.openslice.tmf.ri639.model.ResourceAttributeValueChangeNotification;
 import io.openslice.tmf.ri639.model.ResourceCreateNotification;
+import io.openslice.tmf.ri639.model.ResourceStateChangeNotification;
 
 @Configuration
-//@RefreshScope
+// @RefreshScope
 @Component
 public class ResourceApiRouteBuilderEvents extends RouteBuilder {
 
-	private static final transient Log logger = LogFactory.getLog(ResourceApiRouteBuilderEvents.class.getName());
+  private static final transient Log logger =
+      LogFactory.getLog(ResourceApiRouteBuilderEvents.class.getName());
 
 
 
-	
-	@Value("${EVENT_RESOURCE_CREATE}")
-	private String EVENT_RESOURCE_CREATE = "";
-	
-	@Value("${EVENT_RESOURCE_STATE_CHANGED}")
-	private String EVENT_RESOURCE_STATE_CHANGED = "";
-	
-	@Value("${EVENT_RESOURCE_DELETE}")
-	private String EVENT_RESOURCE_DELETE = "";
-	
-	@Value("${EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED}")
-	private String EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED = "";
+  @Value("${EVENT_RESOURCE_CREATE}")
+  private String EVENT_RESOURCE_CREATE = "";
+
+  @Value("${EVENT_RESOURCE_STATE_CHANGED}")
+  private String EVENT_RESOURCE_STATE_CHANGED = "";
+
+  @Value("${EVENT_RESOURCE_DELETE}")
+  private String EVENT_RESOURCE_DELETE = "";
+
+  @Value("${EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED}")
+  private String EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED = "";
 
 
-	@Autowired
-	private ProducerTemplate template;
+  @Autowired
+  private ProducerTemplate template;
 
-	
-	@Override
-	public void configure() throws Exception {
-		
-		
 
-		
-		
-	}
-	
-	
-	/**
-	 * @param n
-	 */
-	public void publishEvent(final Notification n, final String objId) {
-		n.setEventType( n.getClass().getName());
-		logger.info("will send Event for type " + n.getEventType());
-		try {
-			String msgtopic="";
-			
-			if ( n instanceof ResourceCreateNotification) {
-				 msgtopic = EVENT_RESOURCE_CREATE;
-			}
+  @Override
+  public void configure() throws Exception {
 
-			Map<String, Object> map = new HashMap<>();
-			map.put("eventid", n.getEventId() );
-			map.put("objId", objId );
-			
-			template.sendBodyAndHeaders(msgtopic, toJsonString(n), map);
+  }
 
-		} catch (Exception e) {
-			logger.error("Cannot send Event . " + e.getStackTrace() );
-		}
-	}
 
-	static String toJsonString(Object object) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		return mapper.writeValueAsString(object);
-	}
+  /**
+   * @param n
+   */
+  public void publishEvent(final Notification n, final String objId) {
+    n.setEventType(n.getClass().getName());
+    logger.info("will send Event topic for type " + n.getEventType());
+    try {
+      String msgtopic = "";
+
+      if (n instanceof ResourceCreateNotification) {
+        msgtopic = EVENT_RESOURCE_CREATE;
+      } else if (n instanceof ResourceAttributeValueChangeNotification) {
+        msgtopic = EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED;
+      }else if (n instanceof ResourceStateChangeNotification ) {
+        msgtopic = EVENT_RESOURCE_STATE_CHANGED;
+      }
+
+      Map<String, Object> map = new HashMap<>();
+      map.put("eventid", n.getEventId());
+      map.put("objId", objId);
+
+      template.sendBodyAndHeaders(msgtopic, toJsonString(n), map);
+
+    } catch (Exception e) {
+      logger.error("Cannot send Event . " + e.getStackTrace());
+    }
+  }
+
+  static String toJsonString(Object object) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    return mapper.writeValueAsString(object);
+  }
 
 }

@@ -66,4 +66,9 @@ public interface ServiceRepository extends CrudRepository<Service, Long>,  Pagin
 			+ "WHERE sorder.id = ?1 " )	
 	List<Service> findServicesFromOrderID(String orderid);
 
+	@Query("SELECT srv FROM Service srv "
+        + "JOIN FETCH srv.supportingResource sres "
+        + "WHERE sres.id = ?1 " )  
+    List<Service> findServicesHavingThisSupportingResourceID(String resourceID);
+
 }

@@ -27,11 +27,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Hibernate;
@@ -41,7 +39,6 @@ import org.hibernate.Transaction;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
 import io.openslice.model.DeploymentDescriptor;
 import io.openslice.model.DeploymentDescriptorVxFInstanceInfo;
 import io.openslice.tmf.common.model.Any;
@@ -54,6 +51,9 @@ import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.ri639.model.Resource;
+import io.openslice.tmf.ri639.model.ResourceAttributeValueChangeNotification;
+import io.openslice.tmf.ri639.model.ResourceStateChangeNotification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
 import io.openslice.tmf.sim638.api.ServiceApiRouteBuilderEvents;
 import io.openslice.tmf.sim638.model.Service;
@@ -518,6 +518,7 @@ public class ServiceRepoService {
 					service.addSupportingServiceItem(n);
 				}
 			}						
+			//prepei na enimerwsoume ta characteristics edw sto parent servcie pou exei auto ws supported
 		}
 				
 
@@ -547,24 +548,24 @@ public class ServiceRepoService {
 		 * Save in ServiceActionQueueItem
 		 */
 		
-			if (propagateToSO && stateChanged) {
-				ServiceActionQueueItem saqi = new ServiceActionQueueItem();
-				saqi.setServiceRefId( id );
-				saqi.setOriginalServiceInJSON( originaServiceAsJson );
-				if (stateChanged) {
-					if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
-						saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
-					}else if ( service.getState().equals(  ServiceStateType.TERMINATED) ) {
-						saqi.setAction( ServiceActionQueueAction.TERMINATE );		
-					}
-					
-				}
-				
-				if ( saqi.getAction() != ServiceActionQueueAction.NONE  ) {
-					this.addServiceActionQueueItem(saqi);					
-				}
-			}		
-		
+		if (propagateToSO && stateChanged) {
+		  ServiceActionQueueItem saqi = new ServiceActionQueueItem();
+		  saqi.setServiceRefId( id );
+		  saqi.setOriginalServiceInJSON( originaServiceAsJson );
+		  if (stateChanged) {
+		    if ( service.getState().equals(  ServiceStateType.INACTIVE) ) {
+		      saqi.setAction( ServiceActionQueueAction.DEACTIVATE );		
+		    }else if ( service.getState().equals(  ServiceStateType.TERMINATED) ) {
+		      saqi.setAction( ServiceActionQueueAction.TERMINATE );		
+		    }
+
+		  }
+
+		  if ( saqi.getAction() != ServiceActionQueueAction.NONE  ) {
+		    this.addServiceActionQueueItem(saqi);					
+		  }
+		}		
+
 		
 //		//here on any state change of a Service we must send an ActionQueueItem that reflects the state changed with the Action  
 		if  ( stateChanged  ) {
@@ -866,6 +867,19 @@ public class ServiceRepoService {
 	}
 	
 	
+	 /**
+     * Given a Resource (which for example might be provided by a CR update from a cluster )
+     * we locate the equivalent services
+     * @param resourceID
+     * @return
+     */
+    @Transactional
+    public List<Service> findServicesHavingThisSupportingResourceID( String resourceID){
+
+        return (List<Service>) this.serviceRepo.findServicesHavingThisSupportingResourceID( resourceID );
+
+    }
+	
 	
 	
 	/**
@@ -932,5 +946,103 @@ public class ServiceRepoService {
 		
 		return result;
 	}
+	
+
+    @Transactional	
+	public void  resourceAttrChangedEvent(@Valid ResourceAttributeValueChangeNotification resNotif) {
+      
+      logger.debug("ResourceAttributeValueChangeNotification"); 
+      Resource res = resNotif.getEvent().getEvent().getResource();
+      logger.info("Will update services related to this resource with id = " + res.getId() );
+      
+      var aservices = findServicesHavingThisSupportingResourceID(  res.getId() );
+      
+      for (Service as : aservices) {
+          
+          Service aService = findByUuid(as.getId()); 
+          
+          if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
+              
+
+              ServiceUpdate supd = new ServiceUpdate();
+              
+              //copy characteristics from resource to service
+              
+              for (io.openslice.tmf.ri639.model.Characteristic rChar : res.getResourceCharacteristic()) {
+                Characteristic cNew = new Characteristic();
+                cNew.setName( rChar.getName());
+                cNew.value( new Any( rChar.getValue() ));                
+                supd.addServiceCharacteristicItem( cNew );  
+              }
+              
+              
+              Note n = new Note();
+              n.setText("Supporting Resource Attribute Changed with id: " + res.getId());
+              n.setAuthor( "SIM638-API" );
+              n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+              supd.addNoteItem( n );                  
+              
+              this.updateService( aService.getId(), supd , true, null, null); //update the service            
+          }
+      }
+    }
+    
+
+    @Transactional  
+    public void  resourceStateChangedEvent(@Valid ResourceStateChangeNotification resNotif) {
+      
+      logger.debug("ResourceAttributeValueChangeNotification"); 
+      Resource res = resNotif.getEvent().getEvent().getResource();
+      logger.info("Will update services related to this resource with id = " + res.getId() );
+      
+      var aservices = findServicesHavingThisSupportingResourceID(  res.getId() );
+      
+      for (Service as : aservices) {
+          
+          Service aService = findByUuid(as.getId()); 
+          
+          if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {              
+              ServiceUpdate supd = new ServiceUpdate();             
+              if ( res.getResourceStatus() != null ) {
+                switch (res.getResourceStatus()) {
+                  case STANDBY: {
+                    supd.setState( ServiceStateType.RESERVED);
+                    break;
+                  }
+                  case SUSPENDED: {
+                    supd.setState( ServiceStateType.INACTIVE);
+                    break;
+                  }
+                  case RESERVED: {
+                    supd.setState( ServiceStateType.RESERVED);
+                    break;
+                  }
+                  case UNKNOWN: {
+                    if (aService.getState().equals( ServiceStateType.ACTIVE  )) {
+                      supd.setState( ServiceStateType.TERMINATED);              
+                    }
+                    break;
+                  }
+                  case ALARM: {
+                    supd.setState( ServiceStateType.INACTIVE);
+                    break;
+                  }
+                  default:
+                    break;
+                } 
+              }
+             
+              
+              Note n = new Note();
+              n.setText("Supporting Resource "+ res.getId() + " State Changed with status: " +  res.getResourceStatus());
+              n.setAuthor( "SIM638-API" );
+              n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+              supd.addNoteItem( n );                  
+              
+              this.updateService( aService.getId(), supd , true, null, null); //update the service            
+          }
+      }
+    }
+    
 	
 }

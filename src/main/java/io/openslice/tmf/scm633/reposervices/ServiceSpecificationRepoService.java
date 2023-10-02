@@ -703,7 +703,8 @@ public class ServiceSpecificationRepoService {
 		if ( rSpec != null ) {
 			for (ResourceSpecificationCharacteristic sourceChar : rSpec.getResourceSpecCharacteristic()) {
 				ServiceSpecCharacteristic serviceSpecCharacteristicItem = copyResourceCharacteristic( sourceChar );
-				serviceSpecCharacteristicItem.setName( rSpec.getName() + "::" +sourceChar.getName() );	
+				//serviceSpecCharacteristicItem.setName( rSpec.getName() + "::" +sourceChar.getName() );
+				serviceSpecCharacteristicItem.setName( sourceChar.getName() );
 
 				if ( targetServiceSpec.findSpecCharacteristicByName( serviceSpecCharacteristicItem.getName() ) == null ) {
 					targetServiceSpec.getServiceSpecCharacteristic().add( serviceSpecCharacteristicItem );					
@@ -1434,6 +1435,7 @@ public class ServiceSpecificationRepoService {
 		serviceSpecCharacteristicItem.configurable(sourceChar.isConfigurable());
 		serviceSpecCharacteristicItem.setMinCardinality( sourceChar.getMinCardinality() );
 		serviceSpecCharacteristicItem.setMaxCardinality( sourceChar.getMaxCardinality()  );
+		serviceSpecCharacteristicItem.setValidFor( sourceChar.getValidFor() );
 		for (ResourceSpecificationCharacteristicValue cv : sourceChar.getResourceSpecCharacteristicValue()) {
 			ServiceSpecCharacteristicValue serviceSpecCharacteristicValueItem = new ServiceSpecCharacteristicValue();
 			serviceSpecCharacteristicValueItem.setValue( new Any( cv.getValue().getValue(), cv.getValue().getAlias()));

@@ -36,6 +36,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import io.openslice.model.DeploymentDescriptor;
+import io.openslice.tmf.common.model.Notification;
+import io.openslice.tmf.ri639.model.ResourceAttributeValueChangeNotification;
+import io.openslice.tmf.ri639.model.ResourceStateChangeNotification;
 import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
 import io.openslice.tmf.sim638.model.ServiceCreate;
 import io.openslice.tmf.sim638.model.ServiceUpdate;
@@ -86,6 +89,16 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	private String NFV_CATALOG_NS_LCMCHANGED = "";
 	
 
+	//services care to take this event in case they are related to a specific resource (see CRs)
+    @Value("${EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED}")
+    private String EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED = "";
+
+
+
+    //services care to take this event in case they are related to a specific resource (see CRs)
+    @Value("${EVENT_RESOURCE_STATE_CHANGED}")
+    private String EVENT_RESOURCE_STATE_CHANGED = "";
+
 	@Autowired
 	private ProducerTemplate template;
 
@@ -96,7 +109,7 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 	public void configure() throws Exception {
 		
 		from( CATALOG_ADD_SERVICE )
-		.log(LoggingLevel.INFO, log, CATALOG_ADD_SERVICE + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_ADD_SERVICE + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ServiceCreate.class, true)
 		.bean( serviceRepoService, "addService(${body})")
@@ -104,7 +117,7 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.convertBodyTo( String.class );
 		
 		from( CATALOG_GET_SERVICE_BY_ID )
-		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICE_BY_ID + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICE_BY_ID + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( serviceRepoService, "getServiceEagerAsString")
 		.convertBodyTo( String.class );
@@ -112,7 +125,7 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		
 		
 		from( CATALOG_UPD_SERVICE )
-		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICE + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_UPD_SERVICE + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ServiceUpdate.class, true)
 		.bean( serviceRepoService, "updateService(${header.serviceid}, ${body}, ${header.propagateToSO} )")
@@ -121,14 +134,14 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		
 		
 		from( CATALOG_SERVICE_QUEUE_ITEMS_GET )
-		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEMS_GET + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEMS_GET + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( serviceRepoService, "findAllServiceActionQueueItems")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
 		
 		from( CATALOG_SERVICE_QUEUE_ITEM_UPD )
-		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEM_UPD + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEM_UPD + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ServiceActionQueueItem.class, true)
 		.bean( serviceRepoService, "updateServiceActionQueueItem(${body})")
@@ -136,7 +149,7 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		.convertBodyTo( String.class );
 		
 		from( CATALOG_SERVICE_QUEUE_ITEM_DELETE )
-		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEM_DELETE + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICE_QUEUE_ITEM_DELETE + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, ServiceActionQueueItem.class, true)
 		.bean( serviceRepoService, "deleteServiceActionQueueItemByUuid(${header.itemid})");
@@ -144,7 +157,7 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		
 		
 		from( CATALOG_SERVICES_TO_TERMINATE )
-		.log(LoggingLevel.INFO, log, CATALOG_SERVICES_TO_TERMINATE + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICES_TO_TERMINATE + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( serviceRepoService, "findAllActiveServicesToTerminate")
 		.marshal().json( JsonLibrary.Jackson)
@@ -152,7 +165,7 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		
 
 		from( CATALOG_SERVICES_OF_PARTNERS )
-		.log(LoggingLevel.INFO, log, CATALOG_SERVICES_OF_PARTNERS + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_SERVICES_OF_PARTNERS + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( serviceRepoService, "findAllActiveAndReservedServicesOfPartners")
 		.marshal().json( JsonLibrary.Jackson)
@@ -160,21 +173,32 @@ public class ServiceApiRouteBuilder extends RouteBuilder {
 		
 
 		from( CATALOG_GET_SERVICE_BY_ORDERID )
-		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICE_BY_ORDERID + " message received!")
+		.log(LoggingLevel.INFO, log, CATALOG_GET_SERVICE_BY_ORDERID + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.bean( serviceRepoService, "getServicesFromOrderID")
 		.marshal().json( JsonLibrary.Jackson)
 		.convertBodyTo( String.class );
 		
 		from( NFV_CATALOG_NS_LCMCHANGED )
-		.log(LoggingLevel.INFO, log, NFV_CATALOG_NS_LCMCHANGED + " message received!")
+		.log(LoggingLevel.INFO, log, NFV_CATALOG_NS_LCMCHANGED + " message received and will be processed for service inventory!")
 		.to("log:DEBUG?showBody=true&showHeaders=true")
 		.unmarshal().json( JsonLibrary.Jackson, DeploymentDescriptor.class, true)
 		.bean( serviceRepoService, "nfvCatalogNSResourceChanged(${body})");
 		
+
+        from( EVENT_RESOURCE_STATE_CHANGED )
+        .log(LoggingLevel.INFO, log, EVENT_RESOURCE_STATE_CHANGED + " message received and will be processed for service inventory!")
+        .to("log:DEBUG?showBody=true&showHeaders=true")
+        .unmarshal().json( JsonLibrary.Jackson, ResourceStateChangeNotification.class, true)
+        .bean( serviceRepoService, "resourceStateChangedEvent(${body})");
+        
+        from( EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED )
+        .log(LoggingLevel.INFO, log, EVENT_RESOURCE_ATTRIBUTE_VALUE_CHANGED + " message received and will be processed for service inventory!")
+        .to("log:DEBUG?showBody=true&showHeaders=true")
+        .unmarshal().json( JsonLibrary.Jackson, ResourceAttributeValueChangeNotification.class, true)
+        .bean( serviceRepoService, "resourceAttrChangedEvent(${body})");
 		
-		
-		
+        
 	}
 	
 	

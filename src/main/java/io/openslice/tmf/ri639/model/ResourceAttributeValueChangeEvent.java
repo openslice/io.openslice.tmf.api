@@ -2,11 +2,8 @@ package io.openslice.tmf.ri639.model;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import org.springframework.validation.annotation.Validated;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 
@@ -15,8 +12,9 @@ import jakarta.validation.Valid;
  */
 @Schema(description = "The notification data structure")
 @Validated
-@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
-public class ResourceAttributeValueChangeEvent   {
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen",
+    date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+public class ResourceAttributeValueChangeEvent {
   @JsonProperty("eventId")
   private String eventId = null;
 
@@ -57,11 +55,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * The identifier of the notification.
+   * 
    * @return eventId
-  **/
+   **/
   @Schema(description = "The identifier of the notification.")
-  
-    public String getEventId() {
+
+  public String getEventId() {
     return eventId;
   }
 
@@ -76,12 +75,13 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * Time of the event occurrence.
+   * 
    * @return eventTime
-  **/
+   **/
   @Schema(description = "Time of the event occurrence.")
-  
-    @Valid
-    public OffsetDateTime getEventTime() {
+
+  @Valid
+  public OffsetDateTime getEventTime() {
     return eventTime;
   }
 
@@ -96,11 +96,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * The type of the notification.
+   * 
    * @return eventType
-  **/
+   **/
   @Schema(description = "The type of the notification.")
-  
-    public String getEventType() {
+
+  public String getEventType() {
     return eventType;
   }
 
@@ -115,11 +116,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * The correlation id for this event.
+   * 
    * @return correlationId
-  **/
+   **/
   @Schema(description = "The correlation id for this event.")
-  
-    public String getCorrelationId() {
+
+  public String getCorrelationId() {
     return correlationId;
   }
 
@@ -134,11 +136,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * The domain of the event.
+   * 
    * @return domain
-  **/
+   **/
   @Schema(description = "The domain of the event.")
-  
-    public String getDomain() {
+
+  public String getDomain() {
     return domain;
   }
 
@@ -153,11 +156,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * The title of the event.
+   * 
    * @return title
-  **/
+   **/
   @Schema(description = "The title of the event.")
-  
-    public String getTitle() {
+
+  public String getTitle() {
     return title;
   }
 
@@ -172,11 +176,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * An explnatory of the event.
+   * 
    * @return description
-  **/
+   **/
   @Schema(description = "An explnatory of the event.")
-  
-    public String getDescription() {
+
+  public String getDescription() {
     return description;
   }
 
@@ -191,11 +196,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * A priority.
+   * 
    * @return priority
-  **/
+   **/
   @Schema(description = "A priority.")
-  
-    public String getPriority() {
+
+  public String getPriority() {
     return priority;
   }
 
@@ -210,12 +216,13 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * The time the event occured.
+   * 
    * @return timeOcurred
-  **/
+   **/
   @Schema(description = "The time the event occured.")
-  
-    @Valid
-    public OffsetDateTime getTimeOcurred() {
+
+  @Valid
+  public OffsetDateTime getTimeOcurred() {
     return timeOcurred;
   }
 
@@ -230,11 +237,12 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * The path identifying the object field concerned by this notification.
+   * 
    * @return fieldPath
-  **/
+   **/
   @Schema(description = "The path identifying the object field concerned by this notification.")
-  
-    public String getFieldPath() {
+
+  public String getFieldPath() {
     return fieldPath;
   }
 
@@ -249,12 +257,16 @@ public class ResourceAttributeValueChangeEvent   {
 
   /**
    * Get event
+   * 
    * @return event
-  **/
+   **/
   @Schema(description = "")
-  
-    @Valid
-    public ResourceAttributeValueChangeEventPayload getEvent() {
+
+  @Valid
+  public ResourceAttributeValueChangeEventPayload getEvent() {
+    if (event == null) {
+      this.event = new ResourceAttributeValueChangeEventPayload();
+    }
     return event;
   }
 
@@ -271,30 +283,32 @@ public class ResourceAttributeValueChangeEvent   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResourceAttributeValueChangeEvent resourceAttributeValueChangeEvent = (ResourceAttributeValueChangeEvent) o;
-    return Objects.equals(this.eventId, resourceAttributeValueChangeEvent.eventId) &&
-        Objects.equals(this.eventTime, resourceAttributeValueChangeEvent.eventTime) &&
-        Objects.equals(this.eventType, resourceAttributeValueChangeEvent.eventType) &&
-        Objects.equals(this.correlationId, resourceAttributeValueChangeEvent.correlationId) &&
-        Objects.equals(this.domain, resourceAttributeValueChangeEvent.domain) &&
-        Objects.equals(this.title, resourceAttributeValueChangeEvent.title) &&
-        Objects.equals(this.description, resourceAttributeValueChangeEvent.description) &&
-        Objects.equals(this.priority, resourceAttributeValueChangeEvent.priority) &&
-        Objects.equals(this.timeOcurred, resourceAttributeValueChangeEvent.timeOcurred) &&
-        Objects.equals(this.fieldPath, resourceAttributeValueChangeEvent.fieldPath) &&
-        Objects.equals(this.event, resourceAttributeValueChangeEvent.event);
+    ResourceAttributeValueChangeEvent resourceAttributeValueChangeEvent =
+        (ResourceAttributeValueChangeEvent) o;
+    return Objects.equals(this.eventId, resourceAttributeValueChangeEvent.eventId)
+        && Objects.equals(this.eventTime, resourceAttributeValueChangeEvent.eventTime)
+        && Objects.equals(this.eventType, resourceAttributeValueChangeEvent.eventType)
+        && Objects.equals(this.correlationId, resourceAttributeValueChangeEvent.correlationId)
+        && Objects.equals(this.domain, resourceAttributeValueChangeEvent.domain)
+        && Objects.equals(this.title, resourceAttributeValueChangeEvent.title)
+        && Objects.equals(this.description, resourceAttributeValueChangeEvent.description)
+        && Objects.equals(this.priority, resourceAttributeValueChangeEvent.priority)
+        && Objects.equals(this.timeOcurred, resourceAttributeValueChangeEvent.timeOcurred)
+        && Objects.equals(this.fieldPath, resourceAttributeValueChangeEvent.fieldPath)
+        && Objects.equals(this.event, resourceAttributeValueChangeEvent.event);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(eventId, eventTime, eventType, correlationId, domain, title, description, priority, timeOcurred, fieldPath, event);
+    return Objects.hash(eventId, eventTime, eventType, correlationId, domain, title, description,
+        priority, timeOcurred, fieldPath, event);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceAttributeValueChangeEvent {\n");
-    
+
     sb.append("    eventId: ").append(toIndentedString(eventId)).append("\n");
     sb.append("    eventTime: ").append(toIndentedString(eventTime)).append("\n");
     sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
@@ -311,8 +325,7 @@ public class ResourceAttributeValueChangeEvent   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {

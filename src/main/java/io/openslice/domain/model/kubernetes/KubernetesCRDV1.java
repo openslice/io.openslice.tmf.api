@@ -46,8 +46,17 @@ public class KubernetesCRDV1 extends DomainModelDefinition
 	private String metadata;
 	private String yaml;
 	private String json;
-	private Map<String, String> properties;
-	private Map<String, String> additionalProperties;
+	private Map<String, KubernetesCRDProperty> properties;
+	private Map<String, KubernetesCRDProperty> additionalProperties;
+    private String cr_spec;
+    private String statusCheckFieldName;
+    private String statusCheckValueStandby;
+    private String statusCheckValueAlarm;
+    private String statusCheckValueAvailable;
+    private String statusCheckValueReserved;
+    private String statusCheckValueUnknown;
+    private String statusCheckValueSuspended;
+
 
 	@Builder
 	public KubernetesCRDV1(String osl_KUBCRD_RSPEC_UUID, String uuid, String name, String version, String description, String category,
@@ -99,35 +108,46 @@ public class KubernetesCRDV1 extends DomainModelDefinition
 		rsc.setType( OSL_KUBCRD_RSPEC_TYPE );
 		
 		rsc.setLifecycleStatus( ELifecycle.ACTIVE.getValue() );
-		rsc.addResourceSpecificationCharacteristicItemShort("clusterMasterURL", this.clusterMasterURL, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("currentContextCluster", this.currentContextCluster, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("fullResourceName", this.fullResourceName, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("Kind", this.kind, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("apiGroup", this.apiGroup, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("UID", this.UID, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("metadata", this.metadata, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("yaml", this.yaml, EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort("json", this.json, EValueType.TEXT.getValue(), false);
+		rsc.addResourceSpecificationCharacteristicItemShort("clusterMasterURL", this.clusterMasterURL, EValueType.TEXT.getValue(), "URL of cluster",  false);
+		rsc.addResourceSpecificationCharacteristicItemShort("currentContextCluster", this.currentContextCluster, EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort("fullResourceName", this.fullResourceName, EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort("Kind", this.kind, EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort("apiGroup", this.apiGroup, EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort("UID", this.UID, EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort("metadata", this.metadata, EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort("yaml", this.yaml, EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort("json", this.json, EValueType.TEXT.getValue(), "", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_SPEC", "", EValueType.TEXT.getValue(), "Used for providing the json Custom Resource description to apply", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECK_FIELD", "", EValueType.TEXT.getValue(), "Used for providing the field that need to be checked for the resource status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_STANDBY", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the standby status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_ALARM", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the alarm status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_AVAILABLE", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the available status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_RESERVED", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the reserved status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_UNKNOWN", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the unknown status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_SUSPENDED", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the suspended status", false);
+        
 //		rsc.addResourceSpecificationCharacteristicItemShort( "properties", "", EValueType.SET.getValue());
 //		rsc.addResourceSpecificationCharacteristicItemShort( "additionalProperties", "", EValueType.SET.getValue());
 		if (this.properties != null)
 			this.properties.forEach((kPropName, vProVal) -> {
 
 						EValueType etype;
-						if ( vProVal.equalsIgnoreCase("boolean")) {
+						if ( vProVal.getValueType().equalsIgnoreCase("boolean")) {
 							etype = EValueType.BOOLEAN;
-						} else if ( vProVal.equalsIgnoreCase("integer")) {
+						} else if ( vProVal.getValueType().equalsIgnoreCase("integer")) {
 							etype = EValueType.INTEGER;
+						} else if ( vProVal.getValueType().equalsIgnoreCase("object")) {
+							etype = EValueType.OBJECT;
 						} else
 							etype = EValueType.TEXT;
 
-						rsc.addResourceSpecificationCharacteristicItemShort(kPropName , "", etype.getValue(), true);
+						rsc.addResourceSpecificationCharacteristicItemShort(kPropName , vProVal.getDefaultValue(), etype.getValue(), vProVal.getDescription(), false);
 
 			});
 
 		if (this.additionalProperties != null ) {
 			this.additionalProperties.forEach((kPropName, vProVal) -> {
-						rsc.addResourceSpecificationCharacteristicItemShort("additionalProperty." + kPropName, "", EValueType.TEXT.getValue(), true);
+						rsc.addResourceSpecificationCharacteristicItemShort("additionalProperty." + kPropName, vProVal.getDefaultValue(), EValueType.TEXT.getValue(), vProVal.getDescription(), false);
 
 					});
 		}
@@ -176,15 +196,28 @@ public class KubernetesCRDV1 extends DomainModelDefinition
 		rs.addResourceCharacteristicItemShort("metadata", this.metadata, EValueType.TEXT.getValue());
 		rs.addResourceCharacteristicItemShort("yaml", this.yaml, EValueType.TEXT.getValue());
 		rs.addResourceCharacteristicItemShort("json", this.json, EValueType.TEXT.getValue());
+		
+        rs.addResourceCharacteristicItemShort("_CR_SPEC", this.cr_spec, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECK_FIELD", this.statusCheckFieldName, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_STANDBY", this.statusCheckValueStandby, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_ALARM", this.statusCheckValueAlarm, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_AVAILABLE", this.statusCheckValueAvailable, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_RESERVED", this.statusCheckValueReserved, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_UNKNOWN", this.statusCheckValueUnknown, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_SUSPENDED", this.statusCheckValueSuspended, EValueType.TEXT.getValue());
 
+
+        
 		if (this.properties != null)
 			this.properties.forEach((kPropName, vProVal) -> {
 
 						EValueType etype;
-						if ( vProVal.equalsIgnoreCase("boolean")) {
+						if ( vProVal.getValueType().equalsIgnoreCase("boolean")) {
 							etype = EValueType.BOOLEAN;
-						} else if ( vProVal.equalsIgnoreCase("integer")) {
+						} else if ( vProVal.getValueType().equalsIgnoreCase("integer")) {
 							etype = EValueType.INTEGER;
+						} else if ( vProVal.getValueType().equalsIgnoreCase("object")) {
+							etype = EValueType.OBJECT;
 						} else
 							etype = EValueType.TEXT;
 

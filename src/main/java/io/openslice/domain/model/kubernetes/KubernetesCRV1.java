@@ -48,11 +48,20 @@ public class KubernetesCRV1 extends DomainModelDefinition
 	private String json;
 	private Map<String, String> properties;
 	private Map<String, String> additionalProperties;
+    private String cr_spec;
+	private String statusCheckFieldName;
+    private String statusCheckValueStandby;
+    private String statusCheckValueAlarm;
+    private String statusCheckValueAvailable;
+    private String statusCheckValueReserved;
+    private String statusCheckValueUnknown;
+    private String statusCheckValueSuspended;
+    private ResourceStatusType statusValue;
 
 	@Builder
 	public KubernetesCRV1(String osl_KUBCRV1_RSPEC_UUID, String uuid, String name, String version, String description, String category,
 			String clusterMasterURL, String currentContextCluster, String fullResourceName, String namespace,
-			String kind, String apiGroup, String uID, String metadata,
+			String kind, String apiGroup, String uID, String metadata, ResourceStatusType statusValue,
 			String yaml,
 			String json) {
 		super(uuid, name, version, description, category);
@@ -66,7 +75,8 @@ public class KubernetesCRV1 extends DomainModelDefinition
 		this.UID = uID;
 		this.metadata = metadata;
 		this.yaml = yaml;
-		this.json = json;
+        this.json = json;
+        this.statusValue = statusValue;
 		this.properties = new HashMap<>();
 		this.additionalProperties = new HashMap<>();	
 	}
@@ -98,16 +108,26 @@ public class KubernetesCRV1 extends DomainModelDefinition
 		rsc.setType( OSL_KUBCRV1_RSPEC_TYPE );
 		
 		rsc.setLifecycleStatus( ELifecycle.ACTIVE.getValue() );
-		rsc.addResourceSpecificationCharacteristicItemShort( "clusterMasterURL", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextCluster", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "fullResourceName", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "Kind", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "apiGroup", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "UID", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "namespace", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "metadata", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "yaml", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "json", "", EValueType.TEXT.getValue(), false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "clusterMasterURL", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextCluster", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "fullResourceName", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "Kind", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "apiGroup", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "UID", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "namespace", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "metadata", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "yaml", "", EValueType.TEXT.getValue(), "", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "json", "", EValueType.TEXT.getValue(), "", false);
+
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_SPEC", "", EValueType.TEXT.getValue(), "Used for providing the json Custom Resource description to apply", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECK_FIELD", "", EValueType.TEXT.getValue(), "Used for providing the field that need to be checked for the resource status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_STANDBY", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the standby status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_ALARM", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the alarm status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_AVAILABLE", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the available status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_RESERVED", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the reserved status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_UNKNOWN", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the unknown status", false);
+        rsc.addResourceSpecificationCharacteristicItemShort( "_CR_CHECKVAL_SUSPENDED", "", EValueType.TEXT.getValue(), "Used for providing the equivalent value from resource to signal the suspended status", false);
+	    
 //		rsc.addResourceSpecificationCharacteristicItemShort( "properties", "", EValueType.SET.getValue());
 //		rsc.addResourceSpecificationCharacteristicItemShort( "additionalProperties", "", EValueType.SET.getValue());
 
@@ -142,7 +162,9 @@ public class KubernetesCRV1 extends DomainModelDefinition
 		rs.name( this.name )
 		.category( this.category )
 		.description( this.description )
-		.resourceStatus( ResourceStatusType.AVAILABLE )
+		
+		.resourceStatus( ResourceStatusType.RESERVED )
+		
 		.operationalState( ResourceOperationalStateType.ENABLE )
 		.resourceSpecification( rSpecRef )
 		.resourceVersion( this.version);
@@ -157,8 +179,20 @@ public class KubernetesCRV1 extends DomainModelDefinition
 		rs.addResourceCharacteristicItemShort("namespace", this.namespace, EValueType.TEXT.getValue());
 		rs.addResourceCharacteristicItemShort("metadata", this.metadata, EValueType.TEXT.getValue());
 		rs.addResourceCharacteristicItemShort("yaml", this.yaml, EValueType.TEXT.getValue());
-		rs.addResourceCharacteristicItemShort("json", this.json, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("json", this.json, EValueType.TEXT.getValue());
+        
 
+        rs.addResourceCharacteristicItemShort("_CR_SPEC", this.cr_spec, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECK_FIELD", this.statusCheckFieldName, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_STANDBY", this.statusCheckValueStandby, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_ALARM", this.statusCheckValueAlarm, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_AVAILABLE", this.statusCheckValueAvailable, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_RESERVED", this.statusCheckValueReserved, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_UNKNOWN", this.statusCheckValueUnknown, EValueType.TEXT.getValue());
+        rs.addResourceCharacteristicItemShort("_CR_CHECKVAL_SUSPENDED", this.statusCheckValueSuspended, EValueType.TEXT.getValue());
+
+        rs.resourceStatus( this.statusValue );        
+        
 		if (this.properties != null)
 			this.properties.forEach((kPropName, vProVal) -> {
 						rs.addResourceCharacteristicItemShort(kPropName , vProVal, EValueType.TEXT.getValue());

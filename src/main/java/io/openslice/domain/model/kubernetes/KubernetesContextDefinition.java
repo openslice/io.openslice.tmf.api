@@ -81,12 +81,12 @@ public class KubernetesContextDefinition
 		rsc.setDescription( this.description );
 		rsc.setType( OSL_KUBD_RSPEC_TYPE );
 		rsc.setLifecycleStatus( ELifecycle.ACTIVE.getValue() );
-		rsc.addResourceSpecificationCharacteristicItemShort( "masterURL", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "resourceVersion", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextName", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextCluster", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextUser", "", EValueType.TEXT.getValue(), false);
-		rsc.addResourceSpecificationCharacteristicItemShort( "clusterVersion", "", EValueType.TEXT.getValue(), false);		
+		rsc.addResourceSpecificationCharacteristicItemShort( "masterURL", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "resourceVersion", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextName", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextCluster", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "currentContextUser", "", EValueType.TEXT.getValue(), "", false);
+		rsc.addResourceSpecificationCharacteristicItemShort( "clusterVersion", "", EValueType.TEXT.getValue(), "", false);		
 		return rsc;
 		
 	}

@@ -83,6 +83,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://keycloak:8080/auth/realms/openslice
+          jwk-set-uri: http://keycloak:8080/auth/realms/openslice/.well-known/openid-configuration
   
 
 logging:

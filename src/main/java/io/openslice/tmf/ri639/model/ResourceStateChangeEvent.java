@@ -2,11 +2,8 @@ package io.openslice.tmf.ri639.model;
 
 import java.time.OffsetDateTime;
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import org.springframework.validation.annotation.Validated;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 
@@ -60,6 +57,9 @@ public class ResourceStateChangeEvent   {
   
     @Valid
     public ResourceStateChangeEventPayload getEvent() {
+    if (event == null) {
+      this.event = new ResourceStateChangeEventPayload();
+    }
     return event;
   }
 

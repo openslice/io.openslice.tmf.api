@@ -961,7 +961,7 @@ public class ServiceRepoService {
           
           Service aService = findByUuid(as.getId()); 
           
-          if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
+          //if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
               
 
               ServiceUpdate supd = new ServiceUpdate();
@@ -983,7 +983,7 @@ public class ServiceRepoService {
               supd.addNoteItem( n );                  
               
               this.updateService( aService.getId(), supd , true, null, null); //update the service            
-          }
+          //}
       }
     }
     
@@ -1001,7 +1001,7 @@ public class ServiceRepoService {
           
           Service aService = findByUuid(as.getId()); 
           
-          if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {              
+          //if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {              
               ServiceUpdate supd = new ServiceUpdate();             
               if ( res.getResourceStatus() != null ) {
                 switch (res.getResourceStatus()) {
@@ -1040,7 +1040,7 @@ public class ServiceRepoService {
               supd.addNoteItem( n );                  
               
               this.updateService( aService.getId(), supd , true, null, null); //update the service            
-          }
+          //}  //if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
       }
     }
     

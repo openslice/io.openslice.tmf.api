@@ -215,10 +215,13 @@ public class ResourceRepoService {
     s.setName(resource.getName());
     s.setCategory(resource.getCategory());
     s.setDescription(resource.getDescription());
-    s.setStartOperatingDate(resource.getStartOperatingDate());
+    
+    if ( resource.getStartOperatingDate() == null ) {
+      s.setStartOperatingDate(OffsetDateTime.now(ZoneOffset.UTC));
+    } else {
+      s.setStartOperatingDate(resource.getStartOperatingDate());
+    }
     s.setEndOperatingDate(resource.getEndOperatingDate());
-
-
     s.setUsageState(resource.getUsageState());
     s.setResourceStatus(resource.getResourceStatus());
     s.setResourceVersion(resource.getResourceVersion());

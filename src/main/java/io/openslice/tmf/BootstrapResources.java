@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openslice.domain.model.kubernetes.KubernetesCRDV1;
 import io.openslice.domain.model.kubernetes.KubernetesCRV1;
 import io.openslice.domain.model.kubernetes.KubernetesContextDefinition;
+import io.openslice.domain.model.kubernetes.KubernetesSecret;
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.rcm634.model.ResourceCandidate;
 import io.openslice.tmf.rcm634.model.ResourceCandidateCreate;
@@ -220,7 +221,18 @@ public class BootstrapResources {
 			this.addToCategory( scategoryInfra, rspecKubCRV1 );
 		}
 
-		
+	      resourceSpecificationObj = this.resourceSpecRepoService.findByNameAndVersion( 
+	          KubernetesSecret.OSL_KUBSECRET_RSPEC_NAME , 
+	          KubernetesSecret.OSL_KUBSECRET_RSPEC_VERSION);
+      
+      if ( ( scategoryInfra != null ) &&  ( resourceSpecificationObj == null ))
+      {
+          ResourceSpecification rspecKubSecret =
+                  this.resourceSpecRepoService.addResourceSpecification( KubernetesSecret.builder().build().toRSpecCreate_InitRepo() );
+          KubernetesSecret.builder().build().fromRSpec(rspecKubSecret);//to update any details
+          this.addToCategory( scategoryInfra, rspecKubSecret );
+      }
+
 		
 		
 	}

@@ -998,11 +998,11 @@ public class ServiceRepoService {
       var aservices = findServicesHavingThisSupportingResourceID(  res.getId() );
       
       for (Service as : aservices) {
+        ServiceUpdate supd = new ServiceUpdate();
           
           Service aService = findByUuid(as.getId()); 
           
-          //if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {              
-              ServiceUpdate supd = new ServiceUpdate();             
+          //if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {    
               if ( res.getResourceStatus() != null ) {
                 switch (res.getResourceStatus()) {
                   case STANDBY: {
@@ -1042,7 +1042,50 @@ public class ServiceRepoService {
               this.updateService( aService.getId(), supd , true, null, null); //update the service            
           //}  //if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
       }
+      
+      
+      updateResourceFromKubernetesLabel( res );
+      
+      
     }
+
+    private void updateResourceFromKubernetesLabel(Resource res) {
+      if (res.getResourceCharacteristicByName("org.etsi.osl.serviceId") != null) {
+        String serviceId = res.getResourceCharacteristicByName("org.etsi.osl.serviceId").getValue().getValue();
+        Service aService = findByUuid( serviceId ); 
+        if ( aService !=null ) {
+          Boolean resourceFoundInSupportedResourcesOfService = false; 
+          for (ResourceRef as : aService.getSupportingResource()) {
+            if ( as.getId().equals( res.getId() )) {
+              resourceFoundInSupportedResourcesOfService = true;
+              break;
+            }
+          }
+          
+          if ( !resourceFoundInSupportedResourcesOfService ) {
+            ServiceUpdate supd = new ServiceUpdate();
+            
+            ResourceRef rref = new ResourceRef();
+            rref.id(res.getId()).name(res.getName());
+            supd.addSupportingResourceItem(rref );
+            
+            Note n = new Note();
+            n.setText("Supporting Resource "+ res.getId() + " Added in service" );
+            n.setAuthor( "SIM638-API" );
+            n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+            supd.addNoteItem( n );                  
+            
+            this.updateService( aService.getId(), supd , true, null, null); //update the service         
+            
+          }
+         
+        }
+        
+      }
+      
+    }
+    
+    
     
 	
 }

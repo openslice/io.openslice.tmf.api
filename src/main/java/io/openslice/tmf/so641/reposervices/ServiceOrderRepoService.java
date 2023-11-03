@@ -24,15 +24,21 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,15 +46,11 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jms.JmsProperties.AcknowledgeMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.EValueType;
@@ -57,15 +59,13 @@ import io.openslice.tmf.common.model.service.Characteristic;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.common.model.service.ServiceRef;
-import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristic;
 import io.openslice.tmf.scm633.model.ServiceSpecCharacteristicValue;
-import io.openslice.tmf.scm633.model.ServiceSpecRelationship;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
-import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilder;
+import io.openslice.tmf.sim638.service.ServiceRepoService;
+import io.openslice.tmf.so641.api.ServiceOrderApiRouteBuilderEvents;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderActionType;
 import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeEvent;
@@ -79,8 +79,12 @@ import io.openslice.tmf.so641.model.ServiceOrderStateChangeEvent;
 import io.openslice.tmf.so641.model.ServiceOrderStateChangeNotification;
 import io.openslice.tmf.so641.model.ServiceOrderStateType;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
-import io.openslice.tmf.so641.model.ServiceRestriction;
 import io.openslice.tmf.so641.repo.ServiceOrderRepository;
+import io.openslice.tmf.util.KrokiClient;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.Valid;
+import lombok.Data;
 
 @Service
 public class ServiceOrderRepoService {
@@ -97,7 +101,10 @@ public class ServiceOrderRepoService {
 	ServiceSpecificationRepoService serviceSpecRepoService;
 
 	@Autowired
-	ServiceOrderApiRouteBuilder serviceOrderApiRouteBuilder;
+	ServiceOrderApiRouteBuilderEvents serviceOrderApiRouteBuilder;
+
+	@Autowired
+	ServiceRepoService serviceRepoService;
 
 	private SessionFactory  sessionFactory;
 
@@ -119,7 +126,7 @@ public class ServiceOrderRepoService {
 	 * @throws UnsupportedEncodingException
 	 */
 	@Transactional
-	public List findAll(@Valid String fields, Map<String, String> allParams)
+	public List findAll(@Valid String fields, Map<String, String> allParams, @Valid Date starttime, @Valid Date endtime)
 			throws UnsupportedEncodingException {
 
 		Session session = sessionFactory.openSession();
@@ -132,12 +139,14 @@ public class ServiceOrderRepoService {
 					+ "sor.orderDate as orderDate,"
 					+ "sor.requestedStartDate as requestedStartDate,"
 					+ "sor.requestedCompletionDate as requestedCompletionDate,"
+					+ "sor.startDate as startDate,"
+					+ "sor.expectedCompletionDate as expectedCompletionDate,"
 					+ "sor.state as state,"
 					+ "sor.type as type,"
 					+ "rp.uuid as relatedParty_uuid,"
 					+ "rp.name as relatedParty_name";
 			
-			if (fields != null) {
+			if (fields != null && fields.length()>0 ) {
 				String[] field = fields.split(",");
 				for (String f : field) {
 					sql += ", sor." + f + " as " + f ;
@@ -146,6 +155,7 @@ public class ServiceOrderRepoService {
 			}			
 			sql += "  FROM ServiceOrder sor "
 					+ "JOIN sor.relatedParty rp ";
+			
 			if (allParams.size() > 0) {
 				sql += " WHERE rp.role = 'REQUESTER' AND ";
 				for (String pname : allParams.keySet()) {
@@ -156,10 +166,26 @@ public class ServiceOrderRepoService {
 			} else {
 				sql += " WHERE rp.role = 'REQUESTER' ";				
 			}
+			
+			if ( starttime != null ) {
+				sql += " AND sor.startDate >= :param1";		
+				
+			}
+			if ( endtime != null ) {
+				sql += " AND sor.expectedCompletionDate <= :param2";	
+			}
+			
 			sql += "  ORDER BY sor.orderDate DESC";
 			
-			List<Object> mapaEntity = session
-				    .createQuery(sql )
+			Query query = session.createQuery( sql );
+			if ( starttime != null ) {
+				query.setParameter("param1", starttime.toInstant().atOffset(ZoneOffset.UTC)  );
+			}
+			if ( endtime != null ) {
+				query.setParameter("param2", endtime.toInstant().atOffset(ZoneOffset.UTC)  );				
+			}
+			
+			List<Object> mapaEntity = query
 				    .setResultTransformer( new ResultTransformer() {
 						
 						@Override
@@ -287,7 +313,7 @@ public class ServiceOrderRepoService {
 		ObjectMapper mapper = new ObjectMapper();
 		// Registering Hibernate4Module to support lazy objects
 		// this will fetch all lazy objects before marshaling
-		mapper.registerModule(new Hibernate5Module());
+		mapper.registerModule(new Hibernate5JakartaModule());
 		String res = mapper.writeValueAsString( oids );
 
 		return res;
@@ -521,12 +547,17 @@ public class ServiceOrderRepoService {
 		}
 		if ( serviceOrderUpd.getState()!= null ) {
 
+			
+			
 			stateChanged = so.getState() != serviceOrderUpd.getState();
 			so.setState( serviceOrderUpd.getState() );
 			
 			if ( so.getState().equals( ServiceOrderStateType.COMPLETED )) {
 				so.setCompletionDate( OffsetDateTime.now(ZoneOffset.UTC));
 			}
+			
+			
+			
 			
 			
 			
@@ -619,10 +650,15 @@ public class ServiceOrderRepoService {
 		if ( stateChanged ) {
 			Note noteItem = new Note();
 			noteItem.setText("Service Order " + so.getState() );
-			noteItem.setAuthor("SO641API-copySpecCharacteristics");
+			noteItem.setAuthor("SO641API-stateChanged");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			so.addNoteItem(noteItem);				
 		}
+		
+		
+		
+
+		
 
 		so = this.serviceOrderRepo.save(so);
 		if (stateChanged) {
@@ -680,50 +716,66 @@ public class ServiceOrderRepoService {
 					}
 				}
 				
+				
 			}
 		}
 	}
+	
+	
+	
 
 	public ServiceOrder findByUuid(String id) {
 		Optional<ServiceOrder> optionalCat = this.serviceOrderRepo.findByUuid(id);
 		return optionalCat.orElse(null);
 	}
 
+
 	public String getServiceOrderEagerAsString(String id) throws JsonProcessingException {
 		ServiceOrder s = this.getServiceORderEager(id);
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new Hibernate5Module());
+		mapper.registerModule(new Hibernate5JakartaModule());
 		String res = mapper.writeValueAsString(s);
 
 		return res;
 	}
 
 	public ServiceOrder getServiceORderEager(String id) {
+
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		ServiceOrder s = null;
+		
 		try {
-			s = (ServiceOrder) session.get(ServiceOrder.class, id);
-			if (s == null) {
-				return this.findByUuid(id);// last resort
-			}
+			ServiceOrder s = null;
+			try {
+				s = (ServiceOrder) session.get(ServiceOrder.class, id);
+				if (s == null) {
+					return this.findByUuid(id);// last resort
+				}
 
-			Hibernate.initialize(s.getRelatedParty());
-			Hibernate.initialize(s.getOrderItem() );
-			Hibernate.initialize(s.getNote() );
-			for (ServiceOrderItem soi : s.getOrderItem()) {
-				Hibernate.initialize( soi.getService().getSupportingService() );
-				Hibernate.initialize( soi.getService().getSupportingResource());
-				Hibernate.initialize( soi.getService().getServiceCharacteristic() );
-				Hibernate.initialize( soi.getService().getRelatedParty() );
+				Hibernate.initialize(s.getRelatedParty());
+				Hibernate.initialize(s.getOrderItem() );
+				Hibernate.initialize(s.getNote() );
+				for (ServiceOrderItem soi : s.getOrderItem()) {
+					Hibernate.initialize( soi.getService().getSupportingService() );
+					Hibernate.initialize( soi.getService().getSupportingResource());
+					Hibernate.initialize( soi.getService().getServiceCharacteristic() );
+					Hibernate.initialize( soi.getService().getRelatedParty() );
+				}
+				
+				tx.commit();
+			} finally {
+				session.close();
 			}
 			
-			tx.commit();
-		} finally {
-			session.close();
+			return s;
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+
+		session.close();
+		return null;
 		
-		return s;
+		
 	}
 
 	@Transactional
@@ -784,6 +836,155 @@ public class ServiceOrderRepoService {
 		}
 		return null;
 	}
+
+	public String getImageServiceOrderItemRelationshipGraph(String id, String itemid) {
+
+		ServiceOrder so = this.findByUuid(id);
+		String charvalue = null;
+		if ( so!=null) {
+			for (ServiceOrderItem soiOrigin :  so.getOrderItem()) {
+				if ( soiOrigin.getId().equals(itemid)) {
+					charvalue = createItemRelationshipGraphNotation( soiOrigin );
+					
+//					Characteristic gnchar = soiOrigin.getService().findCharacteristicByName ( "SOITEM_GRAPH_NOTATION" );
+//					if ( gnchar == null ) {
+//						Characteristic serviceCharacteristicItem = new Characteristic();
+//						serviceCharacteristicItem.setName(  "SOITEM_GRAPH_NOTATION" );
+//						serviceCharacteristicItem.setValue(  new Any( charvalue ,  "SOITEM_GRAPH_NOTATION" ) );
+//						serviceCharacteristicItem.setValueType( EValueType.LONGTEXT.getValue() );
+//						soiOrigin.getService().addServiceCharacteristicItem( serviceCharacteristicItem );
+	//
+//					} else {
+//						gnchar.setValue(  new Any( charvalue ,  "SOITEM_GRAPH_NOTATION" ) );			
+//					}
+				}
+
+			}			
+		}
+
+		return KrokiClient.encodedGraph( charvalue );
+	}
+	
+	
+
+	private String createItemRelationshipGraphNotation( ServiceOrderItem soiOrigin ) {
+		String result = getSOItemGraphNotation(soiOrigin, 0 );
+		result = "blockdiag {"
+				+ "default_textcolor = white;\r\n"
+				+ "default_fontsize = 12;\r\n"
+				+ "\r\n" + result + "}";
+		return result;
+	}
+	
+	
+
+	private String getSOItemGraphNotation(ServiceOrderItem soiOrigin, int depth) {
+		String result = "";
+		if (depth>10) {
+			return result;
+		}
+		for (ServiceRef specRel : soiOrigin.getService().getSupportingService() ) {
+			if ( !soiOrigin.getService().getName().equals( specRel.getName()) ) {
+				result += "\""+ soiOrigin.getService().getId() + "\""+ " -> " + "\""+ specRel.getId() +"\" "+";\r\n";
+				result += "\""+ specRel.getId() + "\""+ " [label =\""+ specRel.getName() +"\", color = \"#2596be\"]; \r\n";
+				io.openslice.tmf.sim638.model.Service aService= serviceRepoService.findByUuid( specRel.getId() );
+				if ( aService!= null) {
+					result += getServiceGraphNotation( aService,0 );				
+				}
+			}
+			
+		}
+		
+		for (ResourceRef resRel :soiOrigin.getService().getSupportingResource() ) {
+			result += "\""+ soiOrigin.getService().getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
+			result += "\""+ resRel.getId() + "\""+ " [label = \"" + resRel.getName() + "\", shape = roundedbox, color = \"#e28743\"]; \r\n";
+			
+		}
+		
+		result += "\""+ soiOrigin.getService().getId() + "\""+ " [label = \""+ soiOrigin.getService().getName() +"\", color = \"#2596be\"]; \r\n";
+		return result;
+	}
+
+	private String getServiceGraphNotation(io.openslice.tmf.sim638.model.Service aService, int depth) {
+		String result = "";
+		if (depth>10) {
+			return result;
+		}
+		for (ServiceRef specRel : aService.getSupportingService() ) {
+			result += "\""+ aService.getId() + "\""+ " -> " + "\""+ specRel.getId()  +"\" "+";\r\n";
+			result += "\""+ specRel.getId() + "\""+ " [label = \"" + specRel.getName()  + "\", color = \"#2596be\"];\r\n";
+			
+			for (ResourceRef resRel : aService.getSupportingResource()) {
+				
+				result += "\""+ aService.getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
+				result += "\""+ resRel.getId() + "\""+ " [ label = \"" + resRel.getName() +"\",  shape = roundedbox, color = \"#e28743\"]; \r\n";
+				
+			}
+			
+		}
+		
+		
+		return result;
+	}
+	
+
+	public String getImageServiceOrderNotesGraph(String id) {
+		
+		@Data
+		class ALane{
+			public ALane(String author) {
+				this.name =author;
+			}
+			String name = "";
+			List<Note> boxes = new ArrayList<Note>();
+		}
+		
+		Map <String, ALane> lanes = new HashMap<>();
+		String charvalue = "";
+		Optional<ServiceOrder> optionalCat = this.serviceOrderRepo.findNotesOfServOrder(id);
+		if ( optionalCat.isPresent() ) {
+			
+			ServiceOrder so = optionalCat.get();
+			List<Note> notes = so.getNote()
+					.stream()
+					.sorted( (a, b) -> a.getDate().compareTo(b.getDate()) )
+					.collect(Collectors.toList());
+			
+			for (Note anote : notes ) {
+				if ( charvalue.length() > 0 ) {
+					charvalue += " -> ";
+				}
+				charvalue += "\""+ anote.getUuid() + "\""  ;
+				
+				if ( lanes.get( anote.getAuthor()) == null)  {
+					lanes.put( anote.getAuthor() , new ALane( anote.getAuthor() ));
+				}
+				
+				lanes.get( anote.getAuthor()).boxes.add( anote);
+				
+			}
+			
+		}
+
+		for (String lane : lanes.keySet()) {
+			charvalue += "lane " + lanes.get(lane).name  + " {\r\n";
+			for ( Note aNote : lanes.get(lane).boxes) {
+				charvalue += aNote.getUuid() +" [label = \"" + aNote.getDateString() + "\r\n "+ aNote.getText()  +"\", color = \"#2596be\"]\r\n";
+			}
+			charvalue += "}\r\n";
+		}
+		
+		charvalue = "actdiag  {"
+				+ "default_textcolor = white;\r\n"
+				+ "default_fontsize = 9;\r\n"
+				+ "\r\n" + charvalue + "}\r\n";
+		return KrokiClient.encodedGraph( charvalue );
+		
+		
+	}
+	
+
+	
 	
 
 }

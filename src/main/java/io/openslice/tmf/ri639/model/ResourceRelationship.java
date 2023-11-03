@@ -2,19 +2,19 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.openslice.tmf.common.model.service.ResourceRef;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Linked resources to the one instantiate, such as [bundled] if the resource is
@@ -24,9 +24,9 @@ import io.swagger.annotations.ApiModelProperty;
  * [isTargeted] (depending on the way of expressing the link) for any other kind
  * of links that may be useful
  */
-@ApiModel(description = "Linked resources to the one instantiate, such as [bundled] if the resource is a bundle and you want to describe the bundled resources inside this bundle; [reliesOn] if the resource needs another already owned resource to rely on (e.g. an option on an already owned mobile access resource) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
+@Schema(description = "Linked resources to the one instantiate, such as [bundled] if the resource is a bundle and you want to describe the bundled resources inside this bundle; [reliesOn] if the resource needs another already owned resource to rely on (e.g. an option on an already owned mobile access resource) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIResourceRel")
 public class ResourceRelationship extends BaseRootEntity {
 	@JsonProperty("id")
@@ -36,14 +36,15 @@ public class ResourceRelationship extends BaseRootEntity {
 
 	@JsonProperty("resource")
 	@OneToOne(cascade = CascadeType.ALL)
-	private ResourceRefOrValue resource = null;
+	@JoinColumn(name = "rsrc_rsrcref_uuid", referencedColumnName = "uuid")
+	private ResourceRef resource = null;
 
 	/**
 	 * unique identifier
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "unique identifier")
+	@Schema(description = "unique identifier")
 	public String getId() {
 		id = uuid;
 		return uuid;
@@ -64,7 +65,7 @@ public class ResourceRelationship extends BaseRootEntity {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(example = "bundled", required = true, value = "Type of the resource relationship, such as [bundled] if the resource is a bundle and you want to describe the bundled resources inside this bundle; [reliesOn] if the resource needs another already owned resource to rely on (eg: an option on an already owned mobile access resource) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
+	@Schema(example = "bundled", required = true, description = "Type of the resource relationship, such as [bundled] if the resource is a bundle and you want to describe the bundled resources inside this bundle; [reliesOn] if the resource needs another already owned resource to rely on (eg: an option on an already owned mobile access resource) [targets] or [isTargeted] (depending on the way of expressing the link) for any other kind of links that may be useful")
 	@NotNull
 
 	public String getRelationshipType() {
@@ -75,7 +76,7 @@ public class ResourceRelationship extends BaseRootEntity {
 		this.relationshipType = relationshipType;
 	}
 
-	public ResourceRelationship resource(ResourceRefOrValue resource) {
+	public ResourceRelationship resource( ResourceRef resource) {
 		this.resource = resource;
 		return this;
 	}
@@ -85,15 +86,15 @@ public class ResourceRelationship extends BaseRootEntity {
 	 * 
 	 * @return resource
 	 **/
-	@ApiModelProperty(required = true, value = "")
+	@Schema(description = "")
 	@NotNull
 
 	@Valid
-	public ResourceRefOrValue getResource() {
+	public ResourceRef getResource() {
 		return resource;
 	}
 
-	public void setResource(ResourceRefOrValue resource) {
+	public void setResource(ResourceRef resource) {
 		this.resource = resource;
 	}
 

@@ -1,24 +1,22 @@
 package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Resource graph specification reference.
  */
-@ApiModel(description = "Resource graph specification reference.")
+@Schema(description = "Resource graph specification reference.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
 @Entity(name = "ResourceGraphSpecRef")
 public class ResourceGraphSpecificationRef extends BaseRootNamedEntity {
 	@JsonProperty("id")
@@ -40,7 +38,7 @@ public class ResourceGraphSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "unique identifier")
+	@Schema(description = "unique identifier")
 	@NotNull
 
 	public String getId() {
@@ -58,7 +56,7 @@ public class ResourceGraphSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -78,7 +76,7 @@ public class ResourceGraphSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the related entity.")
+	@Schema(description = "Name of the related entity.")
 
 	public String getName() {
 		return name;
@@ -98,7 +96,7 @@ public class ResourceGraphSpecificationRef extends BaseRootNamedEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

@@ -21,24 +21,22 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * Skills evaluated for an individual with a level and possibly with a limited validity when an obsolescence is defined (Ex: the first-aid certificate first level is limited to one year and an update training is required each year to keep the level).
  */
-@ApiModel(description = "Skills evaluated for an individual with a level and possibly with a limited validity when an obsolescence is defined (Ex: the first-aid certificate first level is limited to one year and an update training is required each year to keep the level).")
+@Schema(description = "Skills evaluated for an individual with a level and possibly with a limited validity when an obsolescence is defined (Ex: the first-aid certificate first level is limited to one year and an update training is required each year to keep the level).")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity
 public class Skill extends BaseRootEntity  {
@@ -67,7 +65,7 @@ public class Skill extends BaseRootEntity  {
    * A free text comment linked to the evaluation done
    * @return comment
   **/
-  @ApiModelProperty(value = "A free text comment linked to the evaluation done")
+  @Schema(description = "A free text comment linked to the evaluation done")
 
 
   public String getComment() {
@@ -87,7 +85,7 @@ public class Skill extends BaseRootEntity  {
    * Level of expertise in a skill evaluated for an individual
    * @return evaluatedLevel
   **/
-  @ApiModelProperty(value = "Level of expertise in a skill evaluated for an individual")
+  @Schema(description = "Level of expertise in a skill evaluated for an individual")
 
 
   public String getEvaluatedLevel() {
@@ -107,7 +105,7 @@ public class Skill extends BaseRootEntity  {
    * Code of the skill
    * @return skillCode
   **/
-  @ApiModelProperty(value = "Code of the skill")
+  @Schema(description = "Code of the skill")
 
 
   public String getSkillCode() {
@@ -127,7 +125,7 @@ public class Skill extends BaseRootEntity  {
    * Name of the skill such as Java language,…
    * @return skillName
   **/
-  @ApiModelProperty(value = "Name of the skill such as Java language,…")
+  @Schema(description = "Name of the skill such as Java language,…")
 
 
   public String getSkillName() {
@@ -147,7 +145,7 @@ public class Skill extends BaseRootEntity  {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

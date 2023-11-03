@@ -20,16 +20,20 @@
 package io.openslice.tmf.ri639.reposervices;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,26 +45,27 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
-import io.openslice.tmf.common.model.service.Place;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
-import io.openslice.tmf.ri639.api.ResourceApiRouteBuilder;
+import io.openslice.tmf.ri639.api.ResourceApiRouteBuilderEvents;
 import io.openslice.tmf.ri639.model.Characteristic;
 import io.openslice.tmf.ri639.model.Feature;
+import io.openslice.tmf.ri639.model.LogicalResource;
+import io.openslice.tmf.ri639.model.PhysicalResource;
 import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceCreateEvent;
 import io.openslice.tmf.ri639.model.ResourceCreateNotification;
+import io.openslice.tmf.ri639.model.ResourceRelationship;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
 import io.openslice.tmf.ri639.repo.ResourceRepository;
 import io.openslice.tmf.sim638.model.Service;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 
 
@@ -82,7 +87,7 @@ public class ResourceRepoService {
 	private SessionFactory  sessionFactory;
 
 	@Autowired
-	ResourceApiRouteBuilder resourceApiRouteBuilder;
+	ResourceApiRouteBuilderEvents resourceApiRouteBuilder;
 	
 	@Autowired
 	public ResourceRepoService(EntityManagerFactory factory) {
@@ -108,7 +113,8 @@ public class ResourceRepoService {
 					+ "srv.startOperatingDate as startOperatingDate,"
 					+ "srv.name as name,"
 					+ "srv.category as category,"
-					+ "srv.resourceStatus as resourceStatus"
+					+ "srv.resourceStatus as resourceStatus,"
+					+ "srv.type as type"
 					;
 			
 			if (fields != null) {
@@ -118,8 +124,18 @@ public class ResourceRepoService {
 				}
 				
 			}			
+			//sql += "  FROM RIResource  RILogicalRes RIPhysicalRes srv ";
 			sql += "  FROM RIResource srv ";
+			
+			if (allParams.size() > 0) {
+				sql += " WHERE ";
+				for (String pname : allParams.keySet()) {
+					sql += " " + pname + " LIKE ";
+					String pval = URLDecoder.decode(allParams.get(pname), StandardCharsets.UTF_8.toString());
+					sql += "'" + pval + "'";
+				}
 
+			}
 			
 			sql += "  ORDER BY srv.startOperatingDate DESC";
 			
@@ -190,7 +206,15 @@ public class ResourceRepoService {
 
 	public Resource addResource(@Valid ResourceCreate resource) {
 		logger.info("Will add Resource: " + resource.getName() );
-		Resource s = new Resource();
+		
+		Resource s;
+		
+		if (resource.getAtType()!=null && resource.getAtType().toLowerCase().contains( "physicalresource" ) ) {
+			s = new PhysicalResource();			
+		} else {
+			s = new LogicalResource();
+		}
+		
 		if (resource.getAtType()!=null) {
 			s.setType(resource.getAtType());			
 		}
@@ -209,9 +233,13 @@ public class ResourceRepoService {
 		
 
 
-		if ( resource.getResourceSpecification() != null) {
-			s.setResourceSpecification( resource.getResourceSpecification() );
-		}
+		
+		ResourceSpecificationRef thespecRef = new ResourceSpecificationRef();
+		thespecRef.setId( resource.getResourceSpecification().getId());
+		thespecRef.setName( resource.getResourceSpecification().getName());
+		//resCreate.setResourceSpecification( thespecRef  );
+		s.setResourceSpecification( thespecRef );
+		
 		
 		if ( resource.getPlace() != null) {
 			s.setPlace( resource.getPlace() );
@@ -272,15 +300,22 @@ public class ResourceRepoService {
 		logger.info("Will update Resource: " + resource.getName() );
 		//logger.info("Will update service details: " + s.toString() );
 		
-		ObjectMapper mapper = new ObjectMapper();
-		String originaServiceAsJson = null;
-		try {
-			originaServiceAsJson = mapper.writeValueAsString( resource );
-		} catch (JsonProcessingException e) {
-			logger.error("cannot umarshall service: " + resource.getName() );
-			e.printStackTrace();
-		}
+//		ObjectMapper mapper = new ObjectMapper();
+//		String originaServiceAsJson = null;
+//		try {
+//			originaServiceAsJson = mapper.writeValueAsString( resource );
+//		} catch (JsonProcessingException e) {
+//			logger.error("cannot umarshall service: " + resource.getName() );
+//			e.printStackTrace();
+//		}
 		
+
+		if ( resourceUpd.getResourceRelationship() != null) {
+			//resource.getResourceRelationship().addAll( resourceUpd.getResourceRelationship() );
+			// new LinkedHashSet<ReservationItem>( list )
+			resource.setResourceRelationship(new LinkedHashSet<ResourceRelationship>( resourceUpd.getResourceRelationship() ) );
+		}
+
 				
 		if (resourceUpd.getAtType()!=null) {
 			resource.setType(resourceUpd.getAtType());			
@@ -393,7 +428,7 @@ public class ResourceRepoService {
 	public String getResourceEagerAsString(String id) throws JsonProcessingException {
 		Resource s = this.getResourceEager(id);
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new Hibernate5Module());
+		mapper.registerModule(new Hibernate5JakartaModule());
 		String res = mapper.writeValueAsString(s);
 
 		return res;
@@ -455,10 +490,52 @@ public class ResourceRepoService {
 	public List<String> findAllActiveAndReservedResourcesOfPartners(){
 
 		List<String> result = new ArrayList<>();
-		List<Service> srvs = this.resourceRepo.findActiveAndReservedResourcesOfPartners();
-		for (Service service : srvs) {
-			result.add(  service.getId());
+		List<Resource> srvs = this.resourceRepo.findActiveAndReservedResourcesOfPartners();
+		for (Resource r : srvs) {
+			result.add(  r.getId());
 		}
+		
+		return result;
+	}
+
+	public Void deleteByUuid(String id) {
+		Optional<Resource> optionalCat = this.resourceRepo.findByUuid(id);
+		Resource s = optionalCat.get();
+		if (s == null) {
+			return null;
+		}
+
+		
+		this.resourceRepo.delete( s );
+		return null;
+	}
+	
+
+	@Transactional
+	public Resource addOrUpdateResourceByNameCategoryVersion(String aName,String aCategory, String aVersion, ResourceCreate aesourceCreate){
+		
+		List<Resource> resources = this.resourceRepo.findByNameAndCategoryAndResourceVersion(aName, aCategory, aVersion);
+		Resource result = null;
+		
+		if ( resources.size()>0) {
+			//perform update to the first one
+			String resID = resources.get(0).getUuid();
+			result = this.updateResource(resID, aesourceCreate, false);
+			
+					
+			 
+		} else {
+			result =  this.addResource(aesourceCreate);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String originaServiceAsJson = mapper.writeValueAsString( result );
+			logger.debug(originaServiceAsJson);
+		} catch (JsonProcessingException e) {
+			logger.error("cannot umarshall service: " + result.getName() );
+			e.printStackTrace();
+		}	
 		
 		return result;
 	}

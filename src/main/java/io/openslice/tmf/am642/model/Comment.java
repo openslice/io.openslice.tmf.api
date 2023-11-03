@@ -19,29 +19,27 @@
  */
 package io.openslice.tmf.am642.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Indicates the comments entered on the alarm.
  */
-@ApiModel(description = "Indicates the comments entered on the alarm.")
+@Schema(description = "Indicates the comments entered on the alarm.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Entity(name = "AMcomment")
 @Table(name = "AMcomment")
 public class Comment extends BaseRootEntity {
@@ -68,7 +66,7 @@ public class Comment extends BaseRootEntity {
 	 * 
 	 * @return comment
 	 **/
-	@ApiModelProperty(value = "Indicates the text of the comment.")
+	@Schema(description = "Indicates the text of the comment.")
 
 	public String getComment() {
 		return comment;
@@ -88,7 +86,7 @@ public class Comment extends BaseRootEntity {
 	 * 
 	 * @return systemId
 	 **/
-	@ApiModelProperty(value = "Indicates the system identifier on which the client set the comment.")
+	@Schema(description = "Indicates the system identifier on which the client set the comment.")
 
 	public String getSystemId() {
 		return systemId;
@@ -108,7 +106,7 @@ public class Comment extends BaseRootEntity {
 	 * 
 	 * @return time
 	 **/
-	@ApiModelProperty(value = "Indicates the time commenting the alarm")
+	@Schema(description = "Indicates the time commenting the alarm")
 
 	@Valid
 	public OffsetDateTime getTime() {
@@ -146,7 +144,7 @@ public class Comment extends BaseRootEntity {
 	 * 
 	 * @return userId
 	 **/
-	@ApiModelProperty(value = "Indicates the user commenting the alarm.")
+	@Schema(description = "Indicates the user commenting the alarm.")
 
 	public String getUserId() {
 		return userId;

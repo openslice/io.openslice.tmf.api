@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +33,7 @@ import io.openslice.tmf.rcm634.model.ResourceSpecification;
 
 
 @Repository
-public interface ResourceSpecificationRepository extends PagingAndSortingRepository<ResourceSpecification, Long> {
+public interface ResourceSpecificationRepository extends CrudRepository<ResourceSpecification, Long>, PagingAndSortingRepository<ResourceSpecification, Long> {
 
 	
 	Optional<ResourceSpecification> findByUuid(String id);
@@ -40,6 +41,15 @@ public interface ResourceSpecificationRepository extends PagingAndSortingReposit
 	@Query("SELECT sc FROM LogicalRspec sc")
 	List<LogicalResourceSpecification> findAllLogical();
 	
+
+	List<ResourceSpecification> findByName(String aname );
+
+	List<ResourceSpecification> findByNameAndVersion(String aname, String aversion);
+
+	List<ResourceSpecification> findByNameAndCategory(String aname, String acategory);
+	
+
+	List<ResourceSpecification> findByNameAndCategoryAndVersion(String aname, String acategory, String aversion);
 
 	@Query("SELECT sc FROM PhysicalRspec sc")
 	List<PhysicalResourceSpecification> findAllPhysical();

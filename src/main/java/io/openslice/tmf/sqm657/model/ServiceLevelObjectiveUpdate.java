@@ -23,22 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Service level objectives are defined in terms of parameters and metrics, thresholds, and tolerances  associated with the parameters. Skipped properties: id,href,id,href,validFor
  */
-@ApiModel(description = "Service level objectives are defined in terms of parameters and metrics, thresholds, and tolerances  associated with the parameters. Skipped properties: id,href,id,href,validFor")
+@Schema(description = "Service level objectives are defined in terms of parameters and metrics, thresholds, and tolerances  associated with the parameters. Skipped properties: id,href,id,href,validFor")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class ServiceLevelObjectiveUpdate   {
   @JsonProperty("conformanceComparator")
@@ -90,7 +88,7 @@ public class ServiceLevelObjectiveUpdate   {
    * An operator that specifies whether a Service Level Objective is  violated above or below the conformanceTarget.
    * @return conformanceComparator
   **/
-  @ApiModelProperty(value = "An operator that specifies whether a Service Level Objective is  violated above or below the conformanceTarget.")
+  @Schema(description = "An operator that specifies whether a Service Level Objective is  violated above or below the conformanceTarget.")
 
 
   public String getConformanceComparator() {
@@ -110,7 +108,7 @@ public class ServiceLevelObjectiveUpdate   {
    * An interval of time during which the Conformance Target must be measured.
    * @return conformancePeriod
   **/
-  @ApiModelProperty(value = "An interval of time during which the Conformance Target must be measured.")
+  @Schema(description = "An interval of time during which the Conformance Target must be measured.")
 
   @Valid
 
@@ -131,7 +129,7 @@ public class ServiceLevelObjectiveUpdate   {
    * A value used to determine if Service Level Objective is met.  The data type should be adjusted case by case.
    * @return conformanceTarget
   **/
-  @ApiModelProperty(value = "A value used to determine if Service Level Objective is met.  The data type should be adjusted case by case.")
+  @Schema(description = "A value used to determine if Service Level Objective is met.  The data type should be adjusted case by case.")
 
 
   public String getConformanceTarget() {
@@ -151,7 +149,7 @@ public class ServiceLevelObjectiveUpdate   {
    * The number of times an objective can remain un-updated without  a violation of a Service Level Agreement in reference to a measurement period and/or Service Level Agreement reporting period.
    * @return graceTimes
   **/
-  @ApiModelProperty(value = "The number of times an objective can remain un-updated without  a violation of a Service Level Agreement in reference to a measurement period and/or Service Level Agreement reporting period.")
+  @Schema(description = "The number of times an objective can remain un-updated without  a violation of a Service Level Agreement in reference to a measurement period and/or Service Level Agreement reporting period.")
 
 
   public String getGraceTimes() {
@@ -171,7 +169,7 @@ public class ServiceLevelObjectiveUpdate   {
    * The name of the service level objectives.
    * @return name
   **/
-  @ApiModelProperty(value = "The name of the service level objectives.")
+  @Schema(description = "The name of the service level objectives.")
 
 
   public String getName() {
@@ -191,7 +189,7 @@ public class ServiceLevelObjectiveUpdate   {
    * A value that used to specify when a warning should be used  that indicates an objective is danger of not being met. Notice, the data type should be adjusted case by case.
    * @return thresholdTarget
   **/
-  @ApiModelProperty(value = "A value that used to specify when a warning should be used  that indicates an objective is danger of not being met. Notice, the data type should be adjusted case by case.")
+  @Schema(description = "A value that used to specify when a warning should be used  that indicates an objective is danger of not being met. Notice, the data type should be adjusted case by case.")
 
 
   public String getThresholdTarget() {
@@ -211,7 +209,7 @@ public class ServiceLevelObjectiveUpdate   {
    * Get tolerancePeriod
    * @return tolerancePeriod
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -232,7 +230,7 @@ public class ServiceLevelObjectiveUpdate   {
    * A value that specifies the allowable variation of a conformance  Target. The data type should be adjusted case by case.
    * @return toleranceTarget
   **/
-  @ApiModelProperty(value = "A value that specifies the allowable variation of a conformance  Target. The data type should be adjusted case by case.")
+  @Schema(description = "A value that specifies the allowable variation of a conformance  Target. The data type should be adjusted case by case.")
 
 
   public String getToleranceTarget() {
@@ -252,7 +250,7 @@ public class ServiceLevelObjectiveUpdate   {
    * Get specParameter
    * @return specParameter
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -281,7 +279,7 @@ public class ServiceLevelObjectiveUpdate   {
    * Get specConsequence
    * @return specConsequence
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -302,7 +300,7 @@ public class ServiceLevelObjectiveUpdate   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -322,7 +320,7 @@ public class ServiceLevelObjectiveUpdate   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -342,7 +340,7 @@ public class ServiceLevelObjectiveUpdate   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

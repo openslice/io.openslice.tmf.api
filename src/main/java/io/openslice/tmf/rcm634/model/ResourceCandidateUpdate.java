@@ -24,23 +24,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 
 /**
  * ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none. Skipped properties: id,href
  */
-@ApiModel(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none. Skipped properties: id,href")
+@Schema(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 public class ResourceCandidateUpdate {
 	@JsonProperty("name")
@@ -87,7 +85,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name given to this REST resource")
+	@Schema(description = "Name given to this REST resource")
 
 	public String getName() {
 		return name;
@@ -107,7 +105,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of this REST resource")
+	@Schema(description = "Description of this REST resource")
 
 	public String getDescription() {
 		return description;
@@ -127,7 +125,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "Class type of this REST resource")
+	@Schema(description = "Class type of this REST resource")
 
 	public String getType() {
 		return type;
@@ -147,7 +145,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
+	@Schema(description = "This field provides a link to the schema describing this REST resource")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -167,7 +165,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "The (immediate) base class type of this REST resource")
+	@Schema(description = "The (immediate) base class type of this REST resource")
 
 	public String getBaseType() {
 		return baseType;
@@ -187,7 +185,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "the version of resource candidate")
+	@Schema(description = "the version of resource candidate")
 
 	public String getVersion() {
 		return version;
@@ -207,7 +205,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which this REST resource is valid")
+	@Schema(description = "The period for which this REST resource is valid")
 
 	@Valid
 
@@ -229,7 +227,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return lastUpdate
 	 **/
-	@ApiModelProperty(value = "Date and time of the last update of this REST resource")
+	@Schema(description = "Date and time of the last update of this REST resource")
 
 	@Valid
 
@@ -251,7 +249,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status of the resource candidate.")
+	@Schema(description = "Used to indicate the current lifecycle status of the resource candidate.")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -279,7 +277,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -301,7 +299,7 @@ public class ResourceCandidateUpdate {
 	 * 
 	 * @return resourceSpecification
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 

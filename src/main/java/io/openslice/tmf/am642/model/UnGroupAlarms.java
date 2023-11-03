@@ -24,27 +24,25 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Task resource for ungroup alarms operation
  */
-@ApiModel(description = "Task resource for ungroup alarms operation")
+@Schema(description = "Task resource for ungroup alarms operation")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Entity(name = "AMUnGroupAlarms")
 @Table(name = "AMUnGroupAlarms")
 public class UnGroupAlarms extends BaseRootEntity {
@@ -94,7 +92,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "A reference to the task")
+	@Schema(description = "A reference to the task")
 
 	public String getHref() {
 		return href;
@@ -114,7 +112,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return alarmChangedTime
 	 **/
-	@ApiModelProperty(value = "Time of the uncorrelation")
+	@Schema(description = "Time of the uncorrelation")
 
 	@Valid
 	public OffsetDateTime getAlarmChangedTime() {
@@ -135,7 +133,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return sourceSystemId
 	 **/
-	@ApiModelProperty(value = "Source system identifier")
+	@Schema(description = "Source system identifier")
 
 	public String getSourceSystemId() {
 		return sourceSystemId;
@@ -155,7 +153,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "Current state of the operation task")
+	@Schema(description = "Current state of the operation task")
 
 	public String getState() {
 		return state;
@@ -183,7 +181,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return correlatedAlarm
 	 **/
-	@ApiModelProperty(value = "Correlated alarms")
+	@Schema(description = "Correlated alarms")
 	@Valid
 	public Set<AlarmRefOrValue> getCorrelatedAlarm() {
 		return correlatedAlarm;
@@ -203,7 +201,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return parentAlarm
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public AlarmRefOrValue getParentAlarm() {
@@ -232,7 +230,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return unGroupedAlarm
 	 **/
-	@ApiModelProperty(value = "The successfully uncorrelated alarms")
+	@Schema(description = "The successfully uncorrelated alarms")
 	@Valid
 	public Set<AlarmRefOrValue> getUnGroupedAlarm() {
 		return unGroupedAlarm;
@@ -252,7 +250,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return baseType;
@@ -273,7 +271,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return schemaLocation;
@@ -293,7 +291,7 @@ public class UnGroupAlarms extends BaseRootEntity {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getAtType() {
 		return type;

@@ -21,23 +21,21 @@ package io.openslice.tmf.am666.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Proof of freedom from taxes imposed by a taxing jurisdiction
  */
-@ApiModel(description = "Proof of freedom from taxes imposed by a taxing jurisdiction")
+@Schema(description = "Proof of freedom from taxes imposed by a taxing jurisdiction")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class AccountTaxExemption   {
   @JsonProperty("certificateNumber")
@@ -70,7 +68,7 @@ public class AccountTaxExemption   {
    * Identifier of a document that shows proof of exemption from taxes for the taxing jurisdiction
    * @return certificateNumber
   **/
-  @ApiModelProperty(value = "Identifier of a document that shows proof of exemption from taxes for the taxing jurisdiction")
+  @Schema(description = "Identifier of a document that shows proof of exemption from taxes for the taxing jurisdiction")
 
 
   public String getCertificateNumber() {
@@ -90,7 +88,7 @@ public class AccountTaxExemption   {
    * Name of the taxing jurisdiction for which taxes are exempt
    * @return issuingJurisdiction
   **/
-  @ApiModelProperty(required = true, value = "Name of the taxing jurisdiction for which taxes are exempt")
+  @Schema(description = "Name of the taxing jurisdiction for which taxes are exempt")
   @NotNull
 
 
@@ -111,7 +109,7 @@ public class AccountTaxExemption   {
    * Reason of the tax exemption
    * @return reason
   **/
-  @ApiModelProperty(value = "Reason of the tax exemption")
+  @Schema(description = "Reason of the tax exemption")
 
 
   public String getReason() {
@@ -131,7 +129,7 @@ public class AccountTaxExemption   {
    * Period for which the exemption is valid
    * @return validFor
   **/
-  @ApiModelProperty(required = true, value = "Period for which the exemption is valid")
+  @Schema(description = "Period for which the exemption is valid")
   @NotNull
 
   @Valid
@@ -153,7 +151,7 @@ public class AccountTaxExemption   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -173,7 +171,7 @@ public class AccountTaxExemption   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -193,7 +191,7 @@ public class AccountTaxExemption   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

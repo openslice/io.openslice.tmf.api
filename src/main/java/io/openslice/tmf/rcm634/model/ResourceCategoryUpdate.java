@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,id,href
  */
-@ApiModel(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,id,href")
+@Schema(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:06:08.595+03:00")
 
 public class ResourceCategoryUpdate   {
   @JsonProperty("name")
@@ -94,7 +92,7 @@ protected String name = null;
    * Name of the category
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the category")
+  @Schema(description = "Name of the category")
 
 
   public String getName() {
@@ -114,7 +112,7 @@ protected String name = null;
    * Description of the category
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the category")
+  @Schema(description = "Description of the category")
 
 
   public String getDescription() {
@@ -134,7 +132,7 @@ protected String name = null;
    * The (class) type of this category
    * @return type
   **/
-  @ApiModelProperty(value = "The (class) type of this category")
+  @Schema(description = "The (class) type of this category")
 
 
   public String getType() {
@@ -154,7 +152,7 @@ protected String name = null;
    * This field provides a link to the schema describing this REST resource
    * @return schemalLocation
   **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
+  @Schema(description = "This field provides a link to the schema describing this REST resource")
 
 
   public String getSchemalLocation() {
@@ -174,7 +172,7 @@ protected String name = null;
    * Immediate base class type of this category
    * @return baseType
   **/
-  @ApiModelProperty(value = "Immediate base class type of this category")
+  @Schema(description = "Immediate base class type of this category")
 
 
   public String getBaseType() {
@@ -194,7 +192,7 @@ protected String name = null;
    * Category version
    * @return version
   **/
-  @ApiModelProperty(value = "Category version")
+  @Schema(description = "Category version")
 
 
   public String getVersion() {
@@ -214,7 +212,7 @@ protected String name = null;
    * The period for which the category is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the category is valid")
+  @Schema(description = "The period for which the category is valid")
 
   @Valid
 
@@ -235,7 +233,7 @@ protected String name = null;
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -256,7 +254,7 @@ protected String name = null;
    * Unique identifier of the parent category
    * @return parentId
   **/
-  @ApiModelProperty(value = "Unique identifier of the parent category")
+  @Schema(description = "Unique identifier of the parent category")
 
 
   public String getParentId() {
@@ -276,7 +274,7 @@ protected String name = null;
    * If true, this Boolean indicates that the category is a root of categories
    * @return isRoot
   **/
-  @ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+  @Schema(description = "If true, this Boolean indicates that the category is a root of categories")
 
 
   public Boolean isIsRoot() {
@@ -304,7 +302,7 @@ protected String name = null;
    * Get category
    * @return category
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -333,7 +331,7 @@ protected String name = null;
    * Get resourceCandidate
    * @return resourceCandidate
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -362,7 +360,7 @@ protected String name = null;
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

@@ -20,17 +20,12 @@
 package io.openslice.tmf.rcm634.reposervices;
 
 import java.time.OffsetDateTime;
-
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.IntPredicate;
-
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -42,15 +37,16 @@ import org.springframework.stereotype.Service;
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.rcm634.model.ResourceCandidate;
+import io.openslice.tmf.rcm634.model.ResourceCandidateRef;
 import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryCreate;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceCategoryUpdate;
+import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
 import io.openslice.tmf.rcm634.repo.ResourceCatalogRepository;
 import io.openslice.tmf.rcm634.repo.ResourceCategoriesRepository;
-import io.openslice.tmf.scm633.model.ServiceCatalog;
-import io.openslice.tmf.scm633.model.ServiceCategory;
-import io.openslice.tmf.scm633.model.ServiceCategoryRef;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ResourceCategoryRepoService {
@@ -59,6 +55,9 @@ public class ResourceCategoryRepoService {
 	@Autowired
 	ResourceCategoriesRepository categsRepo;
 	
+
+	@Autowired
+	ResourceCandidateRepository candidateRepo;
 
 
 	@Autowired
@@ -190,7 +189,10 @@ public class ResourceCategoryRepoService {
 		if ( resCatUpd.getLifecycleStatus() != null ) {
 			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( resCatUpd.getLifecycleStatus() ) );
 		}
-		
+
+		if ( resCatUpd.getParentId() != null ){
+			sc.setParentId( resCatUpd.getParentId());			
+		}
 
 		if ( resCatUpd.getVersion() != null ) {
 			sc.setVersion( resCatUpd.getVersion() );		
@@ -238,6 +240,42 @@ public class ResourceCategoryRepoService {
 			
 			for (ResourceCategory ar : toRemove) {
 				sc.getCategoryObj().remove(ar);
+			}
+		}
+		
+		if ( resCatUpd.getResourceCandidate() !=null ) {
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			
+			for (ResourceCandidateRef ref : resCatUpd.getResourceCandidate() ) {
+				//find  by id and reload it here.
+				boolean idexists = false;
+				for (ResourceCandidate originalSCat : sc.getResourceCandidateObj()) {
+					if ( originalSCat.getId().equals( ref.getId())) {
+						idexists = true;
+						idAddedUpdated.put( originalSCat.getId(), true);
+						break;
+					}					
+				}
+				if (!idexists) {
+					Optional<ResourceCandidate> catToAdd = this.candidateRepo.findByUuid( ref.getId() );
+					if ( catToAdd.isPresent() ) {
+						ResourceCandidate scatadd = catToAdd.get();
+						sc.getResourceCandidateObj().add( scatadd );
+						idAddedUpdated.put( ref.getId(), true);		
+												
+					}
+				}
+			}
+			List<ResourceCandidate> toRemove = new ArrayList<>();
+			for (ResourceCandidate ss : sc.getResourceCandidateObj()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (ResourceCandidate ar : toRemove) {
+				sc.getResourceCandidateObj().remove(ar);
 			}
 		}
 		

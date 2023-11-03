@@ -1,33 +1,28 @@
 package io.openslice.tmf.rcm634.model;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.rcm634.model.ConnectionSpecification;
-import io.openslice.tmf.rcm634.model.ResourceGraphSpecificationRelationship;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Resource graph specification.
  */
-@ApiModel(description = "Resource graph specification.")
+@Schema(description = "Resource graph specification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
 @Entity(name = "ResourceGraphSpec")
 public class ResourceGraphSpecification extends BaseRootNamedEntity {
 
@@ -65,7 +60,7 @@ public class ResourceGraphSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of the resource graph specification.")
+	@Schema(description = "Description of the resource graph specification.")
 
 	public String getDescription() {
 		return description;
@@ -93,7 +88,7 @@ public class ResourceGraphSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return connectionSpecification
 	 **/
-	@ApiModelProperty(required = true, value = "Resource graph edge specifications.")
+	@Schema(description = "Resource graph edge specifications.")
 	@NotNull
 	@Valid
 	@Size(min = 1)
@@ -125,7 +120,7 @@ public class ResourceGraphSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return graphSpecificationRelationship
 	 **/
-	@ApiModelProperty(value = "Relationships to other resource graph specifications.")
+	@Schema(description = "Relationships to other resource graph specifications.")
 	@Valid
 	public Set<ResourceGraphSpecificationRelationship> getGraphSpecificationRelationship() {
 		return graphSpecificationRelationship;

@@ -21,21 +21,19 @@ package io.openslice.tmf.sqm657.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * The related entity source of a KQI or KPI. A KQI draws its data from a number of sources,  including Key Performance Indicators (KPIs).  A KPI provides a measurement of a specific aspect  of the performance of a Service (whether it is a network- or a non-network-based Service) or a  group of Services of the same type.
  */
-@ApiModel(description = "The related entity source of a KQI or KPI. A KQI draws its data from a number of sources,  including Key Performance Indicators (KPIs).  A KPI provides a measurement of a specific aspect  of the performance of a Service (whether it is a network- or a non-network-based Service) or a  group of Services of the same type.")
+@Schema(description = "The related entity source of a KQI or KPI. A KQI draws its data from a number of sources,  including Key Performance Indicators (KPIs).  A KPI provides a measurement of a specific aspect  of the performance of a Service (whether it is a network- or a non-network-based Service) or a  group of Services of the same type.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class EntityRef   {
   @JsonProperty("href")
@@ -59,7 +57,7 @@ public class EntityRef   {
    * The hyperlink to access an entity.
    * @return href
   **/
-  @ApiModelProperty(required = true, value = "The hyperlink to access an entity.")
+  @Schema(description = "The hyperlink to access an entity.")
   @NotNull
 
 
@@ -80,7 +78,7 @@ public class EntityRef   {
    * The identifier of an entity.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The identifier of an entity.")
+  @Schema(description = "The identifier of an entity.")
   @NotNull
 
 
@@ -101,7 +99,7 @@ public class EntityRef   {
    * The name of an entity.
    * @return name
   **/
-  @ApiModelProperty(value = "The name of an entity.")
+  @Schema(description = "The name of an entity.")
 
 
   public String getName() {
@@ -121,7 +119,7 @@ public class EntityRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

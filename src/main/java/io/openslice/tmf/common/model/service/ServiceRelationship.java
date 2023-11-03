@@ -21,28 +21,26 @@ package io.openslice.tmf.common.model.service;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Describes links with services of the same category (useful for bundled
  * services)
  */
-@ApiModel(description = "Describes links with services of the same category (useful for bundled services)")
+@Schema(description = "Describes links with services of the same category (useful for bundled services)")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 @Entity(name = "ServiceRelationship")
 public class ServiceRelationship extends BaseRootEntity {
@@ -65,7 +63,7 @@ public class ServiceRelationship extends BaseRootEntity {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(required = true, value = "The type of relationship (e.g. depends on, enables)")
+	@Schema(description = "The type of relationship (e.g. depends on, enables)")
 	@NotNull
 
 	public String getRelationshipType() {
@@ -86,7 +84,7 @@ public class ServiceRelationship extends BaseRootEntity {
 	 * 
 	 * @return service
 	 **/
-	@ApiModelProperty(required = true, value = "The service being referred to")
+	@Schema(description = "The service being referred to")
 	@NotNull
 
 	@Valid

@@ -3,6 +3,9 @@ server:
   servlet:
     context-path : /tmf-api/
 spring:
+  config:
+    activate:
+      on-profile: "testing"
   application:
     name: openslice-service-catalog-management-api-testing
   datasource:
@@ -14,8 +17,13 @@ spring:
     hibernate:
       ddl-auto: create-drop
       hbm2ddl.auto: create-drop
+    properties:
+      hibernate:        
+        globally_quoted_identifiers: true
+        globally_quoted_identifiers_skip_column_definitions: true
     show-sql: false
     generate-ddl: true
+    
  # Embedded ActiveMQ Configuration Example
   activemq:
       broker-url: vm://embedded?broker.persistent=false,useShutdownHook=false
@@ -65,6 +73,9 @@ swagger:
   clientid: "osapiWebClientId"
   clientsecret: "secret"
 
+kroki:
+  serverurl: http://localhost:8000
+  
 oauthsign:
    key: "XXX"
 
@@ -74,6 +85,9 @@ CATALOG_GET_SERVICEORDER_BY_ID: "jms:queue:CATALOG.GET.SERVICEORDER_BY_ID"
 CATALOG_ADD_SERVICEORDER: "jms:queue:CATALOG.ADD.SERVICEORDER"
 CATALOG_UPD_SERVICEORDER_BY_ID: "jms:queue:CATALOG.UPD.SERVICEORDER_BY_ID"
 CATALOG_GET_SERVICESPEC_BY_ID: "jms:queue:CATALOG.GET.SERVICESPEC_BY_ID"
+CATALOG_ADD_SERVICESPEC: "jms:queue:CATALOG.ADD.SERVICESPEC"
+CATALOG_UPD_SERVICESPEC: "jms:queue:CATALOG.UPD.SERVICESPEC"
+CATALOG_UPDADD_SERVICESPEC: "jms:queue:CATALOG.UPDADD.SERVICESPEC"
 CATALOG_GET_INITIAL_SERVICEORDERS_IDS: "jms:queue:CATALOG.GET.INITIAL_SERVICEORDERS"
 CATALOG_GET_SERVICEORDER_IDS_BY_STATE: "jms:queue:CATALOG.GET.ACKNOWLEDGED_SERVICEORDERS"
 CATALOG_ADD_SERVICE: "jms:queue:CATALOG.ADD.SERVICE"
@@ -130,3 +144,18 @@ CATALOG_RESOURCES_OF_PARTNERS: "jms:queue:CATALOG.GET.SERVICESOFPARTNERS"
 #LCM MESSAGES
 CATALOG_GET_LCMRULE_BY_ID: "jms:queue:CATALOG.GET.LCMRULE"
 CATALOG_GET_LCMRULES_BY_SPECID_PHASE: "jms:queue:CATALOG.GET.LCMRULES_BY_SPECID_PHASE"
+
+
+#SERVICE_TEST
+CATALOG_GET_SERVICETESTSPEC_BY_ID: "jms:queue:CATALOG.GET.SERVICETESTSPEC_BY_ID"
+CATALOG_ADD_SERVICETEST: "jms:queue:CATALOG.ADD.SERVICETEST"
+CATALOG_UPD_SERVICETEST: "jms:queue:CATALOG.UPD.SERVICETEST"
+CATALOG_GET_SERVICETEST_BY_ID: "jms:queue:CATALOG.GET.SERVICETEST"
+
+#NS ACTIONS
+NFV_CATALOG_NSACTIONS_SCALE: "jms:queue:NSACTIONS.SCALE"
+NFV_CATALOG_NS_LCMCHANGED: "jms:topic:NFV_CATALOG_NS_LCMCHANGED"
+
+#RESERVATION_API
+RESERVATION_CREATE: "jms:queue:RESERVATION.ADD"
+RESERVATION_AVAILABILITY_CHECK: "jms:queue:RESERVATION.AVAILABILITYCHECK"

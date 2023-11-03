@@ -21,22 +21,20 @@ package io.openslice.tmf.sqm657.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Some consequences for the provider of the Service are resulted when the service level objective does not meet.
  */
-@ApiModel(description = "Some consequences for the provider of the Service are resulted when the service level objective does not meet.")
+@Schema(description = "Some consequences for the provider of the Service are resulted when the service level objective does not meet.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class ServiceLevelSpecConsequence   {
   @JsonProperty("prescribedAction")
@@ -63,7 +61,7 @@ public class ServiceLevelSpecConsequence   {
    * Recommended remedy for a violated Service Level Objective.  This could be a hyperlink to the recommended action.
    * @return prescribedAction
   **/
-  @ApiModelProperty(value = "Recommended remedy for a violated Service Level Objective.  This could be a hyperlink to the recommended action.")
+  @Schema(description = "Recommended remedy for a violated Service Level Objective.  This could be a hyperlink to the recommended action.")
 
 
   public String getPrescribedAction() {
@@ -83,7 +81,7 @@ public class ServiceLevelSpecConsequence   {
    * A valid duration of a thing.
    * @return validFor
   **/
-  @ApiModelProperty(value = "A valid duration of a thing.")
+  @Schema(description = "A valid duration of a thing.")
 
   @Valid
 
@@ -104,7 +102,7 @@ public class ServiceLevelSpecConsequence   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -124,7 +122,7 @@ public class ServiceLevelSpecConsequence   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -144,7 +142,7 @@ public class ServiceLevelSpecConsequence   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

@@ -21,23 +21,21 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.Quantity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Description of a productTerm linked to this product. This represent a commitment with a duration
  */
-@ApiModel(description = "Description of a productTerm linked to this product. This represent a commitment with a duration")
+@Schema(description = "Description of a productTerm linked to this product. This represent a commitment with a duration")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class ProductTerm   {
   @JsonProperty("description")
   private String description = null;
@@ -69,7 +67,7 @@ public class ProductTerm   {
    * Description of the productTerm
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the productTerm")
+  @Schema(description = "Description of the productTerm")
   
     public String getDescription() {
     return description;
@@ -88,7 +86,7 @@ public class ProductTerm   {
    * Name of the productTerm
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the productTerm")
+  @Schema(description = "Name of the productTerm")
   
     public String getName() {
     return name;
@@ -107,7 +105,7 @@ public class ProductTerm   {
    * Get duration
    * @return duration
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Quantity getDuration() {
@@ -127,7 +125,7 @@ public class ProductTerm   {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {
@@ -147,7 +145,7 @@ public class ProductTerm   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -166,7 +164,7 @@ public class ProductTerm   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -185,7 +183,7 @@ public class ProductTerm   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

@@ -21,19 +21,18 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * The category for grouping recommendations
  */
-@ApiModel(description = "The category for grouping recommendations")
+@Schema(description = "The category for grouping recommendations")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class CategoryRef   {
   @JsonProperty("href")
@@ -57,7 +56,7 @@ public class CategoryRef   {
    * Hypertext Reference of the category
    * @return href
   **/
-  @ApiModelProperty(value = "Hypertext Reference of the category")
+  @Schema(description = "Hypertext Reference of the category")
 
 
   public String getHref() {
@@ -77,7 +76,7 @@ public class CategoryRef   {
    * Unique identifier of category
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of category")
+  @Schema(description = "Unique identifier of category")
 
 
   public String getId() {
@@ -97,7 +96,7 @@ public class CategoryRef   {
    * Name of the category.
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the category.")
+  @Schema(description = "Name of the category.")
 
 
   public String getName() {
@@ -117,7 +116,7 @@ public class CategoryRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

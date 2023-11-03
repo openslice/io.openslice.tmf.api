@@ -21,22 +21,20 @@ package io.openslice.tmf.pcm620.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * Describes a non-composite relationship between product offering prices. For example one price might be an discount alteration for another price.
  */
-@ApiModel(description = "Describes a non-composite relationship between product offering prices. For example one price might be an discount alteration for another price.")
+@Schema(description = "Describes a non-composite relationship between product offering prices. For example one price might be an discount alteration for another price.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity
 public class ProductOfferingPriceRelationship  extends BaseEntity {
@@ -57,7 +55,7 @@ public class ProductOfferingPriceRelationship  extends BaseEntity {
    * Unique identifier of the associated product offering price
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the associated product offering price")
+  @Schema(description = "Unique identifier of the associated product offering price")
 
 
   public String getId() {
@@ -78,7 +76,7 @@ public class ProductOfferingPriceRelationship  extends BaseEntity {
    * type of the relationship, for example override, discount, etc.
    * @return relationshipType
   **/
-  @ApiModelProperty(value = "type of the relationship, for example override, discount, etc.")
+  @Schema(description = "type of the relationship, for example override, discount, etc.")
 
 
   public String getRelationshipType() {

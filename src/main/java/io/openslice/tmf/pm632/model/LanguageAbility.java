@@ -21,24 +21,22 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * Ability of an individual to understand or converse in a language.
  */
-@ApiModel(description = "Ability of an individual to understand or converse in a language.")
+@Schema(description = "Ability of an individual to understand or converse in a language.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 @Entity
 public class LanguageAbility  extends BaseRootEntity {
   @JsonProperty("isFavouriteLanguage")
@@ -75,7 +73,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * A “true” value specifies whether the language is considered by the individual as his favourite one
    * @return isFavouriteLanguage
   **/
-  @ApiModelProperty(value = "A “true” value specifies whether the language is considered by the individual as his favourite one")
+  @Schema(description = "A “true” value specifies whether the language is considered by the individual as his favourite one")
 
 
   public Boolean isIsFavouriteLanguage() {
@@ -95,7 +93,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * Language code (RFC 5646)
    * @return languageCode
   **/
-  @ApiModelProperty(value = "Language code (RFC 5646)")
+  @Schema(description = "Language code (RFC 5646)")
 
 
   public String getLanguageCode() {
@@ -115,7 +113,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * Language name
    * @return languageName
   **/
-  @ApiModelProperty(value = "Language name")
+  @Schema(description = "Language name")
 
 
   public String getLanguageName() {
@@ -135,7 +133,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * Listening proficiency evaluated for this language
    * @return listeningProficiency
   **/
-  @ApiModelProperty(value = "Listening proficiency evaluated for this language")
+  @Schema(description = "Listening proficiency evaluated for this language")
 
 
   public String getListeningProficiency() {
@@ -155,7 +153,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * Reading proficiency evaluated for this language
    * @return readingProficiency
   **/
-  @ApiModelProperty(value = "Reading proficiency evaluated for this language")
+  @Schema(description = "Reading proficiency evaluated for this language")
 
 
   public String getReadingProficiency() {
@@ -175,7 +173,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * Speaking proficiency evaluated for this language
    * @return speakingProficiency
   **/
-  @ApiModelProperty(value = "Speaking proficiency evaluated for this language")
+  @Schema(description = "Speaking proficiency evaluated for this language")
 
 
   public String getSpeakingProficiency() {
@@ -195,7 +193,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * Writing proficiency evaluated for this language
    * @return writingProficiency
   **/
-  @ApiModelProperty(value = "Writing proficiency evaluated for this language")
+  @Schema(description = "Writing proficiency evaluated for this language")
 
 
   public String getWritingProficiency() {
@@ -215,7 +213,7 @@ public class LanguageAbility  extends BaseRootEntity {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

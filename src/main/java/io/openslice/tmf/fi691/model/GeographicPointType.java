@@ -20,23 +20,21 @@
 package io.openslice.tmf.fi691.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * GeographicPointType
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "GeographicPointType")
 public class GeographicPointType   extends BaseRootNamedEntity {
@@ -64,7 +62,7 @@ public class GeographicPointType   extends BaseRootNamedEntity {
    * Accuracy of the coordinate specified
    * @return accuracy
   **/
-  @ApiModelProperty(required = true, value = "Accuracy of the coordinate specified")
+  @Schema(description = "Accuracy of the coordinate specified")
   @NotNull
 
 
@@ -85,7 +83,7 @@ public class GeographicPointType   extends BaseRootNamedEntity {
    * Geocoding referential
    * @return spatialRef
   **/
-  @ApiModelProperty(required = true, value = "Geocoding referential")
+  @Schema(description = "Geocoding referential")
   @NotNull
 
 
@@ -106,7 +104,7 @@ public class GeographicPointType   extends BaseRootNamedEntity {
    * . x coordinate (usually latitude)
    * @return x
   **/
-  @ApiModelProperty(required = true, value = ". x coordinate (usually latitude)")
+  @Schema(description = ". x coordinate (usually latitude)")
   @NotNull
 
 
@@ -127,7 +125,7 @@ public class GeographicPointType   extends BaseRootNamedEntity {
    * y coordinate (usually longitude)
    * @return y
   **/
-  @ApiModelProperty(required = true, value = "y coordinate (usually longitude)")
+  @Schema(description = "y coordinate (usually longitude)")
   @NotNull
 
 
@@ -148,7 +146,7 @@ public class GeographicPointType   extends BaseRootNamedEntity {
    * z coordinate (usually elevation)
    * @return z
   **/
-  @ApiModelProperty(value = "z coordinate (usually elevation)")
+  @Schema(description = "z coordinate (usually elevation)")
 
 
   public String getZ() {

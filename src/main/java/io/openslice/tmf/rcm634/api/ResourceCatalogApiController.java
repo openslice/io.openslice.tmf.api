@@ -21,8 +21,6 @@ package io.openslice.tmf.rcm634.api;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,15 +30,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.rcm634.model.ResourceCatalog;
 import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
 import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 @Controller
 @RequestMapping("/resourceCatalogManagement/v4/")
 public class ResourceCatalogApiController implements ResourceCatalogApi {
@@ -53,7 +50,7 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
 
 	@Override
 	public ResponseEntity<ResourceCatalog> createResourceCatalog(
-			@ApiParam(value = "The Resource Catalog to be created" ,required=true )  @Valid @RequestBody ResourceCatalogCreate resourceCatalog) {
+			@Parameter(description = "The Resource Catalog to be created" ,required=true )  @Valid @RequestBody ResourceCatalogCreate resourceCatalog) {
     	try {
 
     		ResourceCatalog c = catalogRepoService.addCatalog( resourceCatalog );
@@ -68,7 +65,7 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
 	
 
 	@Override
-    public ResponseEntity<Void> deleteResourceCatalog(@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id) {
+    public ResponseEntity<Void> deleteResourceCatalog(@Parameter(description = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id) {
     	try {
 
 			return new ResponseEntity<Void>( catalogRepoService.deleteById( id ), HttpStatus.OK);
@@ -79,7 +76,7 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
     }
 
 	@Override
-    public ResponseEntity<List<ResourceCatalog>> listResourceCatalog(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    public ResponseEntity<List<ResourceCatalog>> listResourceCatalog(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
        
         try {
 			return new ResponseEntity<List<ResourceCatalog>>( catalogRepoService.findAll() , HttpStatus.OK);
@@ -100,7 +97,7 @@ public class ResourceCatalogApiController implements ResourceCatalogApi {
    
 
 	@Override
-    public ResponseEntity<ResourceCatalog> retrieveResourceCatalog(@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    public ResponseEntity<ResourceCatalog> retrieveResourceCatalog(@Parameter(description = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
     	try {
 
 			return new ResponseEntity<ResourceCatalog>( catalogRepoService.findById( id ), HttpStatus.OK);

@@ -21,23 +21,21 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 /**
  * Keeps track of other names, for example the old name of a woman before marriage or an artist name.
  */
-@ApiModel(description = "Keeps track of other names, for example the old name of a woman before marriage or an artist name.")
+@Schema(description = "Keeps track of other names, for example the old name of a woman before marriage or an artist name.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity
 public class OtherNameIndividual extends BaseRootEntity   {
@@ -87,7 +85,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * e.g. Baron, Graf, Earl,…
    * @return aristocraticTitle
   **/
-  @ApiModelProperty(value = "e.g. Baron, Graf, Earl,…")
+  @Schema(description = "e.g. Baron, Graf, Earl,…")
 
 
   public String getAristocraticTitle() {
@@ -107,7 +105,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Contains the non-chosen or inherited name. Also known as last name in the Western context
    * @return familyName
   **/
-  @ApiModelProperty(value = "Contains the non-chosen or inherited name. Also known as last name in the Western context")
+  @Schema(description = "Contains the non-chosen or inherited name. Also known as last name in the Western context")
 
 
   public String getFamilyName() {
@@ -127,7 +125,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Family name prefix
    * @return familyNamePrefix
   **/
-  @ApiModelProperty(value = "Family name prefix")
+  @Schema(description = "Family name prefix")
 
 
   public String getFamilyNamePrefix() {
@@ -147,7 +145,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * . A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,…)
    * @return formattedName
   **/
-  @ApiModelProperty(value = ". A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,…)")
+  @Schema(description = ". A fully formatted name in one string with all of its pieces in their proper place and all of the necessary punctuation. Useful for specific contexts (Chinese, Japanese, Korean,…)")
 
 
   public String getFormattedName() {
@@ -167,7 +165,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Full name flatten (first, middle, and last names)
    * @return fullName
   **/
-  @ApiModelProperty(value = "Full name flatten (first, middle, and last names)")
+  @Schema(description = "Full name flatten (first, middle, and last names)")
 
 
   public String getFullName() {
@@ -187,7 +185,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * e.g. Sr, Jr…
    * @return generation
   **/
-  @ApiModelProperty(value = "e.g. Sr, Jr…")
+  @Schema(description = "e.g. Sr, Jr…")
 
 
   public String getGeneration() {
@@ -207,7 +205,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * First name
    * @return givenName
   **/
-  @ApiModelProperty(value = "First name")
+  @Schema(description = "First name")
 
 
   public String getGivenName() {
@@ -227,7 +225,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Legal name or birth name (name one has for official purposes)
    * @return legalName
   **/
-  @ApiModelProperty(value = "Legal name or birth name (name one has for official purposes)")
+  @Schema(description = "Legal name or birth name (name one has for official purposes)")
 
 
   public String getLegalName() {
@@ -247,7 +245,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Middle name or initial
    * @return middleName
   **/
-  @ApiModelProperty(value = "Middle name or initial")
+  @Schema(description = "Middle name or initial")
 
 
   public String getMiddleName() {
@@ -267,7 +265,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Contains the chosen name by which the person prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname
    * @return preferredGivenName
   **/
-  @ApiModelProperty(value = "Contains the chosen name by which the person prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname")
+  @Schema(description = "Contains the chosen name by which the person prefers to be addressed. Note: This name may be a name other than a given name, such as a nickname")
 
 
   public String getPreferredGivenName() {
@@ -287,7 +285,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Use for titles (aristrocatic, social, ...): Pr, Dr, Sir,....
    * @return title
   **/
-  @ApiModelProperty(value = "Use for titles (aristrocatic, social, ...): Pr, Dr, Sir,....")
+  @Schema(description = "Use for titles (aristrocatic, social, ...): Pr, Dr, Sir,....")
 
 
   public String getTitle() {
@@ -307,7 +305,7 @@ public class OtherNameIndividual extends BaseRootEntity   {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

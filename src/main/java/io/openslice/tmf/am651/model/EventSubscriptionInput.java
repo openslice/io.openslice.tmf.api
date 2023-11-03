@@ -21,19 +21,18 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * EventSubscriptionInput
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class EventSubscriptionInput   {
   @JsonProperty("callback")
@@ -51,7 +50,7 @@ public class EventSubscriptionInput   {
    * The callback being registered.
    * @return callback
   **/
-  @ApiModelProperty(required = true, value = "The callback being registered.")
+  @Schema(description = "The callback being registered.")
   @NotNull
 
 
@@ -72,7 +71,7 @@ public class EventSubscriptionInput   {
    * additional data to be passed
    * @return query
   **/
-  @ApiModelProperty(value = "additional data to be passed")
+  @Schema(description = "additional data to be passed")
 
 
   public String getQuery() {

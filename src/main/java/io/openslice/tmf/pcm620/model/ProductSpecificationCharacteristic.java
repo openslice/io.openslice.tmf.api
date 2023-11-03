@@ -23,19 +23,17 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * A characteristic quality or distinctive feature of a ProductSpecification.
@@ -45,9 +43,9 @@ import io.swagger.annotations.ApiModelProperty;
  * *3). Certain characteristics, such as color, may be configured during the
  * ordering or some other process.
  */
-@ApiModel(description = "A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
+@Schema(description = "A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 
 @Entity(name = "ProdSpecChar")
@@ -97,7 +95,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return configurable
 	 **/
-	@ApiModelProperty(value = "If true, the Boolean indicates that the ProductSpecificationCharacteristic is configurable")
+	@Schema(description = "If true, the Boolean indicates that the ProductSpecificationCharacteristic is configurable")
 
 	public Boolean isConfigurable() {
 		return configurable;
@@ -121,7 +119,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return extensible
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a product")
+	@Schema(description = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a product")
 
 	public Boolean isExtensible() {
 		return extensible;
@@ -143,7 +141,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return isUnique
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
+	@Schema(description = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
 
 	public Boolean isIsUnique() {
 		return isUnique;
@@ -165,7 +163,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return maxCardinality
 	 **/
-	@ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality")
+	@Schema(description = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality")
 
 	public Integer getMaxCardinality() {
 		return maxCardinality;
@@ -187,7 +185,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return minCardinality
 	 **/
-	@ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality")
+	@Schema(description = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality")
 
 	public Integer getMinCardinality() {
 		return minCardinality;
@@ -208,7 +206,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return regex
 	 **/
-	@ApiModelProperty(value = "A rule or principle represented in regular expression used to derive the value of a characteristic value")
+	@Schema(description = "A rule or principle represented in regular expression used to derive the value of a characteristic value")
 
 	public String getRegex() {
 		return regex;
@@ -229,7 +227,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+	@Schema(description = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
 
 	public String getValueType() {
 		return valueType;
@@ -260,7 +258,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return productSpecCharRelationship
 	 **/
-	@ApiModelProperty(value = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
+	@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
 
 	@Valid
 
@@ -298,7 +296,7 @@ public class ProductSpecificationCharacteristic extends BaseEntity {
 	 * 
 	 * @return productSpecCharacteristicValue
 	 **/
-	@ApiModelProperty(value = "A ProductSpecificationCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ProductSpecificationCharacteristic object. The values of the attributes in the ProductSpecificationCharacteristicValue object describe the values of the attributes that a corresponding ProductSpecificationCharacteristic object can take on.")
+	@Schema(description = "A ProductSpecificationCharacteristicValue object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a ProductSpecificationCharacteristic object. The values of the attributes in the ProductSpecificationCharacteristicValue object describe the values of the attributes that a corresponding ProductSpecificationCharacteristic object can take on.")
 
 	@Valid
 

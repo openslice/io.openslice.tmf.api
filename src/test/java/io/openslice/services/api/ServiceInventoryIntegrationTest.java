@@ -55,9 +55,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
@@ -181,6 +178,17 @@ public class ServiceInventoryIntegrationTest {
 		serviceCharacteristicItem.setName( "ConfigStatus" );
 		serviceCharacteristicItem.setValue( new Any("NONE"));
 		aService.addServiceCharacteristicItem(serviceCharacteristicItem);
+
+		serviceCharacteristicItem = new Characteristic();		
+		serviceCharacteristicItem.setName( "NSLCM" );
+		serviceCharacteristicItem.setValue( new Any("nslcm_test"));
+		aService.addServiceCharacteristicItem(serviceCharacteristicItem);
+		
+
+		serviceCharacteristicItem = new Characteristic();		
+		serviceCharacteristicItem.setName( "NSR" );
+		serviceCharacteristicItem.setValue( new Any("nsr_test"));
+		aService.addServiceCharacteristicItem(serviceCharacteristicItem);
 		
 		ServiceSpecificationRef aServiceSpecificationRef = new ServiceSpecificationRef();
 		aServiceSpecificationRef.setId(responsesSpec3.getId() );
@@ -209,7 +217,7 @@ public class ServiceInventoryIntegrationTest {
 		assertThat( responseSrvc.getDescription()  ).isEqualTo( "Experimentation Descr" );
 		assertThat( responseSrvc.getStartDate() ).isNotNull();
 		assertThat( responseSrvc.getEndDate() ).isNotNull();
-		assertThat( responseSrvc.getServiceCharacteristic().size()  ).isEqualTo( 1 );
+		assertThat( responseSrvc.getServiceCharacteristic().size()  ).isEqualTo( 3 );
 		assertThat( responseSrvc.getServiceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "NONE" )  ;
 		
 
@@ -241,10 +249,10 @@ public class ServiceInventoryIntegrationTest {
 			}
 			servUpd.addServiceCharacteristicItem(c);
 		}
-		servUpd.setState( ServiceStateType.INACTIVE );
+		servUpd.setState( ServiceStateType.ACTIVE );
 		serviceCharacteristicItem = new Characteristic();		
 		serviceCharacteristicItem.setName( "DeploymentRequestID" );
-		serviceCharacteristicItem.setValue( new Any("007a008"));
+		serviceCharacteristicItem.setValue( new Any("1007"));
 		servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
 		
 		
@@ -264,14 +272,60 @@ public class ServiceInventoryIntegrationTest {
 		assertThat( serviceRepoService.findAll().size() ).isEqualTo( 1 );
 
 		assertThat( responseSOUpd.getEndDate() ).isNotNull();
-		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 4 );
-		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 2 );
+		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 5 );
+		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 4 );
 		assertThat( responseSOUpd.getServiceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
-		assertThat( responseSOUpd.getServiceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		assertThat( responseSOUpd.getServiceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "1007" )  ;
+		
+		 		
+		
+		
+//		responseSorderUpd = mvc.perform(MockMvcRequestBuilders.get("/serviceInventory/v4/service/updateServiceDeploymentDescriptor/1007" )
+//	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.content( JsonUtils.toJson( servUpd ) ))
+//			    .andExpect(status().isOk())
+//			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+//	    	    .andExpect(status().isOk())
+//	    	    .andReturn().getResponse().getContentAsString();
+//		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
+//		responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd,  Service.class);
+//		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 4 );
+//		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 5 );
+		
+		
+		
+		servUpd.setState( ServiceStateType.INACTIVE );
+		serviceCharacteristicItem = new Characteristic();		
+		serviceCharacteristicItem.setName( "DeploymentRequestID" );
+		serviceCharacteristicItem.setValue( new Any("1007"));
+		servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
+		
+		
+		
+		responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/serviceInventory/v4/service/" + responseSrvc.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( JsonUtils.toJson( servUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
+		responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd,  Service.class);
+		
+
+		assertThat( serviceRepoService.findAll().size() ).isEqualTo( 1 );
+
+		assertThat( responseSOUpd.getEndDate() ).isNotNull();
+		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 7 );
+		assertThat( responseSOUpd.getServiceCharacteristic().size()  ).isEqualTo( 4 );
+		assertThat( responseSOUpd.getServiceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
+		assertThat( responseSOUpd.getServiceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "1007" )  ;
 		
 		 
-		assertThat( serviceRepoService.findAllServiceActionQueueItems().size() ).isEqualTo( 1 );		
-		assertThat( serviceRepoService.findAllServiceActionQueueItems().get(0).getAction() ).isEqualTo(ServiceActionQueueAction.DEACTIVATE   );
+		assertThat( serviceRepoService.findAllServiceActionQueueItems().size() ).isEqualTo( 3 );		
+		assertThat( serviceRepoService.findAllServiceActionQueueItems().get(0).getAction() ).isEqualTo(ServiceActionQueueAction.EVALUATE_STATE_CHANGE_TOACTIVE   );
 		
 	}
 		

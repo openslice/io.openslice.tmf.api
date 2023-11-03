@@ -1,0 +1,276 @@
+{
+	"name": "vim-account.openslice.io.json",
+	"category": "VIMAccount",
+	"description": "This Resource Specification is used to describe an OSM Project's VIM account",
+	"version": "0.2.0",
+	"isBundle": true,
+	"@type": "LogicalResourceSpecification",
+
+	"relatedParty": [],
+	"resourceSpecCharacteristic": [
+		{
+			"name": "Name",
+			"configurable": true,
+			"description": "The alias of the OSM Project's VIM account",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "Description",
+			"configurable": true,
+			"description": "The description of the OSM Project's VIM account",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "vimProjectOrTenantName",
+			"configurable": true,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "vimURL",
+			"configurable": true,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "vimUsername",
+			"configurable": true,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "vimPassword",
+			"configurable": true,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "Type",
+			"configurable": true,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"resourceSpecCharacteristicValue": [
+				{
+					"value": {
+						"value": "Openstack"
+					},
+					"value": {
+						"value": "AWS"
+					},
+					"value": {
+						"value": "VMware vCD"
+					},
+					"value": {
+						"value": "OpenVIM"
+					},
+					"value": {
+						"value": "OpenNebula"
+					},
+					"value": {
+						"value": "Azure"
+					}
+				}
+			]
+		},
+		{
+			"name": "totalRAM",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "usedRAM",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "totalVCPUs",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "usedVCPUs",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "totalInstances",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "usedInstances",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "totalVolumes",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "usedVolumes",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "totalVolumeSnapshots",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "usedVolumeSnapshots",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "totalVolumeStorage",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "freeVolumeStorage",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "totalNetworks",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "usedNetworks",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "totalSubnets",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "usedSubnets",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "schemaType",
+			"configurable": false,
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		}
+	]
+}

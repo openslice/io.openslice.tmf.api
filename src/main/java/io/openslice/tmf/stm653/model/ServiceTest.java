@@ -24,24 +24,22 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A service test is an entity that exists for a controlled test invocation on a
@@ -49,9 +47,9 @@ import io.swagger.annotations.ApiModelProperty;
  * service test configuration parameters that are to be applied at execution
  * time, and service test measures that result.
  */
-@ApiModel(description = "A service test is an entity that exists for a controlled test invocation on a service. The service  test is executed according to a schedule and contains service test configuration parameters that are to be  applied at execution time, and service test measures that result.")
+@Schema(description = "A service test is an entity that exists for a controlled test invocation on a service. The service  test is executed according to a schedule and contains service test configuration parameters that are to be  applied at execution time, and service test measures that result.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMServiceTest")
 @Table(name = "STMServiceTest")
 public class ServiceTest extends BaseEntity {
@@ -113,7 +111,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -133,7 +131,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of the service test")
+	@Schema(description = "Description of the service test")
 
 	public String getDescription() {
 		return description;
@@ -162,7 +160,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return endDateTime
 	 **/
-	@ApiModelProperty(value = "The end date and time of the service test")
+	@Schema(description = "The end date and time of the service test")
 
 	@Valid
 	public OffsetDateTime getEndDateTime() {
@@ -184,7 +182,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return mode
 	 **/
-	@ApiModelProperty(value = "An indication of whether the service test is running in  \"PROACTIVE\" or \"ONDEMAND\" mode")
+	@Schema(description = "An indication of whether the service test is running in  \"PROACTIVE\" or \"ONDEMAND\" mode")
 
 	public String getMode() {
 		return mode;
@@ -204,7 +202,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "The name of the service test")
+	@Schema(description = "The name of the service test")
 
 	public String getName() {
 		return name;
@@ -224,7 +222,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return startDateTime
 	 **/
-	@ApiModelProperty(value = "The start date and time of the service test.")
+	@Schema(description = "The start date and time of the service test.")
 
 	@Valid
 	public OffsetDateTime getStartDateTime() {
@@ -254,7 +252,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "The actual state the service test is in")
+	@Schema(description = "The actual state the service test is in")
 
 	public String getState() {
 		return state;
@@ -282,7 +280,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return characteristic
 	 **/
-	@ApiModelProperty(value = "List of characteristics with values that define the test run")
+	@Schema(description = "List of characteristics with values that define the test run")
 	@Valid
 	public Set<Characteristic> getCharacteristic() {
 		return characteristic;
@@ -310,7 +308,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "Party related to the test")
+	@Schema(description = "Party related to the test")
 	@Valid
 	public Set<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -330,7 +328,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return relatedService
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ServiceRef getRelatedService() {
@@ -359,7 +357,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return testMeasure
 	 **/
-	@ApiModelProperty(value = "The results of the test in terms of the measured metrics")
+	@Schema(description = "The results of the test in terms of the measured metrics")
 	@Valid
 	public Set<TestMeasure> getTestMeasure() {
 		return testMeasure;
@@ -379,7 +377,7 @@ public class ServiceTest extends BaseEntity {
 	 * 
 	 * @return testSpecification
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ServiceTestSpecificationRef getTestSpecification() {
@@ -457,5 +455,14 @@ public class ServiceTest extends BaseEntity {
 			return "null";
 		}
 		return o.toString().replace("\n", "\n    ");
+	}
+
+	public Characteristic getCharacteristicByName(@NotNull String name) {
+		for (Characteristic c : this.characteristic) {
+			if ( c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

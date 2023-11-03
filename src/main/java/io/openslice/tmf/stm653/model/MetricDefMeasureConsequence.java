@@ -21,25 +21,23 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * A MetricDefMeasureConsequence defines the action (prescribed action or notification) to take when a  MetricDefMeasureThresholdRule is crossed.
  */
-@ApiModel(description = "A MetricDefMeasureConsequence defines the action (prescribed action or notification) to take when a  MetricDefMeasureThresholdRule is crossed.")
+@Schema(description = "A MetricDefMeasureConsequence defines the action (prescribed action or notification) to take when a  MetricDefMeasureThresholdRule is crossed.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Entity(name = "STMMetricDefMeasrConseq")
 @Table(name = "STMMetricDefMeasrConseq")
@@ -68,7 +66,7 @@ public class MetricDefMeasureConsequence  extends BaseRootNamedEntity {
    * A narrative that explains in detail what the consequence is.
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail what the consequence is.")
+  @Schema(description = "A narrative that explains in detail what the consequence is.")
   
     public String getDescription() {
     return description;
@@ -87,7 +85,7 @@ public class MetricDefMeasureConsequence  extends BaseRootNamedEntity {
    * A word, term, or phrase by which a  MetricDefMeasureConsequence is known and distinguished from other MetricDefMeasureConsequences.
    * @return name
   **/
-  @ApiModelProperty(value = "A word, term, or phrase by which a  MetricDefMeasureConsequence is known and distinguished from other MetricDefMeasureConsequences.")
+  @Schema(description = "A word, term, or phrase by which a  MetricDefMeasureConsequence is known and distinguished from other MetricDefMeasureConsequences.")
   
     public String getName() {
     return name;
@@ -106,7 +104,7 @@ public class MetricDefMeasureConsequence  extends BaseRootNamedEntity {
    * Recommended remedy for a violated threshold. This could be  the hyperlink to the action.
    * @return prescribeAction
   **/
-  @ApiModelProperty(value = "Recommended remedy for a violated threshold. This could be  the hyperlink to the action.")
+  @Schema(description = "Recommended remedy for a violated threshold. This could be  the hyperlink to the action.")
   
     public String getPrescribeAction() {
     return prescribeAction;
@@ -125,7 +123,7 @@ public class MetricDefMeasureConsequence  extends BaseRootNamedEntity {
    * An indicator used to specify that a consequence should cease  being applied if a value is in the same range as the previous value or continue being applied if a value is in the same range as the previous value.  If the repeatAction is True, if the consequence is always applied as soon as the MetricMeasure value is in the range of values and if the repeatAction is False, the consequence is applied only if the previous MetricMeasure value was not in the same range.
    * @return repeatAction
   **/
-  @ApiModelProperty(value = "An indicator used to specify that a consequence should cease  being applied if a value is in the same range as the previous value or continue being applied if a value is in the same range as the previous value.  If the repeatAction is True, if the consequence is always applied as soon as the MetricMeasure value is in the range of values and if the repeatAction is False, the consequence is applied only if the previous MetricMeasure value was not in the same range.")
+  @Schema(description = "An indicator used to specify that a consequence should cease  being applied if a value is in the same range as the previous value or continue being applied if a value is in the same range as the previous value.  If the repeatAction is True, if the consequence is always applied as soon as the MetricMeasure value is in the range of values and if the repeatAction is False, the consequence is applied only if the previous MetricMeasure value was not in the same range.")
   
     public Boolean isRepeatAction() {
     return repeatAction;
@@ -144,7 +142,7 @@ public class MetricDefMeasureConsequence  extends BaseRootNamedEntity {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TimePeriod getValidFor() {

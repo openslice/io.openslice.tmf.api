@@ -27,28 +27,25 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.scm633.model.ServiceSpecCharRelationship;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * This class defines a characteristic specification.
  */
-@ApiModel(description = "This class defines a characteristic specification.")
+@Schema(description = "This class defines a characteristic specification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMCharactSpec")
 @Table(name = "STMCharactSpec")
 public class CharacteristicSpecification extends BaseRootNamedEntity {
@@ -141,7 +138,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique ID for the characteristic")
+	@Schema(description = "Unique ID for the characteristic")
 	/**
 	 * @return the id
 	 */
@@ -160,7 +157,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return configurable
 	 **/
-	@ApiModelProperty(value = "If true, the Boolean indicates that the target Characteristic is configurable")
+	@Schema(description = "If true, the Boolean indicates that the target Characteristic is configurable")
 
 	public Boolean isConfigurable() {
 		return configurable;
@@ -180,7 +177,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A narrative that explains the CharacteristicSpecification.")
+	@Schema(description = "A narrative that explains the CharacteristicSpecification.")
 
 	public String getDescription() {
 		return description;
@@ -202,7 +199,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return extensible
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.")
+	@Schema(description = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.")
 
 	public Boolean isExtensible() {
 		return extensible;
@@ -224,7 +221,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return isUnique
 	 **/
-	@ApiModelProperty(value = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
+	@Schema(description = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
 
 	public Boolean isIsUnique() {
 		return isUnique;
@@ -246,7 +243,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return maxCardinality
 	 **/
-	@ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
+	@Schema(description = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
 
 	public Integer getMaxCardinality() {
 		return maxCardinality;
@@ -268,7 +265,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return minCardinality
 	 **/
-	@ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
+	@Schema(description = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
 
 	public Integer getMinCardinality() {
 		return minCardinality;
@@ -289,7 +286,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
+	@Schema(description = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
 
 	public String getName() {
 		return name;
@@ -310,7 +307,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return regex
 	 **/
-	@ApiModelProperty(value = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
+	@Schema(description = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
 
 	public String getRegex() {
 		return regex;
@@ -331,7 +328,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return valueType
 	 **/
-	@ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+	@Schema(description = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
 
 	public String getValueType() {
 		return valueType;
@@ -362,7 +359,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return charSpecRelationship
 	 **/
-	@ApiModelProperty(value = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
+	@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
 	@Valid
 	public Set<CharacteristicSpecificationRelationship> getCharSpecRelationship() {
 		return charSpecRelationship;
@@ -396,7 +393,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return characteristicValueSpecification
 	 **/
-	@ApiModelProperty(value = "A CharacteristicValueSpecification object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a CharacteristicSpecification object. The values of the attributes in the CharacteristicValueSpecification object describe the values of the attributes that a corresponding Characteristic object can take on.")
+	@Schema(description = "A CharacteristicValueSpecification object is used to define a set of attributes, each of which can be assigned to a corresponding set of attributes in a CharacteristicSpecification object. The values of the attributes in the CharacteristicValueSpecification object describe the values of the attributes that a corresponding Characteristic object can take on.")
 	@Valid
 	public Set<CharacteristicValueSpecification> getCharacteristicValueSpecification() {
 		return characteristicValueSpecification;
@@ -417,7 +414,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -439,7 +436,7 @@ public class CharacteristicSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return _atValueSchemaLocation
 	 **/
-	@ApiModelProperty(value = "This (optional) field provides a link to the schema describing the value type.")
+	@Schema(description = "This (optional) field provides a link to the schema describing the value type.")
 
 	public String getAtValueSchemaLocation() {
 		return _atValueSchemaLocation;

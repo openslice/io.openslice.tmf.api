@@ -20,25 +20,23 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * reference to an AssociationSpecification object
  */
-@ApiModel(description = "reference to an AssociationSpecification object")
+@Schema(description = "reference to an AssociationSpecification object")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMAssociationSpecificationRef")
 @Table(name = "STMAssociationSpecificationRef")
 public class AssociationSpecificationRef  extends BaseRootNamedEntity {
@@ -59,7 +57,7 @@ public class AssociationSpecificationRef  extends BaseRootNamedEntity {
    * unique identifier
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "unique identifier")
+  @Schema(description = "unique identifier")
       @NotNull
 
     public String getId() {
@@ -79,7 +77,7 @@ public class AssociationSpecificationRef  extends BaseRootNamedEntity {
    * Hyperlink reference
    * @return href
   **/
-  @ApiModelProperty(value = "Hyperlink reference")
+  @Schema(description = "Hyperlink reference")
   
     public String getHref() {
     return href;
@@ -98,7 +96,7 @@ public class AssociationSpecificationRef  extends BaseRootNamedEntity {
    * Name of the related entity.
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the related entity.")
+  @Schema(description = "Name of the related entity.")
   
     public String getName() {
     return name;
@@ -119,7 +117,7 @@ public class AssociationSpecificationRef  extends BaseRootNamedEntity {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

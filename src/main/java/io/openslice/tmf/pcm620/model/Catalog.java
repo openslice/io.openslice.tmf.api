@@ -25,32 +25,30 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 
 /**
  * A collection of Product Offerings, intended for a specific
  * DistributionChannel, enhanced with additional information such as SLA
  * parameters, invoicing and shipping details
  */
-@ApiModel(description = "A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details")
+@Schema(description = "A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity(name = "ProductCatalog")
 @Table(name = "ProductCatalog")
@@ -86,7 +84,7 @@ public class Catalog  extends BaseEntity {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "List of  categories associated with this catalog")
+	@Schema(description = "List of  categories associated with this catalog")
 	@Transient
 	@JsonProperty("category")
 	@Valid
@@ -137,7 +135,7 @@ public class Catalog  extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the Catalog")
+	@Schema(description = "Unique identifier of the Catalog")
 
 	public String getId() {
 		return uuid;
@@ -154,7 +152,7 @@ public class Catalog  extends BaseEntity {
 	 * 
 	 * @return catalogType
 	 **/
-	@ApiModelProperty(value = "Indicates if the catalog is a product, service or resource catalog")
+	@Schema(description = "Indicates if the catalog is a product, service or resource catalog")
 
 	public String getCatalogType() {
 		return catalogType;
@@ -186,7 +184,7 @@ public class Catalog  extends BaseEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "List of parties involved in this catalog")
+	@Schema(description = "List of parties involved in this catalog")
 
 	@Valid
 

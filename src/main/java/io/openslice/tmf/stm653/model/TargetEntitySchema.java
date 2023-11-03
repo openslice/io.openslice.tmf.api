@@ -20,26 +20,23 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * The reference object to the schema and type of target entity which is described by a specification
  */
-@ApiModel(description = "The reference object to the schema and type of target entity which is described by a specification")
+@Schema(description = "The reference object to the schema and type of target entity which is described by a specification")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 
 @Entity(name = "STMTargetEntitySchema")
@@ -60,7 +57,7 @@ public class TargetEntitySchema  extends BaseRootEntity  {
    * This field provides a link to the schema describing the target entity
    * @return schemaLocation
   **/
-  @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target entity")
+  @Schema(description = "This field provides a link to the schema describing the target entity")
       @NotNull
 
     public String getAtSchemaLocation() {
@@ -80,7 +77,7 @@ public class TargetEntitySchema  extends BaseRootEntity  {
    * Class type of the target entity
    * @return type
   **/
-  @ApiModelProperty(required = true, value = "Class type of the target entity")
+  @Schema(description = "Class type of the target entity")
       @NotNull
 
     public String getAtType() {

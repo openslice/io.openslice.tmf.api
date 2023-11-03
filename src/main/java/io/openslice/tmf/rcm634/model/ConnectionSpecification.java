@@ -1,32 +1,28 @@
 package io.openslice.tmf.rcm634.model;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 
-import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.openslice.tmf.rcm634.model.EndpointSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootNamedEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * A specification for an edge in a resource graph.
  */
-@ApiModel(description = "A specification for an edge in a resource graph.")
+@Schema(description = "A specification for an edge in a resource graph.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
 @Entity(name = "ConnectionSpec")
 public class ConnectionSpecification extends BaseRootNamedEntity {
 	@JsonProperty("id")
@@ -50,7 +46,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier for graph edge specification.")
+	@Schema(description = "Unique identifier for graph edge specification.")
 
 
 
@@ -68,7 +64,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -88,7 +84,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return associationType
 	 **/
-	@ApiModelProperty(required = true, value = "Association type.")
+	@Schema(description = "Association type.")
 	@NotNull
 
 	public String getAssociationType() {
@@ -109,7 +105,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Descriptive name for graph edge specification.")
+	@Schema(description = "Descriptive name for graph edge specification.")
 
 	public String getName() {
 		return name;
@@ -134,7 +130,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return endpointSpecification
 	 **/
-	@ApiModelProperty(required = true, value = "Specifications for resource graph vertices connected by this edge.")
+	@Schema(description = "Specifications for resource graph vertices connected by this edge.")
 	@NotNull
 	@Valid
 	@Size(min = 1)
@@ -156,7 +152,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return baseType;
@@ -177,7 +173,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return schemaLocation;
@@ -197,7 +193,7 @@ public class ConnectionSpecification extends BaseRootNamedEntity {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+	@Schema(description = "When sub-classing, this defines the sub-class Extensible name")
 
 	public String getAtType() {
 		return type;

@@ -20,10 +20,8 @@
 package io.openslice.tmf.pcm620.api;
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +31,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.pcm620.model.Catalog;
 import io.openslice.tmf.pcm620.model.CatalogCreate;
 import io.openslice.tmf.pcm620.model.CatalogUpdate;
 import io.openslice.tmf.pcm620.reposervices.ProductCatalogRepoService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Controller
 @RequestMapping("/productCatalogManagement/v4/")

@@ -24,23 +24,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Generic Account structure used to define commonalities between sub concepts of PartyAccount and Financial Account.
  */
-@ApiModel(description = "Generic Account structure used to define commonalities between sub concepts of PartyAccount and Financial Account.")
+@Schema(description = "Generic Account structure used to define commonalities between sub concepts of PartyAccount and Financial Account.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class Account   {
   @JsonProperty("id")
@@ -105,7 +103,7 @@ public class Account   {
    * Unique identifier of the account
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the account")
+  @Schema(description = "Unique identifier of the account")
 
 
   public String getId() {
@@ -125,7 +123,7 @@ public class Account   {
    * Unique reference of the account
    * @return href
   **/
-  @ApiModelProperty(value = "Unique reference of the account")
+  @Schema(description = "Unique reference of the account")
 
 
   public String getHref() {
@@ -145,7 +143,7 @@ public class Account   {
    * A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.
    * @return accountType
   **/
-  @ApiModelProperty(value = "A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.")
+  @Schema(description = "A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.")
 
 
   public String getAccountType() {
@@ -165,7 +163,7 @@ public class Account   {
    * Detailed description of the party account
    * @return description
   **/
-  @ApiModelProperty(value = "Detailed description of the party account")
+  @Schema(description = "Detailed description of the party account")
 
 
   public String getDescription() {
@@ -185,7 +183,7 @@ public class Account   {
    * Date of last modification of the account
    * @return lastModified
   **/
-  @ApiModelProperty(value = "Date of last modification of the account")
+  @Schema(description = "Date of last modification of the account")
 
   @Valid
 
@@ -206,7 +204,7 @@ public class Account   {
    * Name of the account
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "Name of the account")
+  @Schema(description = "Name of the account")
   @NotNull
 
 
@@ -227,7 +225,7 @@ public class Account   {
    * Contains the lifecycle state such as: Active, Closed, Suspended and so on.
    * @return state
   **/
-  @ApiModelProperty(value = "Contains the lifecycle state such as: Active, Closed, Suspended and so on.")
+  @Schema(description = "Contains the lifecycle state such as: Active, Closed, Suspended and so on.")
 
 
   public String getState() {
@@ -255,7 +253,7 @@ public class Account   {
    * Get accountBalance
    * @return accountBalance
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -284,7 +282,7 @@ public class Account   {
    * Get accountRelationship
    * @return accountRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -313,7 +311,7 @@ public class Account   {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -334,7 +332,7 @@ public class Account   {
    * The maximum amount of money that may be charged on an account
    * @return creditLimit
   **/
-  @ApiModelProperty(value = "The maximum amount of money that may be charged on an account")
+  @Schema(description = "The maximum amount of money that may be charged on an account")
 
   @Valid
 
@@ -363,7 +361,7 @@ public class Account   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -392,7 +390,7 @@ public class Account   {
    * Get taxExemption
    * @return taxExemption
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -413,7 +411,7 @@ public class Account   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -433,7 +431,7 @@ public class Account   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -453,7 +451,7 @@ public class Account   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

@@ -24,28 +24,26 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * A TestMeasure specifies a measure of a specific aspect of a product, service,
  * or resource test, such as lost packets or connectivity status
  */
-@ApiModel(description = "A TestMeasure specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status")
+@Schema(description = "A TestMeasure specifies a measure of a specific aspect of a product, service, or resource test, such as lost packets or connectivity status")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Entity(name = "STMTestMeasure")
 @Table(name = "STMTestMeasure")
@@ -89,7 +87,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return accuracy
 	 **/
-	@ApiModelProperty(value = "The number of digits of accuracy captured for associated Metrics")
+	@Schema(description = "The number of digits of accuracy captured for associated Metrics")
 
 	public Float getAccuracy() {
 		return accuracy;
@@ -109,7 +107,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return captureDateTime
 	 **/
-	@ApiModelProperty(value = "The date and time that the metric was captured")
+	@Schema(description = "The date and time that the metric was captured")
 
 	@Valid
 	public OffsetDateTime getCaptureDateTime() {
@@ -140,7 +138,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return captureMethod
 	 **/
-	@ApiModelProperty(value = "The method used to capture the Metrics (This may be replaced by a set of entities similar to the Performance Monitoring Ref)")
+	@Schema(description = "The method used to capture the Metrics (This may be replaced by a set of entities similar to the Performance Monitoring Ref)")
 
 	public String getCaptureMethod() {
 		return captureMethod;
@@ -160,7 +158,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return metricDescription
 	 **/
-	@ApiModelProperty(value = "Brief description of the metric")
+	@Schema(description = "Brief description of the metric")
 
 	public String getMetricDescription() {
 		return metricDescription;
@@ -180,7 +178,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return metricHref
 	 **/
-	@ApiModelProperty(value = "Hyperlink to access a metric for detail information")
+	@Schema(description = "Hyperlink to access a metric for detail information")
 
 	public String getMetricHref() {
 		return metricHref;
@@ -200,7 +198,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return metricName
 	 **/
-	@ApiModelProperty(value = "The name of the metric")
+	@Schema(description = "The name of the metric")
 
 	public String getMetricName() {
 		return metricName;
@@ -221,7 +219,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return unitOfMeasure
 	 **/
-	@ApiModelProperty(value = "The unit of measure for the metric values, such as meters, cubic yards, kilograms [ISO 1000].")
+	@Schema(description = "The unit of measure for the metric values, such as meters, cubic yards, kilograms [ISO 1000].")
 
 	public String getUnitOfMeasure() {
 		return unitOfMeasure;
@@ -249,7 +247,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return ruleViolation
 	 **/
-	@ApiModelProperty(value = "A list of rules that were violated in this test measure")
+	@Schema(description = "A list of rules that were violated in this test measure")
 	@Valid
 	public Set<MeasureThresholdRuleViolation> getRuleViolation() {
 		return ruleViolation;
@@ -269,7 +267,7 @@ public class TestMeasure extends BaseRootEntity {
 	 * 
 	 * @return value
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public Characteristic getValue() {

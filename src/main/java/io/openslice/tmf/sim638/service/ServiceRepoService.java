@@ -20,19 +20,17 @@
 package io.openslice.tmf.sim638.service;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,10 +42,8 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-
+import io.openslice.model.DeploymentDescriptor;
+import io.openslice.model.DeploymentDescriptorVxFInstanceInfo;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Characteristic;
@@ -59,7 +55,7 @@ import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.scm633.reposervices.ServiceSpecificationRepoService;
-import io.openslice.tmf.sim638.api.ServiceApiRouteBuilder;
+import io.openslice.tmf.sim638.api.ServiceApiRouteBuilderEvents;
 import io.openslice.tmf.sim638.model.Service;
 import io.openslice.tmf.sim638.model.ServiceActionQueueAction;
 import io.openslice.tmf.sim638.model.ServiceActionQueueItem;
@@ -75,6 +71,8 @@ import io.openslice.tmf.sim638.model.ServiceUpdate;
 import io.openslice.tmf.sim638.repo.ServiceActionQueueRepository;
 import io.openslice.tmf.sim638.repo.ServiceRepository;
 import io.openslice.tmf.so641.model.ServiceOrder;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 
 
@@ -98,7 +96,7 @@ public class ServiceRepoService {
 	private SessionFactory  sessionFactory;
 
 	@Autowired
-	ServiceApiRouteBuilder serviceApiRouteBuilder;
+	ServiceApiRouteBuilderEvents serviceApiRouteBuilder;
 	
 	@Autowired
 	public ServiceRepoService(EntityManagerFactory factory) {
@@ -125,7 +123,6 @@ public class ServiceRepoService {
 					+ "srv.serviceDate as serviceDate,"
 					+ "srv.name as name,"
 					+ "srv.startDate as startDate,"
-					+ "srv.category as category,"
 					+ "srv.category as category,"
 					+ "srv.state as state,"
 					+ "srv.startMode as startMode,"
@@ -343,11 +340,12 @@ public class ServiceRepoService {
 	}
 
 	@Transactional
-	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO ) {
-		Service service = this.findByUuid(id);
+	public Service updateService(String id, @Valid ServiceUpdate servUpd, boolean propagateToSO, Service updatedFromParentService, Service updatedFromChildService ) {
+		//Service service = this.findByUuid(id);
+		Service service = this.getServiceEager(id);
+		
 		
 		if ( service == null ) {
-
 			logger.error("Service cannot be found in registry, UUID: " + id  );
 			return null;
 		}
@@ -448,8 +446,17 @@ public class ServiceRepoService {
 				}
 			}						
 		}
-		
+
 		boolean serviceCharacteristicChanged = false;
+		boolean serviceCharacteristicChangedContainsPrimitive = false;
+		
+		String charChangedForNotes = "";
+		List<Characteristic> childCharacteristicsChanged = new ArrayList<>();
+		
+
+		//logger.info("==> Will update serviceToString: " + service.toString() );
+		
+		
 		if ( servUpd.getServiceCharacteristic()!=null ) {
 			for (Characteristic n : servUpd.getServiceCharacteristic()) {
 				
@@ -457,8 +464,17 @@ public class ServiceRepoService {
 						
 						Characteristic origChar = service.getServiceCharacteristicByName( n.getName() );
 						if ( ( origChar !=null ) && ( origChar.getValue() !=null ) && ( origChar.getValue().getValue() !=null )) {
-							if ( !origChar.getValue().getValue().equals(n.getValue().getValue()) ) {
-								serviceCharacteristicChanged = true;								
+							if ( !origChar.getValue().getValue().equals(n.getValue().getValue()) ) {									
+								if ( n.getName().contains("::") ) {
+									childCharacteristicsChanged.add(n); //the characteristic needs later to be propagated to its children
+									
+								}
+								serviceCharacteristicChanged = true; //change only characteristics of this service
+								charChangedForNotes += n.getName(); 
+								if ( n.getName().toUpperCase().contains(  "PRIMITIVE::" ) ){
+									serviceCharacteristicChangedContainsPrimitive = true;
+								}
+								
 							}
 						}
 						
@@ -468,6 +484,7 @@ public class ServiceRepoService {
 					} else {
 						service.addServiceCharacteristicItem(n);
 						serviceCharacteristicChanged = true;	
+						charChangedForNotes += n.getName() + ", "; 
 					}
 				
 			}						
@@ -506,11 +523,20 @@ public class ServiceRepoService {
 
 		if (stateChanged) {
 			Note noteItem = new Note();
-			noteItem.setText("Service " + service.getState() );
+			noteItem.setText("Service is " + service.getState() );
 			noteItem.setAuthor("API");
 			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
 			service.addNoteItem(noteItem);		
 		}
+		
+		if (serviceCharacteristicChanged) {
+			Note noteItem = new Note();
+			noteItem.setText("Service Characteristic changed: " + charChangedForNotes );
+			noteItem.setAuthor("API");
+			noteItem.setDate(OffsetDateTime.now(ZoneOffset.UTC) );
+			service.addNoteItem(noteItem);		
+		}
+		
 			
 		
 		service = this.serviceRepo.save( service );
@@ -521,8 +547,7 @@ public class ServiceRepoService {
 		 * Save in ServiceActionQueueItem
 		 */
 		
-		if ( propagateToSO ) {
-			if (stateChanged || serviceCharacteristicChanged) {
+			if (propagateToSO && stateChanged) {
 				ServiceActionQueueItem saqi = new ServiceActionQueueItem();
 				saqi.setServiceRefId( id );
 				saqi.setOriginalServiceInJSON( originaServiceAsJson );
@@ -533,13 +558,12 @@ public class ServiceRepoService {
 						saqi.setAction( ServiceActionQueueAction.TERMINATE );		
 					}
 					
-				} else {
-					saqi.setAction( ServiceActionQueueAction.MODIFY );
 				}
 				
-				this.addServiceActionQueueItem(saqi);
-			}			
-		}
+				if ( saqi.getAction() != ServiceActionQueueAction.NONE  ) {
+					this.addServiceActionQueueItem(saqi);					
+				}
+			}		
 		
 		
 //		//here on any state change of a Service we must send an ActionQueueItem that reflects the state changed with the Action  
@@ -561,28 +585,94 @@ public class ServiceRepoService {
 			saqi.setServiceRefId( id );
 			saqi.setOriginalServiceInJSON( originaServiceAsJson );		
 			saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED  );	
+			if ( serviceCharacteristicChangedContainsPrimitive ) {
+				saqi.setAction( ServiceActionQueueAction.EVALUATE_CHARACTERISTIC_CHANGED_MANODAY2  );					
+			}
+			
+			
+			
 			this.addServiceActionQueueItem(saqi);
 			
+			/*
+			 * Update any parent service
+			 */
+			for (ServiceRelationship serviceRelationship : service.getServiceRelationship()) {
+				if ( serviceRelationship.getRelationshipType().equals("ChildService") ) {
+					if ( serviceRelationship.getService() != null ) {
+						if ( updatedFromParentService == null ||
+								(updatedFromParentService!=null && !updatedFromParentService.getId().equals(serviceRelationship.getService().getId())) ) { //avoid circular
+							propagateCharacteristicsToParentService(service, serviceRelationship.getService().getId());
+						}
+							
+					}
+				}
+			}			
 		}
 		
-		/*
-		 * Update any parent service
-		 */
-		for (ServiceRelationship serviceRelationship : service.getServiceRelationship()) {
-			if ( serviceRelationship.getRelationshipType().equals("ChildService") ) {
-				if ( serviceRelationship.getService() != null ) {
-						propagateCharacteristicsToParentService(service, serviceRelationship.getService().getId());	
+		if ( childCharacteristicsChanged.size()>0 ) {
+			if ( service.getSupportingService() != null ) { //propagate to children
+				//copy characteristics values from CFS Service  to its supporting services.
+				for (ServiceRef sref : service.getSupportingService() ) {
+					Service aSupportingService = this.findByUuid( sref.getId() );
+					ServiceUpdate supd = new ServiceUpdate();
+					boolean foundCharacteristicForChild = false;
+					for (Characteristic supportingServiceChar : aSupportingService.getServiceCharacteristic() ) {
+						
+						for (Characteristic serviceCharacteristic : childCharacteristicsChanged ) {
+							if ( serviceCharacteristic.getName().contains( aSupportingService.getName() + "::" + supportingServiceChar.getName() )) { 									
+								//supportingServiceChar.setValue( serviceCharacteristic.getValue() );
+								Characteristic cNew = new Characteristic();
+								cNew.setName(supportingServiceChar.getName());
+								cNew.value( new Any( serviceCharacteristic.getValue() ));
+								supd.addServiceCharacteristicItem( cNew );
+								foundCharacteristicForChild = true;
+							}
+						}
+					}					
+					
+					if ( foundCharacteristicForChild ) {
+						Note n = new Note();
+						n.setText("Child Characteristics Changed"  );
+						n.setAuthor( "SIM638-API" );
+						n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+						supd.addNoteItem( n );					
+						if ( updatedFromChildService == null || 
+								(updatedFromChildService!=null && !updatedFromChildService.getId().equals( aSupportingService.getId())) ) { //avoid circular
+							this.updateService( aSupportingService.getId(), supd , false, service, null); //update the service							
+						} 
+					}
 				}
+				
 			}
 		}
+		
+		
 		
 		/**
 		 * notify hub
 		 */
 		if (stateChanged) {
 			raiseServiceStateChangedNotification( service );			
-		} else {
+		} else if ( serviceCharacteristicChanged ) {
 			raiseServiceAttributeValueChangedNotification( service );
+		}
+		
+		
+		Characteristic schart = service.getServiceCharacteristicByName("long_string");
+
+		if ( schart!= null ) {
+			String teest = schart.getValue().getValue();
+			logger.info("schart size = " + teest.length() );
+			
+			logger.info("schart " + teest );
+			System.out.println("The value is : \n " + teest);
+//			try (PrintWriter out = new PrintWriter("C:\\tranoris\\ctranup\\personal\\Invoices\\filename.txt")) {
+//			    out.println( teest );
+//			} catch (FileNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			logger.info("======================================================================================================");			
 		}
 		
 		return service;
@@ -603,19 +693,33 @@ public class ServiceRepoService {
 			servUpd.addServiceCharacteristicItem(serviceCharacteristicItem);
 		}
 		
-		this.updateService( parentServiceId, servUpd, false);
+		this.updateService( parentServiceId, servUpd, false, null, childService);
 	}
 
 	public String getServiceEagerAsString(String id) throws JsonProcessingException {
 		Service s = this.getServiceEager(id);
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new Hibernate5Module());
+		mapper.registerModule(new Hibernate5JakartaModule());
 		String res = mapper.writeValueAsString(s);
 
+
+		Characteristic schart = s.getServiceCharacteristicByName("long_string");
+
+		if ( schart!= null ) {
+			String teest = schart.getValue().getValue();
+			logger.info("schart size = " + teest.length() );
+			
+			logger.info("schart " + teest );
+			logger.info("======================================================================================================");			
+		}
+		
 		return res;
 	}
 	
 	public Service getServiceEager(String id) {
+		if ( id == null || id.equals("")) {
+			return null;
+		}
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		Service s = null;
@@ -633,6 +737,7 @@ public class ServiceRepoService {
 			Hibernate.initialize(s.getServiceSpecificationRef() );
 			Hibernate.initialize(s.getSupportingService() );
 			Hibernate.initialize(s.getSupportingResource()  );
+			Hibernate.initialize(s.getPlace()  );
 			
 			tx.commit();
 		} finally {
@@ -679,7 +784,7 @@ public class ServiceRepoService {
 	 */
 	public List<ServiceActionQueueItem> findAllServiceActionQueueItems() {
 
-		return (List<ServiceActionQueueItem>) this.serviceActionQueueRepo.findAll();
+		return (List<ServiceActionQueueItem>) this.serviceActionQueueRepo.findByOrderByInsertedDate();
 	}
 	
 	public ServiceActionQueueItem  addServiceActionQueueItem(@Valid ServiceActionQueueItem item) {
@@ -758,6 +863,61 @@ public class ServiceRepoService {
 
 		return (List<Service>) this.serviceRepo.findByDeploymentRequestID( aDeploymentRequestID );
 
+	}
+	
+	
+	
+	
+	/**
+	 * @param item
+	 * @return
+	 */
+	@Transactional
+	public void  nfvCatalogNSResourceChanged(@Valid DeploymentDescriptor dd) {
+		String deploymentRequestID = dd.getId() + "";
+		logger.info("Will update nfvCatalogNSResourceChanged for deploymentRequestID = " + deploymentRequestID );
+		
+		var aservices = findDeploymentRequestID( deploymentRequestID );
+		for (Service as : aservices) {
+			
+			Service aService = findByUuid(as.getId()); 
+			
+			if ( aService.getState().equals( ServiceStateType.ACTIVE )  ) {
+				
+
+				ServiceUpdate supd = new ServiceUpdate();
+				
+				Characteristic cNewLCM = new Characteristic();
+				cNewLCM.setName("NSLCM" );
+				cNewLCM.value( new Any( dd.getNs_nslcm_details()  ));
+				supd.addServiceCharacteristicItem( cNewLCM );
+				
+				Characteristic cNewNSR = new Characteristic();
+				//cNewNSR.setUuid(null);
+				cNewNSR.setName("NSR" );
+				cNewNSR.value( new Any( dd.getNsr()  ));
+				supd.addServiceCharacteristicItem( cNewNSR );
+				
+				
+				
+				if ( dd.getDeploymentDescriptorVxFInstanceInfo() !=null ) {
+					for ( DeploymentDescriptorVxFInstanceInfo vnfinfo : dd.getDeploymentDescriptorVxFInstanceInfo() ) {							
+							Characteristic cNewMember = new Characteristic();
+							cNewMember.setName(  "VNFINDEXREF_INFO_" + vnfinfo.getMemberVnfIndexRef() );
+							cNewMember.value( new Any( vnfinfo.getVxfInstanceInfo()  + "" ));
+							supd.addServiceCharacteristicItem( cNewMember );
+					}					
+				}
+				
+				Note n = new Note();
+				n.setText("NS Resource LCM Changed"  );
+				n.setAuthor( "SIM638-API" );
+				n.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
+				supd.addNoteItem( n );					
+				
+				this.updateService( aService.getId(), supd , true, null, null); //update the service			
+			}
+		}
 	}
 
 

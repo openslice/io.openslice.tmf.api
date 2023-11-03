@@ -23,33 +23,31 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
 
 /**
  * Is a detailed description of a tangible or intangible object made available
  * externally in the form of a ProductOffering to customers or other parties
  * playing a party role.
  */
-@ApiModel(description = "Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
+@Schema(description = "Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity
 public class ProductSpecification extends BaseEntity {
@@ -118,7 +116,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the product specification")
+	@Schema(description = "Unique identifier of the product specification")
 
 	public String getId() {
 		if (uuid != null) {
@@ -134,7 +132,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return brand
 	 **/
-	@ApiModelProperty(value = "The manufacturer or trademark of the specification")
+	@Schema(description = "The manufacturer or trademark of the specification")
 
 	public String getBrand() {
 		return brand;
@@ -157,7 +155,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "isBundle determines whether a productSpecification represents a single productSpecification (false), or a bundle of productSpecification (true).")
+	@Schema(description = "isBundle determines whether a productSpecification represents a single productSpecification (false), or a bundle of productSpecification (true).")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -178,7 +176,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return productNumber
 	 **/
-	@ApiModelProperty(value = "An identification number assigned to uniquely identity the specification")
+	@Schema(description = "An identification number assigned to uniquely identity the specification")
 
 	public String getProductNumber() {
 		return productNumber;
@@ -208,7 +206,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "Complements the description of an element (for instance a product) through video, pictures...")
+	@Schema(description = "Complements the description of an element (for instance a product) through video, pictures...")
 
 	@Valid
 
@@ -242,7 +240,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return bundledProductSpecification
 	 **/
-	@ApiModelProperty(value = "A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.")
+	@Schema(description = "A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.")
 
 	@Valid
 
@@ -279,7 +277,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return productSpecCharacteristic
 	 **/
-	@ApiModelProperty(value = "A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
+	@Schema(description = "A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
 
 	@Valid
 
@@ -312,7 +310,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return productSpecificationRelationship
 	 **/
-	@ApiModelProperty(value = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
+	@Schema(description = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
 
 	@Valid
 
@@ -343,7 +341,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A related party defines party or party role linked to a specific entity.")
+	@Schema(description = "A related party defines party or party role linked to a specific entity.")
 
 	@Valid
 
@@ -373,7 +371,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return resourceSpecification
 	 **/
-	@ApiModelProperty(value = "The ResourceSpecification is required to realize a ProductSpecification.")
+	@Schema(description = "The ResourceSpecification is required to realize a ProductSpecification.")
 
 	@Valid
 
@@ -403,7 +401,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return serviceSpecification
 	 **/
-	@ApiModelProperty(value = "ServiceSpecification(s) required to realize a ProductSpecification.")
+	@Schema(description = "ServiceSpecification(s) required to realize a ProductSpecification.")
 
 	@Valid
 
@@ -426,7 +424,7 @@ public class ProductSpecification extends BaseEntity {
 	 * 
 	 * @return targetProductSchema
 	 **/
-	@ApiModelProperty(value = "A target product schema reference. The reference object to the schema and type of target product which is described by product specification.")
+	@Schema(description = "A target product schema reference. The reference object to the schema and type of target product which is described by product specification.")
 
 	@Valid
 

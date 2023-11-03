@@ -24,26 +24,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.am642.model.AckAlarms;
 import io.openslice.tmf.am642.model.AckAlarmsCreate;
-import io.openslice.tmf.am642.model.Alarm;
 import io.openslice.tmf.am642.reposervices.AckAlarmsRepoService;
-import io.openslice.tmf.am642.reposervices.AlarmRepoService;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 @Controller
 @RequestMapping("/alarmManagement/v4/")
 public class AckAlarmsApiController implements AckAlarmsApi {
@@ -74,7 +71,7 @@ public class AckAlarmsApiController implements AckAlarmsApi {
     }
     
     @Override
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<AckAlarms> createAckAlarms(@Valid AckAlarmsCreate body) {
     	try {
 
@@ -89,7 +86,7 @@ public class AckAlarmsApiController implements AckAlarmsApi {
     
     
     @Override
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<List<AckAlarms>> listAckAlarms(@Valid String fields, @Valid Integer offset,
     		@Valid Integer limit, Map<String, String> allParams) {
     	try {
@@ -121,7 +118,7 @@ public class AckAlarmsApiController implements AckAlarmsApi {
     }
     
     @Override
-	@Secured({ "ROLE_ADMIN" })
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
     public ResponseEntity<AckAlarms> retrieveAckAlarms(String id, @Valid String fields) {
     	try {
 

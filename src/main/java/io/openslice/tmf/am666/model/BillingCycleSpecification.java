@@ -21,23 +21,21 @@ package io.openslice.tmf.am666.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A detailed description of when to initiate a billing cycle and the various sub steps of a billing cycle.
  */
-@ApiModel(description = "A detailed description of when to initiate a billing cycle and the various sub steps of a billing cycle.")
+@Schema(description = "A detailed description of when to initiate a billing cycle and the various sub steps of a billing cycle.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class BillingCycleSpecification   {
   @JsonProperty("id")
@@ -94,7 +92,7 @@ public class BillingCycleSpecification   {
    * Unique identifier of the billing cycle specification
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the billing cycle specification")
+  @Schema(description = "Unique identifier of the billing cycle specification")
 
 
   public String getId() {
@@ -114,7 +112,7 @@ public class BillingCycleSpecification   {
    * Reference of the billing cycle specification
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the billing cycle specification")
+  @Schema(description = "Reference of the billing cycle specification")
 
 
   public String getHref() {
@@ -134,7 +132,7 @@ public class BillingCycleSpecification   {
    * An offset of a billing/settlement date. The offset is expressed as number of days with regard to the start of the billing/settlement period.
    * @return billingDateShift
   **/
-  @ApiModelProperty(value = "An offset of a billing/settlement date. The offset is expressed as number of days with regard to the start of the billing/settlement period.")
+  @Schema(description = "An offset of a billing/settlement date. The offset is expressed as number of days with regard to the start of the billing/settlement period.")
 
 
   public Integer getBillingDateShift() {
@@ -154,7 +152,7 @@ public class BillingCycleSpecification   {
    * A billing time period. It can be recurring, for example: week, month, quarter of year, year .
    * @return billingPeriod
   **/
-  @ApiModelProperty(value = "A billing time period. It can be recurring, for example: week, month, quarter of year, year .")
+  @Schema(description = "A billing time period. It can be recurring, for example: week, month, quarter of year, year .")
 
 
   public String getBillingPeriod() {
@@ -174,7 +172,7 @@ public class BillingCycleSpecification   {
    * An offset of a date through which charges previously received by the billing system will appear on the bill. The offset is expressed as number of days with regard to the start of the BillingPeriod.
    * @return chargeDateOffset
   **/
-  @ApiModelProperty(value = "An offset of a date through which charges previously received by the billing system will appear on the bill. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
+  @Schema(description = "An offset of a date through which charges previously received by the billing system will appear on the bill. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
 
 
   public Integer getChargeDateOffset() {
@@ -194,7 +192,7 @@ public class BillingCycleSpecification   {
    * An offset of a date through which credits previously received by the billing system will appear on the bill. The offset is expressed as number of days with regard to the start of the BillingPeriod.
    * @return creditDateOffset
   **/
-  @ApiModelProperty(value = "An offset of a date through which credits previously received by the billing system will appear on the bill. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
+  @Schema(description = "An offset of a date through which credits previously received by the billing system will appear on the bill. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
 
 
   public Integer getCreditDateOffset() {
@@ -214,7 +212,7 @@ public class BillingCycleSpecification   {
    * An explanation regarding this billing cycle specification
    * @return description
   **/
-  @ApiModelProperty(value = "An explanation regarding this billing cycle specification")
+  @Schema(description = "An explanation regarding this billing cycle specification")
 
 
   public String getDescription() {
@@ -234,7 +232,7 @@ public class BillingCycleSpecification   {
    * Frequency of the billing cycle (monthly for instance)
    * @return frequency
   **/
-  @ApiModelProperty(value = "Frequency of the billing cycle (monthly for instance)")
+  @Schema(description = "Frequency of the billing cycle (monthly for instance)")
 
 
   public String getFrequency() {
@@ -254,7 +252,7 @@ public class BillingCycleSpecification   {
    * An offset of a customer bill mailing date. The offset is expressed as number of days with regard to the start of the BillingPeriod.
    * @return mailingDateOffset
   **/
-  @ApiModelProperty(value = "An offset of a customer bill mailing date. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
+  @Schema(description = "An offset of a customer bill mailing date. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
 
 
   public Integer getMailingDateOffset() {
@@ -274,7 +272,7 @@ public class BillingCycleSpecification   {
    * A short descriptive name
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "A short descriptive name")
+  @Schema(description = "A short descriptive name")
   @NotNull
 
 
@@ -295,7 +293,7 @@ public class BillingCycleSpecification   {
    * An offset of a payment due date. The offset is expressed as number of days with regard to the start of the BillingPeriod.
    * @return paymentDueDateOffset
   **/
-  @ApiModelProperty(value = "An offset of a payment due date. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
+  @Schema(description = "An offset of a payment due date. The offset is expressed as number of days with regard to the start of the BillingPeriod.")
 
 
   public Integer getPaymentDueDateOffset() {
@@ -315,7 +313,7 @@ public class BillingCycleSpecification   {
    * The period for which the billing specification cycle is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the billing specification cycle is valid")
+  @Schema(description = "The period for which the billing specification cycle is valid")
 
   @Valid
 
@@ -336,7 +334,7 @@ public class BillingCycleSpecification   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -356,7 +354,7 @@ public class BillingCycleSpecification   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -376,7 +374,7 @@ public class BillingCycleSpecification   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

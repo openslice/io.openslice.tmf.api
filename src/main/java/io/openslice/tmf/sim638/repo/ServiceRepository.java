@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +32,7 @@ import io.openslice.tmf.sim638.model.Service;
 
 
 @Repository
-public interface ServiceRepository extends PagingAndSortingRepository<Service, Long> {
+public interface ServiceRepository extends CrudRepository<Service, Long>,  PagingAndSortingRepository<Service, Long> {
 
 	
 	Optional<Service> findByUuid(String id);
@@ -39,8 +40,7 @@ public interface ServiceRepository extends PagingAndSortingRepository<Service, L
 	@Query("SELECT srv FROM Service srv JOIN FETCH srv.relatedParty rp WHERE rp.name = ?1")	
 	Iterable<Service> findByRolename(String name);
 
-	@Query("SELECT srv FROM Service srv  WHERE srv.state = io.openslice.tmf.common.model.service.ServiceStateType.ACTIVE AND "
-			+ "srv.endDate < CURRENT_TIMESTAMP")	
+	@Query("SELECT srv FROM Service srv  WHERE ( srv.state != io.openslice.tmf.common.model.service.ServiceStateType.TERMINATED ) AND srv.endDate < CURRENT_TIMESTAMP")	
 	List<Service> findActiveToTerminate();
 
 	@Query("SELECT srv FROM Service srv "
@@ -49,8 +49,9 @@ public interface ServiceRepository extends PagingAndSortingRepository<Service, L
 			+ "WHERE char.name = 'DeploymentRequestID' AND "
 			+ " val.value = ?1 " )	
 	List<Service> findByDeploymentRequestID(String aDeploymentRequestID);
-
-	@Query("SELECT srv FROM Service srv "
+	
+	
+		@Query("SELECT srv FROM Service srv "
 			+ "JOIN FETCH srv.serviceCharacteristic char "
 			+ "JOIN FETCH char.value val "
 			+ "WHERE (srv.state = io.openslice.tmf.common.model.service.ServiceStateType.ACTIVE OR "

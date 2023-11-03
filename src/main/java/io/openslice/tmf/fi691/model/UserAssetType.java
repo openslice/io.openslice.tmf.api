@@ -19,33 +19,29 @@
  */
 package io.openslice.tmf.fi691.model;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import io.openslice.tmf.common.model.BaseRootEntity;
-import io.openslice.tmf.fi691.model.EntitlementType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import io.openslice.tmf.common.model.BaseRootEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * UserAssetType
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Entity(name = "UserAssetType")
 public class UserAssetType extends BaseRootEntity {
@@ -157,7 +153,7 @@ public class UserAssetType extends BaseRootEntity {
 	 * 
 	 * @return entityType
 	 **/
-	@ApiModelProperty(required = true, value = "Type of managed entity (e.g.: product, resource, service, customer, account)")
+	@Schema(description = "Type of managed entity (e.g.: product, resource, service, customer, account)")
 	@NotNull
 
 	public EntityTypeEnum getEntityType() {
@@ -183,7 +179,7 @@ public class UserAssetType extends BaseRootEntity {
 	 * 
 	 * @return assetType
 	 **/
-	@ApiModelProperty(value = "Second level to define the type of managed element for product/service/resource managed entities (e.g.: mobile line subscription, video platform license, mobile equipment, etc). Allows identifying the specific asset within the server referenced. Supported values are implementation and application specific. Other values can be added if those listed are not enough")
+	@Schema(description = "Second level to define the type of managed element for product/service/resource managed entities (e.g.: mobile line subscription, video platform license, mobile equipment, etc). Allows identifying the specific asset within the server referenced. Supported values are implementation and application specific. Other values can be added if those listed are not enough")
 
 	public AssetTypeEnum getAssetType() {
 		return assetType;
@@ -204,7 +200,7 @@ public class UserAssetType extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "Unique identifier of referenced entity within the entity/asset pair (customerId, accountId, mobile line number, ...)")
+	@Schema(description = "Unique identifier of referenced entity within the entity/asset pair (customerId, accountId, mobile line number, ...)")
 	@NotNull
 
 	public String getId() {
@@ -226,7 +222,7 @@ public class UserAssetType extends BaseRootEntity {
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(value = "Represents the part played by an individual in relation to being granted a set of entitlements for manageable assets (e.g.: owner, user, viewer, ...)")
+	@Schema(description = "Represents the part played by an individual in relation to being granted a set of entitlements for manageable assets (e.g.: owner, user, viewer, ...)")
 
 	public String getRole() {
 		return role;
@@ -255,7 +251,7 @@ public class UserAssetType extends BaseRootEntity {
 	 * 
 	 * @return entitlement
 	 **/
-	@ApiModelProperty(value = "information about individual entitlements to define access levels to operate over different functions that can be defined in an asset")
+	@Schema(description = "information about individual entitlements to define access levels to operate over different functions that can be defined in an asset")
 
 	@Valid
 

@@ -21,19 +21,14 @@ package io.openslice.tmf.common.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 
 /**
  * 
@@ -65,7 +60,7 @@ public class BaseRootNamedEntity  extends BaseRootEntity{
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the entity")
+	@Schema(description = "Name of the entity")
 
 	public String getName() {
 		return name;

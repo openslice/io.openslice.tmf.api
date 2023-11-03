@@ -19,35 +19,30 @@
  */
 package io.openslice.tmf.pm632.api;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.model.UserRoleType;
 import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.pm632.model.OrganizationCreate;
 import io.openslice.tmf.pm632.model.OrganizationUpdate;
 import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
-import io.swagger.annotations.ApiParam;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Controller
 @RequestMapping("/party/v4/")
@@ -75,8 +70,8 @@ public class OrganizationApiController implements OrganizationApi {
     @Autowired
 	OrganizationRepoService organizationRepoService;
 
-	@Secured({ "ROLE_ADMIN" })
-	public ResponseEntity<List<Organization>> listOrganization(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
+	public ResponseEntity<List<Organization>> listOrganization(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 	
 		
 		
@@ -107,8 +102,8 @@ public class OrganizationApiController implements OrganizationApi {
     }
 	
 
-	@Secured({ "ROLE_ADMIN" })
-	  public ResponseEntity<Organization> retrieveOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
+	  public ResponseEntity<Organization> retrieveOrganization(@Parameter(description = "Identifier of the Organization",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
 
 
 			try {
@@ -139,11 +134,12 @@ public class OrganizationApiController implements OrganizationApi {
 	    }
     
 
-	@Secured({ "ROLE_ADMIN" })
-	public ResponseEntity<Organization> createOrganization(
-			@ApiParam(value = "The Organization to be created", required = true) @Valid @RequestBody OrganizationCreate organization) {
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
+	public ResponseEntity<Organization> createOrganization( Principal principal,	
+			@Parameter(description = "The Organization to be created", required = true) @Valid @RequestBody OrganizationCreate organization) {
 
 		try {
+			log.info("principal=  " + principal.toString());
 			Organization c = organizationRepoService.addOrganization(organization);
 
 			return new ResponseEntity<Organization>(c, HttpStatus.OK);
@@ -156,8 +152,8 @@ public class OrganizationApiController implements OrganizationApi {
 	}
 	
 
-	@Secured({ "ROLE_ADMIN" })
-	public ResponseEntity<Organization> patchOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id,@ApiParam(value = "The Organization to be updated" ,required=true )  @Valid @RequestBody OrganizationUpdate organization) {
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
+	public ResponseEntity<Organization> patchOrganization(@Parameter(description = "Identifier of the Organization",required=true) @PathVariable("id") String id,@Parameter(description = "The Organization to be updated" ,required=true )  @Valid @RequestBody OrganizationUpdate organization) {
 
 		try {
 			Organization c = organizationRepoService.updateOrganization(id, organization);
@@ -171,8 +167,8 @@ public class OrganizationApiController implements OrganizationApi {
     }
 	
 
-	@Secured({ "ROLE_ADMIN" })
-	public ResponseEntity<Void> deleteOrganization(@ApiParam(value = "Identifier of the Organization",required=true) @PathVariable("id") String id) {
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')" )
+	public ResponseEntity<Void> deleteOrganization(@Parameter(description = "Identifier of the Organization",required=true) @PathVariable("id") String id) {
 		try {
 
 			return new ResponseEntity<Void>( organizationRepoService.deleteById( id ), HttpStatus.OK);

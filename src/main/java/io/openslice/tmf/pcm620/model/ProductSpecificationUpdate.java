@@ -23,26 +23,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role. Skipped properties: id,href,lastUpdate")
+@Schema(description = "Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class ProductSpecificationUpdate   {
   @JsonProperty("brand")
@@ -118,7 +116,7 @@ public class ProductSpecificationUpdate   {
    * The manufacturer or trademark of the specification
    * @return brand
   **/
-  @ApiModelProperty(value = "The manufacturer or trademark of the specification")
+  @Schema(description = "The manufacturer or trademark of the specification")
 
 
   public String getBrand() {
@@ -138,7 +136,7 @@ public class ProductSpecificationUpdate   {
    * A narrative that explains in detail what the product specification is
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail what the product specification is")
+  @Schema(description = "A narrative that explains in detail what the product specification is")
 
 
   public String getDescription() {
@@ -158,7 +156,7 @@ public class ProductSpecificationUpdate   {
    * isBundle determines whether a productSpecification represents a single productSpecification (false), or a bundle of productSpecification (true).
    * @return isBundle
   **/
-  @ApiModelProperty(value = "isBundle determines whether a productSpecification represents a single productSpecification (false), or a bundle of productSpecification (true).")
+  @Schema(description = "isBundle determines whether a productSpecification represents a single productSpecification (false), or a bundle of productSpecification (true).")
 
 
   public Boolean isIsBundle() {
@@ -178,7 +176,7 @@ public class ProductSpecificationUpdate   {
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -198,7 +196,7 @@ public class ProductSpecificationUpdate   {
    * Name of the product specification
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the product specification")
+  @Schema(description = "Name of the product specification")
 
 
   public String getName() {
@@ -218,7 +216,7 @@ public class ProductSpecificationUpdate   {
    * An identification number assigned to uniquely identity the specification
    * @return productNumber
   **/
-  @ApiModelProperty(value = "An identification number assigned to uniquely identity the specification")
+  @Schema(description = "An identification number assigned to uniquely identity the specification")
 
 
   public String getProductNumber() {
@@ -238,7 +236,7 @@ public class ProductSpecificationUpdate   {
    * Product specification version
    * @return version
   **/
-  @ApiModelProperty(value = "Product specification version")
+  @Schema(description = "Product specification version")
 
 
   public String getVersion() {
@@ -266,7 +264,7 @@ public class ProductSpecificationUpdate   {
    * Complements the description of an element (for instance a product) through video, pictures...
    * @return attachment
   **/
-  @ApiModelProperty(value = "Complements the description of an element (for instance a product) through video, pictures...")
+  @Schema(description = "Complements the description of an element (for instance a product) through video, pictures...")
 
   @Valid
 
@@ -295,7 +293,7 @@ public class ProductSpecificationUpdate   {
    * A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.
    * @return bundledProductSpecification
   **/
-  @ApiModelProperty(value = "A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.")
+  @Schema(description = "A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.")
 
   @Valid
 
@@ -324,7 +322,7 @@ public class ProductSpecificationUpdate   {
    * A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.
    * @return productSpecCharacteristic
   **/
-  @ApiModelProperty(value = "A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
+  @Schema(description = "A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
 
   @Valid
 
@@ -353,7 +351,7 @@ public class ProductSpecificationUpdate   {
    * A migration, substitution, dependency or exclusivity relationship between/among product specifications.
    * @return productSpecificationRelationship
   **/
-  @ApiModelProperty(value = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
+  @Schema(description = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
 
   @Valid
 
@@ -382,7 +380,7 @@ public class ProductSpecificationUpdate   {
    * A related party defines party or party role linked to a specific entity.
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "A related party defines party or party role linked to a specific entity.")
+  @Schema(description = "A related party defines party or party role linked to a specific entity.")
 
   @Valid
 
@@ -411,7 +409,7 @@ public class ProductSpecificationUpdate   {
    * The ResourceSpecification is required to realize a ProductSpecification.
    * @return resourceSpecification
   **/
-  @ApiModelProperty(value = "The ResourceSpecification is required to realize a ProductSpecification.")
+  @Schema(description = "The ResourceSpecification is required to realize a ProductSpecification.")
 
   @Valid
 
@@ -440,7 +438,7 @@ public class ProductSpecificationUpdate   {
    * ServiceSpecification(s) required to realize a ProductSpecification.
    * @return serviceSpecification
   **/
-  @ApiModelProperty(value = "ServiceSpecification(s) required to realize a ProductSpecification.")
+  @Schema(description = "ServiceSpecification(s) required to realize a ProductSpecification.")
 
   @Valid
 
@@ -461,7 +459,7 @@ public class ProductSpecificationUpdate   {
    * A target product schema reference. The reference object to the schema and type of target product which is described by product specification.
    * @return targetProductSchema
   **/
-  @ApiModelProperty(value = "A target product schema reference. The reference object to the schema and type of target product which is described by product specification.")
+  @Schema(description = "A target product schema reference. The reference object to the schema and type of target product which is described by product specification.")
 
   @Valid
 
@@ -482,7 +480,7 @@ public class ProductSpecificationUpdate   {
    * The period for which the product specification is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the product specification is valid")
+  @Schema(description = "The period for which the product specification is valid")
 
   @Valid
 
@@ -503,7 +501,7 @@ public class ProductSpecificationUpdate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -523,7 +521,7 @@ public class ProductSpecificationUpdate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -543,7 +541,7 @@ public class ProductSpecificationUpdate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

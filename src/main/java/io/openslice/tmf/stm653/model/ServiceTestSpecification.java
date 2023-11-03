@@ -23,31 +23,29 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * The service test specification describes the service test in terms of
  * parameters to be configured and measures to be taken.
  */
-@ApiModel(description = "The service test specification describes the service test in terms of parameters to be configured and  measures to be taken.")
+@Schema(description = "The service test specification describes the service test in terms of parameters to be configured and  measures to be taken.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Entity(name = "STMServiceTestSpec")
 @Table(name = "STMServiceTestSpec")
@@ -130,7 +128,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Entity specification version")
+	@Schema(description = "Entity specification version")
 
 	public String getVersion() {
 		return version;
@@ -159,7 +157,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "Attachments that may be of relevance to this specification, such as picture, document, media")
+	@Schema(description = "Attachments that may be of relevance to this specification, such as picture, document, media")
 	@Valid
 	public Set<AttachmentRefOrValue> getAttachment() {
 		return attachment;
@@ -187,7 +185,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return constraint
 	 **/
-	@ApiModelProperty(value = "This is a list of constraint references applied to this specification")
+	@Schema(description = "This is a list of constraint references applied to this specification")
 	@Valid
 	public Set<ConstraintRef> getConstraint() {
 		return constraint;
@@ -218,7 +216,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return entitySpecRelationship
 	 **/
-	@ApiModelProperty(value = "Relationship to another entity specification, might be dependency, substitution, etc.")
+	@Schema(description = "Relationship to another entity specification, might be dependency, substitution, etc.")
 	@Valid
 	public Set<EntitySpecificationRelationship> getEntitySpecRelationship() {
 		return entitySpecRelationship;
@@ -246,7 +244,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "Parties who manage or otherwise have an interest in this entity specification")
+	@Schema(description = "Parties who manage or otherwise have an interest in this entity specification")
 	@Valid
 	public Set<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -268,7 +266,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "isBundle determines whether an EntitySpecification represents a single EntitySpecification (false), or a bundle of EntitySpecifications (true).")
+	@Schema(description = "isBundle determines whether an EntitySpecification represents a single EntitySpecification (false), or a bundle of EntitySpecifications (true).")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -299,7 +297,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return relatedServiceSpecification
 	 **/
-	@ApiModelProperty(value = "The related service specification may relate to more than one service specification.")
+	@Schema(description = "The related service specification may relate to more than one service specification.")
 	@Valid
 	public Set<ServiceSpecificationRef> getRelatedServiceSpecification() {
 		return relatedServiceSpecification;
@@ -330,7 +328,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return serviceTestSpecRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service test specifications related to this specification e.g. dependency, substitution")
+	@Schema(description = "A list of service test specifications related to this specification e.g. dependency, substitution")
 	@Valid
 	public Set<ServiceTestSpecRelationship> getServiceTestSpecRelationship() {
 		return serviceTestSpecRelationship;
@@ -358,7 +356,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return specCharacteristic
 	 **/
-	@ApiModelProperty(value = "List of characteristics that the entity can take")
+	@Schema(description = "List of characteristics that the entity can take")
 	@Valid
 	public Set<CharacteristicSpecification> getSpecCharacteristic() {
 		return specCharacteristic;
@@ -378,7 +376,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return targetEntitySchema
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TargetEntitySchema getTargetEntitySchema() {
@@ -408,7 +406,7 @@ public class ServiceTestSpecification extends BaseEntity {
 	 * 
 	 * @return testMeasureDefinition
 	 **/
-	@ApiModelProperty(value = "A list of definitions for the measurements for the test defined by this specification")
+	@Schema(description = "A list of definitions for the measurements for the test defined by this specification")
 	@Valid
 	public Set<TestMeasureDefinition> getTestMeasureDefinition() {
 		return testMeasureDefinition;

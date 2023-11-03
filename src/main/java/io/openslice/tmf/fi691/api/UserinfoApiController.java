@@ -19,11 +19,14 @@
  */
 package io.openslice.tmf.fi691.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Controller;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.stereotype.Controller;
+
+import jakarta.servlet.http.HttpServletRequest;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-20T00:39:05.842+02:00")
 
 @Controller
 public class UserinfoApiController implements UserinfoApi {

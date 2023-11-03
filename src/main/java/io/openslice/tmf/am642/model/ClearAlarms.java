@@ -24,29 +24,29 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Task resource for clear alarms operation
  */
-@ApiModel(description = "Task resource for clear alarms operation")
+@Schema(description = "Task resource for clear alarms operation")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 
 @Entity(name = "AMClearAlarms")
 @Table(name = "AMClearAlarms")
+@ApiResponse
 public class ClearAlarms extends BaseRootEntity {
 
 	@JsonProperty("id")
@@ -93,7 +93,7 @@ public class ClearAlarms extends BaseRootEntity {
 	 * 
 	 * @return alarmClearedTime
 	 **/
-	@ApiModelProperty(value = "Time of the alarm clearing")
+	@Schema(description = "Time of the alarm clearing")
 
 	@Valid
 	public OffsetDateTime getAlarmClearedTime() {
@@ -127,7 +127,7 @@ public class ClearAlarms extends BaseRootEntity {
 	 * 
 	 * @return clearSystemId
 	 **/
-	@ApiModelProperty(value = "Name of the clearing system")
+	@Schema(description = "Name of the clearing system")
 
 	public String getClearSystemId() {
 		return clearSystemId;
@@ -147,7 +147,7 @@ public class ClearAlarms extends BaseRootEntity {
 	 * 
 	 * @return clearUserId
 	 **/
-	@ApiModelProperty(value = "Name of the clearing user")
+	@Schema(description = "Name of the clearing user")
 
 	public String getClearUserId() {
 		return clearUserId;
@@ -167,7 +167,7 @@ public class ClearAlarms extends BaseRootEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "Current state of the operation task")
+	@Schema(description = "Current state of the operation task")
 
 	public String getState() {
 		return state;
@@ -197,7 +197,7 @@ public class ClearAlarms extends BaseRootEntity {
 	 * 
 	 * @return alarmPattern
 	 **/
-	@ApiModelProperty(value = "Alarm patterns to match target alarms. An alarm will match if all of the sttributes in any of the patterns compare equal to those attributes of the alarm.")
+	@Schema(description = "Alarm patterns to match target alarms. An alarm will match if all of the sttributes in any of the patterns compare equal to those attributes of the alarm.")
 	@Valid
 	public Set<Alarm> getAlarmPattern() {
 		return alarmPattern;
@@ -225,7 +225,7 @@ public class ClearAlarms extends BaseRootEntity {
 	 * 
 	 * @return clearedAlarm
 	 **/
-	@ApiModelProperty(value = "The successfully cleared alarms")
+	@Schema(description = "The successfully cleared alarms")
 	@Valid
 	public Set<AlarmRefOrValue> getClearedAlarm() {
 		return clearedAlarm;

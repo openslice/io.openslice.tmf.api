@@ -5,26 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Resource is an abstract entity that describes the common set of attributes
  * shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory.
  * Skipped properties: id,href
  */
-@ApiModel(description = "Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory. Skipped properties: id,href")
+@Schema(description = "Resource is an abstract entity that describes the common set of attributes shared by all concrete resources (e.g. TPE, EQUIPMENT) in the inventory. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 public class ResourceUpdate {
 	@JsonProperty("category")
 	protected String category = null;
@@ -104,7 +104,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Category of the concrete resource. e.g Gold, Silver for MSISDN concrete resource")
+	@Schema(description = "Category of the concrete resource. e.g Gold, Silver for MSISDN concrete resource")
 
 	public String getCategory() {
 		return category;
@@ -124,7 +124,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "free-text description of the resource")
+	@Schema(description = "free-text description of the resource")
 
 	public String getDescription() {
 		return description;
@@ -144,7 +144,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return endOperatingDate
 	 **/
-	@ApiModelProperty(value = "A date time( DateTime). The date till the resource is operating")
+	@Schema(description = "A date time( DateTime). The date till the resource is operating")
 
 	@Valid
 	public OffsetDateTime getEndOperatingDate() {
@@ -185,7 +185,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "A string used to give a name to the resource")
+	@Schema(description = "A string used to give a name to the resource")
 
 	public String getName() {
 		return name;
@@ -205,7 +205,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return resourceVersion
 	 **/
-	@ApiModelProperty(value = "A field that identifies the specific version of an instance of a resource.")
+	@Schema(description = "A field that identifies the specific version of an instance of a resource.")
 
 	public String getResourceVersion() {
 		return resourceVersion;
@@ -225,7 +225,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return startOperatingDate
 	 **/
-	@ApiModelProperty(value = "A date time( DateTime). The date from which the resource is operating")
+	@Schema(description = "A date time( DateTime). The date from which the resource is operating")
 
 	@Valid
 	public OffsetDateTime getStartOperatingDate() {
@@ -274,7 +274,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return activationFeature
 	 **/
-	@ApiModelProperty(value = "Configuration features")
+	@Schema(description = "Configuration features")
 	@Valid
 	public List<Feature> getActivationFeature() {
 		return activationFeature;
@@ -294,7 +294,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return administrativeState
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceAdministrativeStateType getAdministrativeState() {
@@ -323,7 +323,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<AttachmentRefOrValue> getAttachment() {
 		return attachment;
@@ -351,7 +351,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return note
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<Note> getNote() {
 		return note;
@@ -371,7 +371,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return operationalState
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceOperationalStateType getOperationalState() {
@@ -392,7 +392,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return place
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public RelatedPlaceRefOrValue getPlace() {
@@ -421,7 +421,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -443,13 +443,31 @@ public class ResourceUpdate {
 		this.resourceCharacteristic.add(resourceCharacteristicItem);
 		return this;
 	}
+	
+	
+	public ResourceUpdate addResourceCharacteristicItemShort(String aname,
+			String aValue,
+			String valueType) {
+
+		Characteristic resCharacteristicItem =  new Characteristic();
+		resCharacteristicItem.setName( aname );
+					
+		Any val = new Any();
+		val.setValue( aValue );
+		val.setAlias( null );
+		
+		resCharacteristicItem.setValue( val );
+		
+		this.addResourceCharacteristicItem( resCharacteristicItem );
+		return this;
+	}
 
 	/**
 	 * Get resourceCharacteristic
 	 * 
 	 * @return resourceCharacteristic
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<Characteristic> getResourceCharacteristic() {
 		return resourceCharacteristic;
@@ -477,7 +495,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return resourceRelationship
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public List<ResourceRelationship> getResourceRelationship() {
 		return resourceRelationship;
@@ -497,7 +515,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return resourceSpecification
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceSpecificationRef getResourceSpecification() {
@@ -518,7 +536,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return resourceStatus
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceStatusType getResourceStatus() {
@@ -539,7 +557,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return usageState
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ResourceUsageStateType getUsageState() {
@@ -560,7 +578,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return _atBaseType;
@@ -581,7 +599,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return _atSchemaLocation;
@@ -601,7 +619,7 @@ public class ResourceUpdate {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+	@Schema(description = "When sub-classing, this defines the sub-class Extensible name")
 
 	public String getAtType() {
 		return _atType;

@@ -21,19 +21,18 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * A base / value business entity used to represent money
  */
-@ApiModel(description = "A base / value business entity used to represent money")
+@Schema(description = "A base / value business entity used to represent money")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class Money   {
   @JsonProperty("unit")
   private String unit = null;
@@ -50,7 +49,7 @@ public class Money   {
    * Currency (ISO4217 norm uses 3 letters to define the currency)
    * @return unit
   **/
-  @ApiModelProperty(value = "Currency (ISO4217 norm uses 3 letters to define the currency)")
+  @Schema(description = "Currency (ISO4217 norm uses 3 letters to define the currency)")
   
     public String getUnit() {
     return unit;
@@ -69,7 +68,7 @@ public class Money   {
    * A positive floating point number
    * @return value
   **/
-  @ApiModelProperty(value = "A positive floating point number")
+  @Schema(description = "A positive floating point number")
   
     public Float getValue() {
     return value;

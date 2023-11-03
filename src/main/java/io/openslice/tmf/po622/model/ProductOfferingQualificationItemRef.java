@@ -21,21 +21,19 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * It&#x27;s a productOfferingQualification item that has been executed previously.
  */
-@ApiModel(description = "It's a productOfferingQualification item that has been executed previously.")
+@Schema(description = "It's a productOfferingQualification item that has been executed previously.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class ProductOfferingQualificationItemRef   {
   @JsonProperty("id")
   private String id = null;
@@ -76,7 +74,7 @@ public class ProductOfferingQualificationItemRef   {
    * Id of an item of a product offering qualification
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Id of an item of a product offering qualification")
+  @Schema(description = "Id of an item of a product offering qualification")
       @NotNull
 
     public String getId() {
@@ -96,7 +94,7 @@ public class ProductOfferingQualificationItemRef   {
    * Reference of the related entity.
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the related entity.")
+  @Schema(description = "Reference of the related entity.")
   
     public String getHref() {
     return href;
@@ -115,7 +113,7 @@ public class ProductOfferingQualificationItemRef   {
    * Name of the related entity.
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the related entity.")
+  @Schema(description = "Name of the related entity.")
   
     public String getName() {
     return name;
@@ -134,7 +132,7 @@ public class ProductOfferingQualificationItemRef   {
    * Reference of the related entity.
    * @return productOfferingQualificationHref
   **/
-  @ApiModelProperty(value = "Reference of the related entity.")
+  @Schema(description = "Reference of the related entity.")
   
     public String getProductOfferingQualificationHref() {
     return productOfferingQualificationHref;
@@ -153,7 +151,7 @@ public class ProductOfferingQualificationItemRef   {
    * Unique identifier of a related entity.
    * @return productOfferingQualificationId
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of a related entity.")
+  @Schema(description = "Unique identifier of a related entity.")
       @NotNull
 
     public String getProductOfferingQualificationId() {
@@ -173,7 +171,7 @@ public class ProductOfferingQualificationItemRef   {
    * Name of the related entity.
    * @return productOfferingQualificationName
   **/
-  @ApiModelProperty(value = "Name of the related entity.")
+  @Schema(description = "Name of the related entity.")
   
     public String getProductOfferingQualificationName() {
     return productOfferingQualificationName;
@@ -192,7 +190,7 @@ public class ProductOfferingQualificationItemRef   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -211,7 +209,7 @@ public class ProductOfferingQualificationItemRef   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -230,7 +228,7 @@ public class ProductOfferingQualificationItemRef   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;
@@ -249,7 +247,7 @@ public class ProductOfferingQualificationItemRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

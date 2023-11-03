@@ -23,16 +23,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import io.openslice.tmf.ri639.model.Resource;
-import io.openslice.tmf.sim638.model.Service;
 
 
 
 @Repository
-public interface ResourceRepository extends PagingAndSortingRepository<Resource, Long> {
+public interface ResourceRepository extends  CrudRepository<Resource, Long>, PagingAndSortingRepository<Resource, Long> {
 
 	
 	Optional<Resource> findByUuid(String id);
@@ -53,5 +53,10 @@ public interface ResourceRepository extends PagingAndSortingRepository<Resource,
 			+ "	srv.resourceStatus = io.openslice.tmf.ri639.model.ResourceStatusType.STANDBY) AND "
 			+ "char.name = 'externalPartnerServiceId'"
 			 )
-	List<Service> findActiveAndReservedResourcesOfPartners();
+	
+	List<Resource> findActiveAndReservedResourcesOfPartners();
+	
+
+	List<Resource> findByNameAndResourceVersion(String aname, String aversion);
+	List<Resource> findByNameAndCategoryAndResourceVersion(String aname, String acategory, String aversion);
 }

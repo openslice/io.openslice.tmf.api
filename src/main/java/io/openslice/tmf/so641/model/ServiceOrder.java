@@ -20,38 +20,34 @@
 package io.openslice.tmf.so641.model;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.openslice.tmf.common.model.BaseEntity;
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * ServiceOrder
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 @Entity(name = "ServiceOrder")
 @JsonIgnoreProperties("orderRequester")
 public class ServiceOrder extends BaseRootEntity {
@@ -123,7 +119,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "ID created on repository side")
+	@Schema(description = "ID created on repository side")
 
 	public String getId() {
 		if ( ( id != null) && (uuid == null) ) { //this check is good for external partners when no uuid exists
@@ -139,7 +135,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Used to categorize the order, useful for the OM system, such as: Broadband, TVOption")
+	@Schema(description = "Used to categorize the order, useful for the OM system, such as: Broadband, TVOption")
 
 	public String getCategory() {
 		return category;
@@ -159,7 +155,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return completionDate
 	 **/
-	@ApiModelProperty(value = "Effective delivery date amended by the provider")
+	@Schema(description = "Effective delivery date amended by the provider")
 
 	@Valid
 	@JsonProperty("completionDate")
@@ -195,7 +191,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A free-text description of the service order")
+	@Schema(description = "A free-text description of the service order")
 
 	public String getDescription() {
 		return description;
@@ -215,7 +211,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return expectedCompletionDate
 	 **/
-	@ApiModelProperty(value = "Expected delivery date amended by the provider")
+	@Schema(description = "Expected delivery date amended by the provider")
 
 	@Valid
 
@@ -256,7 +252,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return externalId
 	 **/
-	@ApiModelProperty(value = "ID given by the consumer to facilitate searches")
+	@Schema(description = "ID given by the consumer to facilitate searches")
 
 	public String getExternalId() {
 		return externalId;
@@ -276,7 +272,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return notificationContact
 	 **/
-	@ApiModelProperty(value = "Contact attached to the order to send back information regarding this order")
+	@Schema(description = "Contact attached to the order to send back information regarding this order")
 
 	public String getNotificationContact() {
 		return notificationContact;
@@ -296,7 +292,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return orderDate
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	@JsonProperty("orderDate")
@@ -334,7 +330,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return priority
 	 **/
-	@ApiModelProperty(value = "Can be used by consumers to prioritize orders in a Service Order Management system")
+	@Schema(description = "Can be used by consumers to prioritize orders in a Service Order Management system")
 
 	public String getPriority() {
 		return priority;
@@ -354,7 +350,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return requestedCompletionDate
 	 **/
-	@ApiModelProperty(value = "Requested delivery date from the requestors perspective")
+	@Schema(description = "Requested delivery date from the requestors perspective")
 
 	@Valid
 
@@ -393,7 +389,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return requestedStartDate
 	 **/
-	@ApiModelProperty(value = "Order start date wished by the requestor")
+	@Schema(description = "Order start date wished by the requestor")
 
 	@Valid
 	@JsonProperty("requestedStartDate")
@@ -432,7 +428,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return startDate
 	 **/
-	@ApiModelProperty(value = "Date when the order was started for processing")
+	@Schema(description = "Date when the order was started for processing")
 
 	@Valid
 	@JsonProperty("startDate")
@@ -477,7 +473,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return note
 	 **/
-	@ApiModelProperty(value = "Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process")
+	@Schema(description = "Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process")
 
 	@Valid
 
@@ -504,7 +500,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return orderItem
 	 **/
-	@ApiModelProperty(required = true, value = "A list of service order items to be processed by this order")
+	@Schema(description = "A list of service order items to be processed by this order")
 	@NotNull
 
 	@Valid
@@ -536,7 +532,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return orderRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service orders related to this order (e.g. prerequisite, dependent on)")
+	@Schema(description = "A list of service orders related to this order (e.g. prerequisite, dependent on)")
 
 	@Valid
 
@@ -567,7 +563,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of parties which are involved in this order and the role they are playing")
+	@Schema(description = "A list of parties which are involved in this order and the role they are playing")
 
 	@Valid
 
@@ -589,7 +585,7 @@ public class ServiceOrder extends BaseRootEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "State of the order: described in the state-machine diagram")
+	@Schema(description = "State of the order: described in the state-machine diagram")
 
 	@Valid
 

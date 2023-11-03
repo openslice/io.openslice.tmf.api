@@ -23,23 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The root entity for service catalog management. A service catalog is a group of service specifications made available through service candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers).  A service catalog typically includes name, description and time period that is valid for. It will have a list of ServiceCandidate catalog items. A ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog. A ServiceCandidate and its associated ServiceSpecification may be \&quot;published\&quot; - made visible -in any number of ServiceCatalogs, or in none. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "The root entity for service catalog management. A service catalog is a group of service specifications made available through service candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers).  A service catalog typically includes name, description and time period that is valid for. It will have a list of ServiceCandidate catalog items. A ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog. A ServiceCandidate and its associated ServiceSpecification may be \"published\" - made visible -in any number of ServiceCatalogs, or in none. Skipped properties: id,href,lastUpdate")
+@Schema(description = "The root entity for service catalog management. A service catalog is a group of service specifications made available through service candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers).  A service catalog typically includes name, description and time period that is valid for. It will have a list of ServiceCandidate catalog items. A ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog. A ServiceCandidate and its associated ServiceSpecification may be \"published\" - made visible -in any number of ServiceCatalogs, or in none. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 public class ServiceCatalogUpdate   {
   @JsonProperty("description")
@@ -83,7 +81,7 @@ protected String description = null;
    * Description of this catalog
    * @return description
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+  @Schema(description = "Description of this catalog")
 
 
   public String getDescription() {
@@ -103,7 +101,7 @@ protected String description = null;
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -123,7 +121,7 @@ protected String description = null;
    * Name of the service catalog
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the service catalog")
+  @Schema(description = "Name of the service catalog")
 
 
   public String getName() {
@@ -143,7 +141,7 @@ protected String description = null;
    * ServiceCatalog version
    * @return version
   **/
-  @ApiModelProperty(value = "ServiceCatalog version")
+  @Schema(description = "ServiceCatalog version")
 
 
   public String getVersion() {
@@ -171,7 +169,7 @@ protected String description = null;
    * List of service categories associated with this catalog
    * @return category
   **/
-  @ApiModelProperty(value = "List of service categories associated with this catalog")
+  @Schema(description = "List of service categories associated with this catalog")
 
   @Valid
 
@@ -200,7 +198,7 @@ protected String description = null;
    * List of parties or party roles related to this category
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "List of parties or party roles related to this category")
+  @Schema(description = "List of parties or party roles related to this category")
 
   @Valid
 
@@ -221,7 +219,7 @@ protected String description = null;
    * The period for which the service catalog is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the service catalog is valid")
+  @Schema(description = "The period for which the service catalog is valid")
 
   @Valid
 
@@ -242,7 +240,7 @@ protected String description = null;
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -262,7 +260,7 @@ protected String description = null;
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -282,7 +280,7 @@ protected String description = null;
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

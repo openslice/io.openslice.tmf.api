@@ -31,9 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,7 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.openslice.tmf.am642.api.AlarmApiRouteBuilder;
+import io.openslice.tmf.am642.api.AlarmApiRouteBuilderEvents;
 import io.openslice.tmf.am642.model.AffectedService;
 import io.openslice.tmf.am642.model.Alarm;
 import io.openslice.tmf.am642.model.AlarmCreate;
@@ -58,6 +55,8 @@ import io.openslice.tmf.am642.repo.AlarmRepository;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.sim638.service.ServiceRepoService;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class AlarmRepoService {
@@ -69,7 +68,7 @@ public class AlarmRepoService {
 	ServiceRepoService serviceRepoService;
 
 	@Autowired
-	AlarmApiRouteBuilder alarmApiRouteBuilder;
+	AlarmApiRouteBuilderEvents alarmApiRouteBuilder;
 
 	private SessionFactory sessionFactory;
 

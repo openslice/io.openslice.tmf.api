@@ -23,20 +23,18 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
 import io.openslice.tmf.common.model.Quantity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * Is based on both the basic cost to develop and produce products and the
@@ -48,9 +46,9 @@ import io.swagger.annotations.ApiModelProperty;
  * productOfferingTerm. A productOffering may be cheaper with a 24 month
  * commitment than with a 12 month commitment.
  */
-@ApiModel(description = "Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment.")
+@Schema(description = "Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity(name = "ProductOfferingPrice")
 @Table(name = "ProductOfferingPrice")
@@ -129,7 +127,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "unique id of this resource")
+	@Schema(description = "unique id of this resource")
 
 	public String getId() {
 		if (uuid != null) {
@@ -153,7 +151,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "A flag indicating if this ProductOfferingPrice is composite (bundle) or not")
+	@Schema(description = "A flag indicating if this ProductOfferingPrice is composite (bundle) or not")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -173,7 +171,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return percentage
 	 **/
-	@ApiModelProperty(value = "Percentage to apply for ProductOfferPriceAlteration (Discount)")
+	@Schema(description = "Percentage to apply for ProductOfferPriceAlteration (Discount)")
 
 	public Float getPercentage() {
 		return percentage;
@@ -194,7 +192,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return priceType
 	 **/
-	@ApiModelProperty(value = "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.")
+	@Schema(description = "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.")
 
 	public String getPriceType() {
 		return priceType;
@@ -215,7 +213,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return recurringChargePeriodLength
 	 **/
-	@ApiModelProperty(value = "the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable")
+	@Schema(description = "the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable")
 
 	public Integer getRecurringChargePeriodLength() {
 		return recurringChargePeriodLength;
@@ -235,7 +233,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return recurringChargePeriodType
 	 **/
-	@ApiModelProperty(value = "The period to repeat the application of the price Could be month, week...")
+	@Schema(description = "The period to repeat the application of the price Could be month, week...")
 
 	public String getRecurringChargePeriodType() {
 		return recurringChargePeriodType;
@@ -267,7 +265,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return bundledPopRelationship
 	 **/
-	@ApiModelProperty(value = "this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship.")
+	@Schema(description = "this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship.")
 
 	@Valid
 
@@ -298,7 +296,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return constraint
 	 **/
-	@ApiModelProperty(value = "The Constraint resource represents a policy/rule applied to ProductOfferingPrice.")
+	@Schema(description = "The Constraint resource represents a policy/rule applied to ProductOfferingPrice.")
 
 	@Valid
 
@@ -328,7 +326,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return place
 	 **/
-	@ApiModelProperty(value = "Place defines the places where the products are sold or delivered.")
+	@Schema(description = "Place defines the places where the products are sold or delivered.")
 
 	@Valid
 
@@ -359,7 +357,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return popRelationship
 	 **/
-	@ApiModelProperty(value = "Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount")
+	@Schema(description = "Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount")
 
 	@Valid
 
@@ -381,7 +379,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return price
 	 **/
-	@ApiModelProperty(value = "The amount of money that characterizes the price.")
+	@Schema(description = "The amount of money that characterizes the price.")
 
 	@Valid
 
@@ -416,7 +414,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return pricingLogicAlgorithm
 	 **/
-	@ApiModelProperty(value = "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth).")
+	@Schema(description = "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth).")
 
 	@Valid
 
@@ -458,7 +456,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return prodSpecCharValueUse
 	 **/
-	@ApiModelProperty(value = "A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
+	@Schema(description = "A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
 
 	@Valid
 
@@ -490,7 +488,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return productOfferingTerm
 	 **/
-	@ApiModelProperty(value = "A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods.")
+	@Schema(description = "A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods.")
 
 	@Valid
 
@@ -520,7 +518,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return tax
 	 **/
-	@ApiModelProperty(value = "An amount of money levied on the price of a Product by a legislative body.")
+	@Schema(description = "An amount of money levied on the price of a Product by a legislative body.")
 
 	@Valid
 
@@ -544,7 +542,7 @@ public class ProductOfferingPrice extends BaseEntity {
 	 * 
 	 * @return unitOfMeasure
 	 **/
-	@ApiModelProperty(value = "A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount.")
+	@Schema(description = "A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount.")
 
 	@Valid
 

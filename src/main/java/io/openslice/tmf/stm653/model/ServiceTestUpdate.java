@@ -24,17 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.common.model.service.ServiceRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A service test is an entity that exists for a controlled test invocation on a
@@ -42,9 +40,9 @@ import io.swagger.annotations.ApiModelProperty;
  * service test configuration parameters that are to be applied at execution
  * time, and service test measures that result. Skipped properties: id,href
  */
-@ApiModel(description = "A service test is an entity that exists for a controlled test invocation on a service. The service  test is executed according to a schedule and contains service test configuration parameters that are to be  applied at execution time, and service test measures that result. Skipped properties: id,href")
+@Schema(description = "A service test is an entity that exists for a controlled test invocation on a service. The service  test is executed according to a schedule and contains service test configuration parameters that are to be  applied at execution time, and service test measures that result. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 public class ServiceTestUpdate {
 	@JsonProperty("description")
 	protected String description = null;
@@ -102,7 +100,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of the service test")
+	@Schema(description = "Description of the service test")
 
 	public String getDescription() {
 		return description;
@@ -122,7 +120,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return endDateTime
 	 **/
-	@ApiModelProperty(value = "The end date and time of the service test")
+	@Schema(description = "The end date and time of the service test")
 
 	@Valid
 	public OffsetDateTime getEndDateTime() {
@@ -153,7 +151,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return mode
 	 **/
-	@ApiModelProperty(value = "An indication of whether the service test is running in  \"PROACTIVE\" or \"ONDEMAND\" mode")
+	@Schema(description = "An indication of whether the service test is running in  \"PROACTIVE\" or \"ONDEMAND\" mode")
 
 	public String getMode() {
 		return mode;
@@ -173,7 +171,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "The name of the service test")
+	@Schema(description = "The name of the service test")
 
 	public String getName() {
 		return name;
@@ -193,7 +191,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return startDateTime
 	 **/
-	@ApiModelProperty(value = "The start date and time of the service test.")
+	@Schema(description = "The start date and time of the service test.")
 
 	@Valid
 	public OffsetDateTime getStartDateTime() {
@@ -225,7 +223,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "The actual state the service test is in")
+	@Schema(description = "The actual state the service test is in")
 
 	public String getState() {
 		return state;
@@ -253,7 +251,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return characteristic
 	 **/
-	@ApiModelProperty(value = "List of characteristics with values that define the test run")
+	@Schema(description = "List of characteristics with values that define the test run")
 	@Valid
 	public List<Characteristic> getCharacteristic() {
 		return characteristic;
@@ -281,7 +279,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "Party related to the test")
+	@Schema(description = "Party related to the test")
 	@Valid
 	public List<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -301,7 +299,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return relatedService
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ServiceRef getRelatedService() {
@@ -330,7 +328,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return testMeasure
 	 **/
-	@ApiModelProperty(value = "The results of the test in terms of the measured metrics")
+	@Schema(description = "The results of the test in terms of the measured metrics")
 	@Valid
 	public List<TestMeasure> getTestMeasure() {
 		return testMeasure;
@@ -350,7 +348,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return testSpecification
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public ServiceTestSpecificationRef getTestSpecification() {
@@ -371,7 +369,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TimePeriod getValidFor() {
@@ -392,7 +390,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return baseType;
@@ -413,7 +411,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return schemaLocation;
@@ -433,7 +431,7 @@ public class ServiceTestUpdate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+	@Schema(description = "When sub-classing, this defines the sub-class Extensible name")
 
 	public String getAtType() {
 		return type;

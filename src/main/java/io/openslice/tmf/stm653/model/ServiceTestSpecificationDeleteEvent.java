@@ -19,23 +19,22 @@
  */
 package io.openslice.tmf.stm653.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.stm653.model.ServiceTestSpecificationDeleteEventPayload;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
+@Schema(description = "The notification data structure")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 public class ServiceTestSpecificationDeleteEvent   {
   @JsonProperty("event")
   private ServiceTestSpecificationDeleteEventPayload event = null;
@@ -76,7 +75,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * Get event
    * @return event
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public ServiceTestSpecificationDeleteEventPayload getEvent() {
@@ -96,7 +95,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * The identifier of the notification.
    * @return eventId
   **/
-  @ApiModelProperty(value = "The identifier of the notification.")
+  @Schema(description = "The identifier of the notification.")
   
     public String getEventId() {
     return eventId;
@@ -115,7 +114,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * Time of the event occurrence.
    * @return eventTime
   **/
-  @ApiModelProperty(value = "Time of the event occurrence.")
+  @Schema(description = "Time of the event occurrence.")
   
     @Valid
     public OffsetDateTime getEventTime() {
@@ -135,7 +134,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * The type of the notification.
    * @return eventType
   **/
-  @ApiModelProperty(value = "The type of the notification.")
+  @Schema(description = "The type of the notification.")
   
     public String getEventType() {
     return eventType;
@@ -154,7 +153,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * The correlation id for this event.
    * @return correlationId
   **/
-  @ApiModelProperty(value = "The correlation id for this event.")
+  @Schema(description = "The correlation id for this event.")
   
     public String getCorrelationId() {
     return correlationId;
@@ -173,7 +172,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * The domain of the event.
    * @return domain
   **/
-  @ApiModelProperty(value = "The domain of the event.")
+  @Schema(description = "The domain of the event.")
   
     public String getDomain() {
     return domain;
@@ -192,7 +191,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * The title of the event.
    * @return title
   **/
-  @ApiModelProperty(value = "The title of the event.")
+  @Schema(description = "The title of the event.")
   
     public String getTitle() {
     return title;
@@ -211,7 +210,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * An explnatory of the event.
    * @return description
   **/
-  @ApiModelProperty(value = "An explnatory of the event.")
+  @Schema(description = "An explnatory of the event.")
   
     public String getDescription() {
     return description;
@@ -230,7 +229,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * A priority.
    * @return priority
   **/
-  @ApiModelProperty(value = "A priority.")
+  @Schema(description = "A priority.")
   
     public String getPriority() {
     return priority;
@@ -249,7 +248,7 @@ public class ServiceTestSpecificationDeleteEvent   {
    * The time the event occured.
    * @return timeOcurred
   **/
-  @ApiModelProperty(value = "The time the event occured.")
+  @Schema(description = "The time the event occured.")
   
     @Valid
     public OffsetDateTime getTimeOcurred() {

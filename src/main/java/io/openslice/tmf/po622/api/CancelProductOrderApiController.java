@@ -19,11 +19,14 @@
  */
 package io.openslice.tmf.po622.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Controller;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.stereotype.Controller;
+
+import jakarta.servlet.http.HttpServletRequest;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 @Controller
 public class CancelProductOrderApiController implements CancelProductOrderApi {
 

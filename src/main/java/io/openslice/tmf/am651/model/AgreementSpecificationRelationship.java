@@ -21,22 +21,20 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A relationship between agreement specifications. Typical relationships are substitution and dependency.
  */
-@ApiModel(description = "A relationship between agreement specifications. Typical relationships are substitution and dependency.")
+@Schema(description = "A relationship between agreement specifications. Typical relationships are substitution and dependency.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementSpecificationRelationship   {
   @JsonProperty("href")
@@ -63,7 +61,7 @@ public class AgreementSpecificationRelationship   {
    * Reference of an agreement specification.
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of an agreement specification.")
+  @Schema(description = "Reference of an agreement specification.")
 
 
   public String getHref() {
@@ -83,7 +81,7 @@ public class AgreementSpecificationRelationship   {
    * Unique identifier of the related agreement specification.
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the related agreement specification.")
+  @Schema(description = "Unique identifier of the related agreement specification.")
 
 
   public String getId() {
@@ -103,7 +101,7 @@ public class AgreementSpecificationRelationship   {
    * Type of relationship such as, substitution or dependency.
    * @return type
   **/
-  @ApiModelProperty(value = "Type of relationship such as, substitution or dependency.")
+  @Schema(description = "Type of relationship such as, substitution or dependency.")
 
 
   public String getTypeAgreementSpecificationRelationship() {
@@ -123,7 +121,7 @@ public class AgreementSpecificationRelationship   {
    * The period for which the relationship is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the relationship is valid")
+  @Schema(description = "The period for which the relationship is valid")
 
   @Valid
 
@@ -144,7 +142,7 @@ public class AgreementSpecificationRelationship   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {

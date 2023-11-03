@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +39,7 @@ import io.openslice.tmf.cm629.model.CustomerUpdate;
 import io.openslice.tmf.cm629.repo.CustomerRepository;
 import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import jakarta.validation.Valid;
 
 
 @Service

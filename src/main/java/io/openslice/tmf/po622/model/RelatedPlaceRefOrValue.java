@@ -21,21 +21,19 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation &amp; @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself
  */
-@ApiModel(description = "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself")
+@Schema(description = "Related Entity reference. A related place defines a place described by reference or by value linked to a specific entity. The polymorphic attributes @type, @schemaLocation & @referredType are related to the place entity and not the RelatedPlaceRefOrValue class itself")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class RelatedPlaceRefOrValue   {
   @JsonProperty("id")
   private String id = null;
@@ -70,7 +68,7 @@ public class RelatedPlaceRefOrValue   {
    * Unique identifier of the place
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the place")
+  @Schema(description = "Unique identifier of the place")
   
     public String getId() {
     return id;
@@ -89,7 +87,7 @@ public class RelatedPlaceRefOrValue   {
    * Unique reference of the place
    * @return href
   **/
-  @ApiModelProperty(value = "Unique reference of the place")
+  @Schema(description = "Unique reference of the place")
   
     public String getHref() {
     return href;
@@ -108,7 +106,7 @@ public class RelatedPlaceRefOrValue   {
    * A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
    * @return name
   **/
-  @ApiModelProperty(value = "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]")
+  @Schema(description = "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]")
   
     public String getName() {
     return name;
@@ -127,7 +125,7 @@ public class RelatedPlaceRefOrValue   {
    * Get role
    * @return role
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     public String getRole() {
@@ -147,7 +145,7 @@ public class RelatedPlaceRefOrValue   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -166,7 +164,7 @@ public class RelatedPlaceRefOrValue   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -185,7 +183,7 @@ public class RelatedPlaceRefOrValue   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;
@@ -204,7 +202,7 @@ public class RelatedPlaceRefOrValue   {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

@@ -21,22 +21,20 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.Quantity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Description of a productTerm linked to this orderItem. This represent a commitment with a duration
  */
-@ApiModel(description = "Description of a productTerm linked to this orderItem. This represent a commitment with a duration")
+@Schema(description = "Description of a productTerm linked to this orderItem. This represent a commitment with a duration")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class OrderTerm   {
   @JsonProperty("description")
   private String description = null;
@@ -65,7 +63,7 @@ public class OrderTerm   {
    * Description of the productOrderTerm
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the productOrderTerm")
+  @Schema(description = "Description of the productOrderTerm")
   
     public String getDescription() {
     return description;
@@ -84,7 +82,7 @@ public class OrderTerm   {
    * Name of the productOrderTerm
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the productOrderTerm")
+  @Schema(description = "Name of the productOrderTerm")
   
     public String getName() {
     return name;
@@ -103,7 +101,7 @@ public class OrderTerm   {
    * Get duration
    * @return duration
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public Quantity getDuration() {
@@ -123,7 +121,7 @@ public class OrderTerm   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -142,7 +140,7 @@ public class OrderTerm   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -161,7 +159,7 @@ public class OrderTerm   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

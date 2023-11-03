@@ -24,23 +24,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. A financial (account receivable account/account payable) aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party. It is a specialization of entity Account. Skipped properties: id,href
  */
-@ApiModel(description = "An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. A financial (account receivable account/account payable) aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party. It is a specialization of entity Account. Skipped properties: id,href")
+@Schema(description = "An account of money owed by a party to another entity in exchange for goods or services that have been delivered or used. A financial (account receivable account/account payable) aggregates the amounts of one or more party accounts (billing or settlement) owned by a given party. It is a specialization of entity Account. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class FinancialAccountCreate   {
   @JsonProperty("accountType")
@@ -99,7 +97,7 @@ public class FinancialAccountCreate   {
    * A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.
    * @return accountType
   **/
-  @ApiModelProperty(value = "A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.")
+  @Schema(description = "A categorization of an account, such as individual, joint, and so forth, whose instances share some of the same characteristics. Note: for flexibility we use a String here but an implementation may use an enumeration with a limited list of valid values.")
 
 
   public String getAccountType() {
@@ -119,7 +117,7 @@ public class FinancialAccountCreate   {
    * Detailed description of the party account
    * @return description
   **/
-  @ApiModelProperty(value = "Detailed description of the party account")
+  @Schema(description = "Detailed description of the party account")
 
 
   public String getDescription() {
@@ -139,7 +137,7 @@ public class FinancialAccountCreate   {
    * Date of last modification of the account
    * @return lastModified
   **/
-  @ApiModelProperty(value = "Date of last modification of the account")
+  @Schema(description = "Date of last modification of the account")
 
   @Valid
 
@@ -160,7 +158,7 @@ public class FinancialAccountCreate   {
    * Name of the account
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "Name of the account")
+  @Schema(description = "Name of the account")
   @NotNull
 
 
@@ -181,7 +179,7 @@ public class FinancialAccountCreate   {
    * Contains the lifecycle state such as: Active, Closed, Suspended and so on.
    * @return state
   **/
-  @ApiModelProperty(value = "Contains the lifecycle state such as: Active, Closed, Suspended and so on.")
+  @Schema(description = "Contains the lifecycle state such as: Active, Closed, Suspended and so on.")
 
 
   public String getState() {
@@ -209,7 +207,7 @@ public class FinancialAccountCreate   {
    * Get accountBalance
    * @return accountBalance
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -238,7 +236,7 @@ public class FinancialAccountCreate   {
    * Get accountRelationship
    * @return accountRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -267,7 +265,7 @@ public class FinancialAccountCreate   {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -288,7 +286,7 @@ public class FinancialAccountCreate   {
    * The maximum amount of money that may be charged on an account
    * @return creditLimit
   **/
-  @ApiModelProperty(value = "The maximum amount of money that may be charged on an account")
+  @Schema(description = "The maximum amount of money that may be charged on an account")
 
   @Valid
 
@@ -317,7 +315,7 @@ public class FinancialAccountCreate   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -346,7 +344,7 @@ public class FinancialAccountCreate   {
    * Get taxExemption
    * @return taxExemption
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -367,7 +365,7 @@ public class FinancialAccountCreate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -387,7 +385,7 @@ public class FinancialAccountCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -407,7 +405,7 @@ public class FinancialAccountCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

@@ -2,19 +2,18 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Place reference. Place defines the places where the products are sold or delivered.
  */
-@ApiModel(description = "Place reference. Place defines the places where the products are sold or delivered.")
+@Schema(description = "Place reference. Place defines the places where the products are sold or delivered.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 public class Place   {
   @JsonProperty("id")
   private String id = null;
@@ -43,7 +42,7 @@ public class Place   {
    * Unique identifier of the place
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the place")
+  @Schema(description = "Unique identifier of the place")
   
     public String getId() {
     return id;
@@ -62,7 +61,7 @@ public class Place   {
    * Unique reference of the place
    * @return href
   **/
-  @ApiModelProperty(value = "Unique reference of the place")
+  @Schema(description = "Unique reference of the place")
   
     public String getHref() {
     return href;
@@ -81,7 +80,7 @@ public class Place   {
    * A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]
    * @return name
   **/
-  @ApiModelProperty(value = "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]")
+  @Schema(description = "A user-friendly name for the place, such as [Paris Store], [London Store], [Main Home]")
   
     public String getName() {
     return name;
@@ -100,7 +99,7 @@ public class Place   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -119,7 +118,7 @@ public class Place   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return _atSchemaLocation;
@@ -138,7 +137,7 @@ public class Place   {
    * When sub-classing, this defines the sub-class Extensible name
    * @return _atType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+  @Schema(description = "When sub-classing, this defines the sub-class Extensible name")
   
     public String getAtType() {
     return _atType;

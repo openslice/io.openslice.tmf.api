@@ -24,10 +24,9 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.common.model.ELifecycle;
 import io.openslice.tmf.common.model.TimePeriod;
@@ -38,6 +37,9 @@ import io.openslice.tmf.rcm634.model.ResourceCategory;
 import io.openslice.tmf.rcm634.model.ResourceCategoryRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.repo.ResourceCandidateRepository;
+import io.openslice.tmf.rcm634.repo.ResourceSpecificationRepository;
+import io.openslice.tmf.scm633.model.ServiceCandidate;
+import jakarta.validation.Valid;
 
 @Service
 public class ResourceCandidateRepoService {
@@ -50,7 +52,7 @@ public class ResourceCandidateRepoService {
 	ResourceCategoryRepoService categsRepoService;
 
 	@Autowired
-	ResourceSpecificationRepoService specRepo;
+	ResourceSpecificationRepository resourceSpecificationRepo;
 	
 	public ResourceCandidate addCatalog( ResourceCandidate c) {
 
@@ -93,6 +95,7 @@ public class ResourceCandidateRepoService {
 		
 	}
 
+	@Transactional
 	public ResourceCandidate updateCandidate(String id, @Valid ResourceCandidateUpdate serviceCandidate) {
 		Optional<ResourceCandidate> scopt = this.candidateRepo.findByUuid(id);
 		if ( scopt == null ) {
@@ -105,13 +108,15 @@ public class ResourceCandidateRepoService {
 		return this.candidateRepo.save( sc );
 	}
 	
-	
-	public ResourceCandidate updateResourceCandidateDataFromAPI(ResourceCandidate sc, @Valid ResourceCandidateUpdate serviceCandidateUpd) {	
+
+	@Transactional
+	public ResourceCandidate updateResourceCandidateDataFromAPI(ResourceCandidate sc, @Valid ResourceCandidateUpdate resourceCandidateUpd) {	
 
 		ResourceSpecification specObj = null;
 		
-		if ( serviceCandidateUpd.getResourceSpecification()!=null) {
-			specObj = this.specRepo.findByUuid( serviceCandidateUpd.getResourceSpecification().getId() );			
+		if ( resourceCandidateUpd.getResourceSpecification()!=null) {
+			Optional<ResourceSpecification> optionalCat = this.resourceSpecificationRepo.findByUuid( resourceCandidateUpd.getResourceSpecification().getId() );
+			specObj = optionalCat.orElse(null);
 		}
 		
 		if ( specObj != null ) {
@@ -120,17 +125,17 @@ public class ResourceCandidateRepoService {
 			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( specObj.getLifecycleStatus() ) );
 			sc.setVersion( specObj.getVersion() );
 		} else {
-			sc.setName( serviceCandidateUpd.getName() );
-			sc.setDescription( serviceCandidateUpd.getDescription() );	
+			sc.setName( resourceCandidateUpd.getName() );
+			sc.setDescription( resourceCandidateUpd.getDescription() );	
 			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
-			sc.setVersion( serviceCandidateUpd.getVersion());
+			sc.setVersion( resourceCandidateUpd.getVersion());
 		}
 		
 		sc.setLastUpdate( OffsetDateTime.now(ZoneOffset.UTC) );
-		if ( serviceCandidateUpd.getLifecycleStatus() == null ) {
+		if ( resourceCandidateUpd.getLifecycleStatus() == null ) {
 			sc.setLifecycleStatusEnum( ELifecycle.LAUNCHED );
 		} else {
-			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( serviceCandidateUpd.getLifecycleStatus() ) );
+			sc.setLifecycleStatusEnum ( ELifecycle.getEnum( resourceCandidateUpd.getLifecycleStatus() ) );
 		}
 		TimePeriod tp = new TimePeriod();
 
@@ -148,8 +153,8 @@ public class ResourceCandidateRepoService {
 		ResourceCandidate savedCand = this.candidateRepo.save( sc );
 		
 
-		if ( serviceCandidateUpd.getCategory() !=null ){
-			for (ResourceCategoryRef sCategD : serviceCandidateUpd.getCategory()) {			
+		if ( resourceCandidateUpd.getCategory() !=null ){
+			for (ResourceCategoryRef sCategD : resourceCandidateUpd.getCategory()) {			
 				ResourceCategory catObj = this.categsRepoService.findByIdEager(sCategD.getId());
 	
 				if ( catObj!=null){
@@ -162,6 +167,11 @@ public class ResourceCandidateRepoService {
 		
 		
 		return savedCand;
+	}
+
+	public Optional<ServiceCandidate> findByUuid(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

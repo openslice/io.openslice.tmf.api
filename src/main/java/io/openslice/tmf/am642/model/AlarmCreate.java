@@ -20,27 +20,23 @@
 package io.openslice.tmf.am642.model;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * This resource represents an alarm supporting the information model defined in
  * ITU-T X.733. Skipped properties: id,href
  */
-@ApiModel(description = "This resource represents an alarm supporting the information model defined in ITU-T X.733. Skipped properties: id,href")
+@Schema(description = "This resource represents an alarm supporting the information model defined in ITU-T X.733. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 public class AlarmCreate extends AlarmUpdate {
 
 	private OffsetDateTime alarmRaisedTime = null;
@@ -54,7 +50,7 @@ public class AlarmCreate extends AlarmUpdate {
 	 * 
 	 * @return alarmRaisedTime
 	 **/
-	@ApiModelProperty(required = true, value = "Indicates the time (as a date + time) at which the alarm occurred at its source.")
+	@Schema(description = "Indicates the time (as a date + time) at which the alarm occurred at its source.")
 	@NotNull
 
 	@Valid
@@ -92,7 +88,7 @@ public class AlarmCreate extends AlarmUpdate {
 	 * 
 	 * @return sourceSystemId
 	 **/
-	@ApiModelProperty(required = true, value = "Source system identity.")
+	@Schema(description = "Source system identity.")
 	@NotNull
 
 	public String getSourceSystemId() {

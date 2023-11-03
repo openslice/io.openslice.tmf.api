@@ -19,25 +19,26 @@
  */
 package io.openslice.tmf.am642.model;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.openslice.tmf.am642.model.AlarmRefOrValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Task resource for ungroup alarms operation Skipped properties: id,href
  */
-@ApiModel(description = "Task resource for ungroup alarms operation Skipped properties: id,href")
+@Schema(description = "Task resource for ungroup alarms operation Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
 public class UnGroupAlarmsCreate   {
   @JsonProperty("alarmChangedTime")
   private OffsetDateTime alarmChangedTime = null;
@@ -77,7 +78,7 @@ public class UnGroupAlarmsCreate   {
    * Time of the uncorrelation
    * @return alarmChangedTime
   **/
-  @ApiModelProperty(required = true, value = "Time of the uncorrelation")
+  @Schema(description = "Time of the uncorrelation")
       @NotNull
 
     @Valid
@@ -98,7 +99,7 @@ public class UnGroupAlarmsCreate   {
    * Source system identifier
    * @return sourceSystemId
   **/
-  @ApiModelProperty(required = true, value = "Source system identifier")
+  @Schema(description = "Source system identifier")
       @NotNull
 
     public String getSourceSystemId() {
@@ -118,7 +119,7 @@ public class UnGroupAlarmsCreate   {
    * Current state of the operation task
    * @return state
   **/
-  @ApiModelProperty(value = "Current state of the operation task")
+  @Schema(description = "Current state of the operation task")
   
     public String getState() {
     return state;
@@ -142,7 +143,7 @@ public class UnGroupAlarmsCreate   {
    * Correlated alarms
    * @return correlatedAlarm
   **/
-  @ApiModelProperty(required = true, value = "Correlated alarms")
+  @Schema(description = "Correlated alarms")
       @NotNull
     @Valid
   @Size(min=1)   public List<AlarmRefOrValue> getCorrelatedAlarm() {
@@ -162,7 +163,7 @@ public class UnGroupAlarmsCreate   {
    * Get parentAlarm
    * @return parentAlarm
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     @Valid
@@ -191,7 +192,7 @@ public class UnGroupAlarmsCreate   {
    * The successfully uncorrelated alarms
    * @return unGroupedAlarm
   **/
-  @ApiModelProperty(value = "The successfully uncorrelated alarms")
+  @Schema(description = "The successfully uncorrelated alarms")
       @Valid
     public List<AlarmRefOrValue> getUnGroupedAlarm() {
     return unGroupedAlarm;
@@ -210,7 +211,7 @@ public class UnGroupAlarmsCreate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -229,7 +230,7 @@ public class UnGroupAlarmsCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -248,7 +249,7 @@ public class UnGroupAlarmsCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

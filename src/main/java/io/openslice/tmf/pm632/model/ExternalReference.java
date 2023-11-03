@@ -21,22 +21,20 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 
 /**
  * External reference of the individual or reference in other system
  */
-@ApiModel(description = "External reference of the individual or reference in other system")
+@Schema(description = "External reference of the individual or reference in other system")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 
 @Entity
 public class ExternalReference  extends BaseRootNamedEntity {
@@ -53,7 +51,7 @@ public class ExternalReference  extends BaseRootNamedEntity {
    * Type of the external reference
    * @return externalReferenceType
   **/
-  @ApiModelProperty(value = "Type of the external reference")
+  @Schema(description = "Type of the external reference")
 
 
   public String getExternalReferenceType() {

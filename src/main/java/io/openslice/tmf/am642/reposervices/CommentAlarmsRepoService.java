@@ -22,15 +22,10 @@ package io.openslice.tmf.am642.reposervices;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,6 +37,8 @@ import org.springframework.stereotype.Service;
 import io.openslice.tmf.am642.model.CommentAlarms;
 import io.openslice.tmf.am642.model.CommentAlarmsCreate;
 import io.openslice.tmf.am642.repo.CommentAlarmsRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class CommentAlarmsRepoService {

@@ -25,32 +25,30 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 
 /**
  * The category resource is used to group product offerings, service and
  * resource candidates in logical containers. Categories can contain other
  * categories and/or product offerings, resource or service candidates.
  */
-@ApiModel(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
+@Schema(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 @Entity(name = "ProductCategory")
 @Table(name = "ProductCategory")
@@ -70,10 +68,10 @@ public class Category extends BaseEntity {
 //	private List<ProductOfferingRef> productOffering = null;
 
 
-	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.REMOVE } )
+	@ManyToMany(cascade = {  CascadeType.MERGE, CascadeType.DETACH } )
 	@JoinTable()	
 	@JsonIgnore
-	private Set<ProductOffering> productOfferingObj = new HashSet<>();
+	private Set<ProductOffering> productOffObj = new HashSet<>();
 	
 	
 
@@ -99,7 +97,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the category")
+	@Schema(description = "Unique identifier of the category")
 
 	/**
 	 * @return the id
@@ -119,7 +117,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return isRoot
 	 **/
-	@ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+	@Schema(description = "If true, this Boolean indicates that the category is a root of categories")
 
 	public Boolean isIsRoot() {
 		return isRoot;
@@ -139,7 +137,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return parentId
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the parent category")
+	@Schema(description = "Unique identifier of the parent category")
 
 	public String getParentId() {
 		return parentId;
@@ -157,7 +155,7 @@ public class Category extends BaseEntity {
 	 * 
 	 * @return productOffering
 	 **/
-	@ApiModelProperty(value = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
+	@Schema(description = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
 
 	@Valid
 	@JsonProperty("productOffering")
@@ -166,7 +164,7 @@ public class Category extends BaseEntity {
 		
 		List<ProductOfferingRef> scref = new ArrayList<>();
 		
-		for (ProductOffering sc : productOfferingObj) {
+		for (ProductOffering sc : productOffObj) {
 			ProductOfferingRef scr = new ProductOfferingRef();
 			scr.setId( sc.getId());
 			scr.setName( sc.getName());
@@ -180,13 +178,20 @@ public class Category extends BaseEntity {
 
 	
 
+	@JsonIgnore
+	public Set<ProductOffering> getProductOfferingObj(){
+		return this.productOffObj;
+	}
+	
+	
+
 
 	/**
 	 * List of child categories in the tree for in this category
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "List of child categories in the tree for in this category")
+	@Schema(description = "List of child categories in the tree for in this category")
 	@Transient
 	@JsonProperty("subCategory")
 	@Valid
@@ -251,7 +256,7 @@ public class Category extends BaseEntity {
 				&& Objects.equals(this.lifecycleStatus, category.lifecycleStatus)
 				&& Objects.equals(this.name, category.name) && Objects.equals(this.parentId, category.parentId)
 				&& Objects.equals(this.version, category.version)
-				&& Objects.equals(this.productOfferingObj , category.productOfferingObj)
+				&& Objects.equals(this.productOffObj , category.productOffObj)
 				&& Objects.equals(this.subCategoryObj, category.subCategoryObj)
 				&& Objects.equals(this.validFor, category.validFor) && Objects.equals(this.baseType, category.baseType)
 				&& Objects.equals(this.schemaLocation, category.schemaLocation)
@@ -278,7 +283,7 @@ public class Category extends BaseEntity {
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
 		sb.append("    version: ").append(toIndentedString(version)).append("\n");
-		sb.append("    productOffering: ").append(toIndentedString(productOfferingObj)).append("\n");
+		sb.append("    productOffering: ").append(toIndentedString(productOffObj)).append("\n");
 		sb.append("    subCategory: ").append(toIndentedString(subCategoryObj)).append("\n");
 		sb.append("    validFor: ").append(toIndentedString(validFor)).append("\n");
 		sb.append("    baseType: ").append(toIndentedString(baseType)).append("\n");

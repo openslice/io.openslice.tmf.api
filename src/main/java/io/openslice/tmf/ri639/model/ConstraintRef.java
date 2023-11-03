@@ -2,24 +2,22 @@ package io.openslice.tmf.ri639.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Constraint reference. The Constraint resource represents a policy/rule
  * applied to an entity or entity spec.
  */
-@ApiModel(description = "Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.")
+@Schema(description = "Constraint reference. The Constraint resource represents a policy/rule applied to an entity or entity spec.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIConstraintRef")
 public class ConstraintRef extends BaseRootNamedEntity {
 	@JsonProperty("id")
@@ -42,7 +40,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(required = true, value = "unique identifier")
+	@Schema(description = "unique identifier")
 	@NotNull
 
 	public String getId() {
@@ -63,7 +61,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -83,7 +81,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name of the related entity.")
+	@Schema(description = "Name of the related entity.")
 
 	public String getName() {
 		return name;
@@ -103,7 +101,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "constraint version")
+	@Schema(description = "constraint version")
 
 	public String getVersion() {
 		return version;
@@ -123,7 +121,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return _atBaseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getAtBaseType() {
 		return baseType;
@@ -144,7 +142,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return _atSchemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getAtSchemaLocation() {
 		return schemaLocation;
@@ -164,7 +162,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return _atType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+	@Schema(description = "When sub-classing, this defines the sub-class Extensible name")
 
 	public String getAtType() {
 		return type;
@@ -184,7 +182,7 @@ public class ConstraintRef extends BaseRootNamedEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

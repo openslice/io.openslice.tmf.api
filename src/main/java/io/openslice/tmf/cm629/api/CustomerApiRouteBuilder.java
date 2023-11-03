@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.logging.Log;
@@ -32,17 +35,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.centrallog.client.CLevel;
 import io.openslice.centrallog.client.CentralLogger;
 import io.openslice.tmf.cm629.model.CustomerAttributeValueChangeEvent;
 import io.openslice.tmf.cm629.model.CustomerCreateEvent;
-import io.openslice.tmf.so641.model.ServiceOrderAttributeValueChangeNotification;
-import io.openslice.tmf.so641.model.ServiceOrderCreateNotification;
-import io.openslice.tmf.so641.model.ServiceOrderDeleteNotification;
-import io.openslice.tmf.so641.model.ServiceOrderStateChangeNotification;
 
 @Configuration
 @Component

@@ -24,11 +24,8 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.openslice.tmf.common.model.ELifecycle;
@@ -40,6 +37,8 @@ import io.openslice.tmf.scm633.model.ServiceCategory;
 import io.openslice.tmf.scm633.model.ServiceCategoryRef;
 import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.repo.CandidateRepository;
+import io.openslice.tmf.scm633.repo.ServiceSpecificationRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class CandidateRepoService {
@@ -50,9 +49,10 @@ public class CandidateRepoService {
 
 	@Autowired
 	CategoryRepoService categsRepoService;
+	
 
 	@Autowired
-	ServiceSpecificationRepoService specRepo;
+	ServiceSpecificationRepository serviceSpecificationRepo;
 	
 	public ServiceCandidate addServiceCandidate( ServiceCandidate c) {
 
@@ -96,6 +96,7 @@ public class CandidateRepoService {
 		
 	}
 
+	@Transactional
 	public ServiceCandidate updateCandidate(String id, @Valid ServiceCandidateUpdate serviceCandidate) {
 		Optional<ServiceCandidate> scopt = this.candidateRepo.findByUuid(id);
 		if ( scopt == null ) {
@@ -108,13 +109,15 @@ public class CandidateRepoService {
 		return this.candidateRepo.save( sc );
 	}
 	
-	
+
+	@Transactional
 	public ServiceCandidate updateServiceCandidateDataFromAPI(ServiceCandidate sc, @Valid ServiceCandidateUpdate serviceCandidateUpd) {	
 
 		ServiceSpecification specObj =  null;
 		
 		if ( serviceCandidateUpd.getServiceSpecification()!=null) {
-			specObj = this.specRepo.findByUuid( serviceCandidateUpd.getServiceSpecification().getId() );			
+			Optional<ServiceSpecification> optionalCat = this.serviceSpecificationRepo.findByUuid( serviceCandidateUpd.getServiceSpecification().getId() );
+			specObj =  optionalCat.orElse(null);
 		}
 		
 		if ( specObj != null ) {

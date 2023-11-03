@@ -21,22 +21,20 @@ package io.openslice.tmf.am666.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Defines a plan for payment (when a party wants to spread his payments)
  */
-@ApiModel(description = "Defines a plan for payment (when a party wants to spread his payments)")
+@Schema(description = "Defines a plan for payment (when a party wants to spread his payments)")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
 public class PaymentPlan   {
   @JsonProperty("numberOfPayments")
@@ -81,7 +79,7 @@ public class PaymentPlan   {
    * Number of payments used to spread the global payment
    * @return numberOfPayments
   **/
-  @ApiModelProperty(value = "Number of payments used to spread the global payment")
+  @Schema(description = "Number of payments used to spread the global payment")
 
 
   public Integer getNumberOfPayments() {
@@ -101,7 +99,7 @@ public class PaymentPlan   {
    * Frequency of the payments, such as monthly and bimonthly
    * @return paymentFrequency
   **/
-  @ApiModelProperty(value = "Frequency of the payments, such as monthly and bimonthly")
+  @Schema(description = "Frequency of the payments, such as monthly and bimonthly")
 
 
   public String getPaymentFrequency() {
@@ -121,7 +119,7 @@ public class PaymentPlan   {
    * Type of payment plan
    * @return planType
   **/
-  @ApiModelProperty(value = "Type of payment plan")
+  @Schema(description = "Type of payment plan")
 
 
   public String getPlanType() {
@@ -141,7 +139,7 @@ public class PaymentPlan   {
    * Priority of the payment plan
    * @return priority
   **/
-  @ApiModelProperty(value = "Priority of the payment plan")
+  @Schema(description = "Priority of the payment plan")
 
 
   public Integer getPriority() {
@@ -161,7 +159,7 @@ public class PaymentPlan   {
    * Status of the payment plan (effective, ineffective)
    * @return status
   **/
-  @ApiModelProperty(value = "Status of the payment plan (effective, ineffective)")
+  @Schema(description = "Status of the payment plan (effective, ineffective)")
 
 
   public String getStatus() {
@@ -181,7 +179,7 @@ public class PaymentPlan   {
    * Get paymentMethod
    * @return paymentMethod
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -202,7 +200,7 @@ public class PaymentPlan   {
    * Amount paid
    * @return totalAmount
   **/
-  @ApiModelProperty(value = "Amount paid")
+  @Schema(description = "Amount paid")
 
   @Valid
 
@@ -223,7 +221,7 @@ public class PaymentPlan   {
    * Validity period of the payment plan
    * @return validFor
   **/
-  @ApiModelProperty(value = "Validity period of the payment plan")
+  @Schema(description = "Validity period of the payment plan")
 
   @Valid
 
@@ -244,7 +242,7 @@ public class PaymentPlan   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -264,7 +262,7 @@ public class PaymentPlan   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -284,7 +282,7 @@ public class PaymentPlan   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

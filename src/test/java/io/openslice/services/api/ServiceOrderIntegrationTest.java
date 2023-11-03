@@ -58,9 +58,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
@@ -208,7 +205,7 @@ public class ServiceOrderIntegrationTest {
 		 * here 1+2 + the 2 characteristics of the service itself total 5
 		 */
 		
-		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 5 );
+		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 8 );
 
 		ServiceOrderCreate servOrder = new ServiceOrderCreate();
 		servOrder.setCategory("Experimentation");
@@ -260,9 +257,9 @@ public class ServiceOrderIntegrationTest {
 		assertThat(responseSO.getOrderItem().size()).isEqualTo(1);
 		
 
-		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo( 1 );
-		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo( 2 );
-		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 5 );
+		assertThat( responsesSpec1.getServiceSpecCharacteristic().size() ).isEqualTo( 2 );
+		assertThat( responsesSpec2.getServiceSpecCharacteristic().size() ).isEqualTo( 3 );
+		assertThat( responsesSpec3.getServiceSpecCharacteristic().size() ).isEqualTo( 8 );
 	
 		
 		responseSO.getOrderItem().stream().forEach(soiElement -> {

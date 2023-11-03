@@ -21,19 +21,18 @@ package io.openslice.tmf.sqm657.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * EventSubscription
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:14:31.369+03:00")
 
 public class EventSubscription   {
   @JsonProperty("id")
@@ -54,7 +53,7 @@ public class EventSubscription   {
    * Id of the listener
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Id of the listener")
+  @Schema(description = "Id of the listener")
   @NotNull
 
 
@@ -75,7 +74,7 @@ public class EventSubscription   {
    * The callback being registered.
    * @return callback
   **/
-  @ApiModelProperty(required = true, value = "The callback being registered.")
+  @Schema(description = "The callback being registered.")
   @NotNull
 
 
@@ -96,7 +95,7 @@ public class EventSubscription   {
    * additional data to be passed
    * @return query
   **/
-  @ApiModelProperty(value = "additional data to be passed")
+  @Schema(description = "additional data to be passed")
 
 
   public String getQuery() {

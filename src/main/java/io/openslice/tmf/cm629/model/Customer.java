@@ -23,17 +23,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.am651.model.AgreementRef;
 import io.openslice.tmf.am666.model.AccountRef;
@@ -43,13 +35,20 @@ import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.pm632.model.Characteristic;
 import io.openslice.tmf.pm632.model.ContactMedium;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Customer
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 @Entity(name = "Customer")
 public class Customer extends BaseRootNamedEntity {
@@ -111,7 +110,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier for Customers")
+	@Schema(description = "Unique identifier for Customers")
 
 	public String getId() {
 		return uuid;
@@ -127,7 +126,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return status
 	 **/
-	@ApiModelProperty(value = "Used to track the lifecycle status of the customer.")
+	@Schema(description = "Used to track the lifecycle status of the customer.")
 
 	public String getStatus() {
 		return status;
@@ -149,7 +148,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return statusReason
 	 **/
-	@ApiModelProperty(value = "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.")
+	@Schema(description = "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.")
 
 	public String getStatusReason() {
 		return statusReason;
@@ -177,7 +176,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return account
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -207,7 +206,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return agreement
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -237,7 +236,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return characteristic
 	 **/
-	@ApiModelProperty(value = "Describes the characteristic of a customer.")
+	@Schema(description = "Describes the characteristic of a customer.")
 
 	@Valid
 
@@ -267,7 +266,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return contactMedium
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -297,7 +296,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return creditProfile
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -319,7 +318,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return engagedParty
 	 **/
-	@ApiModelProperty(required = true, value = "The party - an organization or an individual - that is engaged as a customer.")
+	@Schema(description = "The party - an organization or an individual - that is engaged as a customer.")
 	@NotNull
 
 	@Valid
@@ -350,7 +349,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return paymentMethod
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -380,7 +379,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 
@@ -402,7 +401,7 @@ public class Customer extends BaseRootNamedEntity {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The time period that the Customer is valid for.")
+	@Schema(description = "The time period that the Customer is valid for.")
 
 	@Valid
 

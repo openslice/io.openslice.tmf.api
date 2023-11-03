@@ -23,26 +23,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.am651.model.AgreementRef;
 import io.openslice.tmf.am666.model.AccountRef;
 import io.openslice.tmf.am666.model.PaymentMethodRef;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * The part played by a party in a given context. Skipped properties: id,href
  */
-@ApiModel(description = "The part played by a party in a given context. Skipped properties: id,href")
+@Schema(description = "The part played by a party in a given context. Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:20:50.154+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:20:50.154+03:00")
 
 public class PartyRoleCreate   {
   @JsonProperty("name")
@@ -106,7 +104,7 @@ public class PartyRoleCreate   {
    * A word, term, or phrase by which the PartyRole is known and distinguished from other PartyRoles.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "A word, term, or phrase by which the PartyRole is known and distinguished from other PartyRoles.")
+  @Schema(description = "A word, term, or phrase by which the PartyRole is known and distinguished from other PartyRoles.")
   @NotNull
 
 
@@ -127,7 +125,7 @@ public class PartyRoleCreate   {
    * Used to track the lifecycle status of the party role.
    * @return status
   **/
-  @ApiModelProperty(value = "Used to track the lifecycle status of the party role.")
+  @Schema(description = "Used to track the lifecycle status of the party role.")
 
 
   public String getStatus() {
@@ -147,7 +145,7 @@ public class PartyRoleCreate   {
    * A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.
    * @return statusReason
   **/
-  @ApiModelProperty(value = "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.")
+  @Schema(description = "A string providing an explanation on the value of the status lifecycle. For instance if the status is Rejected, statusReason will provide the reason for rejection.")
 
 
   public String getStatusReason() {
@@ -175,7 +173,7 @@ public class PartyRoleCreate   {
    * Get account
    * @return account
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -204,7 +202,7 @@ public class PartyRoleCreate   {
    * Get agreement
    * @return agreement
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -233,7 +231,7 @@ public class PartyRoleCreate   {
    * Describes the characteristic of a party role.
    * @return characteristic
   **/
-  @ApiModelProperty(value = "Describes the characteristic of a party role.")
+  @Schema(description = "Describes the characteristic of a party role.")
 
   @Valid
 
@@ -262,7 +260,7 @@ public class PartyRoleCreate   {
    * Get contactMedium
    * @return contactMedium
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -291,7 +289,7 @@ public class PartyRoleCreate   {
    * Get creditProfile
    * @return creditProfile
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -312,7 +310,7 @@ public class PartyRoleCreate   {
    * Get engagedParty
    * @return engagedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -341,7 +339,7 @@ public class PartyRoleCreate   {
    * Get paymentMethod
    * @return paymentMethod
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -370,7 +368,7 @@ public class PartyRoleCreate   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -391,7 +389,7 @@ public class PartyRoleCreate   {
    * The time period that the PartyRole is valid for.
    * @return validFor
   **/
-  @ApiModelProperty(value = "The time period that the PartyRole is valid for.")
+  @Schema(description = "The time period that the PartyRole is valid for.")
 
   @Valid
 
@@ -412,7 +410,7 @@ public class PartyRoleCreate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -432,7 +430,7 @@ public class PartyRoleCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -452,7 +450,7 @@ public class PartyRoleCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

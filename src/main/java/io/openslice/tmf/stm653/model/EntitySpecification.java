@@ -24,23 +24,20 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.TimePeriod;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 /**
  * EntitySpecification is a class that offers characteristics to describe a type
@@ -55,9 +52,9 @@ import io.swagger.annotations.ApiModelProperty;
  * entity instance may not define a value that differs from the value in the
  * specification.
  */
-@ApiModel(description = "EntitySpecification is a class that offers characteristics to describe a type of entity. Entities are generic constructs that may be used to describe bespoke business entities that are not effectively covered by the existing SID model. Functionally, the entity specification acts as a template by which entities may be instantiated and described. By sharing the same specification, these entities would therefore share the same set of characteristics. Note: The ‘configurable’ attribute on the specCharacteristics determines if an entity instantiated from the entity specification can override the value of the attribute. When set to false, the entity instance may not define a value that differs from the value in the specification.")
+@Schema(description = "EntitySpecification is a class that offers characteristics to describe a type of entity. Entities are generic constructs that may be used to describe bespoke business entities that are not effectively covered by the existing SID model. Functionally, the entity specification acts as a template by which entities may be instantiated and described. By sharing the same specification, these entities would therefore share the same set of characteristics. Note: The ‘configurable’ attribute on the specCharacteristics determines if an entity instantiated from the entity specification can override the value of the attribute. When set to false, the entity instance may not define a value that differs from the value in the specification.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Entity(name = "STMEntitySpecification")
 @Table(name = "STMEntitySpecification")
@@ -117,7 +114,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink reference")
+	@Schema(description = "Hyperlink reference")
 
 	public String getHref() {
 		return href;
@@ -137,7 +134,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "Description of this REST resource")
+	@Schema(description = "Description of this REST resource")
 
 	public String getDescription() {
 		return description;
@@ -158,7 +155,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "isBundle determines whether an EntitySpecification represents a single EntitySpecification (false), or a bundle of EntitySpecifications (true).")
+	@Schema(description = "isBundle determines whether an EntitySpecification represents a single EntitySpecification (false), or a bundle of EntitySpecifications (true).")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -178,7 +175,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return lastUpdate
 	 **/
-	@ApiModelProperty(value = "Date and time of the last update of this REST resource")
+	@Schema(description = "Date and time of the last update of this REST resource")
 
 	@Valid
 	public OffsetDateTime getLastUpdate() {
@@ -199,7 +196,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return lifecycleStatus
 	 **/
-	@ApiModelProperty(value = "Used to indicate the current lifecycle status of this catalog item")
+	@Schema(description = "Used to indicate the current lifecycle status of this catalog item")
 
 	public String getLifecycleStatus() {
 		return lifecycleStatus;
@@ -219,7 +216,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(value = "Name given to this REST resource")
+	@Schema(description = "Name given to this REST resource")
 
 	public String getName() {
 		return name;
@@ -239,7 +236,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Entity specification version")
+	@Schema(description = "Entity specification version")
 
 	public String getVersion() {
 		return version;
@@ -268,7 +265,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return attachment
 	 **/
-	@ApiModelProperty(value = "Attachments that may be of relevance to this specification, such as picture, document, media")
+	@Schema(description = "Attachments that may be of relevance to this specification, such as picture, document, media")
 	@Valid
 	public Set<AttachmentRefOrValue> getAttachment() {
 		return attachment;
@@ -296,7 +293,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return constraint
 	 **/
-	@ApiModelProperty(value = "This is a list of constraint references applied to this specification")
+	@Schema(description = "This is a list of constraint references applied to this specification")
 	@Valid
 	public Set<ConstraintRef> getConstraint() {
 		return constraint;
@@ -326,7 +323,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return entitySpecRelationship
 	 **/
-	@ApiModelProperty(value = "Relationship to another entity specification, might be dependency, substitution, etc.")
+	@Schema(description = "Relationship to another entity specification, might be dependency, substitution, etc.")
 	@Valid
 	public Set<EntitySpecificationRelationship> getEntitySpecRelationship() {
 		return entitySpecRelationship;
@@ -354,7 +351,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "Parties who manage or otherwise have an interest in this entity specification")
+	@Schema(description = "Parties who manage or otherwise have an interest in this entity specification")
 	@Valid
 	public Set<RelatedParty> getRelatedParty() {
 		return relatedParty;
@@ -382,7 +379,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return specCharacteristic
 	 **/
-	@ApiModelProperty(value = "List of characteristics that the entity can take")
+	@Schema(description = "List of characteristics that the entity can take")
 	@Valid
 	public Set<CharacteristicSpecification> getSpecCharacteristic() {
 		return specCharacteristic;
@@ -402,7 +399,7 @@ public class EntitySpecification extends BaseEntity {
 	 * 
 	 * @return targetEntitySchema
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 
 	@Valid
 	public TargetEntitySchema getTargetEntitySchema() {

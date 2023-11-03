@@ -24,17 +24,18 @@
  */
 package io.openslice.tmf.so641.api;
 
-import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,20 +43,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.so641.model.Error;
 import io.openslice.tmf.so641.model.ServiceOrder;
 import io.openslice.tmf.so641.model.ServiceOrderCreate;
 import io.openslice.tmf.so641.model.ServiceOrderUpdate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
-@Api(value = "serviceOrder", description = "the serviceOrder API")
+@Tag(name = "serviceOrder", description = "the serviceOrder API")
 public interface ServiceOrderApi {
 
     Logger log = LoggerFactory.getLogger(ServiceOrderApi.class);
@@ -72,111 +72,155 @@ public interface ServiceOrderApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a ServiceOrder", nickname = "createServiceOrder", notes = "This operation creates a ServiceOrder entity.", response = ServiceOrder.class, tags={ "serviceOrder", })
+    @Operation(summary = "Creates a ServiceOrder", operationId = "createServiceOrder", description = "This operation creates a ServiceOrder entity.", tags={ "serviceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = ServiceOrder.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceOrder",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
     default ResponseEntity<ServiceOrder> createServiceOrder(
 			Principal principal,
-			@ApiParam(value = "The ServiceOrder to be created" ,required=true )  @Valid @RequestBody ServiceOrderCreate serviceOrder) {
+			@Parameter(description = "The ServiceOrder to be created" ,required=true )  @Valid @RequestBody ServiceOrderCreate serviceOrder) {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "Deletes a ServiceOrder", nickname = "deleteServiceOrder", notes = "This operation deletes a ServiceOrder entity.", tags={ "serviceOrder", })
+    @Operation(summary = "Deletes a ServiceOrder", operationId = "deleteServiceOrder", description = "This operation deletes a ServiceOrder entity.", tags={ "serviceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.DELETE)
     default ResponseEntity<Void> deleteServiceOrder(
 			Principal principal,
-			@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id) {
+			@Parameter(description = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "List or find ServiceOrder objects", nickname = "listServiceOrder", notes = "This operation list or find ServiceOrder entities", response = ServiceOrder.class, responseContainer = "List", tags={ "serviceOrder", })
+    @Operation(summary = "List or find ServiceOrder objects", operationId = "listServiceOrder", description = "This operation list or find ServiceOrder entities" , tags={ "serviceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ServiceOrder.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceOrder",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
     default ResponseEntity<List<ServiceOrder>> listServiceOrder(
 			Principal principal,			
-    		@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
-    		@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
-    		@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    		@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,
+    		@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,
+    		@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit,
+    		@Parameter(description = "Requested starttime for start of resources to be provided in response") @Valid @RequestParam(value = "starttime", required = false)  @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date starttime,
+    		@Parameter(description = "Requested endtime for start of resources to be provided in response") @Valid @RequestParam(value = "endtime", required = false) @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date endtime    		
 			) {
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "Updates partially a ServiceOrder", nickname = "patchServiceOrder", notes = "This operation updates partially a ServiceOrder entity.", response = ServiceOrder.class, tags={ "serviceOrder", })
+    @Operation(summary = "Updates partially a ServiceOrder", operationId = "patchServiceOrder", description = "This operation updates partially a ServiceOrder entity.", tags={ "serviceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = ServiceOrder.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
     default ResponseEntity<ServiceOrder> patchServiceOrder(
 			Principal principal,
-			@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,@ApiParam(value = "The ServiceOrder to be updated" ,required=true )  @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
+			@Parameter(description = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,@Parameter(description = "The ServiceOrder to be updated" ,required=true )  @Valid @RequestBody ServiceOrderUpdate serviceOrder) {
     	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "Retrieves a ServiceOrder by ID", nickname = "retrieveServiceOrder", notes = "This operation retrieves a ServiceOrder entity. Attribute selection is enabled for all first level attributes.", response = ServiceOrder.class, tags={ "serviceOrder", })
+    @Operation(summary = "Retrieves a ServiceOrder by ID", operationId = "retrieveServiceOrder", description = "This operation retrieves a ServiceOrder entity. Attribute selection is enabled for all first level attributes.", tags={ "serviceOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ServiceOrder.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/serviceOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
     default ResponseEntity<ServiceOrder> retrieveServiceOrder(
 			Principal principal,			
-    		@ApiParam(value = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,
-    		@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    		@Parameter(description = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,
+    		@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
       
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
+    
+    
+
+    @Operation(summary = "Get a SVG image with service order item services relationship graph", operationId = "getImageServiceOrderItemRelationshipGraph", 
+    		description = "This operation returns a SVG image with service order item services relationship graph", tags={ "serviceOrder", })
+    @ApiResponses(value = { 
+
+        @ApiResponse(responseCode = "302", description = "Success" ),
+        //@ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
+    @RequestMapping(value ="/serviceOrder/{id}/item/{itemid}/relationship_graph",        
+    	produces = MediaType.ALL_VALUE ,
+        method = RequestMethod.GET)
+    ResponseEntity<Void> getImageServiceOrderItemRelationshipGraph(
+    		@Parameter(description = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id,
+    		@Parameter(description = "Identifier of the ServiceOrderItem",required=true) @PathVariable("itemid") String itemid);
+    
+
+    @Operation(summary = "Get a SVG image with service order notes activity graph", operationId = "getImageServiceOrderNotesGraph", 
+    		description = "This operation returns a SVG image with service order notes activity  graph", tags={ "serviceOrder", })
+    @ApiResponses(value = { 
+
+        @ApiResponse(responseCode = "302", description = "Success" ),
+        //@ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
+    @RequestMapping(value ="/serviceOrder/{id}/notes_graph",        
+    	produces = MediaType.ALL_VALUE ,
+        method = RequestMethod.GET)
+    ResponseEntity<Void> getImageServiceOrderNotesGraph(
+    		@Parameter(description = "Identifier of the ServiceOrder",required=true) @PathVariable("id") String id);
 
 }

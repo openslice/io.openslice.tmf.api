@@ -20,20 +20,19 @@
 package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Base Extensible schema for use in TMForum Open-APIs
  */
-@ApiModel(description = "Base Extensible schema for use in TMForum Open-APIs")
+@Schema(description = "Base Extensible schema for use in TMForum Open-APIs")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 public class Extensible   {
   @JsonProperty("@baseType")
   private String baseType = null;
@@ -53,7 +52,7 @@ public class Extensible   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -72,7 +71,7 @@ public class Extensible   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -91,7 +90,7 @@ public class Extensible   {
    * When sub-classing, this defines the sub-class Extensible name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class Extensible name")
+  @Schema(description = "When sub-classing, this defines the sub-class Extensible name")
   
     public String getAtType() {
     return type;

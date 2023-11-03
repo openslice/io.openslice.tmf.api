@@ -24,23 +24,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A template of an agreement that can be used when establishing partnerships.
  */
-@ApiModel(description = "A template of an agreement that can be used when establishing partnerships.")
+@Schema(description = "A template of an agreement that can be used when establishing partnerships.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementSpecification   {
   @JsonProperty("description")
@@ -107,7 +105,7 @@ public class AgreementSpecification   {
    * A narrative that explains in detail what the agreement specification is about.
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail what the agreement specification is about.")
+  @Schema(description = "A narrative that explains in detail what the agreement specification is about.")
 
 
   public String getDescription() {
@@ -127,7 +125,7 @@ public class AgreementSpecification   {
    * Reference of the agreement specification
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the agreement specification")
+  @Schema(description = "Reference of the agreement specification")
 
 
   public String getHref() {
@@ -147,7 +145,7 @@ public class AgreementSpecification   {
    * Unique identifier of the agreement specification
    * @return id
   **/
-  @ApiModelProperty(value = "Unique identifier of the agreement specification")
+  @Schema(description = "Unique identifier of the agreement specification")
 
 
   public String getId() {
@@ -167,7 +165,7 @@ public class AgreementSpecification   {
    * Indicates that this agreement specification is a grouping of other agreement specifications. The list of bundled agreement specifications is provided via the specificationRelationship property.
    * @return isBundle
   **/
-  @ApiModelProperty(value = "Indicates that this agreement specification is a grouping of other agreement specifications. The list of bundled agreement specifications is provided via the specificationRelationship property.")
+  @Schema(description = "Indicates that this agreement specification is a grouping of other agreement specifications. The list of bundled agreement specifications is provided via the specificationRelationship property.")
 
 
   public Boolean isIsBundle() {
@@ -187,7 +185,7 @@ public class AgreementSpecification   {
    * Date and time of the last update
    * @return lastUpdate
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+  @Schema(description = "Date and time of the last update")
 
   @Valid
 
@@ -208,7 +206,7 @@ public class AgreementSpecification   {
    * Indicates the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Indicates the current lifecycle status")
+  @Schema(description = "Indicates the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -228,7 +226,7 @@ public class AgreementSpecification   {
    * Name of the agreement specification
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "Name of the agreement specification")
+  @Schema(description = "Name of the agreement specification")
   @NotNull
 
 
@@ -249,7 +247,7 @@ public class AgreementSpecification   {
    * The period for which the agreement specification is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the agreement specification is valid")
+  @Schema(description = "The period for which the agreement specification is valid")
 
   @Valid
 
@@ -270,7 +268,7 @@ public class AgreementSpecification   {
    * Agreement specification version
    * @return version
   **/
-  @ApiModelProperty(value = "Agreement specification version")
+  @Schema(description = "Agreement specification version")
 
 
   public String getVersion() {
@@ -290,7 +288,7 @@ public class AgreementSpecification   {
    * Get serviceCategory
    * @return serviceCategory
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -319,7 +317,7 @@ public class AgreementSpecification   {
    * Get specCharacteristic
    * @return specCharacteristic
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -348,7 +346,7 @@ public class AgreementSpecification   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -377,7 +375,7 @@ public class AgreementSpecification   {
    * Get attachment
    * @return attachment
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -406,7 +404,7 @@ public class AgreementSpecification   {
    * Get specificationRelationship
    * @return specificationRelationship
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -427,7 +425,7 @@ public class AgreementSpecification   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -447,7 +445,7 @@ public class AgreementSpecification   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {
@@ -467,7 +465,7 @@ public class AgreementSpecification   {
    * The base type for use in polymorphic collections
    * @return baseType
   **/
-  @ApiModelProperty(value = "The base type for use in polymorphic collections")
+  @Schema(description = "The base type for use in polymorphic collections")
 
 
   public String getBaseType() {

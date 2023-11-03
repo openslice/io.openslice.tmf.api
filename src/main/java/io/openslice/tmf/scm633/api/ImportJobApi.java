@@ -26,8 +26,6 @@ package io.openslice.tmf.scm633.api;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,83 +33,83 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.ImportJob;
 import io.openslice.tmf.scm633.model.ImportJobCreate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
-@Api(value = "importJob", description = "the importJob API")
+@Tag(name = "importJob", description = "the importJob API")
 public interface ImportJobApi {
 
-    @ApiOperation(value = "Creates a ImportJob", nickname = "createImportJob", notes = "This operation creates a ImportJob entity.", response = ImportJob.class, tags={ "importJob", })
+    @Operation(summary = "Creates a ImportJob", operationId = "createImportJob", description = "This operation creates a ImportJob entity.", tags={ "importJob", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = ImportJob.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/importJob",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<ImportJob> createImportJob(@ApiParam(value = "The ImportJob to be created" ,required=true )  @Valid @RequestBody ImportJobCreate importJob);
+    ResponseEntity<ImportJob> createImportJob(@Parameter(description = "The ImportJob to be created" ,required=true )  @Valid @RequestBody ImportJobCreate importJob);
 
 
-    @ApiOperation(value = "Deletes a ImportJob", nickname = "deleteImportJob", notes = "This operation deletes a ImportJob entity.", tags={ "importJob", })
+    @Operation(summary = "Deletes a ImportJob", operationId = "deleteImportJob", description = "This operation deletes a ImportJob entity.", tags={ "importJob", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted"),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/importJob/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteImportJob(@ApiParam(value = "Identifier of the ImportJob",required=true) @PathVariable("id") String id);
+    ResponseEntity<Void> deleteImportJob(@Parameter(description = "Identifier of the ImportJob",required=true) @PathVariable("id") String id);
 
 
-    @ApiOperation(value = "List or find ImportJob objects", nickname = "listImportJob", notes = "This operation list or find ImportJob entities", response = ImportJob.class, responseContainer = "List", tags={ "importJob", })
+    @Operation(summary = "List or find ImportJob objects", operationId = "listImportJob", description = "This operation list or find ImportJob entities" , tags={ "importJob", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ImportJob.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/importJob",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    ResponseEntity<List<ImportJob>> listImportJob(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
+    ResponseEntity<List<ImportJob>> listImportJob(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit);
 
 
-    @ApiOperation(value = "Retrieves a ImportJob by ID", nickname = "retrieveImportJob", notes = "This operation retrieves a ImportJob entity. Attribute selection is enabled for all first level attributes.", response = ImportJob.class, tags={ "importJob", })
+    @Operation(summary = "Retrieves a ImportJob by ID", operationId = "retrieveImportJob", description = "This operation retrieves a ImportJob entity. Attribute selection is enabled for all first level attributes.", tags={ "importJob", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ImportJob.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/importJob/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    ResponseEntity<ImportJob> retrieveImportJob(@ApiParam(value = "Identifier of the ImportJob",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
+    ResponseEntity<ImportJob> retrieveImportJob(@Parameter(description = "Identifier of the ImportJob",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields);
 
 }

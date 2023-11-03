@@ -21,24 +21,21 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * The service test specification used by the service test.
  */
-@ApiModel(description = "The service test specification used by the service test.")
+@Schema(description = "The service test specification used by the service test.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 
 @Entity(name = "STMServiceTestSpecificationRef")
 @Table(name = "STMServiceTestSpecificationRef")
@@ -77,7 +74,7 @@ public class ServiceTestSpecificationRef extends BaseRootEntity {
 	 * 
 	 * @return href
 	 **/
-	@ApiModelProperty(value = "Hyperlink to access a service test specification.")
+	@Schema(description = "Hyperlink to access a service test specification.")
 
 	public String getHref() {
 		return href;
@@ -97,7 +94,7 @@ public class ServiceTestSpecificationRef extends BaseRootEntity {
 	 * 
 	 * @return version
 	 **/
-	@ApiModelProperty(value = "Version of a service test specification ")
+	@Schema(description = "Version of a service test specification ")
 
 	public String getVersion() {
 		return version;
@@ -119,7 +116,7 @@ public class ServiceTestSpecificationRef extends BaseRootEntity {
 	 * 
 	 * @return _atReferredType
 	 **/
-	@ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+	@Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 	public String getAtReferredType() {
 		return _atReferredType;

@@ -24,7 +24,6 @@ import java.util.Optional;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import io.openslice.tmf.cm629.model.Customer;
 import io.openslice.tmf.fi691.model.UserInfoType;
 
 

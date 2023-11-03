@@ -23,22 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A characteristic quality or distinctive feature of an agreement.
  */
-@ApiModel(description = "A characteristic quality or distinctive feature of an agreement.")
+@Schema(description = "A characteristic quality or distinctive feature of an agreement.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementSpecCharacteristic   {
   @JsonProperty("configurable")
@@ -75,7 +73,7 @@ public class AgreementSpecCharacteristic   {
    * If true, the Boolean indicates that the characteristic is configurable
    * @return configurable
   **/
-  @ApiModelProperty(value = "If true, the Boolean indicates that the characteristic is configurable")
+  @Schema(description = "If true, the Boolean indicates that the characteristic is configurable")
 
 
   public Boolean isConfigurable() {
@@ -95,7 +93,7 @@ public class AgreementSpecCharacteristic   {
    * A narrative that explains in detail what the characteristic is
    * @return description
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail what the characteristic is")
+  @Schema(description = "A narrative that explains in detail what the characteristic is")
 
 
   public String getDescription() {
@@ -115,7 +113,7 @@ public class AgreementSpecCharacteristic   {
    * Name of the characteristic being specified.
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the characteristic being specified.")
+  @Schema(description = "Name of the characteristic being specified.")
 
 
   public String getName() {
@@ -135,7 +133,7 @@ public class AgreementSpecCharacteristic   {
    * The period for which the specification characteristic is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the specification characteristic is valid")
+  @Schema(description = "The period for which the specification characteristic is valid")
 
   @Valid
 
@@ -156,7 +154,7 @@ public class AgreementSpecCharacteristic   {
    * A kind of value that the characteristic can take on, such as numeric, text and so forth
    * @return valueType
   **/
-  @ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+  @Schema(description = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
 
 
   public String getValueType() {
@@ -184,7 +182,7 @@ public class AgreementSpecCharacteristic   {
    * Get specCharacteristicValue
    * @return specCharacteristicValue
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 
@@ -205,7 +203,7 @@ public class AgreementSpecCharacteristic   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {
@@ -225,7 +223,7 @@ public class AgreementSpecCharacteristic   {
    * A link to the schema describing a resource (for type extension).
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A link to the schema describing a resource (for type extension).")
+  @Schema(description = "A link to the schema describing a resource (for type extension).")
 
 
   public String getSchemaLocation() {

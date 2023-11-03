@@ -24,14 +24,11 @@
  */
 package io.openslice.tmf.scm633.api;
 
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import io.openslice.tmf.scm633.model.Error;
 import io.openslice.tmf.scm633.model.EventSubscription;
 import io.openslice.tmf.scm633.model.ServiceCandidateChangeNotification;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreateNotification;
@@ -46,234 +43,235 @@ import io.openslice.tmf.scm633.model.ServiceCategoryDeleteNotification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationChangeNotification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreateNotification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationDeleteNotification;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
-@Api(value = "listener", description = "the listener API")
+@Tag(name = "listener", description = "the listener API")
 public interface ListenerApi {
 
-    @ApiOperation(value = "Client listener for entity ServiceCandidateChangeNotification", nickname = "listenToServiceCandidateChangeNotification", notes = "Example of a client listener for receiving the notification ServiceCandidateChangeNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCandidateChangeNotification", operationId = "listenToServiceCandidateChangeNotification", description = "Example of a client listener for receiving the notification ServiceCandidateChangeNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCandidateChangeNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCandidateChangeNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCandidateChangeNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCandidateChangeNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCandidateChangeNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCandidateCreateNotification", nickname = "listenToServiceCandidateCreateNotification", notes = "Example of a client listener for receiving the notification ServiceCandidateCreateNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCandidateCreateNotification", operationId = "listenToServiceCandidateCreateNotification", description = "Example of a client listener for receiving the notification ServiceCandidateCreateNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCandidateCreateNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCandidateCreateNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCandidateCreateNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCandidateCreateNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCandidateCreateNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCandidateDeleteNotification", nickname = "listenToServiceCandidateDeleteNotification", notes = "Example of a client listener for receiving the notification ServiceCandidateDeleteNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCandidateDeleteNotification", operationId = "listenToServiceCandidateDeleteNotification", description = "Example of a client listener for receiving the notification ServiceCandidateDeleteNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCandidateDeleteNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCandidateDeleteNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCandidateDeleteNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCandidateDeleteNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCandidateDeleteNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCatalogBatchNotification", nickname = "listenToServiceCatalogBatchNotification", notes = "Example of a client listener for receiving the notification ServiceCatalogBatchNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCatalogBatchNotification", operationId = "listenToServiceCatalogBatchNotification", description = "Example of a client listener for receiving the notification ServiceCatalogBatchNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCatalogBatchNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCatalogBatchNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogBatchNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCatalogBatchNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogBatchNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCatalogChangeNotification", nickname = "listenToServiceCatalogChangeNotification", notes = "Example of a client listener for receiving the notification ServiceCatalogChangeNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCatalogChangeNotification", operationId = "listenToServiceCatalogChangeNotification", description = "Example of a client listener for receiving the notification ServiceCatalogChangeNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCatalogChangeNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCatalogChangeNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogChangeNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCatalogChangeNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogChangeNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCatalogCreateNotification", nickname = "listenToServiceCatalogCreateNotification", notes = "Example of a client listener for receiving the notification ServiceCatalogCreateNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCatalogCreateNotification", operationId = "listenToServiceCatalogCreateNotification", description = "Example of a client listener for receiving the notification ServiceCatalogCreateNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCatalogCreateNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCatalogCreateNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogCreateNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCatalogCreateNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogCreateNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCatalogDeleteNotification", nickname = "listenToServiceCatalogDeleteNotification", notes = "Example of a client listener for receiving the notification ServiceCatalogDeleteNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCatalogDeleteNotification", operationId = "listenToServiceCatalogDeleteNotification", description = "Example of a client listener for receiving the notification ServiceCatalogDeleteNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCatalogDeleteNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCatalogDeleteNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogDeleteNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCatalogDeleteNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCatalogDeleteNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCategoryChangeNotification", nickname = "listenToServiceCategoryChangeNotification", notes = "Example of a client listener for receiving the notification ServiceCategoryChangeNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCategoryChangeNotification", operationId = "listenToServiceCategoryChangeNotification", description = "Example of a client listener for receiving the notification ServiceCategoryChangeNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCategoryChangeNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCategoryChangeNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCategoryChangeNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCategoryChangeNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCategoryChangeNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCategoryCreateNotification", nickname = "listenToServiceCategoryCreateNotification", notes = "Example of a client listener for receiving the notification ServiceCategoryCreateNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCategoryCreateNotification", operationId = "listenToServiceCategoryCreateNotification", description = "Example of a client listener for receiving the notification ServiceCategoryCreateNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCategoryCreateNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCategoryCreateNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCategoryCreateNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCategoryCreateNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCategoryCreateNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceCategoryDeleteNotification", nickname = "listenToServiceCategoryDeleteNotification", notes = "Example of a client listener for receiving the notification ServiceCategoryDeleteNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceCategoryDeleteNotification", operationId = "listenToServiceCategoryDeleteNotification", description = "Example of a client listener for receiving the notification ServiceCategoryDeleteNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceCategoryDeleteNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceCategoryDeleteNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceCategoryDeleteNotification data);
+    ResponseEntity<EventSubscription> listenToServiceCategoryDeleteNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceCategoryDeleteNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceSpecificationChangeNotification", nickname = "listenToServiceSpecificationChangeNotification", notes = "Example of a client listener for receiving the notification ServiceSpecificationChangeNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceSpecificationChangeNotification", operationId = "listenToServiceSpecificationChangeNotification", description = "Example of a client listener for receiving the notification ServiceSpecificationChangeNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceSpecificationChangeNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceSpecificationChangeNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceSpecificationChangeNotification data);
+    ResponseEntity<EventSubscription> listenToServiceSpecificationChangeNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceSpecificationChangeNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceSpecificationCreateNotification", nickname = "listenToServiceSpecificationCreateNotification", notes = "Example of a client listener for receiving the notification ServiceSpecificationCreateNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceSpecificationCreateNotification", operationId = "listenToServiceSpecificationCreateNotification", description = "Example of a client listener for receiving the notification ServiceSpecificationCreateNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceSpecificationCreateNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceSpecificationCreateNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceSpecificationCreateNotification data);
+    ResponseEntity<EventSubscription> listenToServiceSpecificationCreateNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceSpecificationCreateNotification data);
 
 
-    @ApiOperation(value = "Client listener for entity ServiceSpecificationDeleteNotification", nickname = "listenToServiceSpecificationDeleteNotification", notes = "Example of a client listener for receiving the notification ServiceSpecificationDeleteNotification", response = EventSubscription.class, tags={ "notification listeners (client side)", })
+    @Operation(summary = "Client listener for entity ServiceSpecificationDeleteNotification", operationId = "listenToServiceSpecificationDeleteNotification", description = "Example of a client listener for receiving the notification ServiceSpecificationDeleteNotification", tags={ "notification listeners (client side)", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Notified", response = EventSubscription.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Notified" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/listener/serviceSpecificationDeleteNotification",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    ResponseEntity<EventSubscription> listenToServiceSpecificationDeleteNotification(@ApiParam(value = "The event data" ,required=true )  @Valid @RequestBody ServiceSpecificationDeleteNotification data);
+    ResponseEntity<EventSubscription> listenToServiceSpecificationDeleteNotification(@Parameter(description = "The event data" ,required=true )  @Valid @RequestBody ServiceSpecificationDeleteNotification data);
 
 }

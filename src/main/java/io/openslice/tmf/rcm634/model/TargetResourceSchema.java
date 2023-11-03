@@ -21,22 +21,20 @@ package io.openslice.tmf.rcm634.model;
 
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * The reference object to the schema and type of target resource which is described by resource specification
  */
-@ApiModel(description = "The reference object to the schema and type of target resource which is described by resource specification")
+@Schema(description = "The reference object to the schema and type of target resource which is described by resource specification")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
 
 @Embeddable
 public class TargetResourceSchema   {
@@ -58,7 +56,7 @@ public class TargetResourceSchema   {
    * When sub-classing, this defines the super-class
    * @return _atBaseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return _atBaseType;
@@ -77,7 +75,7 @@ public class TargetResourceSchema   {
    * This field provides a link to the schema describing the target resource
    * @return _atSchemaLocation
   **/
-  @ApiModelProperty(required = true, value = "This field provides a link to the schema describing the target resource")
+  @Schema(description = "This field provides a link to the schema describing the target resource")
       @NotNull
 
     public String getAtSchemaLocation() {
@@ -97,7 +95,7 @@ public class TargetResourceSchema   {
    * Class type of the target resource
    * @return _atType
   **/
-  @ApiModelProperty(required = true, value = "Class type of the target resource")
+  @Schema(description = "Class type of the target resource")
       @NotNull
 
     public String getAtType() {

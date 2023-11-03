@@ -21,22 +21,20 @@ package io.openslice.tmf.po622.model;
 
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Describes a given characteristic of an object or entity through a name/value pair.
  */
-@ApiModel(description = "Describes a given characteristic of an object or entity through a name/value pair.")
+@Schema(description = "Describes a given characteristic of an object or entity through a name/value pair.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class Characteristic   {
   @JsonProperty("name")
   private String name = null;
@@ -65,7 +63,7 @@ public class Characteristic   {
    * Name of the characteristic
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "Name of the characteristic")
+  @Schema(description = "Name of the characteristic")
       @NotNull
 
     public String getName() {
@@ -85,7 +83,7 @@ public class Characteristic   {
    * Data type of the value of the characteristic
    * @return valueType
   **/
-  @ApiModelProperty(value = "Data type of the value of the characteristic")
+  @Schema(description = "Data type of the value of the characteristic")
   
     public String getValueType() {
     return valueType;
@@ -104,7 +102,7 @@ public class Characteristic   {
    * Get value
    * @return value
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     @Valid
@@ -125,7 +123,7 @@ public class Characteristic   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -144,7 +142,7 @@ public class Characteristic   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -163,7 +161,7 @@ public class Characteristic   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

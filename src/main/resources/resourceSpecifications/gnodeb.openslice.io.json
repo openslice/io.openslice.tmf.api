@@ -1,0 +1,253 @@
+{
+	"name": "gnodeb.openslice.io",
+	"category": "gNB",
+	"description": "The resource specification which describes a gNodeB",
+	"version": "0.2.0",
+	"isBundle": false,
+	"@type": "PhysicalResourceSpecification",
+	"attachment": [],
+	"relatedParty": [],
+	"resourceSpecCharacteristic": [
+		{
+			"name": "Name",
+			"configurable": true,
+			"description": "This attribute specifies the alias of the gNodeB",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": null
+				}
+			]
+		},
+		{
+			"name": "Server",
+			"configurable": false,
+			"description": "This attribute specifies the server where the gNodeB is accessible from.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": {
+						"value": "localhost",
+						"alias": "Local network"
+					}
+				}
+			]
+		},
+		{
+			"name": "IP",
+			"configurable": false,
+			"description": "This attribute specifies the IP of the gNodeB.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": {
+						"value": "localhost",
+						"alias": "Local network"
+					}
+				}
+			]
+		},
+		{
+			"name": "GtpInterface",
+			"configurable": false,
+			"description": "This attribute specifies the IP of the gtp interface of the gNodeB.",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": {
+						"value": "localhost",
+						"alias": "Local network"
+					}
+				}
+			]
+		},
+		{
+			"name": "Vendor",
+			"configurable": true,
+			"description": "This attribute specifies the vendor of the gNodeB",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": null
+				}
+			]
+		},
+		{
+			"name": "VendorModuleType",
+			"configurable": true,
+			"description": "This attribute specifies the vendor module type of the gNodeB",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": null
+				}
+			]
+		},
+		{
+			"name": "SoftwareVersion",
+			"configurable": true,
+			"description": "This attribute specifies the software version of the gNodeB",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": null
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"configurable": true,
+			"description": "This attribute specifies the location of the gNodeB via its longtitude and latitude",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT",
+			"resourceSpecCharRelationship": null,
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "TEXT",
+					"validFor": null,
+					"value": {
+						"value": "[ -90.0715, 29.9510 ]",
+						"alias": "Local (outdoor)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Coverage",
+			"configurable": true,
+			"description": "This attribute specifies the coverage area of the gNodeB",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"valueType": "SMALLINT",
+					"value": {
+						"value": "1",
+						"alias": "Picocell (outdoor)"
+					}
+				},
+				{
+					"isDefault": false,
+					"valueType": "SMALLINT",
+					"value": {
+						"value": "2",
+						"alias": "Nanocell (indoor)"
+					}
+				}
+			]
+		}
+	]
+}

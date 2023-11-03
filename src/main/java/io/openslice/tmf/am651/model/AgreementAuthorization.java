@@ -22,21 +22,19 @@ package io.openslice.tmf.am651.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * A business participant that is responsible for approving the agreement.
  */
-@ApiModel(description = "A business participant that is responsible for approving the agreement.")
+@Schema(description = "A business participant that is responsible for approving the agreement.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class AgreementAuthorization   {
   @JsonProperty("date")
@@ -60,7 +58,7 @@ public class AgreementAuthorization   {
    * The date associated with the authorization state.
    * @return date
   **/
-  @ApiModelProperty(value = "The date associated with the authorization state.")
+  @Schema(description = "The date associated with the authorization state.")
 
   @Valid
 
@@ -81,7 +79,7 @@ public class AgreementAuthorization   {
    * Indication that represents whether the signature is a physical paper signature or a digital signature.
    * @return signatureRepresentation
   **/
-  @ApiModelProperty(value = "Indication that represents whether the signature is a physical paper signature or a digital signature.")
+  @Schema(description = "Indication that represents whether the signature is a physical paper signature or a digital signature.")
 
 
   public String getSignatureRepresentation() {
@@ -101,7 +99,7 @@ public class AgreementAuthorization   {
    * Current status of the authorization, for example in process, approved, rejected.
    * @return state
   **/
-  @ApiModelProperty(value = "Current status of the authorization, for example in process, approved, rejected.")
+  @Schema(description = "Current status of the authorization, for example in process, approved, rejected.")
 
 
   public String getState() {
@@ -121,7 +119,7 @@ public class AgreementAuthorization   {
    * The class type of the actual resource (for type extension).
    * @return type
   **/
-  @ApiModelProperty(value = "The class type of the actual resource (for type extension).")
+  @Schema(description = "The class type of the actual resource (for type extension).")
 
 
   public String getType() {

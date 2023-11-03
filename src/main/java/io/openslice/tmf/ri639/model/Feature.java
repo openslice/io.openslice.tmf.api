@@ -4,29 +4,27 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Configuration feature.
  */
-@ApiModel(description = "Configuration feature.")
+@Schema(description = "Configuration feature.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-08T09:52:18.013684600+03:00[Europe/Athens]")
 @Entity(name = "RIFeature")
 public class Feature {
 
@@ -68,7 +66,7 @@ public class Feature {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the feature.")
+	@Schema(description = "Unique identifier of the feature.")
 	public String getId() {
 		id = uuid;
 		return uuid;
@@ -85,7 +83,7 @@ public class Feature {
 	 * 
 	 * @return isBundle
 	 **/
-	@ApiModelProperty(value = "True if this is a feature group. Default is false.")
+	@Schema(description = "True if this is a feature group. Default is false.")
 
 	public Boolean isIsBundle() {
 		return isBundle;
@@ -105,7 +103,7 @@ public class Feature {
 	 * 
 	 * @return isEnabled
 	 **/
-	@ApiModelProperty(value = "True if this feature is enabled. Default is true.")
+	@Schema(description = "True if this feature is enabled. Default is true.")
 
 	public Boolean isIsEnabled() {
 		return isEnabled;
@@ -125,7 +123,7 @@ public class Feature {
 	 * 
 	 * @return name
 	 **/
-	@ApiModelProperty(required = true, value = "This is the name for the feature.")
+	@Schema(description = "This is the name for the feature.")
 	@NotNull
 
 	public String getName() {
@@ -154,7 +152,7 @@ public class Feature {
 	 * 
 	 * @return constraint
 	 **/
-	@ApiModelProperty(value = "This is a list of feature constraints.")
+	@Schema(description = "This is a list of feature constraints.")
 	@Valid
 	public Set<ConstraintRef> getConstraint() {
 		return constraint;
@@ -179,7 +177,7 @@ public class Feature {
 	 * 
 	 * @return featureCharacteristic
 	 **/
-	@ApiModelProperty(required = true, value = "This is a list of Characteristics for a particular feature.")
+	@Schema(description = "This is a list of Characteristics for a particular feature.")
 	@NotNull
 	@Valid
 	@Size(min = 1)
@@ -209,7 +207,7 @@ public class Feature {
 	 * 
 	 * @return featureRelationship
 	 **/
-	@ApiModelProperty(value = "")
+	@Schema(description = "")
 	@Valid
 	public Set<FeatureRelationship> getFeatureRelationship() {
 		return featureRelationship;

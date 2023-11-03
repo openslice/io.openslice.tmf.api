@@ -21,27 +21,25 @@ package io.openslice.tmf.scm633.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.validation.Valid;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity
  * relationship between/among serviceSpecCharacteristics.
  */
-@ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among serviceSpecCharacteristics.")
+@Schema(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among serviceSpecCharacteristics.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 @Entity(name = "ServiceSpecCharRelationship")
 public class ServiceSpecCharRelationship {
 
@@ -184,7 +182,7 @@ public class ServiceSpecCharRelationship {
 	 * 
 	 * @return relationshipType
 	 **/
-	@ApiModelProperty(value = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
+	@Schema(description = "Type of relationship such as aggregation, migration, substitution, dependency, exclusivity")
 
 	public String getRelationshipType() {
 		return relationshipType;
@@ -204,7 +202,7 @@ public class ServiceSpecCharRelationship {
 	 * 
 	 * @return role
 	 **/
-	@ApiModelProperty(value = "The association role for this service specification")
+	@Schema(description = "The association role for this service specification")
 
 	public String getRole() {
 		return role;
@@ -224,7 +222,7 @@ public class ServiceSpecCharRelationship {
 	 * 
 	 * @return validFor
 	 **/
-	@ApiModelProperty(value = "The period for which the serviceSpecCharRelationship is valid")
+	@Schema(description = "The period for which the serviceSpecCharRelationship is valid")
 
 	@Valid
 

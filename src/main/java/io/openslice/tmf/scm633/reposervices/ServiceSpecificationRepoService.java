@@ -34,13 +34,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,15 +44,12 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.openslice.model.ConstituentVxF;
 import io.openslice.model.ExperimentOnBoardDescriptor;
@@ -74,12 +67,12 @@ import io.openslice.tmf.pm632.model.Organization;
 import io.openslice.tmf.pm632.reposervices.OrganizationRepoService;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
+import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristic;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCharacteristicValue;
-import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
-import io.openslice.tmf.scm633.api.ServiceSpecificationApiRouteBuilder;
+import io.openslice.tmf.scm633.api.ServiceSpecificationApiRouteBuilderNSD;
 import io.openslice.tmf.scm633.model.ServiceCandidate;
 import io.openslice.tmf.scm633.model.ServiceCandidateCreate;
 import io.openslice.tmf.scm633.model.ServiceCandidateUpdate;
@@ -90,7 +83,14 @@ import io.openslice.tmf.scm633.model.ServiceSpecification;
 import io.openslice.tmf.scm633.model.ServiceSpecificationCreate;
 import io.openslice.tmf.scm633.model.ServiceSpecificationUpdate;
 import io.openslice.tmf.scm633.repo.ServiceSpecificationRepository;
+import io.openslice.tmf.stm653.model.CharacteristicSpecification;
+import io.openslice.tmf.stm653.model.ServiceTestSpecification;
+import io.openslice.tmf.stm653.model.ServiceTestSpecificationUpdate;
+import io.openslice.tmf.stm653.reposervices.ServiceTestSpecificationRepoService;
 import io.openslice.tmf.util.AttachmentUtil;
+import io.openslice.tmf.util.KrokiClient;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 /**
  * @author ctranoris
@@ -119,12 +119,15 @@ public class ServiceSpecificationRepoService {
 	ResourceSpecificationRepoService resourceSpecRepoService;
 
 	@Autowired
-	ServiceSpecificationApiRouteBuilder serviceSpecificationApiRouteBuilder;
+	ServiceSpecificationApiRouteBuilderNSD serviceSpecificationApiRouteBuilder;
 
 
 	@Autowired
 	OrganizationRepoService organizationRepoService;
 	
+
+	@Autowired
+	ServiceTestSpecificationRepoService serviceTestSpecificationRepoService;
 	
 	private SessionFactory sessionFactory;
 
@@ -138,10 +141,13 @@ public class ServiceSpecificationRepoService {
 		}
 		this.sessionFactory = factory.unwrap(SessionFactory.class);
 	}
-
+	
+	
+	
 	public ServiceSpecification addServiceSpecification(@Valid ServiceSpecificationCreate serviceServiceSpecification) {
 
 		ServiceSpecification serviceSpec = new ServiceSpecification();
+				
 		serviceSpec = this.updateServiceSpecDataFromAPIcall(serviceSpec, serviceServiceSpecification);
 		serviceSpec = this.serviceSpecificationRepo.save(serviceSpec);
 		serviceSpec.fixSpecCharRelationhsipIDs();
@@ -270,32 +276,44 @@ public class ServiceSpecificationRepoService {
 		return optionalCat.orElse(null);
 	}
 
+	@Transactional
 	public ServiceSpecification findByUuidEager(String id) {
+
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction(); // instead of begin transaction, is it possible to continue?
-		ServiceSpecification dd = null;
 		try {
-			dd = session.get(ServiceSpecification.class, id);
-			if (dd == null) {
-				return this.findByUuid(id);// last resort
-			}
-			Hibernate.initialize(dd.getAttachment());
-			Hibernate.initialize(dd.getRelatedParty());
-			Hibernate.initialize(dd.getResourceSpecification());
-			Hibernate.initialize(dd.getServiceLevelSpecification());
-			Hibernate.initialize(dd.getServiceSpecCharacteristic());
-			for (ServiceSpecCharacteristic schar : dd.getServiceSpecCharacteristic()) {
-				Hibernate.initialize(schar.getServiceSpecCharacteristicValue());
-				Hibernate.initialize(schar.getServiceSpecCharRelationship());
+			ServiceSpecification dd = null;
+			try {
+				dd = session.get(ServiceSpecification.class, id);
+				if (dd == null) {
+					return this.findByUuid(id);// last resort
+				}
+				Hibernate.initialize(dd.getAttachment());
+				Hibernate.initialize(dd.getRelatedParty());
+				Hibernate.initialize(dd.getResourceSpecification());
+				Hibernate.initialize(dd.getServiceLevelSpecification());
+				Hibernate.initialize(dd.getServiceSpecCharacteristic());
+				for (ServiceSpecCharacteristic schar : dd.getServiceSpecCharacteristic()) {
+					Hibernate.initialize(schar.getServiceSpecCharacteristicValue());
+					Hibernate.initialize(schar.getServiceSpecCharRelationship());
 
-			}
-			Hibernate.initialize(dd.getServiceSpecRelationship());
+				}
+				Hibernate.initialize(dd.getServiceSpecRelationship());
 
-			tx.commit();
-		} finally {
-			session.close();
+				tx.commit();
+			} finally {
+				session.close();
+			}
+			return dd;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return dd;
+
+		session.close();
+		return null;
+		
+		
 	}
 
 	public Void deleteByUuid(String id) {
@@ -317,6 +335,25 @@ public class ServiceSpecificationRepoService {
 		return null;
 	}
 
+	
+	/**
+	 * @param id
+	 * @param forceId
+	 * @param serviceServiceSpecificationCreate
+	 * @return
+	 */
+	@Transactional
+	public ServiceSpecification updateOrAddServiceSpecification(String id,
+			@Valid ServiceSpecificationCreate serviceServiceSpecificationCreate) {
+		
+		ServiceSpecification serviceSpec = updateServiceSpecification(id, serviceServiceSpecificationCreate );
+		if ( serviceSpec == null ) {			
+				serviceSpec = addServiceSpecification( serviceServiceSpecificationCreate );
+		}
+		
+		return serviceSpec;
+	}
+	
 
 	@Transactional
 	public ServiceSpecification updateServiceSpecification(String id,
@@ -577,6 +614,12 @@ public class ServiceSpecificationRepoService {
 				if (!idexists) {
 					serviceSpec.getResourceSpecification().add(ar);
 					idAddedUpdated.put(ar.getId(), true);
+
+					/**
+					 * Also,
+					 * we will add by default all the characteristics of this rSpec to the related bundle parent service 
+					 */
+					serviceSpec = copyCharacteristicsOfResourceSpecId(  ar.getId(), serviceSpec);
 				}
 			}
 
@@ -616,6 +659,16 @@ public class ServiceSpecificationRepoService {
 		{			
 			serviceSpec.setType("CustomerFacingServiceSpecification");
 		}
+		
+
+		String charvalue = createGraphNotation( serviceSpec );
+		ServiceSpecCharacteristic gnchar = serviceSpec.findSpecCharacteristicByName("SSPEC_GRAPH_NOTATION");
+		if ( gnchar == null ) {
+			gnchar = addServiceSpecCharacteristic(serviceSpec, "SSPEC_GRAPH_NOTATION", "SSPEC_GRAPH_NOTATION", new Any( charvalue ,  "SSPEC_GRAPH_NOTATION" ), EValueType.LONGTEXT);
+		} else {
+			gnchar.getServiceSpecCharacteristicValue().stream().findFirst().get().setValue(  new Any( charvalue ,  "SSPEC_GRAPH_NOTATION" ) );			
+		}
+		
 
 		return serviceSpec;
 	}
@@ -643,8 +696,23 @@ public class ServiceSpecificationRepoService {
 		return targetServiceSpec;
 	}
 	
-	
-	
+	private ServiceSpecification copyCharacteristicsOfResourceSpecId(String sourceResourceSpecid, ServiceSpecification targetServiceSpec) {
+
+		ResourceSpecification rSpec = resourceSpecRepoService.findByUuid( sourceResourceSpecid );
+		
+		if ( rSpec != null ) {
+			for (ResourceSpecificationCharacteristic sourceChar : rSpec.getResourceSpecCharacteristic()) {
+				ServiceSpecCharacteristic serviceSpecCharacteristicItem = copyResourceCharacteristic( sourceChar );
+				serviceSpecCharacteristicItem.setName( rSpec.getName() + "::" +sourceChar.getName() );	
+
+				if ( targetServiceSpec.findSpecCharacteristicByName( serviceSpecCharacteristicItem.getName() ) == null ) {
+					targetServiceSpec.getServiceSpecCharacteristic().add( serviceSpecCharacteristicItem );					
+				}
+			}			
+		}
+		
+		return targetServiceSpec;
+	}	
 
 	public ServiceSpecification cloneServiceSpecification(String uuid) {
 		ServiceSpecification source = this.findByUuid(uuid);
@@ -1161,8 +1229,9 @@ public class ServiceSpecificationRepoService {
 	/**
 	 * @param serviceSpec
 	 * @param name
+	 * @return 
 	 */
-	private void addServiceSpecCharacteristic(ServiceSpecification serviceSpec, String aName, String description, Any any, EValueType eValueType) {
+	private ServiceSpecCharacteristic addServiceSpecCharacteristic(ServiceSpecification serviceSpec, String aName, String description, Any any, EValueType eValueType) {
 		ServiceSpecCharacteristic serviceSpecCharacteristicItem = new ServiceSpecCharacteristic();
 		serviceSpecCharacteristicItem.setName( aName );
 		serviceSpecCharacteristicItem.setDescription(description);
@@ -1176,7 +1245,7 @@ public class ServiceSpecificationRepoService {
 		serviceSpecCharacteristicValueItem.setUnitOfMeasure("N/A");		
 		serviceSpecCharacteristicItem.addServiceSpecCharacteristicValueItem(serviceSpecCharacteristicValueItem );
 		serviceSpec.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );
-		
+		return serviceSpecCharacteristicItem;
 	}
 	
 	
@@ -1229,5 +1298,153 @@ public class ServiceSpecificationRepoService {
 		 
 	}
 
+	public ServiceSpecification specFromTestSpec(String id) {
+		ServiceTestSpecification testSpec = serviceTestSpecificationRepoService.findByUuid(id);
+		if (testSpec == null) {
+			logger.error("specFromTestSpec return null");
+			return null;
+		}
+		
+
+		/**
+		 * 1: Create Service Spec related to ServiceTestSpecification
+		 */
+		ServiceSpecification serviceSpec = new ServiceSpecification();
+		serviceSpec.setName( testSpec.getName()  );
+		serviceSpec.setVersion( testSpec.getVersion() );
+		serviceSpec.setDescription( testSpec.getDescription() );		
+
+		addServiceSpecCharacteristic(serviceSpec, "testSpecRef", "testSpecRef", new Any( testSpec.getId() ,  testSpec.getId() ), EValueType.TEXT);
+		
+		for (CharacteristicSpecification sourceChar : testSpec.getSpecCharacteristic()) {
+			addServiceSpecCharacteristic(serviceSpec, 
+					sourceChar.getName(), 
+					sourceChar.getDescription() , new Any( ""  , ""), EValueType.TEXT);
+			
+		}
+		
+
+		serviceSpec = this.addServiceSpecification( serviceSpec );
+		
+		ServiceSpecificationRef serviceSpecRef = new ServiceSpecificationRef();
+		serviceSpecRef.setId(serviceSpec.getId());
+		@Valid
+		ServiceTestSpecificationUpdate stUpd = new ServiceTestSpecificationUpdate();
+		stUpd.addRelatedServiceSpecificationItem( serviceSpecRef );
+		
+		serviceTestSpecificationRepoService.updateServiceTestSpecification(id, stUpd );
+		
+		return serviceSpec;
+	}
+	
+	private String createGraphNotation( ServiceSpecification serviceSpec ) {
+		String result = getSpecGraphNotation(serviceSpec, 0 );
+		result = "blockdiag {"
+				+ "default_textcolor = white;\r\n"
+				+ "default_fontsize = 12;\r\n"
+				+ "\r\n" + result + "}";
+		return result;
+	}
+	
+	private String getSpecGraphNotation( ServiceSpecification serviceSpec, int depth ) {
+		String result = "";
+		if (depth>10) {
+			return result;
+		}
+		for (ServiceSpecRelationship specRel : serviceSpec.getServiceSpecRelationship()) {
+			result += "\""+ serviceSpec.getId() + "\""+ " -> " + "\""+ specRel.getId() +"\" "+";\r\n";
+			ServiceSpecification aSpec= this.findByUuid( specRel.getId() );
+			if ( aSpec!= null) {
+				result += getSpecGraphNotation( aSpec, depth ++  );				
+			}
+		}
+		for (ResourceSpecificationRef resRel : serviceSpec.getResourceSpecification() ) {
+			
+			result += "\""+ serviceSpec.getId() + "\""+ " -> " + "\""+ resRel.getId() + "\""+ ";\r\n";
+			result += "\""+ resRel.getId() + "\""+ " [ label = \""+ resRel.getName() +"\", shape = roundedbox, color = \"#e28743\"]; ";
+			
+		}
+		result += "\""+ serviceSpec.getId() + "\""+ " [ label = \""+ serviceSpec.getName() +"\", color = \"#2596be\"]; ";
+		return result;
+	}
+
+	public String getImageSpecificationRelationshipGraph(String id) {
+		
+		//it is good to update the graph
+		//ServiceSpecification aSpec= this.findByUuid( id );
+		ServiceSpecificationUpdate serviceServiceSpecificationUpd = new ServiceSpecificationUpdate();
+		ServiceSpecification aSpec = this.updateServiceSpecification( id, serviceServiceSpecificationUpd );
+		
+		String graph = null;
+		if ( aSpec != null ) {
+			ServiceSpecCharacteristic gnchar = aSpec.findSpecCharacteristicByName("SSPEC_GRAPH_NOTATION");
+			if ( gnchar != null ) {
+				graph = gnchar.getServiceSpecCharacteristicValue().stream().findFirst().get().getValue().getValue();
+			
+			}
+		}
+		
+		return KrokiClient.encodedGraph(graph);
+		
+		
+	}
+
+
+
+	public ServiceSpecification specFromResourceSpec(String id) {
+		ResourceSpecification rSpec = resourceSpecRepoService.findByUuid(id);
+		if (rSpec == null) {
+			logger.error("specFromResourceSpec return null");
+			return null;
+		}
+		
+
+		/**
+		 * 1: Create Service Spec related to ResourceSpecification
+		 */
+		ServiceSpecification serviceSpec = new ServiceSpecification();
+		serviceSpec.setName( rSpec.getName()  );
+		serviceSpec.setVersion( rSpec.getVersion() );
+		serviceSpec.setDescription( rSpec.getDescription() );		
+		serviceSpec.setType("ResourceFacingServiceSpecification");
+
+		
+		for (ResourceSpecificationCharacteristic sourceChar : rSpec.getResourceSpecCharacteristic()) {
+			ServiceSpecCharacteristic serviceSpecCharacteristicItem = copyResourceCharacteristic( sourceChar );
+			serviceSpecCharacteristicItem.setName( rSpec.getName() + "::" +sourceChar.getName() );			
+			serviceSpec.addServiceSpecCharacteristicItem(serviceSpecCharacteristicItem );		
+		}
+
+		
+		ResourceSpecificationRef resourceSpecRef = new ResourceSpecificationRef();
+		resourceSpecRef.setId( rSpec.getId());
+
+		serviceSpec = this.addServiceSpecification( serviceSpec );
+		
+		
+		
+		return serviceSpec;
+	}
+	
+	private ServiceSpecCharacteristic copyResourceCharacteristic( ResourceSpecificationCharacteristic sourceChar ) {
+		
+		ServiceSpecCharacteristic serviceSpecCharacteristicItem = new ServiceSpecCharacteristic();
+		serviceSpecCharacteristicItem.setDescription( sourceChar.getDescription());
+		serviceSpecCharacteristicItem.valueType( sourceChar.getValueType() );
+		serviceSpecCharacteristicItem.configurable(sourceChar.isConfigurable());
+		serviceSpecCharacteristicItem.setMinCardinality( sourceChar.getMinCardinality() );
+		serviceSpecCharacteristicItem.setMaxCardinality( sourceChar.getMaxCardinality()  );
+		for (ResourceSpecificationCharacteristicValue cv : sourceChar.getResourceSpecCharacteristicValue()) {
+			ServiceSpecCharacteristicValue serviceSpecCharacteristicValueItem = new ServiceSpecCharacteristicValue();
+			serviceSpecCharacteristicValueItem.setValue( new Any( cv.getValue().getValue(), cv.getValue().getAlias()));
+			serviceSpecCharacteristicValueItem.isDefault( cv.isIsDefault() );
+			serviceSpecCharacteristicValueItem.setUnitOfMeasure( cv.getUnitOfMeasure() );		
+			serviceSpecCharacteristicItem.addServiceSpecCharacteristicValueItem(serviceSpecCharacteristicValueItem );
+		}
+		return serviceSpecCharacteristicItem;
+	}
+	
+
+	
 
 }

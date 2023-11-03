@@ -24,26 +24,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * Skipped properties:
  * id,href,orderDate,completionDate,expectedCompletionDate,startDate,state
  */
-@ApiModel(description = " Skipped properties: id,href,orderDate,completionDate,expectedCompletionDate,startDate,state")
+@Schema(description = " Skipped properties: id,href,orderDate,completionDate,expectedCompletionDate,startDate,state")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 public class ServiceOrderCreate {
 	@JsonProperty("category")
@@ -101,7 +99,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Used to categorize the order, useful for the OM system, such as: Broadband, TVOption")
+	@Schema(description = "Used to categorize the order, useful for the OM system, such as: Broadband, TVOption")
 
 	public String getCategory() {
 		return category;
@@ -121,7 +119,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return description
 	 **/
-	@ApiModelProperty(value = "A free-text description of the service order")
+	@Schema(description = "A free-text description of the service order")
 
 	public String getDescription() {
 		return description;
@@ -141,7 +139,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return externalId
 	 **/
-	@ApiModelProperty(value = "ID given by the consumer to facilitate searches")
+	@Schema(description = "ID given by the consumer to facilitate searches")
 
 	public String getExternalId() {
 		return externalId;
@@ -161,7 +159,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return notificationContact
 	 **/
-	@ApiModelProperty(value = "Contact attached to the order to send back information regarding this order")
+	@Schema(description = "Contact attached to the order to send back information regarding this order")
 
 	public String getNotificationContact() {
 		return notificationContact;
@@ -182,7 +180,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return priority
 	 **/
-	@ApiModelProperty(value = "Can be used by consumers to prioritize orders in a Service Order Management system")
+	@Schema(description = "Can be used by consumers to prioritize orders in a Service Order Management system")
 
 	public String getPriority() {
 		return priority;
@@ -202,7 +200,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return requestedCompletionDate
 	 **/
-	@ApiModelProperty(value = "Requested delivery date from the requestors perspective")
+	@Schema(description = "Requested delivery date from the requestors perspective")
 
 	@Valid
 	public OffsetDateTime getRequestedCompletionDate() {
@@ -244,7 +242,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return requestedStartDate
 	 **/
-	@ApiModelProperty(value = "Order start date wished by the requestor")
+	@Schema(description = "Order start date wished by the requestor")
 
 	@Valid
 
@@ -296,7 +294,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return note
 	 **/
-	@ApiModelProperty(value = "Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process")
+	@Schema(description = "Extra-information about the order; e.g. useful to add extra delivery information that could be useful for a human process")
 
 	@Valid
 
@@ -323,7 +321,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return orderItem
 	 **/
-	@ApiModelProperty(required = true, value = "A list of service order items to be processed by this order")
+	@Schema(description = "A list of service order items to be processed by this order")
 	@NotNull
 
 	@Valid
@@ -355,7 +353,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return orderRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service orders related to this order (e.g. prerequisite, dependent on)")
+	@Schema(description = "A list of service orders related to this order (e.g. prerequisite, dependent on)")
 
 	@Valid
 
@@ -386,7 +384,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of parties which are involved in this order and the role they are playing")
+	@Schema(description = "A list of parties which are involved in this order and the role they are playing")
 
 	@Valid
 
@@ -408,7 +406,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return baseType
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the super-class")
+	@Schema(description = "When sub-classing, this defines the super-class")
 
 	public String getBaseType() {
 		return baseType;
@@ -429,7 +427,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return schemaLocation
 	 **/
-	@ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+	@Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 	public String getSchemaLocation() {
 		return schemaLocation;
@@ -449,7 +447,7 @@ public class ServiceOrderCreate {
 	 * 
 	 * @return type
 	 **/
-	@ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+	@Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 	public String getType() {
 		return type;

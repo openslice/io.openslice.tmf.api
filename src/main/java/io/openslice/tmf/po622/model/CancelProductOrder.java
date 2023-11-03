@@ -22,22 +22,20 @@ package io.openslice.tmf.po622.model;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Request for cancellation an existing product order
  */
-@ApiModel(description = "Request for cancellation an existing product order")
+@Schema(description = "Request for cancellation an existing product order")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class CancelProductOrder   {
   @JsonProperty("id")
   private String id = null;
@@ -78,7 +76,7 @@ public class CancelProductOrder   {
    * id of the cancellation request (this is not an order id)
    * @return id
   **/
-  @ApiModelProperty(value = "id of the cancellation request (this is not an order id)")
+  @Schema(description = "id of the cancellation request (this is not an order id)")
   
     public String getId() {
     return id;
@@ -97,7 +95,7 @@ public class CancelProductOrder   {
    * Hyperlink to access the cancellation request
    * @return href
   **/
-  @ApiModelProperty(value = "Hyperlink to access the cancellation request")
+  @Schema(description = "Hyperlink to access the cancellation request")
   
     public String getHref() {
     return href;
@@ -116,7 +114,7 @@ public class CancelProductOrder   {
    * Reason why the order is cancelled.
    * @return cancellationReason
   **/
-  @ApiModelProperty(value = "Reason why the order is cancelled.")
+  @Schema(description = "Reason why the order is cancelled.")
   
     public String getCancellationReason() {
     return cancellationReason;
@@ -135,7 +133,7 @@ public class CancelProductOrder   {
    * Date when the order is cancelled.
    * @return effectiveCancellationDate
   **/
-  @ApiModelProperty(value = "Date when the order is cancelled.")
+  @Schema(description = "Date when the order is cancelled.")
   
     @Valid
     public OffsetDateTime getEffectiveCancellationDate() {
@@ -155,7 +153,7 @@ public class CancelProductOrder   {
    * Date when the submitter wants the order to be cancelled
    * @return requestedCancellationDate
   **/
-  @ApiModelProperty(value = "Date when the submitter wants the order to be cancelled")
+  @Schema(description = "Date when the submitter wants the order to be cancelled")
   
     @Valid
     public OffsetDateTime getRequestedCancellationDate() {
@@ -175,7 +173,7 @@ public class CancelProductOrder   {
    * Get productOrder
    * @return productOrder
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
 
     @Valid
@@ -196,7 +194,7 @@ public class CancelProductOrder   {
    * Get state
    * @return state
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public TaskStateType getState() {
@@ -216,7 +214,7 @@ public class CancelProductOrder   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -235,7 +233,7 @@ public class CancelProductOrder   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -254,7 +252,7 @@ public class CancelProductOrder   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

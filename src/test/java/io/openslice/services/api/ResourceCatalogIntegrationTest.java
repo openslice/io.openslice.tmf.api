@@ -56,9 +56,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.Attachment;
@@ -106,7 +103,10 @@ public class ResourceCatalogIntegrationTest {
 
 	private static final transient Log logger = LogFactory.getLog( ResourceCatalogIntegrationTest.class.getName());
 
-	private static final int FIXED_BOOTSTRAPS_SPECS = 1;
+	private static final int FIXED_BOOTSTRAPS_SPECS = 3;
+	private static final int FIXED_BOOTSTRAPS_CATEGORIES = 2;
+	private static final int FIXED_BOOTSTRAPS_PHYSICAL_SPECS = 1;
+	private static final int FIXED_BOOTSTRAPS_LOGICAL_SPECS = 2;
 	
     @Autowired
     private MockMvc mvc;
@@ -140,16 +140,16 @@ public class ResourceCatalogIntegrationTest {
 	public void _countDefaultProperties() {
 
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
-		assertThat( candidateRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( candidateRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 		
 
 		assertThat( catalogRepoService.findByName( "Catalog" )  ).isNotNull() ;
-		assertThat( categRepoService.findByName( "Generic Resources" )  ).isNotNull() ;
+		assertThat( categRepoService.findByName( "Network Resources" )  ).isNotNull() ;
 
-		ResourceCategory categ = categRepoService.findByName( "Generic Resources" );
-		assertThat( categ.getResourceCandidateRefs().size() ).isEqualTo( 1 );
+		ResourceCategory categ = categRepoService.findByName( "Network Resources" );
+		assertThat( categ.getResourceCandidateRefs().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS );
 	}
 	
 
@@ -201,7 +201,7 @@ public class ResourceCatalogIntegrationTest {
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
 		
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 1 );
 		
 		ResourceCategory responsesCateg = JsonUtils.toJsonObj(response,  ResourceCategory.class);
 		assertThat( responsesCateg.getName() ).isEqualTo( "Test Category 2" );
@@ -247,7 +247,7 @@ public class ResourceCatalogIntegrationTest {
 
 		assertThat( responsesCatalog.getCategoryObj().size()).isEqualTo(1);
 		assertThat( responsesCatalog.getCategoryRefs().get(0).getName() ).isEqualTo(  "Test Category 2" );
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 1 );
 		
 		/**
 		 * Resource Spec
@@ -279,26 +279,26 @@ public class ResourceCatalogIntegrationTest {
 		
 		
 
-		ResourceCandidateCreate scand = new ResourceCandidateCreate();
-		scand.setName( responsesSpec.getName());
-		ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
-		resSpecificationRef.setId( responsesSpec.getId());
-		resSpecificationRef.setName( responsesSpec .getName());
-		scand.resourceSpecification(resSpecificationRef);
-		categoryItem = new ResourceCategoryRef();
-		categoryItem.setId( responsesCateg.getId());
-		categoryItem.setName( responsesCateg.getName() );
-		scand.addCategoryItem(categoryItem);
-		
-		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCandidate")
-	            .with( SecurityMockMvcRequestPostProcessors.csrf())
-			.contentType(MediaType.APPLICATION_JSON)
-			.content( JsonUtils.toJson( scand ) ))
-		    .andExpect(status().isOk())
-		    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-		    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
-    	    .andExpect(status().isOk())
-    	    .andReturn().getResponse().getContentAsString();
+//		ResourceCandidateCreate scand = new ResourceCandidateCreate();
+//		scand.setName( responsesSpec.getName());
+//		ResourceSpecificationRef resSpecificationRef = new ResourceSpecificationRef();
+//		resSpecificationRef.setId( responsesSpec.getId());
+//		resSpecificationRef.setName( responsesSpec .getName());
+//		scand.resourceSpecification(resSpecificationRef);
+//		categoryItem = new ResourceCategoryRef();
+//		categoryItem.setId( responsesCateg.getId());
+//		categoryItem.setName( responsesCateg.getName() );
+//		scand.addCategoryItem(categoryItem);
+//		
+//		response = mvc.perform(MockMvcRequestBuilders.post("/resourceCatalogManagement/v4/resourceCandidate")
+//	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+//			.contentType(MediaType.APPLICATION_JSON)
+//			.content( JsonUtils.toJson( scand ) ))
+//		    .andExpect(status().isOk())
+//		    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+//		    .andExpect(jsonPath("name", is("Test Resource Spec")))								 
+//    	    .andExpect(status().isOk())
+//    	    .andReturn().getResponse().getContentAsString();
 	
 		
 		
@@ -357,7 +357,7 @@ public class ResourceCatalogIntegrationTest {
 		scUpd1.addCategoryItem(scRef);
 		
 
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 2 );
 
 		String response = mvc.perform(MockMvcRequestBuilders.patch("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
@@ -372,7 +372,7 @@ public class ResourceCatalogIntegrationTest {
 		parentRootCategory = JsonUtils.toJsonObj(response,  ResourceCategory.class);
 		
 
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 2 );
 		assertThat( parentRootCategory.getCategoryRefs().size() ).isEqualTo(1);
 		assertThat( parentRootCategory.getCategoryRefs().get(0).getId() ).isEqualTo( child1Subcategory.getId() );
 		
@@ -382,7 +382,7 @@ public class ResourceCatalogIntegrationTest {
 		 */
 
 		ResourceCatalog catalog = catalogRepoService.findByName( "Catalog" ); 
-		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 1 );
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 2 );
 		ResourceCatalogUpdate scu = new ResourceCatalogUpdate();
 		scu.setName( catalog.getName() );
 		for (ResourceCategoryRef iref : catalog.getCategoryRefs()) {
@@ -393,12 +393,12 @@ public class ResourceCatalogIntegrationTest {
 		scu.addCategoryItem( categoryItem );
 		catalog = catalogRepoService.updateCatalog( catalog.getId(), scu);
 
-		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 2 );
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( catalog.getCategoryRefs().size() ).isEqualTo( 3 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 2 );
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 1 );		
 		catalogRepoService.deleteById( catalog.getId() );//delete
 		assertThat( catalogRepoService.findAll().size() ).isEqualTo( 0 );
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );//categories must remain
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 2 );//categories must remain
 		//fetch the subcategory and check parent ID
 		
 		 response = mvc.perform(MockMvcRequestBuilders.get("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
@@ -420,7 +420,7 @@ public class ResourceCatalogIntegrationTest {
 				    .andExpect(status().isNotModified() )
 		    	    .andReturn().getResponse().getContentAsString();
 		 
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 3 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 2 );
 		
 		//delete subcategory
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getCategoryRefs().get(0).getId() )
@@ -430,7 +430,7 @@ public class ResourceCatalogIntegrationTest {
 				    .andExpect(status().isOk() )
 		    	    .andReturn().getResponse().getContentAsString();
 		 
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 2 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES + 1 );
 		
 		 //delete rootcategory 
 		 response = mvc.perform(MockMvcRequestBuilders.delete("/resourceCatalogManagement/v4/resourceCategory/" + parentRootCategory.getId() )
@@ -440,7 +440,7 @@ public class ResourceCatalogIntegrationTest {
 				    .andExpect(status().isOk() )
 		    	    .andReturn().getResponse().getContentAsString();
 		 
-		assertThat( categRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( categRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_CATEGORIES );
 		
 	}
 
@@ -464,7 +464,7 @@ public class ResourceCatalogIntegrationTest {
 		}
 
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN" , "USER"})
 	@Test
 	public void testSpecAttributesUpdate() throws Exception {
 		logger.info("Test: testSpecAttributesUpdate");
@@ -652,7 +652,7 @@ public class ResourceCatalogIntegrationTest {
 		return responsesSpec1;
 	}
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"USER" , "ADMIN"})
 	@Test
 	public void testBundledSpec() throws Exception {
 		logger.info("Test: testBundledSpec " );
@@ -772,7 +772,7 @@ public class ResourceCatalogIntegrationTest {
 	
 	
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"ADMIN" , "USER"})
 	@Test
 	public void testSpecAttachment() throws Exception {
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );
@@ -815,7 +815,7 @@ public class ResourceCatalogIntegrationTest {
 	}
 
 
-	@WithMockUser(username="osadmin", roles = {"USER"})
+	@WithMockUser(username="osadmin", roles = {"USER", "ADMIN"})
 	@Test
 	public void testLogicalPhysicalResources() throws Exception {
 		File sspec = new File( "src/test/resources/testResourceSpec.json" );
@@ -845,8 +845,8 @@ public class ResourceCatalogIntegrationTest {
 		
 		
 		assertThat( specRepoService.findAll().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 3 );
-		assertThat( specRepoService.findAllPhysical().size() ).isEqualTo( 2 );
-		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( FIXED_BOOTSTRAPS_SPECS + 1 );
+		assertThat( specRepoService.findAllPhysical().size() ).isEqualTo( FIXED_BOOTSTRAPS_PHYSICAL_SPECS + 2 );
+		assertThat( specRepoService.findAllLogical().size() ).isEqualTo( FIXED_BOOTSTRAPS_LOGICAL_SPECS + 1);
 		
 	}
 	

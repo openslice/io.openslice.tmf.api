@@ -23,17 +23,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.common.model.BaseRootNamedEntity;
 import io.openslice.tmf.common.model.service.Characteristic;
@@ -44,17 +36,22 @@ import io.openslice.tmf.common.model.service.ServiceRelationship;
 import io.openslice.tmf.common.model.service.ServiceSpecificationRef;
 import io.openslice.tmf.common.model.service.ServiceStateType;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * In the context of a service order, and depending of the action requested
  * (add/modify/delete/noChange) this data structure captures the configuration
  * to apply to an existing subscribed service or to a new one
  */
-@ApiModel(description = "In the context of a service order, and depending of the action requested (add/modify/delete/noChange) this data structure captures the configuration to apply to an existing subscribed service or to a new one")
+@Schema(description = "In the context of a service order, and depending of the action requested (add/modify/delete/noChange) this data structure captures the configuration to apply to an existing subscribed service or to a new one")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:09:58.885+03:00")
 
 @Entity(name = "ServiceRestriction")
 public class ServiceRestriction extends BaseRootNamedEntity {
@@ -112,7 +109,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return id
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the service")
+	@Schema(description = "Unique identifier of the service")
 
 	public String getId() {
 		return uuid;
@@ -128,7 +125,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "Is it a customer facing or resource facing service")
+	@Schema(description = "Is it a customer facing or resource facing service")
 
 	public String getCategory() {
 		return category;
@@ -148,7 +145,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceType
 	 **/
-	@ApiModelProperty(value = "Business type of the service")
+	@Schema(description = "Business type of the service")
 
 	public String getServiceType() {
 		return serviceType;
@@ -177,7 +174,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return place
 	 **/
-	@ApiModelProperty(value = "A list of places (Place [*]). Used to define a place useful for the service (for example a delivery geographical place)")
+	@Schema(description = "A list of places (Place [*]). Used to define a place useful for the service (for example a delivery geographical place)")
 
 	@Valid
 
@@ -208,7 +205,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return relatedParty
 	 **/
-	@ApiModelProperty(value = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity")
+	@Schema(description = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity")
 
 	@Valid
 
@@ -239,7 +236,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceCharacteristic
 	 **/
-	@ApiModelProperty(value = "A list of characteristics that characterize this service (ServiceCharacteristic [*]) ")
+	@Schema(description = "A list of characteristics that characterize this service (ServiceCharacteristic [*]) ")
 
 	@Valid
 
@@ -271,7 +268,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceRelationship
 	 **/
-	@ApiModelProperty(value = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
+	@Schema(description = "A list of service relationships (ServiceRelationship [*]). Describes links with other service(s) in the inventory (useful for describing relies-on, relies-from between CFS for example).")
 
 	@Valid
 
@@ -289,7 +286,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return serviceSpecification
 	 **/
-	@ApiModelProperty(value = "The specification from which this service was instantiated")
+	@Schema(description = "The specification from which this service was instantiated")
 	@Valid
 	public ServiceSpecificationRef getServiceSpecification() {
 
@@ -317,7 +314,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return state
 	 **/
-	@ApiModelProperty(value = "The life cycle state of the service, such as: [feasibilityChecked], [designed]")
+	@Schema(description = "The life cycle state of the service, such as: [feasibilityChecked], [designed]")
 
 	@Valid
 
@@ -348,7 +345,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return supportingResource
 	 **/
-	@ApiModelProperty(value = "A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources")
+	@Schema(description = "A list of supporting resources (SupportingResource [*]).Note: only Service of type RFS can be associated with Resources")
 
 	@Valid
 
@@ -379,7 +376,7 @@ public class ServiceRestriction extends BaseRootNamedEntity {
 	 * 
 	 * @return supportingService
 	 **/
-	@ApiModelProperty(value = "A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS)")
+	@Schema(description = "A list of supporting services (SupportingService [*]). A collection of services that support this service (bundling, link CFS to RFS)")
 
 	@Valid
 

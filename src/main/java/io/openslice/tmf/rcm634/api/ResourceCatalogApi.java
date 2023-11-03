@@ -24,36 +24,34 @@
  */
 package io.openslice.tmf.rcm634.api;
 
-import io.openslice.tmf.rcm634.model.Error;
-import io.openslice.tmf.rcm634.model.ResourceCatalog;
-import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
-import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
-@Api(value = "resourceCatalog", description = "the resourceCatalog API")
+import io.openslice.tmf.rcm634.model.ResourceCatalog;
+import io.openslice.tmf.rcm634.model.ResourceCatalogCreate;
+import io.openslice.tmf.rcm634.model.ResourceCatalogUpdate;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-05-29T22:34:44.143740800+03:00[Europe/Athens]")
+@Tag(name = "resourceCatalog", description = "the resourceCatalog API")
 public interface ResourceCatalogApi {
 
     Logger log = LoggerFactory.getLogger(ResourceCatalogApi.class);
@@ -70,20 +68,20 @@ public interface ResourceCatalogApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a ResourceCatalog", nickname = "createResourceCatalog", notes = "This operation creates a ResourceCatalog entity.", response = ResourceCatalog.class, tags={ "resourceCatalog", })
+    @Operation(summary = "Creates a ResourceCatalog", operationId = "createResourceCatalog", description = "This operation creates a ResourceCatalog entity.", tags={ "resourceCatalog", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = ResourceCatalog.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/resourceCatalog",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<ResourceCatalog> createResourceCatalog(@ApiParam(value = "The ResourceCatalog to be created" ,required=true )  @Valid @RequestBody ResourceCatalogCreate body
+    default ResponseEntity<ResourceCatalog> createResourceCatalog(@Parameter(description = "The ResourceCatalog to be created" ,required=true )  @Valid @RequestBody ResourceCatalogCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -101,20 +99,20 @@ public interface ResourceCatalogApi {
     }
 
 
-    @ApiOperation(value = "Deletes a ResourceCatalog", nickname = "deleteResourceCatalog", notes = "This operation deletes a ResourceCatalog entity.", tags={ "resourceCatalog", })
+    @Operation(summary = "Deletes a ResourceCatalog", operationId = "deleteResourceCatalog", description = "This operation deletes a ResourceCatalog entity.", tags={ "resourceCatalog", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted", response = Object.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/resourceCatalog/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteResourceCatalog(@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id
+    default ResponseEntity<Void> deleteResourceCatalog(@Parameter(description = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
@@ -124,22 +122,22 @@ public interface ResourceCatalogApi {
     }
 
 
-    @ApiOperation(value = "List or find ResourceCatalog objects", nickname = "listResourceCatalog", notes = "This operation list or find ResourceCatalog entities", response = ResourceCatalog.class, responseContainer = "List", tags={ "resourceCatalog", })
+    @Operation(summary = "List or find ResourceCatalog objects", operationId = "listResourceCatalog", description = "This operation list or find ResourceCatalog entities" , tags={ "resourceCatalog", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ResourceCatalog.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/resourceCatalog",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<ResourceCatalog>> listResourceCatalog(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
-,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
-,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    default ResponseEntity<List<ResourceCatalog>> listResourceCatalog(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
+,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
+,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -157,22 +155,22 @@ public interface ResourceCatalogApi {
     }
 
 
-    @ApiOperation(value = "Updates partially a ResourceCatalog", nickname = "patchResourceCatalog", notes = "This operation updates partially a ResourceCatalog entity.", response = ResourceCatalog.class, tags={ "resourceCatalog", })
+    @Operation(summary = "Updates partially a ResourceCatalog", operationId = "patchResourceCatalog", description = "This operation updates partially a ResourceCatalog entity.", tags={ "resourceCatalog", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = ResourceCatalog.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/resourceCatalog/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<ResourceCatalog> patchResourceCatalog(@ApiParam(value = "The ResourceCatalog to be updated" ,required=true )  @Valid @RequestBody ResourceCatalogUpdate body
-,@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id
+    default ResponseEntity<ResourceCatalog> patchResourceCatalog(@Parameter(description = "The ResourceCatalog to be updated" ,required=true )  @Valid @RequestBody ResourceCatalogUpdate body
+,@Parameter(description = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -190,21 +188,21 @@ public interface ResourceCatalogApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a ResourceCatalog by ID", nickname = "retrieveResourceCatalog", notes = "This operation retrieves a ResourceCatalog entity. Attribute selection is enabled for all first level attributes.", response = ResourceCatalog.class, tags={ "resourceCatalog", })
+    @Operation(summary = "Retrieves a ResourceCatalog by ID", operationId = "retrieveResourceCatalog", description = "This operation retrieves a ResourceCatalog entity. Attribute selection is enabled for all first level attributes.", tags={ "resourceCatalog", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = ResourceCatalog.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/resourceCatalog/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<ResourceCatalog> retrieveResourceCatalog(@ApiParam(value = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id
-,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<ResourceCatalog> retrieveResourceCatalog(@Parameter(description = "Identifier of the ResourceCatalog",required=true) @PathVariable("id") String id
+,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

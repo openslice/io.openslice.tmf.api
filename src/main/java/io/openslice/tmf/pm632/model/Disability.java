@@ -21,24 +21,22 @@ package io.openslice.tmf.pm632.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseRootEntity;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.validation.Valid;
 
 /**
  * Lack or inadequate strength or ability.
  */
-@ApiModel(description = "Lack or inadequate strength or ability.")
+@Schema(description = "Lack or inadequate strength or ability.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:38:47.101+03:00")
 @Entity
 public class Disability  extends BaseRootEntity  {
   @JsonProperty("disabilityCode")
@@ -60,7 +58,7 @@ public class Disability  extends BaseRootEntity  {
    * Code of the disability
    * @return disabilityCode
   **/
-  @ApiModelProperty(value = "Code of the disability")
+  @Schema(description = "Code of the disability")
 
 
   public String getDisabilityCode() {
@@ -80,7 +78,7 @@ public class Disability  extends BaseRootEntity  {
    * Name of the disability
    * @return disabilityName
   **/
-  @ApiModelProperty(value = "Name of the disability")
+  @Schema(description = "Name of the disability")
 
 
   public String getDisabilityName() {
@@ -100,7 +98,7 @@ public class Disability  extends BaseRootEntity  {
    * Get validFor
    * @return validFor
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
 
   @Valid
 

@@ -34,6 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -55,29 +56,28 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.openslice.tmf.OpenAPISpringBoot;
 import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.common.model.UserPartRoleType;
 import io.openslice.tmf.common.model.service.Note;
+import io.openslice.tmf.common.model.service.ResourceRef;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.LogicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecification;
 import io.openslice.tmf.rcm634.model.PhysicalResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.model.ResourceSpecification;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationCreate;
+import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationUpdate;
 import io.openslice.tmf.rcm634.reposervices.ResourceCatalogRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceCategoryRepoService;
 import io.openslice.tmf.rcm634.reposervices.ResourceSpecificationRepoService;
 import io.openslice.tmf.ri639.model.Characteristic;
+import io.openslice.tmf.ri639.model.LogicalResource;
 import io.openslice.tmf.ri639.model.Resource;
 import io.openslice.tmf.ri639.model.ResourceCreate;
 import io.openslice.tmf.ri639.model.ResourceOperationalStateType;
-import io.openslice.tmf.ri639.model.ResourceSpecificationRef;
-import io.openslice.tmf.ri639.model.ResourceStatusType;
+import io.openslice.tmf.ri639.model.ResourceRelationship;
 import io.openslice.tmf.ri639.model.ResourceUpdate;
 import io.openslice.tmf.ri639.reposervices.ResourceRepoService;
 
@@ -165,11 +165,13 @@ public class ResourceInventoryIntegrationTest {
 		ResourceSpecification responsesSpec3 = createResourceSpec( sspeccr3);
 		
 		ResourceCreate aResource = new ResourceCreate();
-		aResource.setName("aNew Resource");
+		aResource.setName("aNew Resource parent");
 		aResource.setCategory("Experimentation");
 		aResource.setDescription("Experimentation Descr");
 		aResource.setStartOperatingDate( OffsetDateTime.now(ZoneOffset.UTC ).toString() );
 		aResource.setEndOperatingDate( OffsetDateTime.now(ZoneOffset.UTC ).toString() );
+		
+		
 		
 		Note noteItem = new Note();
 		noteItem.text("test note");
@@ -186,9 +188,7 @@ public class ResourceInventoryIntegrationTest {
 		aServiceSpecificationRef.setName(responsesSpec3.getName());
 		
 		aResource.setResourceSpecification( aServiceSpecificationRef );
-
-		logger.info("aService JSON = " + JsonUtils.toJsonString( aResource ));
-		
+		//create a first resoruce that will be added to the next one as ref
 		String responseResource = mvc.perform(MockMvcRequestBuilders.post("/resourceInventoryManagement/v4/resource")
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
@@ -197,26 +197,53 @@ public class ResourceInventoryIntegrationTest {
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		logger.info("testServiceOrderCreate = " + responseResource);
-		Resource responseSrvc = JsonUtils.toJsonObj( responseResource,  Resource.class);
-		
-		
-		logger.info("testService = " + JsonUtils.toJsonString( responseSrvc ));
+		logger.info("responseResource = " + responseResource);
+		Resource responseRsc = JsonUtils.toJsonObj( responseResource,  LogicalResource.class);
 		
 
-		assertThat( responseSrvc.getCategory()  ).isEqualTo( "Experimentation" );
-		assertThat( responseSrvc.getDescription()  ).isEqualTo( "Experimentation Descr" );
-		assertThat( responseSrvc.getStartOperatingDate() ).isNotNull();
-		assertThat( responseSrvc.getEndOperatingDate() ).isNotNull();
-		assertThat( responseSrvc.getResourceCharacteristic().size()  ).isEqualTo( 1 );
-		assertThat( responseSrvc.getResourceCharacteristicByName( "ConfigStatus" ) ).isNotNull();
-		assertThat( responseSrvc.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "NONE" )  ;
+		aResource.setName("aNew Resource");
+		
+		ResourceRelationship rri = new ResourceRelationship();
+		rri.setRelationshipType("PARENT");
+		ResourceRef rrref = new ResourceRef();
+		rrref.setName( responseRsc.getName() );
+		rrref.setId( responseRsc.getId() );
+		rri.setResource( rrref );
+		aResource.addResourceRelationshipItem( rri  );
+
+		logger.info("aService JSON = " + JsonUtils.toJsonString( aResource ));
+		
+		responseResource = mvc.perform(MockMvcRequestBuilders.post("/resourceInventoryManagement/v4/resource")
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( JsonUtils.toJson( aResource ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		logger.info("responseResource = " + responseResource);
+		 responseRsc = JsonUtils.toJsonObj( responseResource,  LogicalResource.class);
+		
+		
+		logger.info("testService = " + JsonUtils.toJsonString( responseRsc ));
 		
 
-		assertThat( responseSrvc.getNote().size()  ).isEqualTo( 2 );
+		assertThat( responseRsc.getCategory()  ).isEqualTo( "Experimentation" );
+		assertThat( responseRsc.getDescription()  ).isEqualTo( "Experimentation Descr" );
+		assertThat( responseRsc.getStartOperatingDate() ).isNotNull();
+		assertThat( responseRsc.getEndOperatingDate() ).isNotNull();
+		assertThat( responseRsc.getResourceCharacteristic().size()  ).isEqualTo( 1 );
+		assertThat( responseRsc.getResourceCharacteristicByName( "ConfigStatus" ) ).isNotNull();
+		assertThat( responseRsc.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "NONE" )  ;
+		assertThat( responseRsc.getResourceSpecification().getId()  ).isNotNull();
+		assertThat( responseRsc.getResourceSpecification().getName()  ).isNotNull();
+		assertThat( responseRsc.getResourceRelationship().size()  ).isEqualTo( 1 );
+		
+
+		assertThat( responseRsc.getNote().size()  ).isEqualTo( 2 );
 		
 		boolean userPartyRoleexists = false;
-		for (RelatedParty r : responseSrvc.getRelatedParty()) {
+		for (RelatedParty r : responseRsc.getRelatedParty()) {
 			if ( r.getName().equals( "osadmin" ) && r.getRole().equals( UserPartRoleType.REQUESTER.toString() )) {
 				userPartyRoleexists = true;
 			}
@@ -224,18 +251,18 @@ public class ResourceInventoryIntegrationTest {
 		
 		assertThat(userPartyRoleexists  ).isTrue() ;
 
-		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 2 );
 		
 		
 		ResourceUpdate resUpd = new ResourceUpdate();
 		resUpd.setEndOperatingDate( OffsetDateTime.now(ZoneOffset.UTC ).toString()  );
-		responseSrvc.getNote().stream().forEach(n -> resUpd.addNoteItem(n));
+		responseRsc.getNote().stream().forEach(n -> resUpd.addNoteItem(n));
 		Note en = new Note();
 		en.text("test note2");
 		en.setDate( OffsetDateTime.now(ZoneOffset.UTC).toString() );
 		resUpd.addNoteItem(en);		
 
-		for (Characteristic c : responseSrvc.getResourceCharacteristic()) {
+		for (Characteristic c : responseRsc.getResourceCharacteristic()) {
 			if (c.getName().equals( "ConfigStatus" )) {
 				c.setValue( new Any("RUNNING"));
 			}
@@ -246,10 +273,11 @@ public class ResourceInventoryIntegrationTest {
 		resCharacteristicItem.setName( "DeploymentRequestID" );
 		resCharacteristicItem.setValue( new Any("007a008"));
 		resUpd.addResourceCharacteristicItem(resCharacteristicItem);
+		resUpd.setResourceRelationship( new ArrayList<>());
 		
 		
-		
-		String responseSorderUpd = mvc.perform(MockMvcRequestBuilders.patch("/resourceInventoryManagement/v4/resource/" + responseSrvc.getId() )
+		String responseResUpd = mvc.perform(MockMvcRequestBuilders
+				.patch("/resourceInventoryManagement/v4/resource/" + responseRsc.getId() )
 	            .with( SecurityMockMvcRequestPostProcessors.csrf())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content( JsonUtils.toJson( resUpd ) ))
@@ -257,18 +285,73 @@ public class ResourceInventoryIntegrationTest {
 			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 	    	    .andExpect(status().isOk())
 	    	    .andReturn().getResponse().getContentAsString();
-		logger.info("testServiceOrderUpdate = " + responseSorderUpd);
-		Resource responseSOUpd = JsonUtils.toJsonObj(responseSorderUpd,  Resource.class);
+		logger.info("testServiceOrderUpdate = " + responseResUpd);
+		Resource responseRes2 = JsonUtils.toJsonObj(responseResUpd,  LogicalResource.class);
 		
 
-		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 1 );
+		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 2 );
 
-		assertThat( responseSOUpd.getEndOperatingDate() ).isNotNull();
-		assertThat( responseSOUpd.getNote().size()  ).isEqualTo( 3 );
-		assertThat( responseSOUpd.getResourceCharacteristic().size()  ).isEqualTo( 2 );
-		assertThat( responseSOUpd.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
-		assertThat( responseSOUpd.getResourceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		assertThat( responseRes2.getEndOperatingDate() ).isNotNull();
+		assertThat( responseRes2.getNote().size()  ).isEqualTo( 3 );
+		assertThat( responseRes2.getResourceCharacteristic().size()  ).isEqualTo( 2 );
+		assertThat( responseRes2.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
+		assertThat( responseRes2.getResourceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		assertThat( responseRes2.getResourceSpecification().getId()  ).isNotNull();
+		assertThat( responseRes2.getResourceSpecification().getName()  ).isNotNull();
+		assertThat( responseRes2.getResourceRelationship().size()  ).isEqualTo( 0 );
 		
+		
+
+		responseResUpd = mvc.perform(MockMvcRequestBuilders
+				.get("/resourceInventoryManagement/v4/resource/" + responseRsc.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( JsonUtils.toJson( resUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		logger.info("testServiceOrderUpdate = " + responseResUpd);
+		responseRes2 = JsonUtils.toJsonObj(responseResUpd,  LogicalResource.class);
+		
+
+		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 2 );
+
+		assertThat( responseRes2.getEndOperatingDate() ).isNotNull();
+		assertThat( responseRes2.getNote().size()  ).isEqualTo( 3 );
+		assertThat( responseRes2.getResourceCharacteristic().size()  ).isEqualTo( 2 );
+		assertThat( responseRes2.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
+		assertThat( responseRes2.getResourceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		assertThat( responseRes2.getResourceSpecification().getId()  ).isNotNull();
+		assertThat( responseRes2.getResourceSpecification().getName()  ).isNotNull();
+		assertThat( responseRes2.getResourceRelationship().size()  ).isEqualTo( 0 );
+		
+
+		resUpd.addResourceRelationshipItem( rri  );
+		
+		responseResUpd = mvc.perform(MockMvcRequestBuilders
+				.patch("/resourceInventoryManagement/v4/resource/" + responseRsc.getId() )
+	            .with( SecurityMockMvcRequestPostProcessors.csrf())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content( JsonUtils.toJson( resUpd ) ))
+			    .andExpect(status().isOk())
+			    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+	    	    .andExpect(status().isOk())
+	    	    .andReturn().getResponse().getContentAsString();
+		logger.info("testServiceOrderUpdate = " + responseResUpd);
+		responseRes2 = JsonUtils.toJsonObj(responseResUpd,  LogicalResource.class);
+		
+
+		assertThat( resourceRepoService.findAll().size() ).isEqualTo( 2 );
+
+		assertThat( responseRes2.getEndOperatingDate() ).isNotNull();
+		assertThat( responseRes2.getNote().size()  ).isEqualTo( 4 );
+		assertThat( responseRes2.getResourceCharacteristic().size()  ).isEqualTo( 2 );
+		assertThat( responseRes2.getResourceCharacteristicByName( "ConfigStatus" ).getValue().getValue()  ).isEqualTo( "RUNNING" )  ;
+		assertThat( responseRes2.getResourceCharacteristicByName( "DeploymentRequestID" ).getValue().getValue()  ).isEqualTo( "007a008" )  ;
+		assertThat( responseRes2.getResourceSpecification().getId()  ).isNotNull();
+		assertThat( responseRes2.getResourceSpecification().getName()  ).isNotNull();
+		assertThat( responseRes2.getResourceRelationship().size()  ).isEqualTo( 1 );
 		
 	}
 		

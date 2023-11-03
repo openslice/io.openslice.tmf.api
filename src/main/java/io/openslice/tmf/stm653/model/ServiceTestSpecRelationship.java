@@ -21,26 +21,22 @@ package io.openslice.tmf.stm653.model;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.BaseEntity;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A substitution, dependency or exclusivity relationship between/among service specifications.
  */
-@ApiModel(description = "A substitution, dependency or exclusivity relationship between/among service specifications.")
+@Schema(description = "A substitution, dependency or exclusivity relationship between/among service specifications.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-08T11:50:07.226173200+02:00[Europe/Athens]")
 @Entity(name = "STMServiceTestSpecRelationship")
 @Table(name = "STMServiceTestSpecRelationship")
 public class ServiceTestSpecRelationship extends BaseEntity {
@@ -75,7 +71,7 @@ public class ServiceTestSpecRelationship extends BaseEntity {
    * Hyperlink reference
    * @return href
   **/
-  @ApiModelProperty(value = "Hyperlink reference")
+  @Schema(description = "Hyperlink reference")
   
     public String getHref() {
     return href;
@@ -94,7 +90,7 @@ public class ServiceTestSpecRelationship extends BaseEntity {
    * Name of the related entity.
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the related entity.")
+  @Schema(description = "Name of the related entity.")
   
     public String getName() {
     return name;
@@ -113,7 +109,7 @@ public class ServiceTestSpecRelationship extends BaseEntity {
    * Type of relationship such as substitution, dependency, exclusivity
    * @return relationshipType
   **/
-  @ApiModelProperty(required = true, value = "Type of relationship such as substitution, dependency, exclusivity")
+  @Schema(description = "Type of relationship such as substitution, dependency, exclusivity")
       @NotNull
 
     public String getRelationshipType() {
@@ -133,7 +129,7 @@ public class ServiceTestSpecRelationship extends BaseEntity {
    * The association role for this service test specification
    * @return role
   **/
-  @ApiModelProperty(value = "The association role for this service test specification")
+  @Schema(description = "The association role for this service test specification")
   
     public String getRole() {
     return role;
@@ -150,7 +146,7 @@ public class ServiceTestSpecRelationship extends BaseEntity {
    * The actual type of the target instance when needed for disambiguation.
    * @return _atReferredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
   
     public String getAtReferredType() {
     return _atReferredType;

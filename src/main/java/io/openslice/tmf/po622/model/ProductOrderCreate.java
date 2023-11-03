@@ -24,25 +24,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.service.Note;
 import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * A Product Order is a type of order which  can  be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa, Skipped properties: id,href,completionDate,orderDate,state,expectedCompletionDate,productOrderItem.state
  */
-@ApiModel(description = "A Product Order is a type of order which  can  be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa, Skipped properties: id,href,completionDate,orderDate,state,expectedCompletionDate,productOrderItem.state")
+@Schema(description = "A Product Order is a type of order which  can  be used to place an order between a customer and a service provider or between a service provider and a partner and vice versa, Skipped properties: id,href,completionDate,orderDate,state,expectedCompletionDate,productOrderItem.state")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
 public class ProductOrderCreate   {
   @JsonProperty("cancellationDate")
   private OffsetDateTime cancellationDate = null;
@@ -128,7 +126,7 @@ public class ProductOrderCreate   {
    * Date when the order is cancelled. This is used when order is cancelled. 
    * @return cancellationDate
   **/
-  @ApiModelProperty(value = "Date when the order is cancelled. This is used when order is cancelled. ")
+  @Schema(description = "Date when the order is cancelled. This is used when order is cancelled. ")
   
     @Valid
     public OffsetDateTime getCancellationDate() {
@@ -148,7 +146,7 @@ public class ProductOrderCreate   {
    * Reason why the order is cancelled. This is used when order is cancelled. 
    * @return cancellationReason
   **/
-  @ApiModelProperty(value = "Reason why the order is cancelled. This is used when order is cancelled. ")
+  @Schema(description = "Reason why the order is cancelled. This is used when order is cancelled. ")
   
     public String getCancellationReason() {
     return cancellationReason;
@@ -167,7 +165,7 @@ public class ProductOrderCreate   {
    * Used to categorize the order from a business perspective that can be useful for the OM system (e.g. \"enterprise\", \"residential\", ...)
    * @return category
   **/
-  @ApiModelProperty(value = "Used to categorize the order from a business perspective that can be useful for the OM system (e.g. \"enterprise\", \"residential\", ...)")
+  @Schema(description = "Used to categorize the order from a business perspective that can be useful for the OM system (e.g. \"enterprise\", \"residential\", ...)")
   
     public String getCategory() {
     return category;
@@ -186,7 +184,7 @@ public class ProductOrderCreate   {
    * Description of the product order
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the product order")
+  @Schema(description = "Description of the product order")
   
     public String getDescription() {
     return description;
@@ -205,7 +203,7 @@ public class ProductOrderCreate   {
    * ID given by the consumer and only understandable by him (to facilitate his searches afterwards)
    * @return externalId
   **/
-  @ApiModelProperty(value = "ID given by the consumer and only understandable by him (to facilitate his searches afterwards)")
+  @Schema(description = "ID given by the consumer and only understandable by him (to facilitate his searches afterwards)")
   
     public String getExternalId() {
     return externalId;
@@ -224,7 +222,7 @@ public class ProductOrderCreate   {
    * Contact attached to the order to send back information regarding this order
    * @return notificationContact
   **/
-  @ApiModelProperty(value = "Contact attached to the order to send back information regarding this order")
+  @Schema(description = "Contact attached to the order to send back information regarding this order")
   
     public String getNotificationContact() {
     return notificationContact;
@@ -243,7 +241,7 @@ public class ProductOrderCreate   {
    * A way that can be used by consumers to prioritize orders in OM system (from 0 to 4 : 0 is the highest priority, and 4 the lowest)
    * @return priority
   **/
-  @ApiModelProperty(value = "A way that can be used by consumers to prioritize orders in OM system (from 0 to 4 : 0 is the highest priority, and 4 the lowest)")
+  @Schema(description = "A way that can be used by consumers to prioritize orders in OM system (from 0 to 4 : 0 is the highest priority, and 4 the lowest)")
   
     public String getPriority() {
     return priority;
@@ -262,7 +260,7 @@ public class ProductOrderCreate   {
    * Requested delivery date from the requestor perspective
    * @return requestedCompletionDate
   **/
-  @ApiModelProperty(value = "Requested delivery date from the requestor perspective")
+  @Schema(description = "Requested delivery date from the requestor perspective")
   
     @Valid
     public OffsetDateTime getRequestedCompletionDate() {
@@ -282,7 +280,7 @@ public class ProductOrderCreate   {
    * Order fulfillment start date wished by the requestor. This is used when, for any reason, requestor cannot allow seller to begin to operationally begin the fulfillment before a date. 
    * @return requestedStartDate
   **/
-  @ApiModelProperty(value = "Order fulfillment start date wished by the requestor. This is used when, for any reason, requestor cannot allow seller to begin to operationally begin the fulfillment before a date. ")
+  @Schema(description = "Order fulfillment start date wished by the requestor. This is used when, for any reason, requestor cannot allow seller to begin to operationally begin the fulfillment before a date. ")
   
     @Valid
     public OffsetDateTime getRequestedStartDate() {
@@ -310,7 +308,7 @@ public class ProductOrderCreate   {
    * A reference to an agreement defined in the context of the product order
    * @return agreement
   **/
-  @ApiModelProperty(value = "A reference to an agreement defined in the context of the product order")
+  @Schema(description = "A reference to an agreement defined in the context of the product order")
       @Valid
     public List<AgreementRef> getAgreement() {
     return agreement;
@@ -329,7 +327,7 @@ public class ProductOrderCreate   {
    * Get billingAccount
    * @return billingAccount
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   
     @Valid
     public BillingAccountRef getBillingAccount() {
@@ -357,7 +355,7 @@ public class ProductOrderCreate   {
    * Get channel
    * @return channel
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<RelatedChannel> getChannel() {
     return channel;
@@ -384,7 +382,7 @@ public class ProductOrderCreate   {
    * Get note
    * @return note
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<Note> getNote() {
     return note;
@@ -411,7 +409,7 @@ public class ProductOrderCreate   {
    * Get orderTotalPrice
    * @return orderTotalPrice
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<OrderPrice> getOrderTotalPrice() {
     return orderTotalPrice;
@@ -438,7 +436,7 @@ public class ProductOrderCreate   {
    * Get payment
    * @return payment
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<PaymentRef> getPayment() {
     return payment;
@@ -465,7 +463,7 @@ public class ProductOrderCreate   {
    * Get productOfferingQualification
    * @return productOfferingQualification
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<ProductOfferingQualificationRef> getProductOfferingQualification() {
     return productOfferingQualification;
@@ -489,7 +487,7 @@ public class ProductOrderCreate   {
    * Get productOrderItem
    * @return productOrderItem
   **/
-  @ApiModelProperty(required = true, value = "")
+  @Schema(description = "")
       @NotNull
     @Valid
   @Size(min=1)   public List<ProductOrderItem> getProductOrderItem() {
@@ -517,7 +515,7 @@ public class ProductOrderCreate   {
    * Get quote
    * @return quote
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<QuoteRef> getQuote() {
     return quote;
@@ -544,7 +542,7 @@ public class ProductOrderCreate   {
    * Get relatedParty
    * @return relatedParty
   **/
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
       @Valid
     public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -563,7 +561,7 @@ public class ProductOrderCreate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
   
     public String getAtBaseType() {
     return baseType;
@@ -582,7 +580,7 @@ public class ProductOrderCreate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
   
     public String getAtSchemaLocation() {
     return schemaLocation;
@@ -601,7 +599,7 @@ public class ProductOrderCreate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
   
     public String getAtType() {
     return type;

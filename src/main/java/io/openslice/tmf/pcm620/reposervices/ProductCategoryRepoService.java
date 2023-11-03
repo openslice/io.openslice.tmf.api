@@ -27,9 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,9 +40,13 @@ import io.openslice.tmf.pcm620.model.Category;
 import io.openslice.tmf.pcm620.model.CategoryCreate;
 import io.openslice.tmf.pcm620.model.CategoryRef;
 import io.openslice.tmf.pcm620.model.CategoryUpdate;
+import io.openslice.tmf.pcm620.model.ProductOffering;
 import io.openslice.tmf.pcm620.model.ProductOfferingRef;
 import io.openslice.tmf.pcm620.repo.ProductCatalogRepository;
 import io.openslice.tmf.pcm620.repo.ProductCategoriesRepository;
+import io.openslice.tmf.pcm620.repo.ProductOfferingRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ProductCategoryRepoService {
@@ -55,6 +56,9 @@ public class ProductCategoryRepoService {
 
 	@Autowired
 	ProductCatalogRepository catalogRepo;
+	
+	@Autowired
+	ProductOfferingRepository prodsOfferingRepo;
 
 	private SessionFactory sessionFactory;
 
@@ -190,6 +194,51 @@ public class ProductCategoryRepoService {
 			acat.setValidFor( tp );
 		} 
 		
+		if ( prodCatUpd.getProductOffering() != null ) {
+			//reattach fromDB
+			Map<String, Boolean> idAddedUpdated = new HashMap<>();
+			for (ProductOfferingRef por : prodCatUpd.getProductOffering()) {
+				//find  by id and reload it here.
+				boolean idexists = false;
+				for (ProductOfferingRef originalProfOffRef : acat.getProductOfferingRefs()) {
+					if ( originalProfOffRef.getId().equals( por.getId())) {
+						idexists = true;
+						idAddedUpdated.put( originalProfOffRef.getId(), true);
+						break;
+					}					
+				}
+				if (!idexists) {
+					Optional<ProductOffering> profOffToAdd = this.prodsOfferingRepo.findByUuid( por.getId() );
+					if ( profOffToAdd.isPresent() ) {
+						ProductOffering poffget = profOffToAdd.get();
+						
+							
+						acat.getProductOfferingObj().add(poffget);						
+						idAddedUpdated.put( poffget.getId(), true);
+						
+						
+						
+					}
+				}				
+			}
+			List<ProductOfferingRef> toRemove = new ArrayList<>();
+			for (ProductOfferingRef ss : acat.getProductOfferingRefs()) {
+				if ( idAddedUpdated.get( ss.getId() ) == null ) {
+					toRemove.add(ss);
+				}
+			}
+			
+			for (ProductOfferingRef ar : toRemove) {
+				Optional<ProductOffering> profOffToDelete = this.prodsOfferingRepo.findByUuid( ar.getId() );
+				if ( profOffToDelete.isPresent() ) {
+					acat.getProductOfferingObj().remove(profOffToDelete.get());
+					
+				}
+			}
+			
+		}
+				
+				
 		if ( prodCatUpd.getSubCategory() !=null ) {
 			//reattach fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();

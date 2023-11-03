@@ -1,0 +1,212 @@
+{
+	"name": "osm-tenant.openslice.io",
+	"category": "OSMTenant",
+	"description": "This Resource Specification is used to add a new MANO Provider",
+	"version": "0.2.0",
+	"isBundle": false,
+	"@type": "LogicalResourceSpecification",
+	"attachment": [],
+	"relatedParty": [],
+	"resourceSpecCharacteristic": [
+		{
+			"name": "Name",
+			"configurable": true,
+			"description": "The alias of the MANO Provider as it will be seen in the platform",
+			"extensible": null,
+			"isUnique": true,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "Description",
+			"configurable": true,
+			"description": "The description of the MANO Provider as it will be seen in the platform",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "SupportedManoPlatform",
+			"configurable": true,
+			"description": "",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "ENUM",
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BOOLEAN",
+					"validFor": null,
+					"value": {
+						"value": "OSMvSEVEN",
+						"alias": "OSMvSEVEN"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BOOLEAN",
+					"validFor": null,
+					"value": {
+						"value": "OSMvEIGHT",
+						"alias": "OSMvEIGHT"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BOOLEAN",
+					"validFor": null,
+					"value": {
+						"value": "OSMvNINE",
+						"alias": "OSMvNINE"
+					}
+				},
+				{
+					"isDefault": false,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BOOLEAN",
+					"validFor": null,
+					"value": {
+						"value": "OSMvTEN",
+						"alias": "OSMvTEN"
+					}
+				}
+			]
+		},
+		{
+			"name": "ApiUrlEndpoint",
+			"configurable": true,
+			"description": "The API URL Endpoint of the MANO Provider",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "BasicAuthHeader",
+			"configurable": true,
+			"description": "The authorization basic header",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "Username",
+			"configurable": true,
+			"description": "The username used to access the MANO Provider",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "Password",
+			"configurable": true,
+			"description": "The password used to access the MANO Provider",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "Project",
+			"configurable": true,
+			"description": "The project for which the MANO Provider is intended to be used",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "TEXT"
+		},
+		{
+			"name": "EnabledForOnBoarding",
+			"configurable": true,
+			"description": "",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "BOOLEAN",
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BOOLEAN",
+					"validFor": null,
+					"value": {
+						"value": false,
+						"alias": "false"
+					}
+				}
+			]
+		},
+		{
+			"name": "EnabledForSync",
+			"configurable": true,
+			"description": "",
+			"extensible": null,
+			"isUnique": false,
+			"maxCardinality": 1,
+			"minCardinality": 1,
+			"regex": null,
+			"valueType": "BOOLEAN",
+			"resourceSpecCharacteristicValue": [
+				{
+					"isDefault": true,
+					"rangeInterval": null,
+					"regex": null,
+					"unitOfMeasure": "N/A",
+					"valueFrom": null,
+					"valueTo": null,
+					"valueType": "BOOLEAN",
+					"validFor": null,
+					"value": {
+						"value": false,
+						"alias": "false"
+					}
+				}
+			]
+		}
+	]
+}		

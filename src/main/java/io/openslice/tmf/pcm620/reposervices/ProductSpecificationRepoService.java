@@ -31,9 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
-
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -56,6 +53,8 @@ import io.openslice.tmf.pcm620.model.ProductSpecificationUpdate;
 import io.openslice.tmf.pcm620.repo.ProductSpecificationRepository;
 import io.openslice.tmf.prm669.model.RelatedParty;
 import io.openslice.tmf.rcm634.model.ResourceSpecificationRef;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 @Service
 public class ProductSpecificationRepoService {
@@ -116,7 +115,6 @@ public class ProductSpecificationRepoService {
 //			String sql = "SELECT s FROM ProductSpecification s";
 			String sql = "SELECT "
 					+ "s.uuid as uuid,"
-					+ "s.id as id,"
 					+ "s.name as name,"
 					+ "s.description as description,"
 					+ "s.isBundle as isBundle,"
@@ -153,6 +151,9 @@ public class ProductSpecificationRepoService {
 							Map<String, Object> result = new LinkedHashMap<String, Object>(tuple.length);
 							        for (int i = 0; i < tuple.length; i++) {
 							            String alias = aliases[i];
+							            if (alias.equals("uuid")) {
+							            	result.put("id", tuple[i]);
+							            }
 							            if (alias.equals("type")) {
 							            	alias = "@type";
 							            }

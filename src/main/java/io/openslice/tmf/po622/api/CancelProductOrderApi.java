@@ -24,35 +24,33 @@
  */
 package io.openslice.tmf.po622.api;
 
-import io.openslice.tmf.po622.model.CancelProductOrder;
-import io.openslice.tmf.po622.model.CancelProductOrderCreate;
-import io.openslice.tmf.po622.model.Error;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.annotations.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
-@Api(value = "cancelProductOrder", description = "the cancelProductOrder API")
+import io.openslice.tmf.po622.model.CancelProductOrder;
+import io.openslice.tmf.po622.model.CancelProductOrderCreate;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-10-30T10:29:21.184964400+02:00[Europe/Athens]")
+@Tag(name = "cancelProductOrder", description = "the cancelProductOrder API")
 public interface CancelProductOrderApi {
 
     Logger log = LoggerFactory.getLogger(CancelProductOrderApi.class);
@@ -69,20 +67,20 @@ public interface CancelProductOrderApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a CancelProductOrder", nickname = "createCancelProductOrder", notes = "This operation creates a CancelProductOrder entity.", response = CancelProductOrder.class, tags={ "cancelProductOrder", })
+    @Operation(summary = "Creates a CancelProductOrder", operationId = "createCancelProductOrder", description = "This operation creates a CancelProductOrder entity.", tags={ "cancelProductOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = CancelProductOrder.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/cancelProductOrder",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<CancelProductOrder> createCancelProductOrder(@ApiParam(value = "The CancelProductOrder to be created" ,required=true )  @Valid @RequestBody CancelProductOrderCreate body
+    default ResponseEntity<CancelProductOrder> createCancelProductOrder(@Parameter(description = "The CancelProductOrder to be created" ,required=true )  @Valid @RequestBody CancelProductOrderCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -100,22 +98,22 @@ public interface CancelProductOrderApi {
     }
 
 
-    @ApiOperation(value = "List or find CancelProductOrder objects", nickname = "listCancelProductOrder", notes = "This operation list or find CancelProductOrder entities", response = CancelProductOrder.class, responseContainer = "List", tags={ "cancelProductOrder", })
+    @Operation(summary = "List or find CancelProductOrder objects", operationId = "listCancelProductOrder", description = "This operation list or find CancelProductOrder entities" , tags={ "cancelProductOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = CancelProductOrder.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/cancelProductOrder",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<CancelProductOrder>> listCancelProductOrder(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
-,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
-,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    default ResponseEntity<List<CancelProductOrder>> listCancelProductOrder(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
+,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
+,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -133,21 +131,21 @@ public interface CancelProductOrderApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a CancelProductOrder by ID", nickname = "retrieveCancelProductOrder", notes = "This operation retrieves a CancelProductOrder entity. Attribute selection is enabled for all first level attributes.", response = CancelProductOrder.class, tags={ "cancelProductOrder", })
+    @Operation(summary = "Retrieves a CancelProductOrder by ID", operationId = "retrieveCancelProductOrder", description = "This operation retrieves a CancelProductOrder entity. Attribute selection is enabled for all first level attributes.", tags={ "cancelProductOrder", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = CancelProductOrder.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/cancelProductOrder/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<CancelProductOrder> retrieveCancelProductOrder(@ApiParam(value = "Identifier of the CancelProductOrder",required=true) @PathVariable("id") String id
-,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<CancelProductOrder> retrieveCancelProductOrder(@Parameter(description = "Identifier of the CancelProductOrder",required=true) @PathVariable("id") String id
+,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

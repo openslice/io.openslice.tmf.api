@@ -19,31 +19,18 @@
  */
 package io.openslice.tmf.cm629.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.openslice.tmf.am651.model.AgreementRef;
-import io.openslice.tmf.am666.model.AccountRef;
-import io.openslice.tmf.am666.model.PaymentMethodRef;
-import io.openslice.tmf.common.model.TimePeriod;
-import io.openslice.tmf.prm669.model.RelatedParty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  *  Skipped properties: id,href
  */
-@ApiModel(description = " Skipped properties: id,href")
+@Schema(description = " Skipped properties: id,href")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 public class CustomerCreate extends CustomerUpdate  {
  

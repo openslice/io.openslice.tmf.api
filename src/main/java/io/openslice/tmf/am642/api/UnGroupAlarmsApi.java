@@ -29,8 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,18 +41,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.am642.model.Error;
 import io.openslice.tmf.am642.model.UnGroupAlarms;
 import io.openslice.tmf.am642.model.UnGroupAlarmsCreate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
-@Api(value = "unGroupAlarms", description = "the unGroupAlarms API")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-02-15T11:15:47.327930400+02:00[Europe/Athens]")
+@Tag(name = "unGroupAlarms", description = "the unGroupAlarms API")
 public interface UnGroupAlarmsApi {
 
     Logger log = LoggerFactory.getLogger(UnGroupAlarmsApi.class);
@@ -70,20 +68,20 @@ public interface UnGroupAlarmsApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a UnGroupAlarms", nickname = "createUnGroupAlarms", notes = "This operation creates a UnGroupAlarms entity.", response = UnGroupAlarms.class, tags={ "unGroupAlarms", })
+    @Operation(summary = "Creates a UnGroupAlarms", operationId = "createUnGroupAlarms", description = "This operation creates a UnGroupAlarms entity.", tags={ "unGroupAlarms", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = UnGroupAlarms.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/unGroupAlarms",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<UnGroupAlarms> createUnGroupAlarms(@ApiParam(value = "The UnGroupAlarms to be created" ,required=true )  @Valid @RequestBody UnGroupAlarmsCreate body
+    default ResponseEntity<UnGroupAlarms> createUnGroupAlarms(@Parameter(description = "The UnGroupAlarms to be created" ,required=true )  @Valid @RequestBody UnGroupAlarmsCreate body
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -101,22 +99,22 @@ public interface UnGroupAlarmsApi {
     }
 
 
-    @ApiOperation(value = "List or find UnGroupAlarms objects", nickname = "listUnGroupAlarms", notes = "This operation list or find UnGroupAlarms entities", response = UnGroupAlarms.class, responseContainer = "List", tags={ "unGroupAlarms", })
+    @Operation(summary = "List or find UnGroupAlarms objects", operationId = "listUnGroupAlarms", description = "This operation list or find UnGroupAlarms entities" , tags={ "unGroupAlarms", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = UnGroupAlarms.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/unGroupAlarms",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<List<UnGroupAlarms>> listUnGroupAlarms(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
-,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
-,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
+    default ResponseEntity<List<UnGroupAlarms>> listUnGroupAlarms(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields
+,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset
+,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit
 , Map<String, String> allParams) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
@@ -134,21 +132,21 @@ public interface UnGroupAlarmsApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a UnGroupAlarms by ID", nickname = "retrieveUnGroupAlarms", notes = "This operation retrieves a UnGroupAlarms entity. Attribute selection is enabled for all first level attributes.", response = UnGroupAlarms.class, tags={ "unGroupAlarms", })
+    @Operation(summary = "Retrieves a UnGroupAlarms by ID", operationId = "retrieveUnGroupAlarms", description = "This operation retrieves a UnGroupAlarms entity. Attribute selection is enabled for all first level attributes.", tags={ "unGroupAlarms", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = UnGroupAlarms.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/unGroupAlarms/{id}",
         produces = { "application/json;charset=utf-8" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<UnGroupAlarms> retrieveUnGroupAlarms(@ApiParam(value = "Identifier of the UnGroupAlarms",required=true) @PathVariable("id") String id
-,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
+    default ResponseEntity<UnGroupAlarms> retrieveUnGroupAlarms(@Parameter(description = "Identifier of the UnGroupAlarms",required=true) @PathVariable("id") String id
+,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields
 ) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {

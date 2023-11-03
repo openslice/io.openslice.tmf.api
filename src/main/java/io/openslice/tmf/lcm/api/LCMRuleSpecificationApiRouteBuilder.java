@@ -1,7 +1,5 @@
 package io.openslice.tmf.lcm.api;
 
-import java.util.ArrayList;
-
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;

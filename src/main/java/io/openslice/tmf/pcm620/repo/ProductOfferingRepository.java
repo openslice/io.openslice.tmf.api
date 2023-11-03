@@ -22,13 +22,14 @@ package io.openslice.tmf.pcm620.repo;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import io.openslice.tmf.pcm620.model.ProductOffering;
 
 @Repository
-public interface ProductOfferingRepository extends PagingAndSortingRepository<ProductOffering, Long> {
+public interface ProductOfferingRepository extends CrudRepository<ProductOffering, Long>,PagingAndSortingRepository<ProductOffering, Long> {
 
 	Optional<ProductOffering> findByUuid(String id);
 

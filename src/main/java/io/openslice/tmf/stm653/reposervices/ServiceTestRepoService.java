@@ -27,24 +27,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.persistence.EntityManagerFactory;
-import javax.validation.Valid;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import io.openslice.tmf.common.model.Any;
 import io.openslice.tmf.prm669.model.RelatedParty;
+import io.openslice.tmf.sim638.model.ServiceUpdate;
+import io.openslice.tmf.sim638.service.ServiceRepoService;
 import io.openslice.tmf.stm653.model.Characteristic;
+import io.openslice.tmf.stm653.model.CharacteristicRelationship;
 import io.openslice.tmf.stm653.model.ServiceTest;
 import io.openslice.tmf.stm653.model.ServiceTestCreate;
 import io.openslice.tmf.stm653.model.ServiceTestUpdate;
 import io.openslice.tmf.stm653.model.TestMeasure;
 import io.openslice.tmf.stm653.repo.ServiceTestRepository;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.validation.Valid;
 
 /**
  * @author ctranoris
@@ -60,6 +69,10 @@ public class ServiceTestRepoService {
 	ServiceTestRepository aServiceTestRepo;
 
 	private SessionFactory sessionFactory;
+	
+
+	@Autowired
+	ServiceRepoService serviceRepoService;
 	
 	@Autowired
 	ObjectMapper objectMapper;
@@ -81,81 +94,70 @@ public class ServiceTestRepoService {
 		return this.aServiceTestRepo.save(serviceSpec);
 	}
 
-	
-	private ServiceTest updateServiceTestDataFromAPIcall(ServiceTest serviceSpec,
-			@Valid ServiceTestUpdate serviceSpecUpd) {
 
-		if (serviceSpecUpd.getName() != null) {
-			serviceSpec.setName(serviceSpecUpd.getName());
+	@Transactional
+	private ServiceTest updateServiceTestDataFromAPIcall(ServiceTest serviceT,
+			@Valid ServiceTestUpdate serviceUpd) {
+
+		if (serviceUpd.getName() != null) {
+			serviceT.setName(serviceUpd.getName());
 		}
 
-		if (serviceSpecUpd.getDescription() != null) {
-			serviceSpec.setDescription(serviceSpecUpd.getDescription());
+		if (serviceUpd.getDescription() != null) {
+			serviceT.setDescription(serviceUpd.getDescription());
 
 		}
 		
 		
-		if (serviceSpecUpd.getTestSpecification() != null ){
-			serviceSpec.setTestSpecification( serviceSpecUpd.getTestSpecification() );
+		if (serviceUpd.getTestSpecification() != null ){
+			serviceT.setTestSpecification( serviceUpd.getTestSpecification() );
 		}
 
 
-		serviceSpec.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
+		serviceT.setLastUpdate(OffsetDateTime.now(ZoneOffset.UTC));
 
 	
+		
 
-		/**
-		 * Update ServiceSpecCharacteristic list We need to compare by name, since IDs
-		 * will not exist
-		 */
-		if (serviceSpecUpd.getCharacteristic() != null) {
-			// reattach attachments fromDB
-
-			Map<String, Boolean> idAddedUpdated = new HashMap<>();
-
-			for (Characteristic charUpd : serviceSpecUpd.getCharacteristic()) {
-
-				boolean nameExists = false;
-				for (Characteristic originalSpecChar : serviceSpec.getCharacteristic()) {
-					if (originalSpecChar.getName().equals(charUpd.getName())) {
-						nameExists = true;
-						idAddedUpdated.put(originalSpecChar.getName(), true);
-						originalSpecChar.updateWith(charUpd);
-						break;
+		List<Characteristic> childCharacteristicsChanged = new ArrayList<>();
+		if ( serviceUpd.getCharacteristic()!=null ) {
+			for (Characteristic n : serviceUpd.getCharacteristic()) {
+				
+					if ( serviceT.getCharacteristicByName( n.getName() )!= null ) {
+						
+						Characteristic origChar = serviceT.getCharacteristicByName( n.getName() );
+						if ( ( origChar !=null ) && ( origChar.getValue() !=null ) && ( origChar.getValue().getValue() !=null )) {
+							if ( !origChar.getValue().getValue().equals(n.getValue().getValue()) ) {									
+								if ( n.getName().contains("::") ) {
+									childCharacteristicsChanged.add(n); //the characteristic needs later to be propagated to its children
+									
+								
+								}
+								
+							}
+						}
+						
+						serviceT.getCharacteristicByName( n.getName() ).setValue( 
+								 new Any( n.getValue().getValue(), n.getValue().getAlias()  )
+								 );
+					} else {
+						serviceT.addCharacteristicItem(n);
 					}
-				}
-
-				if (!nameExists) {
-					serviceSpec.getCharacteristic().add(new Characteristic(charUpd));
-					idAddedUpdated.put(charUpd.getName(), true);
-				}
-
-			}
-
-			List<Characteristic> toRemove = new ArrayList<>();
-			for (Characteristic ss : serviceSpec.getCharacteristic()) {
-				if (idAddedUpdated.get(ss.getName()) == null) {
-					toRemove.add(ss);
-				}
-			}
-
-			for (Characteristic serviceSpecCharacteristic : toRemove) {
-				serviceSpec.getCharacteristic().remove(serviceSpecCharacteristic);
-			}
-
+				
+			}						
 		}
 
 		/**
 		 * Update RelatedParty list
 		 */
-		if (serviceSpecUpd.getRelatedParty() != null) {
+		if (serviceUpd.getRelatedParty() != null) {
 			// reattach fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
-			for (RelatedParty rp : serviceSpecUpd.getRelatedParty()) {
+			for (RelatedParty rp : serviceUpd.getRelatedParty()) {
 
 				boolean idexists = false;
-				for (RelatedParty originalRP : serviceSpec.getRelatedParty()) {
+				for (RelatedParty originalRP : serviceT.getRelatedParty()) {
 					if (originalRP.getId().equals(rp.getId())) {
 						idexists = true;
 						idAddedUpdated.put(originalRP.getId(), true);
@@ -163,35 +165,39 @@ public class ServiceTestRepoService {
 					}
 				}
 				if (!idexists) {
-					serviceSpec.getRelatedParty().add(rp);
+					serviceT.getRelatedParty().add(rp);
 					idAddedUpdated.put(rp.getId(), true);
 				}
 			}
 			List<RelatedParty> toRemove = new ArrayList<>();
-			for (RelatedParty ss : serviceSpec.getRelatedParty()) {
+			for (RelatedParty ss : serviceT.getRelatedParty()) {
 				if (idAddedUpdated.get(ss.getId()) == null) {
 					toRemove.add(ss);
 				}
 			}
 
 			for (RelatedParty ar : toRemove) {
-				serviceSpec.getRelatedParty().remove(ar);
+				serviceT.getRelatedParty().remove(ar);
 			}
 		}
 
 	
+		if (serviceUpd.getRelatedService()  != null) {
+			serviceT.setRelatedService( (serviceUpd.getRelatedService() ) );
+			
+		}
 
 		
 
-		if (serviceSpecUpd.getTestMeasure()  != null) {
+		if (serviceUpd.getTestMeasure()  != null) {
 			// reattach attachments fromDB
 			Map<String, Boolean> idAddedUpdated = new HashMap<>();
 
-			for (TestMeasure ar : serviceSpecUpd.getTestMeasure()) {
+			for (TestMeasure ar : serviceUpd.getTestMeasure()) {
 				// find ServiceSpecRelationship by id and reload it here.
 				// we need the ServiceSpecRelationship model from spec models
 				boolean idexists = false;
-				for (TestMeasure orinalAtt : serviceSpec.getTestMeasure()  ) {
+				for (TestMeasure orinalAtt : serviceT.getTestMeasure()  ) {
 					if (orinalAtt.getMetricName().equals(ar.getMetricName())) {
 						idexists = true;
 						idAddedUpdated.put(orinalAtt.getMetricName(), true);
@@ -200,29 +206,51 @@ public class ServiceTestRepoService {
 				}
 
 				if (!idexists) {
-					serviceSpec.getTestMeasure().add(ar);
+					serviceT.getTestMeasure().add(ar);
 					idAddedUpdated.put(ar.getMetricName(), true);
 
 				}
 			}
 
 			List<TestMeasure> toRemove = new ArrayList<>();
-			for (TestMeasure ss : serviceSpec.getTestMeasure()) {
+			for (TestMeasure ss : serviceT.getTestMeasure()) {
 				if (idAddedUpdated.get(ss.getMetricName()) == null) {
 					toRemove.add(ss);
 				}
 			}
 
 			for (TestMeasure ar : toRemove) {
-				serviceSpec.getTestMeasure().remove(ar);
+				serviceT.getTestMeasure().remove(ar);
 			}
 
 		}
 		
+		return serviceT;
+
+	}
+	
+	
+	/**
+	 * update related service characteristics
+	 * @param serviceT
+	 */
+	private void updateRelatedService(ServiceTest serviceT) {
+
+		if (serviceT.getRelatedService()  != null) {
+			
+			@Valid
+			ServiceUpdate servUpd = new ServiceUpdate();
+			
+			for (Characteristic c : serviceT.getCharacteristic()) {
+
+				io.openslice.tmf.common.model.service.Characteristic newC = new io.openslice.tmf.common.model.service.Characteristic();
+				newC.setName( c.getName());
+				newC.setValue( new Any( c.getValue()) );				
+				servUpd.addServiceCharacteristicItem( newC  );
+			}			
+			serviceRepoService.updateService( serviceT.getRelatedService().getId() , servUpd, true, null, null);
+		}
 		
-
-		return serviceSpec;
-
 	}
 
 	public Void deleteByUuid(String id) {
@@ -245,6 +273,7 @@ public class ServiceTestRepoService {
 		return (List<ServiceTest>) this.aServiceTestRepo.findByOrderByName();
 	}
 
+	@Transactional
 	public ServiceTest updateServiceTest(String id, @Valid ServiceTestUpdate serviceSpecification) {
 		ServiceTest s = this.findByUuid(id);
 		if (s == null) {
@@ -254,13 +283,59 @@ public class ServiceTestRepoService {
 		serviceSpec = this.updateServiceTestDataFromAPIcall(serviceSpec, serviceSpecification);
 
 		serviceSpec = this.aServiceTestRepo.save(serviceSpec);	
-
 		
-		return this.aServiceTestRepo.save(serviceSpec);
+		updateRelatedService( serviceSpec );
+		
+		//serviceSpec = this.getServiceTestEager( serviceSpec.getId() );
+		
+		return serviceSpec;
 	}
+
+	
 
 	public ServiceTest findByUuid(String id) {
 		Optional<ServiceTest> optionalCat = this.aServiceTestRepo.findByUuid(id);
 		return optionalCat.orElse(null);
+	}
+	
+	public String getServiceTestEagerAsString(String id) throws JsonProcessingException {
+		ServiceTest s = this.getServiceTestEager(id);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new Hibernate5JakartaModule());
+		String res = mapper.writeValueAsString(s);
+
+		return res;
+	}
+	
+	public ServiceTest getServiceTestEager(String id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		ServiceTest s = null;
+		try {
+			s = (ServiceTest) session.get(ServiceTest.class, id);
+			if (s == null) {
+				return this.findByUuid(id);// last resort
+			}
+
+			Hibernate.initialize(s.getRelatedParty());
+
+			Hibernate.initialize(s.getCharacteristic() );
+			Hibernate.initialize(s.getTestSpecification() );
+			Hibernate.initialize(s.getTestMeasure()  );
+			
+			for (Characteristic schar : s.getCharacteristic()) {
+				Hibernate.initialize(schar.getCharacteristicRelationship()  );
+				for (CharacteristicRelationship cr : schar.getCharacteristicRelationship() ) {
+					Hibernate.initialize(cr  );					
+				}
+
+			}
+			
+			tx.commit();
+		} finally {
+			session.close();
+		}
+		
+		return s;
 	}
 }

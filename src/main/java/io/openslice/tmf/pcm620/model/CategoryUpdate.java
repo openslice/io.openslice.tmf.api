@@ -23,22 +23,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates. Skipped properties: id,href,lastUpdate")
+@Schema(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class CategoryUpdate   {
   @JsonProperty("description")
@@ -88,7 +86,7 @@ public class CategoryUpdate   {
    * Description of the category
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the category")
+  @Schema(description = "Description of the category")
 
 
   public String getDescription() {
@@ -108,7 +106,7 @@ public class CategoryUpdate   {
    * If true, this Boolean indicates that the category is a root of categories
    * @return isRoot
   **/
-  @ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+  @Schema(description = "If true, this Boolean indicates that the category is a root of categories")
 
 
   public Boolean isIsRoot() {
@@ -128,7 +126,7 @@ public class CategoryUpdate   {
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -148,7 +146,7 @@ public class CategoryUpdate   {
    * Name of the category
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the category")
+  @Schema(description = "Name of the category")
 
 
   public String getName() {
@@ -168,7 +166,7 @@ public class CategoryUpdate   {
    * Unique identifier of the parent category
    * @return parentId
   **/
-  @ApiModelProperty(value = "Unique identifier of the parent category")
+  @Schema(description = "Unique identifier of the parent category")
 
 
   public String getParentId() {
@@ -188,7 +186,7 @@ public class CategoryUpdate   {
    * Category version
    * @return version
   **/
-  @ApiModelProperty(value = "Category version")
+  @Schema(description = "Category version")
 
 
   public String getVersion() {
@@ -216,7 +214,7 @@ public class CategoryUpdate   {
    * A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
    * @return productOffering
   **/
-  @ApiModelProperty(value = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
+  @Schema(description = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
 
   @Valid
 
@@ -245,7 +243,7 @@ public class CategoryUpdate   {
    * The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other (sub-)categories and/or product offerings.
    * @return subCategory
   **/
-  @ApiModelProperty(value = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other (sub-)categories and/or product offerings.")
+  @Schema(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other (sub-)categories and/or product offerings.")
 
   @Valid
 
@@ -266,7 +264,7 @@ public class CategoryUpdate   {
    * The period for which the category is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the category is valid")
+  @Schema(description = "The period for which the category is valid")
 
   @Valid
 
@@ -287,7 +285,7 @@ public class CategoryUpdate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -307,7 +305,7 @@ public class CategoryUpdate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -327,7 +325,7 @@ public class CategoryUpdate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

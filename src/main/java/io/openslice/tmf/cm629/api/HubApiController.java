@@ -19,13 +19,15 @@
  */
 package io.openslice.tmf.cm629.api;
 
+import java.util.Optional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
+import jakarta.servlet.http.HttpServletRequest;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-19T23:13:44.649+02:00")
 
 @Controller("HubApiController629")
 @RequestMapping("/customerManagement/v4/")

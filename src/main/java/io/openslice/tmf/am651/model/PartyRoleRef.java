@@ -21,21 +21,19 @@ package io.openslice.tmf.am651.model;
 
 import java.util.Objects;
 
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Party role reference. A party role represents the part played by a party in a given context.
  */
-@ApiModel(description = "Party role reference. A party role represents the part played by a party in a given context.")
+@Schema(description = "Party role reference. A party role represents the part played by a party in a given context.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:51:58.660+03:00")
 
 public class PartyRoleRef   {
   @JsonProperty("href")
@@ -65,7 +63,7 @@ public class PartyRoleRef   {
    * Reference of the product
    * @return href
   **/
-  @ApiModelProperty(value = "Reference of the product")
+  @Schema(description = "Reference of the product")
 
 
   public String getHref() {
@@ -85,7 +83,7 @@ public class PartyRoleRef   {
    * Unique identifier of the product
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of the product")
+  @Schema(description = "Unique identifier of the product")
   @NotNull
 
 
@@ -106,7 +104,7 @@ public class PartyRoleRef   {
    * The name of the referred party role.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the referred party role.")
+  @Schema(description = "The name of the referred party role.")
   @NotNull
 
 
@@ -127,7 +125,7 @@ public class PartyRoleRef   {
    * The identifier of the engaged party that is linked to the PartyRole object.
    * @return partyId
   **/
-  @ApiModelProperty(value = "The identifier of the engaged party that is linked to the PartyRole object.")
+  @Schema(description = "The identifier of the engaged party that is linked to the PartyRole object.")
 
 
   public String getPartyId() {
@@ -147,7 +145,7 @@ public class PartyRoleRef   {
    * The name of the engaged party that is linked to the PartyRole object.
    * @return partyName
   **/
-  @ApiModelProperty(value = "The name of the engaged party that is linked to the PartyRole object.")
+  @Schema(description = "The name of the engaged party that is linked to the PartyRole object.")
 
 
   public String getPartyName() {
@@ -167,7 +165,7 @@ public class PartyRoleRef   {
    * The actual type of the target instance when needed for disambiguation.
    * @return referredType
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+  @Schema(description = "The actual type of the target instance when needed for disambiguation.")
 
 
   public String getReferredType() {

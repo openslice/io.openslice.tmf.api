@@ -28,8 +28,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,20 +40,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.openslice.tmf.am666.model.Error;
 import io.openslice.tmf.am666.model.FinancialAccount;
 import io.openslice.tmf.am666.model.FinancialAccountCreate;
 import io.openslice.tmf.am666.model.FinancialAccountUpdate;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T23:49:45.251+03:00")
 
-@Api(value = "financialAccount", description = "the financialAccount API")
+@Tag(name = "financialAccount", description = "the financialAccount API")
 public interface FinancialAccountApi {
 
     Logger log = LoggerFactory.getLogger(FinancialAccountApi.class);
@@ -71,20 +69,20 @@ public interface FinancialAccountApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Creates a FinancialAccount", nickname = "createFinancialAccount", notes = "This operation creates a FinancialAccount entity.", response = FinancialAccount.class, tags={ "financialAccount", })
+    @Operation(summary = "Creates a FinancialAccount", operationId = "createFinancialAccount", description = "This operation creates a FinancialAccount entity.", tags={ "financialAccount", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Created", response = FinancialAccount.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "400", description = "Created" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/financialAccount",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.POST)
-    default ResponseEntity<FinancialAccount> createFinancialAccount(@ApiParam(value = "The FinancialAccount to be created" ,required=true )  @Valid @RequestBody FinancialAccountCreate financialAccount) {
+    default ResponseEntity<FinancialAccount> createFinancialAccount(@Parameter(description = "The FinancialAccount to be created" ,required=true )  @Valid @RequestBody FinancialAccountCreate financialAccount) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -101,21 +99,21 @@ public interface FinancialAccountApi {
     }
 
 
-    @ApiOperation(value = "Deletes a FinancialAccount", nickname = "deleteFinancialAccount", notes = "This operation deletes a FinancialAccount entity.", tags={ "financialAccount", })
+    @Operation(summary = "Deletes a FinancialAccount", operationId = "deleteFinancialAccount", description = "This operation deletes a FinancialAccount entity.", tags={ "financialAccount", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 204, message = "Deleted"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode = "204", description = "Deleted"),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/financialAccount/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id) {
+    default ResponseEntity<Void> deleteFinancialAccount(@Parameter(description = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
         } else {
             log.warn("ObjectMapper or HttpServletRequest not configured in default FinancialAccountApi interface so no example is generated");
@@ -124,21 +122,21 @@ public interface FinancialAccountApi {
     }
 
 
-    @ApiOperation(value = "List or find FinancialAccount objects", nickname = "listFinancialAccount", notes = "This operation list or find FinancialAccount entities", response = FinancialAccount.class, responseContainer = "List", tags={ "financialAccount", })
+    @Operation(summary = "List or find FinancialAccount objects", operationId = "listFinancialAccount", description = "This operation list or find FinancialAccount entities" , tags={ "financialAccount", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = FinancialAccount.class, responseContainer = "List"),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/financialAccount",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    default ResponseEntity<List<FinancialAccount>> listFinancialAccount(@ApiParam(value = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@ApiParam(value = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+    default ResponseEntity<List<FinancialAccount>> listFinancialAccount(@Parameter(description = "Comma-separated properties to be provided in response") @Valid @RequestParam(value = "fields", required = false) String fields,@Parameter(description = "Requested index for start of resources to be provided in response") @Valid @RequestParam(value = "offset", required = false) Integer offset,@Parameter(description = "Requested number of resources to be provided in response") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -155,21 +153,21 @@ public interface FinancialAccountApi {
     }
 
 
-    @ApiOperation(value = "Updates partially a FinancialAccount", nickname = "patchFinancialAccount", notes = "This operation updates partially a FinancialAccount entity.", response = FinancialAccount.class, tags={ "financialAccount", })
+    @Operation(summary = "Updates partially a FinancialAccount", operationId = "patchFinancialAccount", description = "This operation updates partially a FinancialAccount entity.", tags={ "financialAccount", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Updated", response = FinancialAccount.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Updated" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/financialAccount/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.PATCH)
-    default ResponseEntity<FinancialAccount> patchFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "The FinancialAccount to be updated" ,required=true )  @Valid @RequestBody FinancialAccountUpdate financialAccount) {
+    default ResponseEntity<FinancialAccount> patchFinancialAccount(@Parameter(description = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@Parameter(description = "The FinancialAccount to be updated" ,required=true )  @Valid @RequestBody FinancialAccountUpdate financialAccount) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -186,21 +184,21 @@ public interface FinancialAccountApi {
     }
 
 
-    @ApiOperation(value = "Retrieves a FinancialAccount by ID", nickname = "retrieveFinancialAccount", notes = "This operation retrieves a FinancialAccount entity. Attribute selection is enabled for all first level attributes.", response = FinancialAccount.class, tags={ "financialAccount", })
+    @Operation(summary = "Retrieves a FinancialAccount by ID", operationId = "retrieveFinancialAccount", description = "This operation retrieves a FinancialAccount entity. Attribute selection is enabled for all first level attributes.", tags={ "financialAccount", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Success", response = FinancialAccount.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
-        @ApiResponse(code = 401, message = "Unauthorized", response = Error.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = Error.class),
-        @ApiResponse(code = 404, message = "Not Found", response = Error.class),
-        @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
-        @ApiResponse(code = 409, message = "Conflict", response = Error.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class) })
+        @ApiResponse(responseCode ="200", description = "Success" ),
+        @ApiResponse(responseCode = "400", description = "Bad Request" ),
+        @ApiResponse(responseCode = "401", description = "Unauthorized" ),
+        @ApiResponse(responseCode = "403", description = "Forbidden" ),
+        @ApiResponse(responseCode = "404", description = "Not Found" ),
+        @ApiResponse(responseCode = "405", description = "Method Not allowed" ),
+        @ApiResponse(responseCode = "409", description = "Conflict" ),
+        @ApiResponse(responseCode = "500", description = "Internal Server Error" ) })
     @RequestMapping(value = "/financialAccount/{id}",
         produces = { "application/json;charset=utf-8" }, 
         consumes = { "application/json;charset=utf-8" },
         method = RequestMethod.GET)
-    default ResponseEntity<FinancialAccount> retrieveFinancialAccount(@ApiParam(value = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@ApiParam(value = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
+    default ResponseEntity<FinancialAccount> retrieveFinancialAccount(@Parameter(description = "Identifier of the FinancialAccount",required=true) @PathVariable("id") String id,@Parameter(description = "Comma-separated properties to provide in response") @Valid @RequestParam(value = "fields", required = false) String fields) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

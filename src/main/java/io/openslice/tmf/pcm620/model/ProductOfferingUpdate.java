@@ -23,24 +23,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.openslice.tmf.am651.model.AgreementRef;
 import io.openslice.tmf.common.model.AttachmentRefOrValue;
 import io.openslice.tmf.common.model.TimePeriod;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 
 /**
  * Represents entities that are orderable from the provider of the catalog, this resource includes pricing information. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "Represents entities that are orderable from the provider of the catalog, this resource includes pricing information. Skipped properties: id,href,lastUpdate")
+@Schema(description = "Represents entities that are orderable from the provider of the catalog, this resource includes pricing information. Skipped properties: id,href,lastUpdate")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-19T00:15:57.249+03:00")
 
 public class ProductOfferingUpdate   {
   @JsonProperty("description")
@@ -137,7 +135,7 @@ public class ProductOfferingUpdate   {
    * Description of the productOffering
    * @return description
   **/
-  @ApiModelProperty(value = "Description of the productOffering")
+  @Schema(description = "Description of the productOffering")
 
 
   public String getDescription() {
@@ -157,7 +155,7 @@ public class ProductOfferingUpdate   {
    * isBundle determines whether a productOffering represents a single productOffering (false), or a bundle of productOfferings (true).
    * @return isBundle
   **/
-  @ApiModelProperty(value = "isBundle determines whether a productOffering represents a single productOffering (false), or a bundle of productOfferings (true).")
+  @Schema(description = "isBundle determines whether a productOffering represents a single productOffering (false), or a bundle of productOfferings (true).")
 
 
   public Boolean isIsBundle() {
@@ -177,7 +175,7 @@ public class ProductOfferingUpdate   {
    * A flag indicating if this product offer can be sold stand-alone for sale or not. If this flag is false it indicates that the offer can only be sold within a bundle.
    * @return isSellable
   **/
-  @ApiModelProperty(value = "A flag indicating if this product offer can be sold stand-alone for sale or not. If this flag is false it indicates that the offer can only be sold within a bundle.")
+  @Schema(description = "A flag indicating if this product offer can be sold stand-alone for sale or not. If this flag is false it indicates that the offer can only be sold within a bundle.")
 
 
   public Boolean isIsSellable() {
@@ -197,7 +195,7 @@ public class ProductOfferingUpdate   {
    * Used to indicate the current lifecycle status
    * @return lifecycleStatus
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+  @Schema(description = "Used to indicate the current lifecycle status")
 
 
   public String getLifecycleStatus() {
@@ -217,7 +215,7 @@ public class ProductOfferingUpdate   {
    * Name of the productOffering
    * @return name
   **/
-  @ApiModelProperty(value = "Name of the productOffering")
+  @Schema(description = "Name of the productOffering")
 
 
   public String getName() {
@@ -237,7 +235,7 @@ public class ProductOfferingUpdate   {
    * A string providing a complementary information on the value of the lifecycle status attribute.
    * @return statusReason
   **/
-  @ApiModelProperty(value = "A string providing a complementary information on the value of the lifecycle status attribute.")
+  @Schema(description = "A string providing a complementary information on the value of the lifecycle status attribute.")
 
 
   public String getStatusReason() {
@@ -257,7 +255,7 @@ public class ProductOfferingUpdate   {
    * ProductOffering version
    * @return version
   **/
-  @ApiModelProperty(value = "ProductOffering version")
+  @Schema(description = "ProductOffering version")
 
 
   public String getVersion() {
@@ -285,7 +283,7 @@ public class ProductOfferingUpdate   {
    * An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
    * @return agreement
   **/
-  @ApiModelProperty(value = "An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.")
+  @Schema(description = "An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.")
 
   @Valid
 
@@ -314,7 +312,7 @@ public class ProductOfferingUpdate   {
    * Complements the description of an element (for instance a product) through video, pictures...
    * @return attachment
   **/
-  @ApiModelProperty(value = "Complements the description of an element (for instance a product) through video, pictures...")
+  @Schema(description = "Complements the description of an element (for instance a product) through video, pictures...")
 
   @Valid
 
@@ -343,7 +341,7 @@ public class ProductOfferingUpdate   {
    * A type of ProductOffering that belongs to a grouping of ProductOfferings made available to the market. It inherits of all attributes of ProductOffering.
    * @return bundledProductOffering
   **/
-  @ApiModelProperty(value = "A type of ProductOffering that belongs to a grouping of ProductOfferings made available to the market. It inherits of all attributes of ProductOffering.")
+  @Schema(description = "A type of ProductOffering that belongs to a grouping of ProductOfferings made available to the market. It inherits of all attributes of ProductOffering.")
 
   @Valid
 
@@ -372,7 +370,7 @@ public class ProductOfferingUpdate   {
    * The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
    * @return category
   **/
-  @ApiModelProperty(value = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
+  @Schema(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
 
   @Valid
 
@@ -401,7 +399,7 @@ public class ProductOfferingUpdate   {
    * The channel defines the channel for selling product offerings.
    * @return channel
   **/
-  @ApiModelProperty(value = "The channel defines the channel for selling product offerings.")
+  @Schema(description = "The channel defines the channel for selling product offerings.")
 
   @Valid
 
@@ -430,7 +428,7 @@ public class ProductOfferingUpdate   {
    * provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.
    * @return marketSegment
   **/
-  @ApiModelProperty(value = "provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.")
+  @Schema(description = "provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.")
 
   @Valid
 
@@ -459,7 +457,7 @@ public class ProductOfferingUpdate   {
    * Place defines the places where the products are sold or delivered.
    * @return place
   **/
-  @ApiModelProperty(value = "Place defines the places where the products are sold or delivered.")
+  @Schema(description = "Place defines the places where the products are sold or delivered.")
 
   @Valid
 
@@ -488,7 +486,7 @@ public class ProductOfferingUpdate   {
    * A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.
    * @return prodSpecCharValueUse
   **/
-  @ApiModelProperty(value = "A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
+  @Schema(description = "A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
 
   @Valid
 
@@ -517,7 +515,7 @@ public class ProductOfferingUpdate   {
    * An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased. The price is valid for a defined period of time and may not represent the actual price paid by a customer.
    * @return productOfferingPrice
   **/
-  @ApiModelProperty(value = "An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased. The price is valid for a defined period of time and may not represent the actual price paid by a customer.")
+  @Schema(description = "An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased. The price is valid for a defined period of time and may not represent the actual price paid by a customer.")
 
   @Valid
 
@@ -546,7 +544,7 @@ public class ProductOfferingUpdate   {
    * A condition under which a ProductOffering is made available to Customers. For instance, a productOffering can be offered with multiple commitment periods.
    * @return productOfferingTerm
   **/
-  @ApiModelProperty(value = "A condition under which a ProductOffering is made available to Customers. For instance, a productOffering can be offered with multiple commitment periods.")
+  @Schema(description = "A condition under which a ProductOffering is made available to Customers. For instance, a productOffering can be offered with multiple commitment periods.")
 
   @Valid
 
@@ -567,7 +565,7 @@ public class ProductOfferingUpdate   {
    * A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
    * @return productSpecification
   **/
-  @ApiModelProperty(value = "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
+  @Schema(description = "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
 
   @Valid
 
@@ -588,7 +586,7 @@ public class ProductOfferingUpdate   {
    * A resource candidate is an entity that makes a ResourceSpecification available to a catalog.
    * @return resourceCandidate
   **/
-  @ApiModelProperty(value = "A resource candidate is an entity that makes a ResourceSpecification available to a catalog.")
+  @Schema(description = "A resource candidate is an entity that makes a ResourceSpecification available to a catalog.")
 
   @Valid
 
@@ -609,7 +607,7 @@ public class ProductOfferingUpdate   {
    * ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.
    * @return serviceCandidate
   **/
-  @ApiModelProperty(value = "ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.")
+  @Schema(description = "ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.")
 
   @Valid
 
@@ -630,7 +628,7 @@ public class ProductOfferingUpdate   {
    * A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.
    * @return serviceLevelAgreement
   **/
-  @ApiModelProperty(value = "A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.")
+  @Schema(description = "A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.")
 
   @Valid
 
@@ -651,7 +649,7 @@ public class ProductOfferingUpdate   {
    * The period for which the productOffering is valid
    * @return validFor
   **/
-  @ApiModelProperty(value = "The period for which the productOffering is valid")
+  @Schema(description = "The period for which the productOffering is valid")
 
   @Valid
 
@@ -672,7 +670,7 @@ public class ProductOfferingUpdate   {
    * When sub-classing, this defines the super-class
    * @return baseType
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+  @Schema(description = "When sub-classing, this defines the super-class")
 
 
   public String getBaseType() {
@@ -692,7 +690,7 @@ public class ProductOfferingUpdate   {
    * A URI to a JSON-Schema file that defines additional attributes and relationships
    * @return schemaLocation
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+  @Schema(description = "A URI to a JSON-Schema file that defines additional attributes and relationships")
 
 
   public String getSchemaLocation() {
@@ -712,7 +710,7 @@ public class ProductOfferingUpdate   {
    * When sub-classing, this defines the sub-class entity name
    * @return type
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+  @Schema(description = "When sub-classing, this defines the sub-class entity name")
 
 
   public String getType() {

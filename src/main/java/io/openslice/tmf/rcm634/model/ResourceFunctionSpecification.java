@@ -1,31 +1,27 @@
 package io.openslice.tmf.rcm634.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.Valid;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 
 /**
  * Specifies a function as a behavior to transform inputs of any nature into
  * outputs of any nature independently from the way it is provided, for example
  * a Medium to Large Enterprise Firewall.
  */
-@ApiModel(description = "Specifies a function as a behavior to transform inputs of any nature into outputs of any nature independently from the way it is provided, for example a Medium to Large Enterprise Firewall.")
+@Schema(description = "Specifies a function as a behavior to transform inputs of any nature into outputs of any nature independently from the way it is provided, for example a Medium to Large Enterprise Firewall.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-07-07T15:15:49.915156900+03:00[Europe/Athens]")
 @Entity(name = "Resfuncspec")
 public class ResourceFunctionSpecification extends LogicalResourceSpecification {
 
@@ -67,7 +63,7 @@ public class ResourceFunctionSpecification extends LogicalResourceSpecification 
 	 * 
 	 * @return connectionPointSpecification
 	 **/
-	@ApiModelProperty(value = "External connection point specifications. These are the service access points (SAP) where inputs and outputs of the function are available.")
+	@Schema(description = "External connection point specifications. These are the service access points (SAP) where inputs and outputs of the function are available.")
 	@Valid
 	public Set<ConnectionPointSpecificationRef> getConnectionPointSpecification() {
 		return connectionPointSpecification;
@@ -97,7 +93,7 @@ public class ResourceFunctionSpecification extends LogicalResourceSpecification 
 	 * 
 	 * @return connectivitySpecification
 	 **/
-	@ApiModelProperty(value = "Internal connectivity potential specifications.")
+	@Schema(description = "Internal connectivity potential specifications.")
 	@Valid
 	public Set<ResourceGraphSpecification> getConnectivitySpecification() {
 		return connectivitySpecification;

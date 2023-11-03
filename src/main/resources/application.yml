@@ -1,15 +1,58 @@
+origins: http://localhost,http://localhost:13082,http://127.0.0.1:13082,https://localhost, 
+permit-all: /tmf-api/**
+
+
 server:
   port: 13082
   servlet:
     context-path : /tmf-api
+  error:
+    include-message: always
+  ssl:
+    enabled: false
+    
+springdoc:
+  version: '@springdoc.version@'
+  writer-with-default-pretty-printer: true
+  swagger-ui:
+    display-request-duration: true
+    groups-order: ASC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+    oauth:
+      client-id: osapiWebClientId
+      clientsecret: "secret"
+      use-pkce-with-authorization-code-grant: false
+  oAuthFlow:
+    authorizationUrl: http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/auth
+    tokenUrl: http://keycloak:8080/auth/realms/openslice/protocol/openid-connect/token
+  show-actuator: true
+
+spring-addons:
+  issuers:
+  - uri: http://keycloak:8080/auth/realms/openslice
+    username-json-path: $.preferred_username
+    claims:
+    - jsonPath: $.realm_access.roles
+    - jsonPath: $.resource_access.*.roles
+
 spring:
-  profiles: default
+  config:
+    activate:
+      on-profile: "default"
   application:
     name: openslice-service-catalog-management-api
   datasource:
-    url: jdbc:mysql://localhost/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:13306/ostmfdb?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     password: letmein
     username: root
+    hikari:
+       minimumIdle: 2
+       maximumPoolSize: 40
+       idleTimeout: 120000
+       connectionTimeout: 400000
+       leakDetectionThreshold: 100000
   jpa:
     database-platform: io.openslice.tmf.LocalMysqlDialect
     hibernate:
@@ -27,45 +70,39 @@ spring:
     multipart.max-file-size: 10MB
     multipart.max-request-size: 10MB
   activemq:
-    brokerUrl: tcp://localhost:61616
-    user: admin
-    password: admin
+    brokerUrl: tcp://localhost:61616?jms.watchTopicAdvisories=false
+    user: artemis
+    password: artemis
     pool:
       enabled: true
       max-connections: 100
     packages:
       trust-all: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/auth/realms/openslice
+  
 
 logging:
   level:
     root: INFO
     portal.api: INFO
+    io.openslice.tmf.*: DEBUG
     org.springframework: INFO
     org.apache.camel: INFO 
+    com.zaxxer.hikari: INFO
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d %p %c{1.} [%t] %m%n"
     
-keycloak:
-  realm: openslice
-  auth-server-url: http://localhost/auth
-  ssl-required: none
-  resource: admin-cli
-  credentials:
-    secret: none
-  public-client: false
-  bearer-only: true
-  principal-attribute: preferred_username
-
-keycloak-internal-auth-server-url: http://localhost/auth
-keycloak-admin-password: Pa55w0rd
-    
-    
-swagger:
-  authserver: http://localhost/auth/realms/openslice
-  clientid: "osapiWebClientId"
-  clientsecret: "secret"
   
+    
+
+kroki:
+  serverurl: http://localhost:8000
+
 oauthsign:
    key: "EK97Y7Y9WPGG1MEG"
 
@@ -75,6 +112,11 @@ CATALOG_GET_SERVICEORDER_BY_ID: "jms:queue:CATALOG.GET.SERVICEORDER_BY_ID"
 CATALOG_ADD_SERVICEORDER: "jms:queue:CATALOG.ADD.SERVICEORDER"
 CATALOG_UPD_SERVICEORDER_BY_ID: "jms:queue:CATALOG.UPD.SERVICEORDER_BY_ID"
 CATALOG_GET_SERVICESPEC_BY_ID: "jms:queue:CATALOG.GET.SERVICESPEC_BY_ID"
+CATALOG_ADD_SERVICESPEC: "jms:queue:CATALOG.ADD.SERVICESPEC"
+CATALOG_UPD_SERVICESPEC: "jms:queue:CATALOG.UPD.SERVICESPEC"
+CATALOG_UPDADD_SERVICESPEC: "jms:queue:CATALOG.UPDADD.SERVICESPEC"
+
+
 CATALOG_GET_INITIAL_SERVICEORDERS_IDS: "jms:queue:CATALOG.GET.INITIAL_SERVICEORDERS"
 CATALOG_GET_SERVICEORDER_IDS_BY_STATE: "jms:queue:CATALOG.GET.ACKNOWLEDGED_SERVICEORDERS"
 CATALOG_ADD_SERVICE: "jms:queue:CATALOG.ADD.SERVICE"
@@ -123,7 +165,13 @@ GET_USER_BY_USERNAME: "jms:queue:GET.USER_BY_USERNAME"
 #RESOURCES MESSAGES
 CATALOG_ADD_RESOURCE: "jms:queue:CATALOG.ADD.RESOURCE"
 CATALOG_UPD_RESOURCE: "jms:queue:CATALOG.UPD.RESOURCE"
+CATALOG_UPDADD_RESOURCE: "jms:queue:CATALOG.UPDADD.RESOURCE"
 CATALOG_GET_RESOURCE_BY_ID: "jms:queue:CATALOG.GET.RESOURCE"
+CATALOG_ADD_RESOURCESPEC: "jms:queue:CATALOG.ADD.RESOURCESPEC"
+CATALOG_UPD_RESOURCESPEC: "jms:queue:CATALOG.UPD.RESOURCESPEC"
+CATALOG_UPDADD_RESOURCESPEC: "jms:queue:CATALOG.UPDADD.RESOURCESPEC"
+CATALOG_GET_RESOURCESPEC_BY_ID: "jms:queue:CATALOG.GET.RESOURCESPEC_BY_ID"
+CATALOG_GET_RESOURCESPEC_BY_ΝAME_CATEGORY: "jms:queue:CATALOG.GET.RESOURCESPEC_BY_ΝAME_CATEGORY"
 EVENT_RESOURCE_CREATE: "jms:topic:EVENT.RESOURCE.CREATE"
 EVENT_RESOURCE_STATE_CHANGED: "jms:topic:EVENT.RESOURCE.STATECHANGED"
 EVENT_RESOURCE_DELETE: "jms:topic:EVENT.SERVICE.RESOURCE"
@@ -133,3 +181,22 @@ CATALOG_RESOURCES_OF_PARTNERS: "jms:queue:CATALOG.GET.SERVICESOFPARTNERS"
 #LCM MESSAGES
 CATALOG_GET_LCMRULE_BY_ID: "jms:queue:CATALOG.GET.LCMRULE"
 CATALOG_GET_LCMRULES_BY_SPECID_PHASE: "jms:queue:CATALOG.GET.LCMRULES_BY_SPECID_PHASE"
+
+
+#SERVICE_TEST
+CATALOG_GET_SERVICETESTSPEC_BY_ID: "jms:queue:CATALOG.GET.SERVICETESTSPEC_BY_ID"
+CATALOG_ADD_SERVICETEST: "jms:queue:CATALOG.ADD.SERVICETEST"
+CATALOG_UPD_SERVICETEST: "jms:queue:CATALOG.UPD.SERVICETEST"
+CATALOG_GET_SERVICETEST_BY_ID: "jms:queue:CATALOG.GET.SERVICETEST"
+
+#NS ACTIONS
+NFV_CATALOG_NSACTIONS_SCALE: "jms:queue:NSACTIONS.SCALE"
+NFV_CATALOG_NS_LCMCHANGED: "jms:topic:NFV_CATALOG_NS_LCMCHANGED"
+
+#RESERVATION_API
+RESERVATION_CREATE: "jms:queue:RESERVATION.ADD"
+RESERVATION_AVAILABILITY_CHECK: "jms:queue:RESERVATION.AVAILABILITYCHECK"
+
+---
+
+

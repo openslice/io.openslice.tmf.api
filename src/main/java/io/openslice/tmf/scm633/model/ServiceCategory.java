@@ -25,31 +25,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.Valid;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.validation.annotation.Validated;
+
 import io.openslice.tmf.common.model.BaseEntity;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 
 /**
  * The (service) category resource is used to group service candidates in
  * logical containers. Categories can contain other categories.
  */
-@ApiModel(description = "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories.")
+@Schema(description = "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-04-29T19:18:54.771Z")
 
 @Entity(name = "ServiceCategory")
 @Table( name = "ServiceCategory" )
@@ -108,7 +106,7 @@ public class ServiceCategory extends BaseEntity {
 	 * 
 	 * @return isRoot
 	 **/
-	@ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+	@Schema(description = "If true, this Boolean indicates that the category is a root of categories")
 
 	public Boolean isIsRoot() {
 		return isRoot;
@@ -129,7 +127,7 @@ public class ServiceCategory extends BaseEntity {
 	 * 
 	 * @return parentId
 	 **/
-	@ApiModelProperty(value = "Unique identifier of the parent category")
+	@Schema(description = "Unique identifier of the parent category")
 
 	public String getParentId() {
 		return parentId;
@@ -148,7 +146,7 @@ public class ServiceCategory extends BaseEntity {
 	 * 
 	 * @return category
 	 **/
-	@ApiModelProperty(value = "List of child categories in the tree for in this category")
+	@Schema(description = "List of child categories in the tree for in this category")
 	@Transient
 	@JsonProperty("category")
 	@Valid
@@ -206,7 +204,7 @@ public class ServiceCategory extends BaseEntity {
 	 * 
 	 * @return serviceCandidate
 	 **/
-	@ApiModelProperty(value = "List of service candidates associated with this category")
+	@Schema(description = "List of service candidates associated with this category")
 
 	@Valid
 	@JsonProperty("serviceCandidate")
